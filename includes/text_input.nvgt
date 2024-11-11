@@ -12,12 +12,64 @@ key_hold back(KEY_BACK,500,40);
 key_hold back2(KEY_DELETE,500,40);
 key_hold larrow(KEY_LEFT,500,40);
 key_hold rarrow(KEY_RIGHT,500,40);
+private string[] nochars;
+private string[] onlychars;
+private string nochardes="";
 text_input()
 {
 reset();
 }
 ~text_input()
 {
+}
+bool is_only_allowed_char(string char)
+{
+if (onlychars.length()==0) return true;
+for (uint i=0; i<char.length(); i++)
+{
+if (onlychars.find(""+char[i])<0) return false;
+}
+return true;
+}
+bool is_allowed_char(string char)
+{
+for (uint i=0; i<char.length(); i++)
+{
+if (nochars.find(""+char[i])>=0) return false;
+}
+return true;
+}
+bool set_only_allowed_chars(string ch, string des="")
+{
+if (ch.is_empty()) return false;
+if (ch=="none")
+{
+nochars.resize(0);
+onlychars.resize(0);
+nochardes="";
+return true;
+}
+nochars.resize(0);
+onlychars.resize(0);
+for (uint i=0; i<ch.length(); i++) onlychars.insert_last("" + ch[i]);
+nochardes = des;
+return true;
+}
+bool set_not_allowed_chars(string ch, string des="")
+{
+if (ch.is_empty()) return false;
+if (ch=="none")
+{
+nochars.resize(0);
+onlychars.resize(0);
+nochardes = "";
+return true;
+}
+nochars.resize(0);
+onlychars.resize(0);
+for (uint i=0; i<ch.length(); i++) nochars.insert_last("" + ch[i]);
+nochardes=des;
+return true;
 }
 void reset()
 {
@@ -81,8 +133,6 @@ if(string_is_upper_case(char))
 {
 if(caps==1) speak("Cap "+char,true);
 else if(caps==2){
-//string[] capsfx=find_files("sounds/typing themes/"+keyboardtheme+"/*cap*");
-//if(capsfx.length()!=0) spool.play_stationary("sounds/typing themes/"+keyboardtheme+"/"+capsfx[random(0,capsfx.length()-1)],false);
 speak(char,true);
 }
 else if(caps==3)
@@ -99,44 +149,40 @@ else speak(symbol_to_word(char),true);
 }
 }
 void input_character(string char)
-{
-if(entry.length()==textlength and textlength>0)
-{
-cursor=entry.length()-1;
-return;
-}
-else{
-if(repeat==1){
-if(passworded) speak(mask,true);
-else{
-if(string_is_upper_case(char))
-{
-if(caps==1) speak("Cap "+char,true);
-else if(caps==2){
-//string[] capsfx=find_files("sounds/typing themes/"+keyboardtheme+"/*cap*");
-//if(capsfx.length()!=0) spool.play_stationary("sounds/typing themes/"+keyboardtheme+"/"+capsfx[random(0,capsfx.length()-1)],false);
-speak(char,true);
-}
-else if(caps==3)
-{
-speak(char,true);
-}
-}
-else if(char==" ")
-{
-speak("Space",true);
-}
-else speak(symbol_to_word(char),true);
-}
-}
-//string[] spacesfx=find_files("sounds/typing themes/"+keyboardtheme+"/*space*");
-//if(spacesfx.length()!=0 and char==" ") spool.play_stationary("sounds/typing themes/"+keyboardtheme+"/"+spacesfx[random(0,spacesfx.length()-1)],false);
-//string[] typesfx=find_files("sounds/typing themes/"+keyboardtheme+"/*type*");
-//if(typesfx.length()!=0 and char!=" ") spool.play_stationary("sounds/typing themes/"+keyboardtheme+"/"+typesfx[random(0,typesfx.length()-1)],false);
-entry.insert_at(cursor,char);
-}
-}
-string input(string ttl,string default_text="",bool uses_password=false,string mask_char="",int txtlength=0,bool inabort=false)
+    {
+         if (!is_allowed_char(char) || !is_only_allowed_char(char)) {
+          spool.play_stationary("misc24.ogg",false);
+            speak("This character is not allowed.", true);
+            return;
+        }
+        if (textlength > 0 && entry.length() >= textlength) {
+            speak("Maximum length reached", true);
+            return;
+        }
+        if (repeat == 1) {
+            if (passworded) speak(mask, true);
+            else {
+                if (string_is_upper_case(char)) {
+                    if (caps == 1) speak("Cap " + char, true);
+                    else if (caps == 2) {
+                        speak(char, true);
+                    }
+                    else if (caps == 3) {
+                        speak(char, true);
+                    }
+                }
+                else if (char == " ") {
+                    speak("Space", true);
+                }
+                else speak(symbol_to_word(char), true);
+            }
+        }
+        if (cursor < 0) cursor = 0;
+        if (cursor > entry.length()) cursor = entry.length();
+        entry.insert_at(cursor, char);
+        cursor++;
+    }
+string input(string ttl,string default_text="",bool uses_password=false,string mask_char="",int txtlength=0,bool inabort=true)
 {
 reset();
 title=ttl;
@@ -157,9 +203,9 @@ while(true)
 {
 wait(5);
 string c=string(get_characters());
-if(c!="" and c.length()==1){ 
-input_character(c);
-cursor++;
+if (c != "" && c.length() == 1) { 
+    input_character(c);
+    if (cursor > entry.length()) cursor = entry.length();
 }
 if(key_pressed(KEY_TAB))speak(title,true);
 if(control_down())
@@ -185,10 +231,16 @@ clipboard_copy_text(fulltext);
 speak("Copied to clipboard.");
 }
 }
+if(shift_down())
+{
 if(key_pressed(KEY_RETURN))
 {
-//string[] entersfx=find_files("sounds/typing themes/"+keyboardtheme+"/*return*");
-//if(entersfx.length()!=0) spool.play_stationary("sounds/typing themes/"+keyboardtheme+"/"+entersfx[random(0,entersfx.length()-1)],false);
+input_character("\r\n");
+speak("new line",true);
+}
+}
+if(key_pressed(KEY_RETURN))
+{
 if(entry.length()==0) speak("input is required");
 if(entry.length()==0) continue;
 string fulltext;
@@ -257,15 +309,11 @@ if((back.pressing() or back2.pressing()) and cursor>0)
 {
 if(control_down() and entry.length()>0)
 {
-//string[] deletesfx=find_files("sounds/typing themes/"+keyboardtheme+"/*delete*");
-//if(deletesfx.length()!=0) spool.play_stationary("sounds/typing themes/"+keyboardtheme+"/"+deletesfx[random(0,deletesfx.length()-1)],false);
 speak("Cleared text.");
 entry.resize(0);
 cursor=0;
 }
 else{
-//string[] deletesfx=find_files("sounds/typing themes/"+keyboardtheme+"/*delete*");
-//if(deletesfx.length()!=0) spool.play_stationary("sounds/typing themes/"+keyboardtheme+"/"+deletesfx[random(0,deletesfx.length()-1)],false);
 speak_character_at(cursor-1);
 entry.remove_at(cursor-1);
 cursor--;
@@ -388,5 +436,10 @@ return word;
 bool control_down()
 {
 if(key_down(KEY_LCONTROL) or key_down(KEY_RCONTROL)) return true;
+return false;
+}
+bool shift_down()
+{
+if(key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT)) return true;
 return false;
 }

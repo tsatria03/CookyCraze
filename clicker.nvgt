@@ -183,7 +183,8 @@ void abimenu()
     }
     if (abm == "abic")
     {
-        string autoclick = input.input("How many auto cookies would you like to buy?", "");
+input.set_only_allowed_chars("1234567890");
+string autoclick = input.input("How many auto cookies would you like to buy?", "");
         if (autoclick.is_empty())
         {
             dlg("Error: No amount entered.");
@@ -196,7 +197,7 @@ void abimenu()
             coins -= totalCost;
             autocooky += amount;
             double nextCost = autoCostBase * pow(autoCostScaling, autocooky);
-            dlg("Purchase successful! You now have " + autocooky + " auto cookies. Next one will cost " + round(nextCost, 0) + " coins.");
+            speak("Purchase successful! You now have " + autocooky + " auto cookies. Next one will cost " + round(nextCost, 0) + " coins.");
         }
         else
         {
@@ -206,7 +207,8 @@ void abimenu()
     }
     if (abm == "sabic")
     {
-        string speedclick = input.input("How many cooky speed boosters would you like to buy?", "");
+input.set_only_allowed_chars("1234567890");
+string speedclick = input.input("How many cooky speed boosters would you like to buy?", "");
         if (speedclick.is_empty())
         {
             dlg("Error: No amount entered.");
@@ -220,7 +222,7 @@ void abimenu()
             cookyspeed += amount;
 clicktime -= amount;
             double nextCost = speedCostBase * pow(speedCostScaling, cookyspeed);
-            dlg("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
+            speak("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
         }
         else
         {
@@ -251,7 +253,8 @@ void mabimenu()
         return;
     }    
     if (mabm == "mabic") {
-        string manulclick = input.input("How many manual cookies would you like to buy?", "");
+input.set_only_allowed_chars("1234567890");
+string manulclick = input.input("How many manual cookies would you like to buy?", "");
         if (manulclick.is_empty()) {
             dlg("Error: No amount entered.");
             return;
@@ -262,7 +265,7 @@ void mabimenu()
             coins -= totalCost;
             manulcooky += amount;
             double nextCost = manuleCostBase * pow(manuleCostScaling, manulcooky);
-            dlg("Purchase successful! You now produce " + manulcooky + " cookies per click! Next upgrade will cost " + round(nextCost, 0) + " coins.");
+            speak("Purchase successful! You now produce " + manulcooky + " cookies per click! Next upgrade will cost " + round(nextCost, 0) + " coins.");
         } else {
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
         }
@@ -278,7 +281,8 @@ void sellmenu()
     string stm = m.get_item_name(mres);
     if(stm == "sell")
     {
-        string amountStr = input.input("How many cookies would you like to sell?", "");
+input.set_only_allowed_chars("1234567890");
+string amountStr = input.input("How many cookies would you like to sell?", "");
         if(amountStr.is_empty())
         {
             dlg("Error: No amount entered.");
@@ -289,7 +293,7 @@ void sellmenu()
         {
             cookies -= amount;
             coins += amount;
-            dlg("Successfully sold " + amount + " cookies for " + amount + " coins!");
+            speak("Successfully sold " + amount + " cookies for " + amount + " coins!");
         }
         else
         {
@@ -300,7 +304,7 @@ void sellmenu()
 void clicker()
 {
 form.create_window("Cooky clicker", false);
-int manulbake=form.create_button("bake a cooky");
+int manulbake=form.create_button("bake cookies");
 int autobake=form.create_button("baking mode");
 int shop=form.create_button("cooky store");
 int food=form.create_button("eat cookies");
@@ -323,7 +327,7 @@ speak("You need at least 1 manule cooky to start baking cookies.");
 else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
-if(sfx==1) pool.play_stationary("sounds/click.ogg", false);
+if(sfx==1) pool.play_stationary("sounds/bake.ogg", false);
 }
 }
 }
@@ -388,7 +392,7 @@ if(bakemode==1)
 if(clicktimer.elapsed>=clicktime)
 {
 cookies+=1*autocooky;
-if(sfx==1) pool.play_stationary("sounds/click.ogg", false);
+if(sfx==1) pool.play_stationary("sounds/bake.ogg", false);
 clicktimer.restart();
 }
 }
