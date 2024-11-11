@@ -1,0 +1,11 @@
+new in 1.0
+Fixed a bug where your baking speed wouldn't increase no matter how many auto cookies you've bought for the baking mode.
+Fixed a bug with affordable prices in various shop menus being miscalculated, therefore causing inaccurate information to be displayed in the menus. The calculation logic has been updated to ensure that the correct number of items can be purchased based on how many coins you have available to spend.
+Added the ability to see how many of a particular item you can aford when hovering over one of them.
+Fixed various bugs with eating cookies.
+Added the ability to eat the cookies that you produce. Don't eat too much though, or else something unexpected may happen as a result.
+Fixed a bug where numbers related to coins and other cost values were being read out in Decimal points even though they weren't supposed to.
+Introduced a new scaling system to the cooky store. When you buy some baking items, the price of them will now graduely increase the more you buy that particular item. It will no longer be set to a fixed price every time you go into the various shopping menus.
+Added error handeling to the shop menu. You can no longer buy outrageous amounts of items if you don't have enough coins for it.
+Improved the shop menu quite a bit. The sell menu finally works this time.
+Made lots of code Optimizations.
