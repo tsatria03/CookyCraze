@@ -174,7 +174,7 @@ void abimenu()
     m.add_item_tts("auto cooky, costs " + round(nextAutoCost, 0) + " coins. You can buy " + round(autoAffordable, 0), "abic");
     m.add_item_tts("auto cooky speed, costs " + round(nextSpeedCost, 0) + " coins. You can buy " + round(speedAffordable, 0), "sabic");
     m.add_item_tts("back", "back");
-    int mres = m.run("Automatic baking menu. Use left and right arrows to navigate.", true);
+    int mres = m.run("Automatic baking menu.", true);
     string abm = m.get_item_name(mres);
     if (mres == 0)
     {
@@ -280,8 +280,13 @@ void sellmenu()
     setupmenu();
     m.add_item_tts("cookies, you have " + cookies, "sell");
     m.add_item_tts("back", "back");   
-    int mres = m.run("Cookie store. Each cookie sells for 100 coins.", true);
+    int mres = m.run("Cookie seller. Each cookie sells for 100 coins.", true);
     string stm = m.get_item_name(mres);
+if(mres==0)
+{
+shopmenu();
+return;
+}
     if(stm == "sell")
     {
         input.set_only_allowed_chars("1234567890");
@@ -328,15 +333,19 @@ void sellmenu()
             dlg("Error: You only have " + cookies + " cookies available to sell.");
         }
     }
+if(stm=="back")
+{
+shopmenu();
+}
 }
 void clicker()
 {
 form.create_window("Cooky clicker", false);
 int manulbake=form.create_button("bake cookies");
-int autobake=form.create_button("baking mode");
-int shop=form.create_button("cooky store");
+int autobake=form.create_button("enter baking mode");
 int food=form.create_button("eat cookies");
 int flip=form.create_button("flip a coin");
+int shop=form.create_button("cooky store");
 while(true)
 {
 form.monitor();
