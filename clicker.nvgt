@@ -197,7 +197,8 @@ string autoclick = input.input("How many auto cookies would you like to buy?", "
             coins -= totalCost;
             autocooky += amount;
             double nextCost = autoCostBase * pow(autoCostScaling, autocooky);
-            speak("Purchase successful! You now have " + autocooky + " auto cookies. Next one will cost " + round(nextCost, 0) + " coins.");
+pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
+speak("Purchase successful! You now have " + autocooky + " auto cookies. Next one will cost " + round(nextCost, 0) + " coins.");
         }
         else
         {
@@ -222,7 +223,8 @@ string speedclick = input.input("How many cooky speed boosters would you like to
             cookyspeed += amount;
 clicktime -= amount;
             double nextCost = speedCostBase * pow(speedCostScaling, cookyspeed);
-            speak("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
+pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
+speak("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
         }
         else
         {
@@ -265,7 +267,8 @@ string manulclick = input.input("How many manual cookies would you like to buy?"
             coins -= totalCost;
             manulcooky += amount;
             double nextCost = manuleCostBase * pow(manuleCostScaling, manulcooky);
-            speak("Purchase successful! You now produce " + manulcooky + " cookies per click! Next upgrade will cost " + round(nextCost, 0) + " coins.");
+pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
+speak("Purchase successful! You now produce " + manulcooky + " cookies per click! Next upgrade will cost " + round(nextCost, 0) + " coins.");
         } else {
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
         }
@@ -275,14 +278,14 @@ string manulclick = input.input("How many manual cookies would you like to buy?"
 void sellmenu()
 {
     setupmenu();
-    m.add_item_tts("sell cookies, you have " + cookies + " available", "sell");
+    m.add_item_tts("cookies, you have " + cookies, "sell");
     m.add_item_tts("back", "back");   
-    int mres = m.run("Cookie store. Each cookie sells for 1 coin. Use left and right arrows to navigate.", true);
+    int mres = m.run("Cookie store. Each cookie sells for 100 coins.", true);
     string stm = m.get_item_name(mres);
     if(stm == "sell")
     {
-input.set_only_allowed_chars("1234567890");
-string amountStr = input.input("How many cookies would you like to sell?", "");
+        input.set_only_allowed_chars("1234567890");
+        string amountStr = input.input("How many cookies would you like to sell?", "");
         if(amountStr.is_empty())
         {
             dlg("Error: No amount entered.");
@@ -292,8 +295,33 @@ string amountStr = input.input("How many cookies would you like to sell?", "");
         if(amount <= cookies)
         {
             cookies -= amount;
-            coins += amount;
-            speak("Successfully sold " + amount + " cookies for " + amount + " coins!");
+            double totalCoinsEarned = amount * 100;
+            coins += totalCoinsEarned;
+                        if (totalCoinsEarned >= 100 && totalCoinsEarned <= 4900)
+            {
+                pool.play_stationary("sounds/coin1.ogg", false);
+            }
+            else if (totalCoinsEarned >= 5000 && totalCoinsEarned <= 99900)
+            {
+                pool.play_stationary("sounds/coin50.ogg", false);
+            }
+            else if (totalCoinsEarned >= 100000 && totalCoinsEarned <= 999900)
+            {
+                pool.play_stationary("sounds/coin1000.ogg", false);
+            }
+            else if (totalCoinsEarned >= 1000000 && totalCoinsEarned <= 4999900)
+            {
+                pool.play_stationary("sounds/coin10000.ogg", false);
+            }
+            else if (totalCoinsEarned >= 5000000 && totalCoinsEarned <= 9999900)
+            {
+                pool.play_stationary("sounds/coin50000.ogg", false);
+            }
+            else if (totalCoinsEarned >= 10000000)
+            {
+                pool.play_stationary("sounds/coin100000.ogg", false);
+            }           
+            speak("Successfully sold " + amount + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
         }
         else
         {
@@ -308,6 +336,7 @@ int manulbake=form.create_button("bake cookies");
 int autobake=form.create_button("baking mode");
 int shop=form.create_button("cooky store");
 int food=form.create_button("eat cookies");
+int flip=form.create_button("flip a coin");
 while(true)
 {
 form.monitor();
@@ -327,8 +356,23 @@ speak("You need at least 1 manule cooky to start baking cookies.");
 else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
-if(sfx==1) pool.play_stationary("sounds/bake.ogg", false);
+pool.play_stationary("sounds/bake.ogg", false);
 }
+}
+}
+if(form.is_pressed(flip))
+{
+if(coins>=1)
+{
+string[] coinsides={"heads", "tails"};
+string side=coinsides[random(0,coinsides.length()-1)];
+pool.destroy_all();
+pool.play_stationary("sounds/coin.ogg",false);
+speak("you flip a coin. It lands on "+side);
+}
+else if(coins<=0)
+{
+speak("You don't have a coin to flip!");
 }
 }
 if(form.is_pressed(shop))
@@ -347,7 +391,7 @@ if(hunger > maxhunger)
 {
             int overeatPenalty = hunger - maxhunger;
 pool.destroy_all();
-if(sfx==1) pool.play_stationary("sounds/vomit"+random(1,2)+".ogg",false);
+pool.play_stationary("sounds/vomit"+random(1,2)+".ogg",false);
 speak("You ate too much! Your hunger exceeds by " + overeatPenalty + " units.");
             hunger = maxhunger-overeatPenalty;
         }
@@ -368,13 +412,13 @@ else if(autocooky>=1)
 if(bakemode==0)
 {
 bakemode=1;
-if(sfx==1) pool.play_stationary("sounds/toggleon.ogg", false);
+pool.play_stationary("sounds/toggleon.ogg", false);
 speak("Baking mode enabled.");
 }
 else if(bakemode==1)
 {
 bakemode=0;
-if(sfx==1) pool.play_stationary("sounds/toggleoff.ogg", false);
+pool.play_stationary("sounds/toggleoff.ogg", false);
 speak("Baking mode disabled.");
 }
 }
@@ -392,18 +436,31 @@ if(bakemode==1)
 if(clicktimer.elapsed>=clicktime)
 {
 cookies+=1*autocooky;
-if(sfx==1) pool.play_stationary("sounds/bake.ogg", false);
+pool.play_stationary("sounds/bake.ogg", false);
 clicktimer.restart();
 }
 }
-if(cookies>=cookiesrequiered)
+if(cookies >= cookiesrequiered)
 {
-cookiesrequiered=(cookymod*(rank*(rank*2)));
-levcoins+=100*rank;
-rank+=1;
-coins+=levcoins;
-if(sfx==1) pool.play_stationary("sounds/achievement"+random(1,3)+".ogg",false);
-speak("Congradulations! You've successfully made it to rank "+rank+"! You've earned "+round(levcoins, 0)+" coins for your acheavment. Great work!");
+    cookiesrequiered = (cookymod * (rank * (rank * 2)));
+    levcoins += 100 * rank;
+    rank += 1;
+    coins += levcoins;
+    if (levcoins >= 1 && levcoins <= 49) {
+        pool.play_stationary("sounds/coin1.ogg", false);
+    } else if (levcoins >= 50 && levcoins <= 999) {
+        pool.play_stationary("sounds/coin50.ogg", false);
+    } else if (levcoins >= 1000 && levcoins <= 9999) {
+        pool.play_stationary("sounds/coin1000.ogg", false);
+    } else if (levcoins >= 10000 && levcoins <= 49999) {
+        pool.play_stationary("sounds/coin10000.ogg", false);
+    } else if (levcoins >= 50000 && levcoins <= 99999) {
+        pool.play_stationary("sounds/coin50000.ogg", false);
+    } else if (levcoins >= 100000) {
+        pool.play_stationary("sounds/coin100000.ogg", false);
+    }
+pool.play_stationary("sounds/achievement"+random(1,3)+".ogg",false);
+speak("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + round(levcoins, 0) + " coins for your achievement. Great work!");
 }
 if(key_pressed(KEY_M))
 {
