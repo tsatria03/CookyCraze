@@ -55,7 +55,7 @@ return currency_symbol + dollars + "." + cents_str;
 }
 void main()
 {
-show_game_window("cooky clicker");
+show_game_window("CookyCraze");
 clicker();
 }
 void dlg(string message, int timeout=-1)
@@ -203,8 +203,8 @@ speak("Purchase successful! You now have " + autocooky + " auto cookies. Next on
         else
         {
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
-        }
-        return;
+        } 
+return;
     }
     if (abm == "sabic")
     {
@@ -340,9 +340,9 @@ shopmenu();
 }
 void clicker()
 {
-form.create_window("Cooky clicker", false);
+form.create_window("CookyCraze", false);
 int manulbake=form.create_button("bake cookies");
-int autobake=form.create_button("enter baking mode");
+int autobake=form.create_button("baking mode");
 int food=form.create_button("eat cookies");
 int flip=form.create_button("flip a coin");
 int shop=form.create_button("cooky store");
@@ -386,7 +386,14 @@ speak("You don't have a coin to flip!");
 }
 if(form.is_pressed(shop))
 {
+if(bakemode==1)
+{
+speak("You can't enter the cooky store when you're in baking mode.");
+}
+else if(bakemode==0)
+{
 shopmenu();
+}
 }
 if(form.is_pressed(food))
 {
