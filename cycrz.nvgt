@@ -85,7 +85,7 @@ wait(5);
 void setupmenu()
 {
 m.reset(false);
-m.enable_up_and_down=false;
+m.enable_up_and_down=true;
 m.enable_left_and_right=true;
 m.enable_home_and_end=true;
 m.enable_first_letter_navigation=true;
@@ -397,7 +397,14 @@ speak("You can't enter the cooky store when you're in baking mode.");
 }
 else if(bakemode==0)
 {
+if(coins<100)
+{
+speak("You need at least 100 coins to enter the cooky store.");
+}
+else if(coins>=100)
+{
 shopmenu();
+}
 }
 }
 if(form.is_pressed(food))
@@ -571,7 +578,22 @@ speak("You  produce"+manulcooky+"cookies per press.");
 }
 if(key_pressed(KEY_ESCAPE))
 {
+setupmenu();
+m.add_item_tts("yes");
+m.add_item_tts("no");
+int mres=m.run("Are you sure you want to quit the game? You may lose your progress from doing so.",true);
+if(mres==0)
+{
+speak("canceled");
+}
+if(mres==1)
+{
 exit();
+}
+if(mres==2)
+{
+speak("okay");
+}
 }
 }
 }
