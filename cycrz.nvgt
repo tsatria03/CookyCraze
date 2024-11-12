@@ -279,64 +279,68 @@ void sellmenu()
 {
     setupmenu();
     m.add_item_tts("cookies, you have " + cookies, "sell");
-    m.add_item_tts("back", "back");   
+    m.add_item_tts("back", "back");
     int mres = m.run("Cookie seller. Each cookie sells for 100 coins.", true);
     string stm = m.get_item_name(mres);
-if(mres==0)
+    if (mres == 0)
 {
-shopmenu();
-return;
-}
-    if(stm == "sell")
-    {
+        shopmenu();
+        return;
+    }
+    if (stm == "sell")
+{
         input.set_only_allowed_chars("1234567890");
         string amountStr = input.input("How many cookies would you like to sell?", "");
-        if(amountStr.is_empty())
-        {
+        if (amountStr.is_empty())
+{
             dlg("Error: No amount entered.");
             return;
-        }   
+        }        
         double amount = string_to_number(amountStr);
-        if(amount <= cookies)
-        {
+        if (amount <= cookies)
+{
             cookies -= amount;
             double totalCoinsEarned = amount * 100;
             coins += totalCoinsEarned;
-                        if (totalCoinsEarned >= 100 && totalCoinsEarned <= 4900)
-            {
+            if (totalCoinsEarned >= 100 && totalCoinsEarned <= 4900)
+{
                 pool.play_stationary("sounds/coin1.ogg", false);
             }
-            else if (totalCoinsEarned >= 5000 && totalCoinsEarned <= 99900)
-            {
-                pool.play_stationary("sounds/coin50.ogg", false);
-            }
-            else if (totalCoinsEarned >= 100000 && totalCoinsEarned <= 999900)
-            {
+else if (totalCoinsEarned >= 5000 && totalCoinsEarned <= 99900)
+{
+                pool.play_stationary("sounds/coin50.ogg", false);           
+}
+else if (totalCoinsEarned >= 100000 && totalCoinsEarned <= 999900)
+{
                 pool.play_stationary("sounds/coin1000.ogg", false);
             }
-            else if (totalCoinsEarned >= 1000000 && totalCoinsEarned <= 4999900)
-            {
+else if (totalCoinsEarned >= 1000000 && totalCoinsEarned <= 4999900)
+{
                 pool.play_stationary("sounds/coin10000.ogg", false);
             }
-            else if (totalCoinsEarned >= 5000000 && totalCoinsEarned <= 9999900)
-            {
+else if (totalCoinsEarned >= 5000000 && totalCoinsEarned <= 9999900)
+{
                 pool.play_stationary("sounds/coin50000.ogg", false);
             }
-            else if (totalCoinsEarned >= 10000000)
-            {
+else if (totalCoinsEarned >= 10000000 && totalCoinsEarned <= 99999900)
+{
                 pool.play_stationary("sounds/coin100000.ogg", false);
-            }           
+            }
+else if (totalCoinsEarned >= 100000000)
+{
+                pool.play_stationary("sounds/coin1000000.ogg", false);
+            }
             speak("Successfully sold " + amount + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
         }
-        else
-        {
+else
+{
             dlg("Error: You only have " + cookies + " cookies available to sell.");
         }
     }
-if(stm=="back")
+    if (stm == "back")
 {
-shopmenu();
-}
+        shopmenu();
+    }
 }
 void clicker()
 {
@@ -375,13 +379,14 @@ if(coins>=1)
 {
 string[] coinsides={"heads", "tails"};
 string side=coinsides[random(0,coinsides.length()-1)];
+coins-=1;
 pool.destroy_all();
-pool.play_stationary("sounds/coin.ogg",false);
+pool.play_stationary("sounds/coinflip" + random(1, 2) + ".ogg", false);        
 speak("you flip a coin. It lands on "+side);
 }
 else if(coins<=0)
 {
-speak("You don't have a coin to flip!");
+speak("You don't have any more coins to flip!");
 }
 }
 if(form.is_pressed(shop))
@@ -400,7 +405,7 @@ if(form.is_pressed(food))
     if(cookies > 0)
 {
         int cookiesToEat = min(100*rank, cookies);
-        if(sfx == 1) pool.play_stationary("sounds/chip" + random(1, 3) + ".ogg", false);        
+        pool.play_stationary("sounds/chip" + random(1, 3) + ".ogg", false);        
         cookies -= cookiesToEat;
         hunger += cookiesToEat;
 if(hunger > maxhunger)
@@ -456,30 +461,47 @@ pool.play_stationary("sounds/bake.ogg", false);
 clicktimer.restart();
 }
 }
-if(cookies >= cookiesrequiered)
+if (cookies >= cookiesrequiered)
 {
     cookiesrequiered = (cookymod * (rank * (rank * 2)));
     levcoins += 100 * rank;
-    rank += 1;
+    rank+=1;
     coins += levcoins;
-    if (levcoins >= 1 && levcoins <= 49) {
+    if (levcoins >= 1 && levcoins <= 49)
+{
         pool.play_stationary("sounds/coin1.ogg", false);
-    } else if (levcoins >= 50 && levcoins <= 999) {
+    }
+else if (levcoins >= 50 && levcoins <= 999)
+{
         pool.play_stationary("sounds/coin50.ogg", false);
-    } else if (levcoins >= 1000 && levcoins <= 9999) {
+    }
+else if (levcoins >= 1000 && levcoins <= 9999)
+{
         pool.play_stationary("sounds/coin1000.ogg", false);
-    } else if (levcoins >= 10000 && levcoins <= 49999) {
+    }
+else if (levcoins >= 10000 && levcoins <= 49999)
+{
         pool.play_stationary("sounds/coin10000.ogg", false);
-    } else if (levcoins >= 50000 && levcoins <= 99999) {
+    }
+else if (levcoins >= 50000 && levcoins <= 99999)
+{
         pool.play_stationary("sounds/coin50000.ogg", false);
-    } else if (levcoins >= 100000) {
+    }
+else if (levcoins >= 100000 && levcoins <= 999999)
+{
         pool.play_stationary("sounds/coin100000.ogg", false);
     }
-pool.play_stationary("sounds/achievement"+random(1,3)+".ogg",false);
-speak("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + round(levcoins, 0) + " coins for your achievement. Great work!");
+else if (levcoins >= 1000000)
+{
+        pool.play_stationary("sounds/coin1000000.ogg", false);
+    }
+    pool.play_stationary("sounds/achievement" + random(1, 3) + ".ogg", false);
+    speak("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + round(levcoins, 0) + " coins for your achievement. Great work!");
 }
 if(key_pressed(KEY_M))
 {
+pool.destroy_all();
+if(coins>=1) pool.play_stationary("sounds/cointoss" + random(1, 3) + ".ogg", false);        
 speak("You have"+round(coins, 0)+"coins available to spend");
 }
 if(key_pressed(KEY_R))
