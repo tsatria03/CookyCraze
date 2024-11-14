@@ -6,7 +6,6 @@ int autobake=form.create_button("baking mode");
 int food=form.create_button("eat cookies");
 int flip=form.create_button("play coin flip");
 int shop=form.create_button("cooky store");
-//int sets=form.create_button("preferences");
 while(true)
 {
 form.monitor();
@@ -132,6 +131,7 @@ speak("You ate too much! Your hunger exceeds by " + overeatPenalty + " units.");
 }
 if(autocooky<=0)
 {
+bakemode=0;
 autocooky=0;
 }
 if(coins<=0)

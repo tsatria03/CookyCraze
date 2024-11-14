@@ -116,38 +116,41 @@ dlgplay("sounds/store_door_close.ogg");
         } 
 return;
     }
-    if (abm == "sabic")
+if (abm == "sabic")
+{
+    input.set_only_allowed_chars("1234567890");
+    string speedclick = input.input("How many cooky speed boosters would you like to buy?", "");
+    if (speedclick.is_empty())
     {
-input.set_only_allowed_chars("1234567890");
-string speedclick = input.input("How many cooky speed boosters would you like to buy?", "");
-        if (speedclick.is_empty())
-        {
-            dlg("Error: No amount entered.");
-pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg");
-            return;
-        }
-        double amount = string_to_number(speedclick);
-        double totalCost = calculateSpeedCost(cookyspeed, amount);
-        if (coins >= totalCost)
-        {
-            coins -= totalCost;
-            cookyspeed += amount;
-clicktime -= amount;
-            double nextCost = speedCostBase * pow(speedCostScaling, cookyspeed);
-pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
-dlg("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
-pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg");
-        }
-        else
-        {
-            dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
-pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg");
-        }
+        dlg("Error: No amount entered.");
+        pool.destroy_all();
+        dlgplay("sounds/store_door_close.ogg");
         return;
     }
+
+    double amount = string_to_number(speedclick);
+    double totalCost = calculateSpeedCost(cookyspeed, amount);
+    
+    if (coins >= totalCost)
+    {
+        coins -= totalCost;
+        cookyspeed += amount;
+        clicktime -= amount * 5;       
+        clicktime = max(50, clicktime);
+        double nextCost = speedCostBase * pow(speedCostScaling, cookyspeed);
+        pool.play_stationary("sounds/buy"+random(1,4)+".ogg", false);
+        dlg("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
+        pool.destroy_all();
+        dlgplay("sounds/store_door_close.ogg");
+    }
+    else
+    {
+        dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
+        pool.destroy_all();
+        dlgplay("sounds/store_door_close.ogg");
+    }
+    return;
+}
 }
 void mabimenu()
 {
