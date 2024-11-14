@@ -168,7 +168,7 @@ if(clicktimer.elapsed>=clicktime)
 {
 cookies+=1*autocooky;
 pool.play_stationary("sounds/bake.ogg", false);
-attempt_autobaker_event(40);
+attempt_autobaker_event(30);
 clicktimer.restart();
 }
 else if(bakemode==1 and autocooky<=0)

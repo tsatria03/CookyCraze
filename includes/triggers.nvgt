@@ -9,6 +9,7 @@ pool.play_stationary("sounds/give.ogg", false);
     else if (event == "lose_autocooky")
     {
         autocooky = max(0, autocooky -random(1,5)*rank);
+pool.play_stationary("sounds/lose.ogg", false);
         speak("Bad luck! You lost some auto-cookies.");
     }
     else if (event == "gain_manulcooky")
@@ -20,6 +21,7 @@ pool.play_stationary("sounds/give.ogg", false);
     else if (event == "lose_manulcooky")
     {
         manulcooky = max(0, manulcooky-random(1,5)*rank);
+pool.play_stationary("sounds/lose.ogg", false);
         speak("Oops! You lost some manual cookies.");
     }
     else if (event == "gain_cookies")
@@ -33,7 +35,8 @@ pool.play_stationary("sounds/give.ogg", false);
     {
         int cookiesLost = min(random(25,50)*rank, cookies);
         cookies -= cookiesLost;
-pool.play_stationary("sounds/burn" + random(1, 3) + ".ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
+pool.play_stationary("sounds/bee" + random(1, 4) + ".ogg", false);
         speak("Oh no! You lost " + cookiesLost + " cookies.");
     }
     else if (event == "increase_hunger")
@@ -53,6 +56,7 @@ pool.play_stationary("sounds/heal" + random(1, 3) + ".ogg", false);
     {
         int coinsGained = random(25,50)*rank;
         coins += coinsGained;
+pool.play_stationary("sounds/give.ogg", false);
 pool.play_stationary("sounds/coin50.ogg", false);
         speak("Lucky flip! You gained " + coinsGained + " coins.");
     }
@@ -60,6 +64,7 @@ pool.play_stationary("sounds/coin50.ogg", false);
     {
         int coinsLost = min(random(25,50)*rank, coins);
         coins -= coinsLost;
+pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/cointoss.ogg", false);
         speak("Unfortunate flip! You lost " + coinsLost + " coins.");
     }
@@ -67,6 +72,7 @@ pool.play_stationary("sounds/cointoss.ogg", false);
     {
         cookyspeed = max(10, cookyspeed - 10);
 clicktime-=cookyspeed;
+pool.play_stationary("sounds/give.ogg", false);
 pool.play_stationary("sounds/powerup.ogg", false);
         speak("Cool! Your baking speed has been increased slightly.");
     }
@@ -74,6 +80,7 @@ pool.play_stationary("sounds/powerup.ogg", false);
     {
         cookyspeed = min(1000, cookyspeed + 10);
 clicktime+=cookyspeed;
+pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/powerdown.ogg", false);
         speak("Oh dear! Something has slowed down your baking speed.");
     }
@@ -85,6 +92,7 @@ void trigger_autobaker_event(string event)
         int cookiesLost = min(cookies * 0.25, cookies);
         cookies -= cookiesLost;
 pool.play_stationary("sounds/alert_small.ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/burn" + random(1, 3) + ".ogg", false);
         speak("Oh no! A fire spark burned some cookies. You lost " + cookiesLost + " cookies.");
     }
@@ -116,6 +124,7 @@ pool.play_stationary("sounds/heal" + random(1, 3) + ".ogg", false);
         cookyspeed = max(10, cookyspeed - 10);
 clicktime-=cookyspeed;
 pool.play_stationary("sounds/alert_large.ogg", false);
+pool.play_stationary("sounds/give.ogg", false);
 pool.play_stationary("sounds/powerup.ogg", false);
         speak("Amazing! Your baking speed has increased. Cookies bake faster now.");
     }
@@ -124,6 +133,7 @@ pool.play_stationary("sounds/powerup.ogg", false);
         cookyspeed = min(1000, cookyspeed + 10);
 clicktime+=cookyspeed;
 pool.play_stationary("sounds/alert_small.ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/powerdown.ogg", false);
         speak("Oh no! Something has slowed down your baking speed.");
     }
@@ -132,6 +142,7 @@ pool.play_stationary("sounds/powerdown.ogg", false);
         int coinsGained = random(10,50)*rank;
         coins += coinsGained;
 pool.play_stationary("sounds/alert_large.ogg", false);
+pool.play_stationary("sounds/give.ogg", false);
 pool.play_stationary("sounds/coin50.ogg", false);
         speak("Wonderful! You found a coin stash! You gained " + coinsGained + " coins.");
     }
@@ -140,6 +151,7 @@ pool.play_stationary("sounds/coin50.ogg", false);
         int coinsLost = min(random(10,50)*rank, coins);
         coins -= coinsLost;
 pool.play_stationary("sounds/alert_small.ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/cointoss.ogg", false);        
         speak("Oh crap! Some coins fell out of your pocket! You lost " + coinsLost + " coins.");
     }
@@ -154,7 +166,8 @@ pool.play_stationary("sounds/give.ogg", false);
     {
         autocooky = max(0, autocooky-random(1,5)*rank);
 pool.play_stationary("sounds/alert_small.ogg", false);
-        speak("Dam it! You lost some auto-cookies. Your auto-baking rate has been decreased.");
+pool.play_stationary("sounds/lose.ogg", false);
+        speak("Dam! You lost some auto-cookies. Your auto-baking rate has been decreased.");
     }
     else if (event == "gain_manulcooky")
     {
@@ -167,6 +180,7 @@ pool.play_stationary("sounds/give.ogg", false);
     {
         manulcooky = max(0, manulcooky-random(1,5)*rank);
 pool.play_stationary("sounds/alert_small.ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
         speak("Shucks! You lost some manual cookies. Your baking rate per click has decreased.");
     }
 }
@@ -177,6 +191,7 @@ void trigger_manebaker_event(string event)
         int cookiesLost = min(cookies * 0.25, cookies);
         cookies -= cookiesLost;
 pool.play_stationary("sounds/alert_small.ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/burn" + random(1, 3) + ".ogg", false);
         dlg("Oh no! A fire spark burned some cookies. You lost " + cookiesLost + " cookies.");
     }
@@ -208,6 +223,7 @@ pool.play_stationary("sounds/heal" + random(1, 3) + ".ogg", false);
         cookyspeed = max(10, cookyspeed - 10);
 clicktime-=cookyspeed;
 pool.play_stationary("sounds/alert_large.ogg", false);
+pool.play_stationary("sounds/give.ogg", false);
 pool.play_stationary("sounds/powerup.ogg", false);
         dlg("Amazing! Your baking speed has increased. Cookies bake faster now.");
     }
@@ -216,6 +232,7 @@ pool.play_stationary("sounds/powerup.ogg", false);
         cookyspeed = min(1000, cookyspeed + 10);
 clicktime+=cookyspeed;
 pool.play_stationary("sounds/alert_small.ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/powerdown.ogg", false);
         dlg("Oh no! Something has slowed down your baking speed.");
     }
@@ -224,6 +241,7 @@ pool.play_stationary("sounds/powerdown.ogg", false);
         int coinsGained = random(10,50)*rank;
         coins += coinsGained;
 pool.play_stationary("sounds/alert_large.ogg", false);
+pool.play_stationary("sounds/give.ogg", false);
 pool.play_stationary("sounds/coin50.ogg", false);
         dlg("Wonderful! You found a coin stash! You gained " + coinsGained + " coins.");
     }
@@ -232,6 +250,7 @@ pool.play_stationary("sounds/coin50.ogg", false);
         int coinsLost = min(random(10,50)*rank, coins);
         coins -= coinsLost;
 pool.play_stationary("sounds/alert_small.ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/cointoss.ogg", false);        
         dlg("Oh crap! Some coins fell out of your pocket! You lost " + coinsLost + " coins.");
     }
@@ -246,7 +265,8 @@ pool.play_stationary("sounds/give.ogg", false);
     {
         autocooky = max(0, autocooky-random(1,5)*rank);
 pool.play_stationary("sounds/alert_small.ogg", false);
-        dlg("Dam it! You lost some auto-cookies. Your auto-baking rate has been decreased.");
+pool.play_stationary("sounds/lose.ogg", false);
+        dlg("Dam! You lost some auto-cookies. Your auto-baking rate has been decreased.");
     }
     else if (event == "gain_manulcooky")
     {
@@ -259,6 +279,7 @@ pool.play_stationary("sounds/give.ogg", false);
     {
         manulcooky = max(0, manulcooky-random(1,5)*rank);
 pool.play_stationary("sounds/alert_small.ogg", false);
+pool.play_stationary("sounds/lose.ogg", false);
         dlg("Shucks! You lost some manual cookies. Your baking rate per click has decreased.");
     }
 }
