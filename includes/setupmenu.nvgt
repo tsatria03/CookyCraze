@@ -24,3 +24,20 @@ m.enter_sound="sounds/menuenter.ogg";
 m.open_sound="sounds/menuopen.ogg";
 m.wrap_sound="sounds/menuwrap.ogg";
 }
+void setupmenu2()
+{
+m.reset(false);
+m.enable_up_and_down=true;
+m.enable_left_and_right=true;
+m.enable_home_and_end=true;
+m.enable_first_letter_navigation=true;
+m.enable_numbers=true;
+m.enable_side_scrolling=false;
+m.speak_position_information=false;
+m.wrap=false;
+m.click_sound="sounds/storeclick.ogg";
+m.edge_sound="sounds/storebounds.ogg";
+m.enter_sound="none.ogg";
+m.open_sound="none.ogg";
+m.wrap_sound="none.ogg";
+}

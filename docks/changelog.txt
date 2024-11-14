@@ -1,4 +1,7 @@
 new in 1.1
+Polished up the store a bit, and added sounds for going inside, outside, and browsing through various items.
+Added lots of alerts and sounds for special actions and events that will happen throughout the game.
+You can no longer play the coin flipp minni game unless you are at a high enough rank to do so.
 Added the ability to generate random events while baking cookies. Watch out for these, as they can be quite unexpected when they show up. Be prepared!
 The coin flip minni game is now better then ever! It's not just for fidgeting around with anymore. Play and find out your luck!
 Reduced prices of all items in the shop by 10 percent. Hopefully they become more afordible as you level up in the baking business.

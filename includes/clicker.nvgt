@@ -4,9 +4,9 @@ form.create_window("CookyCraze", false);
 int manulbake=form.create_button("bake cookies");
 int autobake=form.create_button("baking mode");
 int food=form.create_button("eat cookies");
-int flip=form.create_button("flip a coin");
+int flip=form.create_button("play coin flip");
 int shop=form.create_button("cooky store");
-int sets=form.create_button("preferences");
+//int sets=form.create_button("preferences");
 while(true)
 {
 form.monitor();
@@ -49,11 +49,17 @@ else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
 pool.play_stationary("sounds/bake.ogg", false);
-attempt_baker_event();
+attempt_baker_event(50);
 }
 }
 }
 if(form.is_pressed(flip))
+{
+if(rank<10)
+{
+speak("Sorry "+playername+". This minni game is locked. Please be at rank 10 or higher to play this.");
+}
+else if(rank>=10)
 {
 if(coins>=1)
 {
@@ -80,6 +86,7 @@ else if(coins<=0)
 speak("You don't have a coin to flip!");
 }
 }
+}
 if(form.is_pressed(shop))
 {
 if(bakemode==1)
@@ -94,6 +101,9 @@ speak("You need at least 10 coins to enter the cooky store.");
 }
 else if(coins>=10)
 {
+dlgplay("sounds/store_door_open.ogg",false);
+pool.play_stationary("sounds/store_welcome.ogg",false);
+pool.play_stationary("sounds/store_amb.ogg",true);
 shopmenu();
 }
 }
@@ -158,7 +168,7 @@ if(clicktimer.elapsed>=clicktime)
 {
 cookies+=1*autocooky;
 pool.play_stationary("sounds/bake.ogg", false);
-attempt_baker_event();
+attempt_baker_event(50);
 clicktimer.restart();
 }
 }
@@ -194,10 +204,16 @@ else if (levcoins >= 100000 && levcoins <= 999999)
     }
 else if (levcoins >= 1000000)
 {
-        pool.play_stationary("sounds/coin1000000.ogg", false);
+        pool.play_stationary("sounds/coin100000.ogg", false);
     }
     pool.play_stationary("sounds/achievement" + random(1, 2) + ".ogg", false);
     speak("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + round(levcoins, 0) + " coins for your achievement. Great work!");
+if(rank==10)
+{
+levcoins += 10 * rank*2;
+pool.play_stationary("sounds/alert_large.ogg", false);
+dlg("Congratulations "+playername+"! You've successfully unlocked the coin flip minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!");
+}
 }
 if(key_pressed(KEY_M))
 {
@@ -277,7 +293,7 @@ if (key_pressed(KEY_ESCAPE))
     m.add_item_tts("Yes, save the game and then quit");
     m.add_item_tts("No, continue playing");
     m.add_item_tts("No, save the game, but continue playing");
-    int mres = m.run("Alert! Are you sure you want to quit the game? It's recommended to save your game's progress before proceeding.", true);
+    int mres = m.run("Alert! Are you sure you want to quit the game? It's recommended to save your progress before proceeding.", true);
     if (mres == 0)
     {
 pool.destroy_all();

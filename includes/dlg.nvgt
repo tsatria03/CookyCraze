@@ -22,7 +22,7 @@ break;
 wait(5);
 }
 }
-void dlgplay(string dlgsound, bool skippable=true, bool fadeable=false, int fadetime=30)
+void dlgplay(string dlgsound, bool skippable=true, bool fadeable=true, int fadetime=30)
 {
 sound dlgaudio;
 dlgaudio.load(dlgsound);

@@ -67,14 +67,14 @@ pool.play_stationary("sounds/cointoss.ogg", false);
         cookyspeed = max(10, cookyspeed - 10);
 clicktime-=cookyspeed;
 pool.play_stationary("sounds/powerup.ogg", false);
-        speak("Your baking speed has increased slightly.");
+        speak("Cool! Your baking speed has been increased slightly.");
     }
     else if (event == "decrease_cookyspeed")
     {
         cookyspeed = min(1000, cookyspeed + 10);
 clicktime+=cookyspeed;
 pool.play_stationary("sounds/powerdown.ogg", false);
-        speak("Something has slowed down your baking speed.");
+        speak("Oh dear! Something has slowed down your baking speed.");
     }
 }
 void trigger_baker_event(string event)
@@ -131,7 +131,7 @@ pool.play_stationary("sounds/powerdown.ogg", false);
         coins += coinsGained;
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/coin50.ogg", false);
-        dlg("You found a coin stash! You gained " + coinsGained + " coins.");
+        dlg("Wonderful! You found a coin stash! You gained " + coinsGained + " coins.");
     }
     else if (event == "lose_coins")
     {
@@ -139,38 +139,38 @@ pool.play_stationary("sounds/coin50.ogg", false);
         coins -= coinsLost;
 pool.play_stationary("sounds/alert_small.ogg", false);
 pool.play_stationary("sounds/cointoss.ogg", false);        
-        dlg("Some coins fell out of your pocket! You lost " + coinsLost + " coins.");
+        dlg("Oh crap! Some coins fell out of your pocket! You lost " + coinsLost + " coins.");
     }
     else if (event == "gain_autocooky")
     {
         autocooky += random(1,5)*rank;
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/give.ogg", false);
-        dlg("Bonus! You gained some auto-cookies. Your auto baking rate has increased.");
+        dlg("Nice! You gained some auto-cookies. Your auto baking rate has increased.");
     }
     else if (event == "lose_autocooky")
     {
         autocooky = max(0, autocooky-random(1,5)*rank);
 pool.play_stationary("sounds/alert_small.ogg", false);
-        dlg("You lost some auto-cookies. Your auto-baking rate has decreased.");
+        dlg("Dam it! You lost some auto-cookies. Your auto-baking rate has been decreased.");
     }
     else if (event == "gain_manulcooky")
     {
         manulcooky += random(1,5)*rank;
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/give.ogg", false);
-        dlg("You gained some manual cookies. You can now bake more cookies with each click.");
+        dlg("Great! You gained some manual cookies. You can now bake more cookies with each click.");
     }
     else if (event == "lose_manulcooky")
     {
         manulcooky = max(0, manulcooky-random(1,5)*rank);
 pool.play_stationary("sounds/alert_small.ogg", false);
-        dlg("You lost some manual cookies. Your baking rate per click has decreased.");
+        dlg("Shucks! You lost some manual cookies. Your baking rate per click has decreased.");
     }
 }
-void attempt_baker_event()
+void attempt_baker_event(int probability_chanse)
 {
-    if (random(0, 19) == 0)
+    if (random(0, probability_chanse) == 0)
     {
         string[] bakerEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
         string event = bakerEvents[random(0, bakerEvents.length() - 1)];
