@@ -1,5 +1,6 @@
 new in 1.2
-Modified some of the events found in the coin flip minni game and the bakeries.
+Modified the cooky store to have it anounce when you enter or exit the area.
+Modified some of the events found in the coin flip minni game and the 2 bakeries.
 Removed unused sounds from the sounds folder to reduce cludder.
 Upgraded the effectiveness of the auto cooky speed item in the automatic baking shop. It will now increase your baking speed by 5ms each time it's bought, not just 1. Thanks goes to Parker Watson for the sudgestion.
 Made it so alert messages Don't use dialogs to notify the player of events while they are in baking mode without having to interupt it.

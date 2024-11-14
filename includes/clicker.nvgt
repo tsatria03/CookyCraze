@@ -100,6 +100,7 @@ speak("You need at least 10 coins to enter the cooky store.");
 }
 else if(coins>=10)
 {
+speak("You're now entering the cooky store.");
 dlgplay("sounds/store_door_open.ogg");
 pool.play_stationary("sounds/store_welcome.ogg",false);
 pool.play_stationary("sounds/store_amb.ogg",true);
