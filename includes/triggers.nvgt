@@ -94,7 +94,7 @@ void trigger_autobaker_event(string event)
 pool.play_stationary("sounds/alert_small.ogg", false);
 pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/burn" + random(1, 3) + ".ogg", false);
-        speak("Oh no! A fire spark burned some cookies. You lost " + cookiesLost + " cookies.");
+        speak("Oh no! A fire spark burned some of your cookies. You lost " + cookiesLost + " cookies.");
     }
     else if (event == "bonus_cookies")
     {
@@ -190,97 +190,145 @@ void trigger_manebaker_event(string event)
     {
         int cookiesLost = min(cookies * 0.25, cookies);
         cookies -= cookiesLost;
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_small.ogg", false);
 pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/burn" + random(1, 3) + ".ogg", false);
         dlg("Oh no! A fire spark burned some cookies. You lost " + cookiesLost + " cookies.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "bonus_cookies")
     {
         int cookiesGained = random(25,50) * rank;
         cookies += cookiesGained;
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/give.ogg", false);
         dlg("Lucky bake! You gained an extra " + cookiesGained + " cookies!");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "extra_hunger")
     {
         hunger += random(10,50)*rank;
         hunger = min(hunger, maxhunger);
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_small.ogg", false);
 pool.play_stationary("sounds/hungerstat.ogg", false);
         dlg("The smell of cookies increased your hunger! Be careful.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
    else if (event == "decrease_hunger")
     {
         hunger = max(0, hunger-random(10,50)*rank);
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/heal" + random(1, 3) + ".ogg", false);
         dlg("Great news! Your hunger has decreased. Enjoy  some cookies!");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "increase_cookyspeed")
     {
         cookyspeed = max(10, cookyspeed - 10);
 clicktime-=cookyspeed;
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/give.ogg", false);
 pool.play_stationary("sounds/powerup.ogg", false);
         dlg("Amazing! Your baking speed has increased. Cookies bake faster now.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "decrease_cookyspeed")
     {
         cookyspeed = min(1000, cookyspeed + 10);
 clicktime+=cookyspeed;
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_small.ogg", false);
 pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/powerdown.ogg", false);
         dlg("Oh no! Something has slowed down your baking speed.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "gain_coins")
     {
         int coinsGained = random(10,50)*rank;
         coins += coinsGained;
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/give.ogg", false);
 pool.play_stationary("sounds/coin50.ogg", false);
         dlg("Wonderful! You found a coin stash! You gained " + coinsGained + " coins.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "lose_coins")
     {
         int coinsLost = min(random(10,50)*rank, coins);
         coins -= coinsLost;
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_small.ogg", false);
 pool.play_stationary("sounds/lose.ogg", false);
 pool.play_stationary("sounds/cointoss.ogg", false);        
         dlg("Oh crap! Some coins fell out of your pocket! You lost " + coinsLost + " coins.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "gain_autocooky")
     {
         autocooky += random(1,5)*rank;
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/give.ogg", false);
         dlg("Nice! You gained some auto-cookies. Your auto baking rate has increased.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "lose_autocooky")
     {
         autocooky = max(0, autocooky-random(1,5)*rank);
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_small.ogg", false);
 pool.play_stationary("sounds/lose.ogg", false);
         dlg("Dam! You lost some auto-cookies. Your auto-baking rate has been decreased.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "gain_manulcooky")
     {
         manulcooky += random(1,5)*rank;
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_large.ogg", false);
 pool.play_stationary("sounds/give.ogg", false);
         dlg("Great! You gained some manual cookies. You can now bake more cookies with each click.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
     else if (event == "lose_manulcooky")
     {
         manulcooky = max(0, manulcooky-random(1,5)*rank);
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/alert_small.ogg", false);
 pool.play_stationary("sounds/lose.ogg", false);
         dlg("Shucks! You lost some manual cookies. Your baking rate per click has decreased.");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
     }
 }
 void attempt_autobaker_event(int probability_chanse)

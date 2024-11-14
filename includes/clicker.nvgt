@@ -6,10 +6,17 @@ int autobake=form.create_button("baking mode");
 int food=form.create_button("eat cookies");
 int flip=form.create_button("play coin flip");
 int shop=form.create_button("cooky store");
+int sets=form.create_button("audio settings");
+ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
+trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
 while(true)
 {
 form.monitor();
 wait(5);
+if (form.is_pressed(sets))
+{
+soundsetsmenu();
+}
 if(form.is_pressed(autobake))
 {
 if(autocooky==0)
@@ -47,7 +54,7 @@ speak("You need at least 1 manule cooky to start baking cookies.");
 else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
-pool.play_stationary("sounds/bake.ogg", false);
+pool.play_stationary("sounds/medalbutton" + random(1, 3) + ".ogg", false);
 attempt_manebaker_event(60);
 }
 }
@@ -64,9 +71,12 @@ if(coins>=1)
 {
 string[] coinsides={"heads", "tails"};
 string side=coinsides[random(0,coinsides.length()-1)];
-pool.destroy_all();
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
 pool.play_stationary("sounds/coinflip" + random(1, 2) + ".ogg", false);        
 dlg("you flip a coin. It lands on "+side);
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
         if (side == "heads")
         {
             string[] headsEvents = {"gain_autocooky", "gain_manulcooky", "gain_cookies", "decrease_hunger"};
@@ -100,10 +110,12 @@ speak("You need at least 10 coins to enter the cooky store.");
 }
 else if(coins>=10)
 {
+pool.destroy_sound(ambslot);
+pool.destroy_sound(trackslot);
 speak("You're now entering the cooky store.");
 dlgplay("sounds/store_door_open.ogg");
-pool.play_stationary("sounds/store_welcome.ogg",false);
-pool.play_stationary("sounds/store_amb.ogg",true);
+storslot=pool.play_stationary("sounds/store_welcome.ogg",false);
+storslot=pool.play_stationary("sounds/store_amb.ogg",true);
 shopmenu();
 }
 }
@@ -292,8 +304,9 @@ speak("You  produce"+manulcooky+"cookies per press.");
 }
 if (key_pressed(KEY_ESCAPE))
 {
-           pool.destroy_all();
-       pool.play_stationary("sounds/alert_critical.ogg",false);
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
+       alertslot=pool.play_stationary("sounds/alert_critical.ogg",false);
     setupmenu();    
     m.add_item_tts("Yes, quit the game without saving");
     m.add_item_tts("Yes, save the game and then quit");
@@ -302,7 +315,9 @@ if (key_pressed(KEY_ESCAPE))
     int mres = m.run("Alert! Are you sure you want to quit the game? It's recommended to save your progress before proceeding.", true);
     if (mres == 0)
     {
-pool.destroy_all();
+pool.destroy_sound(alertslot);
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
         speak("Continuing the game.");
     }
     if (mres == 1)
@@ -318,13 +333,17 @@ pool.destroy_all();
     }
     if (mres == 3)
     {
-pool.destroy_all();
+pool.destroy_sound(alertslot);
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
         speak("Continuing the game.");
     }
     if (mres == 4)
     {
         writedata();
-pool.destroy_all();
+pool.destroy_sound(alertslot);
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
         speak("Game saved. Continuing the game.");
     }
 }

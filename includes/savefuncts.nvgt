@@ -77,6 +77,14 @@ if(sd.d.exists("manuleCostBase"))
 {
 manuleCostBase=sd.readn("manuleCostBase");
 }
+if(sd.d.exists("ambvolume"))
+{
+ambvolume=sd.readn("ambvolume");
+}
+if(sd.d.exists("musvolume"))
+{
+musvolume=sd.readn("musvolume");
+}
 if(sd.d.exists("bakemode"))
 {
 bakemode=sd.readn("bakemode");
@@ -119,10 +127,30 @@ sd.add("manuleCostScaling",manuleCostScaling);
 sd.add("autoCostBase",autoCostBase);
 sd.add("speedCostBase",speedCostBase);
 sd.add("manuleCostBase",manuleCostBase);
+sd.add("ambvolume",ambvolume);
+sd.add("musvolume",musvolume);
 sd.add("bakemode",bakemode);
 sd.add("clicktime",clicktime);
 sd.add("playergender",playergender);
 sd.add("playername",playername);
 sd.add("playername2",playername2);
 sd.save();
+}
+void readpreffs()
+{
+st.load();
+if(st.d.exists("ambvolume"))
+{
+ambvolume=st.readn("ambvolume");
+}
+if(st.d.exists("musvolume"))
+{
+musvolume=st.readn("musvolume");
+}
+}
+void writepreffs()
+{
+st.add("ambvolume",ambvolume);
+st.add("musvolume",musvolume);
+st.save();
 }

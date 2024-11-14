@@ -10,12 +10,12 @@ The ability to eat Your Cookies. Feeling hungry? Go ahead and eat the cookies yo
 Can you reach the highest rank and become the ultimate baker? Let's find out! Master the balance between baking and indulging, and beware of the effects of over consumption. Play smart and aim for cookie-baking greatness!
 
 Keyboard commands
-Letter, F: Anounce how many cookies you can produce when baking mode is enabled, if pressed.
-Letter, H: Anounce how full you are from eating cookies, if pressed.
-Letter, J: Anounce how many cookies you can produce when baking mode is disabled, if pressed.
-Letter, C: Anounce how many cookies you've made, if pressed.
-Letter, R: Anounce the current rank you're at, along with how many cookies are required to advance to the next rank, if pressed.
-Letter, M: Anounce how many coins you have available to spend, if pressed.
+Letter, F: announce how many cookies you can produce when baking mode is enabled, if pressed.
+Letter, H: announce how full you are from eating cookies, if pressed.
+Letter, J: announce how many cookies you can produce when baking mode is disabled, if pressed.
+Letter, C: announce how many cookies you've made, if pressed.
+Letter, R: announce the current rank you're at, along with how many cookies are required to advance to the next rank, if pressed.
+Letter, M: announce how many coins you have available to spend, if pressed.
 Tab: Cycles forward through the available form controls, if pressed/held down.
 Shift plus tab: Cycles backward through the available form controls, if pressed/held down.
 Spacebar: Activates a button on a form control element, if pressed/held down.
