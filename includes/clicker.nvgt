@@ -49,7 +49,7 @@ else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
 pool.play_stationary("sounds/bake.ogg", false);
-attempt_baker_event(50);
+attempt_manebaker_event(60);
 }
 }
 }
@@ -101,7 +101,7 @@ speak("You need at least 10 coins to enter the cooky store.");
 }
 else if(coins>=10)
 {
-dlgplay("sounds/store_door_open.ogg",false);
+dlgplay("sounds/store_door_open.ogg");
 pool.play_stationary("sounds/store_welcome.ogg",false);
 pool.play_stationary("sounds/store_amb.ogg",true);
 shopmenu();
@@ -162,14 +162,19 @@ if(clicktime>=1000)
 {
 clicktime=1000;
 }
-if(bakemode==1)
+if(bakemode==1 and autocooky>=1)
 {
 if(clicktimer.elapsed>=clicktime)
 {
 cookies+=1*autocooky;
 pool.play_stationary("sounds/bake.ogg", false);
-attempt_baker_event(50);
+attempt_autobaker_event(40);
 clicktimer.restart();
+}
+else if(bakemode==1 and autocooky<=0)
+{
+bakemode=0;
+pool.destroy_all();
 }
 }
 if (cookies >= cookiesrequiered)

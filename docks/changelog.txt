@@ -1,3 +1,7 @@
+new in 1.2
+Made it so alert messages Don't use dialogs to notify the player of events while they are in baking mode without having to interupt it.
+Made it so the store open and close sounds can be skipped by pressing the enter key to go in and out of the area faster.
+Fixed a bug where the baking timer was still in the active state even though you didn't have anymore autocookies in your inventory.
 new in 1.1
 Polished up the store a bit, and added sounds for going inside, outside, and browsing through various items.
 Added lots of alerts and sounds for special actions and events that will happen throughout the game.

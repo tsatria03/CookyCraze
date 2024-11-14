@@ -9,7 +9,7 @@ string stm=m.get_item_name(mres);
 if(mres==0)
 {
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
 return;
 }
 if(stm=="bmu")
@@ -23,7 +23,7 @@ sellmenu();
 if(stm=="back")
 {
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
 return;
 }
 }
@@ -93,7 +93,7 @@ string autoclick = input.input("How many auto cookies would you like to buy?", "
         {
             dlg("Error: No amount entered.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
             return;
         }
         double amount = string_to_number(autoclick);
@@ -106,13 +106,13 @@ dlgplay("sounds/store_door_close.ogg",false);
 pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
 dlg("Purchase successful! You now have " + autocooky + " auto cookies. Next one will cost " + round(nextCost, 0) + " coins.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
         }
         else
         {
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
         } 
 return;
     }
@@ -124,7 +124,7 @@ string speedclick = input.input("How many cooky speed boosters would you like to
         {
             dlg("Error: No amount entered.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
             return;
         }
         double amount = string_to_number(speedclick);
@@ -138,13 +138,13 @@ clicktime -= amount;
 pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
 dlg("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
         }
         else
         {
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
         }
         return;
     }
@@ -179,7 +179,7 @@ string manulclick = input.input("How many manual cookies would you like to buy?"
 {
             dlg("Error: No amount entered.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
             return;
         }
         double amount = string_to_number(manulclick);
@@ -192,12 +192,12 @@ dlgplay("sounds/store_door_close.ogg",false);
 pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
 dlg("Purchase successful! You now produce " + manulcooky + " cookies per click! Next upgrade will cost " + round(nextCost, 0) + " coins.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
         } else
 {
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
         }
         return;
     }
@@ -222,7 +222,7 @@ void sellmenu()
 {
             dlg("Error: No amount entered.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
             return;
         }        
         double amount = string_to_number(amountStr);
@@ -261,13 +261,13 @@ pool.play_stationary("sounds/coin100000.ogg", false);
 }
             dlg("Successfully sold " + amount + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
         }
 else
 {
             dlg("Error: You only have " + cookies + " cookies available to sell.");
 pool.destroy_all();
-dlgplay("sounds/store_door_close.ogg",false);
+dlgplay("sounds/store_door_close.ogg");
         }
     }
     if (stm == "back")
