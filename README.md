@@ -1,2 +1,2 @@
 # CookyCraze
- A small game that lets users bake cookies and earn various rewards.
+ A small game that lets users bake cookies and earn various rewards for there acheavments.

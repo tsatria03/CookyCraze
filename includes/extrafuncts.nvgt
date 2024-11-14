@@ -1,0 +1,52 @@
+bool shift_is_down()
+{
+if(key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+return true;
+}
+return false;
+}
+double calculateAutoCost(double currentAmount, double amountToBuy)
+{
+    double totalCost = 0;
+    for(double i = 0; i < amountToBuy; i++)
+    {
+        totalCost += autoCostBase * pow(autoCostScaling, currentAmount + i);
+    }
+    return totalCost;
+}
+double calculateSpeedCost(double currentAmount, double amountToBuy)
+{
+    double totalCost = 0;
+    for(double i = 0; i < amountToBuy; i++)
+    {
+        totalCost += speedCostBase * pow(speedCostScaling, currentAmount + i);
+    }
+    return totalCost;
+}
+double calculateManuleCost(double currentAmount, double amountToBuy)
+{
+    double totalCost=0;
+    for(double i = 0; i < amountToBuy; i++)
+    {
+        totalCost += manuleCostBase * pow(manuleCostScaling, currentAmount + i);
+    }
+    return totalCost;
+}
+double min(double a, double b)
+{
+    return (a < b) ? a : b;
+}
+double max(double a, double b)
+{
+    return (a > b) ? a : b;
+}
+string convert_to_currency(double number, string currency_symbol)
+{
+if (number < 0) return "";
+uint dollars = number / 100;
+uint cents = number % 100;
+string cents_str = "" + cents;
+if (string_len (cents_str) == 1) cents_str = "0" + cents_str;
+return currency_symbol + dollars + "." + cents_str;
+}

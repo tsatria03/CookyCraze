@@ -1,3 +1,11 @@
+new in 1.1
+Added the ability to generate random events while baking cookies. Watch out for these, as they can be quite unexpected when they show up. Be prepared!
+The coin flip minni game is now better then ever! It's not just for fidgeting around with anymore. Play and find out your luck!
+Reduced prices of all items in the shop by 10 percent. Hopefully they become more afordible as you level up in the baking business.
+Made some major code optimizations.
+The escape key now brings up Additional menu options for what to do when it asks you if you want to quit the game or not.
+Changed the way the game starts up. It will now guide you through setting up your very own profile for the character you'll play as. This will only occur when you open the game for the first time.
+Added the ability to save your game's progress.
 new in 1.0
 Fixed a bug where your baking speed wouldn't increase no matter how many auto cookies you've bought for the baking mode.
 Fixed a bug with affordable prices in various shop menus being miscalculated, therefore causing inaccurate information to be displayed in the menus. The calculation logic has been updated to ensure that the correct number of items can be purchased based on how many coins you have available to spend.

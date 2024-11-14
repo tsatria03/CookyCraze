@@ -1,0 +1,26 @@
+void create_slider(bool provide_beeps=true)
+{
+if(provide_beeps==true) s.enable_beeps=true;
+else if(provide_beeps==false) s.enable_beeps=false;
+s.clear_all_items();
+s.enable_up_and_down=true;
+s.enable_left_and_right=true;
+s.enable_home_and_end=true;
+s.speak_position_information=false;
+}
+void setupmenu()
+{
+m.reset(false);
+m.enable_up_and_down=true;
+m.enable_left_and_right=true;
+m.enable_home_and_end=true;
+m.enable_first_letter_navigation=true;
+m.enable_numbers=true;
+m.enable_side_scrolling=false;
+m.speak_position_information=false;
+m.wrap=true;
+m.click_sound="sounds/menuclick.ogg";
+m.enter_sound="sounds/menuenter.ogg";
+m.open_sound="sounds/menuopen.ogg";
+m.wrap_sound="sounds/menuwrap.ogg";
+}
