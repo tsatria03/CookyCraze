@@ -20,6 +20,7 @@ musvolume=s.get_item_value(1);
 }
 void soundsetsmenu()
 {
+form.reset();
     form.create_window("audio settings", false);
     int ambienceSlider = form.create_slider("Ambience Volume", ambvolume, -100, 0, "DB", 1);
     int musicSlider = form.create_slider("Music Volume", musvolume, -100, 0, "DB", 1);
@@ -55,7 +56,11 @@ speak(disptrack);
         if (form.is_pressed(savesets))
         {
 writepreffs();
-speak("Settings saved.");
+dlg("Settings saved.");
+pool.destroy_sound(ambslot);
+pool.destroy_sound(trackslot);
+form.reset();
+clicker();
 }
     }
 }
@@ -69,6 +74,7 @@ int mres=m.run("Welcome to the cooky store. Please choose a cattigory to purchis
 string stm=m.get_item_name(mres);
 if(mres==0)
 {
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -86,6 +92,7 @@ sellmenu();
 }
 if(stm=="back")
 {
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -159,6 +166,7 @@ string autoclick = input.input("How many auto cookies would you like to buy?", "
         if (autoclick.is_empty())
         {
             dlg("Error: No amount entered.");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -175,6 +183,7 @@ trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true
             double nextCost = autoCostBase * pow(autoCostScaling, autocooky);
 pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
 dlg("Purchase successful! You now have " + autocooky + " auto cookies. Next one will cost " + round(nextCost, 0) + " coins.");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -184,6 +193,7 @@ trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true
         else
         {
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -199,7 +209,8 @@ if (abm == "sabic")
     if (speedclick.is_empty())
     {
         dlg("Error: No amount entered.");
-        pool.destroy_sound(storslot);
+        pool.destroy_sound(alertslot);
+pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
         dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
@@ -217,7 +228,8 @@ trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true
         double nextCost = speedCostBase * pow(speedCostScaling, cookyspeed);
         pool.play_stationary("sounds/buy"+random(1,4)+".ogg", false);
         dlg("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
-        pool.destroy_sound(storslot);
+        pool.destroy_sound(alertslot);
+pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
         dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
@@ -226,7 +238,8 @@ trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true
     else
     {
         dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
-        pool.destroy_sound(storslot);
+        pool.destroy_sound(alertslot);
+pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
         dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
@@ -269,6 +282,7 @@ string manulclick = input.input("How many manual cookies would you like to buy?"
         if (manulclick.is_empty())
 {
             dlg("Error: No amount entered.");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -285,6 +299,7 @@ trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true
             double nextCost = manuleCostBase * pow(manuleCostScaling, manulcooky);
 pool.play_stationary("sounds/buy"+random(1,4)+".ogg",false);
 dlg("Purchase successful! You now produce " + manulcooky + " cookies per click! Next upgrade will cost " + round(nextCost, 0) + " coins.");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -294,6 +309,7 @@ trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true
 else
 {
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -327,6 +343,7 @@ void sellmenu()
         if (amountStr.is_empty())
 {
             dlg("Error: No amount entered.");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -369,6 +386,7 @@ else if (totalCoinsEarned >= 10000000)
 pool.play_stationary("sounds/coin100000.ogg", false);
 }
             dlg("Successfully sold " + amount + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
@@ -378,6 +396,7 @@ trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true
 else
 {
             dlg("Error: You only have " + cookies + " cookies available to sell.");
+pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
 speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");

@@ -114,7 +114,7 @@ pool.destroy_sound(ambslot);
 pool.destroy_sound(trackslot);
 speak("You're now entering the cooky store.");
 dlgplay("sounds/store_door_open.ogg");
-storslot=pool.play_stationary("sounds/store_welcome.ogg",false);
+alertslot=pool.play_stationary("sounds/store_welcome.ogg",false);
 storslot=pool.play_stationary("sounds/store_amb.ogg",true);
 shopmenu();
 }
@@ -131,8 +131,8 @@ if(form.is_pressed(food))
 if(hunger > maxhunger)
 {
             int overeatPenalty = hunger - maxhunger;
-pool.destroy_all();
-pool.play_stationary("sounds/vomit"+random(1,2)+".ogg",false);
+pool.destroy_sound(alertslot);
+alertslot=pool.play_stationary("sounds/vomit"+random(1,2)+".ogg",false);
 speak("You ate too much! Your hunger exceeds by " + overeatPenalty + " units.");
             hunger = maxhunger-overeatPenalty;
         }
@@ -323,12 +323,14 @@ pool.resume_sound(trackslot);
     if (mres == 1)
     {
         speak("Exiting the game without saving.");
+wait(500);
         exit();
     }
     if (mres == 2)
     {
         writedata();
         speak("Game saved. Exiting the game.");
+wait(500);
         exit();
     }
     if (mres == 3)
