@@ -20,10 +20,10 @@ m.enable_side_scrolling=false;
 m.repeat_items_at_edges=false;
 m.speak_position_information=false;
 m.wrap=true;
-m.click_sound="sounds/menuclick.ogg";
-m.enter_sound="sounds/menuenter.ogg";
-m.open_sound="sounds/menuopen.ogg";
-m.wrap_sound="sounds/menuwrap.ogg";
+m.click_sound="menuclick.ogg";
+m.enter_sound="menuenter.ogg";
+m.open_sound="menuopen.ogg";
+m.wrap_sound="menuwrap.ogg";
 }
 void setupmenu2()
 {
@@ -37,9 +37,9 @@ m.enable_side_scrolling=false;
 m.repeat_items_at_edges=true;
 m.speak_position_information=false;
 m.wrap=false;
-m.click_sound="sounds/storeclick.ogg";
-m.edge_sound="sounds/storebounds.ogg";
-m.enter_sound="sounds/storechoose.ogg";
-m.open_sound="sounds/storeopen.ogg";
-m.wrap_sound="sounds/menuwrap.ogg";
+m.click_sound="storeclick.ogg";
+m.edge_sound="storebounds.ogg";
+m.enter_sound="storechoose.ogg";
+m.open_sound="storeopen.ogg";
+m.wrap_sound="menuwrap.ogg";
 }

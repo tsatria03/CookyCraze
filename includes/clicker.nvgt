@@ -27,13 +27,13 @@ else if(autocooky>=1)
 if(bakemode==0)
 {
 bakemode=1;
-pool.play_stationary("sounds/toggleon.ogg", false);
+pool.play_stationary("toggleon.ogg", false);
 speak("Baking mode enabled.");
 }
 else if(bakemode==1)
 {
 bakemode=0;
-pool.play_stationary("sounds/toggleoff.ogg", false);
+pool.play_stationary("toggleoff.ogg", false);
 speak("Baking mode disabled.");
 }
 }
@@ -53,7 +53,7 @@ speak("You need at least 1 manule cooky to start baking cookies.");
 else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
-pool.play_stationary("sounds/medalbutton" + random(1, 3) + ".ogg", false);
+pool.play_stationary("medalbutton" + random(1, 3) + ".ogg", false);
 if(playervents2==true) attempt_manebaker_event(60);
 }
 }
@@ -72,7 +72,7 @@ string[] coinsides={"heads", "tails"};
 string side=coinsides[random(0,coinsides.length()-1)];
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
-pool.play_stationary("sounds/coinflip" + random(1, 2) + ".ogg", false);        
+pool.play_stationary("coinflip" + random(1, 2) + ".ogg", false);        
 dlg("you flip a coin. It lands on "+side);
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
@@ -112,9 +112,9 @@ else if(coins>=10)
 pool.destroy_sound(ambslot);
 pool.destroy_sound(trackslot);
 speak("You're now entering the cooky store.");
-dlgplay("sounds/store_door_open.ogg");
-alertslot=pool.play_stationary("sounds/store_welcome.ogg",false);
-storslot=pool.play_stationary("sounds/store_amb.ogg",true);
+dlgplay("store_door_open.ogg");
+alertslot=pool.play_stationary("store_welcome.ogg",false);
+storslot=pool.play_stationary("store_amb.ogg",true);
 shopmenu();
 }
 }
@@ -124,7 +124,7 @@ if(form.is_pressed(food))
     if(cookies > 0)
 {
         int cookiesToEat = min(100*rank, cookies);
-        foodslot=pool.play_stationary("sounds/chip" + random(1, 3) + ".ogg", false);        
+        foodslot=pool.play_stationary("chip" + random(1, 3) + ".ogg", false);        
         cookies -= cookiesToEat;
         hunger += cookiesToEat;
 if(hunger > maxhunger)
@@ -132,8 +132,8 @@ if(hunger > maxhunger)
             int overeatPenalty = hunger - maxhunger;
 pool.destroy_sound(foodslot);
 pool.destroy_sound(eventslot);
-if(playergender==0) eventslot=pool.play_stationary("sounds/male_vomit.ogg",false);
-if(playergender==1) eventslot=pool.play_stationary("sounds/female_vomit.ogg",false);
+if(playergender==0) eventslot=pool.play_stationary("male_vomit.ogg",false);
+if(playergender==1) eventslot=pool.play_stationary("female_vomit.ogg",false);
 speak("You ate too much! Your hunger exceeds by " + overeatPenalty + " units.");
             hunger = maxhunger-overeatPenalty;
         }
@@ -181,7 +181,7 @@ if(bakemode==1 and autocooky>=1)
 if(clicktimer.elapsed>=clicktime)
 {
 cookies+=1*autocooky;
-pool.play_stationary("sounds/bake.ogg", false);
+pool.play_stationary("bake.ogg", false);
 if(playervents==true) attempt_autobaker_event(30);
 clicktimer.restart();
 }
@@ -199,38 +199,38 @@ if (cookies >= cookiesrequiered)
     coins += levcoins;
     if (levcoins >= 1 && levcoins <= 49)
 {
-        pool.play_stationary("sounds/coin1.ogg", false);
+        pool.play_stationary("coin1.ogg", false);
     }
 else if (levcoins >= 50 && levcoins <= 999)
 {
-        pool.play_stationary("sounds/coin50.ogg", false);
+        pool.play_stationary("coin50.ogg", false);
     }
 else if (levcoins >= 1000 && levcoins <= 9999)
 {
-        pool.play_stationary("sounds/coin1000.ogg", false);
+        pool.play_stationary("coin1000.ogg", false);
     }
 else if (levcoins >= 10000 && levcoins <= 49999)
 {
-        pool.play_stationary("sounds/coin10000.ogg", false);
+        pool.play_stationary("coin10000.ogg", false);
     }
 else if (levcoins >= 50000 && levcoins <= 99999)
 {
-        pool.play_stationary("sounds/coin50000.ogg", false);
+        pool.play_stationary("coin50000.ogg", false);
     }
 else if (levcoins >= 100000 && levcoins <= 999999)
 {
-        pool.play_stationary("sounds/coin100000.ogg", false);
+        pool.play_stationary("coin100000.ogg", false);
     }
 else if (levcoins >= 1000000)
 {
-        pool.play_stationary("sounds/coin100000.ogg", false);
+        pool.play_stationary("coin100000.ogg", false);
     }
-    pool.play_stationary("sounds/achievement" + random(1, 2) + ".ogg", false);
+    pool.play_stationary("achievement" + random(1, 2) + ".ogg", false);
     speak("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + round(levcoins, 0) + " coins for your achievement. Great work!");
 if(rank==10)
 {
 levcoins += 10 * rank*2;
-pool.play_stationary("sounds/alert_large.ogg", false);
+pool.play_stationary("alert_large.ogg", false);
 dlg("Congratulations "+playername+"! You've successfully unlocked the coin flip minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!");
 }
 }
@@ -240,7 +240,7 @@ if(key_pressed(KEY_F4))
 {
 pool.destroy_all();
 speak("exiting");
-dlgplay("sounds/exitgame.ogg");
+dlgplay("exitgame.ogg");
 exit();
 }
 }
@@ -252,7 +252,7 @@ writedata();
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
 speak("game saved");
-dlgplay("sounds/savegame.ogg");
+dlgplay("savegame.ogg");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
 }
@@ -330,7 +330,7 @@ if (key_pressed(KEY_ESCAPE))
 {
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
-       alertslot=pool.play_stationary("sounds/alert_critical.ogg",false);
+       alertslot=pool.play_stationary("alert_critical.ogg",false);
     setupmenu();    
     m.add_item_tts("Yes, quit the game without saving");
     m.add_item_tts("Yes, save the game and then quit");
@@ -348,7 +348,7 @@ pool.resume_sound(trackslot);
     {
 pool.destroy_all();
         speak("Exiting the game without saving.");
-dlgplay("sounds/exitgame.ogg");
+dlgplay("exitgame.ogg");
 exit();
     }
     if (mres == 2)
@@ -356,7 +356,7 @@ exit();
         writedata();
 pool.destroy_all();
         speak("game saved, Exiting the game.");
-dlgplay("sounds/exitgame.ogg");
+dlgplay("exitgame.ogg");
 exit();
     }
     if (mres == 3)
@@ -371,7 +371,7 @@ pool.resume_sound(trackslot);
         writedata();
 pool.destroy_sound(alertslot);
         speak("game saved, Continuing the game.");
-dlgplay("sounds/savegame.ogg");
+dlgplay("savegame.ogg");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
     }

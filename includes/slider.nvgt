@@ -60,13 +60,13 @@ if(shift_is_down())
 {
 current_item=(current_item-1+items.length())%items.length();
 //if(this.enable_beeps) beep_item_value(current_item);
-pool.play_stationary("sounds/menuclick.ogg",false);
+pool.play_stationary("menuclick.ogg",false);
 }
 else
 {
 current_item=(current_item+1)%items.length();
 //if(this.enable_beeps) beep_item_value(current_item);
-pool.play_stationary("sounds/menuclick.ogg",false);
+pool.play_stationary("menuclick.ogg",false);
 }
 speak(get_item_description(current_item));
 }
@@ -103,12 +103,12 @@ if(key_pressed(KEY_RETURN))
 {
 if(current_item==-1)
 {
-pool.play_stationary("sounds/menuenter.ogg",false);
+pool.play_stationary("menuenter.ogg",false);
 speak("You need to specify a value before confirming.");
 }
 else
 {
-pool.play_stationary("sounds/menuenter.ogg",false);
+pool.play_stationary("menuenter.ogg",false);
 return current_item+1;
 }
 }

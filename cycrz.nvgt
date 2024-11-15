@@ -17,8 +17,10 @@ sound_pool pool;
 text_input input;
 void main()
 {
+set_sound_storage("data/sounds.dat");
+set_sound_decryption_key("BRn2x3BJd3O0KrB7kb2L6cY4qJYEjVt5OhuVzJmmsoj9wampZL3IAx7IdIQBMyqW7ssXZhsXwD2nrQR4qRL8038swNq0Zc2ObN6mNlWrjIGcYLqEh2t0OHeM",true);
     show_game_window("Cookie Craze");
-dlgplay("sounds/logo"+random(1,2)+".ogg");
+dlgplay("logo"+random(1,2)+".ogg");
     readdata();
 readpreffs();
     if(playerprofed == false)
@@ -60,7 +62,7 @@ else if (gender == "non binary")
         {
             dlg("Congratulations! You've successfully completed your profile setup. I'll give you 10 coins to get you started on your way.");
 coins=10;
-      dlgplay("sounds/coin1.ogg");
+      dlgplay("coin1.ogg");
 if (playergender == 0) 
 {
     dlg("Nice to meat you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
@@ -74,9 +76,9 @@ else if (playergender == 2)
     dlg("Nice to meat you, " + playername + " " + playername2 + "! Now go have fun baking cookies and reaching new ranks!");
 }
             playerprofed = true;
-pool.play_stationary("sounds/welcome" + random(1, 3) + ".ogg", false);        
-ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
-trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
+pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
+trackslot=pool.play_stationary_extended("music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
             clicker();
         }
         else if(mres == 0 || mres == 2)
@@ -87,9 +89,9 @@ trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true
     }
     else if(playerprofed == true)
     {
-pool.play_stationary("sounds/welcome" + random(1, 3) + ".ogg", false);        
-ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
-trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
+pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
+trackslot=pool.play_stationary_extended("music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
         clicker();
     }
 }
