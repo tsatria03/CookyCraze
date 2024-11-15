@@ -2,8 +2,8 @@ void preffsmenu()
 {
 form.reset();
     form.create_window("settings", false);
-    int audsets = form.create_button("audio");
-int gamsets = form.create_button("game");
+    int audsets = form.create_button("Audio settings.");
+int gamsets = form.create_button("Game settings.");
     while (true)
     {
         form.monitor();
@@ -18,8 +18,6 @@ soundsetsmenu();
 }
         if (key_pressed(KEY_ESCAPE))
         {
-pool.destroy_sound(ambslot);
-pool.destroy_sound(trackslot);
 form.reset();
 clicker();
 }
@@ -46,14 +44,14 @@ else
     }
     form.reset();
     form.create_window("Game Settings", false);
-    int charname = form.create_button("Change the character's first name, currently set to "+playername);
-    int charname2 = form.create_button("Change the character's last name, currently set to "+playername2);
-    int chargender = form.create_button("Change the character's gender, currently set to "+gendertext);
-    int playvents = form.create_checkbox("Enable player events during auto baking", playervents);
-    int playvents2 = form.create_checkbox("Enable player events during manual baking", playervents2);
-    int sail_start_slider = form.create_slider("Cookie sale start percentage", sailstart, 0, 100, "percent", 5);
-    int sail_end_slider = form.create_slider("Cookie sale end percentage", sailstep, 0, 100, "percent", 5);
-    int savesets = form.create_button("Save settings");
+    int charname = form.create_button("Change the character's first name. Currently set to "+playername+".");
+    int charname2 = form.create_button("Change the character's last name. Currently set to "+playername2+".");
+    int chargender = form.create_button("Change the character's gender. Currently set to "+gendertext+".");
+    int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
+    int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
+    int sail_start_slider = form.create_slider("Cookie sale start percentage.", sailstart, 0, 100, "percent", 5);
+    int sail_end_slider = form.create_slider("Cookie sale end percentage.", sailstep, 0, 100, "percent", 5);
+    int savesets = form.create_button("Save settings.");
     while (true)
     {
         form.monitor();
@@ -66,8 +64,6 @@ else
         {
             writepreffs();
             dlg("Settings saved.");
-            pool.destroy_sound(ambslot);
-            pool.destroy_sound(trackslot);
             form.reset();
             clicker();
         }
@@ -81,9 +77,11 @@ void soundsetsmenu()
 {
 form.reset();
     form.create_window("audio settings", false);
-    int ambienceSlider = form.create_slider("Ambience Volume", ambvolume, -100, 0, "DB", 1);
-    int musicSlider = form.create_slider("Music Volume", musvolume, -100, 0, "DB", 1);
-    int savesets = form.create_button("Save settings");
+int shuffleamb = form.create_button("Change ambience.");
+int shufflemus = form.create_button("Change music track.");
+    int ambienceSlider = form.create_slider("Ambience volume.", ambvolume, -100, 0, "DB", 1);
+    int musicSlider = form.create_slider("Music volume.", musvolume, -100, 0, "DB", 1);
+    int savesets = form.create_button("Save settings.");
     while (true)
     {
         form.monitor();
@@ -92,12 +90,28 @@ form.reset();
         musvolume = form.get_slider(musicSlider);
         pool.update_sound_start_values(ambslot, 0, ambvolume, 100);
         pool.update_sound_start_values(trackslot, 0, musvolume, 100);
+        if (form.is_pressed(shuffleamb))
+        {
+string ambsound="sounds/room"+random(1,4)+".ogg";
+pool.destroy_sound(ambslot);
+ambslot=pool.play_stationary_extended(ambsound, true,0,0,musvolume,100,false);
+    string dispamb = string_replace(ambsound, "sounds/", "", true);
+    dispamb = string_replace(dispamb, ".ogg", "", true);
+speak(dispamb);
+    }
+        if (form.is_pressed(shufflemus))
+        {
+string mustrack="sounds/music"+random(1,23)+".ogg";
+pool.destroy_sound(trackslot);
+trackslot=pool.play_stationary_extended(mustrack, true,0,0,musvolume,100,false);
+    string disptrack = string_replace(mustrack, "sounds/", "", true);
+    disptrack = string_replace(disptrack, ".ogg", "", true);
+speak(disptrack);
+    }
         if (form.is_pressed(savesets))
         {
 writepreffs();
 dlg("Settings saved.");
-pool.destroy_sound(ambslot);
-pool.destroy_sound(trackslot);
 form.reset();
 clicker();
 }
