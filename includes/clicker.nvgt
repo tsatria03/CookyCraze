@@ -255,6 +255,8 @@ speak("game saved");
 dlgplay("savegame.ogg");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
+form.reset();
+clicker();
 }
 }
 if(key_pressed(KEY_M))
@@ -343,6 +345,8 @@ pool.destroy_sound(alertslot);
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
         speak("Continuing the game.");
+form.reset();
+clicker();
     }
     if (mres == 1)
     {
@@ -365,6 +369,8 @@ pool.destroy_sound(alertslot);
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
         speak("Continuing the game.");
+form.reset();
+clicker();
     }
     if (mres == 4)
     {
@@ -374,6 +380,8 @@ pool.destroy_sound(alertslot);
 dlgplay("savegame.ogg");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
+form.reset();
+clicker();
     }
 }
 }

@@ -2695,7 +2695,7 @@ class control {
 			}
 		}
 		if (type == ct_button) {
-			if (key_repeating(KEY_SPACE)) {
+			if (key_pressed(KEY_SPACE)) {
 				int stop = @event_callback != null ? event_callback(f, tab_index, event_button, {}) : 0;
 				if (stop == 0) {
 					stop_speech();
@@ -2796,7 +2796,7 @@ class control {
 				}
 				if (speak_pos) speak_list_item();
 			}
-			if (key_repeating(KEY_SPACE)) {
+			if (key_pressed(KEY_SPACE)) {
 				if ((list_position == -1) || (!list_multiselect))
 					return;
 				if (list[list_position].checked) {
@@ -2868,7 +2868,7 @@ class control {
 			}
 		}
 		if (type == ct_checkbox) {
-			if ((key_repeating(KEY_SPACE)) && (read_only == false)) {
+			if ((key_pressed(KEY_SPACE)) && (read_only == false)) {
 				if (@event_callback != null and event_callback(f, tab_index, event_checkbox, {}) == 1) return;
 				checkbox_toggle();
 			}
