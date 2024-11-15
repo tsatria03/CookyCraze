@@ -67,6 +67,8 @@ form.focus(charname);
         wait(5);
         sailstart = form.get_slider(sail_start_slider);
         sailstep = form.get_slider(sail_end_slider);
+//sailstart=sail_start_slider;
+//sailstep=sail_end_slider;
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);
 playergender = form.get_list_position(chargender);
@@ -439,7 +441,8 @@ buymenu();
 void sellmenu()
 {
 s.enable_beeps = true;
-    s.speak_percentages = true;
+s.speak_percentages = true;
+create_slider();
     s.add_slider_item("sail amount", 0, 100, sailstart, sailstep);
     int sres = s.run_slider("Choose the percentage of cookies you'd like to sell:", 0);
     if (sres == 0)

@@ -41,7 +41,7 @@ void save()
 {
 file f;
 //again, use the FN string
-f.open(fn,"wb");
+	f.open(fn,"wb");
 //check for a key.
 if (key=="")
 f.write(serialize(d));
@@ -66,9 +66,33 @@ void add(string name, double value)
 d.set(name,value);
 }
 //function to read a number.
-double readn(string name)
+double readnd(string name)
 {
 double tmp;
+d.get(name,tmp);
+return tmp;
+}
+//function to add a value.
+void add(string name, float value)
+{
+d.set(name,value);
+}
+//function to read a number.
+float readnf(string name)
+{
+float tmp;
+d.get(name,tmp);
+return tmp;
+}
+//function to add a value.
+void add(string name, int value)
+{
+d.set(name,value);
+}
+//function to read a number.
+int readnt(string name)
+{
+int tmp;
 d.get(name,tmp);
 return tmp;
 }
