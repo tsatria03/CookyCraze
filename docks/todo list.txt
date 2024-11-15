@@ -1,0 +1,5 @@
+Make it so you can quickly save by pressing Control S.
+Make it so you can quickly exit the game by pressing alt F4
+Make it so you can turn off events for baking.
+Make it so the music doesn't randomize when saving your settings.
+Add the ability to change your first, last, and gender of your character.

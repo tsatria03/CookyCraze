@@ -1,4 +1,5 @@
 new in 1.2
+Added a prefferences pannel that let's you adjust various options related to the game, including audio, character information, and other player related things.
 Added ambiences and music tracks. You'll here them across the bord. These can also be adjusted and shuffled in the sound settings of the game.
 Modified the cooky store to have it announce when you enter or exit the area.
 Modified some of the events found in the coin flip minni game and the 2 bakeries.

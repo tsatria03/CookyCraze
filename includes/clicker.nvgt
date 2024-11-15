@@ -6,16 +6,36 @@ int autobake=form.create_button("baking mode");
 int food=form.create_button("eat cookies");
 int flip=form.create_button("play coin flip");
 int shop=form.create_button("cooky store");
-int sets=form.create_button("audio settings");
+int shuffleamb = form.create_button("change ambience");
+int shufflemus = form.create_button("change music");
+int preffsets=form.create_button("preferences");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
 while(true)
 {
 form.monitor();
 wait(5);
-if (form.is_pressed(sets))
+        if (form.is_pressed(shuffleamb))
+        {
+string ambsound="sounds/room"+random(1,4)+".ogg";
+pool.destroy_sound(ambslot);
+ambslot=pool.play_stationary_extended(ambsound, true,0,0,musvolume,100,false);
+    string dispamb = string_replace(ambsound, "sounds/", "", true);
+    dispamb = string_replace(dispamb, ".ogg", "", true);
+speak(dispamb);
+    }
+        if (form.is_pressed(shufflemus))
+        {
+string mustrack="sounds/music"+random(1,23)+".ogg";
+pool.destroy_sound(trackslot);
+trackslot=pool.play_stationary_extended(mustrack, true,0,0,musvolume,100,false);
+    string disptrack = string_replace(mustrack, "sounds/", "", true);
+    disptrack = string_replace(disptrack, ".ogg", "", true);
+speak(disptrack);
+    }
+if (form.is_pressed(preffsets))
 {
-soundsetsmenu();
+preffsmenu();
 }
 if(form.is_pressed(autobake))
 {
