@@ -1,12 +1,13 @@
 void clicker()
 {
 form.create_window("CookyCraze", false);
-int manulbake=form.create_button("Bake cookies. You currently have "+manulcooky+" manule cookies.");
-int autobake=form.create_button("Enter baking mode. You currently have "+autocooky+" auto cookies.");
-int food=form.create_button("Eat cookies. You currently have "+cookies+" cookies.");
-int flip=form.create_button("Flip a coin.");
-int shop=form.create_button("Cooky store. You currently have "+coins+" coins.");
-int preffsets=form.create_button("Preferences.");
+int manulbake=form.create_button("Bake cookies. You currently have "+round(manulcooky,0)+" manule cookies.");
+int autobake=form.create_button("Enter baking mode. You currently have "+round(autocooky,0)+" auto cookies.");
+int food=form.create_button("Eat cookies. You currently have "+round(cookies,0)+" cookies.");
+int flip=form.create_button("flip a coin");
+int shop=form.create_button("Cooky store. You currently have "+round(coins,0)+" coins.");
+int preffsets=form.create_button("preferences");
+form.focus(manulbake);
 while(true)
 {
 form.monitor();
@@ -53,7 +54,7 @@ else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
 pool.play_stationary("sounds/medalbutton" + random(1, 3) + ".ogg", false);
-attempt_manebaker_event(60);
+if(playervents2==true) attempt_manebaker_event(60);
 }
 }
 }
@@ -123,14 +124,16 @@ if(form.is_pressed(food))
     if(cookies > 0)
 {
         int cookiesToEat = min(100*rank, cookies);
-        pool.play_stationary("sounds/chip" + random(1, 3) + ".ogg", false);        
+        foodslot=pool.play_stationary("sounds/chip" + random(1, 3) + ".ogg", false);        
         cookies -= cookiesToEat;
         hunger += cookiesToEat;
 if(hunger > maxhunger)
 {
             int overeatPenalty = hunger - maxhunger;
-pool.destroy_sound(alertslot);
-alertslot=pool.play_stationary("sounds/vomit"+random(1,2)+".ogg",false);
+pool.destroy_sound(foodslot);
+pool.destroy_sound(eventslot);
+if(playergender==0) eventslot=pool.play_stationary("sounds/male_vomit.ogg",false);
+if(playergender==1) eventslot=pool.play_stationary("sounds/female_vomit.ogg",false);
 speak("You ate too much! Your hunger exceeds by " + overeatPenalty + " units.");
             hunger = maxhunger-overeatPenalty;
         }
@@ -179,7 +182,7 @@ if(clicktimer.elapsed>=clicktime)
 {
 cookies+=1*autocooky;
 pool.play_stationary("sounds/bake.ogg", false);
-attempt_autobaker_event(30);
+if(playervents==true) attempt_autobaker_event(30);
 clicktimer.restart();
 }
 else if(bakemode==1 and autocooky<=0)
@@ -229,6 +232,29 @@ if(rank==10)
 levcoins += 10 * rank*2;
 pool.play_stationary("sounds/alert_large.ogg", false);
 dlg("Congratulations "+playername+"! You've successfully unlocked the coin flip minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!");
+}
+}
+if(alt_is_down())
+{
+if(key_pressed(KEY_F4))
+{
+pool.destroy_all();
+speak("exiting");
+dlgplay("sounds/exitgame.ogg");
+exit();
+}
+}
+if(control_is_down())
+{
+if(key_pressed(KEY_S))
+{
+writedata();
+pool.pause_sound(ambslot);
+pool.pause_sound(trackslot);
+speak("game saved");
+dlgplay("sounds/savegame.ogg");
+pool.resume_sound(ambslot);
+pool.resume_sound(trackslot);
 }
 }
 if(key_pressed(KEY_M))
@@ -320,16 +346,18 @@ pool.resume_sound(trackslot);
     }
     if (mres == 1)
     {
+pool.destroy_all();
         speak("Exiting the game without saving.");
-wait(500);
-        exit();
+dlgplay("sounds/exitgame.ogg");
+exit();
     }
     if (mres == 2)
     {
         writedata();
-        speak("Game saved. Exiting the game.");
-wait(500);
-        exit();
+pool.destroy_all();
+        speak("game saved, Exiting the game.");
+dlgplay("sounds/exitgame.ogg");
+exit();
     }
     if (mres == 3)
     {
@@ -342,9 +370,10 @@ pool.resume_sound(trackslot);
     {
         writedata();
 pool.destroy_sound(alertslot);
+        speak("game saved, Continuing the game.");
+dlgplay("sounds/savegame.ogg");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
-        speak("Game saved. Continuing the game.");
     }
 }
 }

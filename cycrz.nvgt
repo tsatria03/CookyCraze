@@ -4,8 +4,8 @@ double autocooky=0, difmod=2, coins=0, cookies=0, cookymod=20, cookiesrequiered=
 double autoCostScaling=1.1, speedCostScaling=1.1, manuleCostScaling=1.1;
 double autoCostBase=20, speedCostBase=30, manuleCostBase=10;
 double ambvolume=0, musvolume=0;
-int ambslot, alertslot, storslot, trackslot, playergender;
-int bakemode=0,  clicktime=1000-cookyspeed, sailstart=0, sailstep=0;
+int ambslot, alertslot, eventslot, foodslot, storslot, trackslot, playergender;
+int bakemode=0,  clicktime=1000-cookyspeed, sailstart=50, sailstep=5;
 string playername, playername2;
 timer clicktimer;
 audio_form form;

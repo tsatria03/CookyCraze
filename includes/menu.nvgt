@@ -1,9 +1,10 @@
 void preffsmenu()
 {
 form.reset();
-    form.create_window("settings", false);
-    int audsets = form.create_button("Audio settings.");
-int gamsets = form.create_button("Game settings.");
+    form.create_window("preferences", false);
+    int audsets = form.create_button("audio settings");
+int gamsets = form.create_button("game settings");
+form.focus(audsets);
     while (true)
     {
         form.monitor();
@@ -46,12 +47,20 @@ else
     form.create_window("Game Settings", false);
     int charname = form.create_button("Change the character's first name. Currently set to "+playername+".");
     int charname2 = form.create_button("Change the character's last name. Currently set to "+playername2+".");
-    int chargender = form.create_button("Change the character's gender. Currently set to "+gendertext+".");
+    int chargender = form.create_list("Change the character's gender. Currently set to " + gendertext + ".", 3);
+    form.add_list_item(chargender, "Male");
+    form.add_list_item(chargender, "Female");
+    form.add_list_item(chargender, "Non-binary");
+    if (playergender >= 0 && playergender <= 2)
+{
+        form.set_list_position(chargender, playergender);
+    }
     int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
     int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
-    int sail_start_slider = form.create_slider("Cookie sale start percentage.", sailstart, 0, 100, "percent", 5);
-    int sail_end_slider = form.create_slider("Cookie sale end percentage.", sailstep, 0, 100, "percent", 5);
-    int savesets = form.create_button("Save settings.");
+    int sail_start_slider = form.create_slider("Cookie sale start percentage.", sailstart, 0, 100, "percent", 1);
+    int sail_end_slider = form.create_slider("Cookie sale end percentage.", sailstep, 0, 100, "percent", 1);
+    int savesets = form.create_button("save settings");
+form.focus(charname);
     while (true)
     {
         form.monitor();
@@ -60,10 +69,45 @@ else
         sailstep = form.get_slider(sail_end_slider);
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);
+playergender = form.get_list_position(chargender);
+        if (form.is_pressed(charname))
+        {
+string fn=input.input("Enter the first name of this character.");
+if(fn.is_empty())
+{
+dlg("Error. Your character's first name is invalid!");
+            form.reset();
+            gamsetsmenu();
+}
+else
+{
+playername=fn;
+            dlg("Success! Your character's first name has now been changed to "+playername+".");
+            form.reset();
+            gamsetsmenu();
+}
+}
+        if (form.is_pressed(charname2))
+        {
+string fn2=input.input("Enter the last name of this character.");
+if(fn2.is_empty())
+{
+dlg("Error. Your character's last name is invalid!");
+            form.reset();
+            gamsetsmenu();
+}
+else
+{
+playername2=fn2;
+            dlg("Success! Your character's last name has now been changed to "+playername2+".");
+            form.reset();
+            gamsetsmenu();
+}
+}
         if (form.is_pressed(savesets))
         {
             writepreffs();
-            dlg("Settings saved.");
+            dlg("settings saved");
             form.reset();
             clicker();
         }
@@ -77,11 +121,12 @@ void soundsetsmenu()
 {
 form.reset();
     form.create_window("audio settings", false);
-int shuffleamb = form.create_button("Change ambience.");
-int shufflemus = form.create_button("Change music track.");
+int shuffleamb = form.create_button("change ambience");
+int shufflemus = form.create_button("change music track");
     int ambienceSlider = form.create_slider("Ambience volume.", ambvolume, -100, 0, "DB", 1);
     int musicSlider = form.create_slider("Music volume.", musvolume, -100, 0, "DB", 1);
-    int savesets = form.create_button("Save settings.");
+    int savesets = form.create_button("save settings");
+form.focus(shuffleamb);
     while (true)
     {
         form.monitor();
@@ -111,7 +156,7 @@ speak(disptrack);
         if (form.is_pressed(savesets))
         {
 writepreffs();
-dlg("Settings saved.");
+dlg("settings saved");
 form.reset();
 clicker();
 }
@@ -137,7 +182,8 @@ speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
-return;
+form.reset();
+clicker();
 }
 if(stm=="bmu")
 {
@@ -155,7 +201,8 @@ speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
-return;
+form.reset();
+clicker();
 }
 }
 void buymenu()
@@ -214,7 +261,6 @@ void abimenu()
     if (mres == 0)
     {
         buymenu();
-        return;
     }
     if (abm == "abic")
     {
@@ -229,7 +275,8 @@ speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
-            return;
+form.reset();
+clicker();
         }
         double amount = string_to_number(autoclick);
         double totalCost = calculateAutoCost(autocooky, amount);
@@ -246,6 +293,8 @@ speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
+form.reset();
+clicker();
         }
         else
         {
@@ -256,8 +305,9 @@ speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
+form.reset();
+clicker();
         } 
-return;
     }
 if (abm == "sabic")
 {
@@ -272,7 +322,8 @@ speak("You're now exiting the cooky store.");
         dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
-        return;
+form.reset();
+clicker();
     }
     double amount = string_to_number(speedclick);
     double totalCost = calculateSpeedCost(cookyspeed, amount);
@@ -291,6 +342,8 @@ speak("You're now exiting the cooky store.");
         dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
+form.reset();
+clicker();
     }
     else
     {
@@ -301,13 +354,13 @@ speak("You're now exiting the cooky store.");
         dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
+form.reset();
+clicker();
     }
-    return;
 }
     if (abm == "back")
 {
 buymenu();
-return;
 }
 }
 void mabimenu()
@@ -330,7 +383,6 @@ void mabimenu()
     if (mres == 0)
 {
         buymenu();
-        return;
     }    
     if (mabm == "mabic")
 {
@@ -345,7 +397,8 @@ speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
-            return;
+form.reset();
+clicker();
         }
         double amount = string_to_number(manulclick);
         double totalCost = calculateManuleCost(manulcooky, amount);
@@ -362,6 +415,8 @@ speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
+form.reset();
+clicker();
         }
 else
 {
@@ -372,13 +427,13 @@ speak("You're now exiting the cooky store.");
 dlgplay("sounds/store_door_close.ogg");
 ambslot=pool.play_stationary_extended("sounds/room"+random(1,4)+".ogg", true,0,0,ambvolume,100,false);
 trackslot=pool.play_stationary_extended("sounds/music"+random(1,23)+".ogg", true,0,0,musvolume,100,false);
+form.reset();
+clicker();
         }
-        return;
     }
     if (mabm == "back")
 {
 buymenu();
-return;
 }
 }
 void sellmenu()
@@ -392,7 +447,8 @@ s.enable_beeps = true;
         pool.resume_sound(ambslot);
         pool.resume_sound(trackslot);
         speak("Canceled");
-        return;
+form.reset();
+clicker();
     }
     double percentToSell = s.get_item_value(0);
     int cookiesToSell = int(cookies * (percentToSell / 100.0));
@@ -409,7 +465,8 @@ s.enable_beeps = true;
         dlgplay("sounds/store_door_close.ogg");
         ambslot = pool.play_stationary_extended("sounds/room" + random(1, 4) + ".ogg", true, 0, 0, ambvolume, 100, false);
         trackslot = pool.play_stationary_extended("sounds/music" + random(1, 23) + ".ogg", true, 0, 0, musvolume, 100, false);
-        return;
+form.reset();
+clicker();
     }
     cookies -= cookiesToSell;
     coins += totalCoinsEarned;
@@ -442,4 +499,6 @@ s.enable_beeps = true;
     dlgplay("sounds/store_door_close.ogg");
     ambslot = pool.play_stationary_extended("sounds/room" + random(1, 4) + ".ogg", true, 0, 0, ambvolume, 100, false);
     trackslot = pool.play_stationary_extended("sounds/music" + random(1, 23) + ".ogg", true, 0, 0, musvolume, 100, false);
+form.reset();
+clicker();
 }
