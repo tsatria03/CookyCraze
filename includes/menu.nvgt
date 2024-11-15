@@ -270,6 +270,8 @@ input.set_only_allowed_chars("1234567890");
 string autoclick = input.input("How many auto cookies would you like to buy?", "");
         if (autoclick.is_empty())
         {
+pool.destroy_sound(alertslot);
+pool.play_stationary("error.ogg",false);
             dlg("Error: No amount entered.");
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
@@ -300,6 +302,8 @@ clicker();
         }
         else
         {
+pool.destroy_sound(alertslot);
+pool.play_stationary("error.ogg",false);
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
@@ -317,6 +321,8 @@ if (abm == "sabic")
     string speedclick = input.input("How many cooky speed boosters would you like to buy?", "");
     if (speedclick.is_empty())
     {
+pool.destroy_sound(alertslot);
+pool.play_stationary("error.ogg",false);
         dlg("Error: No amount entered.");
         pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
@@ -349,6 +355,8 @@ clicker();
     }
     else
     {
+pool.destroy_sound(alertslot);
+pool.play_stationary("error.ogg",false);
         dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
         pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
@@ -392,6 +400,8 @@ input.set_only_allowed_chars("1234567890");
 string manulclick = input.input("How many manual cookies would you like to buy?", "");
         if (manulclick.is_empty())
 {
+pool.destroy_sound(alertslot);
+pool.play_stationary("error.ogg",false);
             dlg("Error: No amount entered.");
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
@@ -422,6 +432,8 @@ clicker();
         }
 else
 {
+pool.destroy_sound(alertslot);
+pool.play_stationary("error.ogg",false);
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
@@ -461,6 +473,8 @@ clicker();
     double totalCoinsEarned = cookiesToSell * 10;
     if (cookiesToSell > cookies)
     {
+pool.destroy_sound(alertslot);
+pool.play_stationary("error.ogg",false);
         dlg("Error: You only have " + cookies + " cookies available to sell.");
         pool.destroy_sound(alertslot);
         pool.destroy_sound(storslot);

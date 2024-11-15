@@ -1,7 +1,7 @@
 Welcome to cooky craze! In this game, you’ll bake, sell, and even indulge in the cookies you create. Work your way up through the ranks of baking mastery to become the ultimate baker, and earn coins for every cookie baked and sold while you're at it. The money you earn in the game can be used to purchase various items in the shop, wich can help you throughout your baking journey.
 
 Game features
-The ability to bake and Sell Cookies. The more you bake, the higher your rank, and the more coins you’ll earn with every batch made. Each cookie is worth 100 coins when sold.
+The ability to bake and Sell Cookies. The more you bake, the higher your rank, and the more coins you’ll earn with every batch made. Each cookie is worth a sertain amount of coins when sold.
 The ability to level up and gain rewards for baking large amounts of cookies. Progress through ranks based on your cookie-baking pskills! Each rank boosts your earnings per bake, helping you afford new upgrades faster.
 The ability to shop for Upgrades. Use your hard-earned money to purchase items in various shops that speed up baking, boost your cookie output, and unlock additional content as you keep going.
 The ability to reseave automated Baking. Buy auto-baking features to let the game bake cookies for you while you strategize on other upgrades.

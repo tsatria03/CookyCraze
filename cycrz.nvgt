@@ -1,6 +1,6 @@
 #include"includes/includes.nvgt"
 bool playervents=false, playervents2=false, playerprofed=false;
-double autocooky=0, difmod=2, coins=0, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=10000, levcoins=0, manulcooky=0, rank=1;
+double autocooky=0, difmod=2, coins=0, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, hunger=10000, maxhunger=10000, levcoins=0, manulcooky=0, rank=1;
 double autoCostScaling=1.1, speedCostScaling=1.1, manuleCostScaling=1.1;
 double autoCostBase=20, speedCostBase=30, manuleCostBase=10;
 double ambvolume=0, musvolume=0;
