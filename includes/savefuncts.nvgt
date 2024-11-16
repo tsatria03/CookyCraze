@@ -165,6 +165,30 @@ if(st.d.exists("evchanse2"))
 {
 evchanse2=st.readnt("evchanse2");
 }
+    autoEventToggles.resize(autoBakingEvents.length());
+    manualEventToggles.resize(manualBakingEvents.length());
+    coinEventToggles.resize(coinFlipEvents.length());
+    for (uint i = 0; i < autoBakingEvents.length(); i++)
+{
+        if (st.d.exists("autoEvent_" + autoBakingEvents[i]))
+{
+            autoEventToggles[i] = st.readb("autoEvent_" + autoBakingEvents[i]);
+        }
+    }
+    for (uint i = 0; i < manualBakingEvents.length(); i++)
+{
+        if (st.d.exists("manualEvent_" + manualBakingEvents[i]))
+{
+            manualEventToggles[i] = st.readb("manualEvent_" + manualBakingEvents[i]);
+        }
+    }
+    for (uint i = 0; i < coinFlipEvents.length(); i++)
+{
+        if (st.d.exists("coinEvent_" + coinFlipEvents[i]))
+{
+            coinEventToggles[i] = st.readb("coinEvent_" + coinFlipEvents[i]);
+        }
+    }
 }
 void writepreffs()
 {
@@ -182,5 +206,23 @@ st.add("sailstart",sailstart);
 st.add("sailstep",sailstep);
 st.add("evchanse",evchanse);
 st.add("evchanse2",evchanse2);
+    autoEventToggles.resize(autoBakingEvents.length());
+    manualEventToggles.resize(manualBakingEvents.length());
+    coinEventToggles.resize(coinFlipEvents.length());
+    for (uint i = 0; i < autoBakingEvents.length(); i++)
+{
+        autoEventToggles[i] = form.is_list_item_checked(autoEventList, i);
+        st.add("autoEvent_" + autoBakingEvents[i], autoEventToggles[i]);
+    }
+    for (uint i = 0; i < manualBakingEvents.length(); i++)
+{
+        manualEventToggles[i] = form.is_list_item_checked(manualEventList, i);
+        st.add("manualEvent_" + manualBakingEvents[i], manualEventToggles[i]);
+    }
+    for (uint i = 0; i < coinFlipEvents.length(); i++)
+{
+        coinEventToggles[i] = form.is_list_item_checked(coinEventList, i);
+        st.add("coinEvent_" + coinFlipEvents[i], coinEventToggles[i]);
+    }
 st.save();
 }

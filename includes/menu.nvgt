@@ -60,7 +60,20 @@ else
     int sail_start_slider = form.create_slider("Cookie sale start percentage.", sailstart, 0, 100, "percent", 1);
     int sail_end_slider = form.create_slider("Cookie sale end percentage.", sailstep, 0, 100, "percent", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 0, 100, "percent", 1);
-int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 - evchanse2, 0, 100, "percent", 1);    int savesets = form.create_button("save settings");
+int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 - evchanse2, 0, 100, "percent", 1);
+    int autoEventList = form.create_list("Auto-Baking Events", 12, true, false);
+    for (uint i = 0; i < autoBakingEvents.length(); i++) {
+        form.add_list_item(autoEventList, autoBakingEvents[i], autoBakingEvents[i], -1, autoEventToggles[i]);
+    }
+    int manualEventList = form.create_list("Manual-Baking Events", 12, true, false);
+    for (uint i = 0; i < manualBakingEvents.length(); i++) {
+        form.add_list_item(manualEventList, manualBakingEvents[i], manualBakingEvents[i], -1, manualEventToggles[i]);
+    }
+    int coinEventList = form.create_list("Coin Flip Events", 12, true, false);
+    for (uint i = 0; i < coinFlipEvents.length(); i++) {
+        form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
+    }
+    int savesets = form.create_button("save settings");
 form.focus(charname);
     while (true)
     {
@@ -471,7 +484,7 @@ form.reset();
 clicker();
     }
     double percentToSell = s.get_item_value(0);
-    int cookiesToSell = int(cookies * (percentToSell / 100.0));
+    double cookiesToSell = double(cookies * (percentToSell / 100.0));
     if (cookiesToSell <= 0 && percentToSell > 0) {
         cookiesToSell = 1;
     }

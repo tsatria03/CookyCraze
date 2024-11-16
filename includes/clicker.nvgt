@@ -3,10 +3,10 @@ void clicker()
 form.create_window("CookyCraze", false);
 int manulbake=form.create_button("Bake cookies. You currently have "+round(manulcooky,0)+" manule cookies.");
 int autobake=form.create_button("Enter baking mode. You currently have "+round(autocooky,0)+" auto cookies.");
+int checkHunger = form.create_button("Check hunger status");
 int food=form.create_button("Eat cookies. You currently have "+round(cookies,0)+" cookies.");
 int flip=form.create_button("flip a coin");
 int shop=form.create_button("Cooky store. You currently have "+round(coins,0)+" coins.");
-int checkHunger = form.create_button("Check hunger status");
 int preffsets=form.create_button("preferences");
 form.focus(manulbake);
 while(true)
@@ -66,6 +66,7 @@ manulcooky = max(0, manulcooky - random(10, 20) * rank);
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
 alertslot=pool.play_stationary("alert_critical.ogg",false);
+pool.play_stationary("heart.ogg",false);
 dlg("Extreme hunger has consequences! You lost some coins, auto cookies, manual cookies, and auto-cooky speed boosts.");
 hunger=0;
 pool.destroy_sound(alertslot);

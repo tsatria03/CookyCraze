@@ -1,3 +1,5 @@
+new in 1.4
+Added the ability to customize which events get triggered in the game settings menu. You can use the checkboxes here to toggle auto baking, manule baking, and coin flipping to further refine the events you want to happen durring the game.
 new in 1.3
 Added pitch support to ambience and music in the audio settings menu. I also converted volumes and pitches to percentages for ambiences and music as well.
 Reversed the probability logic for event chances in auto and manual baking. Previously, setting the event chance to 0% resulted in events triggering every time, behaving as though it were set to 100%. Now, a 0% chance will correctly prevent events from triggering, while a 100% chance will trigger events consistently.
