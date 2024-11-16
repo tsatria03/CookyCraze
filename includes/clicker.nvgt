@@ -49,8 +49,10 @@ pool.resume_sound(trackslot);
             {
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
+alertslot=pool.play_stationary("alert_critical.ogg",false);
 pool.play_stationary("heart3.ogg",false);
                 dlg("You're extremely hungry! You need to eat now.");
+pool.destroy_sound(alertslot);
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
             }
@@ -63,8 +65,10 @@ pool.resume_sound(trackslot);
 manulcooky = max(0, manulcooky - random(10, 20) * rank);
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
+alertslot=pool.play_stationary("alert_critical.ogg",false);
 dlg("Extreme hunger has consequences! You lost some coins, auto cookies, manual cookies, and auto-cooky speed boosts.");
 hunger=0;
+pool.destroy_sound(alertslot);
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
             }
