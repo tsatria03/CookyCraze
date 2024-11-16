@@ -59,6 +59,8 @@ else
     int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
     int sail_start_slider = form.create_slider("Cookie sale start percentage.", sailstart, 0, 100, "percent", 1);
     int sail_end_slider = form.create_slider("Cookie sale end percentage.", sailstep, 0, 100, "percent", 1);
+    int autoChanceSlider = form.create_slider("Auto-Baking Event Chance (%)", evchanse, 0, 100, "percent", 1);
+    int manualChanceSlider = form.create_slider("Manual-Baking Event Chance (%)", evchanse2, 0, 100, "percent", 1);
     int savesets = form.create_button("save settings");
 form.focus(charname);
     while (true)
@@ -67,8 +69,8 @@ form.focus(charname);
         wait(5);
         sailstart = form.get_slider(sail_start_slider);
         sailstep = form.get_slider(sail_end_slider);
-//sailstart=sail_start_slider;
-//sailstep=sail_end_slider;
+        evchanse = form.get_slider(autoChanceSlider);
+        evchanse2 = form.get_slider(manualChanceSlider);
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);
 playergender = form.get_list_position(chargender);

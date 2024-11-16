@@ -339,6 +339,7 @@ pool.resume_sound(trackslot);
 }
 void attempt_autobaker_event(int probability_chanse)
 {
+evchanse=probability_chanse;
     if (random(0, probability_chanse) == 0)
     {
         string[] bakerEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
@@ -348,6 +349,7 @@ void attempt_autobaker_event(int probability_chanse)
 }
 void attempt_manebaker_event(int probability_chanse)
 {
+evchanse2=probability_chanse;
     if (random(0, probability_chanse) == 0)
     {
         string[] bakerEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};

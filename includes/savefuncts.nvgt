@@ -119,7 +119,7 @@ musvolume=st.readnd("musvolume");
 }
 if(st.d.exists("playergender"))
 {
-playergender=st.readnd("playergender");
+playergender=st.readnt("playergender");
 }
 if(st.d.exists("playername"))
 {
@@ -149,6 +149,14 @@ if(st.d.exists("sailstep"))
 {
 sailstep=st.readnf("sailstep");
 }
+if(sd.d.exists("evchanse"))
+{
+evchanse=sd.readnt("evchanse");
+}
+if(sd.d.exists("evchanse2"))
+{
+evchanse2=sd.readnt("evchanse2");
+}
 }
 void writepreffs()
 {
@@ -162,5 +170,7 @@ st.add("playervents",playervents);
 st.add("playervents2",playervents2);
 st.add("sailstart",sailstart);
 st.add("sailstep",sailstep);
+st.add("evchanse",evchanse);
+st.add("evchanse2",evchanse2);
 st.save();
 }
