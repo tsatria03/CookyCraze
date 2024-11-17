@@ -9,8 +9,8 @@ int flip=form.create_button("flip a coin");
 int shop=form.create_button("Cooky store. You currently have "+round(coins,0)+" coins.");
 int preffsets=form.create_button("preferences");
 form.focus(manulbake);
-if(!file_exists("data/game.sav")) usercoins=10;
-if(!file_exists("data/game.sav")) coins=usercoins;
+if(!file_exists("data/bakers.crz")) usercoins=10;
+if(!file_exists("data/bakers.crz")) coins=usercoins;
 while(true)
 {
 form.monitor();
