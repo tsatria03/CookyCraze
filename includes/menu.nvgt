@@ -4,6 +4,7 @@ form.reset();
     form.create_window("preferences", false);
     int audsets = form.create_button("audio settings");
 int gamsets = form.create_button("game settings");
+int usersets = form.create_button("user settings");
 form.focus(audsets);
     while (true)
     {
@@ -17,6 +18,10 @@ gamsetsmenu();
         {
 soundsetsmenu();
 }
+        if (form.is_pressed(usersets))
+        {
+usersetsmenu();
+}
         if (key_pressed(KEY_ESCAPE))
         {
 form.reset();
@@ -26,55 +31,28 @@ clicker();
 }
 void gamsetsmenu()
 {
-    string gendertext;
-    if (playergender == 0)
-{
-        gendertext = "Male";
-    }
-else if (playergender == 1)
-{
-        gendertext = "Female";
-    }
-else if (playergender == 2)
-{
-        gendertext = "Non-binary";
-    }
-else
-{
-        gendertext = "Unknown";
-    }
     form.reset();
     form.create_window("Game Settings", false);
-    int charname = form.create_button("Change the character's first name. Currently set to "+playername+".");
-    int charname2 = form.create_button("Change the character's last name. Currently set to "+playername2+".");
-    int chargender = form.create_list("Change the character's gender. Currently set to " + gendertext + ".", 3);
-    form.add_list_item(chargender, "Male");
-    form.add_list_item(chargender, "Female");
-    form.add_list_item(chargender, "Non-binary");
-    if (playergender >= 0 && playergender <= 2)
-{
-        form.set_list_position(chargender, playergender);
-    }
     int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
     int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
     int sail_start_slider = form.create_slider("Cookie sale start percentage.", sailstart, 0, 100, "percent", 1);
     int sail_end_slider = form.create_slider("Cookie sale end percentage.", sailstep, 0, 100, "percent", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 0, 100, "percent", 1);
 int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 - evchanse2, 0, 100, "percent", 1);
-    int autoEventList = form.create_list("Auto-Baking Events", 12, true, false);
+    int autoEventList = form.create_list("Auto-Baking Events", autoBakingEvents.length(), true, false);
     for (uint i = 0; i < autoBakingEvents.length(); i++) {
         form.add_list_item(autoEventList, autoBakingEvents[i], autoBakingEvents[i], -1, autoEventToggles[i]);
     }
-    int manualEventList = form.create_list("Manual-Baking Events", 12, true, false);
+    int manualEventList = form.create_list("Manual-Baking Events", manualBakingEvents.length(), true, false);
     for (uint i = 0; i < manualBakingEvents.length(); i++) {
         form.add_list_item(manualEventList, manualBakingEvents[i], manualBakingEvents[i], -1, manualEventToggles[i]);
     }
-    int coinEventList = form.create_list("Coin Flip Events", 12, true, false);
+    int coinEventList = form.create_list("Coin Flip Events", coinFlipEvents.length(), true, false);
     for (uint i = 0; i < coinFlipEvents.length(); i++) {
         form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
     }
     int savesets = form.create_button("save settings");
-form.focus(charname);
+form.focus(playvents);
     while (true)
     {
         form.monitor();
@@ -85,41 +63,6 @@ evchanse = 100 - form.get_slider(autoChanceSlider);
 evchanse2 = 100 - form.get_slider(manualChanceSlider);
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);
-playergender = form.get_list_position(chargender);
-        if (form.is_pressed(charname))
-        {
-string fn=input.input("Enter the first name of this character.");
-if(fn.is_empty())
-{
-dlg("Error. Your character's first name is invalid!");
-            form.reset();
-            gamsetsmenu();
-}
-else
-{
-playername=fn;
-            dlg("Success! Your character's first name has now been changed to "+playername+".");
-            form.reset();
-            gamsetsmenu();
-}
-}
-        if (form.is_pressed(charname2))
-        {
-string fn2=input.input("Enter the last name of this character.");
-if(fn2.is_empty())
-{
-dlg("Error. Your character's last name is invalid!");
-            form.reset();
-            gamsetsmenu();
-}
-else
-{
-playername2=fn2;
-            dlg("Success! Your character's last name has now been changed to "+playername2+".");
-            form.reset();
-            gamsetsmenu();
-}
-}
         if (form.is_pressed(savesets))
         {
             writepreffs();
@@ -175,11 +118,96 @@ speak(disptrack);
     }
         if (form.is_pressed(savesets))
         {
-writepreffs();
+writepreffs2();
 dlg("settings saved");
 form.reset();
 clicker();
 }
+        if (key_pressed(KEY_ESCAPE))
+        {
+preffsmenu();
+}
+    }
+}
+void usersetsmenu()
+{
+    string gendertext;
+    if (playergender == 0)
+{
+        gendertext = "Male";
+    }
+else if (playergender == 1)
+{
+        gendertext = "Female";
+    }
+else if (playergender == 2)
+{
+        gendertext = "Non-binary";
+    }
+else
+{
+        gendertext = "Unknown";
+    }
+    form.reset();
+    form.create_window("User Settings", false);
+    int charname = form.create_button("Change the character's first name. Currently set to "+playername+".");
+    int charname2 = form.create_button("Change the character's last name. Currently set to "+playername2+".");
+    int chargender = form.create_list("Change the character's gender. Currently set to " + gendertext + ".", 3);
+    form.add_list_item(chargender, "Male");
+    form.add_list_item(chargender, "Female");
+    form.add_list_item(chargender, "Non-binary");
+    if (playergender >= 0 && playergender <= 2)
+{
+        form.set_list_position(chargender, playergender);
+    }
+    int savesets = form.create_button("save settings");
+form.focus(charname);
+    while (true)
+    {
+        form.monitor();
+        wait(5);
+playergender = form.get_list_position(chargender);
+        if (form.is_pressed(charname))
+        {
+string fn=input.input("Enter the first name of this character.");
+if(fn.is_empty())
+{
+dlg("Error. Your character's first name is invalid!");
+            form.reset();
+            gamsetsmenu();
+}
+else
+{
+playername=fn;
+            dlg("Success! Your character's first name has now been changed to "+playername+".");
+            form.reset();
+            gamsetsmenu();
+}
+}
+        if (form.is_pressed(charname2))
+        {
+string fn2=input.input("Enter the last name of this character.");
+if(fn2.is_empty())
+{
+dlg("Error. Your character's last name is invalid!");
+            form.reset();
+            gamsetsmenu();
+}
+else
+{
+playername2=fn2;
+            dlg("Success! Your character's last name has now been changed to "+playername2+".");
+            form.reset();
+            gamsetsmenu();
+}
+}
+        if (form.is_pressed(savesets))
+        {
+            writepreffs3();
+            dlg("settings saved");
+            form.reset();
+            clicker();
+        }
         if (key_pressed(KEY_ESCAPE))
         {
 preffsmenu();
