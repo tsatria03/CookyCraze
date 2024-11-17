@@ -54,7 +54,7 @@ void add(string name, bool value)
 d.set(name,value);
 }
 //function to read a boolion.
-bool readb(string name)
+bool read_bool(string name)
 {
 bool tmp;
 d.get(name,tmp);
@@ -66,7 +66,7 @@ void add(string name, double value)
 d.set(name,value);
 }
 //function to read a number.
-double readnd(string name)
+double read_double(string name)
 {
 double tmp;
 d.get(name,tmp);
@@ -78,7 +78,7 @@ void add(string name, float value)
 d.set(name,value);
 }
 //function to read a number.
-float readnf(string name)
+float read_float(string name)
 {
 float tmp;
 d.get(name,tmp);
@@ -90,7 +90,7 @@ void add(string name, int value)
 d.set(name,value);
 }
 //function to read a number.
-int readnt(string name)
+int read_int(string name)
 {
 int tmp;
 d.get(name,tmp);
@@ -102,7 +102,7 @@ void add(string name, string value)
 d.set(name,value);
 }
 //function to read a string
-string reads(string name)
+string read_string(string name)
 {
 string tmp;
 d.get(name,tmp);
