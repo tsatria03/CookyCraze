@@ -1,7 +1,7 @@
 void attempt_autobaker_event(int probability_chance)
 {
 evchanse=probability_chance;
-    if (random(0, probability_chance - 1) == 0)
+    if (random(0, probability_chance) == 0)
 {
         string event = autoBakingEvents[random(0, autoBakingEvents.length() - 1)];
         if (autoEventToggles[autoBakingEvents.find(event)])
@@ -13,7 +13,7 @@ evchanse=probability_chance;
 void attempt_manebaker_event(int probability_chance)
 {
 evchanse2=probability_chance;
-    if (random(0, probability_chance - 1) == 0)
+    if (random(0, probability_chance) == 0)
 {
         string event = manualBakingEvents[random(0, manualBakingEvents.length() - 1)];
         if (manualEventToggles[manualBakingEvents.find(event)])
@@ -53,18 +53,18 @@ pool.play_stationary("lose.ogg", false);
     }
     else if (event == "gain_cookies")
     {
-        int cookiesGained = random(15,30)*rank;
+        double cookiesGained = random(15,30)*rank;
         cookies += cookiesGained;
 pool.play_stationary("give.ogg", false);
-        speak("Jackpot! You gained " + cookiesGained + " cookies!");
+        speak("Jackpot! You gained " + round(cookiesGained,0) + " cookies!");
     }
     else if (event == "lose_cookies")
     {
-        int cookiesLost = min(random(15,30)*rank, cookies);
+        double cookiesLost = min(random(15,30)*rank, cookies);
         cookies -= cookiesLost;
 pool.play_stationary("lose.ogg", false);
 pool.play_stationary("bee" + random(1, 4) + ".ogg", false);
-        speak("Oh no! You lost " + cookiesLost + " cookies.");
+        speak("Oh no! You lost " + round(cookiesLost,0) + " cookies.");
     }
 else if (event == "increase_hunger")
 {
@@ -80,19 +80,19 @@ else if (event == "decrease_hunger")
 }
     else if (event == "gain_coins")
     {
-        int coinsGained = random(15,30)*rank;
+        double coinsGained = random(15,30)*rank;
         coins += coinsGained;
 pool.play_stationary("give.ogg", false);
 pool.play_stationary("coin50.ogg", false);
-        speak("Lucky flip! You gained " + coinsGained + " coins.");
+        speak("Lucky flip! You gained " + round(coinsGained,0) + " coins.");
     }
     else if (event == "lose_coins")
     {
-        int coinsLost = min(random(15,30)*rank, coins);
+        double coinsLost = min(random(15,30)*rank, coins);
         coins -= coinsLost;
 pool.play_stationary("lose.ogg", false);
 pool.play_stationary("cointoss.ogg", false);
-        speak("Unfortunate flip! You lost " + coinsLost + " coins.");
+        speak("Unfortunate flip! You lost " + round(coinsLost,0) + " coins.");
     }
     else if (event == "increase_cookyspeed")
     {
@@ -119,20 +119,20 @@ void trigger_autobaker_event(string event)
 {
     if (event == "fire_spark")
     {
-        int cookiesLost = min(cookies * 0.2, cookies);
+        double cookiesLost = min(cookies * 0.2, cookies);
         cookies -= cookiesLost;
 pool.play_stationary("alert_small.ogg", false);
 pool.play_stationary("lose.ogg", false);
 pool.play_stationary("burn" + random(1, 3) + ".ogg", false);
-        speak("Oh no! A fire spark burned some of your cookies. You lost " + cookiesLost + " cookies.");
+        speak("Oh no! A fire spark burned some of your cookies. You lost " + round(cookiesLost,0) + " cookies.");
     }
     else if (event == "bonus_cookies")
     {
-        int cookiesGained = random(40,80) * rank;
+        double cookiesGained = random(40,80) * rank;
         cookies += cookiesGained;
 pool.play_stationary("alert_large.ogg", false);
 pool.play_stationary("give.ogg", false);
-        speak("Lucky bake! You gained an extra " + cookiesGained + " cookies!");
+        speak("Lucky bake! You gained an extra " + round(cookiesGained,0) + " cookies!");
     }
 else if (event == "extra_hunger")
 {
@@ -176,21 +176,21 @@ pool.play_stationary("powerdown.ogg", false);
     }
     else if (event == "gain_coins")
     {
-        int coinsGained = random(40,80)*rank;
+        double coinsGained = random(40,80)*rank;
         coins += coinsGained;
 pool.play_stationary("alert_large.ogg", false);
 pool.play_stationary("give.ogg", false);
 pool.play_stationary("coin50.ogg", false);
-        speak("Wonderful! You found a coin stash! You gained " + coinsGained + " coins.");
+        speak("Wonderful! You found a coin stash! You gained " + round(coinsGained,0) + " coins.");
     }
     else if (event == "lose_coins")
     {
-        int coinsLost = min(random(40,80)*rank, coins);
+        double coinsLost = min(random(40,80)*rank, coins);
         coins -= coinsLost;
 pool.play_stationary("alert_small.ogg", false);
 pool.play_stationary("lose.ogg", false);
 pool.play_stationary("cointoss.ogg", false);        
-        speak("Oh crap! Some coins fell out of your pocket! You lost " + coinsLost + " coins.");
+        speak("Oh crap! Some coins fell out of your pocket! You lost " + round(coinsLost,0) + " coins.");
     }
     else if (event == "gain_autocooky")
     {
@@ -229,26 +229,26 @@ void trigger_manebaker_event(string event)
 {
     if (event == "fire_spark")
     {
-        int cookiesLost = min(cookies * 0.2, cookies);
+        double cookiesLost = min(cookies * 0.2, cookies);
         cookies -= cookiesLost;
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
 pool.play_stationary("alert_small.ogg", false);
 pool.play_stationary("lose.ogg", false);
 pool.play_stationary("burn" + random(1, 3) + ".ogg", false);
-        dlg("Oh no! A fire spark burned some of your cookies. You lost " + cookiesLost + " cookies.");
+        dlg("Oh no! A fire spark burned some of your cookies. You lost " + round(cookiesLost,0) + " cookies.");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
     }
     else if (event == "bonus_cookies")
     {
-        int cookiesGained = random(40,80) * rank;
+        double cookiesGained = random(40,80) * rank;
         cookies += cookiesGained;
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
 pool.play_stationary("alert_large.ogg", false);
 pool.play_stationary("give.ogg", false);
-        dlg("Lucky bake! You gained an extra " + cookiesGained + " cookies!");
+        dlg("Lucky bake! You gained an extra " + round(cookiesGained,0) + " cookies!");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
     }
@@ -303,27 +303,27 @@ pool.resume_sound(trackslot);
     }
     else if (event == "gain_coins")
     {
-        int coinsGained = random(40,80)*rank;
+        double coinsGained = random(40,80)*rank;
         coins += coinsGained;
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
 pool.play_stationary("alert_large.ogg", false);
 pool.play_stationary("give.ogg", false);
 pool.play_stationary("coin50.ogg", false);
-        dlg("Wonderful! You found a coin stash! You gained " + coinsGained + " coins.");
+        dlg("Wonderful! You found a coin stash! You gained " + round(coinsGained,0) + " coins.");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
     }
     else if (event == "lose_coins")
     {
-        int coinsLost = min(random(40,80)*rank, coins);
+        double coinsLost = min(random(40,80)*rank, coins);
         coins -= coinsLost;
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
 pool.play_stationary("alert_small.ogg", false);
 pool.play_stationary("lose.ogg", false);
 pool.play_stationary("cointoss.ogg", false);        
-        dlg("Oh crap! Some coins fell out of your pocket! You lost " + coinsLost + " coins.");
+        dlg("Oh crap! Some coins fell out of your pocket! You lost " + round(coinsLost,0) + " coins.");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
     }

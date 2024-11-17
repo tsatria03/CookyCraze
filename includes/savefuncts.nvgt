@@ -221,10 +221,6 @@ if(st3.d.exists("playerprofed"))
 {
 playerprofed=st3.read_bool("playerprofed");
 }
-if(st3.d.exists("usercoins"))
-{
-coins=st3.read_double("usercoins");
-}
 if(st3.d.exists("playergender"))
 {
 playergender=st3.read_int("playergender");
@@ -241,7 +237,6 @@ playername2=st3.read_string("playername2");
 void writepreffs3()
 {
 st3.add("playerprofed",playerprofed);
-st3.add("usercoins",coins);
 st3.add("playergender",playergender);
 st3.add("playername",playername);
 st3.add("playername2",playername2);
