@@ -1,5 +1,6 @@
 new in 1.4
-Separated the preferences menu into three different sections. You can now access and save audio, game, and user settings independently of each other.
+Resolved an issue where event checkboxes in the Game Settings menu did not retain their state after saving, causing all events to revert to being checked when reopening the menu. Now, the selected events are properly saved and loaded as expected.
+Separated the preferences menu into three different sections. You can now access and save audio settings, game settings, and user settings independently of each other.
 Added the ability to customize which events get triggered in the game settings menu. You can use the checkboxes here to toggle auto baking, manule baking, and coin flipping to further refine the events you want to happen durring the game.
 new in 1.3
 Added pitch support to ambience and music in the audio settings menu. I also converted volumes and pitches to percentages for ambiences and music as well.

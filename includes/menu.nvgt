@@ -65,7 +65,7 @@ evchanse2 = 100 - form.get_slider(manualChanceSlider);
         playervents2 = form.is_checked(playvents2);
         if (form.is_pressed(savesets))
         {
-            writepreffs();
+writepreffs(autoEventList, manualEventList, coinEventList);
             dlg("settings saved");
             form.reset();
             clicker();

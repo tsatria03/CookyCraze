@@ -109,10 +109,6 @@ sd.save();
 void readpreffs()
 {
 st.load();
-if(st.d.exists("playerprofed"))
-{
-playerprofed=st.readb("playerprofed");
-}
 if(st.d.exists("playervents"))
 {
 playervents=st.readb("playervents");
@@ -162,6 +158,34 @@ evchanse2=st.readnt("evchanse2");
         }
     }
 }
+void writepreffs(int autoEventList, int manualEventList, int coinEventList)
+{
+st.add("playervents",playervents);
+st.add("playervents2",playervents2);
+st.add("sailstart",sailstart);
+st.add("sailstep",sailstep);
+st.add("evchanse",evchanse);
+st.add("evchanse2",evchanse2);
+    autoEventToggles.resize(autoBakingEvents.length());
+    manualEventToggles.resize(manualBakingEvents.length());
+    coinEventToggles.resize(coinFlipEvents.length());
+    for (uint i = 0; i < autoBakingEvents.length(); i++)
+{
+        autoEventToggles[i] = form.is_list_item_checked(autoEventList, i);
+        st.add("autoEvent_" + autoBakingEvents[i], autoEventToggles[i]);
+    }
+    for (uint i = 0; i < manualBakingEvents.length(); i++)
+{
+        manualEventToggles[i] = form.is_list_item_checked(manualEventList, i);
+        st.add("manualEvent_" + manualBakingEvents[i], manualEventToggles[i]);
+    }
+    for (uint i = 0; i < coinFlipEvents.length(); i++)
+{
+        coinEventToggles[i] = form.is_list_item_checked(coinEventList, i);
+        st.add("coinEvent_" + coinFlipEvents[i], coinEventToggles[i]);
+    }
+st.save();
+}
 void readpreffs2()
 {
 st2.load();
@@ -182,9 +206,21 @@ if(st2.d.exists("muspitch"))
 muspitch=st2.readnd("muspitch");
 }
 }
+void writepreffs2()
+{
+st2.add("ambvolume",ambvolume);
+st2.add("musvolume",musvolume);
+st2.add("ambpitch",ambpitch);
+st2.add("muspitch",muspitch);
+st2.save();
+}
 void readpreffs3()
 {
 st3.load();
+if(st3.d.exists("playerprofed"))
+{
+playerprofed=st3.readb("playerprofed");
+}
 if(st3.d.exists("playergender"))
 {
 playergender=st3.readnt("playergender");
@@ -198,45 +234,9 @@ if(st3.d.exists("playername2"))
 playername2=st3.reads("playername2");
 }
 }
-void writepreffs()
-{
-st.add("playerprofed",playerprofed);
-st.add("playervents",playervents);
-st.add("playervents2",playervents2);
-st.add("sailstart",sailstart);
-st.add("sailstep",sailstep);
-st.add("evchanse",evchanse);
-st.add("evchanse2",evchanse2);
-    autoEventToggles.resize(autoBakingEvents.length());
-    manualEventToggles.resize(manualBakingEvents.length());
-    coinEventToggles.resize(coinFlipEvents.length());
-    for (uint i = 0; i < autoBakingEvents.length(); i++)
-{
-        //autoEventToggles[i] = form.is_list_item_checked(autoEventList, i);
-        st.add("autoEvent_" + autoBakingEvents[i], autoEventToggles[i]);
-    }
-    for (uint i = 0; i < manualBakingEvents.length(); i++)
-{
-        //manualEventToggles[i] = form.is_list_item_checked(manualEventList, i);
-        st.add("manualEvent_" + manualBakingEvents[i], manualEventToggles[i]);
-    }
-    for (uint i = 0; i < coinFlipEvents.length(); i++)
-{
-        //coinEventToggles[i] = form.is_list_item_checked(coinEventList, i);
-        st.add("coinEvent_" + coinFlipEvents[i], coinEventToggles[i]);
-    }
-st.save();
-}
-void writepreffs2()
-{
-st2.add("ambvolume",ambvolume);
-st2.add("musvolume",musvolume);
-st2.add("ambpitch",ambpitch);
-st2.add("muspitch",muspitch);
-st2.save();
-}
 void writepreffs3()
 {
+st3.add("playerprofed",playerprofed);
 st3.add("playergender",playergender);
 st3.add("playername",playername);
 st3.add("playername2",playername2);
