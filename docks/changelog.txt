@@ -1,4 +1,5 @@
 new in 1.4
+Fixed various issues found in the user settings menu.
 Made it so the game returns the user to the last menu in the shop that was chosen, rather than making them exit the store completely after purchasing something.
 Added the ability to mute notifications related to gaining higher ranks in the game. This includes speech and sound feadback for earning coins upon reaching a new rank as well.
 Fixed lots more calculation issues related to various actions performed in the game.

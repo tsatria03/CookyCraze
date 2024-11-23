@@ -177,38 +177,42 @@ form.focus(charname);
 playergender = form.get_list_position(chargender);
         if (form.is_pressed(charname))
         {
+input.set_only_allowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 string fn=input.input("Enter the first name of this character.");
 if(fn.is_empty())
 {
-pool.play_stationary("error.ogg",false);
+alertslot=pool.play_stationary("error.ogg",false);
 dlg("Error. Your character's first name is invalid!");
+pool.destroy_sound(alertslot);
             form.reset();
-            gamsetsmenu();
+            usersetsmenu();
 }
 else
 {
 playername=fn;
             dlg("Success! Your character's first name has now been changed to "+playername+".");
             form.reset();
-            gamsetsmenu();
+            usersetsmenu();
 }
 }
         if (form.is_pressed(charname2))
         {
+input.set_only_allowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
 string fn2=input.input("Enter the last name of this character.");
 if(fn2.is_empty())
 {
 pool.play_stationary("error.ogg",false);
 dlg("Error. Your character's last name is invalid!");
+pool.destroy_sound(alertslot);
             form.reset();
-            gamsetsmenu();
+            usersetsmenu();
 }
 else
 {
 playername2=fn2;
             dlg("Success! Your character's last name has now been changed to "+playername2+".");
             form.reset();
-            gamsetsmenu();
+            usersetsmenu();
 }
 }
         if (form.is_pressed(savesets))
