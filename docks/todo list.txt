@@ -1,3 +1,4 @@
+Add the ability to mute sertain anouncements and sounds in the game settings menu.
 *Done. Make it so you can quickly save by pressing Control S.
 *Done. Make it so you can quickly exit the game by pressing alt F4
 *Done. Make it so you can turn off events for baking.

@@ -9,8 +9,6 @@ int flip=form.create_button("flip a coin");
 int shop=form.create_button("Cooky store. You currently have "+round(coins,0)+" coins.");
 int preffsets=form.create_button("preferences");
 form.focus(manulbake);
-if(!file_exists("data/bakers.crz")) usercoins=10;
-if(!file_exists("data/bakers.crz")) coins=usercoins;
 while(true)
 {
 form.monitor();
@@ -25,6 +23,7 @@ preffsmenu();
             {
 pool.pause_sound(ambslot);
 pool.pause_sound(trackslot);
+pool.play_stationary("heart.ogg",false);
                 dlg("You're feeling very full. No need to eat right now.");
 pool.resume_sound(ambslot);
 pool.resume_sound(trackslot);
@@ -201,7 +200,7 @@ if (form.is_pressed(food))
             pool.destroy_sound(eventslot);
             if (playergender == 0) eventslot = pool.play_stationary("male_vomit.ogg", false);
             if (playergender == 1) eventslot = pool.play_stationary("female_vomit.ogg", false);
-speak("You ate too much! You feel sick, and now lost " + cookiesToEat + " cookies as a penalty.");
+speak("You ate too much! You feel sick, and now lost " + round(cookiesToEat,0) + " cookies as a penalty.");
             hunger = 0;
         }
     } else if (cookies <= 0)
@@ -336,7 +335,7 @@ speak("You have"+round(coins, 0)+"coins available to spend");
 }
 if(key_pressed(KEY_R))
 {
-speak("You're currently rank"+rank+"with"+cookies+"cookies. Your next rank requires"+(cookiesrequiered-cookies)+"cookies");
+speak("You're currently rank "+rank+" with "+round(cookies,0)+" cookies. Your next rank requires "+(cookiesrequiered-round(cookies,0))+" cookies.");
 }
 if(key_pressed(KEY_F))
 {
@@ -382,7 +381,7 @@ speak("You baked a total of"+cookies+"cookies.");
 }
 if(key_pressed(KEY_H))
 {
-speak("You are "+round(hunger/maxhunger*100,2)+"percent hungry.");
+speak("You are "+round(hunger/maxhunger*100,0)+"percent hungry.");
 }
 if(key_pressed(KEY_J))
 {

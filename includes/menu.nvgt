@@ -85,7 +85,7 @@ int ambiencePitchSlider = form.create_slider("Ambience pitch", ambpitch / 2, 0, 
 int musicVolumeSlider = form.create_slider("Music volume", (musvolume + 50) * 2, 0, 100, "percent", 1);
 int musicPitchSlider = form.create_slider("Music pitch", muspitch / 2, 0, 100, "percent", 1);
 int shuffleamb = form.create_button("change ambience");
-int shufflemus = form.create_button("change music track");
+int shufflemus = form.create_button("change music");
     int savesets = form.create_button("save settings");
 form.focus(ambienceVolumeSlider);
     while (true)
@@ -102,7 +102,7 @@ muspitch = form.get_slider(musicPitchSlider) * 2;
         {
 string ambsound="room"+random(1,4)+".ogg";
 pool.destroy_sound(ambslot);
-ambslot=pool.play_stationary_extended(ambsound, true,0,0,musvolume,100,false);
+ambslot=pool.play_stationary_extended(ambsound, true,0,0,ambvolume,ambpitch,false);
     string dispamb = string_replace(ambsound, "", "", true);
     dispamb = string_replace(dispamb, ".ogg", "", true);
 speak(dispamb);
@@ -111,7 +111,7 @@ speak(dispamb);
         {
 string mustrack="music"+random(1,23)+".ogg";
 pool.destroy_sound(trackslot);
-trackslot=pool.play_stationary_extended(mustrack, true,0,0,musvolume,100,false);
+trackslot=pool.play_stationary_extended(mustrack, true,0,0,musvolume,muspitch,false);
     string disptrack = string_replace(mustrack, "", "", true);
     disptrack = string_replace(disptrack, ".ogg", "", true);
 speak(disptrack);
@@ -555,7 +555,7 @@ clicker();
 {
         pool.play_stationary("coin100000.ogg", false);
     }
-    dlg("Successfully sold " + cookiesToSell + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
+    dlg("Successfully sold " + round(cookiesToSell,0) + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
     pool.destroy_sound(alertslot);
     pool.destroy_sound(storslot);
     speak("You're now exiting the cooky store.");
