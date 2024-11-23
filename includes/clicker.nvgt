@@ -191,7 +191,8 @@ if (form.is_pressed(food))
     if (cookies > 0)
 {
         double cookiesToEat = min(100 * rank, cookies);
-        foodslot = pool.play_stationary("chip" + random(1, 3) + ".ogg", false);
+pool.destroy_sound(foodslot);
+        foodslot = pool.play_stationary("eatcookies.ogg", false);
         cookies -= cookiesToEat;
           hunger = max(0, hunger - cookiesToEat);
         if (hunger <= 0)
@@ -263,45 +264,45 @@ pool.destroy_all();
 if (cookies >= cookiesrequiered)
 {
     cookiesrequiered = (cookymod * (rank * (rank * difmod)));
-hunger += 10 * rank;
-    levcoins += 10 * rank;
+hunger+=10 * rank;
+    levcoins+=10 * rank;
     rank+=1;
     coins += levcoins;
     if (levcoins >= 1 && levcoins <= 49)
 {
-        pool.play_stationary("coin1.ogg", false);
+        if(coinsfx==true) pool.play_stationary("coin1.ogg", false);
     }
 else if (levcoins >= 50 && levcoins <= 999)
 {
-        pool.play_stationary("coin50.ogg", false);
+        if(coinsfx==true) pool.play_stationary("coin50.ogg", false);
     }
 else if (levcoins >= 1000 && levcoins <= 9999)
 {
-        pool.play_stationary("coin1000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("coin1000.ogg", false);
     }
 else if (levcoins >= 10000 && levcoins <= 49999)
 {
-        pool.play_stationary("coin10000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("coin10000.ogg", false);
     }
 else if (levcoins >= 50000 && levcoins <= 99999)
 {
-        pool.play_stationary("coin50000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("coin50000.ogg", false);
     }
 else if (levcoins >= 100000 && levcoins <= 999999)
 {
-        pool.play_stationary("coin100000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("coin100000.ogg", false);
     }
 else if (levcoins >= 1000000)
 {
-        pool.play_stationary("coin100000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("coin100000.ogg", false);
     }
-    pool.play_stationary("achievement" + random(1, 2) + ".ogg", false);
-    speak("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + round(levcoins, 0) + " coins for your achievement. Great work!");
+    if(ranksfx==true) pool.play_stationary("achievement" + random(1, 2) + ".ogg", false);
+    if(rankspeech==true) speak("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + round(levcoins, 0) + " coins for your achievement. Great work!");
 if(rank==10)
 {
 levcoins += 10 * rank*2;
-pool.play_stationary("alert_large.ogg", false);
-dlg("Congratulations "+playername+"! You've successfully unlocked the coin flip minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!");
+if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
+if(coinspeech==true) dlg("Congratulations "+playername+"! You've successfully unlocked the coin flip minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!");
 }
 }
 if(alt_is_down())

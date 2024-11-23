@@ -1,7 +1,9 @@
 new in 1.4
-Fixed lots more calculation issues with everything that's cooky related.
+Made it so the game returns the user to the last menu in the shop that was chosen, rather than making them exit the store completely after purchasing something.
+Added the ability to mute notifications related to gaining higher ranks in the game. This includes speech and sound feadback for earning coins upon reaching a new rank as well.
+Fixed lots more calculation issues related to various actions performed in the game.
 Changed the way data is stored for the game. There will now be 3 different files corresponding to which data is being stored at a particular point. This includes audio related settings such as adjusting music and sound volumes, , game related settings such as toggleing player events and adjusting sail amount sliders for the store, and user spisific settings such as changing your character's name and gender identity.
-Fixed an issue where deleting the game.sav file would result in having no coins upon relaunching the game. Now, if the game.sav file is deleted but the usersets.crz file remains intact, players will still receive the initial 10 coins granted on the first launch of the game.
+Fixed an issue where deleting the game.crz file would result in having no coins upon relaunching the game. Now, if the game.crz file is deleted but the usersets.crz file remains intact, players will still receive the initial 10 coins granted on the first launch of the game.
 Resolved an issue where event checkboxes in the Game Settings menu did not retain their state after saving, causing all events to revert to being checked when reopening the menu. Now, the selected events are properly saved and loaded as expected.
 Separated the preferences menu into three different sections. You can now access and save audio settings, game settings, and user settings independently of each other.
 Added the ability to customize which events get triggered in the game settings menu. You can use the checkboxes to toggle triggering of auto baking, manule baking, and coin flipping to further refine the events you want to happen durring the game.
@@ -13,7 +15,7 @@ Added more events to the coin flip minni game.
 Made it so your hunger starts to increase as you rank up in the game. You'll now start to notice things when you get more hungry, such as hering warning sounds and messages. There's now a button that allows you to check your hunger status.
 Updated the save data class with more data types it can read.
 Fixed various issues found in all sliders.
-Modified the Hunger System: The hunger mechanics has now been reworked to reflect how hungry your character is, rather than their actual fullness. Your character's hunger will now start at 5000, and will decrease as they eat more cookies.
+Modified the Hunger System: The hunger mechanics has now been reworked to reflect how hungry your character is, rather than their actual fullness. Your character's hunger will now start at 0, and will increase as they encounter more events.
 Modified the auto cooky speed boost events found in the coin flip and bakery functions.
 You can no longer hold down the spacebar to manuely bake cookies. I couldn't believe this was actually a thing untill someone had mencioned this to me while I was testing it.
 new in 1.2

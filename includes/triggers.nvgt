@@ -30,6 +30,7 @@ void trigger_coin_event(string event)
     if (event == "gain_autocooky")
     {
         autocooky += random(1,5)*rank;
+pool.play_stationary("gain.ogg", false);
 pool.play_stationary("give.ogg", false);
         speak("Lucky flip! You gained some auto-cookies. Now your auto-baking rate has increased.");
     }
@@ -42,6 +43,7 @@ pool.play_stationary("lose.ogg", false);
     else if (event == "gain_manulcooky")
     {
         manulcooky += random(1,5)*rank;
+pool.play_stationary("gain.ogg", false);
 pool.play_stationary("give.ogg", false);
         speak("Nice! You gained some manual cookies. You can now bake more cookies with each click.");
     }
@@ -55,6 +57,7 @@ pool.play_stationary("lose.ogg", false);
     {
         double cookiesGained = random(15,30)*rank;
         cookies += cookiesGained;
+pool.play_stationary("gain.ogg", false);
 pool.play_stationary("give.ogg", false);
         speak("Jackpot! You gained " + round(cookiesGained,0) + " cookies!");
     }
@@ -82,6 +85,7 @@ else if (event == "decrease_hunger")
     {
         double coinsGained = random(15,30)*rank;
         coins += coinsGained;
+pool.play_stationary("gain.ogg", false);
 pool.play_stationary("give.ogg", false);
 pool.play_stationary("coin50.ogg", false);
         speak("Lucky flip! You gained " + round(coinsGained,0) + " coins.");
@@ -98,6 +102,7 @@ pool.play_stationary("cointoss.ogg", false);
     {
         cookyspeed = max(5, cookyspeed - 5/rank);
 clicktime-=cookyspeed;
+pool.play_stationary("gain.ogg", false);
 pool.play_stationary("give.ogg", false);
 pool.play_stationary("powerup.ogg", false);
         speak("Cool! Your baking speed has been increased slightly.");

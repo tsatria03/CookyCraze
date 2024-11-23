@@ -109,6 +109,22 @@ sd.save();
 void readpreffs()
 {
 st.load();
+if(st.d.exists("coinsfx"))
+{
+coinsfx=st.read_bool("coinsfx");
+}
+if(st.d.exists("coinspeech"))
+{
+coinspeech=st.read_bool("coinspeech");
+}
+if(st.d.exists("ranksfx"))
+{
+ranksfx=st.read_bool("ranksfx");
+}
+if(st.d.exists("rankspeech"))
+{
+rankspeech=st.read_bool("rankspeech");
+}
 if(st.d.exists("playervents"))
 {
 playervents=st.read_bool("playervents");
@@ -160,6 +176,10 @@ evchanse2=st.read_int("evchanse2");
 }
 void writepreffs(int autoEventList, int manualEventList, int coinEventList)
 {
+st.add("coinsfx",coinsfx);
+st.add("coinspeech",coinspeech);
+st.add("ranksfx",ranksfx);
+st.add("rankspeech",rankspeech);
 st.add("playervents",playervents);
 st.add("playervents2",playervents2);
 st.add("sailstart",sailstart);
