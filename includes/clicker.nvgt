@@ -22,40 +22,40 @@ preffsmenu();
             if (hunger >= 0 && hunger <= 1000)
             {
 pool.pause_sound(ambslot);
-pool.pause_sound(trackslot);
+pool.pause_sound(mustrackslot);
 pool.play_stationary("heart.ogg",false);
                 dlg("You're feeling very full. No need to eat right now.");
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
             }
             else if (hunger > 1000 && hunger <= 4000)
             {
 pool.pause_sound(ambslot);
-pool.pause_sound(trackslot);
+pool.pause_sound(mustrackslot);
 pool.play_stationary("heart.ogg",false);
                 dlg("You're starting to feel a little hungry. Maybe grab a snack soon.");
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
             }
             else if (hunger > 4000 && hunger <= 7000)
             {
 pool.pause_sound(ambslot);
-pool.pause_sound(trackslot);
+pool.pause_sound(mustrackslot);
 pool.play_stationary("heart2.ogg",false);
                 dlg("You're feeling pretty hungry. You might want to eat something.");
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
             }
             else if (hunger > 7000 && hunger < maxhunger)
             {
 pool.pause_sound(ambslot);
-pool.pause_sound(trackslot);
+pool.pause_sound(mustrackslot);
 alertslot=pool.play_stationary("alert_critical.ogg",false);
 pool.play_stationary("heart3.ogg",false);
                 dlg("You're extremely hungry! You need to eat now.");
 pool.destroy_sound(alertslot);
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
             }
             else if (hunger >= maxhunger)
             {
@@ -65,14 +65,14 @@ pool.resume_sound(trackslot);
                 clicktime+=cookyspeed;
 manulcooky = max(0, manulcooky - random(10, 20) * rank);
 pool.pause_sound(ambslot);
-pool.pause_sound(trackslot);
+pool.pause_sound(mustrackslot);
 alertslot=pool.play_stationary("alert_critical.ogg",false);
 pool.play_stationary("heart.ogg",false);
 dlg("Extreme hunger has consequences! You lost some coins, auto cookies, manual cookies, and auto-cooky speed boosts.");
 hunger=0;
 pool.destroy_sound(alertslot);
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
             }
         }
 if(form.is_pressed(autobake))
@@ -137,11 +137,11 @@ string[] coinsides={"heads", "tails"};
 string side=coinsides[random(0,coinsides.length()-1)];
 pool.destroy_sound(eventslot);
 pool.pause_sound(ambslot);
-pool.pause_sound(trackslot);
+pool.pause_sound(mustrackslot);
 pool.play_stationary("coinflip" + random(1, 2) + ".ogg", false);        
 dlg("you flip a coin. It lands on "+side);
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
         if (side == "heads")
         {
 string[]headsEvents={"gain_autocooky", "gain_manulcooky", "gain_cookies", "decrease_hunger", "gain_coins", "increase_cookyspeed"};
@@ -177,11 +177,12 @@ speak("You need at least 10 coins to enter the cooky store.");
 else if(coins>=10)
 {
 pool.destroy_sound(ambslot);
-pool.destroy_sound(trackslot);
+pool.destroy_sound(mustrackslot);
 speak("You're now entering the cooky store.");
 dlgplay("store_door_open.ogg");
 alertslot=pool.play_stationary("store_welcome.ogg",false);
 storslot=pool.play_stationary("store_amb.ogg",true);
+stortrackslot=pool.play_stationary_extended("store_music.ogg",true,0,0,stormusvolume,stormuspitch,false);
 shopmenu();
 }
 }
@@ -321,11 +322,11 @@ if(key_pressed(KEY_S))
 {
 writedata();
 pool.pause_sound(ambslot);
-pool.pause_sound(trackslot);
+pool.pause_sound(mustrackslot);
 speak("game saved");
 dlgplay("savegame.ogg");
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
 form.reset();
 clicker();
 }
@@ -402,7 +403,7 @@ speak("You  produce"+manulcooky+"cookies per press.");
 if (key_pressed(KEY_ESCAPE))
 {
 pool.pause_sound(ambslot);
-pool.pause_sound(trackslot);
+pool.pause_sound(mustrackslot);
        alertslot=pool.play_stationary("alert_critical.ogg",false);
     setupmenu();    
     m.add_item_tts("Yes, quit the game without saving");
@@ -414,7 +415,7 @@ pool.pause_sound(trackslot);
     {
 pool.destroy_sound(alertslot);
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
         speak("Continuing the game.");
 form.reset();
 clicker();
@@ -438,7 +439,7 @@ exit();
     {
 pool.destroy_sound(alertslot);
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
         speak("Continuing the game.");
 form.reset();
 clicker();
@@ -450,7 +451,7 @@ pool.destroy_sound(alertslot);
         speak("game saved, Continuing the game.");
 dlgplay("savegame.ogg");
 pool.resume_sound(ambslot);
-pool.resume_sound(trackslot);
+pool.resume_sound(mustrackslot);
 form.reset();
 clicker();
     }

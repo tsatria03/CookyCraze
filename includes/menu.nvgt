@@ -90,24 +90,29 @@ void soundsetsmenu()
 {
 form.reset();
     form.create_window("audio settings", false);
-int ambienceVolumeSlider = form.create_slider("ambience volume", (ambvolume + 50) * 2, 0, 100, "percent", 1);
-int ambiencePitchSlider = form.create_slider("Ambience pitch", ambpitch / 2, 0, 100, "percent", 1);
-int musicVolumeSlider = form.create_slider("Music volume", (musvolume + 50) * 2, 0, 100, "percent", 1);
-int musicPitchSlider = form.create_slider("Music pitch", muspitch / 2, 0, 100, "percent", 1);
-int shuffleamb = form.create_button("change ambience");
-int shufflemus = form.create_button("change music");
+int gameAmbienceVolumeSlider = form.create_slider("game ambience volume, ", (ambvolume + 50) * 2, 0, 100, "percent", 1);
+int gameAmbiencePitchSlider = form.create_slider("game ambience pitch, ", ambpitch / 2, 0, 100, "percent", 1);
+int gameMusicVolumeSlider = form.create_slider("game music volume, ", (musvolume + 50) * 2, 0, 100, "percent", 1);
+int gameMusicPitchSlider = form.create_slider("game music pitch, ", muspitch / 2, 0, 100, "percent", 1);
+int storeMusicVolumeSlider = form.create_slider("store music volume, ", (stormusvolume + 50) * 2, 0, 100, "percent", 1);
+int storeMusicPitchSlider = form.create_slider("store music pitch, ", stormuspitch / 2, 0, 100, "percent", 1);
+int shuffleamb = form.create_button("change game ambience");
+int shufflemus = form.create_button("change game music");
     int savesets = form.create_button("save settings");
-form.focus(ambienceVolumeSlider);
+form.focus(gameAmbienceVolumeSlider);
     while (true)
     {
         form.monitor();
         wait(5);
-ambvolume = (form.get_slider(ambienceVolumeSlider) / 2) - 50;
-ambpitch = form.get_slider(ambiencePitchSlider) * 2;
-musvolume = (form.get_slider(musicVolumeSlider) / 2) - 50;
-muspitch = form.get_slider(musicPitchSlider) * 2;
+ambvolume = (form.get_slider(gameAmbienceVolumeSlider) / 2) - 50;
+ambpitch = form.get_slider(gameAmbiencePitchSlider) * 2;
+musvolume = (form.get_slider(gameMusicVolumeSlider) / 2) - 50;
+muspitch = form.get_slider(gameMusicPitchSlider) * 2;
+stormusvolume = (form.get_slider(storeMusicVolumeSlider) / 2) - 50;
+stormuspitch = form.get_slider(storeMusicPitchSlider) * 2;
         pool.update_sound_start_values(ambslot, 0, ambvolume, ambpitch);
-        pool.update_sound_start_values(trackslot, 0, musvolume, muspitch);
+pool.update_sound_start_values(stortrackslot, 0, stormusvolume, stormuspitch);
+        pool.update_sound_start_values(mustrackslot, 0, musvolume, muspitch);
         if (form.is_pressed(shuffleamb))
         {
 string ambsound="room"+random(1,4)+".ogg";
@@ -120,8 +125,8 @@ speak(dispamb);
         if (form.is_pressed(shufflemus))
         {
 string mustrack="music"+random(1,6)+".ogg";
-pool.destroy_sound(trackslot);
-trackslot=pool.play_stationary_extended(mustrack, true,0,0,musvolume,muspitch,false);
+pool.destroy_sound(mustrackslot);
+mustrackslot=pool.play_stationary_extended(mustrack, true,0,0,musvolume,muspitch,false);
     string disptrack = string_replace(mustrack, "", "", true);
     disptrack = string_replace(disptrack, ".ogg", "", true);
 speak(disptrack);
@@ -242,10 +247,11 @@ if(mres==0)
 {
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
+pool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
 dlgplay("store_door_close.ogg");
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-trackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clicker();
 }
@@ -261,10 +267,11 @@ if(stm=="back")
 {
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
+pool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
 dlgplay("store_door_close.ogg");
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-trackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clicker();
 }
@@ -337,10 +344,11 @@ pool.play_stationary("storefail.ogg",false);
             dlg("Error: No amount entered.");
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
+pool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
 dlgplay("store_door_close.ogg");
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-trackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clicker();
         }
@@ -362,10 +370,11 @@ pool.play_stationary("storefail.ogg",false);
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
+pool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
 dlgplay("store_door_close.ogg");
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-trackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clicker();
         } 
@@ -381,10 +390,11 @@ pool.play_stationary("storefail.ogg",false);
         dlg("Error: No amount entered.");
         pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
+pool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
         dlgplay("store_door_close.ogg");
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-trackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clicker();
     }
@@ -408,10 +418,11 @@ pool.play_stationary("storefail.ogg",false);
         dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
         pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
+pool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
         dlgplay("store_door_close.ogg");
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-trackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clicker();
     }
@@ -453,10 +464,11 @@ pool.play_stationary("storefail.ogg",false);
             dlg("Error: No amount entered.");
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
+pool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
 dlgplay("store_door_close.ogg");
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-trackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clicker();
         }
@@ -478,10 +490,11 @@ pool.play_stationary("storefail.ogg",false);
             dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
 pool.destroy_sound(alertslot);
 pool.destroy_sound(storslot);
+pool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
 dlgplay("store_door_close.ogg");
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-trackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clicker();
         }
@@ -500,11 +513,7 @@ create_slider();
     int sres = s.run_slider("Choose the percentage of cookies you'd like to sell:", 0);
     if (sres == 0)
     {
-        pool.resume_sound(ambslot);
-        pool.resume_sound(trackslot);
-        speak("Canceled");
-form.reset();
-clicker();
+shopmenu();
     }
     double percentToSell = s.get_item_value(0);
     double cookiesToSell = double(cookies * (percentToSell / 100.0));
@@ -515,14 +524,15 @@ clicker();
     if (cookiesToSell > cookies)
     {
 pool.destroy_sound(alertslot);
-pool.play_stationary("storefail.ogg",false);
+pool.play_stationary("sellfail.ogg",false);
         dlg("Error: You only have " + cookies + " cookies available to sell.");
         pool.destroy_sound(alertslot);
         pool.destroy_sound(storslot);
-        speak("You're now exiting the cooky store.");
+pool.destroy_sound(stortrackslot);
+speak("You're now exiting the cooky store.");
         dlgplay("store_door_close.ogg");
         ambslot = pool.play_stationary_extended("room" + random(1, 4) + ".ogg", true, 0, 0, ambvolume, 100, false);
-        trackslot = pool.play_stationary_extended("music" + random(1, 23) + ".ogg", true, 0, 0, musvolume, 100, false);
+        mustrackslot = pool.play_stationary_extended("music" + random(1,6) + ".ogg", true, 0, 0, musvolume, 100, false);
 form.reset();
 clicker();
     }
@@ -551,5 +561,5 @@ clicker();
         pool.play_stationary("coin100000.ogg", false);
     }
     dlg("Successfully sold " + round(cookiesToSell,0) + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
-sellmenu();
+shopmenu();
 }

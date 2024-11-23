@@ -222,6 +222,10 @@ if(st2.d.exists("musvolume"))
 {
 musvolume=st2.read_double("musvolume");
 }
+if(st2.d.exists("stormusvolume"))
+{
+stormusvolume=st2.read_double("stormusvolume");
+}
 if(st2.d.exists("ambpitch"))
 {
 ambpitch=st2.read_double("ambpitch");
@@ -230,13 +234,19 @@ if(st2.d.exists("muspitch"))
 {
 muspitch=st2.read_double("muspitch");
 }
+if(st2.d.exists("stormuspitch"))
+{
+stormuspitch=st2.read_double("stormuspitch");
+}
 }
 void writepreffs2()
 {
 st2.add("ambvolume",ambvolume);
 st2.add("musvolume",musvolume);
+st2.add("stormusvolume",stormusvolume);
 st2.add("ambpitch",ambpitch);
 st2.add("muspitch",muspitch);
+st2.add("stormuspitch",stormuspitch);
 st2.save();
 }
 void readpreffs3()
