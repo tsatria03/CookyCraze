@@ -33,6 +33,7 @@ void gamsetsmenu()
 {
     form.reset();
     form.create_window("Game Settings", false);
+int introSFX = form.create_checkbox("Enable playing the intro sound upon starting a new game.", introsfx);
 int logoSFX = form.create_checkbox("Enable playing the logo sound upon launching the game.", logosfx);
     int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
     int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
@@ -57,7 +58,7 @@ int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 -
         form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
     }
     int savesets = form.create_button("save settings");
-form.focus(logoSFX);
+form.focus(introSFX);
     while (true)
     {
         form.monitor();
@@ -66,6 +67,7 @@ form.focus(logoSFX);
         sailstep = form.get_slider(sail_end_slider);
 evchanse = 100 - form.get_slider(autoChanceSlider);
 evchanse2 = 100 - form.get_slider(manualChanceSlider);
+introsfx = form.is_checked(introSFX);
 logosfx = form.is_checked(logoSFX);
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);

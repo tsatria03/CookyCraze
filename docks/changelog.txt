@@ -1,3 +1,5 @@
+new in 1.5
+You can now toggle playing the intro sound upon starting a new game in the game settings menu.
 new in 1.4
 You can now toggle playing the logo sound upon launching the game in the game settings menu.
 Fixed various issues found in the user settings menu.

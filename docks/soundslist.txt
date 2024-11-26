@@ -27,10 +27,11 @@ coin50000.ogg
 coinflip1.ogg
 coinflip2.ogg
 cointoss.ogg
+eatcookies.ogg
 error.ogg
 exitgame.ogg
 female_vomit.ogg
-get.ogg
+gain.ogg
 give.ogg
 heal1.ogg
 heal2.ogg
@@ -50,28 +51,11 @@ menuclick.ogg
 menuenter.ogg
 menuopen.ogg
 music1.ogg
-music10.ogg
-music11.ogg
-music12.ogg
-music13.ogg
-music14.ogg
-music15.ogg
-music16.ogg
-music17.ogg
-music18.ogg
-music19.ogg
 music2.ogg
-music20.ogg
-music21.ogg
-music22.ogg
-music23.ogg
 music3.ogg
 music4.ogg
 music5.ogg
 music6.ogg
-music7.ogg
-music8.ogg
-music9.ogg
 playerstats.ogg
 playerstats_error.ogg
 powerdown.ogg
@@ -83,12 +67,15 @@ room2.ogg
 room3.ogg
 room4.ogg
 savegame.ogg
+sellfail.ogg
 storebounds.ogg
+storechoose.ogg
 storeclick.ogg
 storefail.ogg
 store_amb.ogg
 store_door_close.ogg
 store_door_open.ogg
+store_music.ogg
 store_welcome.ogg
 switchoff.ogg
 switchon.ogg
@@ -98,4 +85,4 @@ toggleon.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 100
+total files: 87

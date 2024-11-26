@@ -1,10 +1,10 @@
 #include"includes/includes.nvgt"
-bool coinsfx=true, coinspeech=true, logosfx=true, ranksfx=true, rankspeech=true, playervents=true, playervents2=true, playerprofed=false;
+bool coinsfx=true, coinspeech=true, introsfx=true, logosfx=true, ranksfx=true, rankspeech=true, playervents=true, playervents2=true, playerprofed=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 bool[] coinEventToggles(coinFlipEvents.length(), true);
 double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=10000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
-double autoCostScaling=1.2, speedCostScaling=1.3, manuleCostScaling=1.1;
+double autoCostScaling=1.1, speedCostScaling=1.1, manuleCostScaling=1.1;
 double autoCostBase=20, speedCostBase=30, manuleCostBase=10;
 double ambvolume=0, musvolume=0, stormusvolume=0, ambpitch=100, muspitch=100, stormuspitch=100;
 float sailstart, sailstep;
@@ -90,7 +90,7 @@ else if (playergender == 2)
 }
             playerprofed = true;
 writepreffs3();
-pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
             clicker();
@@ -103,7 +103,7 @@ mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,
     }
     else if(playerprofed == true)
     {
-pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
 ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
         clicker();
