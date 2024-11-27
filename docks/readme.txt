@@ -10,14 +10,23 @@ The ability to eat Your Cookies. Feeling hungry? Go ahead and eat the cookies yo
 Can you reach the highest rank and become the ultimate baker? Let's find out! Master the balance between baking and indulging, and beware of the effects of over consumption. Play smart and aim for cookie-baking greatness!
 
 Keyboard commands
-Letter, F: announce how many cookies you can produce when baking mode is enabled, if pressed.
-Letter, H: announce how full you are from eating cookies, if pressed.
-Letter, J: announce how many cookies you can produce when baking mode is disabled, if pressed.
-Letter, C: announce how many cookies you've made, if pressed.
-Letter, R: announce the current rank you're at, along with how many cookies are required to advance to the next rank, if pressed.
-Letter, M: announce how many coins you have available to spend, if pressed.
+Letter, F: Announces how many cookies you can produce when baking mode is enabled, if pressed.
+Letter, H: Announces how full you are from eating cookies, if pressed.
+Letter, J: Announces how many cookies you can produce when baking mode is disabled, if pressed.
+Letter, C: Announces how many cookies you've made, if pressed.
+Letter, R: Announces the current rank you're at, along with how many cookies are required to advance to the next rank, if pressed.
+Letter, M: Announces how many coins you have available to spend, if pressed.
 Tab: Cycles forward through the available form controls, if pressed/held down.
-Shift plus tab: Cycles backward through the available form controls, if pressed/held down.
+Shift plus Tab: Cycles backward through the available form controls, if pressed/held down.
 Spacebar: Activates a button on a form control element, if pressed/held down.
 Enter: Activates a button on a form control element, or opens up various menus found in the game,, if pressed.
+Comma: Moves to the previous item in the currently focused buffer, if pressed/held down.
+Period: Moves to the next item in the currently focused buffer, if pressed/held down.
+Shift plus Comma: Moves to the top of the currently focused buffer, if pressed/held down.
+Shift plus Period: Moves to the bottom of the currently focused buffer, if pressed/held down.
+Left Bracket: Navigates to the previous buffer category, if pressed.
+Right Bracket: Navigates to the next buffer category, if pressed.
+Control plus M: Toggles the mute or unmute state of the currently selected buffer, if pressed.
+Control plus S: Saves your game progress, if pressed.
 Escape: Brings up a menu prompt that asks you if you want to quit the game or not, if pressed.
+Alt plus F4: Exits the game immediately, with all unsaved progress lost, if pressed.
