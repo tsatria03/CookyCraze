@@ -2,6 +2,7 @@
 #include"sound_pool.nvgt"
 #include"dget.nvgt"
 #include"audioutils.nvgt"
+#include"buffer.nvgt"
 #include"clicker.nvgt"
 #include"dlg.nvgt"
 #include"extrafuncts.nvgt"

@@ -38,9 +38,7 @@ int logoSFX = form.create_checkbox("Enable playing the logo sound upon launching
     int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
     int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
     int coinSFX = form.create_checkbox("Enable coin sound effects when earning money.", coinsfx);
-    int coinSpeech = form.create_checkbox("Enable coin speech notifications when earning money.", coinspeech);
     int rankSFX = form.create_checkbox("Enable rank-up sound effects.", ranksfx);
-    int rankSpeech = form.create_checkbox("Enable rank-up speech notifications.", rankspeech);
     int sail_start_slider = form.create_slider("Cookie sale start percentage.", sailstart, 0, 100, "percent", 1);
     int sail_end_slider = form.create_slider("Cookie sale end percentage.", sailstep, 0, 100, "percent", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 0, 100, "percent", 1);
@@ -72,9 +70,7 @@ logosfx = form.is_checked(logoSFX);
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);
         coinsfx = form.is_checked(coinSFX);
-        coinspeech = form.is_checked(coinSpeech);
         ranksfx = form.is_checked(rankSFX);
-        rankspeech = form.is_checked(rankSpeech);
         if (form.is_pressed(savesets))
         {
 writepreffs(autoEventList, manualEventList, coinEventList);

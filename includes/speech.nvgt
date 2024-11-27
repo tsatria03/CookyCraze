@@ -10,17 +10,17 @@
  * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "form.nvgt"
-
 tts_voice tts;
 string speechbuff;
 bool use_sr = true;
 string voicename = "SR";
 audio_form@ tts_config_form = null;
 bool tts_default_interrupt = true;
-bool speak(string text, bool interrupt = tts_default_interrupt, bool translate_text = true, bool braille = true) {
+bool speak(string text, bool interrupt = tts_default_interrupt, bool translate_text = true, bool braille = true)
+{
 	speechbuff = text;
-	if (text.length() > 10000) {
+	if (text.length() > 10000)
+{
 		string tmp = text;
 		while (tmp.length() > 0) {
 			uint pos = 4096;
@@ -31,6 +31,17 @@ bool speak(string text, bool interrupt = tts_default_interrupt, bool translate_t
 	} else
 		raw_speak(text, interrupt);
 	return true;
+}
+bool speak_buffer(string text, string buffer_name = "misc", bool interrupt = tts_default_interrupt, bool translate_text = true, bool braille = true)
+{
+    int buffer_index = get_buffer_index(buffer_name);
+    if (buffer_index != -1) {
+        add_buffer_item(buffer_name, text);
+        if (buffers[buffer_index].muted) {
+            return false;
+        }
+    }
+    return speak(text, interrupt, translate_text, braille);
 }
 void raw_speak(string text, bool interrupt) {
 	if (interrupt and tts.speaking) tts.stop();
