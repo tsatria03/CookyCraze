@@ -311,12 +311,10 @@ if(key_repeating(KEY_COMMA))
 if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
 {
 top_buffer_item();
-export_buffers();
 }
 else
 {
 previous_buffer_item();
-export_buffers();
 }
 }
 if(key_repeating(KEY_PERIOD))
@@ -324,30 +322,25 @@ if(key_repeating(KEY_PERIOD))
 if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
 {
 bottom_buffer_item();
-export_buffers();
 }
 else
 {
 next_buffer_item();
-export_buffers();
 }
 }
 if(key_repeating(KEY_LBRACKET))
 {
 previous_buffer();
-export_buffers();
 }
 if(key_repeating(KEY_RBRACKET))
 {
 next_buffer();
-export_buffers();
 }
 if (control_is_down())
 {
 if (key_pressed(KEY_M))
 {
 mute_and_unmute_buffer();
-export_buffers();
 }
 }
 if(shift_is_down())
@@ -355,7 +348,6 @@ if(shift_is_down())
 if (key_pressed(KEY_C))
 {
 copy_buffer_item();
-export_buffers();
 }
 if (key_pressed(KEY_BACKSLASH))
 {
@@ -370,7 +362,6 @@ if(key_pressed(KEY_F4))
 pool.destroy_all();
 speak_buffer("exiting");
 dlgplay("exitgame.ogg");
-export_buffers();
 exit();
 }
 }
@@ -483,7 +474,6 @@ clicker();
 pool.destroy_all();
         speak_buffer("Exiting the game without saving.");
 dlgplay("exitgame.ogg");
-export_buffers();
 exit();
     }
     if (mres == 2)
@@ -492,7 +482,6 @@ exit();
 pool.destroy_all();
         speak_buffer("game saved, Exiting the game.");
 dlgplay("exitgame.ogg");
-export_buffers();
 exit();
     }
     if (mres == 3)
