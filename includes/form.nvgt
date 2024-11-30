@@ -606,7 +606,6 @@ class audio_form {
 		if (focused > -1 && focused <= control_counter && c_form[focused].type == ct_form && @c_form[focused].subform != null && c_form[focused].subform.get_control_count() > 0)
 			autotab = c_form[focused].subform.monitor();
 		if (key_repeating(KEY_TAB) || autotab != 0 && autotab < 2) {
-spool.play_stationary("menuclick.ogg",false);
 			if ((control_counter < 0) || (key_down(KEY_LALT)) || (key_down(KEY_LGUI)) || (key_down(KEY_RALT)) || (key_down(KEY_RGUI)))
 				return 0;
 			if ((control_counter == 0) && (control_focus == 0))

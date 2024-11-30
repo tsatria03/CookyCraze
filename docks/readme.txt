@@ -24,7 +24,7 @@ Comma: Moves to the previous item in the currently focused buffer, if pressed/he
 Period: Moves to the next item in the currently focused buffer, if pressed/held down.
 Shift plus Comma: Moves to the top of the currently focused buffer, if pressed/held down.
 Shift plus Period: Moves to the bottom of the currently focused buffer, if pressed/held down.
-Shift plus Backslash: Exports all buffer items to individual log files found in the logs folder, if pressed/held down.
+Shift plus Backslash: Exports all buffer items to individual log files, found in the logs folder, if pressed/held down.
 Left Bracket: Navigates to the previous buffer category, if pressed.
 Right Bracket: Navigates to the next buffer category, if pressed.
 Control plus M: Toggles the mute or unmute state of the currently selected buffer, if pressed.

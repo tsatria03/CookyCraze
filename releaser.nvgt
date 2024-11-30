@@ -1,0 +1,21 @@
+string projname="cs";
+void main()
+{
+string[]client_files={"cs.exe","keyboard_reference.txt","changelog.txt","nvdaControllerClient32.dll","sounds.dat","readme.txt"};
+string[]missing_files;
+if(!directory_exists(projname)) directory_create(projname);
+for(uint i=0; i<client_files.length(); i++){
+if(file_exists(client_files[i])) file_copy(client_files[i],projname+"/"+client_files[i],true);
+else{ 
+missing_files.insert_last(client_files[i]);
+string missfiles;
+for(uint i2=0; i2<missing_files.length(); i2++){
+missfiles+=missing_files[i2]+"\r\n";
+}
+clipboard_copy_text(missfiles);
+alert("Error","The following files are missing: "+missfiles+". They have been copied to your clipboard.");
+}
+}
+alert("Success!",(client_files.length()-missing_files.length())+" out of "+client_files.length()+" files were copied to the "+projname+" folder."+(missing_files.length()>0?" "+missing_files.length()+" could not be copied.":""));
+exit();
+}

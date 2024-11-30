@@ -6,7 +6,7 @@ bool[] coinEventToggles(coinFlipEvents.length(), true);
 double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=10000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
 double autoCostScaling=1.1, speedCostScaling=1.1, manuleCostScaling=1.1;
 double autoCostBase=20, speedCostBase=30, manuleCostBase=10;
-double ambvolume=0, musvolume=0, stormusvolume=0, ambpitch=100, muspitch=100, stormuspitch=100;
+double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, stormusvolume=0, stormuspitch=100;
 float sailstart, sailstep;
 int ambslot, alertslot, eventslot, foodslot, percslot, storslot, stortrackslot, mustrackslot;
 int evchanse, evchanse2, playergender;
@@ -24,7 +24,7 @@ savedata sd("data/game.crz", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi
 savedata st("data/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
 savedata st2("data/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
 savedata st3("data/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
-sound_pool p, pool;
+sound_pool p, pool, ambpool, muspool, stormuspool;
 text_input input;
 void main()
 {
@@ -96,8 +96,8 @@ else if (playergender == 2)
             playerprofed = true;
 writepreffs3();
 if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
-ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
             clicker();
         }
         else if(mres == 0 || mres == 2)
@@ -109,8 +109,8 @@ mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,
     else if(playerprofed == true)
     {
 if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
-ambslot=pool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=pool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
         clicker();
     }
 }

@@ -3,11 +3,13 @@ achievement2.ogg
 alert_critical.ogg
 alert_large.ogg
 alert_small.ogg
-bake.ogg
+autobake.ogg
 bee1.ogg
 bee2.ogg
 bee3.ogg
 bee4.ogg
+bufferchoose.ogg
+bufferswitch.ogg
 burn1.ogg
 burn2.ogg
 burn3.ogg
@@ -44,9 +46,9 @@ logo1.ogg
 logo2.ogg
 lose.ogg
 male_vomit.ogg
-medalbutton1.ogg
-medalbutton2.ogg
-medalbutton3.ogg
+manulbake1.ogg
+manulbake2.ogg
+manulbake3.ogg
 menuclick.ogg
 menuenter.ogg
 menuopen.ogg
@@ -60,8 +62,6 @@ playerstats.ogg
 playerstats_error.ogg
 powerdown.ogg
 powerup.ogg
-roleta.ogg
-roleta2.ogg
 room1.ogg
 room2.ogg
 room3.ogg
@@ -79,10 +79,9 @@ store_music.ogg
 store_welcome.ogg
 switchoff.ogg
 switchon.ogg
-table.ogg
 toggleoff.ogg
 toggleon.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 87
+total files: 86
