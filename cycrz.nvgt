@@ -8,7 +8,7 @@ double autoCostScaling=1.1, speedCostScaling=1.1, manuleCostScaling=1.1;
 double autoCostBase=20, speedCostBase=30, manuleCostBase=10;
 double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, stormusvolume=0, stormuspitch=100;
 float sailstart, sailstep;
-int ambslot, alertslot, eventslot, foodslot, percslot, storslot, stortrackslot, mustrackslot;
+int ambslot, alertslot, eventslot, foodslot, mustrackslot, percslot, storslot, stortrackslot;
 int evchanse, evchanse2, playergender;
 int bakemode=0,  clicktime=1000-cookyspeed;
 string playername, playername2;

@@ -68,7 +68,7 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 alertslot=pool.play_stationary("alert_critical.ogg",false);
 pool.play_stationary("heart.ogg",false);
-dlg_buffer("Extreme hunger has consequences! You lost some coins, auto cookies, manual cookies, and auto-cooky speed boosts.", "alert");
+dlg_buffer("Extreme hunger has consequences! You lost some coins, auto cookies, manual cookies, and auto-cooky speed boosts.", "critical");
 hunger=0;
 pool.destroy_sound(alertslot);
 ambpool.resume_sound(ambslot);
