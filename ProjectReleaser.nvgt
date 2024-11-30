@@ -1,0 +1,60 @@
+#include"bgt_compat.nvgt"
+string projname="releases/windows/cooky craze password is CrazeMastery";
+string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
+void main()
+{
+    string[] game_files = {"data/assets.crz", "data/game.crz", "data/gamesets.crz", "data/soundsets.crz", "data/usersets.crz", "docks/changelog.txt", "docks/readme.txt", "docks/soundslist.txt", "docks/todo list.txt"};
+    string[] missing_files;
+    if (!directory_exists("releases/windows"))
+    {
+        alert("Error", "The 'releases/windows' directory does not exist. Cannot proceed with file copying.");
+        exit();
+    }
+    if (!directory_exists(projname)) directory_create(projname);
+    if (!directory_exists(projname + "/data")) directory_create(projname + "/data");
+    if (!directory_exists(projname + "/docks")) directory_create(projname + "/docks");
+    for (uint i = 0; i < game_files.length(); i++)
+    {
+        string current_file = game_files[i];
+        string repo_file = repo_dir + "/" + current_file;
+        string dest = "";
+        if (current_file == "data/assets.crz" || current_file == "data/game.crz" || current_file == "data/gamesets.crz" || current_file == "data/soundsets.crz" || current_file == "data/usersets.crz")
+        {
+            dest = projname + "/data/" + current_file.split("/")[1];
+        }
+        else if (current_file == "docks/changelog.txt" || current_file == "docks/readme.txt" || current_file == "docks/soundslist.txt" || current_file == "docks/todo list.txt")
+        {
+            dest = projname + "/docks/" + current_file.split("/")[1];
+        }
+        if (file_exists(repo_file))
+        {
+            file_copy(repo_file, dest, true);
+        }
+        else
+        {
+            missing_files.insert_last(current_file);
+        }
+    }
+    string compiled_game_file = repo_dir + "/cycrz.exe";
+    if (file_exists(compiled_game_file))
+    {
+        string game_dest = projname + "/cycrz.exe";
+        file_copy(compiled_game_file, game_dest, true);
+    }
+    else
+    {
+        missing_files.insert_last("cycrz.exe");
+    }    
+    if (missing_files.length() > 0)
+    {
+        string missfiles = "";
+        for (uint i2 = 0; i2 < missing_files.length(); i2++)
+        {
+            missfiles += missing_files[i2] + "\r\n";
+        }
+        clipboard_copy_text(missfiles);
+        alert("Error", "The following files are missing: " + missfiles + ". They have been copied to your clipboard.");
+    }
+    alert("Success!", (game_files.length() - missing_files.length()) + " out of " + game_files.length() + " files were copied to the " + projname + " folder." + (missing_files.length() > 0 ? " " + missing_files.length() + " could not be copied." : ""));
+    exit();
+}

@@ -63,24 +63,24 @@ void add_buffer_item(string buffername, string itemname)
 }
 void export_buffers()
 {
-string bufferdir="logs";
-if(buffers.length()<=0) return;
-if(!directory_exists(bufferdir)) directory_create(bufferdir);
-for(uint i=0; i<buffers.length(); i++)
-{
-if(buffers[i].items.length()>0)
-{
-logfile.open(bufferdir+"/"+buffers[i].name+".log","ab");
-logfile.write("Exported on "+DATE_MONTH+"/"+DATE_DAY+"/"+DATE_YEAR+"\r\n\r\n");
-string bdata="";
-for(uint i2=0; i2<buffers[i].items.length(); i2++)
-{
-bdata+=buffers[i].items[i2].name+"\r\n";
-}
-logfile.write(bdata);
-logfile.close();
-}
-}
+    string bufferdir = "logs";
+    if (buffers.length() <= 0) return;
+    if (!directory_exists(bufferdir)) directory_create(bufferdir);
+    for (uint i = 0; i < buffers.length(); i++)
+    {
+        if (buffers[i].items.length() > 0)
+        {
+            logfile.open(bufferdir + "/" + buffers[i].name + ".log", "ab");
+            logfile.write("Exported on " + DATE_MONTH + "/" + DATE_DAY + "/" + DATE_YEAR + "\r\n\r\n");
+            string bdata = "";
+            for (uint i2 = 0; i2 < buffers[i].items.length(); i2++)
+            {
+                bdata += buffers[i].items[i2].name + "\r\n";
+            }
+            logfile.write(bdata);
+            logfile.close();
+        }
+    }
 }
 void mute_and_unmute_buffer()
 {
@@ -181,4 +181,12 @@ void copy_buffer_item()
 if(buffers[bufferpos].items.length()<=0) return;
 clipboard_copy_text(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
 speak("Copied to clipboard",true);
+}
+void clear_all_buffer_items()
+{
+for (uint i = 0; i < buffers.length(); i++)
+{
+buffers[i].items.resize(0);
+buffers[i].bpos = 0;
+}
 }

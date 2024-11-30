@@ -353,6 +353,7 @@ if (key_pressed(KEY_BACKSLASH))
 {
 speak("buffers exported");
 export_buffers();
+clear_all_buffer_items();
 }
 }
 if(alt_is_down())
