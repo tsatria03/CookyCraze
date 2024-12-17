@@ -1,4 +1,4 @@
-new in 1.5
+new in 1.4
 Added buffer clearing functions: Introduced clear_all_buffer_items to clear items within a buffer, preventing unnecessary exports of old data.
 Fixed various buffer exporting issues. Buffers can now only be exported if they contain items, preventing empty buffer exports and ensuring cleaner log files. The export buffers function will now skip any buffers without items, ensuring only relevant data is written to those logs.
 Fixed lots of bugs related to sounds not updating properly when volumes and pitches were being changed on them.
@@ -9,7 +9,7 @@ Fixed the bug where buffers continued to speak messages despite being muted. Mut
 Resolved an issue where muted buffers were not logging messages correctly. Muted buffers will now continue logging messages into the buffer for review.
 Introduced a new flexible buffer system that allows you to manage and categorize messages spoken during gameplay. These buffer categories include the folowing. Critical notifications such as hunger warnings and important game milestones, event notifications such as coin flips, auto-baking, and manual-baking, general notifications such as status updates and hunger related tips, and misc notifications such as overall statistics and other game actions, like saving your progress. This system enables better organization of in-game messages, supports navigation through logged events, and allows players to mute/unmute specific buffers that don't need to be spoken, but can still be viewed regardless of it's mute state.
 You can now toggle playing the intro sound upon starting a new game in the game settings menu.
-new in 1.4
+new in 1.3
 You can now toggle playing the logo sound upon launching the game in the game settings menu.
 Fixed various issues found in the user settings menu.
 Made it so the game returns the user to the last menu in the shop that was chosen, rather than making them exit the store completely after purchasing something.
@@ -20,7 +20,7 @@ Fixed an issue where deleting the game.crz file would result in having no coins 
 Resolved an issue where event checkboxes in the Game Settings menu did not retain their state after saving, causing all events to revert to being checked when reopening the menu. Now, the selected events are properly saved and loaded as expected.
 Separated the preferences menu into three different sections. You can now access and save audio settings, game settings, and user settings independently of each other.
 Added the ability to customize which events get triggered in the game settings menu. You can use the checkboxes to toggle triggering of auto baking, manule baking, and coin flipping to further refine the events you want to happen durring the game.
-new in 1.3
+new in 1.2
 Added pitch support to ambience and music in the audio settings menu. I also converted volumes and pitches to percentages for ambiences and music as well.
 Reversed the probability logic for event chances in auto and manual baking. Previously, setting the event chance to 0% resulted in events triggering every time, behaving as though it were set to 100%. Now, a 0% chance will correctly prevent events from triggering, while a 100% chance will trigger events consistently.
 Added the ability to adjust the probability chanse of triggering random events when baking auto or manule cookies.
@@ -31,7 +31,7 @@ Fixed various issues found in all sliders.
 Modified the Hunger System: The hunger mechanics has now been reworked to reflect how hungry your character is, rather than their actual fullness. Your character's hunger will now start at 0, and will increase as they encounter more events.
 Modified the auto cooky speed boost events found in the coin flip and bakery functions.
 You can no longer hold down the spacebar to manuely bake cookies. I couldn't believe this was actually a thing untill someone had mencioned this to me while I was testing it.
-new in 1.2
+new in 1.1
 Added the ability to quickly save your game progress by pressing Control S. You can also quickly exit the game by pressing Alt F4.
 Added a prefferences pannel that let's you adjust various options related to the game, including audio, character information, and other player related things.
 Added ambiences and music tracks. You'll here them across the bord. These can also be adjusted and shuffled in the sound settings of the game.
@@ -42,7 +42,7 @@ Upgraded the effectiveness of the auto cooky speed item in the automatic baking 
 Made it so alert messages Don't use dialogs to notify the player of events while they are in baking mode without having to interupt it.
 Made it so the store open and close sounds can be skipped by pressing the enter key to go in and out of the area faster.
 Fixed a bug where the baking timer was still in the active state even though you didn't have anymore autocookies in your inventory.
-new in 1.1
+new in 1.0
 Polished up the store a bit, and added sounds for going inside, outside, and browsing through various items.
 Added lots of alerts and sounds for special actions and events that will happen throughout the game.
 You can no longer play the coin flipp minni game unless you are at a high enough rank to do so.
@@ -53,7 +53,6 @@ Made some major code optimizations.
 The escape key now brings up Additional menu options for what to do when it asks you if you want to quit the game or not.
 Changed the way the game starts up. It will now guide you through setting up your very own profile for the character you'll play as. This will only occur when you open the game for the first time.
 Added the ability to save your game's progress.
-new in 1.0
 Fixed a bug where your baking speed wouldn't increase no matter how many auto cookies you've bought for the baking mode.
 Fixed a bug with affordable prices in various shop menus being miscalculated, therefore causing inaccurate information to be displayed in the menus. The calculation logic has been updated to ensure that the correct number of items can be purchased based on how many coins you have available to spend.
 Added the ability to see how many of a particular item you can aford when hovering over one of them.
