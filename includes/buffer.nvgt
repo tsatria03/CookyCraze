@@ -50,37 +50,37 @@ buffers.insert_last(buffer1);
 }
 void add_buffer_item(string buffername, string itemname)
 {
-    int b = get_buffer_index(buffername);
-    if (b <= -1) return;
-    buffer_item temp(itemname);
-    buffers[b].items.insert_last(temp);
-    if (!buffers[0].muted && buffername != "all") {
-        buffers[0].items.insert_last(temp);
-    }
-    if (!buffers[b].muted) {
-        speak(itemname, true);
-    }
+int b = get_buffer_index(buffername);
+if (b <= -1) return;
+buffer_item temp(itemname);
+buffers[b].items.insert_last(temp);
+if (!buffers[0].muted && buffername != "all") {
+buffers[0].items.insert_last(temp);
+}
+if (!buffers[b].muted) {
+speak(itemname, true);
+}
 }
 void export_buffers()
 {
-    string bufferdir = "logs";
-    if (buffers.length() <= 0) return;
-    if (!directory_exists(bufferdir)) directory_create(bufferdir);
-    for (uint i = 0; i < buffers.length(); i++)
-    {
-        if (buffers[i].items.length() > 0)
-        {
-            logfile.open(bufferdir + "/" + buffers[i].name + ".log", "ab");
-            logfile.write("Exported on " + DATE_MONTH + "/" + DATE_DAY + "/" + DATE_YEAR + "\r\n\r\n");
-            string bdata = "";
-            for (uint i2 = 0; i2 < buffers[i].items.length(); i2++)
-            {
-                bdata += buffers[i].items[i2].name + "\r\n";
-            }
-            logfile.write(bdata);
-            logfile.close();
-        }
-    }
+string bufferdir = "logs";
+if (buffers.length() <= 0) return;
+if (!directory_exists(bufferdir)) directory_create(bufferdir);
+for (uint i = 0; i < buffers.length(); i++)
+{
+if (buffers[i].items.length() > 0)
+{
+logfile.open(bufferdir + "/" + buffers[i].name + ".log", "ab");
+logfile.write("Exported on " + DATE_MONTH + "/" + DATE_DAY + "/" + DATE_YEAR + "\r\n\r\n");
+string bdata = "";
+for (uint i2 = 0; i2 < buffers[i].items.length(); i2++)
+{
+bdata += buffers[i].items[i2].name + "\r\n";
+}
+logfile.write(bdata);
+logfile.close();
+}
+}
 }
 void mute_and_unmute_buffer()
 {

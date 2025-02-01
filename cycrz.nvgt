@@ -4,8 +4,6 @@ bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 bool[] coinEventToggles(coinFlipEvents.length(), true);
 double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=10000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
-double autoCostScaling=1.1, speedCostScaling=1.1, manuleCostScaling=1.1;
-double autoCostBase=20, speedCostBase=30, manuleCostBase=10;
 double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, stormusvolume=0, stormuspitch=100;
 float sailstart, sailstep;
 int ambslot, alertslot, eventslot, foodslot, mustrackslot, percslot, storslot, stortrackslot;
@@ -40,77 +38,77 @@ readpreffs();
 readpreffs2();
 readpreffs3();
 if(logosfx==true) dlgplay("logo"+random(1,2)+".ogg");
-    if(playerprofed == false)
-    {
-        wait(500);
-        input_form f("game registration");
-        f.add_text_field("first_name", "What would you like your character's first name to be?", "", true, false, " ");
-        f.add_text_field("last_name", "What would you like your character's last name to be?", "", true, false, " ");
-        f.add_choice_field("gender", "What would you like your character's gender to be?", {"male", "female", "non binary"});
-        f.description = "Welcome to Cookie Craze! Please complete the following profile setup to personalize your game experience. You’ll be asked to provide basic information, which will be used to create your player profile. Answer each question to get started on your cookie-baking journey! Please press enter to continue the profile setup.";
-        dictionary@ result = f.run();
-        if(f.user_canceled)
-        {
-            alert("Profile setup unsuccessful", "Profile setup is needed to start your cookie-baking adventure. Please complete your profile to begin playing!");
-            exit();
-        }
-        string first_name = dgets(result, "first_name");
-        string last_name = dgets(result, "last_name");
-        string gender = dgets(result, "gender");
+if(playerprofed == false)
+{
+wait(500);
+input_form f("game registration");
+f.add_text_field("first_name", "What would you like your character's first name to be?", "", true, false, " ");
+f.add_text_field("last_name", "What would you like your character's last name to be?", "", true, false, " ");
+f.add_choice_field("gender", "What would you like your character's gender to be?", {"male", "female", "non binary"});
+f.description = "Welcome to Cookie Craze! Please complete the following profile setup to personalize your game experience. You’ll be asked to provide basic information, which will be used to create your player profile. Answer each question to get started on your cookie-baking journey! Please press enter to continue the profile setup.";
+dictionary@ result = f.run();
+if(f.user_canceled)
+{
+alert("Profile setup unsuccessful", "Profile setup is needed to start your cookie-baking adventure. Please complete your profile to begin playing!");
+exit();
+}
+string first_name = dgets(result, "first_name");
+string last_name = dgets(result, "last_name");
+string gender = dgets(result, "gender");
 playername = first_name;
 playername2 = last_name;
 if (gender == "male")
 {
-    playergender = 0;
+playergender = 0;
 }
 else if (gender == "female")
 {
-    playergender = 1;
+playergender = 1;
 }
 else if (gender == "non binary")
 {
-    playergender = 2;
+playergender = 2;
 }
-        setupmenu();
-        m.add_item_tts("Yes");
-        m.add_item_tts("No");
-        int mres = m.run("Alright, let's confirm your profile info. Your character's first name is " + first_name + ". Your character's last name is " + last_name + ". Your character's gender is " + gender + ". Is this information correct?", true);
-        if(mres == 1)
-        {
-            dlg("Congratulations! You've successfully completed your profile setup. I'll give you 10 coins to get you started on your way.");
+setupmenu();
+m.add_item_tts("Yes");
+m.add_item_tts("No");
+int mres = m.run("Alright, let's confirm your profile info. Your character's first name is " + first_name + ". Your character's last name is " + last_name + ". Your character's gender is " + gender + ". Is this information correct?", true);
+if(mres == 1)
+{
+dlg("Congratulations! You've successfully completed your profile setup. I'll give you 10 coins to get you started on your way.");
 usercoins=10;
 coins=usercoins;
-      dlgplay("coin1.ogg");
+dlgplay("coin1.ogg");
 if (playergender == 0) 
 {
-    dlg("Nice to meat you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
+dlg("Nice to meat you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
 } 
 else if (playergender == 1) 
 {
-    dlg("Nice to meat you, Ms. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
+dlg("Nice to meat you, Ms. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
 } 
 else if (playergender == 2) 
 {
-    dlg("Nice to meat you, " + playername + " " + playername2 + "! Now go have fun baking cookies and reaching new ranks!");
+dlg("Nice to meat you, " + playername + " " + playername2 + "! Now go have fun baking cookies and reaching new ranks!");
 }
-            playerprofed = true;
+playerprofed = true;
 writepreffs3();
 if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
 ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-            clicker();
-        }
-        else if(mres == 0 || mres == 2)
-        {
-            dlg("Profile setup canceled. Restarting setup. Please press enter to continue.");
-            main();
-        }
-    }
-    else if(playerprofed == true)
-    {
+clicker();
+}
+else if(mres == 0 || mres == 2)
+{
+dlg("Profile setup canceled. Restarting setup. Please press enter to continue.");
+main();
+}
+}
+else if(playerprofed == true)
+{
 if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
 ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-        clicker();
-    }
+clicker();
+}
 }

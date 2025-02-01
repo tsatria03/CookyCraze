@@ -22,40 +22,17 @@ return true;
 }
 return false;
 }
-double calculateAutoCost(double currentAmount, double amountToBuy)
-{
-    double totalCost = 0;
-    for(double i = 0; i < amountToBuy; i++)
-    {
-        totalCost += autoCostBase * pow(autoCostScaling, currentAmount + i);
-    }
-    return totalCost;
-}
-double calculateSpeedCost(double currentAmount, double amountToBuy)
-{
-    double totalCost = 0;
-    for(double i = 0; i < amountToBuy; i++)
-    {
-        totalCost += speedCostBase * pow(speedCostScaling, currentAmount + i);
-    }
-    return totalCost;
-}
-double calculateManuleCost(double currentAmount, double amountToBuy)
-{
-    double totalCost=0;
-    for(double i = 0; i < amountToBuy; i++)
-    {
-        totalCost += manuleCostBase * pow(manuleCostScaling, currentAmount + i);
-    }
-    return totalCost;
-}
 double min(double a, double b)
 {
-    return (a < b) ? a : b;
+return (a < b) ? a : b;
 }
 double max(double a, double b)
 {
-    return (a > b) ? a : b;
+return (a > b) ? a : b;
+}
+double buy_item(double num_of_items, double current_cost, double item_multiplier)
+{
+return 1+(num_of_items*0.1)*current_cost*item_multiplier;
 }
 string convert_to_currency(double number, string currency_symbol)
 {

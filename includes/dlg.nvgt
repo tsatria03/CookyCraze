@@ -24,36 +24,36 @@ break;
 }
 void dlg_buffer(string message, string buffer_name = "misc", int timeout = -1)
 {
-    int buffer_index = get_buffer_index(buffer_name);
-    if (buffer_index != -1)
+int buffer_index = get_buffer_index(buffer_name);
+if (buffer_index != -1)
 {
-        add_buffer_item(buffer_name, message);
-        if (buffers[buffer_index].muted)
+add_buffer_item(buffer_name, message);
+if (buffers[buffer_index].muted)
 {
-            return;
-        }
-    }
-    timer timeouter;
-    speak(message);
-    while (true)
+return;
+}
+}
+timer timeouter;
+speak(message);
+while (true)
 {
-        wait(5);
-        if (timeout > -1 && timeouter.elapsed >= timeout)
-            return;
-        if (key_pressed(KEY_C))
+wait(5);
+if (timeout > -1 && timeouter.elapsed >= timeout)
+return;
+if (key_pressed(KEY_C))
 {
-            speak("Copied");
-            clipboard_copy_text(message);
-        }
-        if (key_pressed(KEY_LEFT) || key_pressed(KEY_RIGHT) || key_pressed(KEY_UP) || key_pressed(KEY_DOWN))
+speak("Copied");
+clipboard_copy_text(message);
+}
+if (key_pressed(KEY_LEFT) || key_pressed(KEY_RIGHT) || key_pressed(KEY_UP) || key_pressed(KEY_DOWN))
 {
-            speak(message);
-        }
-        if (key_pressed(KEY_RETURN))
+speak(message);
+}
+if (key_pressed(KEY_RETURN))
 {
-            break;
-        }
-    }
+break;
+}
+}
 }
 void dlgplay(string dlgsound, bool skippable=true, bool fadeable=true, int fadetime=30)
 {

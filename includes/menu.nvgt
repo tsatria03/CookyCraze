@@ -1,3 +1,283 @@
+void shopmenu()
+{
+setupmenu2();
+m.add_item_tts("buy upgrades", "bmu");
+m.add_item_tts("sell cookies", "slm");
+m.add_item_tts("back", "back");
+int mres=m.run("Welcome to the cooky store. Please choose a cattigory to purchis.",true);
+string stm=m.get_item_name(mres);
+if(mres==0)
+{
+pool.destroy_sound(alertslot);
+pool.destroy_sound(storslot);
+stormuspool.destroy_sound(stortrackslot);
+speak("You're now exiting the cooky store.");
+dlgplay("store_door_close.ogg");
+ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+form.reset();
+clicker();
+}
+if(stm=="bmu")
+{
+buymenu();
+}
+if(stm=="slm")
+{
+sellmenu();
+}
+if(stm=="back")
+{
+pool.destroy_sound(alertslot);
+pool.destroy_sound(storslot);
+stormuspool.destroy_sound(stortrackslot);
+speak("You're now exiting the cooky store.");
+dlgplay("store_door_close.ogg");
+ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+form.reset();
+clicker();
+}
+}
+void buymenu()
+{
+setupmenu2();
+m.add_item_tts("automatic baking items", "abi");
+m.add_item_tts("manule baking items", "mabi");
+m.add_item_tts("back", "back");
+int mres=m.run("Upgrades menu. Please choose a cattigory to purchis.",true);
+string stm=m.get_item_name(mres);
+if(mres==0)
+{
+shopmenu();
+}
+if(stm=="abi")
+{
+abimenu();
+}
+if(stm=="mabi")
+{
+mabimenu();
+}
+if(stm=="back")
+{
+shopmenu();
+}
+}
+void abimenu()
+{
+setupmenu2();
+double autoCookyCost = buy_item(autocooky, 20, 20);
+double autoCookySpeedCost = buy_item(cookyspeed, 20, 20);
+double maxBuyableAutoCooky = 0;
+double tempCoins = coins;
+while (tempCoins >= buy_item(autocooky + maxBuyableAutoCooky, 20, 20))
+{
+tempCoins -= buy_item(autocooky + maxBuyableAutoCooky, 20, 20);
+maxBuyableAutoCooky++;
+}
+double maxBuyableAutoCookySpeed = 0;
+tempCoins = coins;
+while (tempCoins >= buy_item(cookyspeed + maxBuyableAutoCookySpeed, 20, 20))
+{
+tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, 20, 20);
+maxBuyableAutoCookySpeed++;
+}
+m.add_item_tts("Auto cooky, costs " + round(autoCookyCost, 0) + " coins. You can buy " + maxBuyableAutoCooky + ".", "abic");
+m.add_item_tts("Auto cooky speed, costs " + round(autoCookySpeedCost, 0) + " coins. You can buy " + maxBuyableAutoCookySpeed + ".", "sabic");
+m.add_item_tts("back", "back");
+int mres = m.run("Automatic baking menu.", true);
+string abm = m.get_item_name(mres);
+if (mres == 0)
+{
+buymenu();
+}
+if (abm == "abic")
+{
+if (coins < autoCookyCost)
+{
+dlg("Error, you don't have enough coins to buy an auto cooky.");
+abimenu();
+return;
+}
+input.set_only_allowed_chars("1234567890");
+string autocook = input.input("How many auto cookies would you like to buy?");
+if (autocook == "") return;
+double quantity = string_to_number(autocook);
+double totalCost = 0;
+for (double i = 0; i < quantity; i++)
+{
+totalCost += buy_item(autocooky + i, 20, 20);
+}
+if (coins >= totalCost)
+{
+coins -= totalCost;
+autocooky += quantity;
+dlg("You bought " + round(quantity, 0) + " auto cookies for " + round(totalCost, 0) + " coins.");
+abimenu(); // Refresh menu to update prices
+}
+else
+{
+dlg("Error, you don't have enough coins to buy " + round(quantity, 0) + " auto cookies.");
+abimenu();
+}
+}
+if (abm == "sabic")
+{
+if (coins < autoCookySpeedCost)
+{
+dlg("Error, you don't have enough coins to buy an auto cooky speed.");
+abimenu();
+return;
+}
+input.set_only_allowed_chars("1234567890");
+string autocooksp = input.input("How many auto cookie speeds would you like to buy?");
+if (autocooksp == "") return;
+double quantity = string_to_number(autocooksp);
+double totalCost = 0;
+for (double i = 0; i < quantity; i++)
+{
+totalCost += buy_item(cookyspeed + i, 20, 20);
+}
+if (coins >= totalCost)
+{
+coins -= totalCost;
+cookyspeed += quantity;
+clicktime-=cookyspeed;
+dlg("You bought " + round(quantity, 0) + " auto cooky speeds for " + round(totalCost, 0) + " coins.");
+abimenu(); // Refresh menu to update prices
+}
+else
+{
+dlg("Error, you don't have enough coins to buy " + round(quantity, 0) + " auto cooky speeds.");
+abimenu();
+}
+}
+if (abm == "back")
+{
+buymenu();
+}
+}
+void mabimenu()
+{
+setupmenu2();
+double manuleCookyCost = buy_item(manulcooky, 20, 20);
+double maxBuyable = 0;
+double tempCoins = coins;
+while (tempCoins >= buy_item(manulcooky + maxBuyable, 20, 20))
+{
+tempCoins -= buy_item(manulcooky + maxBuyable, 20, 20);
+maxBuyable++;
+}
+m.add_item_tts("Manual cooky, costs " + round(manuleCookyCost, 0) + " coins. " + "You can buy " + maxBuyable + ".", "mabic");
+m.add_item_tts("back", "back");
+int mres = m.run("Manual baking menu.", true);
+string mabm = m.get_item_name(mres);
+if (mres == 0)
+{
+buymenu();
+}    
+if (mabm == "mabic")
+{
+if (coins < manuleCookyCost)
+{
+dlg("Error, you don't have enough coins to buy a manule cooky.");
+mabimenu();
+return;
+}
+input.set_only_allowed_chars("1234567890");
+string manulcook = input.input("How many manule cookies would you like to buy?");
+if (manulcook == "") return;
+double quantity = string_to_number(manulcook);
+double totalCost = 0;
+for (double i = 0; i < quantity; i++)
+{
+totalCost += buy_item(manulcooky + i, 20, 20);
+}
+if (coins >= totalCost)
+{
+coins -= totalCost;
+manulcooky += quantity;
+dlg("You bought " + round(quantity, 0) + " manule cookies for " + round(totalCost, 0) + " coins.");
+mabimenu(); // Refresh menu to update prices
+}
+else
+{
+dlg("Error, you don't have enough coins to buy " + round(quantity, 0) + " manule cookies.");
+mabimenu();
+}
+}
+if (mabm == "back")
+{
+buymenu();
+}
+}
+void sellmenu()
+{
+s.enable_beeps = true;
+s.speak_percentages = true;
+create_slider();
+s.add_slider_item("sail amount", 0, 100, sailstart, sailstep);
+int sres = s.run_slider("Choose the percentage of cookies you'd like to sell:", 0);
+if (sres == 0)
+{
+shopmenu();
+}
+double percentToSell = s.get_item_value(0);
+double cookiesToSell = double(cookies * (percentToSell / 100.0));
+if (cookiesToSell <= 0 && percentToSell > 0)
+{
+cookiesToSell = 1;
+}
+double totalCoinsEarned = cookiesToSell * 10;
+if (cookiesToSell > cookies)
+{
+pool.destroy_sound(alertslot);
+pool.play_stationary("sellfail.ogg",false);
+dlg("Error: You only have " + cookies + " cookies available to sell.");
+pool.destroy_sound(alertslot);
+pool.destroy_sound(storslot);
+stormuspool.destroy_sound(stortrackslot);
+speak("You're now exiting the cooky store.");
+dlgplay("store_door_close.ogg");
+ambslot = pool.play_stationary_extended("room" + random(1, 4) + ".ogg", true, 0, 0, ambvolume, 100, false);
+mustrackslot = pool.play_stationary_extended("music" + random(1,6) + ".ogg", true, 0, 0, musvolume, 100, false);
+form.reset();
+clicker();
+}
+cookies -= cookiesToSell;
+coins += totalCoinsEarned;
+if (totalCoinsEarned >= 10 && totalCoinsEarned <= 490)
+{
+pool.play_stationary("coin1.ogg", false);
+}
+else if (totalCoinsEarned >= 500 && totalCoinsEarned <= 9990)
+{
+pool.play_stationary("coin50.ogg", false);
+}
+else if (totalCoinsEarned >= 10000 && totalCoinsEarned <= 99990)
+{
+pool.play_stationary("coin1000.ogg", false);
+}
+else if (totalCoinsEarned >= 100000 && totalCoinsEarned <= 499990)
+{
+pool.play_stationary("coin10000.ogg", false);
+}
+else if (totalCoinsEarned >= 500000 && totalCoinsEarned <= 999990)
+{
+pool.play_stationary("coin50000.ogg", false);
+}
+else if (totalCoinsEarned >= 1000000 && totalCoinsEarned <= 9999990)
+{
+pool.play_stationary("coin100000.ogg", false);
+}
+else if (totalCoinsEarned >= 10000000)
+{
+pool.play_stationary("coin100000.ogg", false);
+}
+dlg("Successfully sold " + round(cookiesToSell,0) + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
+shopmenu();
+}
 void preffsmenu()
 {
 form.reset();
@@ -232,332 +512,4 @@ playername2=fn2;
 preffsmenu();
 }
     }
-}
-void shopmenu()
-{
-setupmenu2();
-m.add_item_tts("buy upgrades", "bmu");
-m.add_item_tts("sell cookies", "slm");
-m.add_item_tts("back", "back");
-int mres=m.run("Welcome to the cooky store. Please choose a cattigory to purchis.",true);
-string stm=m.get_item_name(mres);
-if(mres==0)
-{
-pool.destroy_sound(alertslot);
-pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-dlgplay("store_door_close.ogg");
-ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-form.reset();
-clicker();
-}
-if(stm=="bmu")
-{
-buymenu();
-}
-if(stm=="slm")
-{
-sellmenu();
-}
-if(stm=="back")
-{
-pool.destroy_sound(alertslot);
-pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-dlgplay("store_door_close.ogg");
-ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-form.reset();
-clicker();
-}
-}
-void buymenu()
-{
-setupmenu2();
-m.add_item_tts("automatic baking items", "abi");
-m.add_item_tts("manule baking items", "mabi");
-m.add_item_tts("back", "back");
-int mres=m.run("Upgrades menu. Please choose a cattigory to purchis.",true);
-string stm=m.get_item_name(mres);
-if(mres==0)
-{
-shopmenu();
-}
-if(stm=="abi")
-{
-abimenu();
-}
-if(stm=="mabi")
-{
-mabimenu();
-}
-if(stm=="back")
-{
-shopmenu();
-}
-}
-void abimenu()
-{
-    setupmenu2();
-    double nextAutoCost = autoCostBase * pow(autoCostScaling, autocooky);
-    double nextSpeedCost = speedCostBase * pow(speedCostScaling, cookyspeed);
-    double remainingCoins = coins;
-    double autoAffordable = 0;
-    double speedAffordable = 0;
-    double currentAutoCost = nextAutoCost;
-    while (remainingCoins >= currentAutoCost)
-    {
-        remainingCoins -= currentAutoCost;
-        autoAffordable++;
-        currentAutoCost = autoCostBase * pow(autoCostScaling, autocooky + autoAffordable);
-    }
-    remainingCoins = coins;
-    double currentSpeedCost = nextSpeedCost;
-    while (remainingCoins >= currentSpeedCost)
-    {
-        remainingCoins -= currentSpeedCost;
-        speedAffordable++;
-        currentSpeedCost = speedCostBase * pow(speedCostScaling, cookyspeed + speedAffordable);
-    }
-    m.add_item_tts("auto cooky, costs " + round(nextAutoCost, 0) + " coins. You can buy " + round(autoAffordable, 0), "abic");
-    m.add_item_tts("auto cooky speed, costs " + round(nextSpeedCost, 0) + " coins. You can buy " + round(speedAffordable, 0), "sabic");
-    m.add_item_tts("back", "back");
-    int mres = m.run("Automatic baking menu.", true);
-    string abm = m.get_item_name(mres);
-    if (mres == 0)
-    {
-        buymenu();
-    }
-    if (abm == "abic")
-    {
-input.set_only_allowed_chars("1234567890");
-string autoclick = input.input("How many auto cookies would you like to buy?", "");
-        if (autoclick.is_empty())
-        {
-pool.destroy_sound(alertslot);
-pool.play_stationary("storefail.ogg",false);
-            dlg("Error: No amount entered.");
-pool.destroy_sound(alertslot);
-pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-dlgplay("store_door_close.ogg");
-ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-form.reset();
-clicker();
-        }
-        double amount = string_to_number(autoclick);
-        double totalCost = calculateAutoCost(autocooky, amount);
-        if (coins >= totalCost)
-        {
-            coins -= totalCost;
-            autocooky += amount;
-            double nextCost = autoCostBase * pow(autoCostScaling, autocooky);
-percslot=pool.play_stationary("buy"+random(1,4)+".ogg",false);
-dlg("Purchase successful! You now have " + autocooky + " auto cookies. Next one will cost " + round(nextCost, 0) + " coins.");
-abimenu();
-        }
-        else
-        {
-pool.destroy_sound(alertslot);
-pool.play_stationary("storefail.ogg",false);
-            dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
-pool.destroy_sound(alertslot);
-pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-dlgplay("store_door_close.ogg");
-ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-form.reset();
-clicker();
-        } 
-    }
-if (abm == "sabic")
-{
-    input.set_only_allowed_chars("1234567890");
-    string speedclick = input.input("How many cooky speed boosters would you like to buy?", "");
-    if (speedclick.is_empty())
-    {
-pool.destroy_sound(alertslot);
-pool.play_stationary("storefail.ogg",false);
-        dlg("Error: No amount entered.");
-        pool.destroy_sound(alertslot);
-pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-        dlgplay("store_door_close.ogg");
-ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-form.reset();
-clicker();
-    }
-    double amount = string_to_number(speedclick);
-    double totalCost = calculateSpeedCost(cookyspeed, amount);
-    if (coins >= totalCost)
-    {
-        coins -= totalCost;
-        cookyspeed += amount;
-        clicktime -= amount * 5;       
-        clicktime = max(50, clicktime);
-        double nextCost = speedCostBase * pow(speedCostScaling, cookyspeed);
-        percslot=pool.play_stationary("buy"+random(1,4)+".ogg", false);
-        dlg("Purchase successful! Your baking speed has been increased! Next upgrade will cost " + round(nextCost, 0) + " coins.");
-abimenu();
-    }
-    else
-    {
-pool.destroy_sound(alertslot);
-pool.play_stationary("storefail.ogg",false);
-        dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
-        pool.destroy_sound(alertslot);
-pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-        dlgplay("store_door_close.ogg");
-ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-form.reset();
-clicker();
-    }
-}
-    if (abm == "back")
-{
-buymenu();
-}
-}
-void mabimenu()
-{
-    setupmenu2();
-    double nextManuleCost = manuleCostBase * pow(manuleCostScaling, manulcooky);   
-    double remainingCoins = coins;
-    double manuleAffordable = 0;
-    double currentCost = nextManuleCost;
-    while (remainingCoins >= currentCost)
-{
-        remainingCoins -= currentCost;
-        manuleAffordable++;
-        currentCost = manuleCostBase * pow(manuleCostScaling, manulcooky + manuleAffordable);
-    }
-    m.add_item_tts("manual cooky, costs " + round(nextManuleCost, 0) + " coins. You can buy " + round(manuleAffordable, 0), "mabic");
-    m.add_item_tts("back", "back");
-    int mres = m.run("Manual baking menu.", true);
-    string mabm = m.get_item_name(mres);
-    if (mres == 0)
-{
-        buymenu();
-    }    
-    if (mabm == "mabic")
-{
-input.set_only_allowed_chars("1234567890");
-string manulclick = input.input("How many manual cookies would you like to buy?", "");
-        if (manulclick.is_empty())
-{
-pool.destroy_sound(alertslot);
-pool.play_stationary("storefail.ogg",false);
-            dlg("Error: No amount entered.");
-pool.destroy_sound(alertslot);
-pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-dlgplay("store_door_close.ogg");
-ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-form.reset();
-clicker();
-        }
-        double amount = string_to_number(manulclick);
-        double totalCost = calculateManuleCost(manulcooky, amount);
-        if (coins >= totalCost)
-{
-            coins -= totalCost;
-            manulcooky += amount;
-            double nextCost = manuleCostBase * pow(manuleCostScaling, manulcooky);
-percslot=pool.play_stationary("buy"+random(1,4)+".ogg",false);
-dlg("Purchase successful! You now produce " + manulcooky + " cookies per click! Next upgrade will cost " + round(nextCost, 0) + " coins.");
-mabimenu();
-        }
-else
-{
-pool.destroy_sound(alertslot);
-pool.play_stationary("storefail.ogg",false);
-            dlg("Error: Not enough coins! You need " + round((totalCost - coins), 0) + " more coins to buy this.");
-pool.destroy_sound(alertslot);
-pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-dlgplay("store_door_close.ogg");
-ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
-form.reset();
-clicker();
-        }
-    }
-    if (mabm == "back")
-{
-buymenu();
-}
-}
-void sellmenu()
-{
-s.enable_beeps = true;
-s.speak_percentages = true;
-create_slider();
-    s.add_slider_item("sail amount", 0, 100, sailstart, sailstep);
-    int sres = s.run_slider("Choose the percentage of cookies you'd like to sell:", 0);
-    if (sres == 0)
-    {
-shopmenu();
-    }
-    double percentToSell = s.get_item_value(0);
-    double cookiesToSell = double(cookies * (percentToSell / 100.0));
-    if (cookiesToSell <= 0 && percentToSell > 0) {
-        cookiesToSell = 1;
-    }
-    double totalCoinsEarned = cookiesToSell * 10;
-    if (cookiesToSell > cookies)
-    {
-pool.destroy_sound(alertslot);
-pool.play_stationary("sellfail.ogg",false);
-        dlg("Error: You only have " + cookies + " cookies available to sell.");
-        pool.destroy_sound(alertslot);
-        pool.destroy_sound(storslot);
-stormuspool.destroy_sound(stortrackslot);
-speak("You're now exiting the cooky store.");
-        dlgplay("store_door_close.ogg");
-        ambslot = pool.play_stationary_extended("room" + random(1, 4) + ".ogg", true, 0, 0, ambvolume, 100, false);
-        mustrackslot = pool.play_stationary_extended("music" + random(1,6) + ".ogg", true, 0, 0, musvolume, 100, false);
-form.reset();
-clicker();
-    }
-    cookies -= cookiesToSell;
-    coins += totalCoinsEarned;
-    if (totalCoinsEarned >= 10 && totalCoinsEarned <= 490)
-{
-        pool.play_stationary("coin1.ogg", false);
-    } else if (totalCoinsEarned >= 500 && totalCoinsEarned <= 9990)
-{
-        pool.play_stationary("coin50.ogg", false);
-    } else if (totalCoinsEarned >= 10000 && totalCoinsEarned <= 99990)
-{
-        pool.play_stationary("coin1000.ogg", false);
-    } else if (totalCoinsEarned >= 100000 && totalCoinsEarned <= 499990)
-{
-        pool.play_stationary("coin10000.ogg", false);
-    } else if (totalCoinsEarned >= 500000 && totalCoinsEarned <= 999990)
-{
-        pool.play_stationary("coin50000.ogg", false);
-    } else if (totalCoinsEarned >= 1000000 && totalCoinsEarned <= 9999990)
-{
-        pool.play_stationary("coin100000.ogg", false);
-    } else if (totalCoinsEarned >= 10000000)
-{
-        pool.play_stationary("coin100000.ogg", false);
-    }
-    dlg("Successfully sold " + round(cookiesToSell,0) + " cookies for " + round(totalCoinsEarned, 0) + " coins!");
-shopmenu();
 }
