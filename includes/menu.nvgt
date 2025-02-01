@@ -67,20 +67,20 @@ shopmenu();
 void abimenu()
 {
 setupmenu2();
-double autoCookyCost = buy_item(autocooky, 20, 20);
-double autoCookySpeedCost = buy_item(cookyspeed, 20, 20);
+double autoCookyCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
+double autoCookySpeedCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 double maxBuyableAutoCooky = 0;
 double tempCoins = coins;
-while (tempCoins >= buy_item(autocooky + maxBuyableAutoCooky, 20, 20))
+while (tempCoins >= buy_item(autocooky + maxBuyableAutoCooky, autoCookyBaseCost, autoCookyMultiplier))
 {
-tempCoins -= buy_item(autocooky + maxBuyableAutoCooky, 20, 20);
+tempCoins -= buy_item(autocooky + maxBuyableAutoCooky, autoCookyBaseCost, autoCookyMultiplier);
 maxBuyableAutoCooky++;
 }
 double maxBuyableAutoCookySpeed = 0;
 tempCoins = coins;
-while (tempCoins >= buy_item(cookyspeed + maxBuyableAutoCookySpeed, 20, 20))
+while (tempCoins >= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier))
 {
-tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, 20, 20);
+tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 maxBuyableAutoCookySpeed++;
 }
 m.add_item_tts("Auto cooky, costs " + round(autoCookyCost, 0) + " coins. You can buy " + maxBuyableAutoCooky + ".", "abic");
@@ -107,7 +107,7 @@ double quantity = string_to_number(autocook);
 double totalCost = 0;
 for (double i = 0; i < quantity; i++)
 {
-totalCost += buy_item(autocooky + i, 20, 20);
+totalCost += buy_item(autocooky + i, autoCookyBaseCost, autoCookyMultiplier);
 }
 if (coins >= totalCost)
 {
@@ -137,7 +137,7 @@ double quantity = string_to_number(autocooksp);
 double totalCost = 0;
 for (double i = 0; i < quantity; i++)
 {
-totalCost += buy_item(cookyspeed + i, 20, 20);
+totalCost += buy_item(cookyspeed + i, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 }
 if (coins >= totalCost)
 {
@@ -161,12 +161,12 @@ buymenu();
 void mabimenu()
 {
 setupmenu2();
-double manuleCookyCost = buy_item(manulcooky, 20, 20);
+double manuleCookyCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
 double maxBuyable = 0;
 double tempCoins = coins;
-while (tempCoins >= buy_item(manulcooky + maxBuyable, 20, 20))
+while (tempCoins >= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manualCookyMultiplier))
 {
-tempCoins -= buy_item(manulcooky + maxBuyable, 20, 20);
+tempCoins -= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manualCookyMultiplier);
 maxBuyable++;
 }
 m.add_item_tts("Manual cooky, costs " + round(manuleCookyCost, 0) + " coins. " + "You can buy " + maxBuyable + ".", "mabic");
@@ -192,7 +192,7 @@ double quantity = string_to_number(manulcook);
 double totalCost = 0;
 for (double i = 0; i < quantity; i++)
 {
-totalCost += buy_item(manulcooky + i, 20, 20);
+totalCost += buy_item(manulcooky + i, manualCookyBaseCost, manualCookyMultiplier);
 }
 if (coins >= totalCost)
 {
@@ -319,6 +319,12 @@ int logoSFX = form.create_checkbox("Enable playing the logo sound upon launching
     int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
     int coinSFX = form.create_checkbox("Enable coin sound effects when earning money.", coinsfx);
     int rankSFX = form.create_checkbox("Enable rank-up sound effects.", ranksfx);
+    int autoCookyBaseCostSlider = form.create_slider("Auto Cooky Base Cost", autoCookyBaseCost, 1, 100, "coins", 1);
+    int autoCookyMultiplierSlider = form.create_slider("Auto Cooky Cost Multiplier", autoCookyMultiplier, 1, 100, "X", 1);
+    int autoCookySpeedBaseCostSlider = form.create_slider("Auto Cooky Speed Base Cost", autoCookySpeedBaseCost, 1, 100, "coins", 1);
+    int autoCookySpeedMultiplierSlider = form.create_slider("Auto Cooky Speed Cost Multiplier", autoCookySpeedMultiplier, 1, 100, "X", 1);
+    int manualCookyBaseCostSlider = form.create_slider("Manual Cooky Base Cost", manualCookyBaseCost, 1, 100, "coins", 1);
+    int manualCookyMultiplierSlider = form.create_slider("Manual Cooky Cost Multiplier", manualCookyMultiplier, 1, 100, "X", 1);
     int sail_start_slider = form.create_slider("Cookie sale start percentage.", sailstart, 0, 100, "percent", 1);
     int sail_end_slider = form.create_slider("Cookie sale end percentage.", sailstep, 0, 100, "percent", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 0, 100, "percent", 1);
@@ -341,6 +347,12 @@ form.focus(introSFX);
     {
         form.monitor();
         wait(5);
+       autoCookyBaseCost = form.get_slider(autoCookyBaseCostSlider);
+        autoCookyMultiplier = form.get_slider(autoCookyMultiplierSlider);
+        autoCookySpeedBaseCost = form.get_slider(autoCookySpeedBaseCostSlider);
+        autoCookySpeedMultiplier = form.get_slider(autoCookySpeedMultiplierSlider);
+        manualCookyBaseCost = form.get_slider(manualCookyBaseCostSlider);
+        manualCookyMultiplier = form.get_slider(manualCookyMultiplierSlider);
         sailstart = form.get_slider(sail_start_slider);
         sailstep = form.get_slider(sail_end_slider);
 evchanse = 100 - form.get_slider(autoChanceSlider);

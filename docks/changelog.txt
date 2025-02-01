@@ -1,6 +1,7 @@
 new in 1.5
+You can now adjust the base cost and cost multiplier of items for the shop in the game settings menu.
 Made it so you can no longer buy negative amounts of items in the shop menu.
-Recoded the cost calculation system. It will no longer jump to Outrageously high prices when buying more than a hand full of items in the shop menu.
+Recoded the cost calculation system. It will no longer jump to Outrageously high prices when buying more than a handful of items in the shop menu. The infinit coin bug should finally be resolved once and for all!
 new in 1.4
 Added buffer clearing functions: Introduced clear_all_buffer_items to clear items within a buffer, preventing unnecessary exports of old data.
 Fixed various buffer exporting issues. Buffers can now only be exported if they contain items, preventing empty buffer exports and ensuring cleaner log files. The export buffers function will now skip any buffers without items, ensuring only relevant data is written to those logs.

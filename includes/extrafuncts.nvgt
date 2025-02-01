@@ -30,9 +30,9 @@ double max(double a, double b)
 {
 return (a > b) ? a : b;
 }
-double buy_item(double num_of_items, double current_cost, double item_multiplier)
+double buy_item(double item, double base_cost, double cost_multiplier)
 {
-return 1+(num_of_items*0.1)*current_cost*item_multiplier;
+return 1+(item*0.1)*base_cost*cost_multiplier;
 }
 string convert_to_currency(double number, string currency_symbol)
 {
