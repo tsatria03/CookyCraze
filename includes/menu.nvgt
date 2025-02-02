@@ -97,7 +97,7 @@ if (abm == "abic")
 if (coins < autoCookyCost)
 {
 dlg("Error, you don't have enough coins to buy an auto cooky.");
-abimenu();
+buymenu();
 return;
 }
 input.set_only_allowed_chars("1234567890");
@@ -114,12 +114,12 @@ if (coins >= totalCost)
 coins -= totalCost;
 autocooky += quantity;
 dlg("You bought " + round(quantity, 0) + " auto cookies for " + round(totalCost, 0) + " coins.");
-abimenu(); // Refresh menu to update prices
+buymenu(); // Refresh menu to update prices
 }
 else
 {
 dlg("Error, you don't have enough coins to buy " + round(quantity, 0) + " auto cookies.");
-abimenu();
+buymenu();
 }
 }
 if (abm == "sabic")
@@ -127,7 +127,7 @@ if (abm == "sabic")
 if (coins < autoCookySpeedCost)
 {
 dlg("Error, you don't have enough coins to buy an auto cooky speed.");
-abimenu();
+buymenu();
 return;
 }
 input.set_only_allowed_chars("1234567890");
@@ -145,12 +145,12 @@ coins -= totalCost;
 cookyspeed += quantity;
 clicktime-=cookyspeed;
 dlg("You bought " + round(quantity, 0) + " auto cooky speeds for " + round(totalCost, 0) + " coins.");
-abimenu(); // Refresh menu to update prices
+buymenu(); // Refresh menu to update prices
 }
 else
 {
 dlg("Error, you don't have enough coins to buy " + round(quantity, 0) + " auto cooky speeds.");
-abimenu();
+buymenu();
 }
 }
 if (abm == "back")
@@ -182,7 +182,7 @@ if (mabm == "mabic")
 if (coins < manuleCookyCost)
 {
 dlg("Error, you don't have enough coins to buy a manule cooky.");
-mabimenu();
+buymenu();
 return;
 }
 input.set_only_allowed_chars("1234567890");
@@ -199,12 +199,12 @@ if (coins >= totalCost)
 coins -= totalCost;
 manulcooky += quantity;
 dlg("You bought " + round(quantity, 0) + " manule cookies for " + round(totalCost, 0) + " coins.");
-mabimenu(); // Refresh menu to update prices
+buymenu(); // Refresh menu to update prices
 }
 else
 {
 dlg("Error, you don't have enough coins to buy " + round(quantity, 0) + " manule cookies.");
-mabimenu();
+buymenu();
 }
 }
 if (mabm == "back")
@@ -341,7 +341,7 @@ int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 -
     for (uint i = 0; i < coinFlipEvents.length(); i++) {
         form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
     }
-    int savesets = form.create_button("save settings");
+    int savesets = form.create_button("&save settings");
 form.focus(introSFX);
     while (true)
     {
@@ -388,7 +388,7 @@ int storeMusicVolumeSlider = form.create_slider("store music volume, ", (stormus
 int storeMusicPitchSlider = form.create_slider("store music pitch, ", stormuspitch / 2, 0, 100, "percent", 1);
 int shuffleamb = form.create_button("change game ambience");
 int shufflemus = form.create_button("change game music");
-    int savesets = form.create_button("save settings");
+    int savesets = form.create_button("&save settings");
 form.focus(gameAmbienceVolumeSlider);
     while (true)
     {
@@ -465,7 +465,7 @@ else
 {
         form.set_list_position(chargender, playergender);
     }
-    int savesets = form.create_button("save settings");
+    int savesets = form.create_button("&save settings");
 form.focus(charname);
     while (true)
     {
