@@ -1,13 +1,13 @@
 void game()
 {
 form.create_window("CookyCraze", false);
-int manulbake=form.create_button("Bake cookies. You currently have "+round(manulcooky,0)+" manule cookies.");
-int autobake=form.create_button("Enter baking mode. You currently have "+round(autocooky,0)+" auto cookies.");
-int checkHunger = form.create_button("Check hunger status");
-int food=form.create_button("Eat cookies. You currently have "+round(cookies,0)+" cookies.");
-int flip=form.create_button("flip a coin");
-int shop=form.create_button("Cooky store. You currently have "+round(coins,0)+" coins.");
-int preffsets=form.create_button("preferences");
+int manulbake=form.create_button("&Bake cookies. You currently have "+round(manulcooky,0)+" manule cookies.");
+int autobake=form.create_button("Baking &mode. You currently have "+round(autocooky,0)+" auto cookies.");
+int checkHunger = form.create_button("Check &hunger status");
+int food=form.create_button("&Eat cookies. You currently have "+round(cookies,0)+" cookies.");
+int shop=form.create_button("Cooky &store. You currently have "+round(coins,0)+" coins.");
+int minigames=form.create_button("mini &games");
+int preffsets=form.create_button("&preferences");
 form.focus(manulbake);
 while(true)
 {
@@ -16,6 +16,10 @@ wait(5);
 if (form.is_pressed(preffsets))
 {
 preffsmenu();
+}
+if (form.is_pressed(minigames))
+{
+minigamesmenu();
 }
         if (form.is_pressed(checkHunger))
         {
@@ -114,51 +118,6 @@ else if(manulcooky>=1)
 cookies+=1*manulcooky;
 pool.play_stationary("manulbake" + random(1, 3) + ".ogg", false);
 if(playervents2==true) attempt_manebaker_event(evchanse2);
-}
-}
-}
-if(form.is_pressed(flip))
-{
-if(bakemode==1)
-{
-speak_buffer("You can't flip a coin when you're in baking mode.", "general");
-}
-else if(bakemode==0)
-{
-if(rank<10)
-{
-speak_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 10 or higher to play this.", "critical");
-}
-else if(rank>=10)
-{
-if(coins>=1)
-{
-string[] coinsides={"heads", "tails"};
-string side=coinsides[random(0,coinsides.length()-1)];
-pool.destroy_sound(eventslot);
-ambpool.pause_sound(ambslot);
-muspool.pause_sound(mustrackslot);
-pool.play_stationary("coinflip" + random(1, 2) + ".ogg", false);        
-dlg_buffer("you flip a coin. It lands on "+side);
-ambpool.resume_sound(ambslot);
-muspool.resume_sound(mustrackslot);
-        if (side == "heads")
-        {
-string[]headsEvents={"gain_autocooky", "gain_manulcooky", "gain_cookies", "decrease_hunger", "gain_coins", "increase_cookyspeed"};
-            string event = headsEvents[random(0, headsEvents.length() - 1)];
-            trigger_coin_event(event);
-        }
-        else if (side == "tails")
-        {
-string[]tailsEvents={"lose_autocooky", "lose_manulcooky", "lose_cookies", "increase_hunger", "lose_coins", "decrease_cookyspeed"};
-            string event = tailsEvents[random(0, tailsEvents.length() - 1)];
-            trigger_coin_event(event);
-        }
-    }
-else if(coins<=0)
-{
-speak_buffer("You don't have a coin to flip!", "general");
-}
 }
 }
 }
