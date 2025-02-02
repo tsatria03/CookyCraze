@@ -1,7 +1,7 @@
 void minigamesmenu()
 {
 form.reset();
-form.create_window("Minigames", false);
+form.create_window("Mini games", false);
 int flip=form.create_button("flip a &coin");
 int slots=form.create_button("play the &slot machine");
 form.focus(flip);

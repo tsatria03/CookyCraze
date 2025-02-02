@@ -1,12 +1,12 @@
 void game()
 {
 form.create_window("CookyCraze", false);
-int manulbake=form.create_button("&Bake cookies. You currently have "+round(manulcooky,0)+" manule cookies.");
-int autobake=form.create_button("Baking &mode. You currently have "+round(autocooky,0)+" auto cookies.");
-int checkHunger = form.create_button("Check &hunger status");
-int food=form.create_button("&Eat cookies. You currently have "+round(cookies,0)+" cookies.");
-int shop=form.create_button("Cooky &store. You currently have "+round(coins,0)+" coins.");
+int manulbake=form.create_button("Bake cook&ies. You currently have "+round(manulcooky,0)+" manule cookies.");
+int autobake=form.create_button("Baking m&ode. You currently have "+round(autocooky,0)+" auto cookies.");
+int checkHunger = form.create_button("Check h&unger status");
+int food=form.create_button("Ea&t cookies. You currently have "+round(cookies,0)+" cookies.");
 int minigames=form.create_button("mini &games");
+int shop=form.create_button("Cooky &store. You currently have "+round(coins,0)+" coins.");
 int preffsets=form.create_button("&preferences");
 form.focus(manulbake);
 while(true)
