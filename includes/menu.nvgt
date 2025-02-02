@@ -16,7 +16,7 @@ dlgplay("store_door_close.ogg");
 ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
-clicker();
+game();
 }
 if(stm=="bmu")
 {
@@ -36,7 +36,7 @@ dlgplay("store_door_close.ogg");
 ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
-clicker();
+game();
 }
 }
 void buymenu()
@@ -243,7 +243,7 @@ dlgplay("store_door_close.ogg");
 ambslot = pool.play_stationary_extended("room" + random(1, 4) + ".ogg", true, 0, 0, ambvolume, 100, false);
 mustrackslot = pool.play_stationary_extended("music" + random(1,6) + ".ogg", true, 0, 0, musvolume, 100, false);
 form.reset();
-clicker();
+game();
 }
 cookies -= cookiesToSell;
 coins += totalCoinsEarned;
@@ -282,9 +282,9 @@ void preffsmenu()
 {
 form.reset();
     form.create_window("preferences", false);
-    int audsets = form.create_button("audio settings");
-int gamsets = form.create_button("game settings");
-int usersets = form .create_button("user settings");
+    int audsets = form.create_button("&audio settings");
+int gamsets = form.create_button("&game settings");
+int usersets = form .create_button("&user settings");
 form.focus(audsets);
     while (true)
     {
@@ -305,7 +305,7 @@ usersetsmenu();
         if (key_pressed(KEY_ESCAPE))
         {
 form.reset();
-clicker();
+game();
 }
     }
 }
@@ -313,7 +313,7 @@ void gamsetsmenu()
 {
     form.reset();
     form.create_window("Game Settings", false);
-int introSFX = form.create_checkbox("Enable playing the intro sound upon starting a new game.", introsfx);
+int introSFX = form.create_checkbox("Enable playing the intro sound upon launching the game.", introsfx);
 int logoSFX = form.create_checkbox("Enable playing the logo sound upon launching the game.", logosfx);
     int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
     int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
@@ -341,7 +341,8 @@ int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 -
     for (uint i = 0; i < coinFlipEvents.length(); i++) {
         form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
     }
-    int savesets = form.create_button("&save settings");
+int savesets = form.create_button("&save settings", true);
+int cansets = form.create_button("&cancel");
 form.focus(introSFX);
     while (true)
     {
@@ -368,13 +369,17 @@ logosfx = form.is_checked(logoSFX);
 writepreffs(autoEventList, manualEventList, coinEventList);
             dlg("settings saved");
             form.reset();
-            clicker();
+            game();
         }
         if (key_pressed(KEY_ESCAPE))
         {
 preffsmenu();
 }
-    }
+            if (form.is_pressed(cansets))
+        {
+preffsmenu();
+}
+}
 }
 void soundsetsmenu()
 {
@@ -386,9 +391,10 @@ int gameMusicVolumeSlider = form.create_slider("game music volume, ", (musvolume
 int gameMusicPitchSlider = form.create_slider("game music pitch, ", muspitch / 2, 0, 100, "percent", 1);
 int storeMusicVolumeSlider = form.create_slider("store music volume, ", (stormusvolume + 50) * 2, 0, 100, "percent", 1);
 int storeMusicPitchSlider = form.create_slider("store music pitch, ", stormuspitch / 2, 0, 100, "percent", 1);
-int shuffleamb = form.create_button("change game ambience");
-int shufflemus = form.create_button("change game music");
-    int savesets = form.create_button("&save settings");
+int shuffleamb = form.create_button("change game &ambience");
+int shufflemus = form.create_button("change game &music");
+int savesets = form.create_button("&save settings", true);
+int cansets = form.create_button("&cancel");
 form.focus(gameAmbienceVolumeSlider);
     while (true)
     {
@@ -426,9 +432,13 @@ speak(disptrack);
 writepreffs2();
 dlg("settings saved");
 form.reset();
-clicker();
+game();
 }
         if (key_pressed(KEY_ESCAPE))
+        {
+preffsmenu();
+}
+            if (form.is_pressed(cansets))
         {
 preffsmenu();
 }
@@ -455,9 +465,9 @@ else
     }
     form.reset();
     form.create_window("User Settings", false);
-    int charname = form.create_button("Change the character's first name. Currently set to "+playername+".");
-    int charname2 = form.create_button("Change the character's last name. Currently set to "+playername2+".");
-    int chargender = form.create_list("Change the character's gender. Currently set to " + gendertext + ".", 3);
+    int charname = form.create_button("Change the character's &first name. Currently set to "+playername+".");
+    int charname2 = form.create_button("Change the character's &last name. Currently set to "+playername2+".");
+    int chargender = form.create_list("Change the character's &gender. Currently set to " + gendertext + ".", 3);
     form.add_list_item(chargender, "Male");
     form.add_list_item(chargender, "Female");
     form.add_list_item(chargender, "Non-binary");
@@ -465,7 +475,8 @@ else
 {
         form.set_list_position(chargender, playergender);
     }
-    int savesets = form.create_button("&save settings");
+int savesets = form.create_button("&save settings", true);
+int cansets = form.create_button("&cancel");
 form.focus(charname);
     while (true)
     {
@@ -517,9 +528,13 @@ playername2=fn2;
             writepreffs3();
             dlg("settings saved");
             form.reset();
-            clicker();
+            game();
         }
         if (key_pressed(KEY_ESCAPE))
+        {
+preffsmenu();
+}
+            if (form.is_pressed(cansets))
         {
 preffsmenu();
 }
