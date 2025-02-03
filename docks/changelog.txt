@@ -1,8 +1,8 @@
 new in 1.5
-improved the slot machine mini game. The reels will now spin automatically for you. You can no longer end up with Negative quantities of items upon losing a bet.
-
+Added various sounds to the slot machine mini game. You can now earn 2 or 3 times your bet if you match 2 or 3 symbols together that are the same.
+Improved the slot machine mini game. The reels will now spin automatically for you. You can no longer end up with Negative quantities of items upon losing a bet.
 Introduced the slot machine mini game! You can play it to bet on various items that are used in the main game. Will you win the jackpot? Play and find out your luck! This mini game is unlocked at rank 20 or higher.
-Fixed a bug where users kepped getting duplicated speech outputs when the dlg and sspeak buffer functions were being called in the game.
+Fixed a bug where users kepped getting duplicated speech messages when the dlg and sspeak buffer functions were being called in the game.
 Added alt keyboard shortcuts to frequently visited sections of the game.
 Fixed up the shop menu a bit and made it so when a user has Purchased an item from it, the game returns them back to the previous store, rather than making them exit the store entirely.
 You can now adjust the base costs and cost multipliers of items for the shop in the game settings menu.

@@ -186,26 +186,36 @@ continue;
             }
             if (selectedBet == 0)
 {
-cookies -= betAmount*rank;
+cookies -= betAmount;
 }
             else if (selectedBet == 1)
 {
-coins -= betAmount*rank;
+coins -= betAmount;
 }
             else if (selectedBet == 2)
 {
-autocooky -= betAmount*rank;
+autocooky -= betAmount;
 }
             else if (selectedBet == 3)
 {
-manulcooky -= betAmount*rank;
+manulcooky -= betAmount;
 }
             else if (selectedBet == 4)
 {
-cookyspeed -= betAmount*rank;
+cookyspeed -= betAmount;
 clicktime+=cookyspeed;
 }
-            speak_buffer("You placed a bet of " + round(betAmount, 0) + " on " + form.get_list_position(betChoice) + ". Spinning...");
+pool.destroy_sound(machineslot);
+pool.play_stationary("slotbet1.ogg", false);
+speak_buffer("You placed a bet of " + round(betAmount, 0) + " on " + form.get_list_position(betChoice));
+wait(1000);
+pool.play_stationary("slotbet2.ogg", false);
+wait(1000);
+pool.play_stationary("slotbet3.ogg", false);
+wait(1000);
+pool.play_stationary("slotlever.ogg", false);
+machineslot=pool.play_stationary("slotspin.ogg", true);
+            speak_buffer("spinning...");
 wait(random(1000, 2000));
             for (uint i = 0; i < 3; i++)
             {
@@ -213,84 +223,89 @@ wait(random(1000, 2000));
                 {
                     reel1 = symbols[random(0, symbols.length() - 1)];
 wait(random(1000, 2000));
+pool.play_stationary("slotstop1.ogg", false);
                     speak_buffer("The first reel shows " + reel1);
                 }
                 else if (i == 1) 
                 {
                     reel2 = symbols[random(0, symbols.length() - 1)];
 wait(random(1000, 2000));
+pool.play_stationary("slotstop2.ogg", false);
                     speak_buffer("The second reel shows " + reel2);
                 }
                 else if (i == 2) 
                 {
                     reel3 = symbols[random(0, symbols.length() - 1)];
 wait(random(1000, 2000));
+pool.play_stationary("slotstop3.ogg", false);
                     speak_buffer("The third reel shows " + reel3);
                 }
             }
             if (reel1 == reel2 && reel2 == reel3)
             {
 wait(random(1000, 2000));
-                pool.play_stationary("gain.ogg", false);
-                dlg_buffer("You win the bet!");
+                pool.play_stationary("slotwin1.ogg", false);
+pool.destroy_sound(machineslot);
+                dlg_buffer("You won triple the bet!");
 form.focus(betChoice);
                 if (selectedBet == 0)
 {
-cookies += betAmount*rank;
+cookies += betAmount*3;
 }
                 else if (selectedBet == 1)
 {
-coins += betAmount*rank;
+coins += betAmount*3;
 }
                 else if (selectedBet == 2)
 {
-autocooky += betAmount*rank;
+autocooky += betAmount*3;
 }
                 else if (selectedBet == 3)
 {
-manulcooky += betAmount*rank;
+manulcooky += betAmount*3;
 }
                 else if (selectedBet == 4)
 {
-cookyspeed += betAmount*rank;
+cookyspeed += betAmount*3;
 clicktime-=cookyspeed;
 }
             }
             else if (reel1 == reel2 || reel2 == reel3 || reel1 == reel3)
             {
 wait(random(1000, 2000));
-                pool.play_stationary("gain.ogg", false);
-                dlg("You get your bet back.");
+pool.destroy_sound(machineslot);
+pool.play_stationary("slotwin2.ogg", false);
+                dlg("You won double the bet!");
 form.focus(spinButton);
                 if (selectedBet == 0)
 {
-cookies += betAmount*rank;
+cookies += betAmount*2;
 }
                 else if (selectedBet == 1)
 {
-coins += betAmount*rank;
+coins += betAmount*2;
 }
                 else if (selectedBet == 2)
 {
-autocooky += betAmount*rank;
+autocooky += betAmount*2;
 }
                 else if (selectedBet == 3)
 {
-manulcooky += betAmount*rank;
+manulcooky += betAmount*2;
 }
                 else if (selectedBet == 4)
 {
-cookyspeed += betAmount*rank;
+cookyspeed += betAmount*2;
 clicktime-=cookyspeed;
 }
             }
             else
             {
 wait(random(1000, 2000));
-                pool.play_stationary("lose.ogg", false);
+pool.destroy_sound(machineslot);
+                pool.play_stationary("slotlose.ogg", false);
                 dlg("You lost the bet!");
-form.reset();
-slotsgame();
+form.focus(betChoice);
             }
         }
 }
