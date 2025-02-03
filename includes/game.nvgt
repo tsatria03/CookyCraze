@@ -2,7 +2,7 @@ void game()
 {
 form.create_window("CookyCraze", false);
 int manulbake=form.create_button("Bake cook&ies. You currently have "+round(manulcooky,0)+" manule cookies.");
-int autobake=form.create_button("Baking m&ode. You currently have "+round(autocooky,0)+" auto cookies.");
+int autobake=form.create_button("Enter baking m&ode. You currently have "+round(autocooky,0)+" auto cookies.");
 int checkHunger = form.create_button("Check h&unger status");
 int food=form.create_button("Ea&t cookies. You currently have "+round(cookies,0)+" cookies.");
 int minigames=form.create_button("mini &games");
@@ -19,7 +19,7 @@ preffsmenu();
 }
 if (form.is_pressed(minigames))
 {
-minigamesmenu();
+mingamsmenu();
 }
         if (form.is_pressed(checkHunger))
         {
@@ -263,6 +263,12 @@ if(rank==10)
 levcoins += 10 * rank*2;
 if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
 dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the coin flip minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "critical");
+}
+if(rank==20)
+{
+levcoins += 10 * rank*4;
+if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
+dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "critical");
 }
 }
 if(key_repeating(KEY_COMMA))

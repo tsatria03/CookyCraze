@@ -36,7 +36,7 @@ bool speak_buffer(string text, string buffer_name = "misc", bool interrupt = tts
 {
     int buffer_index = get_buffer_index(buffer_name);
     if (buffer_index != -1) {
-        add_buffer_item(buffer_name, text);
+        add_buffer_item(buffer_name, text, false);
         if (buffers[buffer_index].muted) {
             return false;
         }

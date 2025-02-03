@@ -1,0 +1,216 @@
+void coingame()
+{
+    form.reset();
+    form.create_window("Coin flipper", false);
+int flip = form.create_button("Flip a coin.");
+    form.focus(flip);
+    while (true)
+    {
+        form.monitor();
+        wait(5);
+        if (key_pressed(KEY_C))
+{
+speak("You have " + round(cookies, 0) + " cookies.");
+}
+        if (key_pressed(KEY_A))
+{
+speak("You have " + round(autocooky, 0) + " auto cookies.");
+}
+        if (key_pressed(KEY_S))
+{
+speak("You have " + round(cookyspeed, 0) + " auto cookie speeds.");
+}
+        if (key_pressed(KEY_M))
+{
+speak("You have " + round(manulcooky, 0) + " manual cookies.");
+}
+        if (key_pressed(KEY_O))
+{
+speak("You have " + round(coins, 0) + " coins.");
+}
+        if (key_pressed(KEY_ESCAPE))
+        {
+            mingamsmenu();
+        }
+        if (form.is_pressed(flip))
+        {
+if(coins>=1)
+{
+string[] coinsides={"heads", "tails"};
+string side=coinsides[random(0,coinsides.length()-1)];
+pool.destroy_sound(eventslot);
+pool.play_stationary("coinflip" + random(1, 2) + ".ogg", false);        
+dlg_buffer("you flip a coin. It lands on "+side);
+if (side == "heads")
+        {
+string[]headsEvents={"gain_autocooky", "gain_manulcooky", "gain_cookies", "decrease_hunger", "gain_coins", "increase_cookyspeed"};
+            string event = headsEvents[random(0, headsEvents.length() - 1)];
+            trigger_coin_event(event);
+        }
+        else if (side == "tails")
+        {
+string[]tailsEvents={"lose_autocooky", "lose_manulcooky", "lose_cookies", "increase_hunger", "lose_coins", "decrease_cookyspeed"};
+            string event = tailsEvents[random(0, tailsEvents.length() - 1)];
+            trigger_coin_event(event);
+        }
+    }
+else if(coins<=0)
+{
+speak_buffer("You don't have a coin to flip!", "general");
+}
+}
+}
+}
+void slotsgame()
+{
+    form.reset();
+    form.create_window("Slot Machine", false);
+    int betChoice = form.create_list("Choose an item to bet:", 5);
+    form.add_list_item(betChoice, "Cookies");
+    form.add_list_item(betChoice, "Coins");
+    form.add_list_item(betChoice, "Auto Cookies");
+    form.add_list_item(betChoice, "Manual Cookies");
+    form.add_list_item(betChoice, "Auto Cookie Speeds");
+    int betAmountSlider = form.create_slider("Choose bet amount", 1000, 1000, 100000, "items", 1000);
+    int spinButton = form.create_button("Spin the reels.");
+    form.focus(betChoice);
+    string[] symbols = {"cooky", "money bag", "fire", "star", "gift", "power"};
+    string reel1 = ":"; 
+    string reel2 = ":"; 
+    string reel3 = ":";
+    int selectedBet = 0;
+    double betAmount = 0;
+    while (true)
+    {
+        form.monitor();
+        wait(5);
+        if (key_pressed(KEY_C))
+{
+speak("You have " + round(cookies, 0) + " cookies.");
+}
+        if (key_pressed(KEY_A))
+{
+speak("You have " + round(autocooky, 0) + " auto cookies.");
+}
+        if (key_pressed(KEY_S))
+{
+speak("You have " + round(cookyspeed, 0) + " auto cookie speeds.");
+}
+        if (key_pressed(KEY_M))
+{
+speak("You have " + round(manulcooky, 0) + " manual cookies.");
+}
+        if (key_pressed(KEY_O))
+{
+speak("You have " + round(coins, 0) + " coins.");
+}
+        if (key_pressed(KEY_ESCAPE))
+        {
+            mingamsmenu();
+        }
+        if (form.is_pressed(spinButton))
+        {
+            selectedBet = form.get_list_position(betChoice);
+            betAmount = form.get_slider(betAmountSlider);
+            if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && manulcooky < betAmount) || (selectedBet == 4 && cookyspeed < betAmount))
+            {
+                dlg_buffer("You don't have enough of that item to bet.");
+                continue;
+            }
+            if (selectedBet == 0)
+{
+cookies -= betAmount*cookies;
+}
+            else if (selectedBet == 1)
+{
+coins -= betAmount*coins;
+}
+            else if (selectedBet == 2)
+{
+autocooky -= betAmount*autocooky;
+}
+            else if (selectedBet == 3)
+{
+manulcooky -= betAmount*manulcooky;
+}
+            else if (selectedBet == 4)
+{
+cookyspeed -= betAmount*cookyspeed;
+}
+            dlg_buffer("You placed a bet of " + round(betAmount, 0) + " on " + form.get_list_position(betChoice) + ". Spinning...");
+            for (uint i = 0; i < 3; i++)
+            {
+                if (i == 0) 
+                {
+                    reel1 = symbols[random(0, symbols.length() - 1)];
+                    dlg_buffer("The first reel shows " + reel1);
+                }
+                else if (i == 1) 
+                {
+                    reel2 = symbols[random(0, symbols.length() - 1)];
+                    dlg_buffer("The second reel shows " + reel2);
+                }
+                else if (i == 2) 
+                {
+                    reel3 = symbols[random(0, symbols.length() - 1)];
+                    dlg_buffer("The third reel shows " + reel3);
+                }
+            }
+            if (reel1 == reel2 && reel2 == reel3)
+            {
+                pool.play_stationary("gain.ogg", false);
+                dlg_buffer("You win the bet!");
+                if (selectedBet == 0)
+{
+cookies += betAmount * cookies;
+}
+                else if (selectedBet == 1)
+{
+coins += betAmount * coins;
+}
+                else if (selectedBet == 2)
+{
+autocooky += betAmount * autocooky;
+}
+                else if (selectedBet == 3)
+{
+manulcooky += betAmount * manulcooky;
+}
+                else if (selectedBet == 4)
+{
+cookyspeed += betAmount * cookyspeed;
+}
+            }
+            else if (reel1 == reel2 || reel2 == reel3 || reel1 == reel3)
+            {
+                pool.play_stationary("gain.ogg", false);
+                dlg("You get your bet back.");
+                if (selectedBet == 0)
+{
+cookies += betAmount*cookies;
+}
+                else if (selectedBet == 1)
+{
+coins += betAmount*coins;
+}
+                else if (selectedBet == 2)
+{
+autocooky += betAmount*autocooky;
+}
+                else if (selectedBet == 3)
+{
+manulcooky += betAmount*manulcooky;
+}
+                else if (selectedBet == 4)
+{
+cookyspeed += betAmount*cookyspeed;
+}
+            }
+            else
+            {
+                pool.play_stationary("lose.ogg", false);
+                dlg("You lost the bet!");
+            }
+        }
+}
+    }

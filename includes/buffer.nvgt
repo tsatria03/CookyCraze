@@ -48,7 +48,7 @@ buffers.insert_last(allbuffer);
 buffer buffer1(name);
 buffers.insert_last(buffer1);
 }
-void add_buffer_item(string buffername, string itemname)
+void add_buffer_item(string buffername, string itemname, bool speakMessage = true)
 {
 int b = get_buffer_index(buffername);
 if (b <= -1) return;
@@ -57,7 +57,7 @@ buffers[b].items.insert_last(temp);
 if (!buffers[0].muted && buffername != "all") {
 buffers[0].items.insert_last(temp);
 }
-if (!buffers[b].muted) {
+if (!buffers[b].muted && speakMessage) {
 speak(itemname, true);
 }
 }

@@ -22,101 +22,6 @@ evchanse2=probability_chance;
         }
     }
 }
-void trigger_coin_event(string event)
-{
-    int index = coinFlipEvents.find(event);
-    if (index >= 0 && coinEventToggles[index])
-{
-    if (event == "gain_autocooky")
-    {
-        autocooky += random(1,5)*rank;
-pool.play_stationary("gain.ogg", false);
-pool.play_stationary("give.ogg", false);
-        speak_buffer("Lucky flip! You gained some auto-cookies. Now your auto-baking rate has increased.", "events");
-    }
-    else if (event == "lose_autocooky")
-    {
-        autocooky = max(0, autocooky -random(1,5)*rank);
-pool.play_stationary("lose.ogg", false);
-        speak_buffer("Bad luck! You lost some auto-cookies.", "events");
-    }
-    else if (event == "gain_manulcooky")
-    {
-        manulcooky += random(1,5)*rank;
-pool.play_stationary("gain.ogg", false);
-pool.play_stationary("give.ogg", false);
-        speak_buffer("Nice! You gained some manual cookies. You can now bake more cookies with each click.", "events");
-    }
-    else if (event == "lose_manulcooky")
-    {
-        manulcooky = max(0, manulcooky-random(1,5)*rank);
-pool.play_stationary("lose.ogg", false);
-        speak_buffer("Oops! You lost some manual cookies.", "events");
-    }
-    else if (event == "gain_cookies")
-    {
-        double cookiesGained = random(15,30)*rank;
-        cookies += cookiesGained;
-pool.play_stationary("gain.ogg", false);
-pool.play_stationary("give.ogg", false);
-        speak_buffer("Jackpot! You gained " + round(cookiesGained,0) + " cookies!", "events");
-    }
-    else if (event == "lose_cookies")
-    {
-        double cookiesLost = min(random(15,30)*rank, cookies);
-        cookies -= cookiesLost;
-pool.play_stationary("lose.ogg", false);
-pool.play_stationary("bee" + random(1, 4) + ".ogg", false);
-        speak_buffer("Oh no! You lost " + round(cookiesLost,0) + " cookies.", "events");
-    }
-else if (event == "increase_hunger")
-{
-    hunger = min(maxhunger, hunger + random(15, 30) * rank);
-    pool.play_stationary("hungerstat.ogg", false);
-    speak_buffer("Uh-oh! Your hunger has increased. You should try to eat something.", "events");
-}
-else if (event == "decrease_hunger")
-{
-    hunger = max(0, hunger - random(15, 30) * rank);
-    pool.play_stationary("heal" + random(1, 3) + ".ogg", false);
-    speak_buffer("Great news! Your hunger has decreased. You're feeling more full.", "events");
-}
-    else if (event == "gain_coins")
-    {
-        double coinsGained = random(15,30)*rank;
-        coins += coinsGained;
-pool.play_stationary("gain.ogg", false);
-pool.play_stationary("give.ogg", false);
-pool.play_stationary("coin50.ogg", false);
-        speak_buffer("Lucky flip! You gained " + round(coinsGained,0) + " coins.", "events");
-    }
-    else if (event == "lose_coins")
-    {
-        double coinsLost = min(random(15,30)*rank, coins);
-        coins -= coinsLost;
-pool.play_stationary("lose.ogg", false);
-pool.play_stationary("cointoss.ogg", false);
-        speak_buffer("Unfortunate flip! You lost " + round(coinsLost,0) + " coins.", "events");
-    }
-    else if (event == "increase_cookyspeed")
-    {
-        cookyspeed = max(5, cookyspeed - 5/rank);
-clicktime-=cookyspeed;
-pool.play_stationary("gain.ogg", false);
-pool.play_stationary("give.ogg", false);
-pool.play_stationary("powerup.ogg", false);
-        speak_buffer("Cool! Your baking speed has been increased slightly.", "events");
-    }
-    else if (event == "decrease_cookyspeed")
-    {
-        cookyspeed = min(1000, cookyspeed + 5*rank);
-clicktime+=cookyspeed;
-pool.play_stationary("lose.ogg", false);
-pool.play_stationary("powerdown.ogg", false);
-        speak_buffer("Oh dear! Something has slowed down your baking speed.", "events");    
-}
-}
-}
 void trigger_autobaker_event(string event)
 {
     int index = autoBakingEvents.find(event);
@@ -376,5 +281,100 @@ pool.play_stationary("lose.ogg", false);
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
     }
+}
+}
+void trigger_coin_event(string event)
+{
+    int index = coinFlipEvents.find(event);
+    if (index >= 0 && coinEventToggles[index])
+{
+    if (event == "gain_autocooky")
+    {
+        autocooky += random(1,5)*rank;
+pool.play_stationary("gain.ogg", false);
+pool.play_stationary("give.ogg", false);
+        dlg_buffer("Lucky flip! You gained some auto-cookies. Now your auto-baking rate has increased.", "events");
+    }
+    else if (event == "lose_autocooky")
+    {
+        autocooky = max(0, autocooky -random(1,5)*rank);
+pool.play_stationary("lose.ogg", false);
+        dlg_buffer("Bad luck! You lost some auto-cookies.", "events");
+    }
+    else if (event == "gain_manulcooky")
+    {
+        manulcooky += random(1,5)*rank;
+pool.play_stationary("gain.ogg", false);
+pool.play_stationary("give.ogg", false);
+        dlg_buffer("Nice! You gained some manual cookies. You can now bake more cookies with each click.", "events");
+    }
+    else if (event == "lose_manulcooky")
+    {
+        manulcooky = max(0, manulcooky-random(1,5)*rank);
+pool.play_stationary("lose.ogg", false);
+        dlg_buffer("Oops! You lost some manual cookies.", "events");
+    }
+    else if (event == "gain_cookies")
+    {
+        double cookiesGained = random(15,30)*rank;
+        cookies += cookiesGained;
+pool.play_stationary("gain.ogg", false);
+pool.play_stationary("give.ogg", false);
+        dlg_buffer("Jackpot! You gained " + round(cookiesGained,0) + " cookies!", "events");
+    }
+    else if (event == "lose_cookies")
+    {
+        double cookiesLost = min(random(15,30)*rank, cookies);
+        cookies -= cookiesLost;
+pool.play_stationary("lose.ogg", false);
+pool.play_stationary("bee" + random(1, 4) + ".ogg", false);
+        dlg_buffer("Oh no! You lost " + round(cookiesLost,0) + " cookies.", "events");
+    }
+else if (event == "increase_hunger")
+{
+    hunger = min(maxhunger, hunger + random(15, 30) * rank);
+    pool.play_stationary("hungerstat.ogg", false);
+    dlg_buffer("Uh-oh! Your hunger has increased. You should try to eat something.", "events");
+}
+else if (event == "decrease_hunger")
+{
+    hunger = max(0, hunger - random(15, 30) * rank);
+    pool.play_stationary("heal" + random(1, 3) + ".ogg", false);
+    dlg_buffer("Great news! Your hunger has decreased. You're feeling more full.", "events");
+}
+    else if (event == "gain_coins")
+    {
+        double coinsGained = random(15,30)*rank;
+        coins += coinsGained;
+pool.play_stationary("gain.ogg", false);
+pool.play_stationary("give.ogg", false);
+pool.play_stationary("coin50.ogg", false);
+        dlg_buffer("Lucky flip! You gained " + round(coinsGained,0) + " coins.", "events");
+    }
+    else if (event == "lose_coins")
+    {
+        double coinsLost = min(random(15,30)*rank, coins);
+        coins -= coinsLost;
+pool.play_stationary("lose.ogg", false);
+pool.play_stationary("cointoss.ogg", false);
+        dlg_buffer("Unfortunate flip! You lost " + round(coinsLost,0) + " coins.", "events");
+    }
+    else if (event == "increase_cookyspeed")
+    {
+        cookyspeed = max(5, cookyspeed - 5/rank);
+clicktime-=cookyspeed;
+pool.play_stationary("gain.ogg", false);
+pool.play_stationary("give.ogg", false);
+pool.play_stationary("powerup.ogg", false);
+        dlg_buffer("Cool! Your baking speed has been increased slightly.", "events");
+    }
+    else if (event == "decrease_cookyspeed")
+    {
+        cookyspeed = min(1000, cookyspeed + 5*rank);
+clicktime+=cookyspeed;
+pool.play_stationary("lose.ogg", false);
+pool.play_stationary("powerdown.ogg", false);
+        dlg_buffer("Oh dear! Something has slowed down your baking speed.", "events");    
+}
 }
 }

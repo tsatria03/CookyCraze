@@ -1,4 +1,4 @@
-void minigamesmenu()
+void mingamsmenu()
 {
 form.reset();
 form.create_window("Mini games", false);
@@ -16,15 +16,16 @@ game();
 }
 if(form.is_pressed(slots))
 {
-//game concepts go here
+if(rank<20)
+{
+speak_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 20 or higher to play this.", "critical");
+}
+else if(rank>=20)
+{
+slotsgame();
+}
 }
 if(form.is_pressed(flip))
-{
-if(bakemode==1)
-{
-speak_buffer("You can't flip a coin when you're in baking mode.", "general");
-}
-else if(bakemode==0)
 {
 if(rank<10)
 {
@@ -32,35 +33,7 @@ speak_buffer("Sorry "+playername+". This minni game is locked. Please be at rank
 }
 else if(rank>=10)
 {
-if(coins>=1)
-{
-string[] coinsides={"heads", "tails"};
-string side=coinsides[random(0,coinsides.length()-1)];
-pool.destroy_sound(eventslot);
-ambpool.pause_sound(ambslot);
-muspool.pause_sound(mustrackslot);
-pool.play_stationary("coinflip" + random(1, 2) + ".ogg", false);        
-dlg_buffer("you flip a coin. It lands on "+side);
-ambpool.resume_sound(ambslot);
-muspool.resume_sound(mustrackslot);
-        if (side == "heads")
-        {
-string[]headsEvents={"gain_autocooky", "gain_manulcooky", "gain_cookies", "decrease_hunger", "gain_coins", "increase_cookyspeed"};
-            string event = headsEvents[random(0, headsEvents.length() - 1)];
-            trigger_coin_event(event);
-        }
-        else if (side == "tails")
-        {
-string[]tailsEvents={"lose_autocooky", "lose_manulcooky", "lose_cookies", "increase_hunger", "lose_coins", "decrease_cookyspeed"};
-            string event = tailsEvents[random(0, tailsEvents.length() - 1)];
-            trigger_coin_event(event);
-        }
-    }
-else if(coins<=0)
-{
-speak_buffer("You don't have a coin to flip!", "general");
-}
-}
+coingame();
 }
 }
 }
