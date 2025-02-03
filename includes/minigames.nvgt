@@ -228,8 +228,8 @@ else if(slotmode==false) dlg_buffer("The third reel shows " + reel3);
             if (reel1 == reel2 && reel2 == reel3)
             {
 if(slotmode==true) wait(random(1000, 2000));
-                pool.play_stationary("slotwin1.ogg", false);
 pool.destroy_sound(machineslot);
+                pool.play_stationary("slotwin1.ogg", false);
                 dlg_buffer("You won triple the bet!");
 form.focus(spinButton);
                 if (selectedBet == 0)
