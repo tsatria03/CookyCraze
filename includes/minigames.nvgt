@@ -8,6 +8,43 @@ int flip = form.create_button("Flip a coin.");
     {
         form.monitor();
         wait(5);
+if(autocooky<=0)
+{
+bakemode=0;
+autocooky=0;
+}
+if(coins<=0)
+{
+coins=0;
+}
+if(cookies<=0)
+{
+cookies=0;
+}
+if(cookyspeed<=0)
+{
+cookyspeed=0;
+}
+if(hunger<=0)
+{
+hunger=0;
+}
+if(hunger>=maxhunger)
+{
+hunger=maxhunger;
+}
+if(manulcooky<=0)
+{
+manulcooky=0;
+}
+if(clicktime<=50)
+{
+clicktime=50;
+}
+if(clicktime>=1000)
+{
+clicktime=1000;
+}
         if (key_pressed(KEY_C))
 {
 speak("You have " + round(cookies, 0) + " cookies.");
@@ -74,16 +111,45 @@ void slotsgame()
     int betAmountSlider = form.create_slider("Choose bet amount", 1000, 1000, 100000, "items", 1000);
     int spinButton = form.create_button("Spin the reels.");
     form.focus(betChoice);
-    string[] symbols = {"cooky", "money bag", "fire", "star", "gift", "power"};
-    string reel1 = ":"; 
-    string reel2 = ":"; 
-    string reel3 = ":";
+    string[] symbols = {"bell", "chime", "heart", "pebble", "star"};
+    string reel1 = ""; 
+    string reel2 = ""; 
+    string reel3 = "";
     int selectedBet = 0;
     double betAmount = 0;
     while (true)
     {
         form.monitor();
         wait(5);
+if(autocooky<=0)
+{
+bakemode=0;
+autocooky=0;
+}
+if(coins<=0)
+{
+coins=0;
+}
+if(cookies<=0)
+{
+cookies=0;
+}
+if(cookyspeed<=0)
+{
+cookyspeed=0;
+}
+if(manulcooky<=0)
+{
+manulcooky=0;
+}
+if(clicktime<=50)
+{
+clicktime=50;
+}
+if(clicktime>=1000)
+{
+clicktime=1000;
+}
         if (key_pressed(KEY_C))
 {
 speak("You have " + round(cookies, 0) + " cookies.");
@@ -115,101 +181,116 @@ speak("You have " + round(coins, 0) + " coins.");
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && manulcooky < betAmount) || (selectedBet == 4 && cookyspeed < betAmount))
             {
                 dlg_buffer("You don't have enough of that item to bet.");
-                continue;
+form.focus(betChoice);
+continue;
             }
             if (selectedBet == 0)
 {
-cookies -= betAmount*cookies;
+cookies -= betAmount*rank;
 }
             else if (selectedBet == 1)
 {
-coins -= betAmount*coins;
+coins -= betAmount*rank;
 }
             else if (selectedBet == 2)
 {
-autocooky -= betAmount*autocooky;
+autocooky -= betAmount*rank;
 }
             else if (selectedBet == 3)
 {
-manulcooky -= betAmount*manulcooky;
+manulcooky -= betAmount*rank;
 }
             else if (selectedBet == 4)
 {
-cookyspeed -= betAmount*cookyspeed;
+cookyspeed -= betAmount*rank;
+clicktime+=cookyspeed;
 }
-            dlg_buffer("You placed a bet of " + round(betAmount, 0) + " on " + form.get_list_position(betChoice) + ". Spinning...");
+            speak_buffer("You placed a bet of " + round(betAmount, 0) + " on " + form.get_list_position(betChoice) + ". Spinning...");
+wait(random(1000, 2000));
             for (uint i = 0; i < 3; i++)
             {
                 if (i == 0) 
                 {
                     reel1 = symbols[random(0, symbols.length() - 1)];
-                    dlg_buffer("The first reel shows " + reel1);
+wait(random(1000, 2000));
+                    speak_buffer("The first reel shows " + reel1);
                 }
                 else if (i == 1) 
                 {
                     reel2 = symbols[random(0, symbols.length() - 1)];
-                    dlg_buffer("The second reel shows " + reel2);
+wait(random(1000, 2000));
+                    speak_buffer("The second reel shows " + reel2);
                 }
                 else if (i == 2) 
                 {
                     reel3 = symbols[random(0, symbols.length() - 1)];
-                    dlg_buffer("The third reel shows " + reel3);
+wait(random(1000, 2000));
+                    speak_buffer("The third reel shows " + reel3);
                 }
             }
             if (reel1 == reel2 && reel2 == reel3)
             {
+wait(random(1000, 2000));
                 pool.play_stationary("gain.ogg", false);
                 dlg_buffer("You win the bet!");
+form.focus(betChoice);
                 if (selectedBet == 0)
 {
-cookies += betAmount * cookies;
+cookies += betAmount*rank;
 }
                 else if (selectedBet == 1)
 {
-coins += betAmount * coins;
+coins += betAmount*rank;
 }
                 else if (selectedBet == 2)
 {
-autocooky += betAmount * autocooky;
+autocooky += betAmount*rank;
 }
                 else if (selectedBet == 3)
 {
-manulcooky += betAmount * manulcooky;
+manulcooky += betAmount*rank;
 }
                 else if (selectedBet == 4)
 {
-cookyspeed += betAmount * cookyspeed;
+cookyspeed += betAmount*rank;
+clicktime-=cookyspeed;
 }
             }
             else if (reel1 == reel2 || reel2 == reel3 || reel1 == reel3)
             {
+wait(random(1000, 2000));
                 pool.play_stationary("gain.ogg", false);
                 dlg("You get your bet back.");
+form.focus(spinButton);
                 if (selectedBet == 0)
 {
-cookies += betAmount*cookies;
+cookies += betAmount*rank;
 }
                 else if (selectedBet == 1)
 {
-coins += betAmount*coins;
+coins += betAmount*rank;
 }
                 else if (selectedBet == 2)
 {
-autocooky += betAmount*autocooky;
+autocooky += betAmount*rank;
 }
                 else if (selectedBet == 3)
 {
-manulcooky += betAmount*manulcooky;
+manulcooky += betAmount*rank;
 }
                 else if (selectedBet == 4)
 {
-cookyspeed += betAmount*cookyspeed;
+cookyspeed += betAmount*rank;
+clicktime-=cookyspeed;
 }
             }
             else
             {
+wait(random(1000, 2000));
                 pool.play_stationary("lose.ogg", false);
                 dlg("You lost the bet!");
+form.reset();
+slotsgame();
             }
         }
 }

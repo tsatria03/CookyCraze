@@ -2,7 +2,7 @@ void mingamsmenu()
 {
 form.reset();
 form.create_window("Mini games", false);
-int flip=form.create_button("flip a &coin");
+int flip=form.create_button("Play the &coin flipper");
 int slots=form.create_button("play the &slot machine");
 form.focus(flip);
 while(true)
