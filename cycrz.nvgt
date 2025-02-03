@@ -14,7 +14,7 @@ string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "dec
 string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string[] coinFlipEvents = {"gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky", "gain_cookies", "lose_cookies", "increase_hunger", "decrease_hunger", "gain_coins", "lose_coins", "increase_cookyspeed", "decrease_cookyspeed"};
 string playername, playername2;
-string version="1.5";
+string version="1.6";
 timer clicktimer;
 file logfile;
 audio_form form;

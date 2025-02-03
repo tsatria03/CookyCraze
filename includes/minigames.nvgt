@@ -189,14 +189,14 @@ pool.play_stationary("slotbet1.ogg", false);
 speak_buffer("You placed a bet of " + round(betAmount, 0) + " items on " + form.get_list_position(betChoice));
 wait(1000);
 pool.play_stationary("slotbet2.ogg", false);
-wait(700);
+wait(random(600, 800));
 pool.play_stationary("slotbet3.ogg", false);
 wait(1000);
 pool.play_stationary("slotlever.ogg", false);
 machineslot=pool.play_stationary("slotspin.ogg", true);
 if(slotmode==true) speak_buffer("spinning...");
 if(slotmode==false) dlg_buffer("spinning. Press enter to stop each reel.");
-if(slotmode==true) wait(2000);
+if(slotmode==true) wait(random(1000,2000));
             for (uint i = 0; i < 3; i++)
             {
                 if (i == 0) 
