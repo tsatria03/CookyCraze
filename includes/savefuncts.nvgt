@@ -103,6 +103,10 @@ if(st.d.exists("playervents2"))
 {
 playervents2=st.read_bool("playervents2");
 }
+if(st.d.exists("slotmode"))
+{
+slotmode=st.read_bool("slotmode");
+}
 if(st.d.exists("autoCookyBaseCost"))
 {
 autoCookyBaseCost=st.read_double("autoCookyBaseCost");
@@ -176,6 +180,7 @@ st.add("logosfx",logosfx);
 st.add("ranksfx",ranksfx);
 st.add("playervents",playervents);
 st.add("playervents2",playervents2);
+st.add("slotmode",slotmode);
 st.add("autoCookyBaseCost",autoCookyBaseCost);
 st.add("autoCookyMultiplier",autoCookyMultiplier);
 st.add("autoCookySpeedBaseCost",autoCookySpeedBaseCost);

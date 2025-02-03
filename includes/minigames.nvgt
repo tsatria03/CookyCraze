@@ -102,14 +102,14 @@ void slotsgame()
 {
     form.reset();
     form.create_window("Slot Machine", false);
-    int betChoice = form.create_list("Choose an item to bet:", 5);
+    int betChoice = form.create_list("Choose an &item to bet:", 5);
     form.add_list_item(betChoice, "Cookies");
     form.add_list_item(betChoice, "Coins");
     form.add_list_item(betChoice, "Auto Cookies");
     form.add_list_item(betChoice, "Manual Cookies");
     form.add_list_item(betChoice, "Auto Cookie Speeds");
-    int betAmountSlider = form.create_slider("Choose bet amount", 1000, 1000, 100000, "items", 1000);
-    int spinButton = form.create_button("Spin the reels.");
+int betSlider = form.create_slider("Choose a b&et amount.", 1000, 1000, 100000, "items", 1000);
+    int spinButton = form.create_button("Spin the &reels.");
     form.focus(betChoice);
     string[] symbols = {"bell", "chime", "heart", "pebble", "star"};
     string reel1 = ""; 
@@ -177,77 +177,61 @@ speak("You have " + round(coins, 0) + " coins.");
         if (form.is_pressed(spinButton))
         {
             selectedBet = form.get_list_position(betChoice);
-            betAmount = form.get_slider(betAmountSlider);
+            betAmount = form.get_slider(betSlider);
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && manulcooky < betAmount) || (selectedBet == 4 && cookyspeed < betAmount))
             {
                 dlg_buffer("You don't have enough of that item to bet.");
 form.focus(betChoice);
 continue;
             }
-            if (selectedBet == 0)
-{
-cookies -= betAmount;
-}
-            else if (selectedBet == 1)
-{
-coins -= betAmount;
-}
-            else if (selectedBet == 2)
-{
-autocooky -= betAmount;
-}
-            else if (selectedBet == 3)
-{
-manulcooky -= betAmount;
-}
-            else if (selectedBet == 4)
-{
-cookyspeed -= betAmount;
-clicktime+=cookyspeed;
-}
 pool.destroy_sound(machineslot);
 pool.play_stationary("slotbet1.ogg", false);
-speak_buffer("You placed a bet of " + round(betAmount, 0) + " on " + form.get_list_position(betChoice));
+speak_buffer("You placed a bet of " + round(betAmount, 0) + " items on " + form.get_list_position(betChoice));
 wait(1000);
 pool.play_stationary("slotbet2.ogg", false);
-wait(1000);
+wait(700);
 pool.play_stationary("slotbet3.ogg", false);
 wait(1000);
 pool.play_stationary("slotlever.ogg", false);
 machineslot=pool.play_stationary("slotspin.ogg", true);
-            speak_buffer("spinning...");
-wait(random(1000, 2000));
+if(slotmode==true) speak_buffer("spinning...");
+if(slotmode==false) dlg_buffer("spinning. Press enter to stop the reels.");
+if(slotmode==true) wait(2000);
             for (uint i = 0; i < 3; i++)
             {
                 if (i == 0) 
                 {
                     reel1 = symbols[random(0, symbols.length() - 1)];
-wait(random(1000, 2000));
+if(slotmode==true) wait(random(1000, 2000));
+pool.destroy_sound(machineslot);
 pool.play_stationary("slotstop1.ogg", false);
-                    speak_buffer("The first reel shows " + reel1);
+if(slotmode==true) speak_buffer("The first reel shows " + reel1);
+else if(slotmode==false) dlg_buffer("The first reel shows " + reel1);
                 }
                 else if (i == 1) 
                 {
                     reel2 = symbols[random(0, symbols.length() - 1)];
-wait(random(1000, 2000));
+if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop2.ogg", false);
-                    speak_buffer("The second reel shows " + reel2);
+if(slotmode==true) speak_buffer("The second reel shows " + reel2);
+else if(slotmode==false) dlg_buffer("The second reel shows " + reel2);
                 }
                 else if (i == 2) 
                 {
                     reel3 = symbols[random(0, symbols.length() - 1)];
-wait(random(1000, 2000));
+if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop3.ogg", false);
-                    speak_buffer("The third reel shows " + reel3);
+if(slotmode==true) speak_buffer("The third reel shows " + reel3);
+else if(slotmode==false) dlg_buffer("The third reel shows " + reel3);
                 }
             }
             if (reel1 == reel2 && reel2 == reel3)
             {
-wait(random(1000, 2000));
+if(slotmode==true) wait(random(1000, 2000));
                 pool.play_stationary("slotwin1.ogg", false);
 pool.destroy_sound(machineslot);
                 dlg_buffer("You won triple the bet!");
-form.focus(betChoice);
+form.focus(spinButton);
                 if (selectedBet == 0)
 {
 cookies += betAmount*3;
@@ -272,10 +256,10 @@ clicktime-=cookyspeed;
             }
             else if (reel1 == reel2 || reel2 == reel3 || reel1 == reel3)
             {
-wait(random(1000, 2000));
+if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
 pool.play_stationary("slotwin2.ogg", false);
-                dlg("You won double the bet!");
+                dlg_buffer("You won double the bet!");
 form.focus(spinButton);
                 if (selectedBet == 0)
 {
@@ -301,11 +285,32 @@ clicktime-=cookyspeed;
             }
             else
             {
-wait(random(1000, 2000));
+if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
-                pool.play_stationary("slotlose.ogg", false);
-                dlg("You lost the bet!");
-form.focus(betChoice);
+                pool.play_stationary("slotlose"+random(1,2)+".ogg", false);
+                dlg_buffer("You lost the bet!");
+form.focus(spinButton);
+            if (selectedBet == 0)
+{
+cookies -= betAmount;
+}
+            else if (selectedBet == 1)
+{
+coins -= betAmount;
+}
+            else if (selectedBet == 2)
+{
+autocooky -= betAmount;
+}
+            else if (selectedBet == 3)
+{
+manulcooky -= betAmount;
+}
+            else if (selectedBet == 4)
+{
+cookyspeed -= betAmount;
+clicktime+=cookyspeed;
+}
             }
         }
 }

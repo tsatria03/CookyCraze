@@ -358,6 +358,7 @@ int coinSFX = form.create_checkbox("Enable coin sound effects when earning money
 int rankSFX = form.create_checkbox("Enable rank-up sound effects.", ranksfx);
 int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
 int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
+int reelspin = form.create_checkbox("Enable automatic stopping of reels for the slot machine.", slotmode);
     int autoCookyBaseCostSlider = form.create_slider("Auto Cooky Base Cost.", autoCookyBaseCost, 1, 100, "coins", 1);
     int autoCookyMultiplierSlider = form.create_slider("Auto Cooky Cost Multiplier.", autoCookyMultiplier, 1, 100, "X", 1);
     int autoCookySpeedBaseCostSlider = form.create_slider("Auto Cooky Speed Base Cost.", autoCookySpeedBaseCost, 1, 100, "coins", 1);
@@ -399,10 +400,11 @@ evchanse = 100 - form.get_slider(autoChanceSlider);
 evchanse2 = 100 - form.get_slider(manualChanceSlider);
 introsfx = form.is_checked(introSFX);
 logosfx = form.is_checked(logoSFX);
-        playervents = form.is_checked(playvents);
-        playervents2 = form.is_checked(playvents2);
         coinsfx = form.is_checked(coinSFX);
         ranksfx = form.is_checked(rankSFX);
+        playervents = form.is_checked(playvents);
+        playervents2 = form.is_checked(playvents2);
+slotmode = form.is_checked(reelspin);
         if (form.is_pressed(savesets))
         {
 writepreffs(autoEventList, manualEventList, coinEventList);

@@ -1,4 +1,5 @@
 new in 1.5
+Added a new mode to the slot machine mini game. You can now manuely control all of the reels while the slot machine is spinning. Press enter to stop each reel to see witch symbol it randomly chooses. If you'd like automatic stopping of all reels, you can find the toggle to turn it on or off in the game settings menu.
 Added various sounds to the slot machine mini game. You can now earn 2 or 3 times your bet if you match 2 or 3 symbols together that are the same.
 Improved the slot machine mini game. The reels will now spin automatically for you. You can no longer end up with Negative quantities of items upon losing a bet.
 Introduced the slot machine mini game! You can play it to bet on various items that are used in the main game. Will you win the jackpot? Play and find out your luck! This mini game is unlocked at rank 20 or higher.

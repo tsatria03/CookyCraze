@@ -1,5 +1,5 @@
 #include"includes/includes.nvgt"
-bool coinsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false;
+bool coinsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, slotmode=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 bool[] coinEventToggles(coinFlipEvents.length(), true);
