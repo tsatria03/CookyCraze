@@ -102,6 +102,7 @@ speak_buffer("You don't have a coin to flip!", "general");
 }
 }
 }
+
 void slotsgame()
 {
     form.reset();
@@ -112,9 +113,9 @@ void slotsgame()
     form.add_list_item(betChoice, "Auto Cookies");
     form.add_list_item(betChoice, "Auto Cookie Speeds");
     form.add_list_item(betChoice, "Manual Cookies");
-int betSlider = form.create_slider("Choose a b&et amount.", 1000, 1000, 100000, "items", 1000);
-    int spinButton = form.create_button("Spin the &reels.");
-    form.focus(betChoice);
+int betInput = form.create_input_box("Enter your bet amount:", "", "", 0, false, false, false);    int spinButton = form.create_button("Spin the &reels.");
+form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~", false, "This character is not allowed.");
+form.focus(betChoice);
 string[] symbols = {"bell", "chime", "heart", "pebble", "star"};
 string reel1 = "", reel2 = "", reel3 = "", reel4 = "", reel5 = "";
     int selectedBet = 0;
@@ -152,6 +153,8 @@ if(clicktime>=1000)
 {
 clicktime=1000;
 }
+if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput)
+{
         if (key_pressed(KEY_C))
 {
 speak_buffer("You have " + round(cookies, 0) + " cookies.");
@@ -172,6 +175,7 @@ speak_buffer("You have " + round(manulcooky, 0) + " manual cookies.");
 {
 speak_buffer("You have " + round(coins, 0) + " coins.");
 }
+}
         if (key_pressed(KEY_ESCAPE))
         {
             mingamsmenu();
@@ -179,7 +183,12 @@ speak_buffer("You have " + round(coins, 0) + " coins.");
         if (form.is_pressed(spinButton))
         {
             selectedBet = form.get_list_position(betChoice);
-            betAmount = form.get_slider(betSlider);
+betAmount = string_to_number(form.get_text(betInput));
+    if (betAmount <= 0)
+    {
+        dlg_buffer("Invalid bet amount. Please enter a valid number.");
+        continue;
+    }
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && cookyspeed < betAmount) || (selectedBet == 4 && manulcooky < betAmount))
             {
                 dlg_buffer("You don't have enough of that item to bet.");
@@ -272,24 +281,24 @@ pool.destroy_sound(machineslot);
 form.focus(spinButton);
                 if (selectedBet == 0)
 {
-cookies += betAmount*4*rank;
+cookies += betAmount*4;
 }
                 else if (selectedBet == 1)
 {
-coins += betAmount*4*rank;
+coins += betAmount*4;
 }
                 else if (selectedBet == 2)
 {
-autocooky += betAmount*4*rank;
+autocooky += betAmount*4;
 }
                 else if (selectedBet == 3)
 {
-cookyspeed += betAmount*4*rank;
+cookyspeed += betAmount*4;
 clicktime-=cookyspeed;
 }
                 else if (selectedBet == 4)
 {
-manulcooky += betAmount*4*rank;
+manulcooky += betAmount*4;
 }
             }
 else if (maxMatch == 4)
@@ -301,24 +310,24 @@ pool.play_stationary("slotwin1.ogg", false);
 form.focus(spinButton);
                 if (selectedBet == 0)
 {
-cookies += betAmount*3*rank;
+cookies += betAmount*3;
 }
                 else if (selectedBet == 1)
 {
-coins += betAmount*3*rank;
+coins += betAmount*3;
 }
                 else if (selectedBet == 2)
 {
-autocooky += betAmount*3*rank;
+autocooky += betAmount*3;
 }
                 else if (selectedBet == 3)
 {
-cookyspeed += betAmount*3*rank;
+cookyspeed += betAmount*3;
 clicktime-=cookyspeed;
 }
                 else if (selectedBet == 4)
 {
-manulcooky += betAmount*3*rank;
+manulcooky += betAmount*3;
 }
             }
 else if (maxMatch == 3)
@@ -330,24 +339,24 @@ pool.play_stationary("slotwin2.ogg", false);
 form.focus(spinButton);
                 if (selectedBet == 0)
 {
-cookies += betAmount*2*rank;
+cookies += betAmount*2;
 }
                 else if (selectedBet == 1)
 {
-coins += betAmount*2*rank;
+coins += betAmount*2;
 }
                 else if (selectedBet == 2)
 {
-autocooky += betAmount*2*rank;
+autocooky += betAmount*2;
 }
                 else if (selectedBet == 3)
 {
-cookyspeed += betAmount*2*rank;
+cookyspeed += betAmount*2;
 clicktime-=cookyspeed;
 }
                 else if (selectedBet == 4)
 {
-manulcooky += betAmount*2*rank;
+manulcooky += betAmount*2;
 }
             }
 else if (maxMatch == 2)
@@ -359,24 +368,24 @@ pool.play_stationary("slotwin3.ogg", false);
 form.focus(spinButton);
                 if (selectedBet == 0)
 {
-cookies += betAmount/2*rank;
+cookies += betAmount/2;
 }
                 else if (selectedBet == 1)
 {
-coins += betAmount/2*rank;
+coins += betAmount/2;
 }
                 else if (selectedBet == 2)
 {
-autocooky += betAmount/2*rank;
+autocooky += betAmount/2;
 }
                 else if (selectedBet == 3)
 {
-cookyspeed += betAmount/2*rank;
+cookyspeed += betAmount/2;
 clicktime-=cookyspeed;
 }
                 else if (selectedBet == 4)
 {
-manulcooky += betAmount/2*rank;
+manulcooky += betAmount/2;
 }
             }
             else
@@ -388,24 +397,24 @@ pool.destroy_sound(machineslot);
 form.focus(spinButton);
             if (selectedBet == 0)
 {
-cookies -= betAmount*rank;
+cookies -= betAmount;
 }
             else if (selectedBet == 1)
 {
-coins -= betAmount*rank;
+coins -= betAmount;
 }
             else if (selectedBet == 2)
 {
-autocooky -= betAmount*rank;
+autocooky -= betAmount;
 }
             else if (selectedBet == 4)
 {
-cookyspeed -= betAmount*rank;
+cookyspeed -= betAmount;
 clicktime+=cookyspeed;
 }
             else if (selectedBet == 3)
 {
-manulcooky -= betAmount*rank;
+manulcooky -= betAmount;
 }
             }
         }
