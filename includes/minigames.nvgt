@@ -113,11 +113,17 @@ void slotsgame()
     form.add_list_item(betChoice, "Auto Cookies");
     form.add_list_item(betChoice, "Auto Cookie Speeds");
     form.add_list_item(betChoice, "Manual Cookies");
+    string[] symbols = {"bell", "chime", "heart", "pebble", "star", "clover", "diamond", "spade", "crown", "gem"};
+    int symbolChoices = form.create_list("Choose the s&ymbols to use:", symbols.length(), true, false);
+    bool[] symbolToggles(symbols.length(), true); // All symbols enabled by default
+    for (uint i = 0; i < symbols.length(); i++)
+{
+        form.add_list_item(symbolChoices, symbols[i], symbols[i], -1, symbolToggles[i]);
+    }
 int betInput = form.create_input_box("Enter your b&et amount:", "", "", 0, false, false, false);
     int spinButton = form.create_button("Spin the &reels.", true);
-form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~", false, "This character is not allowed.");
 form.focus(betChoice);
-string[] symbols = {"bell", "chime", "heart", "pebble", "star"};
+form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~", false, "This character is not allowed.");
 string reel1 = "", reel2 = "", reel3 = "", reel4 = "", reel5 = "";
     int selectedBet = 0;
     double betAmount = 0;
@@ -154,7 +160,7 @@ if(clicktime>=1000)
 {
 clicktime=1000;
 }
-if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput)
+if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput and form.get_current_focus()!=symbolChoices)
 {
         if (key_pressed(KEY_C))
 {
@@ -187,7 +193,7 @@ speak_buffer("You have " + round(coins, 0) + " coins.");
 betAmount = string_to_number(form.get_text(betInput));
     if (betAmount <= 0)
     {
-        speak_buffer("Invalid bet amount. Please enter a valid number.");
+        dlg_buffer("Invalid bet amount. Please enter a valid number.");
         continue;
     }
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && cookyspeed < betAmount) || (selectedBet == 4 && manulcooky < betAmount))
@@ -195,6 +201,20 @@ betAmount = string_to_number(form.get_text(betInput));
                 dlg_buffer("You don't have enough of that item to bet.");
 form.focus(betInput);
 continue;
+            }
+            string[] activeSymbols;
+            for (uint i = 0; i < symbols.length(); i++)
+{
+                if (form.is_list_item_checked(symbolChoices, i))
+{ 
+                    activeSymbols.insert_last(symbols[i]); 
+                }
+            }
+            if (activeSymbols.length() == 0)
+{
+                dlg_buffer("You must select at least 1 symbols in order to spin!");
+form.focus(symbolChoices);
+                continue;
             }
 pool.destroy_sound(machineslot);
 pool.play_stationary("slotbet1.ogg", false);
@@ -213,7 +233,7 @@ if(slotmode==true) wait(random(1000,2000));
             {
                 if (i == 0) 
                 {
-                    reel1 = symbols[random(0, symbols.length() - 1)];
+            reel1 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
 pool.play_stationary("slotstop1.ogg", false);
@@ -222,7 +242,7 @@ else if(slotmode==false) dlg_buffer("The first reel shows " + reel1);
                 }
                 else if (i == 1) 
                 {
-                    reel2 = symbols[random(0, symbols.length() - 1)];
+            reel2 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop2.ogg", false);
 if(slotmode==true) speak_buffer("The second reel shows " + reel2);
@@ -230,7 +250,7 @@ else if(slotmode==false) dlg_buffer("The second reel shows " + reel2);
                 }
                 else if (i == 2) 
                 {
-                    reel3 = symbols[random(0, symbols.length() - 1)];
+            reel3 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop3.ogg", false);
 if(slotmode==true) speak_buffer("The third reel shows " + reel3);
@@ -238,7 +258,7 @@ else if(slotmode==false) dlg_buffer("The third reel shows " + reel3);
                 }
                 else if (i == 3) 
                 {
-                    reel4 = symbols[random(0, symbols.length() - 1)];
+            reel4 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop1.ogg", false);
 if(slotmode==true) speak_buffer("The forth reel shows " + reel4);
@@ -246,14 +266,14 @@ else if(slotmode==false) dlg_buffer("The forth reel shows " + reel4);
                 }
                 else if (i == 4) 
                 {
-                    reel5 = symbols[random(0, symbols.length() - 1)];
+            reel5 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop2.ogg", false);
 if(slotmode==true) speak_buffer("The fith reel shows " + reel5);
 else if(slotmode==false) dlg_buffer("The fith reel shows " + reel5);
                 }
             }
-int[] symbolCount = {0, 0, 0, 0, 0};
+int[] symbolCount(symbols.length(), 0);
 string[] reels = {reel1, reel2, reel3, reel4, reel5};
 for (uint i = 0; i < reels.length(); i++)
 {
@@ -278,7 +298,7 @@ if (maxMatch == 5)
             if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
                 pool.play_stationary("slotwin1.ogg", false);
-                dlg_buffer("You won quadruple your bet!");
+                dlg_buffer("You won 4 times your bet!");
 form.focus(spinButton);
                 if (selectedBet == 0)
 {
