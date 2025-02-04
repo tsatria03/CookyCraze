@@ -243,9 +243,29 @@ if(slotmode==true) speak_buffer("The fith reel shows " + reel5);
 else if(slotmode==false) dlg_buffer("The fith reel shows " + reel5);
                 }
             }
-if (reel1 == reel2 && reel2 == reel3 && reel3 == reel4 && reel4 == reel5)
-            {
-if(slotmode==true) wait(random(1000, 2000));
+int[] symbolCount = {0, 0, 0, 0, 0};
+string[] reels = {reel1, reel2, reel3, reel4, reel5};
+for (uint i = 0; i < reels.length(); i++)
+{
+    for (uint j = 0; j < symbols.length(); j++)
+    {
+        if (reels[i] == symbols[j])
+        {
+            symbolCount[j]++;
+        }
+    }
+}
+int maxMatch = 0;
+for (uint i = 0; i < symbolCount.length(); i++)
+{
+    if (symbolCount[i] > maxMatch)
+    {
+        maxMatch = symbolCount[i];
+    }
+}
+if (maxMatch == 5)
+{
+            if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
                 pool.play_stationary("slotwin1.ogg", false);
                 dlg_buffer("You won 5 times your bet!");
@@ -272,7 +292,7 @@ clicktime-=cookyspeed;
 manulcooky += betAmount*5;
 }
             }
-            else if ((reel1 == reel2 && reel2 == reel3 && reel3 == reel4) || (reel2 == reel3 && reel3 == reel4 && reel4 == reel5))
+else if (maxMatch == 4)
             {
 if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
@@ -301,7 +321,7 @@ clicktime-=cookyspeed;
 manulcooky += betAmount*4;
 }
             }
-            else if ((reel1 == reel2 && reel2 == reel3) || (reel2 == reel3 && reel3 == reel4) || (reel3 == reel4 && reel4 == reel5))
+else if (maxMatch == 3)
             {
 if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
@@ -330,7 +350,7 @@ clicktime-=cookyspeed;
 manulcooky += betAmount*3;
 }
             }
-                else if ((reel1 == reel2) || (reel2 == reel3) || (reel3 == reel4) || (reel4 == reel5))
+else if (maxMatch == 2)
             {
 if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
