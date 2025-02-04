@@ -283,11 +283,12 @@ muspool.resume_sound(mustrackslot);
     }
 }
 }
-void trigger_coin_event(string event)
+void trigger_coin_event(string event, string[] activeCoinEvents)
 {
-    int index = coinFlipEvents.find(event);
-    if (index >= 0 && coinEventToggles[index])
-{
+    if (activeCoinEvents.find(event) < 0)
+    {
+        return;
+    }
     if (event == "gain_autocooky")
     {
         autocooky += random(1,5)*rank;
@@ -377,31 +378,3 @@ pool.play_stationary("powerdown.ogg", false);
         dlg_buffer("Oh dear! Something has slowed down your baking speed.", "events");    
 }
 }
-}
-void update_bet_slider(int betAmountSlider, int betChoice)
-{
-    int selectedBet = form.get_list_position(betChoice);
-    double maxBet = 1;
-    if (selectedBet == 0)
-{
-maxBet = max(1, cookies);
-}
-    else if (selectedBet == 1)
-{
-maxBet = max(1, coins);
-}
-    else if (selectedBet == 2)
-{
-maxBet = max(1, autocooky);
-}
-    else if (selectedBet == 3)
-{
-maxBet = max(1, manulcooky);
-}
-    else if (selectedBet == 4)
-{
-maxBet = max(1, cookyspeed);
-}
-    form.set_slider(betAmountSlider, 1, 1, maxBet);
-}
-

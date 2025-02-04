@@ -377,10 +377,6 @@ int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 -
     for (uint i = 0; i < manualBakingEvents.length(); i++) {
         form.add_list_item(manualEventList, manualBakingEvents[i], manualBakingEvents[i], -1, manualEventToggles[i]);
     }
-    int coinEventList = form.create_list("Coin Flip Events", coinFlipEvents.length(), true, false);
-    for (uint i = 0; i < coinFlipEvents.length(); i++) {
-        form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
-    }
 int savesets = form.create_button("&save settings", true);
 int cansets = form.create_button("&cancel");
 form.focus(introSFX);
@@ -407,7 +403,7 @@ logosfx = form.is_checked(logoSFX);
 slotmode = form.is_checked(reelspin);
         if (form.is_pressed(savesets))
         {
-writepreffs(autoEventList, manualEventList, coinEventList);
+writepreffs(autoEventList, manualEventList);
             dlg("settings saved");
             form.reset();
             game();

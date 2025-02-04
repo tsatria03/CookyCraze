@@ -2,8 +2,15 @@ void coingame()
 {
     form.reset();
     form.create_window("Coin flipper", false);
-int flip = form.create_button("Flip a coin.");
-    form.focus(flip);
+string[] coinFlipEvents = {"gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky", "gain_cookies", "lose_cookies", "increase_hunger", "decrease_hunger", "gain_coins", "lose_coins", "increase_cookyspeed", "decrease_cookyspeed"};
+    int coinEventList = form.create_list("Choose the &coin events to use:", coinFlipEvents.length(), true, false);
+bool[] coinEventToggles(coinFlipEvents.length(), true);
+    for (uint i = 0; i < coinFlipEvents.length(); i++)
+{
+        form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
+    }
+int flip = form.create_button("&Flip a coin");
+    form.focus(coinEventList);
     while (true)
     {
         form.monitor();
@@ -45,6 +52,8 @@ if(clicktime>=1000)
 {
 clicktime=1000;
 }
+if(form.get_current_focus()!=coinEventList)
+{
         if (key_pressed(KEY_C))
 {
 speak_buffer("You have " + round(cookies, 0) + " cookies.");
@@ -69,6 +78,7 @@ if(key_pressed(KEY_H))
 {
 speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc");
 }
+}
         if (key_pressed(KEY_ESCAPE))
         {
             mingamsmenu();
@@ -77,22 +87,47 @@ speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc")
         {
 if(coins>=1)
 {
+                string[] activeCoinEvents;
+                for (uint i = 0; i < coinFlipEvents.length(); i++)
+                {
+                    if (form.is_list_item_checked(coinEventList, i))
+                    {
+                        activeCoinEvents.insert_last(coinFlipEvents[i]);
+                    }
+                }
+                if (activeCoinEvents.length() == 0)
+                {
+                    dlg_buffer("You must select at least one coin event in order to flip the coin!");
+                    form.focus(coinEventList);
+                    continue;
+                }
 string[] coinsides={"heads", "tails"};
 string side=coinsides[random(0,coinsides.length()-1)];
 pool.destroy_sound(eventslot);
 pool.play_stationary("coinflip" + random(1, 2) + ".ogg", false);        
 dlg_buffer("you flip a coin. It lands on "+side);
-if (side == "heads")
+        string[] headsEvents;
+        string[] tailsEvents;
+        for (uint i = 0; i < activeCoinEvents.length(); i++)
         {
-string[]headsEvents={"gain_autocooky", "gain_manulcooky", "gain_cookies", "decrease_hunger", "gain_coins", "increase_cookyspeed"};
-            string event = headsEvents[random(0, headsEvents.length() - 1)];
-            trigger_coin_event(event);
+            if (activeCoinEvents[i].find("gain") >= 0 || activeCoinEvents[i] == "decrease_hunger")
+            {
+                headsEvents.insert_last(activeCoinEvents[i]);
+            }
+            else if (activeCoinEvents[i].find("lose") >= 0 || activeCoinEvents[i] == "increase_hunger")
+            {
+                tailsEvents.insert_last(activeCoinEvents[i]);
+            }
         }
-        else if (side == "tails")
+        if (side == "heads" && headsEvents.length() > 0)
         {
-string[]tailsEvents={"lose_autocooky", "lose_manulcooky", "lose_cookies", "increase_hunger", "lose_coins", "decrease_cookyspeed"};
+            string event = headsEvents[random(0, headsEvents.length() - 1)];
+            trigger_coin_event(event, activeCoinEvents);
+        }
+        else if (side == "tails" && tailsEvents.length() > 0)
+        {
             string event = tailsEvents[random(0, tailsEvents.length() - 1)];
-            trigger_coin_event(event);
+            trigger_coin_event(event, activeCoinEvents);
         }
     }
 else if(coins<=0)
@@ -102,7 +137,6 @@ speak_buffer("You don't have a coin to flip!", "general");
 }
 }
 }
-
 void slotsgame()
 {
     form.reset();
@@ -115,13 +149,13 @@ void slotsgame()
     form.add_list_item(betChoice, "Manual Cookies");
     string[] symbols = {"bell", "chime", "heart", "pebble", "star", "clover", "diamond", "spade", "crown", "gem"};
     int symbolChoices = form.create_list("Choose the s&ymbols to use:", symbols.length(), true, false);
-    bool[] symbolToggles(symbols.length(), true); // All symbols enabled by default
+    bool[] symbolToggles(symbols.length(), true);
     for (uint i = 0; i < symbols.length(); i++)
 {
         form.add_list_item(symbolChoices, symbols[i], symbols[i], -1, symbolToggles[i]);
     }
 int betInput = form.create_input_box("Enter your b&et amount:", "", "", 0, false, false, false);
-    int spinButton = form.create_button("Spin the &reels.", true);
+    int spinButton = form.create_button("Spin the &reels", true);
 form.focus(betChoice);
 form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~", false, "This character is not allowed.");
 string reel1 = "", reel2 = "", reel3 = "", reel4 = "", reel5 = "";

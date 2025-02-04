@@ -1,4 +1,5 @@
 new in 1.6
+Moved the coin flip events out of the game settings menu into the coin flip mini game. The coin event list will no longer be saved.
 Added the ability to choose the symbols to be used prior to spinning the reels in the slot machine.
 Changed the betting logic for the slot machine mini game. Instead of using a slider to choose a bet, you will now be presented with an input prompt to type the bet you want to be used. The keyboard shortcuts for checking item statistics will no longer work inside of certain control elements that require input from the user.
 Made it so when you match less than 3 symbols in the slot machine, you win half of your bet back.

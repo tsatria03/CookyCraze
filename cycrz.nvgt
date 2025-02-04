@@ -2,7 +2,6 @@
 bool coinsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, slotmode=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
-bool[] coinEventToggles(coinFlipEvents.length(), true);
 double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=10000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
 double autoCookyBaseCost = 5, autoCookyMultiplier = 5, autoCookySpeedBaseCost = 5, autoCookySpeedMultiplier = 5, manualCookyBaseCost = 5, manualCookyMultiplier = 5;
 double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, stormusvolume=0, stormuspitch=100;
@@ -12,7 +11,6 @@ int evchanse, evchanse2, playergender;
 int bakemode=0,  clicktime=1000-cookyspeed;
 string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
-string[] coinFlipEvents = {"gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky", "gain_cookies", "lose_cookies", "increase_hunger", "decrease_hunger", "gain_coins", "lose_coins", "increase_cookyspeed", "decrease_cookyspeed"};
 string playername, playername2;
 string version="1.6";
 timer clicktimer;
