@@ -113,7 +113,8 @@ void slotsgame()
     form.add_list_item(betChoice, "Auto Cookies");
     form.add_list_item(betChoice, "Auto Cookie Speeds");
     form.add_list_item(betChoice, "Manual Cookies");
-int betInput = form.create_input_box("Enter your bet amount:", "", "", 0, false, false, false);    int spinButton = form.create_button("Spin the &reels.");
+int betInput = form.create_input_box("Enter your b&et amount:", "", "", 0, false, false, false);
+    int spinButton = form.create_button("Spin the &reels.", true);
 form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~", false, "This character is not allowed.");
 form.focus(betChoice);
 string[] symbols = {"bell", "chime", "heart", "pebble", "star"};
@@ -186,13 +187,13 @@ speak_buffer("You have " + round(coins, 0) + " coins.");
 betAmount = string_to_number(form.get_text(betInput));
     if (betAmount <= 0)
     {
-        dlg_buffer("Invalid bet amount. Please enter a valid number.");
+        speak_buffer("Invalid bet amount. Please enter a valid number.");
         continue;
     }
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && cookyspeed < betAmount) || (selectedBet == 4 && manulcooky < betAmount))
             {
                 dlg_buffer("You don't have enough of that item to bet.");
-form.focus(betChoice);
+form.focus(betInput);
 continue;
             }
 pool.destroy_sound(machineslot);

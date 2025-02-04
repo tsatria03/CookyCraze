@@ -1,5 +1,5 @@
 new in 1.6
-Changed the betting logic for the slot machine mini game. Instead of using a slider to choose a bet, you will now be presented with an input prompt to type the bet you want to be used. The keyboard shortcuts for checking item statistics will no longer work inside the bet choice and bet amount form controls.
+Changed the betting logic for the slot machine mini game. Instead of using a slider to choose a bet, you will now be presented with an input prompt to type the bet you want to be used. The keyboard shortcuts for checking item statistics will no longer work inside the bet choice and bet amount control elements.
 Made it so when you match less than 3 symbols in the slot machine, you win half of your bet back.
 Addressed an issue where the slot machine would only award players the bet if symbols from each reel appeared sequentially in a row. From now on, the slot machine will count how many times any symbol has appeared across all five reels, regardless of it's position. The bet reward is now based on the highest matching count of symbols, ensuring fairer game play and more dynamic outcomes.
 The slot machine mini game now supports up to 5 reels instead of the normal 3 reels that are usually used in regular casinos. You can now win up to 5 times your bet if you match up to 5 symbols together that are the same.
