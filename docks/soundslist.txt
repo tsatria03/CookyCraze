@@ -34,6 +34,8 @@ error.ogg
 exitgame.ogg
 female_vomit.ogg
 gain.ogg
+gamefail.ogg
+gamelaunch.ogg
 give.ogg
 heal1.ogg
 heal2.ogg
@@ -58,8 +60,6 @@ music3.ogg
 music4.ogg
 music5.ogg
 music6.ogg
-playerstats.ogg
-playerstats_error.ogg
 powerdown.ogg
 powerup.ogg
 room1.ogg
@@ -68,6 +68,18 @@ room3.ogg
 room4.ogg
 savegame.ogg
 sellfail.ogg
+slotbet1.ogg
+slotbet2.ogg
+slotbet3.ogg
+slotlever.ogg
+slotlose.ogg
+slotspin.ogg
+slotstop1.ogg
+slotstop2.ogg
+slotstop3.ogg
+slotwin1.ogg
+slotwin2.ogg
+slotwin3.ogg
 storebounds.ogg
 storechoose.ogg
 storeclick.ogg
@@ -84,4 +96,4 @@ toggleon.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 86
+total files: 98

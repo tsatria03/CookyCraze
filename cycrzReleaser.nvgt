@@ -56,5 +56,6 @@ void main()
         alert("Error", "The following files are missing: " + missfiles + ". They have been copied to your clipboard.");
     }
     alert("Success!", (game_files.length() - missing_files.length()) + " out of " + game_files.length() + " files were copied to the " + projname + " folder." + (missing_files.length() > 0 ? " " + missing_files.length() + " could not be copied." : ""));
+if(file_exists(repo_dir+"/cycrz.exe")) file_delete(repo_dir+"/cycrz.exe");
     exit();
 }
