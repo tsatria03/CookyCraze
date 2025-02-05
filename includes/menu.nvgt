@@ -358,6 +358,7 @@ int coinSFX = form.create_checkbox("Enable coin sound effects when earning money
 int rankSFX = form.create_checkbox("Enable rank sound effects.", ranksfx);
 int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
 int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
+int ordsyms = form.create_checkbox("Enable alphabetical symbol listing for the slot machine mini game.", orderedSyms);
 int reelspin = form.create_checkbox("Enable automatic stopping of reels for the slot machine mini game.", slotmode);
     int autoCookyBaseCostSlider = form.create_slider("Auto Cooky Base Cost.", autoCookyBaseCost, 1, 100, "coins", 1);
     int autoCookyMultiplierSlider = form.create_slider("Auto Cooky Cost Multiplier.", autoCookyMultiplier, 1, 100, "X", 1);
@@ -400,6 +401,7 @@ logosfx = form.is_checked(logoSFX);
         ranksfx = form.is_checked(rankSFX);
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);
+orderedSyms = form.is_checked(ordsyms);
 slotmode = form.is_checked(reelspin);
         if (form.is_pressed(savesets))
         {

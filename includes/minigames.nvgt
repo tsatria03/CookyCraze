@@ -147,7 +147,15 @@ void slotsgame()
     form.add_list_item(betChoice, "Auto Cookies");
     form.add_list_item(betChoice, "Auto Cookie Speeds");
     form.add_list_item(betChoice, "Manual Cookies");
-    string[] symbols = {"bell", "chime", "heart", "pebble", "star", "clover", "diamond", "spade", "crown", "gem"};
+string[] symbols;
+if(orderedSyms==true)
+{
+symbols = {"apple", "banana", "bean", "bell", "bottel", "bronze", "car", "carot", "celery", "chain", "chime", "clover", "copper", "crate", "crown", "diamond", "flower", "gem", "glass", "gold", "grape", "heart", "iron", "leef", "metal", "nickle", "orange", "peach", "pebble", "pepper", "pees", "potato", "rack", "rock", "rose", "silver", "spade", "star", "stone", "tomato"};
+}
+if(orderedSyms==false)
+{
+symbols = {"bell", "chime", "heart", "pebble", "star", "clover", "diamond", "spade", "crown", "gem", "apple", "grape", "peach", "orange", "banana", "gold", "silver", "bronze", "iron", "copper", "crate", "stone", "nickle", "pepper", "tomato", "carot", "celery", "bean", "pees", "potato", "car", "glass", "bottel", "rack", "chain", "metal", "rock", "leef", "flower", "rose"};
+}
     int symbolChoices = form.create_list("Choose the s&ymbols to use:", symbols.length(), true, false);
     bool[] symbolToggles(symbols.length(), true);
     for (uint i = 0; i < symbols.length(); i++)
@@ -224,10 +232,11 @@ speak_buffer("You have " + round(coins, 0) + " coins.");
         if (form.is_pressed(spinButton))
         {
             selectedBet = form.get_list_position(betChoice);
-betAmount = string_to_number(form.get_text(betInput));
+betAmount =string_to_number(form.get_text(betInput));
     if (betAmount <= 0)
     {
         dlg_buffer("Invalid bet amount. Please enter a valid number.");
+form.focus(betInput);
         continue;
     }
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && cookyspeed < betAmount) || (selectedBet == 4 && manulcooky < betAmount))
@@ -246,7 +255,7 @@ continue;
             }
             if (activeSymbols.length() == 0)
 {
-                dlg_buffer("You must select at least 1 symbols in order to spin!");
+                dlg_buffer("You must select at least 1 symbol in order to spin!");
 form.focus(symbolChoices);
                 continue;
             }
