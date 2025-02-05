@@ -18,10 +18,12 @@ if(form.is_pressed(slots))
 {
 if(rank<20)
 {
-speak_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 20 or higher to play this.", "critical");
+gameslot=pool.play_stationary("gamefail.ogg", false);
+dlg_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 20 or higher to play this.", "critical");
 }
 else if(rank>=20)
 {
+gameslot=pool.play_stationary("gamelaunch.ogg", false);
 slotsgame();
 }
 }
@@ -29,10 +31,12 @@ if(form.is_pressed(flip))
 {
 if(rank<10)
 {
-speak_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 10 or higher to play this.", "critical");
+gameslot=pool.play_stationary("gamefail.ogg", false);
+dlg_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 10 or higher to play this.", "critical");
 }
 else if(rank>=10)
 {
+gameslot=pool.play_stationary("gamelaunch.ogg", false);
 coingame();
 }
 }
@@ -355,7 +359,7 @@ void gamsetsmenu()
 int introSFX = form.create_checkbox("Enable playing the intro sound upon launching the game.", introsfx);
 int logoSFX = form.create_checkbox("Enable playing the logo sound upon launching the game.", logosfx);
 int coinSFX = form.create_checkbox("Enable coin sound effects when earning money.", coinsfx);
-int rankSFX = form.create_checkbox("Enable rank sound effects.", ranksfx);
+int rankSFX = form.create_checkbox("Enable rank sound effects when leveling up.", ranksfx);
 int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
 int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
 int ordsyms = form.create_checkbox("Enable alphabetical symbol listing for the slot machine mini game.", orderedSyms);

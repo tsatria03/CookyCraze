@@ -81,6 +81,7 @@ speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc")
 }
         if (key_pressed(KEY_ESCAPE))
         {
+pool.destroy_sound(gameslot);
             mingamsmenu();
         }
         if (form.is_pressed(flip))
@@ -98,8 +99,8 @@ if(coins>=1)
                 if (activeCoinEvents.length() == 0)
                 {
                     dlg_buffer("You must select at least one coin event in order to flip the coin!");
-                    form.focus(coinEventList);
-                    continue;
+form.reset();
+coingame();
                 }
 string[] coinsides={"heads", "tails"};
 string side=coinsides[random(0,coinsides.length()-1)];
@@ -130,9 +131,11 @@ dlg_buffer("you flip a coin. It lands on "+side);
             trigger_coin_event(event, activeCoinEvents);
         }
     }
-else if(coins<=0)
+else if(coins<1)
 {
-speak_buffer("You don't have a coin to flip!", "general");
+dlg_buffer("You don't have a coin to flip!", "general");
+form.reset();
+coingame();
 }
 }
 }
@@ -165,7 +168,7 @@ symbols = {"bell", "chime", "heart", "pebble", "star", "clover", "diamond", "spa
 int betInput = form.create_input_box("Enter your b&et amount:", "", "", 0, false, false, false);
     int spinButton = form.create_button("Spin the &reels", true);
 form.focus(betChoice);
-form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~", false, "This character is not allowed.");
+form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string reel1 = "", reel2 = "", reel3 = "", reel4 = "", reel5 = "";
     int selectedBet = 0;
     double betAmount = 0;
@@ -227,6 +230,7 @@ speak_buffer("You have " + round(coins, 0) + " coins.");
 }
         if (key_pressed(KEY_ESCAPE))
         {
+pool.destroy_sound(gameslot);
             mingamsmenu();
         }
         if (form.is_pressed(spinButton))
@@ -236,14 +240,14 @@ betAmount =string_to_number(form.get_text(betInput));
     if (betAmount <= 0)
     {
         dlg_buffer("Invalid bet amount. Please enter a valid number.");
-form.focus(betInput);
-        continue;
+form.reset();
+slotsgame();
     }
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && cookyspeed < betAmount) || (selectedBet == 4 && manulcooky < betAmount))
             {
                 dlg_buffer("You don't have enough of that item to bet.");
-form.focus(betInput);
-continue;
+form.reset();
+slotsgame();
             }
             string[] activeSymbols;
             for (uint i = 0; i < symbols.length(); i++)
@@ -256,12 +260,16 @@ continue;
             if (activeSymbols.length() == 0)
 {
                 dlg_buffer("You must select at least 1 symbol in order to spin!");
-form.focus(symbolChoices);
-                continue;
+form.reset();
+slotsgame();
             }
 pool.destroy_sound(machineslot);
 pool.play_stationary("slotbet1.ogg", false);
-speak_buffer("You placed a bet of " + round(betAmount, 0) + " items on " + form.get_list_position(betChoice));
+if(selectedBet==0) speak_buffer("You placed a bet of " + round(betAmount, 0) + " items on cookies.");
+if(selectedBet==1) speak_buffer("You placed a bet of " + round(betAmount, 0) + " items on coins.");
+if(selectedBet==2) speak_buffer("You placed a bet of " + round(betAmount, 0) + " items on auto cookies.");
+if(selectedBet==3) speak_buffer("You placed a bet of " + round(betAmount, 0) + " items on auto cooky speeds.");
+if(selectedBet==4) speak_buffer("You placed a bet of " + round(betAmount, 0) + " items on manual cookies.");
 wait(1000);
 pool.play_stationary("slotbet2.ogg", false);
 wait(random(600, 800));

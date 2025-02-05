@@ -1,4 +1,5 @@
 new in 1.6
+Addressed an issue where items bet by the slot machine weren't being spoken correctly when the user spun the reels. Instead of saying; you placed a bet of numbered items on item name, it would say; you placed a bet of numbered items on item number.
 Made it so the game doesn't anounce wich reel has been chosen when automatic reel stopping is enabled.
 Added the option to rearange the slot machine symbols alphabetically in the game settings menu.
 Added lots more symbols to choose from to the slot machine mini game.
