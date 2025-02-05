@@ -280,7 +280,7 @@ if(slotmode==true) wait(random(1000,2000));
 if(slotmode==true) wait(random(1000, 2000));
 pool.destroy_sound(machineslot);
 pool.play_stationary("slotstop1.ogg", false);
-if(slotmode==true) speak_buffer("The first reel shows " + reel1);
+if(slotmode==true) speak_buffer(reel1);
 else if(slotmode==false) dlg_buffer("The first reel shows " + reel1);
                 }
                 else if (i == 1) 
@@ -288,7 +288,7 @@ else if(slotmode==false) dlg_buffer("The first reel shows " + reel1);
             reel2 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop2.ogg", false);
-if(slotmode==true) speak_buffer("The second reel shows " + reel2);
+if(slotmode==true) speak_buffer(reel2);
 else if(slotmode==false) dlg_buffer("The second reel shows " + reel2);
                 }
                 else if (i == 2) 
@@ -296,7 +296,7 @@ else if(slotmode==false) dlg_buffer("The second reel shows " + reel2);
             reel3 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop3.ogg", false);
-if(slotmode==true) speak_buffer("The third reel shows " + reel3);
+if(slotmode==true) speak_buffer(reel3);
 else if(slotmode==false) dlg_buffer("The third reel shows " + reel3);
                 }
                 else if (i == 3) 
@@ -304,7 +304,7 @@ else if(slotmode==false) dlg_buffer("The third reel shows " + reel3);
             reel4 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop1.ogg", false);
-if(slotmode==true) speak_buffer("The forth reel shows " + reel4);
+if(slotmode==true) speak_buffer(reel4);
 else if(slotmode==false) dlg_buffer("The forth reel shows " + reel4);
                 }
                 else if (i == 4) 
@@ -312,7 +312,7 @@ else if(slotmode==false) dlg_buffer("The forth reel shows " + reel4);
             reel5 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait(random(1000, 2000));
 pool.play_stationary("slotstop2.ogg", false);
-if(slotmode==true) speak_buffer("The fith reel shows " + reel5);
+if(slotmode==true) speak_buffer(reel5);
 else if(slotmode==false) dlg_buffer("The fith reel shows " + reel5);
                 }
             }

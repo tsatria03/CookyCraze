@@ -1,6 +1,7 @@
 new in 1.6
+Made it so the game doesn't anounce wich reel has been chosen when automatic reel stopping is enabled.
 Added the option to rearange the slot machine symbols alphabetically in the game settings menu.
-Added lots more symbols to choose from in the slot machine mini game.
+Added lots more symbols to choose from to the slot machine mini game.
 Moved the coin flip events out of the game settings menu into the coin flip mini game. The coin event list will no longer be saved to the gamesets.crz file.
 Added the ability to choose the symbols to be used prior to spinning the reels in the slot machine mini game.
 Changed the betting logic for the slot machine mini game. Instead of using a slider to choose a bet, you will now be presented with an input prompt to type the bet you want to be used. The keyboard shortcuts for checking item statistics will no longer work inside of certain control elements that require input from the user.
