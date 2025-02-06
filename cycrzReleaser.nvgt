@@ -1,5 +1,5 @@
 #include"bgt_compat.nvgt"
-string projname="releases/windows/cooky craze password is CrazeMastery";
+string projname="releases/windows/CookyCraze_password_is_CrazeMastery";
 string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
 void main()
 {
