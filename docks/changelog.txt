@@ -1,4 +1,5 @@
 new in 1.7
+Added a sound for checking how many coins you have when pressing the letter M in the main game, and the letter O in the coin flipper and slot machine mini games.
 Fixed the bug where the order of bets were incorrectly placed, causing you not to lose the item that was bet after all of the reels have spun.
 Added sounds for launching mini games. The game will now alert the user if they aren't at a high enough rank to play them.
 new in 1.6

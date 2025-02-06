@@ -612,7 +612,7 @@ if(key_pressed(KEY_TAB))
 speak(intro);
 }
 if(allow_escape == true) {
-if(key_pressed(KEY_ESCAPE)) {
+if(key_repeating(KEY_ESCAPE)) {
 running = false;
 return 0;
 }

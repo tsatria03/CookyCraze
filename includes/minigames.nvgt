@@ -54,34 +54,34 @@ clicktime=1000;
 }
 if(form.get_current_focus()!=coinEventList)
 {
-        if (key_pressed(KEY_C))
+        if (key_repeating(KEY_C))
 {
 speak_buffer("You have " + round(cookies, 0) + " cookies.");
 }
-        if (key_pressed(KEY_A))
+        if (key_repeating(KEY_A))
 {
 speak_buffer("You have " + round(autocooky, 0) + " auto cookies.");
 }
-        if (key_pressed(KEY_S))
+        if (key_repeating(KEY_S))
 {
 speak_buffer("You have " + round(cookyspeed, 0) + " auto cookie speeds.");
 }
-        if (key_pressed(KEY_M))
+        if (key_repeating(KEY_M))
 {
 speak_buffer("You have " + round(manulcooky, 0) + " manual cookies.");
 }
         if (key_repeating(KEY_O))
 {
 pool.destroy_sound(coinslot);
-coinslot=pool.play_stationary("cointoss.ogg", false);
+if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have " + round(coins, 0) + " coins.");
 }
-if(key_pressed(KEY_H))
+if(key_repeating(KEY_H))
 {
 speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc");
 }
 }
-        if (key_pressed(KEY_ESCAPE))
+        if (key_repeating(KEY_ESCAPE))
         {
 pool.destroy_sound(gameslot);
             mingamsmenu();
@@ -210,30 +210,30 @@ clicktime=1000;
 }
 if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput and form.get_current_focus()!=symbolChoices)
 {
-        if (key_pressed(KEY_C))
+        if (key_repeating(KEY_C))
 {
 speak_buffer("You have " + round(cookies, 0) + " cookies.");
 }
-        if (key_pressed(KEY_A))
+        if (key_repeating(KEY_A))
 {
 speak_buffer("You have " + round(autocooky, 0) + " auto cookies.");
 }
-        if (key_pressed(KEY_S))
+        if (key_repeating(KEY_S))
 {
 speak_buffer("You have " + round(cookyspeed, 0) + " auto cookie speeds.");
 }
-        if (key_pressed(KEY_M))
+        if (key_repeating(KEY_M))
 {
 speak_buffer("You have " + round(manulcooky, 0) + " manual cookies.");
 }
         if (key_repeating(KEY_O))
 {
 pool.destroy_sound(coinslot);
-coinslot=pool.play_stationary("cointoss.ogg", false);
+if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have " + round(coins, 0) + " coins.");
 }
 }
-        if (key_pressed(KEY_ESCAPE))
+        if (key_repeating(KEY_ESCAPE))
         {
 pool.destroy_sound(gameslot);
             mingamsmenu();

@@ -303,18 +303,18 @@ next_buffer();
 }
 if (control_is_down())
 {
-if (key_pressed(KEY_M))
+if (key_repeating(KEY_M))
 {
 mute_and_unmute_buffer();
 }
 }
 if(shift_is_down())
 {
-if (key_pressed(KEY_C))
+if (key_repeating(KEY_C))
 {
 copy_buffer_item();
 }
-if (key_pressed(KEY_BACKSLASH))
+if (key_repeating(KEY_BACKSLASH))
 {
 speak("buffers exported");
 export_buffers();
@@ -323,7 +323,7 @@ clear_all_buffer_items();
 }
 if(alt_is_down())
 {
-if(key_pressed(KEY_F4))
+if(key_repeating(KEY_F4))
 {
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
@@ -335,7 +335,7 @@ exit();
 }
 if(control_is_down())
 {
-if(key_pressed(KEY_S))
+if(key_repeating(KEY_S))
 {
 writedata();
 ambpool.pause_sound(ambslot);
@@ -351,14 +351,14 @@ game();
 if(key_repeating(KEY_M))
 {
 pool.destroy_sound(coinslot);
-coinslot=pool.play_stationary("cointoss.ogg", false);
+if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have"+round(coins, 0)+"coins available to spend", "misc");
 }
-if(key_pressed(KEY_R))
+if(key_repeating(KEY_R))
 {
 speak_buffer("You're currently rank "+rank+" with "+round(cookies,0)+" cookies. Your next rank requires "+(cookiesrequiered-round(cookies,0))+" cookies.", "misc");
 }
-if(key_pressed(KEY_F))
+if(key_repeating(KEY_F))
 {
 if(autocooky==0 and clicktime==1000)
 {
@@ -385,7 +385,7 @@ else if(autocooky>=2 and clicktime<=999)
 speak_buffer("You  produce"+autocooky+"cookies every"+clicktime+"milliseconds.", "misc");
 }
 }
-if(key_pressed(KEY_C))
+if(key_repeating(KEY_C))
 {
 if(cookies>=0)
 {
@@ -400,11 +400,11 @@ else if(cookies>=2)
 speak_buffer("You baked a total of"+cookies+"cookies.", "misc");
 }
 }
-if(key_pressed(KEY_H))
+if(key_repeating(KEY_H))
 {
 speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc");
 }
-if(key_pressed(KEY_J))
+if(key_repeating(KEY_J))
 {
 if(manulcooky==0)
 {
@@ -419,7 +419,7 @@ else if(manulcooky>=2)
 speak_buffer("You  produce"+manulcooky+"cookies per press.", "misc");
 }
 }
-if (key_pressed(KEY_ESCAPE))
+if (key_repeating(KEY_ESCAPE))
 {
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
