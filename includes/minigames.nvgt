@@ -9,7 +9,7 @@ bool[] coinEventToggles(coinFlipEvents.length(), true);
 {
         form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
     }
-int flip = form.create_button("&Flip a coin");
+int flip = form.create_button("&Flip a coin", true);
     form.focus(coinEventList);
     while (true)
     {
@@ -70,8 +70,10 @@ speak_buffer("You have " + round(cookyspeed, 0) + " auto cookie speeds.");
 {
 speak_buffer("You have " + round(manulcooky, 0) + " manual cookies.");
 }
-        if (key_pressed(KEY_O))
+        if (key_repeating(KEY_O))
 {
+pool.destroy_sound(coinslot);
+coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have " + round(coins, 0) + " coins.");
 }
 if(key_pressed(KEY_H))
@@ -105,7 +107,7 @@ coingame();
 string[] coinsides={"heads", "tails"};
 string side=coinsides[random(0,coinsides.length()-1)];
 pool.destroy_sound(eventslot);
-pool.play_stationary("coinflip" + random(1, 2) + ".ogg", false);        
+pool.play_stationary("coinflip.ogg", false);        
 dlg_buffer("you flip a coin. It lands on "+side);
         string[] headsEvents;
         string[] tailsEvents;
@@ -124,11 +126,12 @@ dlg_buffer("you flip a coin. It lands on "+side);
         {
             string event = headsEvents[random(0, headsEvents.length() - 1)];
             trigger_coin_event(event, activeCoinEvents);
-        }
+form.focus_silently(flip);        }
         else if (side == "tails" && tailsEvents.length() > 0)
         {
             string event = tailsEvents[random(0, tailsEvents.length() - 1)];
             trigger_coin_event(event, activeCoinEvents);
+form.focus_silently(flip);
         }
     }
 else if(coins<1)
@@ -223,8 +226,10 @@ speak_buffer("You have " + round(cookyspeed, 0) + " auto cookie speeds.");
 {
 speak_buffer("You have " + round(manulcooky, 0) + " manual cookies.");
 }
-        if (key_pressed(KEY_O))
+        if (key_repeating(KEY_O))
 {
+pool.destroy_sound(coinslot);
+coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have " + round(coins, 0) + " coins.");
 }
 }

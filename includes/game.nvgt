@@ -348,8 +348,10 @@ form.reset();
 game();
 }
 }
-if(key_pressed(KEY_M))
+if(key_repeating(KEY_M))
 {
+pool.destroy_sound(coinslot);
+coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have"+round(coins, 0)+"coins available to spend", "misc");
 }
 if(key_pressed(KEY_R))

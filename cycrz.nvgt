@@ -6,7 +6,7 @@ double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered
 double autoCookyBaseCost = 5, autoCookyMultiplier = 5, autoCookySpeedBaseCost = 5, autoCookySpeedMultiplier = 5, manualCookyBaseCost = 5, manualCookyMultiplier = 5;
 double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, stormusvolume=0, stormuspitch=100;
 float sailstart, sailstep;
-int ambslot, alertslot, eventslot, foodslot, gameslot, mustrackslot, machineslot, percslot, storslot, stortrackslot;
+int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, mustrackslot, machineslot, percslot, storslot, stortrackslot;
 int evchanse, evchanse2, playergender;
 int bakemode=0,  clicktime=1000-cookyspeed;
 string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};

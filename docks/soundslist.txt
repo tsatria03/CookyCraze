@@ -17,17 +17,13 @@ buy1.ogg
 buy2.ogg
 buy3.ogg
 buy4.ogg
-chip1.ogg
-chip2.ogg
-chip3.ogg
 coin1.ogg
 coin1000.ogg
 coin10000.ogg
 coin100000.ogg
 coin50.ogg
 coin50000.ogg
-coinflip1.ogg
-coinflip2.ogg
+coinflip.ogg
 cointoss.ogg
 eatcookies.ogg
 error.ogg
@@ -96,4 +92,4 @@ toggleon.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 98
+total files: 94
