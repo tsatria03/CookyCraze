@@ -1,3 +1,6 @@
+new in 1.7
+Fixed the bug where the order of bets were incorrectly placed, causing you not to lose the item that was bet after all of the reels have spun.
+Added sounds for launching mini games. The game will now alert the user if they aren't at a high enough rank to play them.
 new in 1.6
 Addressed an issue where items bet by the slot machine weren't being spoken correctly when the user spun the reels. Instead of saying; you placed a bet of numbered items on item name, it would say; you placed a bet of numbered items on item number.
 Made it so the game doesn't anounce wich reel has been chosen when automatic reel stopping is enabled.
