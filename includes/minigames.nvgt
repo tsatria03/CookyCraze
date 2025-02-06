@@ -479,12 +479,12 @@ coins -= betAmount;
 {
 autocooky -= betAmount;
 }
-            else if (selectedBet == 4)
+            else if (selectedBet == 3)
 {
 cookyspeed -= betAmount;
 clicktime+=cookyspeed;
 }
-            else if (selectedBet == 3)
+            else if (selectedBet == 4)
 {
 manulcooky -= betAmount;
 }
