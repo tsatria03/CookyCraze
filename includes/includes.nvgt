@@ -1,7 +1,6 @@
 #include"bgt_compat.nvgt"
 #include"sound_pool.nvgt"
 #include"dget.nvgt"
-#include"audioutils.nvgt"
 #include"buffer.nvgt"
 #include"dlg.nvgt"
 #include"extrafuncts.nvgt"
