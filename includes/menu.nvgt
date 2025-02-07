@@ -4,7 +4,7 @@ setupmenu();
 m.add_item("play", "pl");
 m.add_item("preferences", "preffs");
 m.add_item("Exit", "ex");
-m.intro_text = "Welcome to the main menu. Use the arrow keys to navigate and press enter to select an option.";
+m.intro_text = "Main menu. Please choose an option with your arrow keys, then press enter to activate one.";
 int mres=m.run();
 string main = m.get_selected_item_id();
 if(mres==-1)
@@ -102,7 +102,8 @@ buymenu();
 }
 if(stm=="slm")
 {
-string sailam=virtual_input_box("","How many cookies would you like to sell?");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+string sailam=vd.input_box("","How many cookies would you like to sell?");
 double cookiesToSell = string_to_number(sailam);
     if (cookiesToSell <= 0)
     {
@@ -216,7 +217,7 @@ m.add_item("back", "back");
 m.intro_text="Automatic baking menu.";
 int mres = m.run();
 string abm = m.get_selected_item_id();
-if (mres == 0)
+if (mres==-1)
 {
 buymenu();
 }
@@ -228,7 +229,8 @@ pool.play_stationary("storefail.ogg",false);
 dlg("Error! You don't have enough coins to buy an auto cooky.");
 buymenu();
 }
-string autocook = virtual_input_box("","How many auto cookies would you like to buy?");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+string autocook = vd.input_box("","How many auto cookies would you like to buy?");
 if (autocook == "") return;
 double quantity = string_to_number(autocook);
 double totalCost = 0;
@@ -259,7 +261,8 @@ pool.play_stationary("storefail.ogg",false);
 dlg("Error! You don't have enough coins to buy an auto cooky speed.");
 buymenu();
 }
-string autocooksp = virtual_input_box("","How many auto cookie speeds would you like to buy?");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy?");
 if (autocooksp == "") return;
 double quantity = string_to_number(autocooksp);
 double totalCost = 0;
@@ -304,7 +307,7 @@ m.add_item("back", "back");
 m.intro_text="Manual baking menu.";
 int mres = m.run();
 string mabm = m.get_selected_item_id();
-if (mres == 0)
+if (mres==-1)
 {
 buymenu();
 }    
@@ -317,7 +320,8 @@ dlg("Error! You don't have enough coins to buy a manule cooky.");
 buymenu();
 return;
 }
-string manulcook = virtual_input_box("","How many manule cookies would you like to buy?");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+string manulcook = vd.input_box("","How many manule cookies would you like to buy?");
 if (manulcook == "") return;
 double quantity = string_to_number(manulcook);
 double totalCost = 0;
@@ -525,7 +529,8 @@ form.focus(charname);
 playergender = form.get_list_position(chargender);
         if (form.is_pressed(charname))
         {
-string fn=virtual_input_box("","Enter the first name of this character.");
+vd.set_disallowed_chars("0123456789!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
 alertslot=pool.play_stationary("error.ogg",false);
@@ -544,7 +549,8 @@ playername=fn;
 }
         if (form.is_pressed(charname2))
         {
-string fn2=virtual_input_box("","Enter the last name of this character.");
+vd.set_disallowed_chars("0123456789!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {
 pool.play_stationary("error.ogg",false);

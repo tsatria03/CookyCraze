@@ -1,4 +1,5 @@
 new in 1.7
+Replaced the text_input class with a much better virtual_dialogs class. This class includes the ability to create virtual_input_boxes that uses the audio forms class as a backend. The game will now  utilize this class for all input prompts from now on.
 Removed the statistics found under each button that told you how many of an item you had while hovering over the button. For example, the button to access the cooky store is now less verbose. Instead of telling you how many coins you have when hovering over the button, it will now just say cooky store.
 
 Moved the preferences menu out of the game into the newly implemented main menu.

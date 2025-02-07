@@ -427,7 +427,7 @@ muspool.pause_sound(mustrackslot);
     m.add_item("No, save the game, but continue playing", "save_continue");
 m.intro_text = "Are you sure you want to quit the game?";
 int mres = m.run();
-    if (mres==-1)
+    if(mres==-1)
     {
 pool.destroy_sound(alertslot);
 ambpool.resume_sound(ambslot);

@@ -41,4 +41,5 @@ savedata st("data/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJD
 savedata st2("data/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
 savedata st3("data/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
 sound_pool p, pool, ambpool, muspool, stormuspool;
+virtual_dialogs vd;
 typedef uint8 usmall; typedef int8 small;
