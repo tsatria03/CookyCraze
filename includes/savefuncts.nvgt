@@ -135,14 +135,6 @@ if(st.d.exists("manualCookyMultiplier"))
 {
 manualCookyMultiplier=st.read_double("manualCookyMultiplier");
 }
-if(st.d.exists("sailstart"))
-{
-sailstart=st.read_float("sailstart");
-}
-if(st.d.exists("sailstep"))
-{
-sailstep=st.read_float("sailstep");
-}
 if(st.d.exists("evchanse"))
 {
 evchanse=st.read_int("evchanse");
@@ -184,8 +176,6 @@ st.add("autoCookySpeedBaseCost",autoCookySpeedBaseCost);
 st.add("autoCookySpeedMultiplier",autoCookySpeedMultiplier);
 st.add("manualCookyBaseCost",manualCookyBaseCost);
 st.add("manualCookyMultiplier",manualCookyMultiplier);
-st.add("sailstart",sailstart);
-st.add("sailstep",sailstep);
 st.add("evchanse",evchanse);
 st.add("evchanse2",evchanse2);
     autoEventToggles.resize(autoBakingEvents.length());

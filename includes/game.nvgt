@@ -1,13 +1,13 @@
 void game()
 {
+form.reset();
 form.create_window("CookyCraze", false);
 int manulbake=form.create_button("Bake cook&ies. You currently have "+round(manulcooky,0)+" manule cookies.");
 int autobake=form.create_button("Enter baking m&ode. You currently have "+round(autocooky,0)+" auto cookies.");
 int checkHunger = form.create_button("Check h&unger status");
 int food=form.create_button("Ea&t cookies. You currently have "+round(cookies,0)+" cookies.");
-int minigames=form.create_button("mini &games");
 int shop=form.create_button("Cooky &store. You currently have "+round(coins,0)+" coins.");
-int preffsets=form.create_button("&preferences");
+int minigames=form.create_button("mini &games");
 form.focus(manulbake);
 while(true)
 {
@@ -49,10 +49,6 @@ clicktime=50;
 if(clicktime>=1000)
 {
 clicktime=1000;
-}
-if (form.is_pressed(preffsets))
-{
-preffsmenu();
 }
 if (form.is_pressed(minigames))
 {
@@ -425,12 +421,13 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
        alertslot=pool.play_stationary("alert_critical.ogg",false);
     setupmenu();    
-    m.add_item_tts("Yes, quit the game without saving");
-    m.add_item_tts("Yes, save the game and then quit");
-    m.add_item_tts("No, continue playing");
-    m.add_item_tts("No, save the game, but continue playing");
-    int mres = m.run("Are you sure you want to quit the game?", true);
-    if (mres == 0)
+    m.add_item("Yes, quit the game without saving", "quit_no_save");
+    m.add_item("Yes, save the game and then quit", "quit_save");
+    m.add_item("No, continue playing", "continue");
+    m.add_item("No, save the game, but continue playing", "save_continue");
+m.intro_text = "Are you sure you want to quit the game?";
+int mres = m.run();
+    if (mres==-1)
     {
 pool.destroy_sound(alertslot);
 ambpool.resume_sound(ambslot);
@@ -439,16 +436,16 @@ muspool.resume_sound(mustrackslot);
 form.reset();
 game();
     }
-    if (mres == 1)
+if (m.get_selected_item_id() == "quit_no_save")
     {
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
         speak_buffer("Exiting the game without saving.");
 dlgplay("exitgame.ogg");
-exit();
+mainmenu();
     }
-    if (mres == 2)
+if (m.get_selected_item_id() == "quit_save")
     {
         writedata();
 ambpool.destroy_sound(ambslot);
@@ -456,9 +453,9 @@ muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
         speak_buffer("game saved, Exiting the game.");
 dlgplay("exitgame.ogg");
-exit();
+mainmenu();
     }
-    if (mres == 3)
+if (m.get_selected_item_id() == "continue")
     {
 pool.destroy_sound(alertslot);
 ambpool.resume_sound(ambslot);
@@ -467,7 +464,7 @@ muspool.resume_sound(mustrackslot);
 form.reset();
 game();
     }
-    if (mres == 4)
+if (m.get_selected_item_id() == "save_continue")
     {
         writedata();
 pool.destroy_sound(alertslot);
