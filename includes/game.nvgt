@@ -317,18 +317,6 @@ export_buffers();
 clear_all_buffer_items();
 }
 }
-if(alt_is_down())
-{
-if(key_repeating(KEY_F4))
-{
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-pool.destroy_all();
-speak_buffer("exiting");
-dlgplay("exitgame.ogg");
-exit();
-}
-}
 if(control_is_down())
 {
 if(key_repeating(KEY_S))
@@ -451,7 +439,7 @@ if (m.get_selected_item_id() == "quit_save")
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
-        speak_buffer("game saved, Exiting the game.");
+        speak_buffer("game saved, Exiting to main menu.");
 dlgplay("exitgame.ogg");
 mainmenu();
     }

@@ -30,4 +30,3 @@ Right Bracket: Navigates to the next buffer category, if pressed.
 Control plus M: Toggles the mute or unmute state of the currently selected buffer, if pressed.
 Control plus S: Saves your game progress, if pressed.
 Escape: Brings up a menu prompt that asks you if you want to quit the game or not, if pressed.
-Alt plus F4: Exits the game immediately, with all unsaved progress lost, if pressed.

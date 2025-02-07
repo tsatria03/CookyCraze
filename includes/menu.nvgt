@@ -1,29 +1,79 @@
 void mainmenu()
 {
 setupmenu();
-m.add_item("play", "pl");
+m.add_item("load game", "lg");
+m.add_item("new game", "ng");
 m.add_item("preferences", "preffs");
-m.add_item("Exit", "ex");
+m.add_item("exit game", "ex");
 m.intro_text = "Main menu. Please choose an option with your arrow keys, then press enter to activate one.";
 int mres=m.run();
 string main = m.get_selected_item_id();
 if(mres==-1)
 {
+speak("exiting");
+wait(500);
 exit();
 }
-if (main == "pl")
+if (main == "lg")
 {
+if(file_exists("data/game.crz"))
+{
+speak("loading");
+wait(500);
 if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
 ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
 game();
 }
+else
+{
+alertslot=pool.play_stationary("error.ogg",false);
+dlg("Error. The data assosiated with this game does not exist.");
+pool.destroy_sound(alertslot);
+mainmenu();
+}
+}
+if(main=="ng")
+{
+if(file_exists("data/game.crz"))
+{
+bool confirmed = yes_no("Are you sure you want to start over from the beginning? This will erase all of the progress you made on the current game.");
+if (confirmed==true)
+{
+speak("loading");
+wait(500);
+if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+resetgame();
+game();
+}
+else if (confirmed==false)
+{
+mainmenu();
+}
+}
+else
+{
+speak("loading");
+wait(500);
+if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+ambslot=ambpool.play_stationary_extended("room"+random(1,4)+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("music"+random(1,6)+".ogg", true,0,0,musvolume,muspitch,false);
+resetgame();
+game();
+}
+}
 if (main == "preffs")
 {
+speak("loading");
+wait(500);
 preffsmenu();
 }
 if (main == "ex")
 {
+speak("exiting");
+wait(500);
 exit();
 }
 }
@@ -102,7 +152,7 @@ buymenu();
 }
 if(stm=="slm")
 {
-vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string sailam=vd.input_box("","How many cookies would you like to sell?");
 double cookiesToSell = string_to_number(sailam);
     if (cookiesToSell <= 0)
@@ -229,7 +279,7 @@ pool.play_stationary("storefail.ogg",false);
 dlg("Error! You don't have enough coins to buy an auto cooky.");
 buymenu();
 }
-vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string autocook = vd.input_box("","How many auto cookies would you like to buy?");
 if (autocook == "") return;
 double quantity = string_to_number(autocook);
@@ -261,7 +311,7 @@ pool.play_stationary("storefail.ogg",false);
 dlg("Error! You don't have enough coins to buy an auto cooky speed.");
 buymenu();
 }
-vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy?");
 if (autocooksp == "") return;
 double quantity = string_to_number(autocooksp);
@@ -320,7 +370,7 @@ dlg("Error! You don't have enough coins to buy a manule cooky.");
 buymenu();
 return;
 }
-vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string manulcook = vd.input_box("","How many manule cookies would you like to buy?");
 if (manulcook == "") return;
 double quantity = string_to_number(manulcook);
@@ -529,7 +579,7 @@ form.focus(charname);
 playergender = form.get_list_position(chargender);
         if (form.is_pressed(charname))
         {
-vd.set_disallowed_chars("0123456789!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars("0123456789 !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
@@ -549,7 +599,7 @@ playername=fn;
 }
         if (form.is_pressed(charname2))
         {
-vd.set_disallowed_chars("0123456789!@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars("0123456789 !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {
