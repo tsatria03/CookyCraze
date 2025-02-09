@@ -1,7 +1,7 @@
 new in 1.8
 Fixed up the shop menu. The input box will no longer return you back to the main game when pressing escape. The store will now alert the user to enter a valid number before confirming a purchase.
-Added store anbience volume and pitch to the audio settings menu.
 Brought back the information that was given to the user after purchasing an item. It will now tell you the next upgrade cost of all items that are bought in the cooky store.
+Added store anbience volume and pitch to the audio settings menu.
 Added some more music to play with.
 new in 1.7
 Added the ability to load and start new games in the main menu.

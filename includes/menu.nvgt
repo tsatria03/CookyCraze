@@ -273,12 +273,6 @@ buymenu();
 }
 if (abm == "abic")
 {
-if (coins < autoCookyCost)
-{
-pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy an auto cooky.");
-buymenu();
-}
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string autocook = vd.input_box("","How many auto cookies would you like to buy?");
 double quantity = string_to_number(autocook);
@@ -312,12 +306,6 @@ buymenu();
 }
 if (abm == "sabic")
 {
-if (coins < autoCookySpeedCost)
-{
-pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy an auto cooky speed.");
-buymenu();
-}
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy?");
 double quantity = string_to_number(autocooksp);
@@ -377,13 +365,6 @@ buymenu();
 }    
 if (mabm == "mabic")
 {
-if (coins < manuleCookyCost)
-{
-pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy a manule cooky.");
-buymenu();
-return;
-}
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string manulcook = vd.input_box("","How many manule cookies would you like to buy?");
 double quantity = string_to_number(manulcook);
