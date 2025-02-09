@@ -166,7 +166,7 @@ double cookiesToSell = string_to_number(sailam);
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("sellfail.ogg", false);
-        dlg("Error: You only have " + cookies + " cookies available to sell.");
+        dlg("Error: You only have " + round(cookies, 0) + " cookies available to sell.");
         shopmenu();
     }
 double totalCoinsEarned = cookiesToSell * 10;
@@ -281,9 +281,15 @@ buymenu();
 }
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string autocook = vd.input_box("","How many auto cookies would you like to buy?");
-if (autocook == "") return;
 double quantity = string_to_number(autocook);
 double totalCost = 0;
+    if (quantity <= 0)
+    {
+        pool.destroy_sound(alertslot);
+        pool.play_stationary("storefail.ogg", false);
+        dlg("Error: Please enter a valid number of auto cookies to buy.");
+        buymenu();
+    }
 for (double i = 0; i < quantity; i++)
 {
 totalCost += buy_item(autocooky + i, autoCookyBaseCost, autoCookyMultiplier);
@@ -314,9 +320,15 @@ buymenu();
 }
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy?");
-if (autocooksp == "") return;
 double quantity = string_to_number(autocooksp);
 double totalCost = 0;
+    if (quantity <= 0)
+    {
+        pool.destroy_sound(alertslot);
+        pool.play_stationary("storefail.ogg", false);
+        dlg("Error: Please enter a valid number of auto cooky speeds to buy.");
+        buymenu();
+    }
 for (double i = 0; i < quantity; i++)
 {
 totalCost += buy_item(cookyspeed + i, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
@@ -374,9 +386,15 @@ return;
 }
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string manulcook = vd.input_box("","How many manule cookies would you like to buy?");
-if (manulcook == "") return;
 double quantity = string_to_number(manulcook);
 double totalCost = 0;
+    if (quantity <= 0)
+    {
+        pool.destroy_sound(alertslot);
+        pool.play_stationary("storefail.ogg", false);
+        dlg("Error: Please enter a valid number of manual cookies to buy.");
+        buymenu();
+    }
 for (double i = 0; i < quantity; i++)
 {
 totalCost += buy_item(manulcooky + i, manualCookyBaseCost, manualCookyMultiplier);

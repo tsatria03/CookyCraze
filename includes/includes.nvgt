@@ -30,7 +30,7 @@ int bakemode=0,  clicktime=1000-cookyspeed;
 string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string playername, playername2;
-string version="1.7";
+string version="1.8";
 timer clicktimer;
 file logfile;
 audio_form form;
