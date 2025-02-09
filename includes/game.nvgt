@@ -173,7 +173,7 @@ muspool.destroy_sound(mustrackslot);
 speak_buffer("You're now entering the cooky store.", "critical");
 dlgplay("store_door_open.ogg");
 alertslot=pool.play_stationary("store_welcome.ogg",false);
-storslot=pool.play_stationary("store_amb.ogg",true);
+storambslot=stormuspool.play_stationary_extended("store_amb.ogg",true,0,0,storambvolume,storambpitch,false);
 stortrackslot=stormuspool.play_stationary_extended("store_music.ogg",true,0,0,stormusvolume,stormuspitch,false);
 shopmenu();
 }

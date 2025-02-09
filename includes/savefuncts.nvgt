@@ -211,6 +211,14 @@ if(st2.d.exists("muspitch"))
 {
 muspitch=st2.read_double("muspitch");
 }
+if(st2.d.exists("storambvolume"))
+{
+storambvolume=st2.read_double("storambvolume");
+}
+if(st2.d.exists("storambpitch"))
+{
+storambpitch=st2.read_double("storambpitch");
+}
 if(st2.d.exists("stormusvolume"))
 {
 stormusvolume=st2.read_double("stormusvolume");
@@ -226,6 +234,8 @@ st2.add("ambvolume",ambvolume);
 st2.add("ambpitch",ambpitch);
 st2.add("musvolume",musvolume);
 st2.add("muspitch",muspitch);
+st2.add("storambvolume",storambvolume);
+st2.add("storambpitch",storambpitch);
 st2.add("stormusvolume",stormusvolume);
 st2.add("stormuspitch",stormuspitch);
 st2.save();

@@ -23,8 +23,8 @@ bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=10000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
 double autoCookyBaseCost = 50, autoCookyMultiplier = 50, autoCookySpeedBaseCost = 50, autoCookySpeedMultiplier = 50, manualCookyBaseCost = 50, manualCookyMultiplier = 50;
-double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, stormusvolume=0, stormuspitch=100;
-int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, mustrackslot, machineslot, percslot, storslot, stortrackslot;
+double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
+int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
 int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
 string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
@@ -39,6 +39,6 @@ savedata sd("data/game.crz", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi
 savedata st("data/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
 savedata st2("data/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
 savedata st3("data/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
-sound_pool p, pool, ambpool, muspool, stormuspool;
+sound_pool p, pool, ambpool, muspool, storambpool, stormuspool;
 virtual_dialogs vd;
 typedef uint8 usmall; typedef int8 small;
