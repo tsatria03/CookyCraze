@@ -3,9 +3,7 @@ void setupmenu()
 m.reset();
 m.automatic_intro=true;
 m.focus_first_item=false;
-m.set_focused_item(-1, true);
 m.wrap = true;
-m.wrap_delay=10;
 m.click_sound="menuclick.ogg";
 m.close_sound="menuenter.ogg";
 m.edge_sound="menuedge.ogg";
@@ -18,9 +16,7 @@ void setupmenu2()
 m.reset();
 m.automatic_intro=true;
 m.focus_first_item=false;
-m.set_focused_item(-1, true);
 m.wrap = false;
-m.wrap_delay=10;
 m.click_sound="storeclick.ogg";
 m.close_sound="storechoose.ogg";
 m.edge_sound="storebounds.ogg";

@@ -86,6 +86,10 @@ class menu {
 			intro();
 			automatic_intro = false;
 		}
+if(key_repeating(KEY_TAB) and intro_text.length()>0)
+{
+speak(intro_text);
+}
 		form.monitor();
 		if (form.is_pressed(f_cancel)) {
 			play(close_sound);
@@ -177,6 +181,14 @@ void learn_game_sounds_menu(dictionary@ sfx, const string&in audio_prefix = "", 
 	m.enter_sound = "";
 	string[]@ sfx_names = sfx.get_keys();
 	sfx_names.sort_ascending();
+	m.reset();
+	m.focus_first_item = false;
+	m.wrap = true;
+	m.click_sound="menuclick.ogg";
+	m.close_sound="menuenter.ogg";
+	m.edge_sound="menuedge.ogg";
+	m.open_sound="menuopen.ogg";
+	m.wrap_sound="menuclick.ogg";
 	m.add_items(sfx_names);
 	m.add_item("Go back");
 	m.intro();
@@ -209,7 +221,15 @@ void learn_game_sounds_menu(dictionary@ sfx, const string&in audio_prefix = "", 
 // yes_no: A simple yes no menu that returns true if the user clicked yes, false if they clicked no or pressed escape. The prompt is inserted as the first item in the menu so that users can repeat it.
 bool yes_no(const string&in prompt, menu@ m = null) {
 	if (@m == null) @m = menu();
+	m.reset();
 	m.focus_first_item = true;
+	m.wrap = true;
+	m.click_sound="menuclick.ogg";
+	m.close_sound="menuenter.ogg";
+	m.edge_sound="menuedge.ogg";
+	m.enter_sound="menuenter.ogg";
+	m.open_sound="menuopen.ogg";
+	m.wrap_sound="menuclick.ogg";
 	m.add_item(prompt);
 	m.add_item("yes");
 	m.add_item("no");
