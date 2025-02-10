@@ -1,9 +1,8 @@
 void mainmenu()
 {
 setupmenu();
-m.add_item("load game", "lg");
-m.add_item("new game", "ng");
-m.add_item("preferences", "preffs");
+m.add_item("game menu", "gm");
+m.add_item("settings menu", "sm");
 m.add_item("exit game", "ex");
 m.intro_text = "Main menu. Please choose an option with your arrow keys, then press enter to activate one.";
 int mres=m.run();
@@ -14,7 +13,37 @@ speak("exiting");
 wait(500);
 exit();
 }
-if (main == "lg")
+if (main == "gm")
+{
+gamemenu();
+}
+if (main == "sm")
+{
+speak("loading");
+wait(500);
+preffsmenu();
+}
+if (main == "ex")
+{
+speak("exiting");
+wait(500);
+exit();
+}
+}
+void gamemenu()
+{
+setupmenu();
+m.add_item("load game", "lg");
+m.add_item("new game", "ng");
+m.add_item("back", "back");
+m.intro_text = "Game menu.";
+int mres=m.run();
+string gamem = m.get_selected_item_id();
+if(mres==-1)
+{
+mainmenu();
+}
+if (gamem == "lg")
 {
 if(file_exists("data/game.crz"))
 {
@@ -30,10 +59,10 @@ else
 alertslot=pool.play_stationary("error.ogg",false);
 dlg("Error. The data assosiated with this game does not exist.");
 pool.destroy_sound(alertslot);
-mainmenu();
+gamemenu();
 }
 }
-if(main=="ng")
+if(gamem=="ng")
 {
 if(file_exists("data/game.crz"))
 {
@@ -50,7 +79,7 @@ game();
 }
 else if (confirmed==false)
 {
-mainmenu();
+gamemenu();
 }
 }
 else
@@ -64,17 +93,9 @@ resetgame();
 game();
 }
 }
-if (main == "preffs")
+if (gamem == "back")
 {
-speak("loading");
-wait(500);
-preffsmenu();
-}
-if (main == "ex")
-{
-speak("exiting");
-wait(500);
-exit();
+mainmenu();
 }
 }
 void mingamsmenu()
