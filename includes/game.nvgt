@@ -428,7 +428,7 @@ ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
         speak_buffer("Exiting the game without saving.");
-dlgplay("exitgame.ogg");
+wait(1000);
 mainmenu();
     }
 if (m.get_selected_item_id() == "quit_save")

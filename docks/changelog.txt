@@ -1,4 +1,5 @@
 new in 1.8
+Added the documentation menu into the main menu.
 Replaced all menu sounds with new ones.
 Fixed up the shop menu. The input box will no longer return you back to the main game when pressing escape. The store will now alert the user to enter a valid number before confirming a purchase.
 Brought back the information that was given to the user after purchasing an item. It will now tell you the next upgrade cost of all items that are bought in the cooky store.

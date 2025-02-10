@@ -1,6 +1,7 @@
 void mainmenu()
 {
 setupmenu();
+m.add_item("documentation menu", "dm");
 m.add_item("game menu", "gm");
 m.add_item("settings menu", "sm");
 m.add_item("exit game", "ex");
@@ -12,6 +13,10 @@ if(mres==-1)
 speak("exiting");
 dlgplay("exitgame.ogg");
 exit();
+}
+if(main=="dm")
+{
+docksmenu();
 }
 if (main == "gm")
 {
@@ -28,6 +33,50 @@ if (main == "ex")
 speak("exiting");
 dlgplay("exitgame.ogg");
 exit();
+}
+}
+void docksmenu()
+{
+setupmenu();
+m.add_item("changelog", "changelog");
+m.add_item("credits", "credits");
+m.add_item("readme", "readme");
+if(!SCRIPT_COMPILED) m.add_item("todo_list", "todo_list");
+m.add_item("back", "back");
+m.intro_text="Documentation menu.";
+int mres=m.run();
+string dnm=m.get_selected_item_id();
+if(mres==-1)
+{
+mainmenu();
+}
+if(dnm=="changelog")
+{
+speak("loading");
+wait(500);
+dockread("docks/changelog.txt");
+}
+if(dnm=="credits")
+{
+speak("loading");
+wait(500);
+dockread("docks/credits.txt");
+}
+if(dnm=="readme")
+{
+speak("loading");
+wait(500);
+dockread("docks/readme.txt");
+}
+if(dnm=="todo_list")
+{
+speak("loading");
+wait(500);
+dockread("docks/todo_list.txt");
+}
+if(dnm=="back")
+{
+mainmenu();
 }
 }
 void gamemenu()
@@ -66,8 +115,16 @@ if(gamem=="ng")
 {
 if(file_exists("data/game.crz"))
 {
-bool confirmed = yes_no("Are you sure you want to start over from the beginning? This will erase all of the progress you made on the current game.");
-if (confirmed==true)
+setupmenu();
+m.add_item("yes");
+m.add_item("no");
+m.intro_text="Are you sure you want to start over from the beginning? This will erase all of the progress you made on the current game.";
+int mres=m.run();
+if(mres==-1)
+{
+gamemenu();
+}
+if(mres==0)
 {
 speak("loading");
 wait(500);
@@ -77,7 +134,7 @@ mustrackslot=muspool.play_stationary_extended("music"+random(1,20)+".ogg", true,
 resetgame();
 game();
 }
-else if (confirmed==false)
+if (mres==1)
 {
 gamemenu();
 }

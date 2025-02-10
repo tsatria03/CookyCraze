@@ -80,6 +80,32 @@ mainmenu();
 }
 }
 
+void dockread(const string&in filename)
+{
+if(!file_exists(filename))
+{
+alert("Error","Could not fined "+string_replace(filename, "docks/", "", true));
+docksmenu();
+}
+dockfile.open(filename,"rb");
+string docktext=dockfile.read();
+dockfile.close();
+form.reset();
+form.create_window("Viewing "+string_replace(filename, "docks/", "", true),false,false,false);
+int dockbox=form.create_input_box(string_replace(filename, "docks/", "", true), docktext, read_only:true, multiline:true);
+int dockclose=form.create_button("&close",false,true);
+form.focus(dockbox);
+while(true)
+{
+wait(5);
+form.monitor();
+if (form.is_pressed(dockclose))
+{
+docksmenu();
+}
+}
+}
+
 void resetgame()
 {
 autocooky=0;

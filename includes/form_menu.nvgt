@@ -225,11 +225,11 @@ bool yes_no(const string&in prompt, menu@ m = null) {
 	m.focus_first_item = true;
 	m.wrap = true;
 	m.click_sound="menuclick.ogg";
-	m.close_sound="menuenter.ogg";
+	m.close_sound="menuclose.ogg";
 	m.edge_sound="menuedge.ogg";
 	m.enter_sound="menuenter.ogg";
 	m.open_sound="menuopen.ogg";
-	m.wrap_sound="menuclick.ogg";
+	m.wrap_sound="menuwrap.ogg";
 	m.add_item(prompt);
 	m.add_item("yes");
 	m.add_item("no");

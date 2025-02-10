@@ -9,7 +9,6 @@
 #include"form_menu.nvgt"
 #include"game.nvgt"
 #include"input_forms.nvgt"
-#include"key_hold.nvgt"
 #include"menu.nvgt"
 #include"minigames.nvgt"
 #include"savedata.nvgt"
@@ -32,7 +31,7 @@ string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "d
 string playername, playername2;
 string version="1.8";
 timer clicktimer;
-file logfile;
+file dockfile, logfile;
 audio_form form;
 menu m;
 savedata sd("data/game.crz", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
