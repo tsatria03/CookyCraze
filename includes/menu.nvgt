@@ -10,7 +10,7 @@ string main = m.get_selected_item_id();
 if(mres==-1)
 {
 speak("exiting");
-wait(500);
+dlgplay("exitgame.ogg");
 exit();
 }
 if (main == "gm")
@@ -26,7 +26,7 @@ preffsmenu();
 if (main == "ex")
 {
 speak("exiting");
-wait(500);
+dlgplay("exitgame.ogg");
 exit();
 }
 }
