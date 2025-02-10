@@ -7,7 +7,6 @@
 #include"events.nvgt"
 #include"form.nvgt"
 #include"form_menu.nvgt"
-#include"game.nvgt"
 #include"input_forms.nvgt"
 #include"menu.nvgt"
 #include"minigames.nvgt"

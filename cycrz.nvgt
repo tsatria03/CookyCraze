@@ -106,6 +106,471 @@ docksmenu();
 }
 }
 
+void game()
+{
+form.reset();
+form.create_window("CookyCraze", false);
+int manulbake=form.create_button("Bake cook&ies");
+int checkHunger = form.create_button("Check h&unger status");
+int shop=form.create_button("Cooky &store");
+int food=form.create_button("Ea&t cookies");
+int autobake=form.create_button("Enter baking m&ode");
+int minigames=form.create_button("mini &games");
+form.focus(manulbake);
+while(true)
+{
+form.monitor();
+wait(5);
+if(autocooky<=0)
+{
+bakemode=0;
+autocooky=0;
+}
+if(coins<=0)
+{
+coins=0;
+}
+if(cookies<=0)
+{
+cookies=0;
+}
+if(cookyspeed<=0)
+{
+cookyspeed=0;
+}
+if(hunger<=0)
+{
+hunger=0;
+}
+if(hunger>=maxhunger)
+{
+hunger=maxhunger;
+}
+if(manulcooky<=0)
+{
+manulcooky=0;
+}
+if(clicktime<=50)
+{
+clicktime=50;
+}
+if(clicktime>=1000)
+{
+clicktime=1000;
+}
+if (form.is_pressed(minigames))
+{
+mingamsmenu();
+}
+        if (form.is_pressed(checkHunger))
+        {
+            if (hunger >= 0 && hunger <= 1000)
+            {
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+pool.play_stationary("heart.ogg",false);
+                dlg_buffer("You're feeling very full. No need to eat right now.", "general");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+            }
+            else if (hunger > 1000 && hunger <= 4000)
+            {
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+pool.play_stationary("heart.ogg",false);
+                dlg_buffer("You're starting to feel a little hungry. Maybe grab a snack soon.", "general");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+            }
+            else if (hunger > 4000 && hunger <= 7000)
+            {
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+pool.play_stationary("heart2.ogg",false);
+                dlg_buffer("You're feeling pretty hungry. You might want to eat something.", "general");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+            }
+            else if (hunger > 7000 && hunger < maxhunger)
+            {
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+alertslot=pool.play_stationary("alert_critical.ogg",false);
+pool.play_stationary("heart3.ogg",false);
+                dlg_buffer("You're extremely hungry! You need to eat now.", "critical");
+pool.destroy_sound(alertslot);
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+            }
+            else if (hunger >= maxhunger)
+            {
+                coins = max(0, coins - 10 * rank);
+                autocooky = max(0, autocooky - random(10, 20) * rank);
+                cookyspeed = min(1000, cookyspeed + random(5, 10) * rank);
+                clicktime+=cookyspeed;
+manulcooky = max(0, manulcooky - random(10, 20) * rank);
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+alertslot=pool.play_stationary("alert_critical.ogg",false);
+pool.play_stationary("heart.ogg",false);
+dlg_buffer("Extreme hunger has consequences! You lost some coins, auto cookies, manual cookies, and auto-cooky speed boosts.", "critical");
+hunger=0;
+pool.destroy_sound(alertslot);
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+            }
+        }
+if(form.is_pressed(autobake))
+{
+if(autocooky==0)
+{
+speak_buffer("You need at least 1 auto cooky to enable baking mode.", "general");
+}
+else if(autocooky>=1)
+{
+if(bakemode==0)
+{
+bakemode=1;
+pool.play_stationary("toggleon.ogg", false);
+speak_buffer("Baking mode enabled.", "misc");
+}
+else if(bakemode==1)
+{
+bakemode=0;
+pool.play_stationary("toggleoff.ogg", false);
+speak_buffer("Baking mode disabled.", "misc");
+}
+}
+}
+if(form.is_pressed(manulbake))
+{
+if(bakemode==1)
+{
+speak_buffer("You can't manuely produce cookies when you're in baking mode.", "general");
+}
+else if(bakemode==0)
+{
+if(manulcooky==0)
+{
+speak_buffer("You need at least 1 manule cooky to start baking cookies.", "general");
+}
+else if(manulcooky>=1)
+{
+cookies+=1*manulcooky;
+pool.play_stationary("manulbake" + random(1, 3) + ".ogg", false);
+if(playervents2==true) attempt_manebaker_event(evchanse2);
+}
+}
+}
+if(form.is_pressed(shop))
+{
+if(bakemode==1)
+{
+speak_buffer("You can't enter the cooky store when you're in baking mode.", "general");
+}
+else if(bakemode==0)
+{
+if(coins<5)
+{
+speak_buffer("You need at least 5 coins to enter the cooky store.", "general");
+}
+else if(coins>=5)
+{
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+speak_buffer("You're now entering the cooky store.", "critical");
+dlgplay("store_door_open.ogg");
+alertslot=pool.play_stationary("store_welcome.ogg",false);
+storambslot=stormuspool.play_stationary_extended("store_amb.ogg",true,0,0,storambvolume,storambpitch,false);
+stortrackslot=stormuspool.play_stationary_extended("store_music.ogg",true,0,0,stormusvolume,stormuspitch,false);
+shopmenu();
+}
+}
+}
+if (form.is_pressed(food))
+{
+    if (cookies > 0)
+{
+        double cookiesToEat = min(100 * rank, cookies);
+pool.destroy_sound(foodslot);
+        foodslot = pool.play_stationary("eatcookies.ogg", false);
+        cookies -= cookiesToEat;
+          hunger = max(0, hunger - cookiesToEat);
+        if (hunger <= 0)
+{
+            pool.destroy_sound(foodslot);
+            pool.destroy_sound(eventslot);
+            if (playergender == 0) eventslot = pool.play_stationary("male_vomit.ogg", false);
+            if (playergender == 1) eventslot = pool.play_stationary("female_vomit.ogg", false);
+speak_buffer("You ate too much! You feel sick, and now lost " + round(cookiesToEat,0) + " cookies as a penalty.", "critical");
+            hunger = 0;
+        }
+    } else if (cookies <= 0)
+{
+        speak_buffer("There aren't enough cookies for you to eat.", "general");
+    }
+}
+if(bakemode==1 and autocooky>=1)
+{
+if(clicktimer.elapsed>=clicktime)
+{
+cookies+=1*autocooky;
+pool.play_stationary("autobake.ogg", false);
+if(playervents==true) attempt_autobaker_event(evchanse);
+clicktimer.restart();
+}
+else if(bakemode==1 and autocooky<=0)
+{
+bakemode=0;
+pool.destroy_all();
+}
+}
+if (cookies >= cookiesrequiered)
+{
+    cookiesrequiered = (cookymod * (rank * (rank * difmod)));
+hunger+=10 * rank;
+    levcoins+=10 * rank;
+    rank+=1;
+    coins += levcoins;
+    if (levcoins >= 1 && levcoins <= 49)
+{
+        if(coinsfx==true) pool.play_stationary("coin1.ogg", false);
+    }
+else if (levcoins >= 50 && levcoins <= 999)
+{
+        if(coinsfx==true) pool.play_stationary("coin50.ogg", false);
+    }
+else if (levcoins >= 1000 && levcoins <= 9999)
+{
+        if(coinsfx==true) pool.play_stationary("coin1000.ogg", false);
+    }
+else if (levcoins >= 10000 && levcoins <= 49999)
+{
+        if(coinsfx==true) pool.play_stationary("coin10000.ogg", false);
+    }
+else if (levcoins >= 50000 && levcoins <= 99999)
+{
+        if(coinsfx==true) pool.play_stationary("coin50000.ogg", false);
+    }
+else if (levcoins >= 100000 && levcoins <= 999999)
+{
+        if(coinsfx==true) pool.play_stationary("coin100000.ogg", false);
+    }
+else if (levcoins >= 1000000)
+{
+        if(coinsfx==true) pool.play_stationary("coin100000.ogg", false);
+    }
+    if(ranksfx==true) pool.play_stationary("achievement" + random(1, 2) + ".ogg", false);
+    speak_buffer("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + round(levcoins, 0) + " coins for your achievement. Great work!", "critical");
+if(rank==10)
+{
+levcoins += 10 * rank*2;
+if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
+dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the coin flip minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "critical");
+}
+if(rank==20)
+{
+levcoins += 10 * rank*4;
+if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
+dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "critical");
+}
+}
+if(key_repeating(KEY_COMMA))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+top_buffer_item();
+}
+else
+{
+previous_buffer_item();
+}
+}
+if(key_repeating(KEY_PERIOD))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+bottom_buffer_item();
+}
+else
+{
+next_buffer_item();
+}
+}
+if(key_repeating(KEY_LBRACKET))
+{
+previous_buffer();
+}
+if(key_repeating(KEY_RBRACKET))
+{
+next_buffer();
+}
+if (control_is_down())
+{
+if (key_repeating(KEY_M))
+{
+mute_and_unmute_buffer();
+}
+}
+if(shift_is_down())
+{
+if (key_repeating(KEY_C))
+{
+copy_buffer_item();
+}
+if (key_repeating(KEY_BACKSLASH))
+{
+speak("buffers exported");
+export_buffers();
+clear_all_buffer_items();
+}
+}
+if(control_is_down())
+{
+if(key_repeating(KEY_S))
+{
+writedata();
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+speak_buffer("game saved", "misc");
+dlgplay("savegame.ogg");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+form.reset();
+game();
+}
+}
+if(key_repeating(KEY_M))
+{
+pool.destroy_sound(coinslot);
+if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
+speak_buffer("You have"+round(coins, 0)+"coins available to spend", "misc");
+}
+if(key_repeating(KEY_R))
+{
+speak_buffer("You're currently rank "+rank+" with "+round(cookies,0)+" cookies. Your next rank requires "+(cookiesrequiered-round(cookies,0))+" cookies.", "misc");
+}
+if(key_repeating(KEY_F))
+{
+if(autocooky==0 and clicktime==1000)
+{
+speak_buffer("You  produce"+autocooky+"cookies per second.", "misc");
+}
+else if(autocooky==0 and clicktime<=999)
+{
+speak_buffer("You  produce"+autocooky+"cookies every"+clicktime+"milliseconds.", "misc");
+}
+else if(autocooky==1 and clicktime==1000)
+{
+speak_buffer("You  produce"+autocooky+"cooky per second.", "misc");
+}
+else if(autocooky==1 and clicktime<=999)
+{
+speak_buffer("You  produce"+autocooky+"cooky every"+clicktime+"milliseconds.", "misc");
+}
+else if(autocooky>=2 and clicktime==1000)
+{
+speak_buffer("You  produce"+autocooky+"cookies per second.", "misc");
+}
+else if(autocooky>=2 and clicktime<=999)
+{
+speak_buffer("You  produce"+autocooky+"cookies every"+clicktime+"milliseconds.", "misc");
+}
+}
+if(key_repeating(KEY_C))
+{
+if(cookies>=0)
+{
+speak_buffer("You baked a total of "+round(cookies,0)+" cookies.", "misc");
+}
+else if(cookies>=1)
+{
+speak_buffer("You baked a total of"+cookies+"cooky.", "misc");
+}
+else if(cookies>=2)
+{
+speak_buffer("You baked a total of"+cookies+"cookies.", "misc");
+}
+}
+if(key_repeating(KEY_H))
+{
+speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc");
+}
+if(key_repeating(KEY_J))
+{
+if(manulcooky==0)
+{
+speak_buffer("You  produce"+manulcooky+"cookies per press.", "misc");
+}
+else if(manulcooky==1)
+{
+speak_buffer("You  produce"+manulcooky+"cooky per press.", "misc");
+}
+else if(manulcooky>=2)
+{
+speak_buffer("You  produce"+manulcooky+"cookies per press.", "misc");
+}
+}
+if (key_repeating(KEY_ESCAPE))
+{
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+    setupmenu();    
+    m.add_item("Yes, quit the game without saving", "quit_no_save");
+    m.add_item("Yes, save the game and then quit", "quit_save");
+    m.add_item("No, continue playing", "continue");
+    m.add_item("No, save the game, but continue playing", "save_continue");
+m.intro_text = "Are you sure you want to quit the game?";
+int mres = m.run();
+    if(mres==-1)
+    {
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+        speak_buffer("Continuing the game.", "misc");
+form.reset();
+game();
+    }
+if (m.get_selected_item_id() == "quit_no_save")
+    {
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+pool.destroy_all();
+        speak_buffer("Exiting the game without saving.");
+wait(1000);
+mainmenu();
+    }
+if (m.get_selected_item_id() == "quit_save")
+    {
+        writedata();
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+pool.destroy_all();
+        speak_buffer("game saved, Exiting to main menu.");
+dlgplay("savegame.ogg");
+mainmenu();
+    }
+if (m.get_selected_item_id() == "continue")
+    {
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+        speak_buffer("Continuing the game.", "misc");
+form.reset();
+game();
+    }
+if (m.get_selected_item_id() == "save_continue")
+    {
+        writedata();
+        speak_buffer("game saved, Continuing the game.", "misc");
+dlgplay("savegame.ogg");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+form.reset();
+game();
+    }
+}
+}
+}
+
 void resetgame()
 {
 autocooky=0;
