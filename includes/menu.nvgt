@@ -315,6 +315,7 @@ coins -= totalCost;
 autocooky += quantity;
 double nextUpgradeCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
+pool.play_stationary("store_order.ogg",false);
 dlg("Purchase successful! You bought " + round(quantity, 0) + " auto cookies for " + round(totalCost, 0) + " coins. Next upgrade will cost " + round(nextUpgradeCost, 0) + " coins.");
 buymenu();
 }
@@ -349,6 +350,7 @@ cookyspeed += quantity;
 clicktime-=cookyspeed;
 double nextUpgradeCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
+pool.play_stationary("store_order.ogg",false);
 dlg("Purchase successful! You bought " + round(quantity, 0) + " auto cooky speeds for " + round(totalCost, 0) + " coins. Next upgrade will cost " + round(nextUpgradeCost, 0) + " coins.");
 buymenu();
 }
@@ -407,6 +409,7 @@ coins -= totalCost;
 manulcooky += quantity;
 double nextUpgradeCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
+pool.play_stationary("store_order.ogg",false);
 dlg("Purchase successful! You bought " + round(quantity, 0) + " manual cookies for " + round(totalCost, 0) + " coins. Next upgrade will cost " + round(nextUpgradeCost, 0) + " coins.");
 buymenu();
 }
