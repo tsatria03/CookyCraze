@@ -1,5 +1,6 @@
 new in 1.8
-Brought back the prefferences menu. You can now access it right within the game itself, not just in the main menu.
+Updated all single line dlg calls to tell the user what to do after reading one. This especially goes for error messages.
+Brought back the preferences menu. You can now access it right within the game itself, not just in the main menu.
 Added the documentation menu into the main menu.
 Replaced all menu sounds with new ones.
 Fixed up the shop menu. The input box will no longer return you back to the main game when pressing escape. The store will now alert the user to enter a valid number before confirming a purchase.
@@ -74,7 +75,7 @@ Modified the auto cooky speed boost events found in the coin flip and bakery fun
 You can no longer hold down the spacebar to manuely bake cookies. I couldn't believe this was actually a thing untill someone had mencioned this to me while I was testing it.
 new in 1.1
 Added the ability to quickly save your game progress by pressing Control S. You can also quickly exit the game by pressing Alt F4.
-Added a prefferences pannel that let's you adjust various options related to the game, including audio, character information, and other player related things.
+Added a preferences pannel that let's you adjust various options related to the game, including audio, character information, and other player related things.
 Added ambiences and music tracks. You'll here them across the bord. These can also be adjusted and shuffled in the sound settings of the game.
 Modified the cooky store to have it announce when you enter or exit the area.
 Modified some of the events found in the coin flip minni game and the 2 bakeries.

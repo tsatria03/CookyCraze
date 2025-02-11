@@ -127,7 +127,7 @@ int shop=form.create_button("Cooky &store");
 int food=form.create_button("Ea&t cookies");
 int autobake=form.create_button("Enter baking m&ode");
 int minigames=form.create_button("mini &games");
-int preffs=form.create_button("&prefferences");
+int preffs=form.create_button("&preferences");
 form.focus(manulbake);
 while(true)
 {
