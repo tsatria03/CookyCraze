@@ -250,7 +250,7 @@ slotsgame();
     }
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && cookyspeed < betAmount) || (selectedBet == 4 && manulcooky < betAmount))
             {
-                dlg_buffer("You don't have enough of that item to bet.");
+                dlg_buffer("You don't have enough of that item to bet! Press enter to continue.");
 form.reset();
 slotsgame();
             }

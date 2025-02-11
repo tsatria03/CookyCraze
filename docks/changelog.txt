@@ -1,4 +1,5 @@
 new in 1.8
+Brought back the prefferences menu. You can now access it right within the game itself, not just in the main menu.
 Added the documentation menu into the main menu.
 Replaced all menu sounds with new ones.
 Fixed up the shop menu. The input box will no longer return you back to the main game when pressing escape. The store will now alert the user to enter a valid number before confirming a purchase.
