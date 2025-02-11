@@ -1,8 +1,9 @@
 new in 1.8
+Added the ability to choose from a list of ambiences and music tracks to use with the game in the sound settings menu. These options can also be saved to the soundsets.crz file as well.
 Updated all single line dlg calls to tell the user what to do after reading one. This especially goes for error messages.
 Brought back the preferences menu. You can now access it right within the game itself, not just in the main menu.
 Added the documentation menu into the main menu.
-Replaced all menu sounds with new ones.
+Replaced all menu sounds with new ones. This also applies to the cooky store.
 Fixed up the shop menu. The input box will no longer return you back to the main game when pressing escape. The store will now alert the user to enter a valid number before confirming a purchase.
 Brought back the information that was given to the user after purchasing an item. It will now tell you the next upgrade cost of all items that are bought in the cooky store.
 Added store anbience volume and pitch sliders to the audio settings menu.

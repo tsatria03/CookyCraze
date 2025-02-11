@@ -27,6 +27,8 @@ int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
 string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
+string ambtype="room1";
+string mustype="music1";
 string playername, playername2;
 string version="1.8";
 timer clicktimer;
