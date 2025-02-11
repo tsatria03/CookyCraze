@@ -227,6 +227,22 @@ if(st2.d.exists("stormuspitch"))
 {
 stormuspitch=st2.read_double("stormuspitch");
 }
+if(st2.d.exists("ambienceIndex"))
+{
+ambienceIndex=st2.read_int("ambienceIndex");
+}
+if(st2.d.exists("musicIndex"))
+{
+musicIndex=st2.read_int("musicIndex");
+}
+if(st2.d.exists("ambtype"))
+{
+ambtype=st2.read_string("ambtype");
+}
+if(st2.d.exists("mustype"))
+{
+mustype=st2.read_string("mustype");
+}
 }
 void writepreffs2()
 {
@@ -238,6 +254,10 @@ st2.add("storambvolume",storambvolume);
 st2.add("storambpitch",storambpitch);
 st2.add("stormusvolume",stormusvolume);
 st2.add("stormuspitch",stormuspitch);
+st2.add("ambienceIndex",ambienceIndex);
+st2.add("musicIndex",musicIndex);
+st2.add("ambtype",ambtype);
+st2.add("mustype",mustype);
 st2.save();
 }
 void readpreffs3()

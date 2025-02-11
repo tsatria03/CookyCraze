@@ -1,5 +1,6 @@
 new in 1.8
-Added the ability to choose from a list of ambiences and music tracks to use with the game in the sound settings menu. These options can also be saved to the soundsets.crz file as well.
+Made it so the lists for changing ambience and music tracks can only be accessed if you are in the sound settings of the main game.
+Added the ability to choose from a list of ambiences and music tracks to use with the game in the sound settings menu. These lists can also be saved to the soundsets.crz file as well.
 Updated all single line dlg calls to tell the user what to do after reading one. This especially goes for error messages.
 Brought back the preferences menu. You can now access it right within the game itself, not just in the main menu.
 Added the documentation menu into the main menu.

@@ -609,6 +609,27 @@ void soundsetsmenu()
 {
 form.reset();
     form.create_window("audio settings", false);
+int amblist, musslist;
+if(ingame==true) amblist = form.create_list("ambience sound:", 4);
+if(ingame==true) musslist = form.create_list("music track:", 20);
+    string[] ambOptions;
+    for (uint i = 1; i <= 4; i++)
+    {
+        string ambName = "Room " + i;
+        string ambID = "room" + i;
+        ambOptions.insert_last(ambID);
+        form.add_list_item(amblist, ambName, ambID);
+    }
+    string[] musOptions;
+    for (uint i = 1; i <= 20; i++)
+    {
+        string musName = "Music " + i;
+        string musID = "music" + i;
+        musOptions.insert_last(musID);
+        form.add_list_item(musslist, musName, musID);
+    }
+if(ingame==true) form.set_list_position(amblist, ambienceIndex);
+if(ingame==true) form.set_list_position(musslist, musicIndex);
 int gameAmbienceVolumeSlider = form.create_slider("game ambience volume, ", (ambvolume + 50) * 2, 0, 100, "percent", 1);
 int gameAmbiencePitchSlider = form.create_slider("game ambience pitch, ", ambpitch / 2, 0, 100, "percent", 1);
 int gameMusicVolumeSlider = form.create_slider("game music volume, ", (musvolume + 50) * 2, 0, 100, "percent", 1);
@@ -617,31 +638,13 @@ int storeAmbienceVolumeSlider = form.create_slider("store ambience volume, ", (s
 int storeAmbiencePitchSlider = form.create_slider("store ambience pitch, ", storambpitch / 2, 0, 100, "percent", 1);
 int storeMusicVolumeSlider = form.create_slider("store music volume, ", (stormusvolume + 50) * 2, 0, 100, "percent", 1);
 int storeMusicPitchSlider = form.create_slider("store music pitch, ", stormuspitch / 2, 0, 100, "percent", 1);
-    int amblist = form.create_list("Choose an ambience sound:", 4);
-    int musslist = form.create_list("Choose a music track:", 20);
-    string[] ambOptions;
-    for (int i = 1; i <= 4; i++)
-    {
-        string ambName = "Room " + i;
-        string ambID = "room" + i;
-        ambOptions.insert_last(ambID);
-        form.add_list_item(amblist, ambName, ambID);
-    }
-    string[] musOptions;
-    for (int i = 1; i <= 20; i++)
-    {
-        string musName = "Music " + i;
-        string musID = "music" + i;
-        musOptions.insert_last(musID);
-        form.add_list_item(musslist, musName, musID);
-    }
 int savesets = form.create_button("&save settings", true);
 int cansets = form.create_button("&cancel");
-form.focus(gameAmbienceVolumeSlider);
+form.focus(amblist);
     while (true)
     {
-        form.monitor();
         wait(5);
+        form.monitor();
 ambvolume = (form.get_slider(gameAmbienceVolumeSlider) / 2) - 50;
 ambpitch = form.get_slider(gameAmbiencePitchSlider) * 2;
 musvolume = (form.get_slider(gameMusicVolumeSlider) / 2) - 50;
@@ -654,17 +657,17 @@ stormuspitch = form.get_slider(storeMusicPitchSlider) * 2;
         muspool.update_sound_start_values(mustrackslot, 0, musvolume, muspitch);
 storambpool.update_sound_start_values(storambslot, 0, storambvolume, storambpitch);
 stormuspool.update_sound_start_values(stortrackslot, 0, stormusvolume, stormuspitch);
-        int newAmbIndex = form.get_list_position(amblist);
-        if (newAmbIndex != -1 && ambOptions[newAmbIndex] != ambtype)
+if(ingame==true) ambienceIndex = form.get_list_position(amblist);
+        if (ambienceIndex != -1 && ambOptions[ambienceIndex] != ambtype)
         {
-            ambtype = ambOptions[newAmbIndex];
+            ambtype = ambOptions[ambienceIndex];
             ambpool.destroy_sound(ambslot);
             ambslot = ambpool.play_stationary_extended(ambtype + ".ogg", true, 0, 0, ambvolume, ambpitch, false);
         }
-        int newMusIndex = form.get_list_position(musslist);
-        if (newMusIndex != -1 && musOptions[newMusIndex] != mustype)
+if(ingame==true) musicIndex = form.get_list_position(musslist);
+        if (musicIndex != -1 && musOptions[musicIndex] != mustype)
         {
-            mustype = musOptions[newMusIndex];
+            mustype = musOptions[musicIndex];
             muspool.destroy_sound(mustrackslot);
             mustrackslot = muspool.play_stationary_extended(mustype + ".ogg", true, 0, 0, musvolume, muspitch, false);
         }

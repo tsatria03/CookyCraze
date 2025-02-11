@@ -25,6 +25,7 @@ double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, st
 int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
 int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
+int ambienceIndex=0, musicIndex=0;
 string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string ambtype="room1";
