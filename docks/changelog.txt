@@ -1,10 +1,10 @@
 new in 1.8
-Made it so the lists for changing ambience and music tracks can only be accessed if you are in the sound settings of the main game.
-Added the ability to choose from a list of ambiences and music tracks to use with the game in the sound settings menu. These lists can also be saved to the soundsets.crz file as well.
+Made it so the lists for changing ambience and music tracks can only be accessed if you are in the audio settings of the main game.
+Added the ability to choose from a list of ambiences and music tracks to use with the game in the audio settings menu. These lists can also be saved to the soundsets.crz file as well.
 Updated all single line dlg calls to tell the user what to do after reading one. This especially goes for error messages.
 Brought back the preferences menu. You can now access it right within the game itself, not just in the main menu.
 Added the documentation menu into the main menu.
-Replaced all menu sounds with new ones. This also applies to the cooky store.
+Replaced all menu sounds with new ones. This also applies to the cooky store as well.
 Fixed up the shop menu. The input box will no longer return you back to the main game when pressing escape. The store will now alert the user to enter a valid number before confirming a purchase.
 Brought back the information that was given to the user after purchasing an item. It will now tell you the next upgrade cost of all items that are bought in the cooky store.
 Added store anbience volume and pitch sliders to the audio settings menu.
@@ -15,7 +15,7 @@ Replaced the text_input class with a much better virtual_dialogs class. This cla
 Removed the statistics found under each button that told you how many of an item you had while hovering over the button. For example, the button to access the cooky store is now less verbose. Instead of telling you how many coins you have when hovering over the button, it will now just say cooky store.
 Moved the preferences menu out of the game into the newly implemented main menu.
 Completely revamped the user interface in the game to use the audio forms object for all menus and actions. The m_pro and slider classes will no longer be of use moving forward.
-Removed the change ambience and change music options found in the sound settings menu.
+Removed the change ambience and change music options found in the audio settings menu.
 Removed the sail start and sail end sliders for selling cookies out of the game settings menu. You will now be able to type how many cookies you'd like to sell for receiving coins.
 Added a sound for checking how many coins you have when pressing the letter M in the main game, and the letter O in the coin flipper and slot machine mini games.
 Fixed the bug where the order of bets were incorrectly placed, causing you not to lose the item that was bet after all of the reels have spun.
@@ -78,7 +78,7 @@ You can no longer hold down the spacebar to manuely bake cookies. I couldn't bel
 new in 1.1
 Added the ability to quickly save your game progress by pressing Control S. You can also quickly exit the game by pressing Alt F4.
 Added a preferences pannel that let's you adjust various options related to the game, including audio, character information, and other player related things.
-Added ambiences and music tracks. You'll here them across the bord. These can also be adjusted and shuffled in the sound settings of the game.
+Added ambiences and music tracks. You'll here them across the bord. These can also be adjusted and shuffled in the audio settings of the game.
 Modified the cooky store to have it announce when you enter or exit the area.
 Modified some of the events found in the coin flip minni game and the 2 bakeries.
 Removed unused sounds from the sounds folder to reduce cludder.
