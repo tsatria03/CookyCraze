@@ -3397,7 +3397,7 @@ class control {
 			if (checked)
 				name = "Check Box Checked";
 			else
-				name = "Check Box Not Checked";
+				name = "Check Box unchecked";
 		}
 		else if (type == ct_progress)
 			name = "Progress Bar";
@@ -3506,7 +3506,7 @@ class control {
 	void checkbox_toggle() {
 		if (checked == true) {
 			checked = false;
-			speak("Not Checked", true);
+			speak("unchecked", true);
 		} else {
 			checked = true;
 			speak("Checked", true);
