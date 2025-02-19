@@ -203,6 +203,7 @@ else if(rank>=30)
 gameslot=pool.play_stationary("gamelaunch.ogg", false);
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
+carspawn=true;
 toyspawn=true;
 toygame();
 }

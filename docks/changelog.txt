@@ -1,4 +1,7 @@
 new in 1.9
+Added toy cars that will patrol the area in the toy mania mini game. These cars can be destroyed using your weapons.
+Added the ability to draw and equip weapons in the toy mania mini game.
+Introduced the toy mania mini game! In this game, you collect as many toys as you can before the timer runs out. The reward you recieve is based on how many toys you've collected through out the entire game. Good luck! This mini game is unlocked at rank 30 or higher.
 Made it so you are required to at least select 1 Positive and one negative coin event out of the remaining coin events in the coin events list before flipping the coin in the coin flipper mini game.
 Made it so you are required to at least select 10 out of the remaining symbols you have in the symbol list before spinning the reels in the slot machine mini game.
 new in 1.8

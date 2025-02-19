@@ -510,9 +510,20 @@ void toygame()
 while(true)
 {
 wait(5);
+carloop();
 toyloop();
 p.update_listener_2d(me.x,me.y);
+carpool.update_listener_2d(me.x,me.y);
 toypool.update_listener_2d(me.x,me.y);
+if(carspawntimer.elapsed>=carspawntime and cars.length()<50 and carspawn==true)
+{
+int carchoice;
+if(carchoice==1) spawn_car(random(0,maxx), random(0,maxy), random(0,3), random(5,10), random(100,1000), "car1");
+if(carchoice==2) spawn_car(random(0,maxx), random(0,maxy), random(0,3), random(5,10), random(100,1000), "car2");
+if(carchoice==3) spawn_car(random(0,maxx), random(0,maxy), random(0,3), random(5,10), random(100,1000), "car3");
+carchoice=random(1,3);
+carspawntimer.restart();
+}
 if(toyspawntimer.elapsed>=toyspawntime and toys.length()<50 and toyspawn==true)
 {
 spawn_toy(random(0,maxx), random(0,maxy));
@@ -520,14 +531,58 @@ toyspawntimer.restart();
 }
 if(key_pressed(KEY_ESCAPE))
 {
-destroy_all_toys();
+carspawn=false;
 toyspawn=false;
+destroy_all_cars();
+destroy_all_toys();
 pool.destroy_sound(gameslot);
 pool.destroy_sound(ambslot);
 pool.destroy_sound(mustrackslot);
 ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 mingamsmenu();
+}
+if(key_pressed(KEY_1))
+{
+weapontype="bat";
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_2))
+{
+weapontype="boot";
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_3))
+{
+weapontype="club";
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_4))
+{
+weapontype="feat";
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_5))
+{
+weapontype="fist";
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_6))
+{
+weapontype="hammer";
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_7))
+{
+weapontype="knife";
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
 }
 if(key_pressed(KEY_T))
 {
@@ -536,6 +591,14 @@ speak("You have collected "+collected_toys+" toys.");
 if(key_pressed(KEY_O))
 {
 speak("There are "+toys.length()+" collectible toys on the field.");
+}
+if(key_pressed(KEY_S))
+{
+speak("You have destroyed "+destroyed_cars+" cars.");
+}
+if(key_pressed(KEY_R))
+{
+speak("There are "+cars.length()+" destroyable cars on the field.");
 }
 if(key_down(KEY_LCONTROL) or key_down(KEY_RCONTROL))
 {
@@ -569,16 +632,31 @@ me.y+=1;
 p.play_stationary("step"+random(1,5)+".ogg", false);
 movetimer.restart();
 }
-if(key_pressed(KEY_SPACE) and firetimer.elapsed>=firetime)
+if(key_repeating(KEY_SPACE) and firetimer.elapsed>=firetime)
 {
 if(weapontype=="bat") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 if(weapontype=="boot") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 if(weapontype=="club") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 if(weapontype=="feat") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
-if(weapontype=="fist") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="fist") p.play_stationary(weapontype+"fire"+random(1,2)+".ogg", false);
 if(weapontype=="hammer") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 if(weapontype=="knife") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 firetimer.restart();
+for(uint i = 0; i < cars.length(); i++)
+{
+if(me.x==cars[i].carx and me.y==cars[i].cary)
+{
+if(weapontype=="bat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="boot") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="club") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="feat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="fist") p.play_2d(weapontype+"hit"+random(1,2)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="hammer") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="knife") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+cars[i].hurtsound=carpool.play_2d(cars[i].cartype+"pain.ogg",me.x,me.y,cars[i].carx,cars[i].cary,false);
+cars[i].carhealth-=wepdamage;
+}
+}
 }
 if(key_pressed(KEY_C))
 {

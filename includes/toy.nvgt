@@ -1,15 +1,15 @@
 toy@[]toys(0);
 class toy
 {
+int getsound, hurtsound, toysound;
 int tx;
 int ty;
-int getsound, loopsound;
 toy(int x, int y)
 {
 tx=x;
 ty=y;
-loopsound=toypool.play_2d("toyloop"+random(1,40)+".ogg", me.x, me.y, tx, ty, true);
-toypool.update_sound_2d(loopsound,tx,ty);
+toysound=toypool.play_2d("toyloop"+random(1,40)+".ogg", me.x, me.y, tx, ty, true);
+toypool.update_sound_2d(toysound,tx,ty);
 }
 }
 void toyloop()
@@ -18,7 +18,7 @@ for(uint i=0; i<toys.length(); i++)
 {
 if(me.x==toys[i].tx and me.y==toys[i].ty)
 {
-toypool.destroy_sound(toys[i].loopsound);
+toypool.destroy_sound(toys[i].toysound);
 toys[i].getsound=toypool.play_stationary("toyget"+random(1,2)+".ogg",false);
 collected_toys+=1;
 toys.remove_at(i);
@@ -34,7 +34,7 @@ void destroy_all_toys()
 {
 for(uint i=0; i<toys.length(); i++)
 {
-toypool.destroy_sound(toys[i].loopsound);
+toypool.destroy_sound(toys[i].toysound);
 }
 toys.resize(0);
 }
