@@ -1,7 +1,7 @@
 *.ogg
 *.wav
 New File.txt
+lib/
 logs/
-libraries/
 releases/
 sounds/

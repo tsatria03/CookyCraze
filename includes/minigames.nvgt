@@ -86,60 +86,67 @@ speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc")
 pool.destroy_sound(gameslot);
             mingamsmenu();
         }
-        if (form.is_pressed(flip))
-        {
-if(coins>=1)
+if (form.is_pressed(flip))
 {
-                string[] activeCoinEvents;
-                for (uint i = 0; i < coinFlipEvents.length(); i++)
-                {
-                    if (form.is_list_item_checked(coinEventList, i))
-                    {
-                        activeCoinEvents.insert_last(coinFlipEvents[i]);
-                    }
-                }
-                if (activeCoinEvents.length() == 0)
-                {
-                    dlg_buffer("You must select at least one coin event in order to flip the coin!");
-form.reset();
-coingame();
-                }
-string[] coinsides={"heads", "tails"};
-string side=coinsides[random(0,coinsides.length()-1)];
-pool.destroy_sound(eventslot);
-pool.play_stationary("coinflip.ogg", false);        
-dlg_buffer("you flip a coin. It lands on "+side);
+    if (coins >= 1)
+    {
+        string[] activeCoinEvents;
         string[] headsEvents;
         string[] tailsEvents;
-        for (uint i = 0; i < activeCoinEvents.length(); i++)
+
+        // Gather checked coin events
+        for (uint i = 0; i < coinFlipEvents.length(); i++)
         {
-            if (activeCoinEvents[i].find("gain") >= 0 || activeCoinEvents[i] == "decrease_hunger")
+            if (form.is_list_item_checked(coinEventList, i))
             {
-                headsEvents.insert_last(activeCoinEvents[i]);
-            }
-            else if (activeCoinEvents[i].find("lose") >= 0 || activeCoinEvents[i] == "increase_hunger")
-            {
-                tailsEvents.insert_last(activeCoinEvents[i]);
+                activeCoinEvents.insert_last(coinFlipEvents[i]);
+
+                // Categorize events
+                if (coinFlipEvents[i].find("gain") >= 0 || coinFlipEvents[i] == "decrease_hunger")
+                {
+                    headsEvents.insert_last(coinFlipEvents[i]);
+                }
+                else if (coinFlipEvents[i].find("lose") >= 0 || coinFlipEvents[i] == "increase_hunger")
+                {
+                    tailsEvents.insert_last(coinFlipEvents[i]);
+                }
             }
         }
+
+        // Ensure at least one positive and one negative event are selected
+        if (headsEvents.length() == 0 || tailsEvents.length() == 0)
+        {
+            dlg_buffer("You must select at least one positive and one negative event before flipping the coin! Press enter to continue.");
+            form.reset();
+            coingame();
+        }
+
+        // Flip the coin
+        string[] coinsides = { "heads", "tails" };
+        string side = coinsides[random(0, coinsides.length() - 1)];
+        pool.destroy_sound(eventslot);
+        pool.play_stationary("coinflip.ogg", false);
+        dlg_buffer("You flip a coin. It lands on " + side);
+
         if (side == "heads" && headsEvents.length() > 0)
         {
             string event = headsEvents[random(0, headsEvents.length() - 1)];
             trigger_coin_event(event, activeCoinEvents);
-form.focus_silently(flip);        }
+            form.focus_silently(flip);
+        }
         else if (side == "tails" && tailsEvents.length() > 0)
         {
             string event = tailsEvents[random(0, tailsEvents.length() - 1)];
             trigger_coin_event(event, activeCoinEvents);
-form.focus_silently(flip);
+            form.focus_silently(flip);
         }
     }
-else if(coins<1)
-{
-dlg_buffer("You don't have a coin to flip!", "general");
-form.reset();
-coingame();
-}
+    else
+    {
+        dlg_buffer("You don't have a coin to flip! Press enter to continue.", "general");
+        form.reset();
+        coingame();
+    }
 }
 }
 }
@@ -244,7 +251,7 @@ pool.destroy_sound(gameslot);
 betAmount =string_to_number(form.get_text(betInput));
     if (betAmount <= 0)
     {
-        dlg_buffer("Invalid bet amount. Please enter a valid number.");
+        dlg_buffer("Invalid bet amount. Please enter a valid number! Press enter to continue.");
 form.reset();
 slotsgame();
     }
@@ -262,9 +269,9 @@ slotsgame();
                     activeSymbols.insert_last(symbols[i]); 
                 }
             }
-            if (activeSymbols.length() == 0)
+            if (activeSymbols.length()<=10)
 {
-                dlg_buffer("You must select at least 1 symbol in order to spin!");
+                dlg_buffer("You must select at least 10 symbols in order to spin! Press enter to continue.");
 form.reset();
 slotsgame();
             }
@@ -497,3 +504,85 @@ manulcooky -= betAmount;
         }
 }
     }
+
+void toygame()
+{
+while(true)
+{
+wait(5);
+toyloop();
+p.update_listener_2d(me.x,me.y);
+toypool.update_listener_2d(me.x,me.y);
+if(toyspawntimer.elapsed>=toyspawntime and toys.length()<50 and toyspawn==true)
+{
+spawn_toy(random(0,maxx), random(0,maxy));
+toyspawntimer.restart();
+}
+if(key_pressed(KEY_ESCAPE))
+{
+destroy_all_toys();
+toyspawn=false;
+pool.destroy_sound(gameslot);
+pool.destroy_sound(ambslot);
+pool.destroy_sound(mustrackslot);
+ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+mingamsmenu();
+}
+if(key_pressed(KEY_T))
+{
+speak("You have collected "+collected_toys+" toys.");
+}
+if(key_pressed(KEY_O))
+{
+speak("There are "+toys.length()+" collectible toys on the field.");
+}
+if(key_down(KEY_LCONTROL) or key_down(KEY_RCONTROL))
+{
+movetime=runtime;
+}
+else
+{
+movetime=walktime;
+}
+if (key_down(KEY_LEFT) and movetimer.elapsed>=movetime and me.x!=0)
+{
+me.x-=1;
+p.play_stationary("step"+random(1,5)+".ogg", false);
+movetimer.restart();
+}
+if (key_down(KEY_RIGHT) and movetimer.elapsed>=movetime and me.x!=maxx)
+{
+me.x+=1;
+p.play_stationary("step"+random(1,5)+".ogg", false);
+movetimer.restart();
+}
+if (key_down(KEY_DOWN) and movetimer.elapsed>=movetime and me.y!=0)
+{
+me.y-=1;
+p.play_stationary("step"+random(1,5)+".ogg", false);
+movetimer.restart();
+}
+if (key_down(KEY_UP) and movetimer.elapsed>=movetime and me.y!=maxy)
+{
+me.y+=1;
+p.play_stationary("step"+random(1,5)+".ogg", false);
+movetimer.restart();
+}
+if(key_pressed(KEY_SPACE) and firetimer.elapsed>=firetime)
+{
+if(weapontype=="bat") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="boot") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="club") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="feat") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="fist") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="hammer") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="knife") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+firetimer.restart();
+}
+if(key_pressed(KEY_C))
+{
+speak(me.x+", "+me.y);
+}
+}
+}

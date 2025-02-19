@@ -4,6 +4,7 @@ setupmenu();
 m.add_item("documentation menu", "dm");
 m.add_item("game menu", "gm");
 m.add_item("settings menu", "sm");
+if(!SCRIPT_COMPILED) m.add_item("release game", "rg");
 m.add_item("exit game", "ex");
 m.intro_text = "Main menu. Please choose an option with your arrow keys, then press enter to activate one.";
 int mres=m.run();
@@ -21,6 +22,10 @@ docksmenu();
 if (main == "gm")
 {
 gamemenu();
+}
+if(main=="rg")
+{
+release_game();
 }
 if (main == "sm")
 {
@@ -171,8 +176,9 @@ void mingamsmenu()
 {
 form.reset();
 form.create_window("Mini games", false);
-int flip=form.create_button("Play the &coin flipper");
-int slots=form.create_button("play the &slot machine");
+int flip=form.create_button("Play &coin flipper");
+int slots=form.create_button("play &slot machine");
+int toys=form.create_button("play toy &mania");
 form.focus(flip);
 while(true)
 {
@@ -182,6 +188,24 @@ form.monitor();
         {
 form.reset();
 game();
+}
+if(form.is_pressed(toys))
+{
+if(rank<30)
+{
+gameslot=pool.play_stationary("gamefail.ogg", false);
+dlg_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 30 or higher to play this.", "critical");
+form.reset();
+mingamsmenu();
+}
+else if(rank>=30)
+{
+gameslot=pool.play_stationary("gamelaunch.ogg", false);
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+toyspawn=true;
+toygame();
+}
 }
 if(form.is_pressed(slots))
 {

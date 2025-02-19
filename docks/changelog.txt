@@ -1,3 +1,6 @@
+new in 1.9
+Made it so you are required to at least select 1 Positive and one negative coin event out of the remaining coin events in the coin events list before flipping the coin in the coin flipper mini game.
+Made it so you are required to at least select 10 out of the remaining symbols you have in the symbol list before spinning the reels in the slot machine mini game.
 new in 1.8
 Made it so the lists for changing ambience and music tracks can only be accessed if you are in the audio settings of the main game.
 Added the ability to choose from a list of ambiences and music tracks to use with the game in the audio settings menu. These lists can also be saved to the soundsets.crz file as well.
