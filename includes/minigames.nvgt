@@ -541,18 +541,24 @@ toyspawntimer.restart();
 if(gametimer.elapsed>=1000*60)
 {
 carspawn=true;
+toynum=25;
 }
 if(gametimer.elapsed>=1000*120)
 {
 carnum=10;
+toynum=30;
 }
 if(gametimer.elapsed>=1000*180)
 {
 gardspawn=true;
+carnum=20;
+toynum=35;
 }
 if(gametimer.elapsed>=1000*240)
 {
+carnum=30;
 gardnum=20;
+toynum=40;
 }
 if(key_pressed(KEY_ESCAPE))
 {
@@ -636,6 +642,10 @@ if(key_pressed(KEY_Y))
 {
 speak("You've been playing for a total of;"+timeelapsed.m()+"minutes,"+timeelapsed.s()+"seconds");
 }
+if(key_pressed(KEY_H))
+{
+speak("You have"+health+" hp remaining.");
+}
 if(key_pressed(KEY_Q))
 {
 speak("You have killed"+killed_gards+" gards.");
@@ -686,34 +696,34 @@ if(weapontype=="fist") p.play_stationary(weapontype+"fire"+random(1,2)+".ogg", f
 if(weapontype=="hammer") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 if(weapontype=="knife") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 firetimer.restart();
-for(uint i1 = 0; i1 < cars.length(); i1++)
+for(uint i = 0; i < cars.length(); i++)
 {
-if(absolute(cars[i1].carx-me.x)>weprange or absolute(cars[i1].cary-me.y)>weprange2)
+if(absolute(cars[i].carx - me.x) <= weprange and absolute(cars[i].cary - me.y) <= weprange2)
 {
-if(weapontype=="bat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i1].carx,cars[i1].cary, false);
-if(weapontype=="boot") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i1].carx,cars[i1].cary, false);
-if(weapontype=="club") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i1].carx,cars[i1].cary, false);
-if(weapontype=="feat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i1].carx,cars[i1].cary, false);
-if(weapontype=="fist") p.play_2d(weapontype+"hit"+random(1,2)+".ogg",me.x,me.y,cars[i1].carx,cars[i1].cary, false);
-if(weapontype=="hammer") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i1].carx,cars[i1].cary, false);
-if(weapontype=="knife") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i1].carx,cars[i1].cary, false);
-cars[i1].hurtsound=carpool.play_2d(cars[i1].cartype+"pain.ogg",me.x,me.y,cars[i1].carx,cars[i1].cary,false);
-cars[i1].carhealth-=wepdamage;
+if(weapontype=="bat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="boot") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="club") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="feat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="fist") p.play_2d(weapontype+"hit"+random(1,2)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="hammer") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+if(weapontype=="knife") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+cars[i].hurtsound=carpool.play_2d(cars[i].cartype+"pain.ogg",me.x,me.y,cars[i].carx,cars[i].cary,false);
+cars[i].carhealth-=wepdamage;
 }
 }
-for(uint i2 = 0; i2 < gards.length(); i2++)
+for(uint i = 0; i < gards.length(); i++)
 {
-if(absolute(gards[i2].gardx-me.x)>weprange or absolute(gards[i2].gardy-me.y)>weprange2)
+if(absolute(gards[i].gardx - me.x) <= weprange and absolute(gards[i].gardy - me.y) <= weprange2)
 {
-if(weapontype=="bat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i2].gardx,gards[i2].gardy, false);
-if(weapontype=="boot") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i2].gardx,gards[i2].gardy, false);
-if(weapontype=="club") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i2].gardx,gards[i2].gardy, false);
-if(weapontype=="feat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i2].gardx,gards[i2].gardy, false);
-if(weapontype=="fist") p.play_2d(weapontype+"hit"+random(1,2)+".ogg",me.x,me.y,gards[i2].gardx,gards[i2].gardy, false);
-if(weapontype=="hammer") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i2].gardx,gards[i2].gardy, false);
-if(weapontype=="knife") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i2].gardx,gards[i2].gardy, false);
-gards[i2].hurtsound=gardpool.play_2d(gards[i2].gardtype+"pain.ogg",me.x,me.y,gards[i2].gardx,gards[i2].gardy,false);
-gards[i2].gardhealth-=wepdamage;
+if(weapontype=="bat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+if(weapontype=="boot") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+if(weapontype=="club") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+if(weapontype=="feat") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+if(weapontype=="fist") p.play_2d(weapontype+"hit"+random(1,2)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+if(weapontype=="hammer") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+if(weapontype=="knife") p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+gards[i].hurtsound=gardpool.play_2d(gards[i].gardtype+"pain.ogg",me.x,me.y,gards[i].gardx,gards[i].gardy,false);
+gards[i].gardhealth-=wepdamage;
 }
 }
 }
