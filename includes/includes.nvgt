@@ -8,6 +8,7 @@
 #include"events.nvgt"
 #include"form.nvgt"
 #include"form_menu.nvgt"
+#include"gametime.nvgt"
 #include"input_forms.nvgt"
 #include"menu.nvgt"
 #include"minigames.nvgt"
@@ -24,18 +25,19 @@ bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, collected_toys=0, destroyed_cars=0, hunger=0, maxhunger=10000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
 double autoCookyBaseCost = 50, autoCookyMultiplier = 50, autoCookySpeedBaseCost = 50, autoCookySpeedMultiplier = 50, manualCookyBaseCost = 50, manualCookyMultiplier = 50;
-double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
+double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100, toyambvolume=0, toyambpitch=100, toymusvolume=0, toymuspitch=100;
 double maxx=50, maxy=50;
-int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
+int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot, toyambslot, toytrackslot;
 int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
 int ambienceIndex=0, musicIndex=0;
-int weprange=1, wepdamage=1;
-int movetime;
-int firetime=300;
+int carnum=5, toynum=50;
+int weprange=5, weprange2=5, wepdamage=10;
+int gametime, movetime;
+int firetime=50;
 int runtime=100;
 int walktime=200;
-int carspawntime=1000, toyspawntime=1000;
+int carspawntime=1000, toyspawntime=500;
 string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string ambtype="room1";
@@ -45,7 +47,7 @@ string projname="releases/windows/CookyCraze_password_is_CrazeMastery";
 string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
 string playername, playername2;
 string version="1.8";
-timer carspawntimer, clicktimer, firetimer, movetimer, runtimer, toyspawntimer, walktimer;
+timer carspawntimer, clicktimer, firetimer, gametimer, movetimer, runtimer, toyspawntimer, walktimer;
 file dockfile, logfile;
 audio_form form;
 menu m;
@@ -54,7 +56,8 @@ savedata st("data/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJD
 savedata st2("data/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
 savedata st3("data/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
 sound dummy;
-sound_pool p, pool, ambpool, carpool, muspool, storambpool, stormuspool, toypool;
+sound_pool p, pool, ambpool, carpool, muspool, storambpool, stormuspool, toypool, toyambpool, toymuspool;
+time_elapsed timeelapsed;
 vector me;
 virtual_dialogs vd;
 typedef uint8 usmall; typedef int8 small;

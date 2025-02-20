@@ -5,20 +5,22 @@ int carsound, defsound, hurtsound;
 int carx;
 int cary;
 int cardir;
+int cardir2;
 int carhealth;
 int cartime;
 int firetime=cartime;
 string cartype;
 timer cartimer, firetimer;
-car(int cx,int cy,int cd,int hp,int sp,string ct)
+car(int cx,int cy,int cd,int cd2,int hp,int sp,string ct)
 {
 carx=cx;
 cary=cy;
 cardir=cd;
+cardir2=cd2;
 carhealth=hp;
 cartime=sp;
 cartype=ct;
-carsound=carpool.play_extended_2d(cartype+"loop.ogg",me.x,me.y,carx,cary,0,0,0,0,true,0,0,-10,100,false);
+carsound=carpool.play_2d(cartype+"loop.ogg",me.x,me.y,carx,cary,true);
 }
 }
 void carloop()
@@ -27,67 +29,25 @@ for(uint i=0; i<cars.length(); i++)
 {
 if(cars[i].cartimer.elapsed>=cars[i].cartime)
 {
+cars[i].carx+=cars[i].cardir==1?1:-1;
+cars[i].cary+=cars[i].cardir2==1?1:-1;
 carpool.update_sound_2d(cars[i].carsound,cars[i].carx,cars[i].cary);
 cars[i].cartimer.restart();
-if (cars[i].carx<=maxx and cars[i].cartimer.elapsed>=cars[i].cartime and cars[i].cardir==1)
-{
-cars[i].cartimer.restart();
-cars[i].carx++;
-}
-else if (cars[i].carx>=0 and cars[i].cartimer.elapsed>=cars[i].cartime and cars[i].cardir==0)
-{
-cars[i].cartimer.restart();
-cars[i].carx--;
-}
 if (cars[i].cardir==1 and cars[i].carx>maxx)
 {
 cars[i].cardir=0;
-cars[i].hurtsound=carpool.play_2d(cars[i].cartype+"pain.ogg",me.x,me.y,cars[i].carx,cars[i].cary,false);
-cars[i].carhealth-=1;
 }
 else if (cars[i].cardir==0 and cars[i].carx<=0)
 {
 cars[i].cardir=1;
-cars[i].hurtsound=carpool.play_2d(cars[i].cartype+"pain.ogg",me.x,me.y,cars[i].carx,cars[i].cary,false);
-cars[i].carhealth-=1;
 }
-if(cars[i].cardir==1)
+if (cars[i].cardir2==1 and cars[i].cary>maxy)
 {
-cars[i].carx++;
+cars[i].cardir2=0;
 }
-else if (cars[i].cardir==0)
+else if (cars[i].cardir2==0 and cars[i].cary<=0)
 {
-cars[i].carx--;
-}
-if (cars[i].cary<=maxy and cars[i].cartimer.elapsed>=cars[i].cartime and cars[i].cardir==3)
-{
-cars[i].cartimer.restart();
-cars[i].cary++;
-}
-else if (cars[i].cary>=0 and cars[i].cartimer.elapsed>=cars[i].cartime and cars[i].cardir==2)
-{
-cars[i].cartimer.restart();
-cars[i].cary--;
-}
-if (cars[i].cardir==3 and cars[i].cary>maxy)
-{
-cars[i].cardir=2;
-cars[i].hurtsound=carpool.play_2d(cars[i].cartype+"pain.ogg",me.x,me.y,cars[i].carx,cars[i].cary,false);
-cars[i].carhealth-=1;
-}
-else if (cars[i].cardir==2 and cars[i].cary<=0)
-{
-cars[i].cardir=3;
-cars[i].hurtsound=carpool.play_2d(cars[i].cartype+"pain.ogg",me.x,me.y,cars[i].carx,cars[i].cary,false);
-cars[i].carhealth-=1;
-}
-if(cars[i].cardir==3)
-{
-cars[i].cary++;
-}
-else if (cars[i].cardir==2)
-{
-cars[i].cary--;
+cars[i].cardir2=1;
 }
 for(uint i1=0; i1<toys.length(); i1++)
 {
@@ -111,9 +71,9 @@ return;
 }
 }
 }
-void spawn_car(int x,int y,int dir,int hp,int sp,string cartype)
+void spawn_car(int x,int y,int dir,int dir2,int hp,int sp,string cartype)
 {
-car c1(x,y,dir,hp,sp,cartype);
+car c1(x,y,dir,dir2,hp,sp,cartype);
 cars.insert_last(c1);
 }
 void destroy_all_cars()
