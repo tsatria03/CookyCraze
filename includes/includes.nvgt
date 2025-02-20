@@ -1,6 +1,7 @@
 #include"bgt_compat.nvgt"
 #include"sound_pool.nvgt"
 #include"dget.nvgt"
+#include"bodyfall.nvgt"
 #include"buffer.nvgt"
 #include"car.nvgt"
 #include"dlg.nvgt"
@@ -9,6 +10,7 @@
 #include"form.nvgt"
 #include"form_menu.nvgt"
 #include"gametime.nvgt"
+#include"gard.nvgt"
 #include"input_forms.nvgt"
 #include"menu.nvgt"
 #include"minigames.nvgt"
@@ -20,10 +22,10 @@
 #include"virtual_dialogs.nvgt"
 
 bool y_is_elevation=true;
-bool carspawn=false, coinsfx=true, ingame=false, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=false, toyspawn=false;
+bool carspawn=false, coinsfx=true, gardspawn=false, ingame=false, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false, toyspawn=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
-double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, collected_toys=0, destroyed_cars=0, hunger=0, maxhunger=10000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
+double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, collected_toys=0, destroyed_cars=0, health=100, hunger=0, maxhunger=10000, killed_gards=0, levcoins=0, manulcooky=0, rank=1, usercoins=0;
 double autoCookyBaseCost = 50, autoCookyMultiplier = 50, autoCookySpeedBaseCost = 50, autoCookySpeedMultiplier = 50, manualCookyBaseCost = 50, manualCookyMultiplier = 50;
 double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100, toyambvolume=0, toyambpitch=100, toymusvolume=0, toymuspitch=100;
 double maxx=50, maxy=50;
@@ -31,13 +33,13 @@ int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, mustrackslot, m
 int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
 int ambienceIndex=0, musicIndex=0;
-int carnum=5, toynum=50;
+int carnum=5, gardnum=10, toynum=20;
 int weprange=5, weprange2=5, wepdamage=10;
 int gametime, movetime;
 int firetime=50;
 int runtime=100;
 int walktime=200;
-int carspawntime=1000, toyspawntime=500;
+int carspawntime=1000, gardspawntime=500, toyspawntime=250;
 string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
 string ambtype="room1";
@@ -47,7 +49,7 @@ string projname="releases/windows/CookyCraze_password_is_CrazeMastery";
 string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
 string playername, playername2;
 string version="1.8";
-timer carspawntimer, clicktimer, firetimer, gametimer, movetimer, runtimer, toyspawntimer, walktimer;
+timer carspawntimer, clicktimer, firetimer, gametimer, gardspawntimer, movetimer, runtimer, toyspawntimer, walktimer;
 file dockfile, logfile;
 audio_form form;
 menu m;
@@ -56,7 +58,7 @@ savedata st("data/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJD
 savedata st2("data/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
 savedata st3("data/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
 sound dummy;
-sound_pool p, pool, ambpool, carpool, muspool, storambpool, stormuspool, toypool, toyambpool, toymuspool;
+sound_pool p, pool, ambpool, bosspool, carpool, gardpool, muspool, storambpool, stormuspool, toypool, toyambpool, toymuspool;
 time_elapsed timeelapsed;
 vector me;
 virtual_dialogs vd;

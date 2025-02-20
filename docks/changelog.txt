@@ -1,4 +1,5 @@
 new in 1.9
+Added gards that will patrol the area in the toy mania mini game. These gards can be killed using your weapons.
 Added toy anbience volume and pitch sliders to the audio settings menu.
 Added toy cars that will patrol the area in the toy mania mini game. These cars can be destroyed using your weapons.
 Added the ability to draw and equip weapons in the toy mania mini game.
