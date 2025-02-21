@@ -512,6 +512,7 @@ toytrackslot=toymuspool.play_stationary_extended("toymusic.ogg",true,0,0,toymusv
 while(true)
 {
 wait(5);
+bfloop();
 carloop();
 gardloop();
 toyloop();
@@ -530,7 +531,10 @@ carspawntimer.restart();
 }
 if(gardspawntimer.elapsed>=gardspawntime and gards.length()<gardnum and gardspawn==true)
 {
-spawn_gard(random(0,maxx), random(0,maxy), random(5,10), random(5,10), random(100,1000), random(100,1000), "gard");
+int gardchoice;
+if(gardchoice==1) spawn_gard(random(0,maxx), random(0,maxy), random(5,10), random(5,10), random(100,1000), random(100,1000), "gard1");
+if(gardchoice==2) spawn_gard(random(0,maxx), random(0,maxy), random(10,20), random(10,20), random(100,1000), random(100,1000), "gard2");
+gardchoice=random(1,2);
 gardspawntimer.restart();
 }
 if(toyspawntimer.elapsed>=toyspawntime and toys.length()<toynum and toyspawn==true)
@@ -558,7 +562,7 @@ if(gametimer.elapsed>=1000*240)
 {
 carnum=30;
 gardnum=20;
-toynum=40;
+toynum=50;
 }
 if(key_pressed(KEY_ESCAPE))
 {

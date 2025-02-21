@@ -20,7 +20,7 @@ firetime=ft;
 gardtime=sp;
 gardtype=gt;
 spawnsound=gardpool.play_2d("land.ogg", me.x, me.y, gardx, gardy, false);
-gardsound=gardpool.play_2d(gardtype+"loop.ogg", me.x, me.y, gardx, gardy, true);
+gardsound=gardpool.play_2d(gardtype+"taunt.ogg", me.x, me.y, gardx, gardy, true);
 }
 }
 void gardloop()
@@ -29,6 +29,7 @@ for(uint i=0; i<gards.length(); i++)
 {
 if(gards[i].gardtimer.elapsed>=gards[i].gardtime)
 {
+gardpool.play_2d("step"+random(1,5)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy,false);
 gardpool.update_sound_2d(gards[i].gardsound,gards[i].gardx,gards[i].gardy);
 gards[i].gardtimer.restart();
 if(gards[i].gardx<me.x)

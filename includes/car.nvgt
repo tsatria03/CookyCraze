@@ -49,14 +49,26 @@ else if (cars[i].cardir2==0 and cars[i].cary<=0)
 {
 cars[i].cardir2=1;
 }
-for(uint i1=0; i1<toys.length(); i1++)
+for(uint i1=0; i1<gards.length(); i1++)
 {
-if(toys[i1].tx==cars[i].carx and toys[i1].ty==cars[i].cary and cars[i].firetimer.elapsed>=cars[i].firetime)
+if(gards[i1].gardx==cars[i].carx and gards[i1].gardy==cars[i].cary and cars[i].firetimer.elapsed>=cars[i].firetime)
 {
-toypool.destroy_sound(toys[i1].toysound);
-toys[i1].hurtsound=toypool.play_2d("toybreak"+random(1,6)+".ogg", me.x, me.y, toys[i1].tx, toys[i1].ty, false);
+gardpool.destroy_sound(gards[i1].gardsound);
+gards[i1].defsound=gardpool.play_2d(gards[i1].gardtype+"death.ogg", me.x, me.y, gards[i1].gardx, gards[i1].gardy, false);
+spawn_bodyfall(gards[i1].gardx, gards[i1].gardy, random(500,1000));
 cars[i].firetimer.restart();
-toys.remove_at(i1);
+gards.remove_at(i1);
+return;
+}
+}
+for(uint i2=0; i2<toys.length(); i2++)
+{
+if(toys[i2].tx==cars[i].carx and toys[i2].ty==cars[i].cary and cars[i].firetimer.elapsed>=cars[i].firetime)
+{
+toypool.destroy_sound(toys[i2].toysound);
+toys[i2].hurtsound=toypool.play_2d("toybreak"+random(1,6)+".ogg", me.x, me.y, toys[i2].tx, toys[i2].ty, false);
+cars[i].firetimer.restart();
+toys.remove_at(i2);
 return;
 }
 }

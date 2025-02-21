@@ -1,4 +1,5 @@
 new in 1.9
+Added the ability to sell all of your cookies at once in the cooky store.
 Made it so the longer the game lasts, the more cars, guards, and toys spawn in the toy mania mini game.
 Added guards that will patrol the area in the toy mania mini game. These guards can be killed using your weapons.
 Added toy anbience volume and pitch sliders to the audio settings menu.

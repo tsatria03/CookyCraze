@@ -245,7 +245,7 @@ void shopmenu()
 {
 setupmenu2();
 m.add_item("buy upgrades", "bmu");
-m.add_item("sell cookies", "slm");
+m.add_item("sell cookies. You currently have"+cookies+" cookies.", "slm");
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
 int mres=m.run();
@@ -272,7 +272,7 @@ buymenu();
 if(stm=="slm")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string sailam=vd.input_box("","How many cookies would you like to sell?");
+string sailam=vd.input_box("","How many cookies would you like to sell? Press enter to sell all of your cookies.",cookies);
 double cookiesToSell = string_to_number(sailam);
     if (cookiesToSell <= 0)
     {

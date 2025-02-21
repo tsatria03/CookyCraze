@@ -34,7 +34,7 @@ int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
 int ambienceIndex=0, musicIndex=0;
 int carnum=5, gardnum=10, toynum=20;
-int weprange=5, weprange2=5, wepdamage=5;
+int weprange=5, weprange2=10, wepdamage=20;
 int gametime, movetime;
 int firetime=50;
 int runtime=100;
