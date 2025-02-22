@@ -43,3 +43,8 @@ string cents_str = "" + cents;
 if (string_len (cents_str) == 1) cents_str = "0" + cents_str;
 return currency_symbol + dollars + "." + cents_str;
 }
+string random_string(string[] array)
+{
+string retval=array[random(0,array.length()-1)];
+return retval;
+}

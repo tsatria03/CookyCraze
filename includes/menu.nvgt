@@ -202,6 +202,7 @@ else if(rank>=30)
 {
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
+dlgplay("toylaunch.ogg");
 me.x=0;
 me.y=0;
 toyspawn=true;

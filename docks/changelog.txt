@@ -1,7 +1,13 @@
+new in 2.0
+Added health mechanics to the toy mania mini game. When a gard or a boss attacks you, you'll here pain sounds for your character. The same thing will apply if they kill you.
+added behind pitch decrease to the toy mania mini game.
+Made it so toys get broken if you don't collect them on time in the toy mania mini game.
+Added damage and range stats to all of the weapons in the toy mania mini game.
 new in 1.9
+Added a boss that will attack, heal, and teleport around the area in the toy mania mini game. This boss can be killed using your weapons.
 Added the ability to sell all of your cookies at once in the cooky store.
 Made it so the longer the game lasts, the more cars, guards, and toys spawn in the toy mania mini game.
-Added guards that will patrol the area in the toy mania mini game. These guards can be killed using your weapons.
+Added guards that will attack and patrol the area in the toy mania mini game. These guards can be killed using your weapons.
 Added toy anbience volume and pitch sliders to the audio settings menu.
 Added toy cars that will patrol the area in the toy mania mini game. These cars can be destroyed using your weapons.
 Added the ability to draw and equip weapons in the toy mania mini game.
