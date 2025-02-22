@@ -19,7 +19,7 @@ damage=dm;
 firetime=ft;
 gardtime=sp;
 gardtype=gt;
-if(gardtype=="gard1") gardsound=gardpool.play_2d(gardtype+"taunt"+random(1,3)+".ogg", me.x, me.y, gardx, gardy, true);
+if(gardtype=="gard1") gardsound=gardpool.play_2d(gardtype+"taunt"+random(1,2)+".ogg", me.x, me.y, gardx, gardy, true);
 if(gardtype=="gard2") gardsound=gardpool.play_2d(gardtype+"taunt.ogg", me.x, me.y, gardx, gardy, true);
 }
 }
@@ -74,8 +74,7 @@ if(gards[i].gardhealth<=0)
 {
 gardpool.destroy_sound(gards[i].hurtsound);
 gardpool.destroy_sound(gards[i].gardsound);
-if(gards[i].gardtype=="gard1") gards[i].defsound=gardpool.play_2d(gards[i].gardtype+"death"+random(1,3)+".ogg", me.x, me.y, gards[i].gardx, gards[i].gardy, false);
-if(gards[i].gardtype=="gard2") gards[i].defsound=gardpool.play_2d(gards[i].gardtype+"death.ogg", me.x, me.y, gards[i].gardx, gards[i].gardy, false);
+gards[i].defsound=gardpool.play_2d(gards[i].gardtype+"death.ogg", me.x, me.y, gards[i].gardx, gards[i].gardy, false);
 killed_gards+=1;
 if(gards[i].gardtype=="gard1") spawn_bodyfall(gards[i].gardx, gards[i].gardy, random(500,1000), "gard1");
 if(gards[i].gardtype=="gard2") spawn_bodyfall(gards[i].gardx, gards[i].gardy, random(500,1000), "gard2");
