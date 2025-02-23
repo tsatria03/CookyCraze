@@ -26,11 +26,6 @@ if(key_pressed(KEY_H))
 {
 speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc");
 }
-        if (key_pressed(KEY_ESCAPE))
-        {
-pool.destroy_sound(gameslot);
-            mingamsmenu();
-        }
 }
 
 void coingame()
@@ -91,6 +86,11 @@ if(form.get_current_focus()!=coinEventList)
 {
 coin_game_input();
 }
+        if (key_pressed(KEY_ESCAPE))
+        {
+pool.destroy_sound(gameslot);
+            mingamsmenu();
+        }
 if (form.is_pressed(flip))
 {
     if (coins >= 1)
@@ -179,11 +179,6 @@ pool.destroy_sound(coinslot);
 if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have " + round(coins, 0) + " coins.");
 }
-        if (key_pressed(KEY_ESCAPE))
-        {
-pool.destroy_sound(gameslot);
-            mingamsmenu();
-        }
 }
 
 void slotsgame()
@@ -255,6 +250,11 @@ if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput an
 {
 slots_game_input();
 }
+        if (key_pressed(KEY_ESCAPE))
+        {
+pool.destroy_sound(gameslot);
+            mingamsmenu();
+        }
         if (form.is_pressed(spinButton))
         {
             selectedBet = form.get_list_position(betChoice);
@@ -522,13 +522,16 @@ if(key_pressed(KEY_ESCAPE))
 bossespawn=false;
 carspawn=false;
 gardspawn=false;
+keyspawn=false;
 toyspawn=false;
+collected_keys=0;
 collected_toys=0;
 destroyed_cars=0;
 killed_gards=0;
 destroy_all_bosses();
 destroy_all_cars();
 destroy_all_gards();
+destroy_all_keys();
 destroy_all_toys();
 pool.destroy_sound(gameslot);
 toyambpool.destroy_sound(toyambslot);
@@ -610,6 +613,14 @@ if(key_pressed(KEY_O))
 {
 speak("There are "+toys.length()+" collectible toys on the field.");
 }
+if(key_pressed(KEY_I))
+{
+speak("You have collected "+collected_keys+" keys.");
+}
+if(key_pressed(KEY_U))
+{
+speak("There are "+keys.length()+" collectible keys on the field.");
+}
 if(key_pressed(KEY_S))
 {
 speak("You have destroyed "+destroyed_cars+" cars.");
@@ -663,7 +674,7 @@ if (key_down(KEY_UP) and movetimer.elapsed>=movetime and me.y!=maxy)
 me.y+=1;
 p.play_stationary("playerstep"+random(1,5)+".ogg", false);movetimer.restart();
 }
-if(key_pressed(KEY_SPACE))
+if(key_pressed(KEY_SPACE) and firetimer.elapsed>=firetime)
 {
 if(weapontype=="bat") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 if(weapontype=="boot") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
@@ -672,7 +683,7 @@ if(weapontype=="feat") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", f
 if(weapontype=="fist") p.play_stationary(weapontype+"fire"+random(1,2)+".ogg", false);
 if(weapontype=="hammer") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
 if(weapontype=="knife") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
-wait_async(firetime);
+firetimer.restart();
 for(uint i = 0; i < bosses.length(); i++)
 {
 if(absolute(bosses[i].bossx - me.x) <= weprange and absolute(bosses[i].bossy - me.y) <= weprange2)
@@ -838,7 +849,7 @@ keypool.update_listener_2d(me.x,me.y);
 toypool.update_listener_2d(me.x,me.y);
 if(bossespawntimer.elapsed>=bossespawntime and bosses.length()<bossnum and bossespawn==true)
 {
-alertslot=pool.play_stationary("alert_big.ogg",false);
+dlgplay("alert_big.ogg");
 destroy_all_cars();
 destroy_all_gards();
 destroy_all_toys();

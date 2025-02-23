@@ -58,12 +58,6 @@ void wait_async(int milliseconds)
         form.monitor();
 int betChoice, betInput, symbolChoices;
 if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput and form.get_current_focus()!=symbolChoices) slots_game_input();
-bfloop();
-bossloop();
-carloop();
-gardloop();
-toyloop();
-toy_game_input();
         key_code[] keys = keys_pressed();
         for (uint i = 0; i < keys.length(); i++)
         {
