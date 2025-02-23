@@ -5,13 +5,13 @@ bool autobreak;
 int getsound, hurtsound, toysound;
 int tx;
 int ty;
-int timeouttime;
-timer timeouttimer;
+int timeout;
+timer timeout_timer;
 toy(int x, int y,int tt,bool br)
 {
 tx=x;
 ty=y;
-timeouttime=tt;
+timeout=tt;
 autobreak=br;
 toysound=toypool.play_2d("toyloop"+random(1,40)+".ogg", me.x, me.y, tx, ty, true);
 toypool.update_sound_2d(toysound,tx,ty);
@@ -21,7 +21,7 @@ void toyloop()
 {
 for(uint i=0; i<toys.length(); i++)
 {
-if(toys[i].timeouttimer.elapsed>=toys[i].timeouttime and toys[i].autobreak==true)
+if(toys[i].timeout_timer.elapsed>=toys[i].timeout and toys[i].autobreak==true)
 {
 toypool.destroy_sound(toys[i].toysound);
 toys[i].hurtsound=toypool.play_2d("toybreak"+random(1,6)+".ogg", me.x, me.y, toys[i].tx, toys[i].ty, false);
@@ -37,9 +37,9 @@ toys.remove_at(i);
 }
 }
 }
-void spawn_toy(int x, int y)
+void spawn_toy(int x,int y,int timeout,bool autobreak)
 {
-toy t1(x,y);
+toy t1(x,y,timeout,autobreak);
 toys.insert_last(t1);
 }
 void destroy_all_toys()

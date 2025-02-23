@@ -12,9 +12,8 @@ int healtime;
 int launchtime;
 int teltime;
 string bosstype;
-string bosstype2;
 timer bosstimer, firetimer, healtimer, launchtimer, teltimer;
-boss(int bx,int by,int hp,int dm,int ft,int lt,int sp,int tlt,int hlt,string bt,string bt2)
+boss(int bx,int by,int hp,int dm,int ft,int lt,int sp,int tlt,int hlt,string bt)
 {
 bossx=bx;
 bossy=by;
@@ -26,7 +25,6 @@ bosstime=sp;
 teltime=tlt;
 healtime=hlt;
 bosstype=bt;
-bosstype2=bt2;
 bossesound=bosspool.play_2d(bosstype+"taunt.ogg", me.x, me.y, bossx, bossy, true);
 }
 void regenerate_bosshp(int hp)
@@ -53,13 +51,8 @@ bosses[i].healtimer.restart();
 if(bosses[i].launchtimer.elapsed>=bosses[i].launchtime)
 {
 bosses[i].launchsound=bosspool.play_2d(bosses[i].bosstype+"launch.ogg", me.x, me.y, bosses[i].bossx, bosses[i].bossy, false);
-string[] entchoice={"gard1", "gard2"};
-if(bosses[i].bosstype2=="gard1") spawn_gard(bosses[i].bossx-random(1,5), bosses[i].bossy-random(1,5), random(20,40), random(20,40), random(100,1000), random(100,1000), "gard1");
-if(bosses[i].bosstype2=="gard2") spawn_gard(bosses[i].bossx-random(1,5), bosses[i].bossy-random(1,5), random(30,60), random(30,60), random(75,750), random(75,750), "gard2");
-if(bosses[i].bosstype2=="random")
-{
-string bosstyp=random_string(entchoice);
-}
+string[] bosstyp={"gard1", "gard2"};
+spawn_gard(bosses[i].bossx-random(1,5), bosses[i].bossy-random(1,5), random(30,60), random(30,60), random(75,750), random(75,750), random_string(bosstyp));
 bosses[i].launchtimer.restart();
 }
 if(bosses[i].teltimer.elapsed>=bosses[i].teltime)
@@ -122,9 +115,9 @@ return;
 }
 }
 }
-void spawn_boss(int x,int y,int hp,int dm,int firetime,int launchtime,int bosstime,int teltime,int healtime,string bosstype,string bosstype2)
+void spawn_boss(int x,int y,int hp,int dm,int firetime,int launchtime,int bosstime,int teltime,int healtime,string bosstype)
 {
-boss bs1(x,y,hp,dm,firetime,launchtime,bosstime,teltime,healtime,bosstype,bosstype2);
+boss bs1(x,y,hp,dm,firetime,launchtime,bosstime,teltime,healtime,bosstype);
 bosses.insert_last(bs1);
 }
 void destroy_all_bosses()
