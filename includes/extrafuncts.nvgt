@@ -48,3 +48,581 @@ string random_string(string[] array)
 string retval=array[random(0,array.length()-1)];
 return retval;
 }
+
+void main_game_input()
+{
+if(key_repeating(KEY_COMMA))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+top_buffer_item();
+}
+else
+{
+previous_buffer_item();
+}
+}
+if(key_repeating(KEY_PERIOD))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+bottom_buffer_item();
+}
+else
+{
+next_buffer_item();
+}
+}
+if(key_repeating(KEY_LBRACKET))
+{
+previous_buffer();
+}
+if(key_repeating(KEY_RBRACKET))
+{
+next_buffer();
+}
+if (control_is_down())
+{
+if (key_repeating(KEY_M))
+{
+mute_and_unmute_buffer();
+}
+}
+if(shift_is_down())
+{
+if (key_repeating(KEY_C))
+{
+copy_buffer_item();
+}
+if (key_repeating(KEY_BACKSLASH))
+{
+speak("buffers exported");
+export_buffers();
+clear_all_buffer_items();
+}
+}
+if(control_is_down())
+{
+if(key_repeating(KEY_S))
+{
+writedata();
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+speak_buffer("game saved", "misc");
+dlgplay("savegame.ogg");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+form.reset();
+game();
+}
+}
+if(key_repeating(KEY_M))
+{
+pool.destroy_sound(coinslot);
+if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
+speak_buffer("You have"+round(coins, 0)+"coins available to spend", "misc");
+}
+if(key_repeating(KEY_R))
+{
+speak_buffer("You're currently rank "+rank+" with "+round(cookies,0)+" cookies. Your next rank requires "+(cookiesrequiered-round(cookies,0))+" cookies.", "misc");
+}
+if(key_repeating(KEY_F))
+{
+if(autocooky==0 and clicktime==1000)
+{
+speak_buffer("You  produce"+autocooky+"cookies per second.", "misc");
+}
+else if(autocooky==0 and clicktime<=999)
+{
+speak_buffer("You  produce"+autocooky+"cookies every"+clicktime+"milliseconds.", "misc");
+}
+else if(autocooky==1 and clicktime==1000)
+{
+speak_buffer("You  produce"+autocooky+"cooky per second.", "misc");
+}
+else if(autocooky==1 and clicktime<=999)
+{
+speak_buffer("You  produce"+autocooky+"cooky every"+clicktime+"milliseconds.", "misc");
+}
+else if(autocooky>=2 and clicktime==1000)
+{
+speak_buffer("You  produce"+autocooky+"cookies per second.", "misc");
+}
+else if(autocooky>=2 and clicktime<=999)
+{
+speak_buffer("You  produce"+autocooky+"cookies every"+clicktime+"milliseconds.", "misc");
+}
+}
+if(key_repeating(KEY_C))
+{
+if(cookies>=0)
+{
+speak_buffer("You baked a total of "+round(cookies,0)+" cookies.", "misc");
+}
+else if(cookies>=1)
+{
+speak_buffer("You baked a total of"+cookies+"cooky.", "misc");
+}
+else if(cookies>=2)
+{
+speak_buffer("You baked a total of"+cookies+"cookies.", "misc");
+}
+}
+if(key_repeating(KEY_H))
+{
+speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc");
+}
+if(key_repeating(KEY_J))
+{
+if(manulcooky==0)
+{
+speak_buffer("You  produce"+manulcooky+"cookies per press.", "misc");
+}
+else if(manulcooky==1)
+{
+speak_buffer("You  produce"+manulcooky+"cooky per press.", "misc");
+}
+else if(manulcooky>=2)
+{
+speak_buffer("You  produce"+manulcooky+"cookies per press.", "misc");
+}
+}
+if (key_repeating(KEY_ESCAPE))
+{
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+    setupmenu();    
+    m.add_item("Yes, quit the game without saving", "quit_no_save");
+    m.add_item("Yes, save the game and then quit", "quit_save");
+    m.add_item("No, continue playing", "continue");
+    m.add_item("No, save the game, but continue playing", "save_continue");
+m.intro_text = "Are you sure you want to quit the game?";
+int mres = m.run();
+    if(mres==-1)
+    {
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+        speak_buffer("Continuing the game.", "misc");
+form.reset();
+ingame=true;
+game();
+    }
+if (m.get_selected_item_id() == "quit_no_save")
+    {
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+pool.destroy_all();
+        speak_buffer("Exiting the game without saving.");
+wait(1000);
+ingame=false;
+mainmenu();
+    }
+if (m.get_selected_item_id() == "quit_save")
+    {
+        writedata();
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+pool.destroy_all();
+        speak_buffer("game saved, Exiting to main menu.");
+dlgplay("savegame.ogg");
+ingame=false;
+mainmenu();
+    }
+if (m.get_selected_item_id() == "continue")
+    {
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+        speak_buffer("Continuing the game.", "misc");
+form.reset();
+ingame=true;
+game();
+    }
+if (m.get_selected_item_id() == "save_continue")
+    {
+        writedata();
+        speak_buffer("game saved, Continuing the game.", "misc");
+dlgplay("savegame.ogg");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+form.reset();
+ingame=true;
+game();
+    }
+}
+}
+void coin_game_input()
+{
+        if (key_repeating(KEY_C))
+{
+speak_buffer("You have " + round(cookies, 0) + " cookies.");
+}
+        if (key_repeating(KEY_A))
+{
+speak_buffer("You have " + round(autocooky, 0) + " auto cookies.");
+}
+        if (key_repeating(KEY_S))
+{
+speak_buffer("You have " + round(cookyspeed, 0) + " auto cookie speeds.");
+}
+        if (key_repeating(KEY_M))
+{
+speak_buffer("You have " + round(manulcooky, 0) + " manual cookies.");
+}
+        if (key_repeating(KEY_O))
+{
+pool.destroy_sound(coinslot);
+if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
+speak_buffer("You have " + round(coins, 0) + " coins.");
+}
+if(key_repeating(KEY_H))
+{
+speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc");
+}
+        if (key_repeating(KEY_ESCAPE))
+        {
+pool.destroy_sound(gameslot);
+            mingamsmenu();
+        }
+}
+void slots_game_input()
+{
+        if (key_repeating(KEY_C))
+{
+speak_buffer("You have " + round(cookies, 0) + " cookies.");
+}
+        if (key_repeating(KEY_A))
+{
+speak_buffer("You have " + round(autocooky, 0) + " auto cookies.");
+}
+        if (key_repeating(KEY_S))
+{
+speak_buffer("You have " + round(cookyspeed, 0) + " auto cookie speeds.");
+}
+        if (key_repeating(KEY_M))
+{
+speak_buffer("You have " + round(manulcooky, 0) + " manual cookies.");
+}
+        if (key_repeating(KEY_O))
+{
+pool.destroy_sound(coinslot);
+if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
+speak_buffer("You have " + round(coins, 0) + " coins.");
+}
+        if (key_repeating(KEY_ESCAPE))
+        {
+pool.destroy_sound(gameslot);
+            mingamsmenu();
+        }
+}
+void toy_game_input()
+{
+if(key_pressed(KEY_ESCAPE))
+{
+bossespawn=false;
+carspawn=false;
+gardspawn=false;
+toyspawn=false;
+collected_toys=0;
+destroyed_cars=0;
+killed_gards=0;
+destroy_all_bosses();
+destroy_all_cars();
+destroy_all_gards();
+destroy_all_toys();
+pool.destroy_sound(gameslot);
+toyambpool.destroy_sound(toyambslot);
+toymuspool.destroy_sound(toytrackslot);
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+mingamsmenu();
+}
+if(key_pressed(KEY_1))
+{
+weapontype="bat";
+wepdamage=3;
+weprange=1;
+weprange2=2;
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_2))
+{
+weapontype="boot";
+wepdamage=6;
+weprange=2;
+weprange2=3;
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_3))
+{
+weapontype="club";
+wepdamage=9;
+weprange=3;
+weprange2=4;
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_4))
+{
+weapontype="feat";
+wepdamage=12;
+weprange=4;
+weprange2=5;
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_5))
+{
+weapontype="fist";
+wepdamage=15;
+weprange=5;
+weprange2=6;
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_6))
+{
+weapontype="hammer";
+wepdamage=18;
+weprange=6;
+weprange2=7;
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_7))
+{
+weapontype="knife";
+wepdamage=21;
+weprange=7;
+weprange2=8;
+speak(weapontype+" equipped");
+p.play_stationary(weapontype+"draw.ogg", false);
+}
+if(key_pressed(KEY_T))
+{
+speak("You have collected "+collected_toys+" toys.");
+}
+if(key_pressed(KEY_O))
+{
+speak("There are "+toys.length()+" collectible toys on the field.");
+}
+if(key_pressed(KEY_S))
+{
+speak("You have destroyed "+destroyed_cars+" cars.");
+}
+if(key_pressed(KEY_R))
+{
+speak("There are "+cars.length()+" destroyable cars on the field.");
+}
+if(key_pressed(KEY_Y))
+{
+speak("You've been playing for a total of;"+timeelapsed.m()+"minutes,"+timeelapsed.s()+"seconds");
+}
+if(key_pressed(KEY_H))
+{
+speak("You have"+health+" hp remaining.");
+}
+if(key_pressed(KEY_Q))
+{
+speak("You have killed"+killed_gards+" gards.");
+}
+if(key_pressed(KEY_E))
+{
+speak("There are "+gards.length()+" killible gards on the field.");
+}
+if(key_down(KEY_LCONTROL) or key_down(KEY_RCONTROL))
+{
+movetime=runtime;
+}
+else
+{
+movetime=walktime;
+}
+if (key_down(KEY_LEFT) and movetimer.elapsed>=movetime and me.x!=0)
+{
+me.x-=1;
+p.play_stationary("playerstep"+random(1,5)+".ogg", false);
+movetimer.restart();
+}
+if (key_down(KEY_RIGHT) and movetimer.elapsed>=movetime and me.x!=maxx)
+{
+me.x+=1;
+p.play_stationary("playerstep"+random(1,5)+".ogg", false);movetimer.restart();
+}
+if (key_down(KEY_DOWN) and movetimer.elapsed>=movetime and me.y!=0)
+{
+me.y-=1;
+p.play_stationary("playerstep"+random(1,5)+".ogg", false);movetimer.restart();
+}
+if (key_down(KEY_UP) and movetimer.elapsed>=movetime and me.y!=maxy)
+{
+me.y+=1;
+p.play_stationary("playerstep"+random(1,5)+".ogg", false);movetimer.restart();
+}
+if(key_pressed(KEY_SPACE) and firetimer.elapsed>=firetime)
+{
+if(weapontype=="bat") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="boot") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="club") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="feat") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="fist") p.play_stationary(weapontype+"fire"+random(1,2)+".ogg", false);
+if(weapontype=="hammer") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+if(weapontype=="knife") p.play_stationary(weapontype+"fire"+random(1,3)+".ogg", false);
+firetimer.restart();
+for(uint i = 0; i < bosses.length(); i++)
+{
+if(absolute(bosses[i].bossx - me.x) <= weprange and absolute(bosses[i].bossy - me.y) <= weprange2)
+{
+if(weapontype=="bat")
+{
+wepdamage=random(3,6);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,bosses[i].bossx,bosses[i].bossy, false);
+}
+if(weapontype=="boot")
+{
+wepdamage=random(6,9);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,bosses[i].bossx,bosses[i].bossy, false);
+}
+if(weapontype=="club")
+{
+wepdamage=random(9,12);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,bosses[i].bossx,bosses[i].bossy, false);
+}
+if(weapontype=="feat")
+{
+wepdamage=random(12,15);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,bosses[i].bossx,bosses[i].bossy, false);
+}
+if(weapontype=="fist")
+{
+wepdamage=random(15,18);
+p.play_2d(weapontype+"hit"+random(1,2)+".ogg",me.x,me.y,bosses[i].bossx,bosses[i].bossy, false);
+}
+if(weapontype=="hammer") 
+{
+wepdamage=random(18,21);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,bosses[i].bossx,bosses[i].bossy, false);
+}
+if(weapontype=="knife") 
+{
+wepdamage=random(21,24);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,bosses[i].bossx,bosses[i].bossy, false);
+}
+bosses[i].hurtsound=bosspool.play_2d(bosses[i].bosstype+"pain.ogg",me.x,me.y,bosses[i].bossx,bosses[i].bossy,false);
+bosses[i].bosshealth-=wepdamage;
+}
+}
+for(uint i = 0; i < cars.length(); i++)
+{
+if(absolute(cars[i].carx - me.x) <= weprange and absolute(cars[i].cary - me.y) <= weprange2)
+{
+if(weapontype=="bat")
+{
+wepdamage=random(3,6);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+}
+if(weapontype=="boot")
+{
+wepdamage=random(6,9);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+}
+if(weapontype=="club")
+{
+wepdamage=random(9,12);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+}
+if(weapontype=="feat")
+{
+wepdamage=random(12,15);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+}
+if(weapontype=="fist")
+{
+wepdamage=random(15,18);
+p.play_2d(weapontype+"hit"+random(1,2)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+}
+if(weapontype=="hammer") 
+{
+wepdamage=random(18,21);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+}
+if(weapontype=="knife") 
+{
+wepdamage=random(21,24);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,cars[i].carx,cars[i].cary, false);
+}
+cars[i].hurtsound=carpool.play_2d(cars[i].cartype+"pain.ogg",me.x,me.y,cars[i].carx,cars[i].cary,false);
+cars[i].carhealth-=wepdamage;
+}
+}
+for(uint i = 0; i < gards.length(); i++)
+{
+if(absolute(gards[i].gardx - me.x) <= weprange and absolute(gards[i].gardy - me.y) <= weprange2)
+{
+if(weapontype=="bat")
+{
+wepdamage=random(3,6);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+}
+if(weapontype=="boot")
+{
+wepdamage=random(6,9);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+}
+if(weapontype=="club")
+{
+wepdamage=random(9,12);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+}
+if(weapontype=="feat")
+{
+wepdamage=random(12,15);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+}
+if(weapontype=="fist")
+{
+wepdamage=random(15,18);
+p.play_2d(weapontype+"hit"+random(1,2)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+}
+if(weapontype=="hammer") 
+{
+wepdamage=random(18,21);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+}
+if(weapontype=="knife") 
+{
+wepdamage=random(21,24);
+p.play_2d(weapontype+"hit"+random(1,3)+".ogg",me.x,me.y,gards[i].gardx,gards[i].gardy, false);
+}
+if(gards[i].gardtype=="gard1") gards[i].hurtsound=gardpool.play_2d(gards[i].gardtype+"pain"+random(1,5)+".ogg", me.x, me.y, gards[i].gardx, gards[i].gardy, false);
+if(gards[i].gardtype=="gard2") gards[i].hurtsound=gardpool.play_2d(gards[i].gardtype+"pain.ogg", me.x, me.y, gards[i].gardx, gards[i].gardy, false);
+gards[i].gardhealth-=wepdamage;
+}
+}
+}
+if(key_pressed(KEY_C))
+{
+speak(me.x+", "+me.y);
+}
+}
+
+void wait_async(int milliseconds)
+{
+    timer WaitTimer;
+    WaitTimer.restart();    
+    while (WaitTimer.elapsed < milliseconds)
+    {
+        wait(5);
+        form.monitor();
+slots_game_input();
+        key_code[] keys = keys_pressed(); // Get all currently pressed keys
+        for (uint i = 0; i < keys.length(); i++)
+        {
+            key_code key = keys[i];
+        }
+
+    }
+}
