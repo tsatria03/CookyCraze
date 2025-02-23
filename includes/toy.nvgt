@@ -1,13 +1,18 @@
 toy@[]toys(0);
 class toy
 {
+bool autobreak;
 int getsound, hurtsound, toysound;
 int tx;
 int ty;
-toy(int x, int y)
+int timeouttime;
+timer timeouttimer;
+toy(int x, int y,int tt,bool br)
 {
 tx=x;
 ty=y;
+timeouttime=tt;
+autobreak=br;
 toysound=toypool.play_2d("toyloop"+random(1,40)+".ogg", me.x, me.y, tx, ty, true);
 toypool.update_sound_2d(toysound,tx,ty);
 }
@@ -16,6 +21,13 @@ void toyloop()
 {
 for(uint i=0; i<toys.length(); i++)
 {
+if(toys[i].timeouttimer.elapsed>=toys[i].timeouttime and toys[i].autobreak==true)
+{
+toypool.destroy_sound(toys[i].toysound);
+toys[i].hurtsound=toypool.play_2d("toybreak"+random(1,6)+".ogg", me.x, me.y, toys[i].tx, toys[i].ty, false);
+toys.remove_at(i);
+return;
+}
 if(me.x==toys[i].tx and me.y==toys[i].ty)
 {
 toypool.destroy_sound(toys[i].toysound);

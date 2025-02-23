@@ -1,4 +1,5 @@
 new in 2.0
+Adjusted some tweaks for the toy mania mini game. The gards will no longer show up untill you reach the boss area. They will also no longer destroy the toys that get dropped on the ground.
 Made it so the slot machine mini game uses timers to automaticly spinn all of the reels.
 Made it so the damage of weapons are randomized when hitting bosses, cars, and gards in the toy mania mini game.
 Added health mechanics to the toy mania mini game. When a gard or a boss attacks you, you'll here pain sounds for your character. The same thing will apply if they kill you.

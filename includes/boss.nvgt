@@ -53,11 +53,13 @@ bosses[i].healtimer.restart();
 if(bosses[i].launchtimer.elapsed>=bosses[i].launchtime)
 {
 bosses[i].launchsound=bosspool.play_2d(bosses[i].bosstype+"launch.ogg", me.x, me.y, bosses[i].bossx, bosses[i].bossy, false);
-if(bosses[i].bosstype2=="car1") spawn_car(bosses[i].bossx-random(1,5), bosses[i].bossy-random(1,5), random(0,1), random(0,1), random(5,10), random(100,1000), "car1");
-if(bosses[i].bosstype2=="car2") spawn_car(bosses[i].bossx-random(1,5), bosses[i].bossy-random(1,5), random(0,1), random(0,1), random(10,20), random(75,750), "car2");
-if(bosses[i].bosstype2=="car3") spawn_car(bosses[i].bossx-random(1,5), bosses[i].bossy-random(1,5), random(0,1), random(0,1), random(20,40), random(50,500), "car3");
+string[] entchoice={"gard1", "gard2"};
 if(bosses[i].bosstype2=="gard1") spawn_gard(bosses[i].bossx-random(1,5), bosses[i].bossy-random(1,5), random(20,40), random(20,40), random(100,1000), random(100,1000), "gard1");
 if(bosses[i].bosstype2=="gard2") spawn_gard(bosses[i].bossx-random(1,5), bosses[i].bossy-random(1,5), random(30,60), random(30,60), random(75,750), random(75,750), "gard2");
+if(bosses[i].bosstype2=="random")
+{
+string bosstyp=random_string(entchoice);
+}
 bosses[i].launchtimer.restart();
 }
 if(bosses[i].teltimer.elapsed>=bosses[i].teltime)
