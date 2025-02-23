@@ -1,0 +1,43 @@
+key@[]keys(0);
+class key
+{
+int getsound, keysound;
+int kx;
+int ky;
+string keytype;
+key(int x, int y,string kt)
+{
+kx=x;
+ky=y;
+if(keytype=="key1") keysound=keypool.play_2d("key1loop.ogg", me.x, me.y, kx, ky, true);
+if(keytype=="key2") keysound=keypool.play_2d("key2loop"+random(1,4)+".ogg", me.x, me.y, kx, ky, true);
+keypool.update_sound_2d(keysound,kx,ky);
+}
+}
+void keyloop()
+{
+for(uint i=0; i<keys.length(); i++)
+{
+if(me.x==keys[i].kx and me.y==keys[i].ky)
+{
+keypool.destroy_sound(keys[i].keysound);
+if(keys[i].keytype=="key1") keys[i].getsound=keypool.play_stationary("key1get.ogg",false);
+if(keys[i].keytype=="key2") keys[i].getsound=keypool.play_stationary("key2get"+random(1,6)+".ogg",false);
+collected_keys+=1;
+keys.remove_at(i);
+}
+}
+}
+void spawn_key(int x,int y,string keytype)
+{
+key k1(x,y,keytype);
+keys.insert_last(k1);
+}
+void destroy_all_keys()
+{
+for(uint i=0; i<keys.length(); i++)
+{
+keypool.destroy_sound(keys[i].keysound);
+}
+keys.resize(0);
+}
