@@ -1,4 +1,5 @@
 new in 2.0
+Fixed a bug where loading a Previously saved game wouldn't update the stats that were on the file after starting a new game.
 Made it so you can also press space to skip dialogs, along with enter.
 Made it so keys get destroied if you don't collect them on time in the toy mania mini game.
 You can now collect keys in the toy mania mini game. They will start appearing in the boss area of the map.

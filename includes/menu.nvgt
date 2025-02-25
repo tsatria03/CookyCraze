@@ -109,6 +109,7 @@ muspool.destroy_sound(mustrackslot);
 ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
+readdata();
 game();
 }
 else
