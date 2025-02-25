@@ -1,4 +1,5 @@
 new in 2.0
+Made it so you can also press space to skip dialogs, along with enter.
 Made it so keys get destroied if you don't collect them on time in the toy mania mini game.
 You can now collect keys in the toy mania mini game. They will start appearing in the boss area of the map.
 Made it so the boss class launches random gards with different atributes in the toy mania mini game.

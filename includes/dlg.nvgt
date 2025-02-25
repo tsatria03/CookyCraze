@@ -16,7 +16,7 @@ if (key_pressed(KEY_LEFT) or key_pressed(KEY_RIGHT) or key_pressed(KEY_UP) or ke
 {
 speak(message);
 }
-if (key_pressed(KEY_RETURN))
+if(key_pressed(KEY_SPACE) or key_pressed(KEY_RETURN))
 {
 break;
 }
@@ -49,7 +49,7 @@ if (key_pressed(KEY_LEFT) || key_pressed(KEY_RIGHT) || key_pressed(KEY_UP) || ke
 {
 speak(message);
 }
-if (key_pressed(KEY_RETURN))
+if(key_pressed(KEY_SPACE) or key_pressed(KEY_RETURN))
 {
 break;
 }
