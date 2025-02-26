@@ -9,7 +9,7 @@ The ability to eat Your Cookies. Feeling hungry? Go ahead and eat the cookies yo
 
 Can you reach the highest rank and become the ultimate baker? Let's find out! Master the balance between baking and indulging, and beware of the effects of over consumption. Play smart and aim for cookie-baking greatness!
 
-Keyboard commands
+Keyboard commands for the main game
 Letter, F: Announces how many cookies you can produce when baking mode is enabled, if pressed.
 Letter, H: Announces how full you are from eating cookies, if pressed.
 Letter, J: Announces how many cookies you can produce when baking mode is disabled, if pressed.
@@ -30,3 +30,16 @@ Right Bracket: Navigates to the next buffer category, if pressed.
 Control plus M: Toggles the mute or unmute state of the currently selected buffer, if pressed.
 Control plus S: Saves your game progress, if pressed.
 Escape: Brings up a menu prompt that asks you if you want to quit the game or not, if pressed.
+
+Keyboard commands for the toy mania mini game
+Letter, Q: Announces how many gards you've killed, if pressed.
+Letter, E: Announces how many killable gards their are on the field, if pressed.
+Letter, F: Announces how many cars you've destroyed if pressed.
+Letter, J: Announces how many destroyable cars their are on the field, if pressed.
+Letter, H: Announces how much health you have, if pressed.
+Letter, L: Announces what level you're on, if pressed.
+Letter, Y: Announces how much time you've been playing the game for, if pressed.
+Letter, T: Announces how many toys you've collected, if pressed.
+Letter, O: Announces how many collectible toys their are on the field, if pressed.
+Letter, I: Announces how many keys you've collected, if pressed.
+Letter, U: Announces how many collectible keys their are on the field, if pressed.

@@ -1,5 +1,5 @@
 new in 2.0
-Fixed a bug where you were still able to hit bosses, cars, and gards while your machinegun was empty in the toy mania mini game.
+Fixed a bug where you were still able to hit bosses, cars, and guards while your machinegun was empty in the toy mania mini game.
 Added 2 new weapons to the toy mania mini game. The laser, and the machine gun.
 Made it so you can't play any of the mini games while you're in baking mode.
 Changed the key to run from control to alt.
@@ -7,12 +7,12 @@ Fixed a bug where loading a Previously saved game wouldn't update the stats that
 Made it so you can also press space to skip dialogs, along with enter.
 Made it so keys get destroied if you don't collect them on time in the toy mania mini game.
 You can now collect keys in the toy mania mini game. They will start appearing in the boss area of the map.
-Made it so the boss class launches random gards with different atributes in the toy mania mini game.
-Adjusted some tweaks for the toy mania mini game. The gards will no longer show up untill you reach the boss area. They will also no longer destroy the toys that get dropped on the ground.
+Made it so the boss class launches random guards with different atributes in the toy mania mini game.
+Adjusted some tweaks for the toy mania mini game. The guards will no longer show up untill you reach the boss area. They will also no longer destroy the toys that get dropped on the ground.
 Added various keyboard shortcuts to the toy mania mini game. These will be explained more in detail in the readme.
 Made it so the slot machine mini game uses timers to automaticly spinn all of the reels.
-Made it so the damage of weapons are randomized when hitting bosses, cars, and gards in the toy mania mini game.
-Added health mechanics to the toy mania mini game. When a gard or a boss attacks you, you'll here pain sounds for your character. The same thing will apply if they kill you.
+Made it so the damage of weapons are randomized when hitting bosses, cars, and guards in the toy mania mini game.
+Added health mechanics to the toy mania mini game. When a guard or a boss attacks you, you'll here pain sounds for your character. The same thing will apply if they kill you.
 added behind pitch decrease to the toy mania mini game.
 Made it so toys get broken if you don't collect them on time in the toy mania mini game.
 Added damage and range stats to all of the weapons in the toy mania mini game.

@@ -668,11 +668,11 @@ if(key_pressed(KEY_U))
 {
 speak("There are "+keys.length()+" collectible keys on the field.");
 }
-if(key_pressed(KEY_S))
+if(key_pressed(KEY_F))
 {
 speak("You have destroyed "+destroyed_cars+" cars.");
 }
-if(key_pressed(KEY_R))
+if(key_pressed(KEY_J))
 {
 speak("There are "+cars.length()+" destroyable cars on the field.");
 }
@@ -945,7 +945,7 @@ p.play_stationary(weapontype+"draw.ogg", false);
 p.play_stationary("playerland.ogg", false);
 toyambslot=toyambpool.play_stationary_extended("toyamb.ogg",true,0,0,toyambvolume,toyambpitch,false);
 toytrackslot=toymuspool.play_stationary_extended("toymusic.ogg",true,0,0,toymusvolume,toymuspitch,false);
-gametimer.force(1000*180);
+//gametimer.force(1000*180);
 while(true)
 {
 wait(5);
