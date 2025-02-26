@@ -1,4 +1,8 @@
 new in 2.0
+Fixed a bug where you were still able to hit bosses, cars, and gards while your machinegun was empty in the toy mania mini game.
+Added 2 new weapons to the toy mania mini game. The laser, and the machine gun.
+Made it so you can't play any of the mini games while you're in baking mode.
+Changed the key to run from control to alt.
 Fixed a bug where loading a Previously saved game wouldn't update the stats that were on the file after starting a new game.
 Made it so you can also press space to skip dialogs, along with enter.
 Made it so keys get destroied if you don't collect them on time in the toy mania mini game.

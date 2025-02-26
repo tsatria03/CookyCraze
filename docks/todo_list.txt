@@ -1,3 +1,5 @@
+Add doors
+add prises.
 Fix rounding calculation issues.
 *Done. Make it so the music doesn't randomize when saving your settings.
 *Done. Fix the shop menu.

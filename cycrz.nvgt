@@ -402,7 +402,14 @@ clicktime=1000;
 }
 if (form.is_pressed(minigames))
 {
+if(bakemode==1)
+{
+speak_buffer("You can't play mini games when you're in baking mode.", "general");
+}
+else if(bakemode==0)
+{
 mingamsmenu();
+}
 }
 if (form.is_pressed(preffs))
 {
