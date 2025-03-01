@@ -1,4 +1,7 @@
 new in 2.0
+Added menu music to sertain menus in the game. You can adjust the volume of the music by pressing the page up and page down keys. The shop menus will still have it's own store music.
+Added a door that will randomly spawn on the map while you're on the boss area in the toy mania mini game. You can't open this door unless you've collected all of the keys that are required to unlock it.
+Replaced the manual baking sounds with new ones.
 Fixed a bug where you were still able to hit bosses, cars, and guards while your machinegun was empty in the toy mania mini game.
 Added 2 new weapons to the toy mania mini game. The laser, and the machine gun.
 Made it so you can't play any of the mini games while you're in baking mode.

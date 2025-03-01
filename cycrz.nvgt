@@ -14,6 +14,10 @@ bosspool.behind_pitch_decrease=5;
 bosspool.max_distance = 0;
 bosspool.pan_step = 2.5;
 bosspool.volume_step = 2.5;
+doorpool.behind_pitch_decrease=5;
+doorpool.max_distance = 0;
+doorpool.pan_step = 2.5;
+doorpool.volume_step = 2.5;
 carpool.behind_pitch_decrease=5;
 carpool.max_distance = 0;
 carpool.pan_step = 2.5;
@@ -71,7 +75,7 @@ else if (gender == "non binary")
 {
 playergender = 2;
 }
-setupmenu();
+setupmenu(false);
 m.add_item("yes");
 m.add_item("no");
 m.intro_text="Alright, let's confirm your profile info. Your character's first name is " + first_name + ". Your character's last name is " + last_name + ". Your character's gender is " + gender + ". Is this information correct?";
@@ -142,6 +146,23 @@ if (form.is_pressed(dockclose))
 docksmenu();
 }
 }
+}
+
+void fade_pool(sound_pool@ handle, double time=0.25, double minvol=-40)
+{
+for(double current=0; current>minvol; current-=time)
+{
+for(uint x=0; x<handle.items.length(); x++)
+{
+if(@handle.items[x].handle==null)
+continue;
+if(handle.items[x].handle.playing==false)
+continue;
+handle.items[x].handle.volume=handle.items[x].handle.volume-time;
+wait(5);
+}
+}
+handle.destroy_all();
 }
 
 void main_game_input()
@@ -282,11 +303,11 @@ else if(manulcooky>=2)
 speak_buffer("You  produce"+manulcooky+"cookies per press.", "misc");
 }
 }
-if (key_pressed(KEY_ESCAPE))
+if(key_repeating(KEY_ESCAPE))
 {
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-    setupmenu();    
+    setupmenu(false);    
     m.add_item("Yes, quit the game without saving", "quit_no_save");
     m.add_item("Yes, save the game and then quit", "quit_save");
     m.add_item("No, continue playing", "continue");
@@ -510,7 +531,7 @@ speak_buffer("You need at least 1 manule cooky to start baking cookies.", "gener
 else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
-pool.play_stationary("manulbake" + random(1, 3) + ".ogg", false);
+pool.play_stationary("manulbake.ogg", false);
 if(playervents2==true) attempt_manebaker_event(evchanse2);
 }
 }

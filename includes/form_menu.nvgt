@@ -86,6 +86,20 @@ class menu {
 			intro();
 			automatic_intro = false;
 		}
+if(key_down(KEY_PRIOR) and menumustimer.elapsed>=menumustime and menumusvolume!=0)
+{
+menumusvolume+=5;
+menupool.update_sound_start_values(menuslot,0,menumusvolume,menumuspitch);
+menumustimer.restart();
+writepreffs2();
+}
+if(key_down(KEY_NEXT) and menumustimer.elapsed>=menumustime and menumusvolume!=-50)
+{
+menumusvolume-=5;
+menupool.update_sound_start_values(menuslot,0,menumusvolume,menumuspitch);
+menumustimer.restart();
+writepreffs2();
+}
 if(key_repeating(KEY_TAB) and intro_text.length()>0)
 {
 speak(intro_text);

@@ -1,6 +1,6 @@
-Add doors
-add prises.
-Fix rounding calculation issues.
+*Done. Change ambiences for various mini games.
+*Done. Add doors
+*Done. Fix rounding calculation issues.
 *Done. Make it so the music doesn't randomize when saving your settings.
 *Done. Fix the shop menu.
 *Done. Add the ability to mute sertain anouncements and sounds in the game settings menu.
