@@ -123,6 +123,7 @@ game();
 }
 else
 {
+fade_pool(menupool);
 alertslot=pool.play_stationary("error.ogg",false);
 dlg("Error! The data assosiated with this game does not exist! Press enter to continue.");
 pool.destroy_sound(alertslot);
