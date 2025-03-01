@@ -219,6 +219,8 @@ dlgplay("toylaunch.ogg");
 health=1000;
 me.x=25;
 me.y=25;
+keydest=false;
+toydest=false;
 toyspawn=true;
 gametimer.restart();
 toygame();

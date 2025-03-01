@@ -53,7 +53,7 @@ string weapontype="bat";
 string projname="releases/windows/CookyCraze_password_is_CrazeMastery";
 string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
 string playername, playername2;
-string version="2.0";
+string version="2.1";
 timer bossespawntimer, carspawntimer, clicktimer, firetimer, firetimer2, gametimer, gardspawntimer, keyspawntimer, menumustimer, movetimer, runtimer, toyspawntimer, walktimer;
 file dockfile, logfile;
 audio_form form;
