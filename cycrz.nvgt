@@ -87,21 +87,21 @@ exit();
 }
 if (mres==0)
 {
-dlg("Congratulations! You've successfully completed your profile setup. I'll give you 10 coins to get you started on your way. Press enter to continue.");
+dlg("Congratulations! You've successfully completed your profile setup. I'll give you 10 coins to get you started on your way. Press enter or space to continue.");
 usercoins=10;
 coins=usercoins;
 dlgplay("coin1.ogg");
 if (playergender == 0) 
 {
-dlg("Nice to meat you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks! Press enter to continue.");
+dlg("Nice to meat you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks! Press enter or space to continue.");
 } 
 else if (playergender == 1) 
 {
-dlg("Nice to meat you, Ms. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks! Press enter to continue.");
+dlg("Nice to meat you, Ms. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks! Press enter or space to continue.");
 } 
 else if (playergender == 2) 
 {
-dlg("Nice to meat you, " + playername + " " + playername2 + "! Now go have fun baking cookies and reaching new ranks! Press enter to continue.");
+dlg("Nice to meat you, " + playername + " " + playername2 + "! Now go have fun baking cookies and reaching new ranks! Press enter or space to continue.");
 }
 playerprofed = true;
 writepreffs3();

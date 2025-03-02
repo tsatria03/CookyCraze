@@ -28,7 +28,9 @@ bossfall.wav
 bossheal1.ogg
 bossheal2.ogg
 bossheal3.ogg
-bosshit.ogg
+bosshit1.ogg
+bosshit2.ogg
+bosshit3.ogg
 bosslaunch.ogg
 bosspain.ogg
 bosstaunt.ogg
@@ -338,5 +340,4 @@ toymusic.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 340
-
+total files: 342
