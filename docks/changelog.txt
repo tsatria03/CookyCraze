@@ -1,5 +1,8 @@
 new in 2.1
-Fixed a bug where keys and toys were being broken at the start of a new game despite the clock not allowing them to do it yet in the toy mania mini game.
+Replaced the boss hitting sounds with new ones in the toy mania mini game.
+Decreased the amount of keys you need to collect to unlock the door in the toy mania mini game. This value will also be spoken when trying to unlock the door.
+Made it so the ammo of the machine gun resets upon redrawing it in the toy mania mini game.
+Fixed a bug where keys and toys were being broken at the start of a new game despite the clock not allowing them to do it in the toy mania mini game.
 new in 2.0
 Added menu music to sertain menus in the game. You can adjust the volume of the music by pressing the page up and page down keys. The shop menus will still have it's own store music.
 Added a door that will randomly spawn on the map while you're on the boss area in the toy mania mini game. You can't open this door unless you've collected all of the keys that are required to unlock it.
@@ -7,7 +10,7 @@ Replaced the manual baking sounds with new ones.
 Fixed a bug where you were still able to hit bosses, cars, and guards while your machinegun was empty in the toy mania mini game.
 Added 2 new weapons to the toy mania mini game. The laser, and the machine gun.
 Made it so you can't play any of the mini games while you're in baking mode.
-Changed the key to run from control to alt.
+Changed the key to run from control to alt in the toy mania mini game.
 Fixed a bug where loading a Previously saved game wouldn't update the stats that were on the file after starting a new game.
 Made it so you can also press space to skip dialogs, along with enter.
 Made it so keys get destroied if you don't collect them on time in the toy mania mini game.

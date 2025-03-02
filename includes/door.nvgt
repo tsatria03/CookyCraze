@@ -25,11 +25,12 @@ for(uint i=0; i<doors.length(); i++)
 {
 if(doors[i].startx==me.x and doors[i].starty==me.y and doors[i].automatic==true)
 {
-if(collected_keys<60)
+int required_keys=30;
+if(collected_keys<required_keys)
 {
-speak("This door is locked.");
+speak("This door is locked. You need "+required_keys+" or more keys in order to unlock it.");
 }
-else if(collected_keys>=60)
+else if(collected_keys>=required_keys)
 {
 doors[i].unlocksound=doorpool.play_stationary("keyuse"+random(1,6)+".ogg",false);
 pool.destroy_sound(gameslot);
@@ -44,11 +45,12 @@ doors[i].movesound=doorpool.play_stationary("doormove.ogg",true);
 }
 if(doors[i].startx==me.x and doors[i].starty==me.y and doors[i].automatic==false and key_pressed(KEY_RETURN))
 {
-if(collected_keys<60)
+int required_keys=30;
+if(collected_keys<required_keys)
 {
-speak("This door is locked.");
+speak("This door is locked. You need "+required_keys+" or more keys in order to unlock it.");
 }
-else if(collected_keys>=60)
+else if(collected_keys>=required_keys)
 {
 doors[i].unlocksound=doorpool.play_stationary("keyuse"+random(1,6)+".ogg",false);
 pool.destroy_sound(gameslot);
