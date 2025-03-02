@@ -98,41 +98,32 @@ if (form.is_pressed(flip))
         string[] activeCoinEvents;
         string[] headsEvents;
         string[] tailsEvents;
-
-        // Gather checked coin events
         for (uint i = 0; i < coinFlipEvents.length(); i++)
         {
             if (form.is_list_item_checked(coinEventList, i))
             {
                 activeCoinEvents.insert_last(coinFlipEvents[i]);
-
-                // Categorize events
-                if (coinFlipEvents[i].find("gain") >= 0 || coinFlipEvents[i] == "decrease_hunger")
+                if (coinFlipEvents[i].find("gain") >= 0 || coinFlipEvents[i] == "decrease_hunger" || coinFlipEvents[i] == "increase_cookyspeed")
                 {
                     headsEvents.insert_last(coinFlipEvents[i]);
                 }
-                else if (coinFlipEvents[i].find("lose") >= 0 || coinFlipEvents[i] == "increase_hunger")
+                else if (coinFlipEvents[i].find("lose") >= 0 || coinFlipEvents[i] == "increase_hunger" || coinFlipEvents[i] == "decrease_cookyspeed")
                 {
                     tailsEvents.insert_last(coinFlipEvents[i]);
                 }
             }
         }
-
-        // Ensure at least one positive and one negative event are selected
         if (headsEvents.length() == 0 || tailsEvents.length() == 0)
         {
             dlg_buffer("You must select at least one positive and one negative event before flipping the coin! Press enter or space to continue.");
             form.reset();
             coingame();
         }
-
-        // Flip the coin
         string[] coinsides = { "heads", "tails" };
         string side = coinsides[random(0, coinsides.length() - 1)];
         pool.destroy_sound(eventslot);
         pool.play_stationary("coinflip.ogg", false);
         dlg_buffer("You flip a coin. It lands on " + side);
-
         if (side == "heads" && headsEvents.length() > 0)
         {
             string event = headsEvents[random(0, headsEvents.length() - 1)];
