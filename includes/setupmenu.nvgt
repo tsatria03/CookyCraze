@@ -5,6 +5,10 @@ if(music_added==true)
 menupool.destroy_sound(menuslot);
 menuslot=menupool.play_stationary_extended("menumus.ogg", true,0,0,menumusvolume,menumuspitch,false);
 }
+else if(music_added==false)
+{
+menupool.destroy_sound(menuslot);
+}
 m.reset();
 m.automatic_intro=true;
 m.focus_first_item=false;
