@@ -604,8 +604,8 @@ int cansets = form.create_button("&cancel");
 form.focus(introSFX);
     while (true)
     {
-        form.monitor();
         wait(5);
+        form.monitor();
        autoCookyBaseCost = form.get_slider(autoCookyBaseCostSlider);
         autoCookyMultiplier = form.get_slider(autoCookyMultiplierSlider);
         autoCookySpeedBaseCost = form.get_slider(autoCookySpeedBaseCostSlider);
@@ -624,11 +624,20 @@ orderedSyms = form.is_checked(ordsyms);
 slotmode = form.is_checked(reelspin);
         if (form.is_pressed(savesets))
         {
+            if (!validate_event_selection(autoEventList, manualEventList))
+{
+                dlg("You must select at least one positive and one negative event for both Auto-Baking and Manual-Baking before saving.");
+            form.reset();
+            gamsetsmenu();
+            }
+else
+{
 writepreffs(autoEventList, manualEventList);
             dlg("Settings saved. Press enter to continue.");
             preffsmenu();
         }
-        if (key_pressed(KEY_ESCAPE))
+        }
+if (key_pressed(KEY_ESCAPE))
         {
 preffsmenu();
 }

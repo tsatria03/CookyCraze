@@ -22,6 +22,35 @@ return true;
 }
 return false;
 }
+bool validate_event_selection(int autoEventList, int manualEventList)
+{
+    bool hasPositiveAuto = false;
+    bool hasNegativeAuto = false;
+    bool hasPositiveManual = false;
+    bool hasNegativeManual = false;
+    string[] positiveAutoEvents = {"bonus_cookies", "decrease_hunger", "increase_cookyspeed", "gain_coins", "gain_autocooky", "gain_manulcooky"};
+    string[] negativeAutoEvents = {"fire_spark", "extra_hunger", "decrease_cookyspeed", "lose_coins", "lose_autocooky", "lose_manulcooky"};
+    string[] positiveManualEvents = {"bonus_cookies", "decrease_hunger", "increase_cookyspeed", "gain_coins", "gain_autocooky", "gain_manulcooky"};
+    string[] negativeManualEvents = {"fire_spark", "extra_hunger", "decrease_cookyspeed", "lose_coins", "lose_autocooky", "lose_manulcooky"};
+    for (uint i = 0; i < autoBakingEvents.length(); i++)
+{
+        if (form.is_list_item_checked(autoEventList, i))
+{
+            if (positiveAutoEvents.find(autoBakingEvents[i]) > -1) hasPositiveAuto = true;
+            if (negativeAutoEvents.find(autoBakingEvents[i]) > -1) hasNegativeAuto = true;
+        }
+    }
+    for (uint i = 0; i < manualBakingEvents.length(); i++)
+{
+        if (form.is_list_item_checked(manualEventList, i))
+{
+            if (positiveManualEvents.find(manualBakingEvents[i]) > -1) hasPositiveManual = true;
+            if (negativeManualEvents.find(manualBakingEvents[i]) > -1) hasNegativeManual = true;
+        }
+    }
+    return (hasPositiveAuto && hasNegativeAuto && hasPositiveManual && hasNegativeManual);
+}
+
 double min(double a, double b)
 {
 return (a < b) ? a : b;

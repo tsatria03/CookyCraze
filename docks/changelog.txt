@@ -1,4 +1,6 @@
 new in 2.1
+Made it so you are required to at least select 1 Positive and one negative auto baking event out of the remaining auto baking events in the auto baking events list before saving the game settings in the game settings menu.
+Made it so you are required to at least select 1 Positive and one negative manual baking event out of the remaining manual baking events in the manual baking events list before saving the game settings in the game settings menu.
 Added back the ability to quickly exit the game by holding alt and pressing f4.
 Made some menu enhancements.
 Replaced the boss hitting sounds with new ones in the toy mania mini game.
