@@ -13,7 +13,6 @@ if(mres==-1)
 {
 speak("exiting");
 fade_pool(menupool);
-dlgplay("exitgame.ogg");
 exit();
 }
 if(main=="dm")
@@ -39,7 +38,6 @@ if (main == "ex")
 {
 speak("exiting");
 fade_pool(menupool);
-dlgplay("exitgame.ogg");
 exit();
 }
 }

@@ -1,4 +1,5 @@
 new in 2.1
+Added back the ability to quickly exit the game by holding alt and pressing f4.
 Made some menu enhancements.
 Replaced the boss hitting sounds with new ones in the toy mania mini game.
 Decreased the amount of keys you need to collect to unlock the door in the toy mania mini game. This value will also be spoken when trying to unlock the door.
