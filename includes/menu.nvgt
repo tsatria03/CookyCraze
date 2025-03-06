@@ -127,8 +127,6 @@ if(gamem=="ng")
 {
 if(file_exists("data/game.crz"))
 {
-speak("loading");
-m.fade_music();
 setupmenu();
 m.add_item("yes");
 m.add_item("no");

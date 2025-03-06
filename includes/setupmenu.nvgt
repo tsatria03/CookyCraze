@@ -21,6 +21,7 @@ m.wrap_sound="menuwrap.ogg";
 }
 void setupmenu2()
 {
+m.add_music("");
 m.reset();
 m.automatic_intro=true;
 m.focus_first_item=false;

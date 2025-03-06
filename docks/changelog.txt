@@ -1,4 +1,5 @@
 new in 2.2
+Made some more menu changes.
 Added the ability to set your own menu music in the menu class. The sound_pool is no longer used to play them.
 Minor bug fixes.
 new in 2.1
