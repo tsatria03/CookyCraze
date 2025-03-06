@@ -249,7 +249,7 @@ pool.destroy_sound(gameslot);
         if (form.is_pressed(spinButton))
         {
             selectedBet = form.get_list_position(betChoice);
-betAmount =string_to_number(form.get_text(betInput));
+betAmount =string_to_number(form.get_text(round(betInput,0)));
     if (betAmount <= 0)
     {
         dlg_buffer("Invalid bet amount. Please enter a valid number! Press enter or space to continue.");
@@ -291,7 +291,7 @@ wait_async(1000);
 pool.play_stationary("slotlever.ogg", false);
 machineslot=pool.play_stationary("slotspin.ogg", true);
 if(slotmode==true) speak_buffer("spinning...");
-if(slotmode==false) dlg_buffer("spinning. Press enter to stop each reel.");
+if(slotmode==false) dlg_buffer("spinning. Press enter or space to stop each reel.");
 if(slotmode==true) wait(random(1000,2000));
             for (uint i = 0; i < 5; i++)
             {

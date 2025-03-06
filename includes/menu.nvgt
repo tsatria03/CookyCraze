@@ -12,7 +12,7 @@ string main = m.get_selected_item_id();
 if(mres==-1)
 {
 speak("exiting");
-fade_pool(menupool);
+m.fade_music();
 exit();
 }
 if(main=="dm")
@@ -25,19 +25,19 @@ gamemenu();
 }
 if(main=="rg")
 {
-fade_pool(menupool);
+m.fade_music();
 release_game();
 }
 if (main == "sm")
 {
 speak("loading");
-fade_pool(menupool);
+m.fade_music();
 preffsmenu();
 }
 if (main == "ex")
 {
 speak("exiting");
-fade_pool(menupool);
+m.fade_music();
 exit();
 }
 }
@@ -59,25 +59,25 @@ mainmenu();
 if(dnm=="changelog")
 {
 speak("loading");
-fade_pool(menupool);
+m.fade_music();
 dockread("docks/changelog.txt");
 }
 if(dnm=="credits")
 {
 speak("loading");
-fade_pool(menupool);
+m.fade_music();
 dockread("docks/credits.txt");
 }
 if(dnm=="readme")
 {
 speak("loading");
-fade_pool(menupool);
+m.fade_music();
 dockread("docks/readme.txt");
 }
 if(dnm=="todo_list")
 {
 speak("loading");
-fade_pool(menupool);
+m.fade_music();
 dockread("docks/todo_list.txt");
 }
 if(dnm=="back")
@@ -103,7 +103,7 @@ if (gamem == "lg")
 if(file_exists("data/game.crz"))
 {
 speak("loading");
-fade_pool(menupool);
+m.fade_music();
 if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
@@ -115,7 +115,7 @@ game();
 }
 else
 {
-fade_pool(menupool);
+m.fade_music();
 alertslot=pool.play_stationary("error.ogg",false);
 dlg("Error! The data assosiated with this game does not exist! Press enter or space to continue.");
 pool.destroy_sound(alertslot);
@@ -128,8 +128,8 @@ if(gamem=="ng")
 if(file_exists("data/game.crz"))
 {
 speak("loading");
-fade_pool(menupool);
-setupmenu(false);
+m.fade_music();
+setupmenu();
 m.add_item("yes");
 m.add_item("no");
 m.intro_text="Are you sure you want to start over from the beginning? This will erase all of the progress you made on the current game.";
@@ -142,7 +142,7 @@ gamemenu();
 if(mres==0)
 {
 speak("loading");
-fade_pool(menupool);
+m.fade_music();
 if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
@@ -161,7 +161,7 @@ gamemenu();
 else
 {
 speak("loading");
-fade_pool(menupool);
+m.fade_music();
 if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
