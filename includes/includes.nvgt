@@ -27,7 +27,7 @@
 #include"virtual_dialogs.nvgt"
 
 bool y_is_elevation=true;
-bool bossespawn=false, carspawn=false, coinsfx=true, gardspawn=false, keydest=false, keyspawn=false, ingame=false, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false, toydest=false, toyspawn=false;
+bool bossespawn=false, carspawn=false, coinsfx=true, gardspawn=false, keydest=false, keyspawn=false, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false, toydest=false, toyspawn=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 double ammo=100, autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, collected_keys=0, collected_toys=0, destroyed_cars=0, health=1000, hunger=0, maxhunger=10000, killed_gards=0, levcoins=0, manulcooky=0, rank=1, usercoins=0;
