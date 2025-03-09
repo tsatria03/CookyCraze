@@ -1,5 +1,6 @@
 void coin_game_input()
 {
+touchManager.monitor();
         if (key_pressed(KEY_C))
 {
 speak_buffer("You have " + round(cookies, 0) + " cookies.");
@@ -148,6 +149,7 @@ if (form.is_pressed(flip))
 }
 void slots_game_input()
 {
+touchManager.monitor();
         if (key_pressed(KEY_C))
 {
 speak_buffer("You have " + round(cookies, 0) + " cookies.");
@@ -508,6 +510,7 @@ manulcooky -= betAmount;
 
 void toy_game_input()
 {
+touchManager.monitor();
 if(key_pressed(KEY_ESCAPE) and doormove==false)
 {
 level=1;

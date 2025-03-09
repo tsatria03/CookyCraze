@@ -1,6 +1,7 @@
 new in 2.2
+Added the ability to buy the maximum amount of auto cookies, auto cooky speeds, and manule cookies that you can currently aford in the cooky store.
 Made some more menu changes.
-Added the ability to set your own menu music in the menu class. The sound_pool is no longer used to play them.
+Added the ability to set your own menu music in the menu class. The sound_pool will no longer be used to play them.
 Minor bug fixes.
 new in 2.1
 Fixed a bug where the increase and decrease cooky speed events weren't being Recognize as positive and negative events when choosing them in the coin flipper mini game.

@@ -1,6 +1,10 @@
 #include"includes/includes.nvgt"
 void main()
 {
+if (@touchManager == null)
+{
+@touchManager = touch_gesture_manager();
+}
 set_sound_storage("data/assets.crz");
 set_sound_decryption_key("BRn2x3BJd3O0KrB7kb2L6cY4qJYEjVt5OhuVzJmmsoj9wampZL3IAx7IdIQBMyqW7ssXZhsXwD2nrQR4qRL8038swNq0Zc2ObN6mNlWrjIGcYLqEh2t0OHeM",true);
 dummy.load("dummy");
@@ -167,6 +171,7 @@ handle.destroy_all();
 
 void main_game_input()
 {
+touchManager.monitor();
 if(key_pressed(KEY_COMMA))
 {
 if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))

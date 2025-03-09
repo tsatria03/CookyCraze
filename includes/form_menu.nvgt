@@ -78,7 +78,7 @@ sound music;
 		}
 	}
 
-void set_volume_keys(int key1, int key2, int key3)
+void set_volume_keys(int key1, int key2)
 {
 volkeyup = key1;
 volkeydown = key2;

@@ -403,7 +403,7 @@ buymenu();
 if (abm == "abic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string autocook = vd.input_box("","How many auto cookies would you like to buy?");
+string autocook = vd.input_box("","How many auto cookies would you like to buy? Press enter to buy the maximum amount of auto cookies.", round(maxBuyableAutoCooky,0));
 double quantity = string_to_number(autocook);
 double totalCost = 0;
     if (quantity <= 0)
@@ -437,7 +437,7 @@ buymenu();
 if (abm == "sabic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy?");
+string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy? Press enter to buy the maximum amount of auto cooky speeds.", round(maxBuyableAutoCookySpeed,0));
 double quantity = string_to_number(autocooksp);
 double totalCost = 0;
     if (quantity <= 0)
@@ -497,7 +497,7 @@ buymenu();
 if (mabm == "mabic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string manulcook = vd.input_box("","How many manule cookies would you like to buy?");
+string manulcook = vd.input_box("","How many manule cookies would you like to buy? Press enter to buy the maximum amount of manule cookies.", round(maxBuyable,0));
 double quantity = string_to_number(manulcook);
 double totalCost = 0;
     if (quantity <= 0)
