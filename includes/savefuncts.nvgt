@@ -83,6 +83,10 @@ if(st.d.exists("coinsfx"))
 {
 coinsfx=st.read_bool("coinsfx");
 }
+if(st.d.exists("eventsfx"))
+{
+eventsfx=st.read_bool("eventsfx");
+}
 if(st.d.exists("introsfx"))
 {
 introsfx=st.read_bool("introsfx");
@@ -163,6 +167,7 @@ evchanse2=st.read_int("evchanse2");
 void writepreffs(int autoEventList, int manualEventList)
 {
 st.add("coinsfx",coinsfx);
+st.add("eventsfx",eventsfx);
 st.add("introsfx",introsfx);
 st.add("logosfx",logosfx);
 st.add("ranksfx",ranksfx);

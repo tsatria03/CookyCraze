@@ -1,4 +1,5 @@
 new in 2.2
+You can now toggle playing event sounds upon triggering events in the game settings menu. This also applies to the coin flipper mini game.
 Made it so you only need 1 coin to enter the cooky store.
 Added the ability to buy the maximum amount of auto cookies, auto cooky speeds, and manule cookies that you can currently aford in the cooky store.
 Made some more menu changes.
