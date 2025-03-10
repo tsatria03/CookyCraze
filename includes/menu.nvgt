@@ -575,10 +575,10 @@ void gamsetsmenu()
 {
     form.reset();
     form.create_window("Game Settings", false);
-int eventSFX = form.create_checkbox("Enable event sound effects when triggering events.", eventsfx);
 int introSFX = form.create_checkbox("Enable playing the intro sound upon starting the game.", introsfx);
 int logoSFX = form.create_checkbox("Enable playing the logo sound upon launching the game.", logosfx);
 int coinSFX = form.create_checkbox("Enable coin sound effects when earning money.", coinsfx);
+int eventSFX = form.create_checkbox("Enable event sound effects when triggering events.", eventsfx);
 int rankSFX = form.create_checkbox("Enable rank sound effects when leveling up.", ranksfx);
 int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
 int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);

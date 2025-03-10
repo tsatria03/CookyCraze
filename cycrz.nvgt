@@ -291,7 +291,7 @@ speak_buffer("You baked a total of"+cookies+"cookies.", "misc");
 }
 if(key_pressed(KEY_H))
 {
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry.", "misc");
+speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. Your full meater is at "+maxhunger+" units of food.", "misc");
 }
 if(key_pressed(KEY_J))
 {
@@ -389,7 +389,6 @@ void game()
 form.reset();
 form.create_window("CookyCraze", false);
 int manulbake=form.create_button("Bake cook&ies");
-int checkHunger = form.create_button("Check h&unger status");
 int shop=form.create_button("Cooky &store");
 int food=form.create_button("Ea&t cookies");
 int autobake=form.create_button("Enter baking m&ode");
@@ -453,64 +452,6 @@ if (form.is_pressed(preffs))
 {
 preffsmenu();
 }
-        if (form.is_pressed(checkHunger))
-        {
-            if (hunger >= 0 && hunger <= 1000)
-            {
-ambpool.pause_sound(ambslot);
-muspool.pause_sound(mustrackslot);
-pool.play_stationary("heart.ogg",false);
-                dlg_buffer("You're feeling very full. No need to eat right now.", "general");
-ambpool.resume_sound(ambslot);
-muspool.resume_sound(mustrackslot);
-            }
-            else if (hunger > 1000 && hunger <= 4000)
-            {
-ambpool.pause_sound(ambslot);
-muspool.pause_sound(mustrackslot);
-pool.play_stationary("heart.ogg",false);
-                dlg_buffer("You're starting to feel a little hungry. Maybe grab a snack soon.", "general");
-ambpool.resume_sound(ambslot);
-muspool.resume_sound(mustrackslot);
-            }
-            else if (hunger > 4000 && hunger <= 7000)
-            {
-ambpool.pause_sound(ambslot);
-muspool.pause_sound(mustrackslot);
-pool.play_stationary("heart2.ogg",false);
-                dlg_buffer("You're feeling pretty hungry. You might want to eat something.", "general");
-ambpool.resume_sound(ambslot);
-muspool.resume_sound(mustrackslot);
-            }
-            else if (hunger > 7000 && hunger < maxhunger)
-            {
-ambpool.pause_sound(ambslot);
-muspool.pause_sound(mustrackslot);
-alertslot=pool.play_stationary("alert_critical.ogg",false);
-pool.play_stationary("heart3.ogg",false);
-                dlg_buffer("You're extremely hungry! You need to eat now.", "critical");
-pool.destroy_sound(alertslot);
-ambpool.resume_sound(ambslot);
-muspool.resume_sound(mustrackslot);
-            }
-            else if (hunger >= maxhunger)
-            {
-                coins = max(0, coins - 10 * rank);
-                autocooky = max(0, autocooky - random(10, 20) * rank);
-                cookyspeed = min(1000, cookyspeed + random(5, 10) * rank);
-                clicktime+=cookyspeed;
-manulcooky = max(0, manulcooky - random(10, 20) * rank);
-ambpool.pause_sound(ambslot);
-muspool.pause_sound(mustrackslot);
-alertslot=pool.play_stationary("alert_critical.ogg",false);
-pool.play_stationary("heart.ogg",false);
-dlg_buffer("Extreme hunger has consequences! You lost some coins, auto cookies, manual cookies, and auto-cooky speed boosts.", "critical");
-hunger=0;
-pool.destroy_sound(alertslot);
-ambpool.resume_sound(ambslot);
-muspool.resume_sound(mustrackslot);
-            }
-        }
 if(form.is_pressed(autobake))
 {
 if(autocooky==0)
@@ -582,7 +523,7 @@ if (form.is_pressed(food))
 {
     if (cookies > 0)
 {
-        double cookiesToEat = min(100 * rank, cookies);
+        double cookiesToEat = min(10 * rank, cookies);
 pool.destroy_sound(foodslot);
         foodslot = pool.play_stationary("eatcookies.ogg", false);
         cookies -= cookiesToEat;
@@ -620,6 +561,7 @@ if (cookies >= cookiesrequiered)
 {
     cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 hunger+=10 * rank;
+maxhunger+=10 * rank;
     levcoins+=10 * rank;
     rank+=1;
     coins += levcoins;
@@ -684,7 +626,7 @@ cookymod=20;
 cookiesrequiered=10;
 cookyspeed=0;
 hunger=0;
-maxhunger=10000;
+maxhunger=100;
 levcoins=0;
 manulcooky=0;
 rank=1;

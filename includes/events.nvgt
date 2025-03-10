@@ -366,7 +366,7 @@ if(eventsfx==true) pool.play_stationary("cointoss.ogg", false);
 clicktime-=cookyspeed;
 if(eventsfx==true) pool.play_stationary("gain.ogg", false);
 if(eventsfx==true) pool.play_stationary("give.ogg", false);
-pool.play_stationary("powerup.ogg", false);
+if(eventsfx==true) pool.play_stationary("powerup.ogg", false);
         dlg_buffer("Cool! Your baking speed has been increased slightly.", "events");
     }
     else if (event == "decrease_cookyspeed")
