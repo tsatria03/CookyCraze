@@ -1,5 +1,6 @@
 new in 2.2
-Added buffer navegation keys to all of the mini games.
+Modified the hunger logic. You'll now be able to eat more cookies as you level up in the game. You'll no longer be limmited to only holding up to 10000 cookies. The H key will now also tell you how many units of food you can hold up to before getting too full.
+Added buffer navegation support to all of the mini games.
 Removed the ability to check your hunger in the main game.
 You can now toggle playing event sounds upon triggering events in the game settings menu. This also applies to the coin flipper mini game.
 Made it so you only need 1 coin to enter the cooky store.

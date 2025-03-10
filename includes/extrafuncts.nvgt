@@ -77,6 +77,59 @@ string random_string(string[] array)
 string retval=array[random(0,array.length()-1)];
 return retval;
 }
+void buffercheck()
+{
+if(key_repeating(KEY_COMMA))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+top_buffer_item();
+}
+else
+{
+previous_buffer_item();
+}
+}
+if(key_repeating(KEY_PERIOD))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+bottom_buffer_item();
+}
+else
+{
+next_buffer_item();
+}
+}
+if(key_repeating(KEY_LBRACKET))
+{
+previous_buffer();
+}
+if(key_repeating(KEY_RBRACKET))
+{
+next_buffer();
+}
+if (control_is_down())
+{
+if (key_repeating(KEY_M))
+{
+mute_and_unmute_buffer();
+}
+}
+if(shift_is_down())
+{
+if (key_repeating(KEY_C))
+{
+copy_buffer_item();
+}
+if (key_repeating(KEY_BACKSLASH))
+{
+speak("buffers exported");
+export_buffers();
+clear_all_buffer_items();
+}
+}
+}
 void wait_async(int milliseconds)
 {
     timer WaitTimer;
