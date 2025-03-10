@@ -181,7 +181,6 @@ form.reset();
 form.create_window("Mini games", false);
 int flip=form.create_button("Play &coin flipper");
 int slots=form.create_button("play &slot machine");
-int toys=form.create_button("play toy &mania");
 form.focus(flip);
 while(true)
 {
@@ -191,30 +190,6 @@ form.monitor();
         {
 form.reset();
 game();
-}
-if(form.is_pressed(toys))
-{
-if(rank<30)
-{
-gameslot=pool.play_stationary("gamefail.ogg", false);
-dlg_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 30 or higher to play this.", "critical");
-form.reset();
-mingamsmenu();
-}
-else if(rank>=30)
-{
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-dlgplay("toylaunch.ogg");
-health=1000;
-me.x=25;
-me.y=25;
-keydest=false;
-toydest=false;
-toyspawn=true;
-gametimer.restart();
-toygame();
-}
 }
 if(form.is_pressed(slots))
 {
@@ -682,10 +657,6 @@ int storeAmbienceVolumeSlider = form.create_slider("store ambience volume, ", (s
 int storeAmbiencePitchSlider = form.create_slider("store ambience pitch, ", storambpitch / 2, 0, 100, "percent", 1);
 int storeMusicVolumeSlider = form.create_slider("store music volume, ", (stormusvolume + 50) * 2, 0, 100, "percent", 1);
 int storeMusicPitchSlider = form.create_slider("store music pitch, ", stormuspitch / 2, 0, 100, "percent", 1);
-int toyAmbienceVolumeSlider = form.create_slider("toy ambience volume, ", (toyambvolume + 50) * 2, 0, 100, "percent", 1);
-int toyAmbiencePitchSlider = form.create_slider("toy ambience pitch, ", toyambpitch / 2, 0, 100, "percent", 1);
-int toyMusicVolumeSlider = form.create_slider("toy music volume, ", (toymusvolume + 50) * 2, 0, 100, "percent", 1);
-int toyMusicPitchSlider = form.create_slider("toy music pitch, ", toymuspitch / 2, 0, 100, "percent", 1);
 int savesets = form.create_button("&save settings", true);
 int cansets = form.create_button("&cancel");
 form.focus(amblist);
@@ -701,16 +672,10 @@ storambvolume = (form.get_slider(storeAmbienceVolumeSlider) / 2) - 50;
 storambpitch = form.get_slider(storeAmbiencePitchSlider) * 2;
 stormusvolume = (form.get_slider(storeMusicVolumeSlider) / 2) - 50;
 stormuspitch = form.get_slider(storeMusicPitchSlider) * 2;
-toyambvolume = (form.get_slider(toyAmbienceVolumeSlider) / 2) - 50;
-toyambpitch = form.get_slider(toyAmbiencePitchSlider) * 2;
-toymusvolume = (form.get_slider(toyMusicVolumeSlider) / 2) - 50;
-toymuspitch = form.get_slider(toyMusicPitchSlider) * 2;
         ambpool.update_sound_start_values(ambslot, 0, ambvolume, ambpitch);
         muspool.update_sound_start_values(mustrackslot, 0, musvolume, muspitch);
 storambpool.update_sound_start_values(storambslot, 0, storambvolume, storambpitch);
 stormuspool.update_sound_start_values(stortrackslot, 0, stormusvolume, stormuspitch);
-toyambpool.update_sound_start_values(toyambslot, 0, toyambvolume, toyambpitch);
-toymuspool.update_sound_start_values(toytrackslot, 0, toymusvolume, toymuspitch);
 if(ingame==true) ambienceIndex = form.get_list_position(amblist);
         if (ambienceIndex != -1 && ambOptions[ambienceIndex] != ambtype)
         {

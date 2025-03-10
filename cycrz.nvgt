@@ -7,37 +7,6 @@ if (@touchManager == null)
 }
 set_sound_storage("data/assets.crz");
 set_sound_decryption_key("BRn2x3BJd3O0KrB7kb2L6cY4qJYEjVt5OhuVzJmmsoj9wampZL3IAx7IdIQBMyqW7ssXZhsXwD2nrQR4qRL8038swNq0Zc2ObN6mNlWrjIGcYLqEh2t0OHeM",true);
-dummy.load("dummy");
-sound_global_hrtf=true;
-timeelapsed.set_timer(gametimer);
-p.behind_pitch_decrease=5;
-p.max_distance = 0;
-p.pan_step = 2.5;
-p.volume_step = 2.5;
-bosspool.behind_pitch_decrease=5;
-bosspool.max_distance = 0;
-bosspool.pan_step = 2.5;
-bosspool.volume_step = 2.5;
-doorpool.behind_pitch_decrease=5;
-doorpool.max_distance = 0;
-doorpool.pan_step = 2.5;
-doorpool.volume_step = 2.5;
-carpool.behind_pitch_decrease=5;
-carpool.max_distance = 0;
-carpool.pan_step = 2.5;
-carpool.volume_step = 2.5;
-gardpool.behind_pitch_decrease=5;
-gardpool.max_distance = 0;
-gardpool.pan_step = 2.5;
-gardpool.volume_step = 2.5;
-keypool.behind_pitch_decrease=5;
-keypool.max_distance = 0;
-keypool.pan_step = 2.5;
-keypool.volume_step = 2.5;
-toypool.behind_pitch_decrease=5;
-toypool.max_distance = 0;
-toypool.pan_step = 2.5;
-toypool.volume_step = 2.5;
 show_game_window("CookyCraze, version "+version);
 create_buffer("critical");
 create_buffer("events");
@@ -152,23 +121,6 @@ docksmenu();
 }
 }
 
-void fade_pool(sound_pool@ handle, double time=0.25, double minvol=-40)
-{
-for(double current=0; current>minvol; current-=time)
-{
-for(uint x=0; x<handle.items.length(); x++)
-{
-if(@handle.items[x].handle==null)
-continue;
-if(handle.items[x].handle.playing==false)
-continue;
-handle.items[x].handle.volume=handle.items[x].handle.volume-time;
-wait(5);
-}
-}
-handle.destroy_all();
-}
-
 void main_game_input()
 {
 buffercheck();
@@ -200,29 +152,29 @@ speak_buffer("You're currently rank "+rank+" with "+round(cookies,0)+" cookies. 
 }
 if(key_pressed(KEY_F))
 {
-if(autocooky==0 and clicktime==1000)
+if(autocooky<1 and clicktime==1000)
 {
-speak_buffer("You  produce"+autocooky+"cookies per second.", "misc");
+speak_buffer("You  produce "+round(autocooky,0)+" cookies per second.", "misc");
 }
-else if(autocooky==0 and clicktime<=999)
+else if(autocooky<1 and clicktime<=999)
 {
-speak_buffer("You  produce"+autocooky+"cookies every"+clicktime+"milliseconds.", "misc");
+speak_buffer("You  produce "+round(autocooky,0)+" cookies every "+clicktime+" milliseconds.", "misc");
 }
 else if(autocooky==1 and clicktime==1000)
 {
-speak_buffer("You  produce"+autocooky+"cooky per second.", "misc");
+speak_buffer("You  produce "+round(autocooky,0)+" cooky per second.", "misc");
 }
 else if(autocooky==1 and clicktime<=999)
 {
-speak_buffer("You  produce"+autocooky+"cooky every"+clicktime+"milliseconds.", "misc");
+speak_buffer("You  produce "+round(autocooky,0)+" cooky every "+clicktime+" milliseconds.", "misc");
 }
 else if(autocooky>=2 and clicktime==1000)
 {
-speak_buffer("You  produce"+autocooky+"cookies per second.", "misc");
+speak_buffer("You  produce "+round(autocooky,0)+" cookies per second.", "misc");
 }
 else if(autocooky>=2 and clicktime<=999)
 {
-speak_buffer("You  produce"+autocooky+"cookies every"+clicktime+"milliseconds.", "misc");
+speak_buffer("You  produce "+round(autocooky,0)+" cookies every "+clicktime+" milliseconds.", "misc");
 }
 }
 if(key_pressed(KEY_C))
@@ -246,34 +198,34 @@ if(hunger<=maxhunger/4)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. Your full meater is at "+maxhunger+" units of food.", "misc");
+speak_buffer("You are "+round(hunger/maxhunger*100,2)+"percent hungry. Your full meater is at "+maxhunger+" units of food.", "misc");
 }
 if(hunger>=maxhunger/4 and hunger<=maxhunger/2)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart2.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. Your full meater is at "+maxhunger+" units of food.", "misc");
+speak_buffer("You are "+round(hunger/maxhunger*100,2)+"percent hungry. Your full meater is at "+maxhunger+" units of food.", "misc");
 }
 if(hunger>=maxhunger/2 and hunger<=maxhunger)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart3.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. Your full meater is at "+maxhunger+" units of food.", "misc");
+speak_buffer("You are "+round(hunger/maxhunger*100,2)+"percent hungry. Your full meater is at "+maxhunger+" units of food.", "misc");
 }
 }
 if(key_pressed(KEY_J))
 {
-if(manulcooky==0)
+if(manulcooky<1)
 {
-speak_buffer("You  produce"+manulcooky+"cookies per press.", "misc");
+speak_buffer("You  produce "+round(manulcooky,0)+" cookies per press.", "misc");
 }
 else if(manulcooky==1)
 {
-speak_buffer("You  produce"+manulcooky+"cooky per press.", "misc");
+speak_buffer("You  produce "+round(manulcooky,0)+" cooky per press.", "misc");
 }
 else if(manulcooky>=2)
 {
-speak_buffer("You  produce"+manulcooky+"cookies per press.", "misc");
+speak_buffer("You  produce "+round(manulcooky,0)+" cookies per press.", "misc");
 }
 }
 if(alt_is_down())
@@ -422,7 +374,7 @@ preffsmenu();
 }
 if(form.is_pressed(autobake))
 {
-if(autocooky==0)
+if(autocooky<1)
 {
 speak_buffer("You need at least 1 auto cooky to enable baking mode.", "general");
 }
@@ -450,7 +402,7 @@ speak_buffer("You can't manuely produce cookies when you're in baking mode.", "g
 }
 else if(bakemode==0)
 {
-if(manulcooky==0)
+if(manulcooky<1)
 {
 speak_buffer("You need at least 1 manule cooky to start baking cookies.", "general");
 }

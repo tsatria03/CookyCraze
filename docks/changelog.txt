@@ -1,3 +1,6 @@
+new in 2.3
+Removed the toy mania mini game. This game will now be standalone, and will be receiving updates from time to time as more features get added.
+Fixed some more rounding calculation issues.
 new in 2.2
 Added sounds for checking how hungry you are when pressing the letter H in the main game, and in the coin flipper mini game.
 Modified the hunger logic. You'll now be able to eat more cookies as you level up in the game. You'll no longer be limmited to only holding up to 10000 cookies. The H key will now also tell you how many units of food you can hold up to before getting too full.
