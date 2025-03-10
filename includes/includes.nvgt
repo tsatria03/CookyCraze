@@ -34,7 +34,7 @@ double ammo=100, autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookie
 double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5;
 double ambvolume=0, ambpitch=100, menumusvolume=0, menumuspitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100, toyambvolume=0, toyambpitch=100, toymusvolume=0, toymuspitch=100;
 double maxx=50, maxy=50;
-int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, menuslot, mustrackslot, machineslot, painslot, percslot, storslot, storambslot, stortrackslot, toyambslot, toytrackslot, weaponslot;
+int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, menuslot, mustrackslot, machineslot, painslot, percslot, storslot, storambslot, stortrackslot, toyambslot, toytrackslot, weaponslot;
 int evchanse=50, evchanse2=50, level=1, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed, menumustime=50;;
 int ambienceIndex=0, musicIndex=0;
