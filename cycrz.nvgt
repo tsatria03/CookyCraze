@@ -527,12 +527,6 @@ levcoins += 10 * rank*4;
 if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
 dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "critical");
 }
-if(rank==30)
-{
-levcoins += 10 * rank*6;
-if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
-dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the toy mania minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "critical");
-}
 }
 }
 }
