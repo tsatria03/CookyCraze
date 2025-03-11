@@ -100,7 +100,39 @@ mainmenu();
 }
 if (gamem == "lg")
 {
-if(file_exists("data/game.crz"))
+loadgamemenu();
+}
+if(gamem=="ng")
+{
+newgamemenu();
+}
+if (gamem == "back")
+{
+mainmenu();
+}
+}
+void loadgamemenu()
+{
+setupmenu();
+for (uint i = 1; i <= 10; i++) 
+{
+m.add_item("Slot " + string(i), "sl" + string(i));
+}
+m.add_item("Back", "back");
+m.intro_text = "Select the save slot to load the game from.";
+int mres = m.run();
+string slotem = m.get_selected_item_id();
+if(mres==-1)
+{
+gamemenu();
+}
+if (slotem == "back")
+{
+gamemenu();
+}
+int slotNumber = string_to_int(slotem.substr(2));
+set_save_slot(slotNumber);
+if (file_exists(currentSaveSlot))
 {
 speak("loading");
 m.fade_music();
@@ -117,27 +149,46 @@ else
 {
 m.fade_music();
 alertslot=pool.play_stationary("error.ogg",false);
-dlg("Error! The data assosiated with this game does not exist! Press enter or space to continue.");
+dlg("Error! The data assosiated with this save slot does not exist! Press enter or space to continue.");
 pool.destroy_sound(alertslot);
 ingame=false;
 gamemenu();
 }
 }
-if(gamem=="ng")
+void newgamemenu()
 {
-if(file_exists("data/game.crz"))
+setupmenu();
+for (uint i = 1; i <= 10; i++) 
+{
+m.add_item("Slot " + string(i), "sl" + string(i));
+}
+m.add_item("Back", "back");
+m.intro_text = "Select the save slot to start the game from.";
+int mres = m.run();
+string slotem2 = m.get_selected_item_id();
+if(mres==-1)
+{
+gamemenu();
+}
+if (slotem2 == "back")
+{
+gamemenu();
+}
+int slotNumber = string_to_int(slotem2.substr(2));
+set_save_slot(slotNumber);
+if (file_exists(currentSaveSlot))
 {
 setupmenu();
 m.add_item("yes");
 m.add_item("no");
-m.intro_text="Are you sure you want to start over from the beginning? This will erase all of the progress you made on the current game.";
-int mres=m.run();
-if(mres==-1)
+m.intro_text = "Are you sure you want to start over from the beginning? This will erase all progress on the selected save slot.";
+int mres2=m.run();
+if(mres2==-1)
 {
 ingame=false;
-gamemenu();
+newgamemenu();
 }
-if(mres==0)
+if(mres2==0)
 {
 speak("loading");
 m.fade_music();
@@ -150,10 +201,10 @@ ingame=true;
 resetgame();
 game();
 }
-if (mres==1)
+if (mres2==1)
 {
 ingame=false;
-gamemenu();
+newgamemenu();
 }
 }
 else
@@ -168,11 +219,6 @@ mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume
 ingame=true;
 resetgame();
 game();
-}
-}
-if (gamem == "back")
-{
-mainmenu();
 }
 }
 void mingamsmenu()

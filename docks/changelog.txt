@@ -1,4 +1,5 @@
 new in 2.3
+Added the ability to save multiple games to save slots. You'll now be prompted to choose a save slot prior to loading and starting a new game for the first time.
 Added game saving support to all of the mini games.
 Removed the toy mania mini game. This game will now be standalone, and will be receiving updates from time to time as more features get added.
 Fixed some more rounding calculation issues.
