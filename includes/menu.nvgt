@@ -116,8 +116,17 @@ void loadgamemenu()
 setupmenu();
 for (uint i = 1; i <= 10; i++) 
 {
-m.add_item("Slot " + string(i), "sl" + string(i));
-}
+        string saveFile = "data/game" + string(i) + ".crz";
+        double rank = get_save_rank(saveFile);
+        if (rank == -1)
+        {
+            m.add_item("Slot " + string(i) + ". Highest rank, unknown.", "sl" + string(i));
+        }
+        else
+        {
+            m.add_item("Slot " + string(i) + ". Highest rank: " + string(rank), "sl" + string(i));
+        }
+    }
 m.add_item("Back", "back");
 m.intro_text = "Select the save slot to load the game from.";
 int mres = m.run();
@@ -160,8 +169,17 @@ void newgamemenu()
 setupmenu();
 for (uint i = 1; i <= 10; i++) 
 {
-m.add_item("Slot " + string(i), "sl" + string(i));
-}
+        string saveFile = "data/game" + string(i) + ".crz";
+        double rank = get_save_rank(saveFile);
+        if (rank == -1)
+        {
+            m.add_item("Slot " + string(i) + ". Highest rank, unknown.", "sl" + string(i));
+        }
+        else
+        {
+            m.add_item("Slot " + string(i) + ". Highest rank: " + string(rank), "sl" + string(i));
+        }
+    }
 m.add_item("Back", "back");
 m.intro_text = "Select the save slot to start the game from.";
 int mres = m.run();

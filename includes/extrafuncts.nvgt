@@ -63,6 +63,21 @@ double buy_item(double item, double base_cost, double cost_multiplier)
 {
 return 1+(item*0.1)*base_cost*cost_multiplier;
 }
+double get_save_rank(string saveFile)
+{
+    if (!file_exists(saveFile))
+    {
+        return -1;
+    }
+    savedata tempSave(saveFile, "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
+    tempSave.load();
+    if (tempSave.d.exists("rank"))
+    {
+        return tempSave.read_double("rank");
+    }
+    return 0;
+}
+
 int string_to_int(string str)
 {
     int result = 0;
