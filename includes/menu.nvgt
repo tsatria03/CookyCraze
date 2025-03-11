@@ -114,13 +114,13 @@ mainmenu();
 void loadgamemenu()
 {
 setupmenu();
-for (uint i = 1; i <= 10; i++) 
+for (uint i = 1; i <= 20; i++) 
 {
         string saveFile = "data/game" + string(i) + ".crz";
         double rank = get_save_rank(saveFile);
         if (rank == -1)
         {
-            m.add_item("Slot " + string(i) + ". Highest rank, unknown.", "sl" + string(i));
+            m.add_item("Slot " + string(i) + ". Empty.", "sl" + string(i));
         }
         else
         {
@@ -167,13 +167,13 @@ gamemenu();
 void newgamemenu()
 {
 setupmenu();
-for (uint i = 1; i <= 10; i++) 
+for (uint i = 1; i <= 20; i++) 
 {
         string saveFile = "data/game" + string(i) + ".crz";
         double rank = get_save_rank(saveFile);
         if (rank == -1)
         {
-            m.add_item("Slot " + string(i) + ". Highest rank, unknown.", "sl" + string(i));
+            m.add_item("Slot " + string(i) + ". Empty.", "sl" + string(i));
         }
         else
         {
