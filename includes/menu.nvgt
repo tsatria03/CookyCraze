@@ -388,7 +388,7 @@ double totalCost = 0;
         dlg("Error! Please enter a valid number of auto cookies to buy! Press enter or space to continue.");
         buymenu();
     }
-for (double i = 0; i < quantity; i++)
+for (uint i = 0; i < quantity; i++)
 {
 totalCost += buy_item(autocooky + i, autoCookyBaseCost, autoCookyMultiplier);
 }
@@ -422,7 +422,7 @@ double totalCost = 0;
         dlg("Error! Please enter a valid number of auto cooky speeds to buy! Press enter or space to continue.");
         buymenu();
     }
-for (double i = 0; i < quantity; i++)
+for (uint i = 0; i < quantity; i++)
 {
 totalCost += buy_item(cookyspeed + i, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 }
@@ -482,7 +482,7 @@ double totalCost = 0;
         dlg("Error! Please enter a valid number of manual cookies to buy! Press enter or space to continue.");
         buymenu();
     }
-for (double i = 0; i < quantity; i++)
+for (uint i = 0; i < quantity; i++)
 {
 totalCost += buy_item(manulcooky + i, manualCookyBaseCost, manualCookyMultiplier);
 }

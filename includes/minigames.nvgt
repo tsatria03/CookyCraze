@@ -2,6 +2,21 @@ void coin_game_input()
 {
 buffercheck();
 touchManager.monitor();
+if(control_is_down())
+{
+if(key_pressed(KEY_S))
+{
+writedata();
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+speak_buffer("game saved", "misc");
+dlgplay("savegame.ogg");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+form.reset();
+game();
+}
+}
 if (key_pressed(KEY_C))
 {
 speak_buffer("You have " + round(cookies, 0) + " cookies.");
@@ -169,6 +184,21 @@ void slots_game_input()
 {
 buffercheck();
 touchManager.monitor();
+if(control_is_down())
+{
+if(key_pressed(KEY_S))
+{
+writedata();
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+speak_buffer("game saved", "misc");
+dlgplay("savegame.ogg");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+form.reset();
+game();
+}
+}
 if (key_pressed(KEY_C))
 {
 speak_buffer("You have " + round(cookies, 0) + " cookies.");

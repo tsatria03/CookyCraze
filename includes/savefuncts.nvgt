@@ -1,80 +1,42 @@
 void readdata()
 {
-sd.load();
-if(sd.d.exists("autocooky"))
-{
-autocooky=sd.read_double("autocooky");
-}
-if(sd.d.exists("difmod"))
-{
-difmod=sd.read_double("difmod");
-}
-if(sd.d.exists("coins"))
-{
-coins=sd.read_double("coins");
-}
-if(sd.d.exists("cookies"))
-{
-cookies=sd.read_double("cookies");
-}
-if(sd.d.exists("cookymod"))
-{
-cookymod=sd.read_double("cookymod");
-}
-if(sd.d.exists("cookiesrequiered"))
-{
-cookiesrequiered=sd.read_double("cookiesrequiered");
-}
-if(sd.d.exists("cookyspeed"))
-{
-cookyspeed=sd.read_double("cookyspeed");
-}
-if(sd.d.exists("hunger"))
-{
-hunger=sd.read_double("hunger");
-}
-if(sd.d.exists("maxhunger"))
-{
-maxhunger=sd.read_double("maxhunger");
-}
-if(sd.d.exists("levcoins"))
-{
-levcoins=sd.read_double("levcoins");
-}
-if(sd.d.exists("manulcooky"))
-{
-manulcooky=sd.read_double("manulcooky");
-}
-if(sd.d.exists("rank"))
-{
-rank=sd.read_double("rank");
-}
-if(sd.d.exists("bakemode"))
-{
-bakemode=sd.read_int("bakemode");
-}
-if(sd.d.exists("clicktime"))
-{
-clicktime=sd.read_int("clicktime");
-}
+    sd.load();
+    for (uint i = 0; i < saved_double_vars.length(); i++)
+    {
+        if (sd.d.exists(saved_double_vars[i]))
+        {
+            double value = sd.read_double(saved_double_vars[i]);
+            variable_map.set(saved_double_vars[i], value);
+        }
+    }
+    for (uint i = 0; i < saved_int_vars.length(); i++)
+    {
+        if (sd.d.exists(saved_int_vars[i]))
+        {
+            int value = sd.read_int(saved_int_vars[i]);
+            variable_map.set(saved_int_vars[i], value);
+        }
+    }
 }
 void writedata()
 {
-sd.add("autocooky",autocooky);
-sd.add("difmod",difmod);
-sd.add("coins",coins);
-sd.add("cookies",cookies);
-sd.add("cookymod",cookymod);
-sd.add("cookiesrequiered",cookiesrequiered);
-sd.add("cookyspeed",cookyspeed);
-sd.add("hunger",hunger);
-sd.add("maxhunger",maxhunger);
-sd.add("levcoins",levcoins);
-sd.add("manulcooky",manulcooky);
-sd.add("rank",rank);
-sd.add("bakemode",bakemode);
-sd.add("clicktime",clicktime);
-sd.save();
+    for (uint i = 0; i < saved_double_vars.length(); i++)
+    {
+        double value;
+        if (variable_map.get(saved_double_vars[i], value))
+        {
+            sd.add(saved_double_vars[i], value);
+        }
+    }
+    for (uint i = 0; i < saved_int_vars.length(); i++)
+    {
+        int value;
+        if (variable_map.get(saved_int_vars[i], value))
+        {
+            sd.add(saved_int_vars[i], value);
+        }
+    }
+    sd.save();
 }
 void readpreffs()
 {
