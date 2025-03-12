@@ -48,6 +48,8 @@ bakemode=sd.read_int("bakemode");
 if(sd.d.exists("clicktime"))
 {
 clicktime=sd.read_int("clicktime");
+readpreffs();
+cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }
 }
 void writedata()

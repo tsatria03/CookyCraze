@@ -1,5 +1,6 @@
 new in 2.3
-Fixed an issue where rank progression could skip levels unexpectedly when reaching the required cookie threshold.
+Fixed an issue where the rank would incorrectly increase upon loading a saved game. The game now correctly recalculates the required cookies based on the saved rank and adjusted difficulty settings.
+Fixed an issue where rank progressions could skip levels unexpectedly when reaching the required cookie threshold.
 Added the ability to adjust the ranking difficulty in the Game Settings menu. You can now fine-tune how quickly leveling up gets when using the new Difficulty and XP Requirement Modifier sliders.
 Upgraded save slots. You can now save up to 20 games, not just 10.
 The load game and new game menus will now display the highest rank that the user has achieved in that file prior to choosing it for loading or starting over from that slot.
