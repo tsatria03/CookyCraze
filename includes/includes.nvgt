@@ -17,35 +17,4 @@
 #include"touch.nvgt"
 #include"touch_gestures.nvgt"
 #include"virtual_dialogs.nvgt"
-
-bool coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
-bool[] autoEventToggles(autoBakingEvents.length(), true);
-bool[] manualEventToggles(manualBakingEvents.length(), true);
-double autocooky=0, difmod=2, coins=10, cookies=0, cookymod=20, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=100, levcoins=0, manulcooky=0, rank=1, usercoins=0;
-double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5;
-double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
-int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
-int menumusvolume=0;
-int evchanse=50, evchanse2=50, playergender=0;
-int bakemode=0,  clicktime=1000-cookyspeed;
-int ambienceIndex=0, musicIndex=0;
-string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
-string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
-string ambtype="room1";
-string mustype="music1";
-string projname="releases/windows/CookyCraze_password_is_CrazeMastery";
-string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
-string playername, playername2;
-string currentSaveSlot = "data/game1.crz";
-string version="2.3";
-timer clicktimer;
-file dockfile, logfile;
-audio_form form;
-menu m;
-savedata sd("", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
-savedata st("data/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
-savedata st2("data/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
-savedata st3("data/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
-sound_pool p, pool, ambpool, muspool, storambpool, stormuspool;
-virtual_dialogs vd;
 typedef uint8 usmall; typedef int8 small;

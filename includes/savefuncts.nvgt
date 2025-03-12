@@ -5,10 +5,6 @@ if(sd.d.exists("autocooky"))
 {
 autocooky=sd.read_double("autocooky");
 }
-if(sd.d.exists("difmod"))
-{
-difmod=sd.read_double("difmod");
-}
 if(sd.d.exists("coins"))
 {
 coins=sd.read_double("coins");
@@ -16,10 +12,6 @@ coins=sd.read_double("coins");
 if(sd.d.exists("cookies"))
 {
 cookies=sd.read_double("cookies");
-}
-if(sd.d.exists("cookymod"))
-{
-cookymod=sd.read_double("cookymod");
 }
 if(sd.d.exists("cookiesrequiered"))
 {
@@ -61,11 +53,9 @@ clicktime=sd.read_int("clicktime");
 void writedata()
 {
 sd.add("autocooky",autocooky);
-sd.add("difmod",difmod);
 sd.add("coins",coins);
 sd.add("cookies",cookies);
-sd.add("cookymod",cookymod);
-sd.add("cookiesrequiered",cookiesrequiered);
+st.add("cookiesrequiered",cookiesrequiered);
 sd.add("cookyspeed",cookyspeed);
 sd.add("hunger",hunger);
 sd.add("maxhunger",maxhunger);
@@ -139,6 +129,14 @@ if(st.d.exists("manualCookyMultiplier"))
 {
 manualCookyMultiplier=st.read_double("manualCookyMultiplier");
 }
+if(st.d.exists("difmod"))
+{
+difmod=st.read_double("difmod");
+}
+if(st.d.exists("cookymod"))
+{
+cookymod=st.read_double("cookymod");
+}
 if(st.d.exists("evchanse"))
 {
 evchanse=st.read_int("evchanse");
@@ -181,6 +179,8 @@ st.add("autoCookySpeedBaseCost",autoCookySpeedBaseCost);
 st.add("autoCookySpeedMultiplier",autoCookySpeedMultiplier);
 st.add("manualCookyBaseCost",manualCookyBaseCost);
 st.add("manualCookyMultiplier",manualCookyMultiplier);
+st.add("difmod",difmod);
+st.add("cookymod",cookymod);
 st.add("evchanse",evchanse);
 st.add("evchanse2",evchanse2);
     autoEventToggles.resize(autoBakingEvents.length());
