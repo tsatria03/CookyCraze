@@ -179,7 +179,7 @@ clear_all_buffer_items();
 
 void set_save_slot(int slot)
 {
-    currentSaveSlot = "data/game" + string(slot) + ".crz";
+    currentSaveSlot = "data/saves/game" + string(slot) + ".crz";
     sd = savedata(currentSaveSlot, "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
 }
 

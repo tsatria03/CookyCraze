@@ -116,7 +116,7 @@ void loadgamemenu()
 setupmenu();
 for (uint i = 1; i <= 20; i++) 
 {
-        string saveFile = "data/game" + string(i) + ".crz";
+        string saveFile = "data/saves/game" + string(i) + ".crz";
         double rank = get_save_rank(saveFile);
         if (rank == -1)
         {
@@ -169,7 +169,7 @@ void newgamemenu()
 setupmenu();
 for (uint i = 1; i <= 20; i++) 
 {
-        string saveFile = "data/game" + string(i) + ".crz";
+        string saveFile = "data/saves/game" + string(i) + ".crz";
         double rank = get_save_rank(saveFile);
         if (rank == -1)
         {
@@ -679,6 +679,7 @@ else
 {
 writepreffs(autoEventList, manualEventList);
             dlg("Settings saved. Press enter or space to continue.");
+readdata();
             preffsmenu();
         }
         }
