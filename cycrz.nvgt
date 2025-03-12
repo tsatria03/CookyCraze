@@ -35,7 +35,7 @@ if (@touchManager == null)
 {
 @touchManager = touch_gesture_manager();
 }
-set_sound_storage("data/assets.crz");
+set_sound_storage("data/preffs/assets.crz");
 set_sound_decryption_key("BRn2x3BJd3O0KrB7kb2L6cY4qJYEjVt5OhuVzJmmsoj9wampZL3IAx7IdIQBMyqW7ssXZhsXwD2nrQR4qRL8038swNq0Zc2ObN6mNlWrjIGcYLqEh2t0OHeM",true);
 show_game_window("CookyCraze, version "+version);
 create_buffer("critical");
