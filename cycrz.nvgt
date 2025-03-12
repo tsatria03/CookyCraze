@@ -579,7 +579,7 @@ clicktime=1000-cookyspeed;
 
 void release_game()
 {
-    string[] game_files = {"data/assets.crz", "data/game.crz", "data/gamesets.crz", "data/soundsets.crz", "data/usersets.crz", "docks/changelog.txt", "docks/credits.txt", "docks/readme.txt", "docks/soundslist.txt", "docks/todo_list.txt"};
+    string[] game_files = {"data/preffs/assets.crz", "data/saves/game1.crz", "data/preffs/gamesets.crz", "data/preffs/soundsets.crz", "data/preffs/usersets.crz", "docks/changelog.txt", "docks/credits.txt", "docks/readme.txt", "docks/soundslist.txt", "docks/todo_list.txt"};
     string[] missing_files;
     if (!directory_exists("releases/windows"))
     {
@@ -587,14 +587,15 @@ void release_game()
         mainmenu();
     }
     if (!directory_exists(projname)) directory_create(projname);
-    if (!directory_exists(projname + "/data")) directory_create(projname + "/data");
+    if (!directory_exists(projname + "/data/preffs")) directory_create(projname + "/data/preffs");
+if (!directory_exists(projname + "/data/saves")) directory_create(projname + "/data/saves");
     if (!directory_exists(projname + "/docks")) directory_create(projname + "/docks");
     for (uint i = 0; i < game_files.length(); i++)
     {
         string current_file = game_files[i];
         string repo_file = repo_dir + "/" + current_file;
         string dest = "";
-        if (current_file == "data/assets.crz" || current_file == "data/game.crz" || current_file == "data/gamesets.crz" || current_file == "data/soundsets.crz" || current_file == "data/usersets.crz")
+        if (current_file == "data/preffs/assets.crz" || current_file == "data/saves/game1.crz" || current_file == "data/preffs/gamesets.crz" || current_file == "data/preffs/soundsets.crz" || current_file == "data/preffs/usersets.crz")
         {
             dest = projname + "/data/" + current_file.split("/")[1];
         }
