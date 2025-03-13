@@ -679,6 +679,7 @@ else
 {
 writepreffs(autoEventList, manualEventList);
             dlg("Settings saved. Press enter or space to continue.");
+writedata();
 readdata();
             preffsmenu();
         }
