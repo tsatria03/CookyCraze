@@ -169,6 +169,18 @@ muspool.resume_sound(mustrackslot);
 form.reset();
 game();
 }
+if(key_pressed(KEY_L))
+{
+readdata();
+ambpool.pause_sound(ambslot);
+muspool.pause_sound(mustrackslot);
+speak_buffer("game loaded", "misc");
+dlgplay("savegame.ogg");
+ambpool.resume_sound(ambslot);
+muspool.resume_sound(mustrackslot);
+form.reset();
+game();
+}
 }
 if(key_pressed(KEY_M))
 {
@@ -265,9 +277,9 @@ if(key_pressed(KEY_F4))
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
-speak("exiting");
+speak_buffer("Exiting the game without saving.");
 dlgplay("exitgame.ogg");
-exit();
+mainmenu();
 }
 }
 if(key_repeating(KEY_ESCAPE))
@@ -296,7 +308,7 @@ ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
         speak_buffer("Exiting the game without saving.");
-wait(1000);
+dlgplay("exitgame.ogg");
 ingame=false;
 mainmenu();
     }
