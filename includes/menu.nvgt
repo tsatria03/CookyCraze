@@ -817,7 +817,7 @@ form.focus(charname);
 playergender = form.get_list_position(chargender);
         if (form.is_pressed(charname))
         {
-vd.set_disallowed_chars("0123456789 !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
@@ -837,7 +837,7 @@ playername=fn;
 }
         if (form.is_pressed(charname2))
         {
-vd.set_disallowed_chars("0123456789 !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
 string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {

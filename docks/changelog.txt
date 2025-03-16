@@ -1,4 +1,6 @@
 new in 2.4
+You can now enter numbers into the first and last name fields in the user settings menu.
+Added game reloading support to all of the mini games.
 You can now reload the current save slot for the game by holding control and pressing the letter L without having to go back into the load game menu to do it.
 Slightly modified the hunger anouncements when pressing the letter H.
 new in 2.3

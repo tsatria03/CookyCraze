@@ -174,7 +174,7 @@ if(key_pressed(KEY_L))
 readdata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-speak_buffer("game loaded", "misc");
+speak_buffer("game reloaded", "misc");
 dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
