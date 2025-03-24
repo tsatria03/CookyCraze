@@ -284,6 +284,7 @@ mainmenu();
 }
 if(key_repeating(KEY_ESCAPE))
 {
+alertslot=pool.play_stationary("alert_critical.ogg",false);
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
     setupmenu(false);    
@@ -295,6 +296,7 @@ m.intro_text = "Are you sure you want to quit the game?";
 int mres = m.run();
     if(mres==-1)
     {
+pool.destroy_sound(alertslot);
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
         speak_buffer("Continuing the game.", "misc");
@@ -304,6 +306,7 @@ game();
     }
 if (m.get_selected_item_id() == "quit_no_save")
     {
+pool.destroy_sound(alertslot);
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
@@ -315,6 +318,7 @@ mainmenu();
 if (m.get_selected_item_id() == "quit_save")
     {
         writedata();
+pool.destroy_sound(alertslot);
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
@@ -325,6 +329,7 @@ mainmenu();
     }
 if (m.get_selected_item_id() == "continue")
     {
+pool.destroy_sound(alertslot);
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
         speak_buffer("Continuing the game.", "misc");
@@ -335,6 +340,7 @@ game();
 if (m.get_selected_item_id() == "save_continue")
     {
         writedata();
+pool.destroy_sound(alertslot);
         speak_buffer("game saved, Continuing the game.", "misc");
 dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
