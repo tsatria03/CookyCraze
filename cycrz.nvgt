@@ -22,6 +22,7 @@ string version="2.4";
 timer clicktimer;
 file dockfile, logfile;
 audio_form form;
+instance gamstence("cycrz");
 menu m;
 savedata sd("", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
 savedata st("data/preffs/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
@@ -38,6 +39,13 @@ if (@touchManager == null)
 set_sound_storage("data/preffs/assets.crz");
 set_sound_decryption_key("BRn2x3BJd3O0KrB7kb2L6cY4qJYEjVt5OhuVzJmmsoj9wampZL3IAx7IdIQBMyqW7ssXZhsXwD2nrQR4qRL8038swNq0Zc2ObN6mNlWrjIGcYLqEh2t0OHeM",true);
 show_game_window("CookyCraze, version "+version);
+if(gamstence.is_already_running)
+{
+alert("error", "You can only have one instence of this game running!");
+exit();
+}
+else
+{
 create_buffer("critical");
 create_buffer("events");
 create_buffer("general");
@@ -122,6 +130,7 @@ else if(playerprofed == true)
 wait(500);
 ingame=false;
 mainmenu();
+}
 }
 }
 
