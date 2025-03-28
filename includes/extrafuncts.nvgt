@@ -211,7 +211,7 @@ void manage_baking_slots()
             baking_slots.insert_last(true);
             autobakeSlotEnabled.insert_last(false);
             pool.destroy_sound(alertslot);
-            alertslot = pool.play_stationary("alert_big.ogg", false);
+            alertslot = pool.play_stationary("prodslot.ogg", false);
             speak("Slot added. You now have " + string(baking_slots.length()) + " slots.");
 manage_baking_slots();
         }
@@ -272,7 +272,7 @@ manage_baking_slots();
                         autobakeSlotEnabled[index] = true;
                         autobakeSlots += 1;
             pool.destroy_sound(alertslot);
-            alertslot = pool.play_stationary("alert_big.ogg", false);
+            alertslot = pool.play_stationary("autslot.ogg", false);
                         speak("Slot " + string(index + 1) + " is now automated.");
 manage_baking_slots();
                     }

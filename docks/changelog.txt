@@ -1,4 +1,5 @@
 new in 2.5
+Added sounds for the automation and production of slots in the baking mode of the game.
 Changed the behavior of the automation and slot multiplier sliders found in the game settings menu. They will now map slider values more intuitively. Higher values now increase cost progressively. For example, 25 becomes 1.25x, 50 becomes 1.5x, and 100 becomes 2x. This provides much finer control over the cost scaling, and prevents exponential jumps in automation and slot production prices.
 Fixed some automation and slot cost multiplier issues.
 new in 2.4
