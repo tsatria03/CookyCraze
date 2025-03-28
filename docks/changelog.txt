@@ -1,5 +1,7 @@
+new in 2.5
+Fixed some automation and slot cost multiplier issues.
 new in 2.4
-You can now adjust the base costs and cost multipliers of automation and auto baking slot production in the game settings menu.
+You can now adjust the cost multipliers of automation and auto baking slot productions in the game settings menu.
 Made it so the F key anounces how many cookies can get baked per slot, along with how many it can bake within a spesified time interval.
 Added the ability to create and automate your own slots for the baking mode. The more slots you've aquired, the more cookies gets baked per slot, as long as you have enough auto cookies for it.
 Made it so you can only have one instence of the game open. If you try to open another instence of the same process, it will notify you that you can only have one instence running.
