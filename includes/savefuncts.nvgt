@@ -48,9 +48,44 @@ bakemode=sd.read_int("bakemode");
 if(sd.d.exists("clicktime"))
 {
 clicktime=sd.read_int("clicktime");
+}
+if (sd.d.exists("autobakeSlots"))
+{
+    autobakeSlots = sd.read_int("autobakeSlots");
+    autobakeSlotEnabled.resize(autobakeSlots);
+    for (uint i = 0; i < autobakeSlots; i++)
+{
+        string key = "autobakeSlotEnabled_" + string(i);
+        if (sd.d.exists(key))
+{
+autobakeSlotEnabled[i] = sd.read_bool(key);
+    }
+}
+}
+if (sd.d.exists("baking_slot_count"))
+{
+    int count = sd.read_int("baking_slot_count");
+    baking_slots.resize(count);
+    autobakeSlotEnabled.resize(count); // Ensure same size
+    for (int i = 0; i < count; i++)
+    {
+        baking_slots[i] = true;
+        string key = "autobakeSlotEnabled_" + string(i);
+        if (sd.d.exists(key))
+            autobakeSlotEnabled[i] = sd.read_bool(key);
+        else
+            autobakeSlotEnabled[i] = false;
+    }
+}
+else
+{
+    baking_slots.resize(1);
+    baking_slots[0] = true;
+    autobakeSlotEnabled.resize(1);
+    autobakeSlotEnabled[0] = false;
+} 
 readpreffs();
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
-}
 }
 void writedata()
 {
@@ -66,6 +101,12 @@ sd.add("manulcooky",manulcooky);
 sd.add("rank",rank);
 sd.add("bakemode",bakemode);
 sd.add("clicktime",clicktime);
+sd.add("autobakeSlots", autobakeSlots);
+for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
+{
+    sd.add("autobakeSlotEnabled_" + string(i), autobakeSlotEnabled[i]);
+}
+sd.add("baking_slot_count", baking_slots.length());
 sd.save();
 }
 void readpreffs()
@@ -106,6 +147,22 @@ orderedSyms=st.read_bool("orderedSyms");
 if(st.d.exists("slotmode"))
 {
 slotmode=st.read_bool("slotmode");
+}
+if (st.d.exists("automationBaseCost"))
+{
+automationBaseCost = st.read_double("automationBaseCost");
+}
+if (st.d.exists("slotBaseCost"))
+{
+slotBaseCost = st.read_double("slotBaseCost");
+}
+if (st.d.exists("automationMultiplier"))
+{
+automationMultiplier = st.read_double("automationMultiplier");
+}
+if (st.d.exists("slotMultiplier"))
+{
+slotMultiplier = st.read_double("slotMultiplier");
 }
 if(st.d.exists("autoCookyBaseCost"))
 {
@@ -175,6 +232,10 @@ st.add("playervents",playervents);
 st.add("playervents2",playervents2);
 st.add("orderedSyms",orderedSyms);
 st.add("slotmode",slotmode);
+st.add("automationBaseCost", automationBaseCost);
+st.add("slotBaseCost", slotBaseCost);
+st.add("automationMultiplier", automationMultiplier);
+st.add("slotMultiplier", slotMultiplier);
 st.add("autoCookyBaseCost",autoCookyBaseCost);
 st.add("autoCookyMultiplier",autoCookyMultiplier);
 st.add("autoCookySpeedBaseCost",autoCookySpeedBaseCost);
