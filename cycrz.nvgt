@@ -262,19 +262,19 @@ if(hunger<=maxhunger/4)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,2)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
+speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 if(hunger>=maxhunger/4 and hunger<=maxhunger/2)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart2.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,2)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
+speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 if(hunger>=maxhunger/2 and hunger<=maxhunger)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart3.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,2)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
+speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 }
 if(key_pressed(KEY_J))

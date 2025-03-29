@@ -1,4 +1,5 @@
 new in 2.5
+Fixed some hunger rounding issues when pressing the letter H to speak it.
 Fixed an issue where starting the game from a new save slot would cause the required cookies variable to not get updated propperly.
 You can now toggle whether cookies are evenly split across automated slots or multiplied per slot in the game settings menu.
 Removed the restriction of not being able to enter the cooky store or playing mini games while you were in baking mode.
