@@ -1,4 +1,5 @@
 new in 2.5
+Improved the "Automate unautomated Slots Feature found in the non automated slots menu. This option now properly increases the automation cost for future slot production upgrades. Previously, it automated multiple slots at once, but didn’t update the base cost, causing single-slot automation to appear cheaper than intended. This issue has now been resolved.
 Added the ability to automate all of your auto baking slots at once in the non automated slots menu.
 Fixed some hunger related rounding issues when pressing the letter H to speak it.
 Fixed an issue where starting the game from a new save slot would cause the required cookies variable to not get updated propperly.

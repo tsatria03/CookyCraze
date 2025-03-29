@@ -267,12 +267,12 @@ void manage_baking_slots()
                     {
                         autobakeSlotEnabled[i] = true;
                         autobakeSlots++;
-                        costStep *= automationMultiplier;
+automationBaseCost *= automationMultiplier;
                     }
                 }
                 pool.destroy_sound(alertslot);
                 alertslot = pool.play_stationary("autslot.ogg", false);
-                speak("All unautomated slots have been automated.");
+speak("Successfully automated " + string(nonAutoCount) + " unautomated slot" + (nonAutoCount == 1 ? "" : "s") + " for " + round(totalCost, 0) + " coins.");
             }
             else
             {
