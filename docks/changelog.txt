@@ -1,7 +1,7 @@
 new in 2.5
+Improved the Status displays found in all of the Slot automation Menus. The slots in the automation and non-automation menus now clearly indicate whether they’re automated or not. When cookie distribution is enabled, each slot will also show how many cookies it produces, making it easier to compare performance across all of your slots.
 Improved the "Automate unautomated Slots Feature found in the non automated slots menu. This option now properly increases the automation cost for future slot production upgrades. Previously, it automated multiple slots at once, but didn’t update the base cost, causing single-slot automation to appear cheaper than intended. This issue has now been resolved.
 Added the ability to automate all of your auto baking slots at once in the non automated slots menu.
-Fixed some hunger related rounding issues when pressing the letter H to speak it.
 Fixed an issue where starting the game from a new save slot would cause the required cookies variable to not get updated propperly.
 You can now toggle whether cookies are evenly split across automated slots or multiplied per slot in the game settings menu.
 Removed the restriction of not being able to enter the cooky store or playing mini games while you were in baking mode.

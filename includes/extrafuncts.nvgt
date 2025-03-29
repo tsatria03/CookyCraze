@@ -228,7 +228,14 @@ void manage_baking_slots()
             bool isAuto = autobakeSlotEnabled[i];
             if ((selected == "automated" && isAuto) || (selected == "nonauto" && !isAuto))
             {
-                m.add_item("Slot " + string(i + 1), "slot" + string(i));
+string autoStatus = isAuto ? "automated" : "unautomated";
+        string cookiesInfo = "";
+        if (slotDistribution && autobakeSlots > 0)
+        {
+            double cookiesPerSlot = autocooky / autobakeSlots;
+cookiesInfo = " with " + round(cookiesPerSlot, 0) + " cookies per slot";
+        }
+m.add_item("Slot " + string(i + 1) + ": " + autoStatus + cookiesInfo + ".", "slot" + string(i));
                 if (!isAuto) nonAutoCount++;
             }
         }
