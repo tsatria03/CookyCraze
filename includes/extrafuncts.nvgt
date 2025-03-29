@@ -197,10 +197,7 @@ void manage_baking_slots()
     m.add_item("Back", "back");
     m.intro_text = "Slot manager menu. You have " + string(automated) + " out of " + string(baking_slots.length()) + " slots automated.";
     int mres = m.run();
-    if (mres == -1 || m.get_selected_item_id() == "back")
-    {
-        game();
-    }
+    if (mres == -1 || m.get_selected_item_id() == "back") game();
     string selected = m.get_selected_item_id();
     if (selected == "add_slot")
     {
@@ -213,7 +210,6 @@ void manage_baking_slots()
             pool.destroy_sound(alertslot);
             alertslot = pool.play_stationary("prodslot.ogg", false);
             speak("Slot added. You now have " + string(baking_slots.length()) + " slots.");
-manage_baking_slots();
         }
         else
         {
@@ -226,22 +222,66 @@ manage_baking_slots();
     if (selected == "automated" || selected == "nonauto")
     {
         setupmenu(false);
-        for (uint i = 0; i < baking_slots.length(); i++)
+        int nonAutoCount = 0;
+        for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
         {
             bool isAuto = autobakeSlotEnabled[i];
             if ((selected == "automated" && isAuto) || (selected == "nonauto" && !isAuto))
             {
                 m.add_item("Slot " + string(i + 1), "slot" + string(i));
+                if (!isAuto) nonAutoCount++;
             }
+        }
+        if (selected == "nonauto" && nonAutoCount > 0)
+        {
+            double totalCost = 0;
+            double costStep = automationBaseCost;
+            for (uint i = 0; i < nonAutoCount; i++)
+            {
+                totalCost += costStep;
+                costStep *= automationMultiplier;
+            }
+            m.add_item("Automate all unautomated slots for " + round(totalCost, 0) + " coins", "automate_all");
         }
         m.add_item("Back", "back");
         m.intro_text = (selected == "automated" ? "Automated slots menu." : "Non-automated slots menu.");
         int slotres = m.run();
-        if (slotres == -1 || m.get_selected_item_id() == "back")
+        if (slotres == -1 || m.get_selected_item_id() == "back") manage_baking_slots();
+        string s = m.get_selected_item_id();
+        if (s == "automate_all")
         {
+            double totalCost = 0;
+            double costStep = automationBaseCost;
+            for (uint i = 0; i < nonAutoCount; i++)
+            {
+                totalCost += costStep;
+                costStep *= automationMultiplier;
+            }
+            if (coins >= totalCost)
+            {
+                coins -= totalCost;
+                costStep = automationBaseCost;
+                for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
+                {
+                    if (!autobakeSlotEnabled[i])
+                    {
+                        autobakeSlotEnabled[i] = true;
+                        autobakeSlots++;
+                        costStep *= automationMultiplier;
+                    }
+                }
+                pool.destroy_sound(alertslot);
+                alertslot = pool.play_stationary("autslot.ogg", false);
+                speak("All unautomated slots have been automated.");
+            }
+            else
+            {
+                alertslot = pool.play_stationary("error.ogg", false);
+                dlg("You don't have enough coins to automate all slots.");
+                pool.destroy_sound(alertslot);
+            }
             manage_baking_slots();
         }
-        string s = m.get_selected_item_id();
         if (s.substr(0, 4) == "slot")
         {
             int index = string_to_int(s.substr(4));
@@ -254,10 +294,7 @@ manage_baking_slots();
                 m.add_item("Back", "back");
                 m.intro_text = "Slot automation menu.";
                 int subres = m.run();
-                if (subres == -1 || m.get_selected_item_id() == "back")
-                {
-                    manage_baking_slots();
-                }
+                if (subres == -1 || m.get_selected_item_id() == "back") manage_baking_slots();
                 if (m.get_selected_item_id() == "preview")
                 {
                     pool.play_stationary("autobake.ogg", false);
@@ -270,16 +307,15 @@ manage_baking_slots();
                         coins -= automationBaseCost;
                         automationBaseCost *= automationMultiplier;
                         autobakeSlotEnabled[index] = true;
-                        autobakeSlots += 1;
-            pool.destroy_sound(alertslot);
-            alertslot = pool.play_stationary("autslot.ogg", false);
+                        autobakeSlots++;
+                        pool.destroy_sound(alertslot);
+                        alertslot = pool.play_stationary("autslot.ogg", false);
                         speak("Slot " + string(index + 1) + " is now automated.");
-manage_baking_slots();
                     }
                     else
                     {
                         alertslot = pool.play_stationary("error.ogg", false);
-                        dlg("Error! You don't have enough coins to automate this slot!");
+                        dlg("You don't have enough coins to automate this slot!");
                         pool.destroy_sound(alertslot);
                     }
                     manage_baking_slots();

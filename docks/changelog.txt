@@ -1,4 +1,5 @@
 new in 2.5
+Added the ability to automate all of your auto baking slots at once in the non automated slots menu.
 Fixed some hunger related rounding issues when pressing the letter H to speak it.
 Fixed an issue where starting the game from a new save slot would cause the required cookies variable to not get updated propperly.
 You can now toggle whether cookies are evenly split across automated slots or multiplied per slot in the game settings menu.
