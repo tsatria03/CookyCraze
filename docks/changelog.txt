@@ -1,4 +1,5 @@
 new in 2.5
+You can now toggle whether cookies are evenly split across automated slots or multiplied per slot in the game settings menu.
 Removed the restriction of not being able to enter the cooky store or playing mini games while you were in baking mode.
 You can now manuely bake cookies while your in baking mode to get an extra boost in your production.
 Added sounds for the automation and production of slots in the baking mode of the game.

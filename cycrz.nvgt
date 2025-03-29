@@ -1,6 +1,7 @@
 #include"includes/includes.nvgt"
 array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
+bool SlotDistribution = false;
 int autobakeSlots = 0;
 bool coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
@@ -506,11 +507,16 @@ if(bakemode==1 and autocooky>=1  and autobakeSlots > 0)
 {
 if(clicktimer.elapsed>=clicktime)
 {
-        for (uint i = 0; i < autobakeSlots; i++)
+double perSlot = autocooky;
+if (SlotDistribution && autobakeSlots > 0)
+{
+    perSlot = autocooky / autobakeSlots;
+}
+for (uint i = 0; i < autobakeSlots; i++)
 {
             if (autobakeSlotEnabled[i])
 {
-cookies+=1*autocooky;
+cookies += perSlot;
 }
 }
 pool.play_stationary("autobake.ogg", false);
