@@ -5,6 +5,7 @@ alert_critical.ogg
 alert_large.ogg
 alert_small.ogg
 autobake.ogg
+autslot.ogg
 bee1.ogg
 bee2.ogg
 bee3.ogg
@@ -86,6 +87,7 @@ music8.ogg
 music9.ogg
 powerdown.ogg
 powerup.ogg
+prodslot.ogg
 room1.ogg
 room2.ogg
 room3.ogg
@@ -118,4 +120,4 @@ toggleon.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 120
+total files: 122

@@ -1,3 +1,5 @@
+new in 2.6
+Fixed a bug where entering baking mode could cause the game to crash while it was looping through more slots than it actually had. It’s now fixed so it only checks the actual slots you’ve got, not just how many are automated.
 new in 2.5
 Improved the Status displays found in all of the Slot automation Menus. The slots in the automation and non-automation menus now clearly indicate whether they’re automated or not. When cookie distribution is enabled, each slot will also show how many cookies it produces, making it easier to compare performance across all of your slots.
 Improved the "Automate unautomated Slots Feature found in the non automated slots menu. This option now properly increases the automation cost for future slot production upgrades. Previously, it automated multiple slots at once, but didn’t update the base cost, causing single-slot automation to appear cheaper than intended. This issue has now been resolved.

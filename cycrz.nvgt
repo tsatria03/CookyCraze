@@ -22,7 +22,7 @@ string projname="releases/windows/CookyCraze_password_is_CrazeMastery";
 string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
 string playername, playername2;
 string currentSaveSlot = "data/saves/game1.crz";
-string version="2.5";
+string version="2.6";
 timer clicktimer;
 file dockfile, logfile;
 audio_form form;
@@ -525,8 +525,8 @@ if (slotDistribution && autobakeSlots > 0)
 {
     perSlot = autocooky / autobakeSlots;
 }
-for (uint i = 0; i < autobakeSlots; i++)
-{
+        for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
+{       
             if (autobakeSlotEnabled[i])
 {
 cookies += perSlot;
