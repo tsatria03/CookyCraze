@@ -142,9 +142,9 @@ if(st.d.exists("ranksfx"))
 {
 ranksfx=st.read_bool("ranksfx");
 }
-if (st.d.exists("SlotDistribution"))
+if (st.d.exists("slotDistribution"))
 {
-SlotDistribution = st.read_bool("SlotDistribution");
+slotDistribution = st.read_bool("slotDistribution");
 }
 if(st.d.exists("playervents"))
 {
@@ -234,7 +234,7 @@ st.add("eventsfx",eventsfx);
 st.add("introsfx",introsfx);
 st.add("logosfx",logosfx);
 st.add("ranksfx",ranksfx);
-st.add("SlotDistribution",SlotDistribution);
+st.add("slotDistribution",slotDistribution);
 st.add("playervents",playervents);
 st.add("playervents2",playervents2);
 st.add("orderedSyms",orderedSyms);

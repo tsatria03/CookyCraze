@@ -1,7 +1,7 @@
 #include"includes/includes.nvgt"
 array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
-bool SlotDistribution = false;
+bool slotDistribution = false;
 int autobakeSlots = 0;
 bool coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
@@ -213,19 +213,32 @@ if (key_pressed(KEY_F))
         if (autobakeSlotEnabled[i])
             slotCount++;
     }
-    double cookiesPerSlot = autocooky;
-    double totalCookies = cookiesPerSlot * slotCount;
     if (slotCount == 0)
     {
         speak_buffer("You don't have any automated slots enabled yet.", "misc");
     }
-    else if (clicktime == 1000)
-    {
-        speak_buffer("You produce " + round(cookiesPerSlot, 0) + " cookies per second. With " + slotCount + " automated slots, you produce " + round(totalCookies, 0) + " cookies per second.", "misc");
-    }
     else
     {
-        speak_buffer("You produce " + round(cookiesPerSlot, 0) + " cookies every " + clicktime + " milliseconds. With " + slotCount + " automated slots, you produce " + round(totalCookies, 0) + " cookies every " + clicktime + " milliseconds.", "misc");
+        double cookiesPerSlot;
+        double totalCookies;
+        if (slotDistribution)
+        {
+            cookiesPerSlot = autocooky;
+            totalCookies = autocooky / slotCount;
+        }
+        else
+        {
+            cookiesPerSlot = autocooky;
+            totalCookies = autocooky * slotCount;
+        }
+        if (clicktime == 1000)
+        {
+            speak_buffer("You produce " + round(cookiesPerSlot, 0) + " cookies per second. With " + slotCount + " automated slots, you produce " + round(totalCookies, 0) + " cookies per second.", "misc");
+        }
+        else
+        {
+            speak_buffer("You produce " + round(cookiesPerSlot, 0) + " cookies every " + clicktime + " milliseconds. With " + slotCount + " automated slots, you produce " + round(totalCookies, 0) + " cookies every " + clicktime + " milliseconds.", "misc");
+        }
     }
 }
 if(key_pressed(KEY_C))
@@ -508,7 +521,7 @@ if(bakemode==1 and autocooky>=1  and autobakeSlots > 0)
 if(clicktimer.elapsed>=clicktime)
 {
 double perSlot = autocooky;
-if (SlotDistribution && autobakeSlots > 0)
+if (slotDistribution && autobakeSlots > 0)
 {
     perSlot = autocooky / autobakeSlots;
 }
@@ -587,7 +600,6 @@ void resetgame()
 autocooky=0;
 coins=10;
 cookies=0;
-cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 cookyspeed=0;
 hunger=0;
 maxhunger=100;
@@ -607,6 +619,7 @@ if (baking_slots.length() == 0)
 baking_slots.insert_last(true);
 autobakeSlotEnabled.insert_last(false);
 }
+cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }
 void release_game()
 {
