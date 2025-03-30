@@ -31,25 +31,25 @@ coingame();
 }
 if (key_pressed(KEY_C))
 {
-speak_buffer("You have " + format_number(round(cookies, 0)) + " cookies.");
+speak_buffer("You have " + format_number(cookies) + " cookies.");
 }
         if (key_pressed(KEY_A))
 {
-speak_buffer("You have " + format_number(round(autocooky, 0)) + " auto cookies.");
+speak_buffer("You have " + format_number(autocooky) + " auto cookies.");
 }
         if (key_pressed(KEY_S))
 {
-speak_buffer("You have " + format_number(round(cookyspeed, 0)) + " auto cookie speeds.");
+speak_buffer("You have " + format_number(cookyspeed) + " auto cookie speeds.");
 }
         if (key_pressed(KEY_M))
 {
-speak_buffer("You have " + format_number(round(manulcooky, 0)) + " manual cookies.");
+speak_buffer("You have " + format_number(manulcooky) + " manual cookies.");
 }
         if (key_pressed(KEY_O))
 {
 pool.destroy_sound(coinslot);
 if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
-speak_buffer("You have " + format_number(round(coins, 0)) + " coins.");
+speak_buffer("You have " + format_number(coins) + " coins.");
 }
 if(key_pressed(KEY_H))
 {
@@ -57,19 +57,19 @@ if(hunger<=maxhunger/4)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+format_number(round(maxhunger, 0))+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 if(hunger>=maxhunger/4 and hunger<=maxhunger/2)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart2.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+format_number(round(maxhunger, 0))+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 if(hunger>=maxhunger/2 and hunger<=maxhunger)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart3.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+format_number(round(maxhunger, 0))+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 }
 }
@@ -225,25 +225,25 @@ slotsgame();
 }
 if (key_pressed(KEY_C))
 {
-speak_buffer("You have " + format_number(round(cookies, 0)) + " cookies.");
+speak_buffer("You have " + format_number(cookies) + " cookies.");
 }
         if (key_pressed(KEY_A))
 {
-speak_buffer("You have " + format_number(round(autocooky, 0)) + " auto cookies.");
+speak_buffer("You have " + format_number(autocooky) + " auto cookies.");
 }
         if (key_pressed(KEY_S))
 {
-speak_buffer("You have " + format_number(round(cookyspeed, 0)) + " auto cookie speeds.");
+speak_buffer("You have " + format_number(cookyspeed) + " auto cookie speeds.");
 }
         if (key_pressed(KEY_M))
 {
-speak_buffer("You have " + format_number(round(manulcooky, 0)) + " manual cookies.");
+speak_buffer("You have " + format_number(manulcooky) + " manual cookies.");
 }
         if (key_pressed(KEY_O))
 {
 pool.destroy_sound(coinslot);
 if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
-speak_buffer("You have " + format_number(round(coins, 0)) + " coins.");
+speak_buffer("You have " + format_number(coins) + " coins.");
 }
 }
 
@@ -324,7 +324,8 @@ pool.destroy_sound(gameslot);
         if (form.is_pressed(spinButton))
         {
             selectedBet = form.get_list_position(betChoice);
-betAmount =string_to_number(form.get_text(round(betInput,0)));
+string betStr = form.get_text(betInput);
+betAmount = string_to_number(betStr);
     if (betAmount <= 0)
     {
         dlg_buffer("Invalid bet amount. Please enter a valid number! Press enter or space to continue.");
@@ -353,11 +354,11 @@ slotsgame();
             }
 pool.destroy_sound(machineslot);
 pool.play_stationary("slotbet1.ogg", false);
-if(selectedBet==0) speak_buffer("You placed a bet of " + format_number(round(betAmount, 0)) + " items on cookies.");
-if(selectedBet==1) speak_buffer("You placed a bet of " + format_number(round(betAmount, 0)) + " items on coins.");
-if(selectedBet==2) speak_buffer("You placed a bet of " + format_number(round(betAmount, 0)) + " items on auto cookies.");
-if(selectedBet==3) speak_buffer("You placed a bet of " + format_number(round(betAmount, 0)) + " items on auto cooky speeds.");
-if(selectedBet==4) speak_buffer("You placed a bet of " + format_number(round(betAmount, 0)) + " items on manual cookies.");
+if(selectedBet==0) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on cookies.");
+if(selectedBet==1) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on coins.");
+if(selectedBet==2) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on auto cookies.");
+if(selectedBet==3) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on auto cooky speeds.");
+if(selectedBet==4) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on manual cookies.");
 wait_async(1000);
 pool.play_stationary("slotbet2.ogg", false);
 wait_async(random(600, 800));
@@ -412,7 +413,7 @@ if(slotmode==true) speak_buffer(reel5);
 else if(slotmode==false) dlg_buffer("The fith reel shows " + reel5);
                 }
             }
-int[] symbolCount(symbols.length(), 0);
+int[] symbolCount(symbols.length());
 string[] reels = {reel1, reel2, reel3, reel4, reel5};
 for (uint i = 0; i < reels.length(); i++)
 {

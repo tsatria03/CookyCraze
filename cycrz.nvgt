@@ -199,11 +199,11 @@ if(key_pressed(KEY_M))
 {
 pool.destroy_sound(coinslot);
 if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
-speak_buffer("You have "+format_number(round(coins, 0))+" coins available to spend.", "misc");
+speak_buffer("You have "+format_number(coins)+" coins available to spend", "misc");
 }
 if(key_pressed(KEY_R))
 {
-speak_buffer("You're currently rank " + format_number(rank) + " with " + format_number(round(cookies, 0)) + " cookies. Your next rank requires " + format_number(cookiesrequiered - round(cookies, 0)) + " cookies.", "misc");
+speak_buffer("You're currently rank "+format_number(rank)+" with "+format_number(cookies)+" cookies. Your next rank requires "+(format_number(cookiesrequiered-cookies))+" cookies.", "misc");
 }
 if (key_pressed(KEY_F))
 {
@@ -233,11 +233,11 @@ if (key_pressed(KEY_F))
         }
         if (clicktime == 1000)
         {
-            speak_buffer("You produce " + format_number(round(cookiesPerSlot, 0)) + " cookies per second. With " + slotCount + " automated slots, you produce " + format_number(round(totalCookies, 0)) + " cookies per second.", "misc");
+            speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies per second. With " + slotCount + " automated slots, you produce " + format_number(totalCookies) + " cookies per second.", "misc");
         }
         else
         {
-            speak_buffer("You produce " + format_number(round(cookiesPerSlot, 0)) + " cookies every " + clicktime + " milliseconds. With " + slotCount + " automated slots, you produce " + format_number(round(totalCookies, 0)) + " cookies every " + clicktime + " milliseconds.", "misc");
+            speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies every " + clicktime + " milliseconds. With " + slotCount + " automated slots, you produce " + format_number(totalCookies) + " cookies every " + clicktime + " milliseconds.", "misc");
         }
     }
 }
@@ -245,15 +245,15 @@ if(key_pressed(KEY_C))
 {
 if(cookies>=0)
 {
-speak_buffer("You baked a total of "+format_number(round(cookies,0))+" cookies.", "misc");
+speak_buffer("You baked a total of "+format_number(cookies)+" cookies.", "misc");
 }
 else if(cookies>=1)
 {
-speak_buffer("You baked a total of "+format_number(round(cookies, 0))+" cooky.", "misc");
+speak_buffer("You baked a total of"+cookies+"cooky.", "misc");
 }
 else if(cookies>=2)
 {
-speak_buffer("You baked a total of "+format_number(round(cookies, 0))+" cookies.", "misc");
+speak_buffer("You baked a total of"+cookies+"cookies.", "misc");
 }
 }
 if(key_pressed(KEY_H))
@@ -262,34 +262,34 @@ if(hunger<=maxhunger/4)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+format_number(round(maxhunger, 0))+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 if(hunger>=maxhunger/4 and hunger<=maxhunger/2)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart2.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+format_number(round(maxhunger, 0))+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 if(hunger>=maxhunger/2 and hunger<=maxhunger)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart3.ogg", false);
-speak_buffer("You are "+round(hunger/maxhunger*100,0)+"percent hungry. You can hold up to "+format_number(round(maxhunger, 0))+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+maxhunger+" units of food.", "misc");
 }
 }
 if(key_pressed(KEY_J))
 {
 if(manulcooky<1)
 {
-speak_buffer("You  produce "+format_number(round(manulcooky,0))+" cookies per press.", "misc");
+speak_buffer("You  produce "+format_number(manulcooky)+" cookies per press.", "misc");
 }
 else if(manulcooky==1)
 {
-speak_buffer("You  produce "+format_number(round(manulcooky,0))+" cooky per press.", "misc");
+speak_buffer("You  produce "+format_number(manulcooky)+" cooky per press.", "misc");
 }
 else if(manulcooky>=2)
 {
-speak_buffer("You  produce "+format_number(round(manulcooky,0))+" cookies per press.", "misc");
+speak_buffer("You  produce "+format_number(manulcooky)+" cookies per press.", "misc");
 }
 }
 if(alt_is_down())
@@ -508,7 +508,7 @@ pool.destroy_sound(foodslot);
             pool.destroy_sound(eventslot);
             if (playergender == 0) eventslot = pool.play_stationary("male_vomit.ogg", false);
             if (playergender == 1) eventslot = pool.play_stationary("female_vomit.ogg", false);
-speak_buffer("You ate too much! You feel sick, and now lost " + format_number(round(cookiesToEat,0)) + " cookies as a penalty.", "critical");
+speak_buffer("You ate too much! You feel sick, and now lost " + format_number(cookiesToEat) + " cookies as a penalty.", "critical");
             hunger = 0;
         }
     } else if (cookies <= 0)
@@ -579,18 +579,18 @@ else if (levcoins >= 1000000)
         if(coinsfx==true) pool.play_stationary("coin100000.ogg", false);
     }
     if(ranksfx==true) pool.play_stationary("achievement" + random(1, 2) + ".ogg", false);
-    speak_buffer("Congratulations! You've successfully made it to rank " + format_number(rank) + "! You've earned " + format_number(round(levcoins, 0)) + " coins for your achievement. Great work!", "critical");
+    speak_buffer("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + format_number(levcoins) + " coins for your achievement. Great work!", "critical");
 if(rank==10)
 {
 levcoins += 10 * rank*2;
 if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
-dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the coin flipper minni game. You've also earned an extra "+format_number(levcoins)+" coins for your hard work. Keep it up!", "critical");
+dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the coin flipper minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "critical");
 }
 if(rank==20)
 {
 levcoins += 10 * rank*4;
 if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
-dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+format_number(levcoins)+" coins for your hard work. Keep it up!", "critical");
+dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "critical");
 }
 }
 }

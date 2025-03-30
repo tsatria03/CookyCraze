@@ -291,7 +291,7 @@ void shopmenu()
 {
 setupmenu2();
 m.add_item("buy upgrades", "bmu");
-m.add_item("sell cookies. You currently have "+format_number(round(cookies,0))+" cookies.", "slm");
+m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies.", "slm");
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
 int mres=m.run();
@@ -318,7 +318,7 @@ buymenu();
 if(stm=="slm")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string sailam=vd.input_box("","How many cookies would you like to sell? Press enter to sell all of your cookies. ", round(cookies,0));
+string sailam=vd.input_box("","How many cookies would you like to sell? Press enter to sell all of your cookies.", string(round(cookies,0)));
 double cookiesToSell = string_to_number(sailam);
     if (cookiesToSell <= 0)
     {
@@ -331,7 +331,7 @@ double cookiesToSell = string_to_number(sailam);
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("sellfail.ogg", false);
-        dlg("Error! You only have " + format_number(round(cookies, 0)) + " cookies available to sell! Press enter or space to continue.");
+        dlg("Error! You only have " + format_number(cookies) + " cookies available to sell! Press enter or space to continue.");
         shopmenu();
     }
 double totalCoinsEarned = cookiesToSell * 10;
@@ -365,7 +365,7 @@ else if (totalCoinsEarned >= 10000000)
 {
 pool.play_stationary("coin100000.ogg", false);
 }
-dlg("Successfully sold " + format_number(round(cookiesToSell,0)) + " cookies for " + format_number(round(totalCoinsEarned, 0)) + " coins! Press enter or space to continue.");
+dlg("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins! Press enter or space to continue.");
 shopmenu();
 }
 if(stm=="back")
@@ -429,8 +429,8 @@ while (tempCoins >= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpe
 tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 maxBuyableAutoCookySpeed++;
 }
-m.add_item("Auto cooky, costs " + format_number(round(autoCookyCost, 0)) + " coins. You can buy " + format_number(round(maxBuyableAutoCooky, 0)) + ".", "abic");
-m.add_item("Auto cooky speed, costs " + format_number(round(autoCookySpeedCost, 0)) + " coins. You can buy " + format_number(round(maxBuyableAutoCookySpeed, 0)) + ".", "sabic");
+m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + maxBuyableAutoCooky + ".", "abic");
+m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + maxBuyableAutoCookySpeed + ".", "sabic");
 m.add_item("back", "back");
 m.intro_text="Automatic baking menu.";
 int mres = m.run();
@@ -442,7 +442,7 @@ buymenu();
 if (abm == "abic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string autocook = vd.input_box("","How many auto cookies would you like to buy? Press enter to buy the maximum amount of auto cookies.", round(maxBuyableAutoCooky,0));
+string autocook = vd.input_box("","How many auto cookies would you like to buy? Press enter to buy the maximum amount of auto cookies.", string(round(maxBuyableAutoCooky,0)));
 double quantity = string_to_number(autocook);
 double totalCost = 0;
     if (quantity <= 0)
@@ -463,20 +463,20 @@ autocooky += quantity;
 double nextUpgradeCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(round(quantity, 0)) + " auto cookies for " + format_number(round(totalCost, 0)) + " coins. Next upgrade will cost " + format_number(round(nextUpgradeCost, 0)) + " coins. Press enter or space to continue.");
+dlg("Purchase successful! You bought " + format_number(quantity) + " auto cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins. Press enter or space to continue.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(round(quantity, 0)) + " auto cookies! Press enter or space to continue.");
+dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cookies! Press enter or space to continue.");
 buymenu();
 }
 }
 if (abm == "sabic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy? Press enter to buy the maximum amount of auto cooky speeds.", round(maxBuyableAutoCookySpeed,0));
+string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy? Press enter to buy the maximum amount of auto cooky speeds.", string(round(maxBuyableAutoCookySpeed,0)));
 double quantity = string_to_number(autocooksp);
 double totalCost = 0;
     if (quantity <= 0)
@@ -498,13 +498,13 @@ clicktime-=cookyspeed;
 double nextUpgradeCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(round(quantity, 0)) + " auto cooky speeds for " + format_number(round(totalCost, 0)) + " coins. Next upgrade will cost " + format_number(round(nextUpgradeCost, 0)) + " coins. Press enter or space to continue.");
+dlg("Purchase successful! You bought " + format_number(quantity) + " auto cooky speeds for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins. Press enter or space to continue.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(round(quantity, 0)) + " auto cooky speeds! Press enter or space to continue.");
+dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cooky speeds! Press enter or space to continue.");
 buymenu();
 }
 }
@@ -524,7 +524,7 @@ while (tempCoins >= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manua
 tempCoins -= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manualCookyMultiplier);
 maxBuyable++;
 }
-m.add_item("Manual cooky, costs " + format_number(round(manuleCookyCost, 0)) + " coins. " + "You can buy " + format_number(round(maxBuyable, 0)) + ".", "mabic");
+m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + maxBuyable + ".", "mabic");
 m.add_item("back", "back");
 m.intro_text="Manual baking menu.";
 int mres = m.run();
@@ -536,7 +536,7 @@ buymenu();
 if (mabm == "mabic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string manulcook = vd.input_box("","How many manule cookies would you like to buy? Press enter to buy the maximum amount of manule cookies.", round(maxBuyable,0));
+string manulcook = vd.input_box("","How many manule cookies would you like to buy? Press enter to buy the maximum amount of manule cookies.", string(round(maxBuyable,0)));
 double quantity = string_to_number(manulcook);
 double totalCost = 0;
     if (quantity <= 0)
@@ -557,13 +557,13 @@ manulcooky += quantity;
 double nextUpgradeCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(round(quantity, 0)) + " manual cookies for " + format_number(round(totalCost, 0)) + " coins. Next upgrade will cost " + format_number(round(nextUpgradeCost, 0)) + " coins. Press enter or space to continue.");
+dlg("Purchase successful! You bought " + format_number(quantity) + " manual cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins. Press enter or space to continue.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(round(quantity, 0)) + " manule cookies! Press enter or space to continue.");
+dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " manule cookies! Press enter or space to continue.");
 buymenu();
 }
 }

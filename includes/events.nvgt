@@ -34,7 +34,7 @@ void trigger_autobaker_event(string event)
 if(eventsfx==true) pool.play_stationary("alert_small.ogg", false);
 if(eventsfx==true) pool.play_stationary("lose.ogg", false);
 if(eventsfx==true) pool.play_stationary("burn" + random(1, 3) + ".ogg", false);
-        speak_buffer("Oh no! A fire spark burned some of your cookies. You lost " + format_number(round(cookiesLost,0)) + " cookies.", "events");
+        speak_buffer("Oh no! A fire spark burned some of your cookies. You lost " + format_number(cookiesLost) + " cookies.", "events");
     }
     else if (event == "bonus_cookies")
     {
@@ -42,7 +42,7 @@ if(eventsfx==true) pool.play_stationary("burn" + random(1, 3) + ".ogg", false);
         cookies += cookiesGained;
 if(eventsfx==true) pool.play_stationary("alert_large.ogg", false);
 if(eventsfx==true) pool.play_stationary("give.ogg", false);
-        speak_buffer("Lucky bake! You gained an extra " + format_number(round(cookiesGained,0)) + " cookies!", "events");
+        speak_buffer("Lucky bake! You gained an extra " + format_number(cookiesGained) + " cookies!", "events");
     }
 else if (event == "extra_hunger")
 {
@@ -91,7 +91,7 @@ if(eventsfx==true) pool.play_stationary("powerdown.ogg", false);
 if(eventsfx==true) pool.play_stationary("alert_large.ogg", false);
 if(eventsfx==true) pool.play_stationary("give.ogg", false);
 if(eventsfx==true) pool.play_stationary("coin50.ogg", false);
-        speak_buffer("Wonderful! You found a coin stash! You gained " + format_number(round(coinsGained,0)) + " coins.", "events");
+        speak_buffer("Wonderful! You found a coin stash! You gained " + format_number(coinsGained) + " coins.", "events");
     }
     else if (event == "lose_coins")
     {
@@ -100,7 +100,7 @@ if(eventsfx==true) pool.play_stationary("coin50.ogg", false);
 if(eventsfx==true) pool.play_stationary("alert_small.ogg", false);
 if(eventsfx==true) pool.play_stationary("lose.ogg", false);
 if(eventsfx==true) pool.play_stationary("cointoss.ogg", false);        
-        speak_buffer("Oh crap! Some coins fell out of your pocket! You lost " + format_number(round(coinsLost,0)) + " coins.", "events");
+        speak_buffer("Oh crap! Some coins fell out of your pocket! You lost " + format_number(coinsLost) + " coins.", "events");
     }
     else if (event == "gain_autocooky")
     {
@@ -146,7 +146,7 @@ muspool.pause_sound(mustrackslot);
 if(eventsfx==true) pool.play_stationary("alert_small.ogg", false);
 if(eventsfx==true) pool.play_stationary("lose.ogg", false);
 if(eventsfx==true) pool.play_stationary("burn" + random(1, 3) + ".ogg", false);
-        dlg_buffer("Oh no! A fire spark burned some of your cookies. You lost " + format_number(round(cookiesLost,0)) + " cookies.", "events");
+        dlg_buffer("Oh no! A fire spark burned some of your cookies. You lost " + format_number(cookiesLost) + " cookies.", "events");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
     }
@@ -158,7 +158,7 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 if(eventsfx==true) pool.play_stationary("alert_large.ogg", false);
 if(eventsfx==true) pool.play_stationary("give.ogg", false);
-        dlg_buffer("Lucky bake! You gained an extra " + format_number(round(cookiesGained,0)) + " cookies!", "events");
+        dlg_buffer("Lucky bake! You gained an extra " + format_number(cookiesGained) + " cookies!", "events");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
     }
@@ -220,7 +220,7 @@ muspool.pause_sound(mustrackslot);
 if(eventsfx==true) pool.play_stationary("alert_large.ogg", false);
 if(eventsfx==true) pool.play_stationary("give.ogg", false);
 if(eventsfx==true) pool.play_stationary("coin50.ogg", false);
-        dlg_buffer("Wonderful! You found a coin stash! You gained " + format_number(round(coinsGained,0)) + " coins.", "events");
+        dlg_buffer("Wonderful! You found a coin stash! You gained " + format_number(coinsGained) + " coins.", "events");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
     }
@@ -233,7 +233,7 @@ muspool.pause_sound(mustrackslot);
 if(eventsfx==true) pool.play_stationary("alert_small.ogg", false);
 if(eventsfx==true) pool.play_stationary("lose.ogg", false);
 if(eventsfx==true) pool.play_stationary("cointoss.ogg", false);        
-        dlg_buffer("Oh crap! Some coins fell out of your pocket! You lost " + format_number(round(coinsLost,0)) + " coins.", "events");
+        dlg_buffer("Oh crap! Some coins fell out of your pocket! You lost " + format_number(coinsLost) + " coins.", "events");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
     }
@@ -321,7 +321,7 @@ if(eventsfx==true) pool.play_stationary("lose.ogg", false);
         cookies += cookiesGained;
 if(eventsfx==true) pool.play_stationary("gain.ogg", false);
 if(eventsfx==true) pool.play_stationary("give.ogg", false);
-        dlg_buffer("Jackpot! You gained " + format_number(round(cookiesGained,0)) + " cookies!", "events");
+        dlg_buffer("Jackpot! You gained " + format_number(cookiesGained) + " cookies!", "events");
     }
     else if (event == "lose_cookies")
     {
@@ -329,7 +329,7 @@ if(eventsfx==true) pool.play_stationary("give.ogg", false);
         cookies -= cookiesLost;
 if(eventsfx==true) pool.play_stationary("lose.ogg", false);
 if(eventsfx==true) pool.play_stationary("bee" + random(1, 4) + ".ogg", false);
-        dlg_buffer("Oh no! You lost " + format_number(round(cookiesLost,0)) + " cookies.", "events");
+        dlg_buffer("Oh no! You lost " + format_number(cookiesLost) + " cookies.", "events");
     }
 else if (event == "increase_hunger")
 {
@@ -350,7 +350,7 @@ if(eventsfx==true) pool.play_stationary("heal" + random(1, 3) + ".ogg", false);
 if(eventsfx==true) pool.play_stationary("gain.ogg", false);
 if(eventsfx==true) pool.play_stationary("give.ogg", false);
 if(eventsfx==true) pool.play_stationary("coin50.ogg", false);
-        dlg_buffer("Lucky flip! You gained " + format_number(round(coinsGained,0)) + " coins.", "events");
+        dlg_buffer("Lucky flip! You gained " + format_number(coinsGained) + " coins.", "events");
     }
     else if (event == "lose_coins")
     {
@@ -358,7 +358,7 @@ if(eventsfx==true) pool.play_stationary("coin50.ogg", false);
         coins -= coinsLost;
 if(eventsfx==true) pool.play_stationary("lose.ogg", false);
 if(eventsfx==true) pool.play_stationary("cointoss.ogg", false);
-        dlg_buffer("Unfortunate flip! You lost " + format_number(round(coinsLost,0)) + " coins.", "events");
+        dlg_buffer("Unfortunate flip! You lost " + format_number(coinsLost) + " coins.", "events");
     }
     else if (event == "increase_cookyspeed")
     {
