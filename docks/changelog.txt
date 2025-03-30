@@ -1,4 +1,5 @@
 new in 2.6
+Improved] Number Formatting for speaking large numbers in the game. These are now spoken properly using full English variants, like "Million", "Billion", and "Trillion". This helps screen readers clearly announce exponential values without having to use scientific notations for them.
 Fixed a bug where entering baking mode could cause the game to crash while it was looping through more slots than it actually had. It’s now fixed so it only checks the actual slots you’ve got, not just how many are automated.
 new in 2.5
 Improved the Status displays found in all of the Slot automation Menus. The slots in the automation and non-automation menus now clearly indicate whether they’re automated or not. When cookie distribution is enabled, each slot will also show how many cookies it produces, making it easier to compare performance across all of your slots.

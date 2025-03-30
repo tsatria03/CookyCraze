@@ -109,6 +109,56 @@ int string_to_int(string str)
     return isNegative ? -result : result;
 }
 
+string format_number(double num)
+{
+    if (num <= 999999 && num >= -999999)
+        return round(num, 0);
+    double absNum = abs(num);
+    string suffix = "";
+    double divisor = 1;
+    if (absNum >= 1e33)
+    {
+        suffix = " Decillion"; divisor = 1e33;
+    }
+    else if (absNum >= 1e30)
+    {
+        suffix = " Nonillion"; divisor = 1e30;
+    }
+    else if (absNum >= 1e27)
+    {
+        suffix = " Octillion"; divisor = 1e27;
+    }
+    else if (absNum >= 1e24)
+    {
+        suffix = " Septillion"; divisor = 1e24;
+    }
+    else if (absNum >= 1e21)
+    {
+        suffix = " Sextillion"; divisor = 1e21;
+    }
+    else if (absNum >= 1e18)
+    {
+        suffix = " Quintillion"; divisor = 1e18;
+    }
+    else if (absNum >= 1e15)
+    {
+        suffix = " Quadrillion"; divisor = 1e15;
+    }
+    else if (absNum >= 1e12)
+    {
+        suffix = " Trillion"; divisor = 1e12;
+    }
+    else if (absNum >= 1e9)
+    {
+        suffix = " Billion"; divisor = 1e9;
+    }
+    else if (absNum >= 1e6)
+    {
+        suffix = " Million"; divisor = 1e6;
+    }
+    double shortened = num / divisor;
+    return round(shortened, 2) + suffix;
+}
 string convert_to_currency(double number, string currency_symbol)
 {
 if (number < 0) return "";
@@ -193,7 +243,7 @@ void manage_baking_slots()
     }
     m.add_item("Automated slots (" + string(automated) + ")", "automated");
     m.add_item("Non-automated slots (" + string(baking_slots.length() - automated) + ")", "nonauto");
-    m.add_item("Add a slot for " + round(slotBaseCost, 0) + " coins", "add_slot");
+    m.add_item("Add a slot for " + format_number(round(slotBaseCost, 0)) + " coins", "add_slot");
     m.add_item("Back", "back");
     m.intro_text = "Slot manager menu. You have " + string(automated) + " out of " + string(baking_slots.length()) + " slots automated.";
     int mres = m.run();
@@ -248,7 +298,7 @@ m.add_item("Slot " + string(i + 1) + ": " + autoStatus + cookiesInfo + ".", "slo
                 totalCost += costStep;
                 costStep *= automationMultiplier;
             }
-            m.add_item("Automate all unautomated slots for " + round(totalCost, 0) + " coins", "automate_all");
+            m.add_item("Automate all unautomated slots for " + format_number(round(totalCost, 0)) + " coins", "automate_all");
         }
         m.add_item("Back", "back");
         m.intro_text = (selected == "automated" ? "Automated slots menu." : "Non-automated slots menu.");
@@ -279,7 +329,7 @@ automationBaseCost *= automationMultiplier;
                 }
                 pool.destroy_sound(alertslot);
                 alertslot = pool.play_stationary("autslot.ogg", false);
-speak("Successfully automated " + string(nonAutoCount) + " unautomated slot" + (nonAutoCount == 1 ? "" : "s") + " for " + round(totalCost, 0) + " coins.");
+speak("Successfully automated " + string(nonAutoCount) + " unautomated slot" + (nonAutoCount == 1 ? "" : "s") + " for " + format_number(round(totalCost, 0)) + " coins.");
             }
             else
             {
@@ -296,7 +346,7 @@ speak("Successfully automated " + string(nonAutoCount) + " unautomated slot" + (
             {
                 setupmenu(false);
                 if (!autobakeSlotEnabled[index])
-                    m.add_item("Automate this slot for " + round(automationBaseCost, 0) + " coins", "automate");
+                    m.add_item("Automate this slot for " + format_number(round(automationBaseCost, 0)) + " coins", "automate");
                 m.add_item("Preview slot sound", "preview");
                 m.add_item("Back", "back");
                 m.intro_text = "Slot automation menu.";
