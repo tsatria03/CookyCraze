@@ -246,7 +246,8 @@ void manage_baking_slots()
     m.add_item("Non-automated slots (" + string(baking_slots.length() - automated) + ")", "nonauto");
     m.add_item("Add a slot for " + format_number(slotBaseCost) + " coins", "add_slot");
     m.add_item("Back", "back");
-    m.intro_text = "Slot manager menu. You have " + string(automated) + " out of " + string(baking_slots.length()) + " slots automated.";
+if(automated==0) m.intro_text = "Slot manager menu. You have no automated slots.";
+    if(automated>=1) m.intro_text = "Slot manager menu. You have " + string(automated) + " out of " + string(baking_slots.length()) + " slots automated.";
     int mres = m.run();
     if (mres == -1 || m.get_selected_item_id() == "back") game();
     string selected = m.get_selected_item_id();
@@ -335,7 +336,7 @@ speak("Successfully automated " + string(nonAutoCount) + " unautomated slot" + (
             else
             {
                 alertslot = pool.play_stationary("error.ogg", false);
-                dlg("You don't have enough coins to automate all slots.");
+                dlg("Error! You don't have enough coins to automate all slots!");
                 pool.destroy_sound(alertslot);
             }
             manage_baking_slots();
@@ -373,7 +374,7 @@ speak("Successfully automated " + string(nonAutoCount) + " unautomated slot" + (
                     else
                     {
                         alertslot = pool.play_stationary("error.ogg", false);
-                        dlg("You don't have enough coins to automate this slot!");
+                        dlg("Error! You don't have enough coins to automate this slot!");
                         pool.destroy_sound(alertslot);
                     }
                     manage_baking_slots();

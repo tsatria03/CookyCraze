@@ -122,6 +122,10 @@ sd.save();
 void readpreffs()
 {
 st.load();
+if(st.d.exists("bakesfx"))
+{
+bakesfx=st.read_bool("bakesfx");
+}
 if(st.d.exists("coinsfx"))
 {
 coinsfx=st.read_bool("coinsfx");
@@ -229,6 +233,7 @@ evchanse2=st.read_int("evchanse2");
 }
 void writepreffs(int autoEventList, int manualEventList)
 {
+st.add("bakesfx",bakesfx);
 st.add("coinsfx",coinsfx);
 st.add("eventsfx",eventsfx);
 st.add("introsfx",introsfx);

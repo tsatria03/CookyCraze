@@ -3,7 +3,7 @@ array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
 bool slotDistribution = false;
 int autobakeSlots = 0;
-bool coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
+bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=100, levcoins=0, manulcooky=0, rank=1, usercoins=0;
@@ -532,7 +532,7 @@ if (slotDistribution && autobakeSlots > 0)
 cookies += perSlot;
 }
 }
-pool.play_stationary("autobake.ogg", false);
+if(bakesfx==true) pool.play_stationary("autobake.ogg", false);
 if(playervents==true) attempt_autobaker_event(evchanse);
 clicktimer.restart();
 }
@@ -613,7 +613,7 @@ slotBaseCost=60;
 baking_slots.resize(1);
 baking_slots[0] = true;
 autobakeSlotEnabled.resize(1);
-autobakeSlotEnabled[0] = true;
+autobakeSlotEnabled[0] = false;
 if (baking_slots.length() == 0)
     {
 baking_slots.insert_last(true);
