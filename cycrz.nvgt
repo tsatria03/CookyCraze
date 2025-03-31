@@ -33,7 +33,7 @@ savedata sd("", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbY
 savedata st("data/preffs/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
 savedata st2("data/preffs/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
 savedata st3("data/preffs/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
-sound_pool p, pool, ambpool, muspool, storambpool, stormuspool;
+sound_pool p, pool, ambpool, hungerpool, muspool, storambpool, stormuspool;
 virtual_dialogs vd;
 void main()
 {
@@ -176,10 +176,12 @@ if(key_pressed(KEY_S))
 writedata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
+hungerpool.pause_sound(hungerslot);
 speak_buffer("game saved", "misc");
 dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
+hungerpool.resume_sound(hungerslot);
 form.reset();
 game();
 }
@@ -188,10 +190,12 @@ if(key_pressed(KEY_L))
 readdata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
+hungerpool.pause_sound(hungerslot);
 speak_buffer("game reloaded", "misc");
 dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
+hungerpool.resume_sound(hungerslot);
 form.reset();
 game();
 }
@@ -299,6 +303,7 @@ if(key_pressed(KEY_F4))
 {
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
+hungerpool.destroy_sound(hungerslot);
 pool.destroy_all();
 speak_buffer("Exiting the game without saving.");
 dlgplay("exitgame.ogg");
@@ -310,6 +315,7 @@ if(key_repeating(KEY_ESCAPE))
 alertslot=pool.play_stationary("alert_critical.ogg",false);
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
+hungerpool.destroy_sound(hungerslot);
     setupmenu(false);    
     m.add_item("Yes, quit the game without saving", "quit_no_save");
     m.add_item("Yes, save the game and then quit", "quit_save");
@@ -433,9 +439,11 @@ clicktime=1000;
 if(hunger>=maxhunger)
 {
 pool.destroy_sound(alertslot);
+hungerpool.destroy_sound(hungerslot);
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
+speak("You're dying of hunger! So much for warning you all of those times. Rest in pease to you, my dear "+playername+"! Better luck next time!");
 dlgplay("hungerdeath.ogg");
 setupmenu(false);
 m.add_item("yes");
@@ -544,6 +552,7 @@ else if(coins>=1)
 {
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
+hungerpool.destroy_sound(hungerslot);
 speak_buffer("You're now entering the cooky store.", "critical");
 dlgplay("store_door_open.ogg");
 alertslot=pool.play_stationary("store_welcome.ogg",false);

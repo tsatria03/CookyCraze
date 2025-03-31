@@ -203,7 +203,7 @@ void hungercheck()
     if (hungerPercent >= 0.6)
     {
         if (hungerslot == -1)
-            hungerslot = pool.play_stationary_extended("hungerwarn.ogg", true, 0, 0, -10, 100, false);
+            hungerslot = hungerpool.play_stationary_extended("hungerwarn.ogg", true, 0, 0, -15, 100, false);
         if (warningLevel >= 80 && lastHungerWarningLevel < 80)
         {
             speak_buffer("You're starving! Eat something immediately.", "critical");
@@ -224,7 +224,7 @@ void hungercheck()
     {
         if (hungerslot != -1)
         {
-            pool.destroy_sound(hungerslot);
+            hungerpool.destroy_sound(hungerslot);
             hungerslot = -1;
             lastHungerWarningLevel = -1;
         }

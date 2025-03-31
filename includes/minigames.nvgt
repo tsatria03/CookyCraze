@@ -9,10 +9,12 @@ if(key_pressed(KEY_S))
 writedata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
+hungerpool.pause_sound(hungerslot);
 speak_buffer("game saved", "misc");
 dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
+hungerpool.resume_sound(hungerslot);
 form.reset();
 coingame();
 }
@@ -21,10 +23,12 @@ if(key_pressed(KEY_L))
 readdata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
+hungerpool.pause_sound(hungerslot);
 speak_buffer("game reloaded", "misc");
 dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
+hungerpool.resume_sound(hungerslot);
 form.reset();
 coingame();
 }
@@ -203,10 +207,12 @@ if(key_pressed(KEY_S))
 writedata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
+hungerpool.pause_sound(hungerslot);
 speak_buffer("game saved", "misc");
 dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
+hungerpool.resume_sound(hungerslot);
 form.reset();
 slotsgame();
 }
@@ -215,10 +221,12 @@ if(key_pressed(KEY_L))
 readdata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
+hungerpool.pause_sound(hungerslot);
 speak_buffer("game reloaded", "misc");
 dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
+hungerpool.resume_sound(hungerslot);
 form.reset();
 slotsgame();
 }

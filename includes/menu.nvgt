@@ -388,8 +388,8 @@ void buymenu()
 {
 setupmenu2();
 m.add_item("automatic baking items", "abi");
+m.add_item("hunger related items", "mubi");
 m.add_item("manule baking items", "mabi");
-m.add_item("maximum hunger items", "mubi");
 m.add_item("back", "back");
 m.intro_text="Upgrades menu. Please choose a cattigory to purchis.";
 int mres=m.run();
@@ -590,7 +590,7 @@ void mubimenu()
     }
     m.add_item("Maximum hunger, costs " + format_number(hungerCost) + " coins. You can buy " + format_number(maxBuyable) + ". Description: Each purchase will increase your food capacity by 10 units, letting you hold more food before getting full.", "mubi");
     m.add_item("back", "back");
-    m.intro_text = "Maximum Hunger Menu.";
+    m.intro_text = "Hunger related Menu.";
     int mres = m.run();
     string mubm = m.get_selected_item_id();
     if (mres == -1 || mubm == "back")
