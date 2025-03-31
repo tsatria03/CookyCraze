@@ -1,5 +1,11 @@
 new in 2.6
-Added the ability to mute the auto baking sounds when you're in baking mode in the game settings menu.
+Improved the Hunger System in the game. When your hunger reaches higher than 60 percent, you'll start hearing Warning sounds and receive spoken messages based on how hungry you are. If your hunger reaches its maximum, your character will die from starvation. You'll be prompted to restart the game, or exit back to the main menu.
+Made it so buying auto cooky speed gives you 5 extra milliseconds of bake time per purchase instead of just 1.
+Made it so buying maximum hunger gives you 10 extra units of food storage per purchase instead of just 1.
+You can now adjust the base costs and cost multipliers of the maximum hunger item in the game settings menu.
+You can now increase your maximum hunger by purchaseing it in the cooky store instead of earning it from leveling up. This expands how much food you can hold and eat.
+Added the ability to mute the auto baking sounds for when you're in baking mode in the game settings menu.
+Fixed some more formatting number issues when values are being spoken.
 Improved] Number Formatting for speaking large numbers in the game. These are now spoken properly using full English variants, like Million, Billion, Trillion, etc. This helps screen readers clearly announce exponential values without having to use scientific notations for them.
 Fixed a bug where entering baking mode could cause the game to crash while it was looping through more slots than it actually had. It’s now fixed so it only checks the actual slots you’ve got, not just how many are automated.
 new in 2.5

@@ -114,50 +114,18 @@ string format_number(double num)
     if (num <= 999999 && num >= -999999)
         return round(num, 0);
     double absNum = abs(num);
-    string suffix = "";
-    double divisor = 1;
-    if (absNum >= 1e33)
+    string[] suffixes = {" Million", " Billion", " Trillion", " Quadrillion", " Quintillion", " Sextillion", " Septillion", " Octillion", " Nonillion", " Decillion"};
+    double divisor = 1e6;
+    for (uint i = 0; i < suffixes.length(); i++)
     {
-        suffix = " Decillion"; divisor = 1e33;
+        double shortened = num / divisor;
+        if (abs(shortened) < 1000 || i == suffixes.length() - 1)
+        {
+            return round(shortened, 2) + suffixes[i];
+        }
+        divisor *= 1000;
     }
-    else if (absNum >= 1e30)
-    {
-        suffix = " Nonillion"; divisor = 1e30;
-    }
-    else if (absNum >= 1e27)
-    {
-        suffix = " Octillion"; divisor = 1e27;
-    }
-    else if (absNum >= 1e24)
-    {
-        suffix = " Septillion"; divisor = 1e24;
-    }
-    else if (absNum >= 1e21)
-    {
-        suffix = " Sextillion"; divisor = 1e21;
-    }
-    else if (absNum >= 1e18)
-    {
-        suffix = " Quintillion"; divisor = 1e18;
-    }
-    else if (absNum >= 1e15)
-    {
-        suffix = " Quadrillion"; divisor = 1e15;
-    }
-    else if (absNum >= 1e12)
-    {
-        suffix = " Trillion"; divisor = 1e12;
-    }
-    else if (absNum >= 1e9)
-    {
-        suffix = " Billion"; divisor = 1e9;
-    }
-    else if (absNum >= 1e6)
-    {
-        suffix = " Million"; divisor = 1e6;
-    }
-    double shortened = num / divisor;
-    return round(shortened, 2) + suffix;
+    return round(num, 0);
 }
 
 string convert_to_currency(double number, string currency_symbol)
@@ -226,6 +194,41 @@ export_buffers();
 clear_all_buffer_items();
 }
 }
+}
+
+void hungercheck()
+{
+    double hungerPercent = hunger / maxhunger;
+    int warningLevel = int(hungerPercent * 100);
+    if (hungerPercent >= 0.6)
+    {
+        if (hungerslot == -1)
+            hungerslot = pool.play_stationary_extended("hungerwarn.ogg", true, 0, 0, -10, 100, false);
+        if (warningLevel >= 80 && lastHungerWarningLevel < 80)
+        {
+            speak_buffer("You're starving! Eat something immediately.", "critical");
+            lastHungerWarningLevel = 80;
+        }
+        else if (warningLevel >= 70 && lastHungerWarningLevel < 70)
+        {
+            speak_buffer("You're getting dangerously hungry. Eat something before it's too late.", "critical");
+            lastHungerWarningLevel = 70;
+        }
+        else if (warningLevel >= 60 && lastHungerWarningLevel < 60)
+        {
+            speak_buffer("You're getting very hungry. You should eat soon.", "critical");
+            lastHungerWarningLevel = 60;
+        }
+    }
+    else
+    {
+        if (hungerslot != -1)
+        {
+            pool.destroy_sound(hungerslot);
+            hungerslot = -1;
+            lastHungerWarningLevel = -1;
+        }
+    }
 }
 
 void set_save_slot(int slot)

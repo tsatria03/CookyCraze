@@ -3,13 +3,14 @@ array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
 bool slotDistribution = false;
 int autobakeSlots = 0;
+int lastHungerWarningLevel = -1;
 bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=100, levcoins=0, manulcooky=0, rank=1, usercoins=0;
-double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5, automationBaseCost = 30, slotBaseCost = 60, automationMultiplier = 1.1, slotMultiplier = 1.2;
+double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5, maxHungerBaseCost = 15, maxHungerMultiplier = 15, automationBaseCost = 30, slotBaseCost = 60, automationMultiplier = 1.1, slotMultiplier = 1.2;
 double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
-int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
+int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, hungerslot=-1, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
 int menumusvolume=0;
 int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
@@ -391,6 +392,7 @@ while(true)
 wait(5);
 form.monitor();
 main_game_input();
+hungercheck();
 if(autocooky<=0)
 {
 bakemode=0;
@@ -427,6 +429,63 @@ clicktime=50;
 if(clicktime>=1000)
 {
 clicktime=1000;
+}
+if(hunger>=maxhunger)
+{
+pool.destroy_sound(alertslot);
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+pool.destroy_all();
+dlgplay("hungerdeath.ogg");
+setupmenu(false);
+m.add_item("yes");
+m.add_item("no");
+m.intro_text="You have died from starvation. Would you like to try again?";
+int mres=m.run();
+if(mres==-1)
+{
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+pool.destroy_all();
+speak_buffer("Exiting the game without saving.");
+dlgplay("exitgame.ogg");
+mainmenu();
+}
+if(mres==0)
+{
+speak("loading");
+wait(500);
+if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ingame=true;
+resetgame();
+game();
+}
+if(mres==1)
+{
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+pool.destroy_all();
+speak_buffer("Exiting the game without saving.");
+dlgplay("exitgame.ogg");
+mainmenu();
+}
+else
+{
+speak("loading");
+wait(500);
+if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ingame=true;
+resetgame();
+game();
+}
 }
         if (form.is_pressed(manageSlots))
         {
@@ -544,8 +603,7 @@ pool.destroy_all();
 }
 if (cookies >= cookiesrequiered)
 {
-hunger+=10 * rank;
-maxhunger+=10 * rank;
+hunger+=5 * rank;
     levcoins+=10 * rank;
     rank+=1;
     coins += levcoins;

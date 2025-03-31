@@ -1,5 +1,5 @@
-Find a way to convert numbers hier than a trillion with a math rounding function.
-Add the ability to mute auto baking sounds in the game settings menu.
+*Done. Find a way to convert numbers hier than a trillion with a math rounding function.
+*Done. Add the ability to mute auto baking sounds in the game settings menu.
 *Done. Change ambiences for various mini games.
 *Done. Fix rounding calculation issues.
 *Done. Make it so the music doesn't randomize when saving your settings.
