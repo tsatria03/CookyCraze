@@ -434,8 +434,8 @@ while (tempCoins >= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpe
 tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 maxBuyableAutoCookySpeed++;
 }
-m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + maxBuyableAutoCooky + ".", "abic");
-m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + maxBuyableAutoCookySpeed + ".", "sabic");
+m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + format_number(maxBuyableAutoCooky) + ".", "abic");
+m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + format_number(maxBuyableAutoCookySpeed) + ". Description: Each purchase will increase your baking speed by 5 milliseconds, helping you bake cookies much faster.", "sabic");
 m.add_item("back", "back");
 m.intro_text="Automatic baking menu.";
 int mres = m.run();
@@ -529,7 +529,7 @@ while (tempCoins >= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manua
 tempCoins -= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manualCookyMultiplier);
 maxBuyable++;
 }
-m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + maxBuyable + ".", "mabic");
+m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + format_number(maxBuyable) + ".", "mabic");
 m.add_item("back", "back");
 m.intro_text="Manual baking menu.";
 int mres = m.run();
@@ -588,7 +588,7 @@ void mubimenu()
         tempCoins -= buy_item(maxhunger + maxBuyable, maxHungerBaseCost, maxHungerMultiplier);
         maxBuyable++;
     }
-    m.add_item("Maximum hunger, costs " + format_number(hungerCost) + " coins. You can buy " + format_number(maxBuyable) + ".", "mubi");
+    m.add_item("Maximum hunger, costs " + format_number(hungerCost) + " coins. You can buy " + format_number(maxBuyable) + ". Description: Each purchase will increase your food capacity by 10 units, letting you hold more food before getting full.", "mubi");
     m.add_item("back", "back");
     m.intro_text = "Maximum Hunger Menu.";
     int mres = m.run();

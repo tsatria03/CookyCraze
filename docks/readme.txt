@@ -9,7 +9,7 @@ The ability to eat Your Cookies. Feeling hungry? Go ahead and eat the cookies yo
 
 Can you reach the highest rank and become the ultimate baker? Let's find out! Master the balance between baking and indulging, and beware of the effects of over consumption. Play smart and aim for cookie-baking greatness!
 
-Keyboard commands for the main game
+Keyboard commands.
 Letter, F: Announces how many cookies you can produce when baking mode is enabled, if pressed.
 Letter, H: Announces how full you are from eating cookies, if pressed.
 Letter, J: Announces how many cookies you can produce when baking mode is disabled, if pressed.

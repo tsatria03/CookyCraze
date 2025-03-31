@@ -1,4 +1,5 @@
 new in 2.6
+Added descriptions to some of the items found in the cooky store. Items such as Auto Cooky Speed and Maximum Hunger now come with detailed descriptions that explain what they actually do. This makes it easier to understand how each upgrade affects your gameplay before purchasing it.
 Improved the Hunger System in the game. When your hunger reaches higher than 60 percent, you'll start hearing Warning sounds and receive spoken messages based on how hungry you are. If your hunger reaches its maximum, your character will die from starvation. You'll be prompted to restart the game, or exit back to the main menu.
 Made it so buying auto cooky speed gives you 5 extra milliseconds of bake time per purchase instead of just 1.
 Made it so buying maximum hunger gives you 10 extra units of food storage per purchase instead of just 1.
