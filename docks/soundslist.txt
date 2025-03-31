@@ -46,7 +46,9 @@ heal3.ogg
 heart.ogg
 heart2.ogg
 heart3.ogg
+hungerdeath.ogg
 hungerstat.ogg
+hungerwarn.ogg
 logo1.ogg
 logo2.ogg
 lose.ogg
@@ -120,4 +122,4 @@ toggleon.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 122
+total files: 124
