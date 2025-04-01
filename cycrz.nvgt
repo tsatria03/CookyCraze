@@ -4,7 +4,7 @@ array<bool> baking_slots;
 bool hungerwarn=true, hungerdeath=true, slotDistribution = false;
 int autobakeSlots = 0;
 int lastHungerWarningLevel = -1;
-bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
+bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=1000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
@@ -306,7 +306,8 @@ muspool.destroy_sound(mustrackslot);
 hungerpool.destroy_sound(hungerslot);
 pool.destroy_all();
 speak_buffer("Exiting the game without saving.");
-dlgplay("exitgame.ogg");
+if(exitsfx==false) wait(500);
+if(exitsfx==true) dlgplay("exitgame.ogg");
 mainmenu();
 }
 }
@@ -340,7 +341,8 @@ ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
         speak_buffer("Exiting the game without saving.");
-dlgplay("exitgame.ogg");
+if(exitsfx==false) wait(500);
+if(exitsfx==true) dlgplay("exitgame.ogg");
 ingame=false;
 mainmenu();
     }
@@ -554,7 +556,7 @@ pool.destroy_all();
 }
 if (cookies >= cookiesrequiered)
 {
-hunger+= 5 * rank;
+hunger+= 10 * rank;
     levcoins+=10 * rank;
     rank+=1;
     coins += levcoins;

@@ -218,7 +218,8 @@ ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
 speak_buffer("Exiting the game without saving.");
-dlgplay("exitgame.ogg");
+if(exitsfx==false) wait(500);
+if(exitsfx==true) dlgplay("exitgame.ogg");
 mainmenu();
 }
 if(mres==0)
@@ -240,7 +241,8 @@ ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
 speak_buffer("Exiting the game without saving.");
-dlgplay("exitgame.ogg");
+if(exitsfx==false) wait(500);
+if(exitsfx==true) dlgplay("exitgame.ogg");
 mainmenu();
 }
 else

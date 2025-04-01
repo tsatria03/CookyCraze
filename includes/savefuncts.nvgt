@@ -134,6 +134,10 @@ if(st.d.exists("eventsfx"))
 {
 eventsfx=st.read_bool("eventsfx");
 }
+if(st.d.exists("exitsfx"))
+{
+exitsfx=st.read_bool("exitsfx");
+}
 if(st.d.exists("introsfx"))
 {
 introsfx=st.read_bool("introsfx");
@@ -252,6 +256,7 @@ void writepreffs(int autoEventList, int manualEventList)
 st.add("bakesfx",bakesfx);
 st.add("coinsfx",coinsfx);
 st.add("eventsfx",eventsfx);
+st.add("exitsfx",exitsfx);
 st.add("introsfx",introsfx);
 st.add("logosfx",logosfx);
 st.add("ranksfx",ranksfx);
