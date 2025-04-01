@@ -1,4 +1,6 @@
 new in 2.7
+Made it so the volume of the hunger warning sound gets louder the more you ignore the spoken messages.
+Increased your starting maximum hunger from 100 to 1000.
 Added a new ranks buffer that keeps track of how far you've reached in the game. This also keeps track of all of the mini games that you've unlocked as well.
 Added the hunger check system to all of the mini games.
 new in 2.6

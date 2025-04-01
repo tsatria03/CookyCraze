@@ -7,9 +7,9 @@ int lastHungerWarningLevel = -1;
 bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
-double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=100, levcoins=0, manulcooky=0, rank=1, usercoins=0;
+double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=1000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
 double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5, maxHungerBaseCost = 15, maxHungerMultiplier = 15, automationBaseCost = 30, slotBaseCost = 60, automationMultiplier = 1.1, slotMultiplier = 1.2;
-double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
+double ambvolume=0, ambpitch=100, foodvolume=0, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
 int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, hungerslot=-1, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
 int menumusvolume=0;
 int evchanse=50, evchanse2=50, playergender=0;
@@ -613,7 +613,7 @@ pool.destroy_all();
 }
 if (cookies >= cookiesrequiered)
 {
-hunger+=10 * rank;
+hunger+= 5 * rank;
     levcoins+=10 * rank;
     rank+=1;
     coins += levcoins;
@@ -670,7 +670,7 @@ coins=10;
 cookies=0;
 cookyspeed=0;
 hunger=0;
-maxhunger=100;
+maxhunger=1000;
 levcoins=0;
 manulcooky=0;
 rank=1;

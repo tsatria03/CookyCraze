@@ -203,19 +203,25 @@ void hungercheck()
     if (hungerPercent >= 0.6)
     {
         if (hungerslot == -1)
-            hungerslot = hungerpool.play_stationary_extended("hungerwarn.ogg", true, 0, 0, -15, 100, false);
+            hungerslot = hungerpool.play_stationary_extended("hungerwarn.ogg", true, 0, 0, foodvolume, 100, false);
         if (warningLevel >= 80 && lastHungerWarningLevel < 80)
         {
+foodvolume=-10;
+hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
             speak_buffer("You're starving! Eat something immediately.", "critical");
             lastHungerWarningLevel = 80;
         }
         else if (warningLevel >= 70 && lastHungerWarningLevel < 70)
         {
+foodvolume=-15;
+hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
             speak_buffer("You're getting dangerously hungry. Eat something before it's too late.", "critical");
             lastHungerWarningLevel = 70;
         }
         else if (warningLevel >= 60 && lastHungerWarningLevel < 60)
         {
+foodvolume=-20;
+hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
             speak_buffer("You're getting very hungry. You should eat soon.", "critical");
             lastHungerWarningLevel = 60;
         }
@@ -224,6 +230,8 @@ void hungercheck()
     {
         if (hungerslot != -1)
         {
+foodvolume=-20;
+hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
             hungerpool.destroy_sound(hungerslot);
             hungerslot = -1;
             lastHungerWarningLevel = -1;
