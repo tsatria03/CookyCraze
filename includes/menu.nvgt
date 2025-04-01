@@ -435,7 +435,7 @@ tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseC
 maxBuyableAutoCookySpeed++;
 }
 m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + format_number(maxBuyableAutoCooky) + ".", "abic");
-m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + format_number(maxBuyableAutoCookySpeed) + ". Description: Each purchase will increase your baking speed by 5 milliseconds, helping you bake cookies much faster.", "sabic");
+m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + format_number(maxBuyableAutoCookySpeed) + ". Description: Each purchase will increase your baking speed by 10 milliseconds, helping you bake cookies much faster.", "sabic");
 m.add_item("back", "back");
 m.intro_text="Automatic baking menu.";
 int mres = m.run();
@@ -498,7 +498,7 @@ totalCost += buy_item(cookyspeed + i, autoCookySpeedBaseCost, autoCookySpeedMult
 if (coins >= totalCost)
 {
 coins -= totalCost;
-cookyspeed += quantity*5;
+cookyspeed += quantity*10;
 clicktime-=cookyspeed;
 double nextUpgradeCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
@@ -588,7 +588,7 @@ void mubimenu()
         tempCoins -= buy_item(maxhunger + maxBuyable, maxHungerBaseCost, maxHungerMultiplier);
         maxBuyable++;
     }
-    m.add_item("Maximum hunger, costs " + format_number(hungerCost) + " coins. You can buy " + format_number(maxBuyable) + ". Description: Each purchase will increase your food capacity by 10 units, letting you hold more food before getting full.", "mubi");
+    m.add_item("Maximum hunger, costs " + format_number(hungerCost) + " coins. You can buy " + format_number(maxBuyable) + ". Description: Each purchase will increase your food capacity by 100 units, letting you hold more food before getting full.", "mubi");
     m.add_item("back", "back");
     m.intro_text = "Hunger related Menu.";
     int mres = m.run();
@@ -617,7 +617,7 @@ void mubimenu()
         if (coins >= totalCost)
         {
             coins -= totalCost;
-            maxhunger += quantity*10;
+            maxhunger += quantity*100;
             double nextUpgradeCost = buy_item(maxhunger, maxHungerBaseCost, maxHungerMultiplier);
             pool.play_stationary("buy" + random(1, 4) + ".ogg", false);
             pool.play_stationary("store_order.ogg", false);
