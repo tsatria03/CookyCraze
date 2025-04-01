@@ -95,8 +95,8 @@ int flip = form.create_button("&Flip a coin", true);
     {
         wait(5);
         form.monitor();
-deathcheck();
-hungercheck();
+if(hungerdeath==true) deathcheck();
+if(hungerwarn==true) hungercheck();
 if(autocooky<=0)
 {
 bakemode=0;
@@ -293,8 +293,8 @@ string reel1 = "", reel2 = "", reel3 = "", reel4 = "", reel5 = "";
     {
         wait(5);
         form.monitor();
-deathcheck();
-hungercheck();
+if(hungerdeath==true) deathcheck();
+if(hungerwarn==true) hungercheck();
 if(autocooky<=0)
 {
 bakemode=0;

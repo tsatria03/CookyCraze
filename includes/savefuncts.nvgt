@@ -146,6 +146,14 @@ if(st.d.exists("ranksfx"))
 {
 ranksfx=st.read_bool("ranksfx");
 }
+if (st.d.exists("hungerdeath"))
+{
+hungerdeath = st.read_bool("hungerdeath");
+}
+if (st.d.exists("hungerwarn"))
+{
+hungerwarn = st.read_bool("hungerwarn");
+}
 if (st.d.exists("slotDistribution"))
 {
 slotDistribution = st.read_bool("slotDistribution");
@@ -247,6 +255,8 @@ st.add("eventsfx",eventsfx);
 st.add("introsfx",introsfx);
 st.add("logosfx",logosfx);
 st.add("ranksfx",ranksfx);
+st.add("hungerdeath",hungerdeath);
+st.add("hungerwarn",hungerwarn);
 st.add("slotDistribution",slotDistribution);
 st.add("playervents",playervents);
 st.add("playervents2",playervents2);

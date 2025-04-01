@@ -1,7 +1,7 @@
 #include"includes/includes.nvgt"
 array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
-bool slotDistribution = false;
+bool hungerwarn=true, hungerdeath=true, slotDistribution = false;
 int autobakeSlots = 0;
 int lastHungerWarningLevel = -1;
 bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, introsfx=true, logosfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
@@ -398,8 +398,8 @@ while(true)
 wait(5);
 form.monitor();
 main_game_input();
-deathcheck();
-hungercheck();
+if(hungerdeath==true) deathcheck();
+if(hungerwarn==true) hungercheck();
 if(autocooky<=0)
 {
 bakemode=0;
