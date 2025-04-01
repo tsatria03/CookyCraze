@@ -11,7 +11,6 @@ double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered
 double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5, maxHungerBaseCost = 15, maxHungerMultiplier = 15, automationBaseCost = 30, slotBaseCost = 60, automationMultiplier = 1.1, slotMultiplier = 1.2;
 double ambvolume=0, ambpitch=100, foodvolume=0, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
 int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, hungerslot=-1, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
-int menumusvolume=0;
 int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
 int ambienceIndex=0, musicIndex=0;
@@ -399,6 +398,7 @@ while(true)
 wait(5);
 form.monitor();
 main_game_input();
+deathcheck();
 hungercheck();
 if(autocooky<=0)
 {
@@ -436,65 +436,6 @@ clicktime=50;
 if(clicktime>=1000)
 {
 clicktime=1000;
-}
-if(hunger>=maxhunger)
-{
-pool.destroy_sound(alertslot);
-hungerpool.destroy_sound(hungerslot);
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-pool.destroy_all();
-speak("You're dying of hunger! So much for warning you all of those times. Rest in pease to you, my dear "+playername+"! Better luck next time!");
-dlgplay("hungerdeath.ogg");
-setupmenu(false);
-m.add_item("yes");
-m.add_item("no");
-m.intro_text="You have died from starvation. Would you like to try again?";
-int mres=m.run();
-if(mres==-1)
-{
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-pool.destroy_all();
-speak_buffer("Exiting the game without saving.");
-dlgplay("exitgame.ogg");
-mainmenu();
-}
-if(mres==0)
-{
-speak("loading");
-wait(500);
-if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
-ingame=true;
-resetgame();
-game();
-}
-if(mres==1)
-{
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-pool.destroy_all();
-speak_buffer("Exiting the game without saving.");
-dlgplay("exitgame.ogg");
-mainmenu();
-}
-else
-{
-speak("loading");
-wait(500);
-if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
-ingame=true;
-resetgame();
-game();
-}
 }
         if (form.is_pressed(manageSlots))
         {

@@ -1,10 +1,11 @@
 new in 2.7
+Added the hunger death system to all of the mini games.
 Made it so buying auto cooky speed gives you 10 extra milliseconds of bake time per purchase instead of just 5.
 Made it so buying maximum hunger gives you 100 extra units of food storage per purchase instead of just 10.
 Made it so the volume of the hunger warning sound gets louder the more you ignore the spoken messages.
 Increased your starting maximum hunger from 100 to 1000.
 Added a new ranks buffer that keeps track of how far you've reached in the game. This also keeps track of all of the mini games that you've unlocked as well.
-Added the hunger check system to all of the mini games.
+Added the hunger warning system to all of the mini games.
 new in 2.6
 Added descriptions to some of the items found in the cooky store. Items such as Auto Cooky Speed and Maximum Hunger now come with detailed descriptions that explain what they actually do. This makes it easier to understand how each upgrade affects your gameplay before purchasing it.
 Improved the Hunger System in the game. When your hunger reaches higher than 60 percent, you'll start hearing Warning sounds and receive spoken messages based on how hungry you are. If your hunger reaches its maximum, your character will die from starvation. You'll be prompted to restart the game, or exit back to the main menu.
