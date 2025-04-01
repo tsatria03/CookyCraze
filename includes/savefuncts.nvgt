@@ -150,6 +150,10 @@ if(st.d.exists("ranksfx"))
 {
 ranksfx=st.read_bool("ranksfx");
 }
+if(st.d.exists("savesfx"))
+{
+savesfx=st.read_bool("savesfx");
+}
 if (st.d.exists("hungerdeath"))
 {
 hungerdeath = st.read_bool("hungerdeath");
@@ -260,6 +264,7 @@ st.add("exitsfx",exitsfx);
 st.add("introsfx",introsfx);
 st.add("logosfx",logosfx);
 st.add("ranksfx",ranksfx);
+st.add("savesfx",savesfx);
 st.add("hungerdeath",hungerdeath);
 st.add("hungerwarn",hungerwarn);
 st.add("slotDistribution",slotDistribution);

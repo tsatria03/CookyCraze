@@ -1,4 +1,5 @@
 new in 2.7
+You can now toggle the save sound for saving and reloading the game in the game settings menu.
 You can now toggle the exit sound upon exiting the game in the game settings menu.
 Added the ability to toggle hunger level warnings and dying from extreme hunger in the game settings menu.
 Added the hunger death system to all of the mini games.
