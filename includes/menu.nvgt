@@ -124,7 +124,7 @@ for (uint i = 1; i <= 20; i++)
         }
         else
         {
-            m.add_item("Slot " + string(i) + ". Highest rank: " + string(rank), "sl" + string(i));
+            m.add_item("Slot " + string(i) + ". Highest rank: " + string(format_number(rank)), "sl" + string(i));
         }
     }
 m.add_item("Back", "back");
@@ -177,7 +177,7 @@ for (uint i = 1; i <= 20; i++)
         }
         else
         {
-            m.add_item("Slot " + string(i) + ". Highest rank: " + string(rank), "sl" + string(i));
+            m.add_item("Slot " + string(i) + ". Highest rank: " + string(format_number(rank)), "sl" + string(i));
         }
     }
 m.add_item("Back", "back");

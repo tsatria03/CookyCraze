@@ -277,7 +277,7 @@ pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart2.ogg", false);
 speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
 }
-if(hunger>=maxhunger/2 and hunger>=maxhunger)
+if(hunger>=maxhunger/2 or hunger<=maxhunger)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart3.ogg", false);
@@ -594,18 +594,18 @@ else if (levcoins >= 1000000)
         if(coinsfx==true) pool.play_stationary("coin100000.ogg", false);
     }
     if(ranksfx==true) pool.play_stationary("achievement" + random(1, 2) + ".ogg", false);
-    speak_buffer("Congratulations! You've successfully made it to rank " + rank + "! You've earned " + format_number(levcoins) + " coins for your achievement. Great work!", "ranks");
+    speak_buffer("Congratulations! You've successfully made it to rank " + format_number(rank) + "! You've earned " + format_number(levcoins) + " coins for your achievement. Great work!", "ranks");
 if(rank==10)
 {
 levcoins += 10 * rank*2;
 if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
-dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the coin flipper minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "ranks");
+dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the coin flipper minni game. You've also earned an extra "+format_number(levcoins)+" coins for your hard work. Keep it up!", "ranks");
 }
 if(rank==20)
 {
 levcoins += 10 * rank*4;
 if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
-dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+levcoins+" coins for your hard work. Keep it up!", "ranks");
+dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+format_number(levcoins)+" coins for your hard work. Keep it up!", "ranks");
 }
 }
 }
