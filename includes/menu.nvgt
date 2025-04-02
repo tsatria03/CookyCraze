@@ -334,7 +334,7 @@ double cookiesToSell = string_to_number(sailam);
         dlg("Error! You only have " + format_number(cookies) + " cookies available to sell! Press enter or space to continue.");
         shopmenu();
     }
-double totalCoinsEarned = cookiesToSell * 10;
+double totalCoinsEarned = cookiesToSell * 100;
 cookies -= cookiesToSell;
 coins += totalCoinsEarned;
 if (totalCoinsEarned >= 10 && totalCoinsEarned <= 490)
@@ -434,7 +434,7 @@ while (tempCoins >= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpe
 tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 maxBuyableAutoCookySpeed++;
 }
-m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + format_number(maxBuyableAutoCooky) + ".", "abic");
+m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + format_number(maxBuyableAutoCooky) + ". Description: Each purchase will give you 1 auto cookie to bake with.", "abic");
 m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + format_number(maxBuyableAutoCookySpeed) + ". Description: Each purchase will increase your baking speed by 10 milliseconds, helping you bake cookies much faster.", "sabic");
 m.add_item("back", "back");
 m.intro_text="Automatic baking menu.";
@@ -529,7 +529,7 @@ while (tempCoins >= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manua
 tempCoins -= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manualCookyMultiplier);
 maxBuyable++;
 }
-m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + format_number(maxBuyable) + ".", "mabic");
+m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + format_number(maxBuyable) + ". Description: Each purchase will give you 1 manual cookie to bake with.", "mabic");
 m.add_item("back", "back");
 m.intro_text="Manual baking menu.";
 int mres = m.run();

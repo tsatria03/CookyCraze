@@ -277,7 +277,7 @@ pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart2.ogg", false);
 speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
 }
-if(hunger>=maxhunger/2 and hunger<=maxhunger)
+if(hunger>=maxhunger/2 and hunger>=maxhunger)
 {
 pool.destroy_sound(heartslot);
 heartslot = pool.play_stationary("heart3.ogg", false);
