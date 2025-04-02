@@ -291,7 +291,7 @@ void shopmenu()
 {
 setupmenu2();
 m.add_item("buy upgrades", "bmu");
-m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies.", "slm");
+m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky is sold for 100 coins.", "slm");
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
 int mres=m.run();
@@ -318,7 +318,7 @@ buymenu();
 if(stm=="slm")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string sailam=vd.input_box("","How many cookies would you like to sell? Press enter to sell all of your cookies.", string(round(cookies,0)));
+string sailam=vd.input_box("","How many cookies would you like to sell? Press enter to sell the maximum amount.", string(round(cookies,0)));
 double cookiesToSell = string_to_number(sailam);
     if (cookiesToSell <= 0)
     {
@@ -434,8 +434,8 @@ while (tempCoins >= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpe
 tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 maxBuyableAutoCookySpeed++;
 }
-m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + format_number(maxBuyableAutoCooky) + ". Description: Each purchase will give you 1 auto cookie to bake with.", "abic");
-m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + format_number(maxBuyableAutoCookySpeed) + ". Description: Each purchase will increase your baking speed by 10 milliseconds, helping you bake cookies much faster.", "sabic");
+m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + format_number(maxBuyableAutoCooky) + ". Description: Each purchase gives you 1 auto cookie to bake with.", "abic");
+m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + format_number(maxBuyableAutoCookySpeed) + ". Description: Each purchase increases your baking speed by 10 milliseconds, helping you bake cookies much faster.", "sabic");
 m.add_item("back", "back");
 m.intro_text="Automatic baking menu.";
 int mres = m.run();
@@ -447,7 +447,7 @@ buymenu();
 if (abm == "abic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string autocook = vd.input_box("","How many auto cookies would you like to buy? Press enter to buy the maximum amount of auto cookies.", string(round(maxBuyableAutoCooky,0)));
+string autocook = vd.input_box("","How many auto cookies would you like to buy? Press enter to buy the maximum amount.", string(round(maxBuyableAutoCooky,0)));
 double quantity = string_to_number(autocook);
 double totalCost = 0;
     if (quantity <= 0)
@@ -481,7 +481,7 @@ buymenu();
 if (abm == "sabic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy? Press enter to buy the maximum amount of auto cooky speeds.", string(round(maxBuyableAutoCookySpeed,0)));
+string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy? Press enter to buy the maximum amount.", string(round(maxBuyableAutoCookySpeed,0)));
 double quantity = string_to_number(autocooksp);
 double totalCost = 0;
     if (quantity <= 0)
@@ -529,7 +529,7 @@ while (tempCoins >= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manua
 tempCoins -= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manualCookyMultiplier);
 maxBuyable++;
 }
-m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + format_number(maxBuyable) + ". Description: Each purchase will give you 1 manual cookie to bake with.", "mabic");
+m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + format_number(maxBuyable) + ". Description: Each purchase gives you 1 manual cookie to bake with.", "mabic");
 m.add_item("back", "back");
 m.intro_text="Manual baking menu.";
 int mres = m.run();
@@ -541,7 +541,7 @@ buymenu();
 if (mabm == "mabic")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string manulcook = vd.input_box("","How many manule cookies would you like to buy? Press enter to buy the maximum amount of manule cookies.", string(round(maxBuyable,0)));
+string manulcook = vd.input_box("","How many manule cookies would you like to buy? Press enter to buy the maximum amount.", string(round(maxBuyable,0)));
 double quantity = string_to_number(manulcook);
 double totalCost = 0;
     if (quantity <= 0)
@@ -588,7 +588,7 @@ void mubimenu()
         tempCoins -= buy_item(maxhunger + maxBuyable, maxHungerBaseCost, maxHungerMultiplier);
         maxBuyable++;
     }
-    m.add_item("Maximum hunger, costs " + format_number(hungerCost) + " coins. You can buy " + format_number(maxBuyable) + ". Description: Each purchase will increase your food capacity by 100 units, letting you hold more food before getting full.", "mubi");
+    m.add_item("Maximum hunger, costs " + format_number(hungerCost) + " coins. You can buy " + format_number(maxBuyable) + ". Description: Each purchase increases your food capacity by 100 units, letting you hold more food before getting full.", "mubi");
     m.add_item("back", "back");
     m.intro_text = "Hunger related Menu.";
     int mres = m.run();
@@ -608,7 +608,7 @@ void mubimenu()
             pool.destroy_sound(alertslot);
             pool.play_stationary("storefail.ogg", false);
             dlg("Error! Please enter a valid amount of maximum hunger to buy! Press enter or space to continue.");
-            mubimenu();
+        buymenu();
         }
         for (uint i = 0; i < quantity; i++)
         {
@@ -622,13 +622,13 @@ void mubimenu()
             pool.play_stationary("buy" + random(1, 4) + ".ogg", false);
             pool.play_stationary("store_order.ogg", false);
             dlg("Purchase successful! You bought " + format_number(quantity) + " max hunger for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins. Press enter or space to continue.");
-            mubimenu();
+        buymenu();
         }
         else
         {
             pool.play_stationary("storefail.ogg", false);
             dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " max hunger! Press enter or space to continue.");
-            mubimenu();
+        buymenu();
         }
     }
 }
