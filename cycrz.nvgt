@@ -1,7 +1,9 @@
+#pragma document docks
+#pragma embed "data/assets.crz"
 #include"includes/includes.nvgt"
 array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
-bool hungerwarn=true, hungerdeath=true, slotDistribution = false;
+bool hungerwarn=false, hungerdeath=false, slotDistribution=false;
 int autobakeSlots = 0;
 int lastHungerWarningLevel = -1;
 bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=false, slotmode=false;
@@ -21,7 +23,7 @@ string mustype="music1";
 string projname="releases/windows/CookyCraze_password_is_CrazeMastery";
 string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
 string playername, playername2;
-string currentSaveSlot = "data/saves/game1.crz";
+string currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game1.crz";
 string version="2.7";
 timer clicktimer;
 file dockfile, logfile;
@@ -29,9 +31,9 @@ audio_form form;
 instance gamstence("cycrz");
 menu m;
 savedata sd("", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
-savedata st("data/preffs/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
-savedata st2("data/preffs/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
-savedata st3("data/preffs/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
+savedata st(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
+savedata st2(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
+savedata st3(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
 sound_pool p, pool, ambpool, hungerpool, muspool, storambpool, stormuspool;
 virtual_dialogs vd;
 void main()
@@ -40,7 +42,7 @@ if (@touchManager == null)
 {
 @touchManager = touch_gesture_manager();
 }
-set_sound_storage("data/preffs/assets.crz");
+set_sound_storage("*");
 set_sound_decryption_key("BRn2x3BJd3O0KrB7kb2L6cY4qJYEjVt5OhuVzJmmsoj9wampZL3IAx7IdIQBMyqW7ssXZhsXwD2nrQR4qRL8038swNq0Zc2ObN6mNlWrjIGcYLqEh2t0OHeM",true);
 show_game_window("CookyCraze, version "+version);
 if(gamstence.is_already_running)
