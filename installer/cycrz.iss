@@ -1,8 +1,8 @@
-#define MyAppName "ToyMania"
-#define MyAppVersion "3.8"
+#define MyAppName "CookyCraze"
+#define MyAppVersion "2.8"
 #define MyAppPublisher "tsatria03"
-#define MyAppURL "https://tsatria03.itch.io/toymania"
-#define MyAppExeName "tm.exe"
+#define MyAppURL "https://tsatria03.itch.io/cooky-craze"
+#define MyAppExeName "cycrz.exe"
 #define MyReadme "readme.txt"
 [Setup]
 AppId={{64477427-9EAA-4A52-905B-269D21D008DA}}
@@ -19,8 +19,8 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=admin
 OutputDir=.
-OutputBaseFilename=ToyMania_windows_installer_password_is_GrateCollector
-Password=GrateCollector
+OutputBaseFilename=CookyCraze_windows_installer_password_is_CrazeMastery
+Password=CrazeMastery
 Encryption=yes
 SolidCompression=yes
 WizardStyle=modern
@@ -33,9 +33,9 @@ Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription:
 Name: "startmenuicon"; Description: "Create a Start Menu shortcut"; GroupDescription: "Additional icons:"
 
 [Files]
-Source: "C:\Users\tsatr\OneDrive\Documents\GitHub\ToyMania\releases\windows\ToyMania_windows_portable_password_is_GrateCollector\tm\*"; \
+Source: "C:\Users\tsatr\OneDrive\Documents\GitHub\CookyCraze\releases\windows\CookyCraze_windows_portable_password_is_CrazeMastery\cycrz\*"; \
   DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "C:\Users\tsatr\OneDrive\Documents\GitHub\ToyMania\releases\windows\ToyMania_windows_portable_password_is_GrateCollector\tm\docks\readme.txt"; \
+Source: "C:\Users\tsatr\OneDrive\Documents\GitHub\CookyCraze\releases\windows\CookyCraze_windows_portable_password_is_CrazeMastery\cycrz\docks\readme.txt"; \
 DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
