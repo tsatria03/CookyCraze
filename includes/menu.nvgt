@@ -4,7 +4,6 @@ setupmenu();
 m.add_item("documentation menu", "dm");
 m.add_item("game menu", "gm");
 m.add_item("settings menu", "sm");
-if(!SCRIPT_COMPILED) m.add_item("release game", "rg");
 m.add_item("exit game", "ex");
 m.intro_text = "Main menu. Please choose an option with your arrow keys, then press enter to activate one.";
 int mres=m.run();
@@ -22,11 +21,6 @@ docksmenu();
 if (main == "gm")
 {
 gamemenu();
-}
-if(main=="rg")
-{
-m.fade_music();
-release_game();
 }
 if (main == "sm")
 {
@@ -152,7 +146,7 @@ ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambp
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 readdata();
-game();
+clickergame();
 }
 else
 {
@@ -217,7 +211,7 @@ ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambp
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 resetgame();
-game();
+clickergame();
 }
 if (mres2==1)
 {
@@ -236,7 +230,7 @@ ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambp
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 resetgame();
-game();
+clickergame();
 }
 }
 void mingamsmenu()
@@ -253,7 +247,7 @@ form.monitor();
         if (key_pressed(KEY_ESCAPE))
         {
 form.reset();
-game();
+clickergame();
 }
 if(form.is_pressed(slots))
 {
@@ -309,7 +303,7 @@ muspool.destroy_sound(mustrackslot);
 ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
-game();
+clickergame();
 }
 if(stm=="bmu")
 {
@@ -381,7 +375,7 @@ muspool.destroy_sound(mustrackslot);
 ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
-game();
+clickergame();
 }
 }
 void buymenu()
@@ -661,7 +655,7 @@ usersetsmenu();
 if(ingame==true)
 {
 form.reset();
-game();
+clickergame();
 }
 else if(ingame==false)
 {

@@ -233,7 +233,7 @@ ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambp
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 resetgame();
-game();
+clickergame();
 }
 if(mres==1)
 {
@@ -256,7 +256,7 @@ ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambp
 mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 resetgame();
-game();
+clickergame();
 }
 }
 }
@@ -324,7 +324,7 @@ void manage_baking_slots()
 if(automated==0) m.intro_text = "Slot manager menu. You have no automated slots.";
     if(automated>=1) m.intro_text = "Slot manager menu. You have " + string(automated) + " out of " + string(baking_slots.length()) + " slots automated.";
     int mres = m.run();
-    if (mres == -1 || m.get_selected_item_id() == "back") game();
+    if (mres == -1 || m.get_selected_item_id() == "back") clickergame();
     string selected = m.get_selected_item_id();
     if (selected == "add_slot")
     {
