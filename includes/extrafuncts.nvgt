@@ -305,7 +305,7 @@ hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
 
 void set_save_slot(int slot)
 {
-    currentSaveSlot = "data/saves/game" + string(slot) + ".crz";
+    currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game" + string(slot) + ".crz";
     sd = savedata(currentSaveSlot, "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
 }
 

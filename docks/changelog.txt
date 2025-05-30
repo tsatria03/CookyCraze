@@ -1,4 +1,5 @@
 new in 2.8beta
+Fixed some bugs with the game saving system.
 Removed the ability to adjust the ambience, music, and store pitches in the sound settings menu.
 Made it so game data and settings are now saved to the user's AppData folder under tsatria03/CookyCraze/preffs, and tsatria03/CookyCraze/saves.
 new in 2.7
