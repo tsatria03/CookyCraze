@@ -1,7 +1,8 @@
 new in 2.8beta
+Removed the heartbeat sounds tied to pressing the letter H when checking your hunger.
 Fixed some bugs with the game saving system.
 Removed the ability to adjust the ambience, music, and store pitches in the sound settings menu.
-Made it so game data and settings are now saved to the user's AppData folder under tsatria03/CookyCraze/preffs, and tsatria03/CookyCraze/saves.
+Made it so the game data and settings are now saved to the user's AppData folder under tsatria03/CookyCraze/preffs, and tsatria03/CookyCraze/saves.
 new in 2.7
 You can now toggle the save sound for saving and reloading the game in the game settings menu.
 You can now toggle the exit sound upon exiting the game in the game settings menu.
