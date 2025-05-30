@@ -33,6 +33,7 @@ coin50.ogg
 coin50000.ogg
 coinflip.ogg
 cointoss.ogg
+cookflip.ogg
 error.ogg
 exitgame.ogg
 female_vomit.ogg
@@ -43,7 +44,7 @@ give.ogg
 heal1.ogg
 heal2.ogg
 heal3.ogg
-heart.ogg
+heart1.ogg
 heart2.ogg
 heart3.ogg
 hungerdeath.ogg
@@ -122,4 +123,4 @@ toggleon.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 124
+total files: 125
