@@ -158,7 +158,7 @@ else
 {
 m.fade_music();
 alertslot=pool.play_stationary("error.ogg",false);
-dlg("Error! The data assosiated with this save slot does not exist! Press enter or space to continue: "+currentSaveSlot);
+dlg("Error! The data assosiated with this save slot does not exist! Press enter or space to continue.");
 pool.destroy_sound(alertslot);
 ingame=false;
 gamemenu();
