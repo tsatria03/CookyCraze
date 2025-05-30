@@ -24,7 +24,7 @@ string projname="releases/windows/CookyCraze_password_is_CrazeMastery";
 string repo_dir="C:/Users/tsatr/OneDrive/Documents/GitHub/CookyCraze";
 string playername, playername2;
 string currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game1.crz";
-string version="2.7";
+string version="2.8beta";
 timer clicktimer;
 file dockfile, logfile;
 audio_form form;
