@@ -27,7 +27,7 @@ Improved] Number Formatting for speaking large numbers in the game. These are no
 Fixed a bug where entering baking mode could cause the game to crash while it was looping through more slots than it actually had. It’s now fixed so it only checks the actual slots you’ve got, not just how many are automated.
 new in 2.5
 Improved the Status displays found in all of the Slot automation Menus. The slots in the automation and non-automation menus now clearly indicate whether they’re automated or not. When cookie distribution is enabled, each slot will also show how many cookies it produces, making it easier to compare performance across all of your slots.
-Improved the "Automate unautomated Slots Feature found in the non automated slots menu. This option now properly increases the automation cost for future slot production upgrades. Previously, it automated multiple slots at once, but didn’t update the base cost, causing single-slot automation to appear cheaper than intended. This issue has now been resolved.
+Improved the Automate unautomated Slots Feature found in the non automated slots menu. This option now properly increases the automation cost for future slot production upgrades. Previously, it automated multiple slots at once, but didn’t update the base cost, causing single-slot automation to appear cheaper than intended. This issue has now been resolved.
 Added the ability to automate all of your auto baking slots at once in the non automated slots menu.
 Fixed an issue where starting the game from a new save slot would cause the required cookies variable to not get updated propperly.
 You can now toggle whether cookies are evenly split across automated slots or multiplied per slot in the game settings menu.
@@ -125,7 +125,7 @@ Added store anbience volume and pitch sliders to the audio settings menu.
 Added some more music to the main game.
 new in 1.7
 Added the ability to load and start new games in the main menu.
-Replaced the text_input class with a much better virtual_dialogs class. This class includes the ability to create virtual_input_boxes that uses the audio forms class as a backend. The game will now  utilize this class for all input prompts from now on.
+Replaced the text_input class with a much better virtual_dialogs class. This class includes the ability to create virtual_input_boxes that uses the audio forms class as a backend. The game will now utilize this class for all input prompts from now on.
 Removed the statistics found under each button that told you how many of an item you had while hovering over the button. For example, the button to access the cooky store is now less verbose. Instead of telling you how many coins you have when hovering over the button, it will now just say cooky store.
 Moved the preferences menu out of the game into the newly implemented main menu.
 Completely revamped the user interface in the game to use the audio forms object for all menus and actions. The m_pro and slider classes will no longer be of use moving forward.
@@ -135,7 +135,7 @@ Added a sound for checking how many coins you have when pressing the letter M in
 Fixed the bug where the order of bets were incorrectly placed, causing you not to lose the item that was bet after all of the reels have spun.
 Added sounds for launching mini games. The game will now alert the user if they aren't at a high enough rank to play them.
 new in 1.6
-Addressed an issue where items bet by the slot machine weren't being spoken correctly when the user spun the reels. Instead of saying; you placed a bet of numbered items on item name, it would say; you placed a bet of numbered items on item number.
+Addressed an issue where items bet by the slot machine weren't being spoken correctly when the user spun the reels. Instead of saying, you placed a bet of numbered items on item name, it would say, you placed a bet of numbered items on item number.
 Made it so the game doesn't anounce wich reel has been chosen when automatic reel stopping is enabled.
 Added the option to rearange the slot machine symbols alphabetically in the game settings menu.
 Added lots more symbols to choose from to the slot machine mini game.
@@ -157,7 +157,7 @@ You can now adjust the base costs and cost multipliers of items for the shop in 
 Made it so you can no longer buy negative amounts of items in the shop menu.
 Recoded the cost calculation system. It will no longer jump to Outrageously high prices when buying more than a handful of items in the shop menu. The infinit coin bug should finally be resolved once and for all!
 new in 1.4
-Added buffer clearing functions: Introduced clear_all_buffer_items to clear items within a buffer, preventing unnecessary exports of old data.
+Added buffer clearing functions. Introduced clear_all_buffer_items to clear items within a buffer, preventing unnecessary exports of old data.
 Fixed various buffer exporting issues. Buffers can now only be exported if they contain items, preventing empty buffer exports and ensuring cleaner log files. The export buffers function will now skip any buffers without items, ensuring only relevant data is written to those logs.
 Fixed lots of bugs related to sounds not updating properly when volumes and pitches were being changed on them.
 Updated the readme file with added and modified keyboard shortcuts.
@@ -186,7 +186,7 @@ Added more events to the coin flip minni game.
 Made it so your hunger starts to increase as you rank up in the game. You'll now start to notice things when you get more hungry, such as hering warning sounds and messages. There's now a button that allows you to check your hunger status.
 Updated the save data class with more data types it can read.
 Fixed various issues found in all sliders.
-Modified the Hunger System: The hunger mechanics has now been reworked to reflect how hungry your character is, rather than their actual fullness. Your character's hunger will now start at 0, and will increase as they encounter more events.
+Modified the Hunger System. The hunger mechanics has now been reworked to reflect how hungry your character is, rather than their actual fullness. Your character's hunger will now start at 0, and will increase as they encounter more events.
 Modified the auto cooky speed boost events found in the coin flip and bakery functions.
 You can no longer hold down the spacebar to manuely bake cookies. I couldn't believe this was actually a thing untill someone had mencioned this to me while I was testing it.
 new in 1.1
