@@ -1,3 +1,5 @@
+#pragma document docks
+#pragma embed "data/res/assets.crz"
 #include"bgt_compat.nvgt"
 #include"sound_pool.nvgt"
 #include"dget.nvgt"
@@ -15,7 +17,40 @@
 #include"savefuncts.nvgt"
 #include"setupmenu.nvgt"
 #include"speech.nvgt"
-#include"touch.nvgt"
-#include"touch_gestures.nvgt"
 #include"virtual_dialogs.nvgt"
+
+array<bool> autobakeSlotEnabled;
+array<bool> baking_slots;
+bool hungerwarn=true, hungerdeath=true, slotDistribution=false;
+int autobakeSlots = 0;
+int lastHungerWarningLevel = -1;
+bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=true;
+bool[] autoEventToggles(autoBakingEvents.length(), true);
+bool[] manualEventToggles(manualBakingEvents.length(), true);
+double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, hunger=0, maxhunger=1000, levcoins=0, manulcooky=0, rank=1, usercoins=0;
+double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5, maxHungerBaseCost = 15, maxHungerMultiplier = 15, automationBaseCost = 30, slotBaseCost = 60, automationMultiplier = 1.1, slotMultiplier = 1.2;
+double ambvolume=0, ambpitch=100, foodvolume=0, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
+int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, hungerslot=-1, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
+int evchanse=50, evchanse2=50, playergender=0;
+int bakemode=0,  clicktime=1000-cookyspeed;
+int ambienceIndex=0, musicIndex=0;
+string[] autoBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
+string[] manualBakingEvents = {"fire_spark", "bonus_cookies", "extra_hunger", "decrease_hunger", "increase_cookyspeed", "decrease_cookyspeed", "gain_coins", "lose_coins", "gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky"};
+string ambtype="room1";
+string mustype="music1";
+string playername, playername2;
+string currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game1.crz";
+string version="2.8";
+timer clicktimer;
+file dockfile, logfile;
+audio_form form;
+instance gamstence("cycrz");
+menu m;
+savedata sd("", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
+savedata st(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
+savedata st2(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
+savedata st3(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
+sound_pool p, pool, ambpool, hungerpool, muspool, storambpool, stormuspool;
+virtual_dialogs vd;
+
 typedef uint8 usmall; typedef int8 small;

@@ -1,10 +1,11 @@
-*Done. Find a way to convert numbers hier than a trillion with a math rounding function.
-*Done. Add the ability to mute auto baking sounds in the game settings menu.
-*Done. Change ambiences for various mini games.
-*Done. Fix rounding calculation issues.
-*Done. Make it so the music doesn't randomize when saving your settings.
-*Done. Fix the shop menu.
-*Done. Add the ability to mute sertain anouncements and sounds in the game settings menu.
-*Done. Make it so you can quickly save the game by pressing Control S.
-*Done. Make it so you can turn off events for baking.
-*Done. Add the ability to change your first, last, and gender of your character.
+*Unfinished. Add buying multiple slots with coins.
+*Finished. Find a way to convert numbers hier than a trillion with a math rounding function.
+*Finished. Add the ability to mute auto baking sounds in the game settings menu.
+*Finished. Change ambiences for various mini games.
+*Finished. Fix rounding calculation issues.
+*Finished. Make it so the music doesn't randomize when saving your settings.
+*Finished. Fix the shop menu.
+*Finished. Add the ability to mute sertain anouncements and sounds in the game settings menu.
+*Finished. Make it so you can quickly save the game by pressing Control S.
+*Finished. Make it so you can turn off events for baking.
+*Finished. Add the ability to change your first, last, and gender of your character.

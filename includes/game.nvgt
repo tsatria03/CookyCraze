@@ -1,7 +1,6 @@
 void clicker_game_input()
 {
 buffercheck();
-touchManager.monitor();
 if(control_is_down())
 {
 if(key_pressed(KEY_S))

@@ -1,4 +1,5 @@
-new in 2.8beta
+new in 2.8
+You can now add packs of multiple baking slots for the auto baker.
 Removed the heartbeat sounds tied to pressing the letter H when checking your hunger.
 Fixed some bugs with the game saving system.
 Removed the ability to adjust the ambience, music, and store pitches in the sound settings menu.
