@@ -52,12 +52,6 @@ if (key_pressed(KEY_F))
         if (autobakeSlotEnabled[i])
             slotCount++;
     }
-    if (slotCount == 0)
-    {
-        speak_buffer("You don't have any automated slots enabled yet.", "misc");
-    }
-    else
-    {
         double cookiesPerSlot;
         double totalCookies;
         if (slotDistribution)
@@ -79,7 +73,6 @@ if (key_pressed(KEY_F))
             speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies every " + clicktime + " milliseconds. With " + slotCount + " automated slots, you produce " + format_number(totalCookies) + " cookies every " + clicktime + " milliseconds.", "misc");
         }
     }
-}
 if(key_pressed(KEY_C))
 {
 if(cookies>=0)
@@ -99,15 +92,15 @@ if(key_pressed(KEY_H))
 {
 if(hunger<=maxhunger/4)
 {
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
 }
 if(hunger>=maxhunger/4 and hunger<=maxhunger/2)
 {
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
 }
 if(hunger>=maxhunger/2 or hunger<=maxhunger)
 {
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"percent hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
+speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
 }
 }
 if(key_pressed(KEY_J))
