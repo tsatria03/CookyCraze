@@ -287,12 +287,12 @@ if (autobakeSlotEnabled[i]) automated++;
 }
 m.add_item("Automated slots (" + string(automated) + ")", "automated");
 m.add_item("Non-automated slots (" + string(baking_slots.length() - automated) + ")", "nonauto");
-m.add_item("Slot producer", "slp");
+        m.add_item("Produced slots (" + string(baking_slots.length()) + ")", "slp");
 m.add_item("Back", "back");
-if (automated == 0)
-m.intro_text = "Slot manager menu. You have no automated slots.";
-else
-m.intro_text = "Slot manager menu. You have " + string(automated) + " out of " + string(baking_slots.length()) + " slots automated.";
+int produced = baking_slots.length();
+int automated = autobakeSlots;
+int nonauto = produced - automated;
+m.intro_text = "Slot manager menu. You have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " non-automated slot" + (nonauto == 1 ? "" : "s") + ".";
 int mres = m.run();
 if (mres == -1 || m.get_selected_item_id() == "back") clickergame();
 string selected = m.get_selected_item_id();
@@ -308,7 +308,7 @@ if (selected == "slp")
     m.add_item("Add 250 slots for " + format_number(calc_slot_cost(250)) + " coins", "add_slot7");
     m.add_item("Add 500 slots for " + format_number(calc_slot_cost(500)) + " coins", "add_slot8");
     m.add_item("Back", "back");
-    m.intro_text = "Slot producer menu.";
+    m.intro_text = "Produced slots menu.";
     if (last_menu_index > 0 && last_menu_index < m.get_item_count()) m.set_focused_item(last_menu_index, true);
     while (true)
     {
@@ -343,7 +343,10 @@ if (selected == "slp")
                 }
                 pool.destroy_sound(alertslot);
                 alertslot = pool.play_stationary("prodslot.ogg", false);
-                speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(baking_slots.length()) + " slots.");
+int produced = baking_slots.length();
+int automated = autobakeSlots;
+int nonauto = produced - automated;
+speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " non-automated slot" + (nonauto == 1 ? "" : "s") + ".");
             }
             else
             {
