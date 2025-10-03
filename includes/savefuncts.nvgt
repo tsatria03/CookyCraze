@@ -21,14 +21,6 @@ if(sd.d.exists("cookyspeed"))
 {
 cookyspeed=sd.read_double("cookyspeed");
 }
-if(sd.d.exists("hunger"))
-{
-hunger=sd.read_double("hunger");
-}
-if(sd.d.exists("maxhunger"))
-{
-maxhunger=sd.read_double("maxhunger");
-}
 if(sd.d.exists("levcoins"))
 {
 levcoins=sd.read_double("levcoins");
@@ -102,8 +94,6 @@ sd.add("coins",coins);
 sd.add("cookies",cookies);
 st.add("cookiesrequiered",cookiesrequiered);
 sd.add("cookyspeed",cookyspeed);
-sd.add("hunger",hunger);
-sd.add("maxhunger",maxhunger);
 sd.add("levcoins",levcoins);
 sd.add("manulcooky",manulcooky);
 sd.add("rank",rank);
@@ -153,14 +143,6 @@ ranksfx=st.read_bool("ranksfx");
 if(st.d.exists("savesfx"))
 {
 savesfx=st.read_bool("savesfx");
-}
-if (st.d.exists("hungerdeath"))
-{
-hungerdeath = st.read_bool("hungerdeath");
-}
-if (st.d.exists("hungerwarn"))
-{
-hungerwarn = st.read_bool("hungerwarn");
 }
 if (st.d.exists("slotDistribution"))
 {
@@ -214,14 +196,6 @@ if(st.d.exists("manualCookyMultiplier"))
 {
 manualCookyMultiplier=st.read_double("manualCookyMultiplier");
 }
-if(st.d.exists("maxHungerBaseCost"))
-{
-maxHungerBaseCost=st.read_double("maxHungerBaseCost");
-}
-if(st.d.exists("maxHungerMultiplier"))
-{
-maxHungerMultiplier=st.read_double("maxHungerMultiplier");
-}
 if(st.d.exists("difmod"))
 {
 difmod=st.read_double("difmod");
@@ -265,8 +239,6 @@ st.add("introsfx",introsfx);
 st.add("logosfx",logosfx);
 st.add("ranksfx",ranksfx);
 st.add("savesfx",savesfx);
-st.add("hungerdeath",hungerdeath);
-st.add("hungerwarn",hungerwarn);
 st.add("slotDistribution",slotDistribution);
 st.add("playervents",playervents);
 st.add("playervents2",playervents2);
@@ -280,8 +252,6 @@ st.add("autoCookySpeedBaseCost",autoCookySpeedBaseCost);
 st.add("autoCookySpeedMultiplier",autoCookySpeedMultiplier);
 st.add("manualCookyBaseCost",manualCookyBaseCost);
 st.add("manualCookyMultiplier",manualCookyMultiplier);
-st.add("maxHungerBaseCost",maxHungerBaseCost);
-st.add("maxHungerMultiplier",maxHungerMultiplier);
 st.add("difmod",difmod);
 st.add("cookymod",cookymod);
 st.add("evchanse",evchanse);

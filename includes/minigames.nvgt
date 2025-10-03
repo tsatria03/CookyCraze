@@ -8,13 +8,11 @@ if(key_pressed(KEY_S))
 writedata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-hungerpool.pause_sound(hungerslot);
 speak_buffer("game saved", "misc");
 if(savesfx==false) wait(500);
 if(savesfx==true) dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
-hungerpool.resume_sound(hungerslot);
 form.reset();
 coingame();
 }
@@ -23,13 +21,11 @@ if(key_pressed(KEY_L))
 readdata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-hungerpool.pause_sound(hungerslot);
 speak_buffer("game reloaded", "misc");
 if(savesfx==false) wait(500);
 if(savesfx==true) dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
-hungerpool.resume_sound(hungerslot);
 form.reset();
 coingame();
 }
@@ -56,27 +52,12 @@ pool.destroy_sound(coinslot);
 if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have " + format_number(coins) + " coins.");
 }
-if(key_pressed(KEY_H))
-{
-if(hunger<=maxhunger/4)
-{
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
-}
-if(hunger>=maxhunger/4 and hunger<=maxhunger/2)
-{
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
-}
-if(hunger>=maxhunger/2 or hunger<=maxhunger)
-{
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
-}
-}
 }
 void coingame()
 {
     form.reset();
     form.create_window("Coin flipper", false);
-string[] coinFlipEvents = {"gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky", "gain_cookies", "lose_cookies", "increase_hunger", "decrease_hunger", "gain_coins", "lose_coins", "increase_cookyspeed", "decrease_cookyspeed"};
+string[] coinFlipEvents = {"gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky", "gain_cookies", "lose_cookies", "gain_coins", "lose_coins", "increase_cookyspeed", "decrease_cookyspeed"};
     int coinEventList = form.create_list("Choose the &coin events to use:", coinFlipEvents.length(), true, false);
 bool[] coinEventToggles(coinFlipEvents.length(), true);
     for (uint i = 0; i < coinFlipEvents.length(); i++)
@@ -89,8 +70,6 @@ int flip = form.create_button("&Flip a coin", true);
     {
         wait(5);
         form.monitor();
-if(hungerdeath==true) deathcheck();
-if(hungerwarn==true) hungercheck();
 if(autocooky<=0)
 {
 bakemode=0;
@@ -107,14 +86,6 @@ cookies=0;
 if(cookyspeed<=0)
 {
 cookyspeed=0;
-}
-if(hunger<=0)
-{
-hunger=0;
-}
-if(hunger>=maxhunger)
-{
-hunger=maxhunger;
 }
 if(manulcooky<=0)
 {
@@ -149,11 +120,11 @@ if (form.is_pressed(flip))
             if (form.is_list_item_checked(coinEventList, i))
             {
                 activeCoinEvents.insert_last(coinFlipEvents[i]);
-                if (coinFlipEvents[i].find("gain") >= 0 || coinFlipEvents[i] == "decrease_hunger" || coinFlipEvents[i] == "increase_cookyspeed")
+                if (coinFlipEvents[i].find("gain") >= 0 || coinFlipEvents[i] == "increase_cookyspeed")
                 {
                     headsEvents.insert_last(coinFlipEvents[i]);
                 }
-                else if (coinFlipEvents[i].find("lose") >= 0 || coinFlipEvents[i] == "increase_hunger" || coinFlipEvents[i] == "decrease_cookyspeed")
+                else if (coinFlipEvents[i].find("lose") >= 0 || coinFlipEvents[i] == "decrease_cookyspeed")
                 {
                     tailsEvents.insert_last(coinFlipEvents[i]);
                 }
@@ -202,13 +173,11 @@ if(key_pressed(KEY_S))
 writedata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-hungerpool.pause_sound(hungerslot);
 speak_buffer("game saved", "misc");
 if(savesfx==false) wait(500);
 if(savesfx==true) dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
-hungerpool.resume_sound(hungerslot);
 form.reset();
 slotsgame();
 }
@@ -217,13 +186,11 @@ if(key_pressed(KEY_L))
 readdata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-hungerpool.pause_sound(hungerslot);
 speak_buffer("game reloaded", "misc");
 if(savesfx==false) wait(500);
 if(savesfx==true) dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
-hungerpool.resume_sound(hungerslot);
 form.reset();
 slotsgame();
 }
@@ -288,8 +255,6 @@ string reel1 = "", reel2 = "", reel3 = "", reel4 = "", reel5 = "";
     {
         wait(5);
         form.monitor();
-if(hungerdeath==true) deathcheck();
-if(hungerwarn==true) hungercheck();
 if(autocooky<=0)
 {
 bakemode=0;

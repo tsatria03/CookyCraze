@@ -8,13 +8,11 @@ if(key_pressed(KEY_S))
 writedata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-hungerpool.pause_sound(hungerslot);
 speak_buffer("game saved", "misc");
 if(savesfx==false) wait(500);
 if(savesfx==true) dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
-hungerpool.resume_sound(hungerslot);
 form.reset();
 clickergame();
 }
@@ -23,13 +21,11 @@ if(key_pressed(KEY_L))
 readdata();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-hungerpool.pause_sound(hungerslot);
 speak_buffer("game reloaded", "misc");
 if(savesfx==false) wait(500);
 if(savesfx==true) dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
-hungerpool.resume_sound(hungerslot);
 form.reset();
 clickergame();
 }
@@ -88,21 +84,6 @@ else if(cookies>=2)
 speak_buffer("You baked a total of"+cookies+"cookies.", "misc");
 }
 }
-if(key_pressed(KEY_H))
-{
-if(hunger<=maxhunger/4)
-{
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
-}
-if(hunger>=maxhunger/4 and hunger<=maxhunger/2)
-{
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
-}
-if(hunger>=maxhunger/2 or hunger<=maxhunger)
-{
-speak_buffer("You are "+format_number(hunger/maxhunger*100)+"% hungry. You can hold up to "+format_number(maxhunger)+" units of food.", "misc");
-}
-}
 if(key_pressed(KEY_J))
 {
 if(manulcooky<1)
@@ -124,7 +105,6 @@ if(key_pressed(KEY_F4))
 {
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-hungerpool.destroy_sound(hungerslot);
 pool.destroy_all();
 speak_buffer("Exiting the game without saving.");
 if(exitsfx==false) wait(500);
@@ -137,7 +117,6 @@ if(key_repeating(KEY_ESCAPE))
 alertslot=pool.play_stationary("alert_critical.ogg",false);
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
-hungerpool.destroy_sound(hungerslot);
     setupmenu(false);    
     m.add_item("Yes, quit the game without saving", "quit_no_save");
     m.add_item("Yes, save the game and then quit", "quit_save");
@@ -212,7 +191,6 @@ form.reset();
 form.create_window("CookyCraze", false);
 int manulbake=form.create_button("Bake cook&ies");
 int shop=form.create_button("Cooky &store");
-int food=form.create_button("Ea&t cookies");
 int autobake=form.create_button("Enter baking m&ode");
     int manageSlots = form.create_button("Manage auto baking s&lots");
 int minigames=form.create_button("mini &games");
@@ -223,8 +201,6 @@ while(true)
 wait(5);
 form.monitor();
 clicker_game_input();
-if(hungerdeath==true) deathcheck();
-if(hungerwarn==true) hungercheck();
 if(autocooky<=0)
 {
 bakemode=0;
@@ -241,14 +217,6 @@ cookies=0;
 if(cookyspeed<=0)
 {
 cookyspeed=0;
-}
-if(hunger<=0)
-{
-hunger=0;
-}
-if(hunger>=maxhunger)
-{
-hunger=maxhunger;
 }
 if(manulcooky<=0)
 {
@@ -319,7 +287,6 @@ else if(coins>=1)
 {
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-hungerpool.destroy_sound(hungerslot);
 speak_buffer("You're now entering the cooky store.", "critical");
 dlgplay("store_door_open.ogg");
 alertslot=pool.play_stationary("store_welcome.ogg",false);
@@ -327,29 +294,6 @@ storambslot=storambpool.play_stationary_extended("store_amb.ogg",true,0,0,storam
 stortrackslot=stormuspool.play_stationary_extended("store_music.ogg",true,0,0,stormusvolume,stormuspitch,false);
 shopmenu();
 }
-}
-if (form.is_pressed(food))
-{
-    if (cookies > 0)
-{
-        double cookiesToEat = min(10 * rank, cookies);
-pool.destroy_sound(foodslot);
-        foodslot = pool.play_stationary("chip"+random(1,3)+".ogg", false);
-        cookies -= cookiesToEat;
-          hunger = max(0, hunger - cookiesToEat);
-        if (hunger <= 0)
-{
-            pool.destroy_sound(foodslot);
-            pool.destroy_sound(eventslot);
-            if (playergender == 0) eventslot = pool.play_stationary("male_vomit.ogg", false);
-            if (playergender == 1) eventslot = pool.play_stationary("female_vomit.ogg", false);
-speak_buffer("You ate too much! You feel sick, and now lost " + format_number(cookiesToEat) + " cookies as a penalty.", "critical");
-            hunger = 0;
-        }
-    } else if (cookies <= 0)
-{
-        speak_buffer("There aren't enough cookies for you to eat.", "general");
-    }
 }
 if(bakemode==1 and autocooky>=1  and autobakeSlots > 0)
 {
@@ -379,7 +323,6 @@ pool.destroy_all();
 }
 if (cookies >= cookiesrequiered)
 {
-hunger+= 10 * rank;
     levcoins+=10 * rank;
     rank+=1;
     coins += levcoins;

@@ -1,4 +1,4 @@
-*Unfinished. Add buying multiple slots with coins.
+*Finished. Make it so you can produce multiple slots with coins.
 *Finished. Find a way to convert numbers hier than a trillion with a math rounding function.
 *Finished. Add the ability to mute auto baking sounds in the game settings menu.
 *Finished. Change ambiences for various mini games.

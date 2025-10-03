@@ -165,113 +165,6 @@ string retval=array[random(0,array.length()-1)];
 return retval;
 }
 
-void deathcheck()
-{
-if(hunger>=maxhunger)
-{
-pool.destroy_sound(alertslot);
-hungerpool.destroy_sound(hungerslot);
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-pool.destroy_all();
-speak("You're dying of hunger! So much for warning you all of those times. Rest in pease to you, my dear "+playername+"! Better luck next time!");
-dlgplay("hungerdeath.ogg");
-setupmenu(false);
-m.add_item("yes");
-m.add_item("no");
-m.intro_text="You have died from starvation. Would you like to try again?";
-int mres=m.run();
-if(mres==-1)
-{
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-pool.destroy_all();
-speak_buffer("Exiting the game without saving.");
-if(exitsfx==false) wait(500);
-if(exitsfx==true) dlgplay("exitgame.ogg");
-mainmenu();
-}
-if(mres==0)
-{
-speak("loading");
-wait(500);
-if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
-ingame=true;
-resetgame();
-clickergame();
-}
-if(mres==1)
-{
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-pool.destroy_all();
-speak_buffer("Exiting the game without saving.");
-if(exitsfx==false) wait(500);
-if(exitsfx==true) dlgplay("exitgame.ogg");
-mainmenu();
-}
-else
-{
-speak("loading");
-wait(500);
-if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
-ingame=true;
-resetgame();
-clickergame();
-}
-}
-}
-void hungercheck()
-{
-    double hungerPercent = hunger / maxhunger;
-    int warningLevel = int(hungerPercent * 100);
-    if (hungerPercent >= 0.6)
-    {
-        if (hungerslot == -1)
-            hungerslot = hungerpool.play_stationary_extended("hungerwarn.ogg", true, 0, 0, foodvolume, 100, false);
-        if (warningLevel >= 80 && lastHungerWarningLevel < 80)
-        {
-foodvolume=-10;
-hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
-            speak_buffer("You're starving! Eat something immediately.", "critical");
-            lastHungerWarningLevel = 80;
-        }
-        else if (warningLevel >= 70 && lastHungerWarningLevel < 70)
-        {
-foodvolume=-15;
-hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
-            speak_buffer("You're getting dangerously hungry. Eat something before it's too late.", "critical");
-            lastHungerWarningLevel = 70;
-        }
-        else if (warningLevel >= 60 && lastHungerWarningLevel < 60)
-        {
-foodvolume=-20;
-hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
-            speak_buffer("You're getting very hungry. You should eat soon.", "critical");
-            lastHungerWarningLevel = 60;
-        }
-    }
-    else
-    {
-        if (hungerslot != -1)
-        {
-foodvolume=-20;
-hungerpool.update_sound_start_values(hungerslot, 0, foodvolume, 100);
-            hungerpool.destroy_sound(hungerslot);
-            hungerslot = -1;
-            lastHungerWarningLevel = -1;
-        }
-    }
-}
-
 void set_save_slot(int slot)
 {
     currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game" + string(slot) + ".crz";
@@ -280,14 +173,9 @@ void set_save_slot(int slot)
 void manage_baking_slots()
 {
 setupmenu(false);
-int automated = 0;
-for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
-{
-if (autobakeSlotEnabled[i]) automated++;
-}
-m.add_item("Automated slots (" + string(automated) + ")", "automated");
-m.add_item("Non-automated slots (" + string(baking_slots.length() - automated) + ")", "nonauto");
-        m.add_item("Produced slots (" + string(baking_slots.length()) + ")", "slp");
+m.add_item("Automated slots", "automated");
+m.add_item("Non-automated slots", "nonauto");
+        m.add_item("Produced slots", "slp");
 m.add_item("Back", "back");
 int produced = baking_slots.length();
 int automated = autobakeSlots;

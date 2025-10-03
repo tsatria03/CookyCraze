@@ -382,7 +382,6 @@ void buymenu()
 {
 setupmenu2();
 m.add_item("automatic baking items", "abi");
-m.add_item("hunger related items", "mubi");
 m.add_item("manule baking items", "mabi");
 m.add_item("back", "back");
 m.intro_text="Upgrades menu. Please choose a cattigory to purchis.";
@@ -399,10 +398,6 @@ abimenu();
 if(stm=="mabi")
 {
 mabimenu();
-}
-if(stm=="mubi")
-{
-mubimenu();
 }
 if(stm=="back")
 {
@@ -571,61 +566,6 @@ if (mabm == "back")
 buymenu();
 }
 }
-void mubimenu()
-{
-    setupmenu2();
-    double hungerCost = buy_item(maxhunger, maxHungerBaseCost, maxHungerMultiplier);
-    double maxBuyable = 0;
-    double tempCoins = coins;
-    while (tempCoins >= buy_item(maxhunger + maxBuyable, maxHungerBaseCost, maxHungerMultiplier))
-    {
-        tempCoins -= buy_item(maxhunger + maxBuyable, maxHungerBaseCost, maxHungerMultiplier);
-        maxBuyable++;
-    }
-    m.add_item("Maximum hunger, costs " + format_number(hungerCost) + " coins. You can buy " + format_number(maxBuyable) + ". Description: Each purchase increases your food capacity by 100 units, letting you hold more food before getting full.", "mubi");
-    m.add_item("back", "back");
-    m.intro_text = "Hunger related Menu.";
-    int mres = m.run();
-    string mubm = m.get_selected_item_id();
-    if (mres == -1 || mubm == "back")
-    {
-        buymenu();
-    }
-    if (mubm == "mubi")
-    {
-        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-        string hungerBuy = vd.input_box("", "How much maximum hunger would you like to buy? Press enter to buy the maximum amount.", string(round(maxBuyable, 0)));
-        double quantity = string_to_number(hungerBuy);
-        double totalCost = 0;
-        if (quantity <= 0)
-        {
-            pool.destroy_sound(alertslot);
-            pool.play_stationary("storefail.ogg", false);
-            dlgmessage_return("Error! Please enter a valid amount of maximum hunger to buy!");
-        buymenu();
-        }
-        for (uint i = 0; i < quantity; i++)
-        {
-            totalCost += buy_item(maxhunger + i, maxHungerBaseCost, maxHungerMultiplier);
-        }
-        if (coins >= totalCost)
-        {
-            coins -= totalCost;
-            maxhunger += quantity*100;
-            double nextUpgradeCost = buy_item(maxhunger, maxHungerBaseCost, maxHungerMultiplier);
-            pool.play_stationary("buy" + random(1, 4) + ".ogg", false);
-            pool.play_stationary("store_order.ogg", false);
-            dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " max hunger for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
-        buymenu();
-        }
-        else
-        {
-            pool.play_stationary("storefail.ogg", false);
-            dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " max hunger!");
-        buymenu();
-        }
-    }
-}
 void preffsmenu()
 {
 form.reset();
@@ -676,8 +616,6 @@ int coinSFX = form.create_checkbox("Enable coin sound effects when earning money
 int eventSFX = form.create_checkbox("Enable event sound effects when events trigger.", eventsfx);
 int rankSFX = form.create_checkbox("Enable rank sound effects when leveling up.", ranksfx);
 int saveSFX = form.create_checkbox("Enable save sound effects when reloading and saving the game.", savesfx);
-int foodkill = form.create_checkbox("Enable dying from extreme hunger.", hungerdeath);
-int foodwarn = form.create_checkbox("Enable hunger level warnings.", hungerwarn);
 int playvents = form.create_checkbox("Enable player events during auto baking.", playervents);
 int playvents2 = form.create_checkbox("Enable player events during manual baking.", playervents2);
 int ordsyms = form.create_checkbox("Enable alphabetical symbol listing for the slot machine mini game.", orderedSyms);
@@ -691,8 +629,6 @@ int slotMultiplierSlider = form.create_slider("Slot production Cost Multiplier."
     int autoCookySpeedMultiplierSlider = form.create_slider("Auto Cooky Speed Cost Multiplier.", autoCookySpeedMultiplier, 1, 100, "X", 1);
     int manualCookyBaseCostSlider = form.create_slider("Manual Cooky Base Cost.", manualCookyBaseCost, 1, 100, "coins", 1);
     int manualCookyMultiplierSlider = form.create_slider("Manual Cooky Cost Multiplier.", manualCookyMultiplier, 1, 100, "X", 1);
-    int maxHungerBaseCostSlider = form.create_slider("Max Hunger Base Cost.", maxHungerBaseCost, 1, 100, "coins", 1);
-    int maxHungerMultiplierSlider = form.create_slider("Max Hunger Cost Multiplier.", maxHungerMultiplier, 1, 100, "X", 1);
 int cookieRankModifierSlider = form.create_slider("Cookie Rank Modifier.", cookymod, 1, 100, "x", 1);
 int difficultyRankModifierSlider = form.create_slider("Difficulty rank Modifier.", difmod, 1, 100, "x", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 1, 100, "percent", 1);
@@ -720,8 +656,6 @@ slotMultiplier = 1.0 + (form.get_slider(slotMultiplierSlider) * 0.01);
         autoCookySpeedMultiplier = form.get_slider(autoCookySpeedMultiplierSlider);
         manualCookyBaseCost = form.get_slider(manualCookyBaseCostSlider);
         manualCookyMultiplier = form.get_slider(manualCookyMultiplierSlider);
-       maxHungerBaseCost = form.get_slider(maxHungerBaseCostSlider);
-        maxHungerMultiplier = form.get_slider(maxHungerMultiplierSlider);
 cookymod = form.get_slider(cookieRankModifierSlider);
 difmod = form.get_slider(difficultyRankModifierSlider);
 evchanse = 100 - form.get_slider(autoChanceSlider);
@@ -735,8 +669,6 @@ eventsfx = form.is_checked(eventSFX);
         ranksfx = form.is_checked(rankSFX);
 savesfx = form.is_checked(saveSFX);
 slotDistribution = form.is_checked(bakeSplitToggle);
-hungerdeath = form.is_checked(foodkill);
-hungerwarn = form.is_checked(foodwarn);
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);
 orderedSyms = form.is_checked(ordsyms);
