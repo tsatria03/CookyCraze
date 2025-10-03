@@ -28,10 +28,10 @@ bool validate_event_selection(int autoEventList, int manualEventList)
     bool hasNegativeAuto = false;
     bool hasPositiveManual = false;
     bool hasNegativeManual = false;
-    string[] positiveAutoEvents = {"bonus_cookies", "decrease_hunger", "increase_cookyspeed", "gain_coins", "gain_autocooky", "gain_manulcooky"};
-    string[] negativeAutoEvents = {"fire_spark", "extra_hunger", "decrease_cookyspeed", "lose_coins", "lose_autocooky", "lose_manulcooky"};
-    string[] positiveManualEvents = {"bonus_cookies", "decrease_hunger", "increase_cookyspeed", "gain_coins", "gain_autocooky", "gain_manulcooky"};
-    string[] negativeManualEvents = {"fire_spark", "extra_hunger", "decrease_cookyspeed", "lose_coins", "lose_autocooky", "lose_manulcooky"};
+    string[] positiveAutoEvents = {"bonus_cookies", "increase_cookyspeed", "gain_coins", "gain_autocooky", "gain_manulcooky"};
+    string[] negativeAutoEvents = {"fire_spark", "decrease_cookyspeed", "lose_coins", "lose_autocooky", "lose_manulcooky"};
+    string[] positiveManualEvents = {"bonus_cookies", "increase_cookyspeed", "gain_coins", "gain_autocooky", "gain_manulcooky"};
+    string[] negativeManualEvents = {"fire_spark", "decrease_cookyspeed", "lose_coins", "lose_autocooky", "lose_manulcooky"};
     for (uint i = 0; i < autoBakingEvents.length(); i++)
 {
         if (form.is_list_item_checked(autoEventList, i))
