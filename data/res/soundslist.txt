@@ -22,9 +22,6 @@ buy1.ogg
 buy2.ogg
 buy3.ogg
 buy4.ogg
-chip1.ogg
-chip2.ogg
-chip3.ogg
 coin1.ogg
 coin1000.ogg
 coin10000.ogg
@@ -40,22 +37,13 @@ dlgopen.ogg
 dlgscroll.ogg
 error.ogg
 exitgame.ogg
-female_vomit.ogg
 gain.ogg
 gamefail.ogg
 gamelaunch.ogg
 give.ogg
-heal1.ogg
-heal2.ogg
-heal3.ogg
-heart3.ogg
-hungerdeath.ogg
-hungerstat.ogg
-hungerwarn.ogg
 logo1.ogg
 logo2.ogg
 lose.ogg
-male_vomit.ogg
 manulbake.ogg
 menuclick.ogg
 menuclose.ogg
@@ -123,4 +111,4 @@ toggleon.ogg
 welcome1.ogg
 welcome2.ogg
 welcome3.ogg
-total files: 125
+total files: 113
