@@ -144,10 +144,12 @@ autobakeSlotEnabled.resize(1);
 autobakeSlotEnabled[0] = true;
 baking_slots.resize(1);
 baking_slots[0] = true;
+autobakeSlots = 1;
 if (baking_slots.length() == 0)
     {
-baking_slots.insert_last(false);
-autobakeSlotEnabled.insert_last(false);
+autobakeSlotEnabled.insert_last(true);
+baking_slots.insert_last(true);
+    autobakeSlots = 1;
 }
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }

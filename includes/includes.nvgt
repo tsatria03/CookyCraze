@@ -22,15 +22,15 @@
 array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
 bool slotDistribution=false;
-int autobakeSlots = 0;
+int autobakeSlots = 1;
 int last_menu_index=0;
 bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=true;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, levcoins=0, manulcooky=0, rank=1, usercoins=0;
 double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5, automationBaseCost = 30, slotBaseCost = 60, automationMultiplier = 1.1, slotMultiplier = 1.2;
-double ambvolume=0, ambpitch=100, foodvolume=0, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
-int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
+double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
+int ambslot, alertslot, coinslot, eventslot, gameslot, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
 int evchanse=50, evchanse2=50, playergender=0;
 int bakemode=0,  clicktime=1000-cookyspeed;
 int ambienceIndex=0, musicIndex=0;
@@ -52,5 +52,4 @@ savedata st2(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/soundsets.crz", "w
 savedata st3(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
 sound_pool p, temp, spool, pool, ambpool, muspool, storambpool, stormuspool;
 virtual_dialogs vd;
-
 typedef uint8 usmall; typedef int8 small;
