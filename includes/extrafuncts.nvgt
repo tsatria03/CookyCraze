@@ -164,59 +164,6 @@ string random_string(string[] array)
 string retval=array[random(0,array.length()-1)];
 return retval;
 }
-void buffercheck()
-{
-if(key_repeating(KEY_COMMA))
-{
-if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
-{
-top_buffer_item();
-}
-else
-{
-previous_buffer_item();
-}
-}
-if(key_repeating(KEY_PERIOD))
-{
-if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
-{
-bottom_buffer_item();
-}
-else
-{
-next_buffer_item();
-}
-}
-if(key_repeating(KEY_LBRACKET))
-{
-previous_buffer();
-}
-if(key_repeating(KEY_RBRACKET))
-{
-next_buffer();
-}
-if (control_is_down())
-{
-if (key_repeating(KEY_M))
-{
-mute_and_unmute_buffer();
-}
-}
-if(shift_is_down())
-{
-if (key_repeating(KEY_C))
-{
-copy_buffer_item();
-}
-if (key_repeating(KEY_BACKSLASH))
-{
-speak("buffers exported");
-export_buffers();
-clear_all_buffer_items();
-}
-}
-}
 
 void deathcheck()
 {
@@ -351,53 +298,64 @@ if (mres == -1 || m.get_selected_item_id() == "back") clickergame();
 string selected = m.get_selected_item_id();
 if (selected == "slp")
 {
-setupmenu(false);
-m.add_item("Add 1 slot for " + format_number(calc_slot_cost(1)) + " coins", "add_slot");
-m.add_item("Add 5 slots for " + format_number(calc_slot_cost(5)) + " coins", "add_slot2");
-m.add_item("Add 10 slots for " + format_number(calc_slot_cost(10)) + " coins", "add_slot3");
-m.add_item("Add 25 slots for " + format_number(calc_slot_cost(25)) + " coins", "add_slot4");
-m.add_item("Add 50 slots for " + format_number(calc_slot_cost(50)) + " coins", "add_slot5");
-m.add_item("Add 100 slots for " + format_number(calc_slot_cost(100)) + " coins", "add_slot6");
-m.add_item("Add 250 slots for " + format_number(calc_slot_cost(250)) + " coins", "add_slot7");
-m.add_item("Add 500 slots for " + format_number(calc_slot_cost(500)) + " coins", "add_slot8");
-m.add_item("Back", "back");
-m.intro_text = "Slot producer menu.";
-int mres2 = m.run();
-if (mres2 == -1 || m.get_selected_item_id() == "back") manage_baking_slots();
-string slotprod = m.get_selected_item_id();
-if (slotprod == "add_slot" || slotprod == "add_slot2" || slotprod == "add_slot3" || slotprod == "add_slot4" || slotprod == "add_slot5" || slotprod == "add_slot6" || slotprod == "add_slot7" || slotprod == "add_slot8")
-{
-int count = 1;
-if (slotprod == "add_slot2") count = 5;
-if (slotprod == "add_slot3") count = 10;
-if (slotprod == "add_slot4") count = 25;
-if (slotprod == "add_slot5") count = 50;
-if (slotprod == "add_slot6") count = 100;
-if (slotprod == "add_slot7") count = 250;
-if (slotprod == "add_slot8") count = 500;
-double cost = calc_slot_cost(count);
-if (coins >= cost)
-{
-coins -= cost;
-for (int i = 0; i < count; i++)
-{
-baking_slots.insert_last(true);
-autobakeSlotEnabled.insert_last(false);
-slotBaseCost *= slotMultiplier;
-}
-pool.destroy_sound(alertslot);
-alertslot = pool.play_stationary("prodslot.ogg", false);
-speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(baking_slots.length()) + " slots.");
-}
-else
-{
-alertslot = pool.play_stationary("error.ogg", false);
-dlg("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
-pool.destroy_sound(alertslot);
-}
-manage_baking_slots();
+    setupmenu(false);
+    m.add_item("Add 1 slot for "   + format_number(calc_slot_cost(1))   + " coins", "add_slot");
+    m.add_item("Add 5 slots for "   + format_number(calc_slot_cost(5))   + " coins", "add_slot2");
+    m.add_item("Add 10 slots for "  + format_number(calc_slot_cost(10))  + " coins", "add_slot3");
+    m.add_item("Add 25 slots for "  + format_number(calc_slot_cost(25))  + " coins", "add_slot4");
+    m.add_item("Add 50 slots for "  + format_number(calc_slot_cost(50))  + " coins", "add_slot5");
+    m.add_item("Add 100 slots for " + format_number(calc_slot_cost(100)) + " coins", "add_slot6");
+    m.add_item("Add 250 slots for " + format_number(calc_slot_cost(250)) + " coins", "add_slot7");
+    m.add_item("Add 500 slots for " + format_number(calc_slot_cost(500)) + " coins", "add_slot8");
+    m.add_item("Back", "back");
+    m.intro_text = "Slot producer menu.";
+    if (last_menu_index > 0 && last_menu_index < m.get_item_count()) m.set_focused_item(last_menu_index, true);
+    while (true)
+    {
+        int mres2 = m.run();
+        if (mres2 == -1 || m.get_selected_item_id() == "back")
+        {
+            manage_baking_slots();
+            break;
+        }
+        last_menu_index = m.get_focused_item();
+        string slotprod = m.get_selected_item_id();
+        int count = 0;
+        if (slotprod == "add_slot")   count = 1;
+        if (slotprod == "add_slot2")  count = 5;
+        if (slotprod == "add_slot3")  count = 10;
+        if (slotprod == "add_slot4")  count = 25;
+        if (slotprod == "add_slot5")  count = 50;
+        if (slotprod == "add_slot6")  count = 100;
+        if (slotprod == "add_slot7")  count = 250;
+        if (slotprod == "add_slot8")  count = 500;
+        if (count > 0)
+        {
+            double cost = calc_slot_cost(count);
+            if (coins >= cost)
+            {
+                coins -= cost;
+                for (int i = 0; i < count; i++)
+                {
+                    baking_slots.insert_last(true);
+                    autobakeSlotEnabled.insert_last(false);
+                    slotBaseCost *= slotMultiplier;
+                }
+                pool.destroy_sound(alertslot);
+                alertslot = pool.play_stationary("prodslot.ogg", false);
+                speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(baking_slots.length()) + " slots.");
+            }
+            else
+            {
+                alertslot = pool.play_stationary("error.ogg", false);
+                dlg("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
+                pool.destroy_sound(alertslot);
+last_menu_index=0;
+            manage_baking_slots();
 return;
 }
+        }
+    }
 }
 if (selected == "automated" || selected == "nonauto")
 {
@@ -499,6 +457,7 @@ if (selected == "automated" || selected == "nonauto")
     }
 }
 }
+
 void wait_async(int milliseconds)
 {
     timer WaitTimer;

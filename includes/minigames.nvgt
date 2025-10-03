@@ -161,7 +161,7 @@ if (form.is_pressed(flip))
         }
         if (headsEvents.length() == 0 || tailsEvents.length() == 0)
         {
-            dlg_buffer("You must select at least one positive and one negative event before flipping the coin! Press enter or space to continue.");
+            dlg_buffer("You must select at least one positive and one negative event before flipping the coin!");
             form.reset();
             coingame();
         }
@@ -185,7 +185,7 @@ if (form.is_pressed(flip))
     }
     else
     {
-        dlg_buffer("You don't have a coin to flip! Press enter or space to continue.", "general");
+        dlg_buffer("You don't have a coin to flip!", "general");
         form.reset();
         coingame();
     }
@@ -335,13 +335,13 @@ string betStr = form.get_text(betInput);
 betAmount = string_to_number(betStr);
     if (betAmount <= 0)
     {
-        dlg_buffer("Invalid bet amount. Please enter a valid number! Press enter or space to continue.");
+        dlg_buffer("Invalid bet amount. Please enter a valid number!");
 form.reset();
 slotsgame();
     }
             if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && cookyspeed < betAmount) || (selectedBet == 4 && manulcooky < betAmount))
             {
-                dlg_buffer("You don't have enough of that item to bet! Press enter or space to continue.");
+                dlg_buffer("You don't have enough of that item to bet!");
 form.reset();
 slotsgame();
             }
@@ -355,7 +355,7 @@ slotsgame();
             }
             if (activeSymbols.length()<10)
 {
-                dlg_buffer("You must select at least 10 symbols in order to spin! Press enter or space to continue.");
+                dlg_buffer("You must select at least 10 symbols in order to spin!");
 form.reset();
 slotsgame();
             }

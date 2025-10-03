@@ -152,7 +152,7 @@ else
 {
 m.fade_music();
 alertslot=pool.play_stationary("error.ogg",false);
-dlg("Error! The data assosiated with this save slot does not exist! Press enter or space to continue.");
+dlgmessage_return("Error! The data assosiated with this save slot does not exist!");
 pool.destroy_sound(alertslot);
 ingame=false;
 gamemenu();
@@ -318,14 +318,14 @@ double cookiesToSell = string_to_number(sailam);
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("sellfail.ogg", false);
-        dlg("Error! Please enter a valid number of cookies to sell! Press enter or space to continue.");
+        dlgmessage_return("Error! Please enter a valid number of cookies to sell!");
         shopmenu();
     }
     else if (cookiesToSell > cookies)
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("sellfail.ogg", false);
-        dlg("Error! You only have " + format_number(cookies) + " cookies available to sell! Press enter or space to continue.");
+        dlgmessage_return("Error! You only have " + format_number(cookies) + " cookies available to sell!");
         shopmenu();
     }
 double totalCoinsEarned = cookiesToSell * 100;
@@ -359,7 +359,7 @@ else if (totalCoinsEarned >= 10000000)
 {
 pool.play_stationary("coin100000.ogg", false);
 }
-dlg("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins! Press enter or space to continue.");
+dlgmessage_return("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins!");
 shopmenu();
 }
 if(stm=="back")
@@ -448,7 +448,7 @@ double totalCost = 0;
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("storefail.ogg", false);
-        dlg("Error! Please enter a valid number of auto cookies to buy! Press enter or space to continue.");
+        dlgmessage_return("Error! Please enter a valid number of auto cookies to buy!");
         buymenu();
     }
 for (uint i = 0; i < quantity; i++)
@@ -462,13 +462,13 @@ autocooky += quantity;
 double nextUpgradeCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(quantity) + " auto cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins. Press enter or space to continue.");
+dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " auto cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cookies! Press enter or space to continue.");
+dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cookies!");
 buymenu();
 }
 }
@@ -482,7 +482,7 @@ double totalCost = 0;
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("storefail.ogg", false);
-        dlg("Error! Please enter a valid number of auto cooky speeds to buy! Press enter or space to continue.");
+        dlgmessage_return("Error! Please enter a valid number of auto cooky speeds to buy!");
         buymenu();
     }
 for (uint i = 0; i < quantity; i++)
@@ -497,13 +497,13 @@ clicktime-=cookyspeed;
 double nextUpgradeCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(quantity) + " auto cooky speeds for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins. Press enter or space to continue.");
+dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " auto cooky speeds for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cooky speeds! Press enter or space to continue.");
+dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cooky speeds!");
 buymenu();
 }
 }
@@ -542,7 +542,7 @@ double totalCost = 0;
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("storefail.ogg", false);
-        dlg("Error! Please enter a valid number of manual cookies to buy! Press enter or space to continue.");
+        dlgmessage_return("Error! Please enter a valid number of manual cookies to buy!");
         buymenu();
     }
 for (uint i = 0; i < quantity; i++)
@@ -556,13 +556,13 @@ manulcooky += quantity;
 double nextUpgradeCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(quantity) + " manual cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins. Press enter or space to continue.");
+dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " manual cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " manule cookies! Press enter or space to continue.");
+dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " manule cookies!");
 buymenu();
 }
 }
@@ -601,7 +601,7 @@ void mubimenu()
         {
             pool.destroy_sound(alertslot);
             pool.play_stationary("storefail.ogg", false);
-            dlg("Error! Please enter a valid amount of maximum hunger to buy! Press enter or space to continue.");
+            dlgmessage_return("Error! Please enter a valid amount of maximum hunger to buy!");
         buymenu();
         }
         for (uint i = 0; i < quantity; i++)
@@ -615,13 +615,13 @@ void mubimenu()
             double nextUpgradeCost = buy_item(maxhunger, maxHungerBaseCost, maxHungerMultiplier);
             pool.play_stationary("buy" + random(1, 4) + ".ogg", false);
             pool.play_stationary("store_order.ogg", false);
-            dlg("Purchase successful! You bought " + format_number(quantity) + " max hunger for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins. Press enter or space to continue.");
+            dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " max hunger for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
         buymenu();
         }
         else
         {
             pool.play_stationary("storefail.ogg", false);
-            dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " max hunger! Press enter or space to continue.");
+            dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " max hunger!");
         buymenu();
         }
     }
@@ -745,14 +745,14 @@ slotmode = form.is_checked(reelspin);
         {
             if (!validate_event_selection(autoEventList, manualEventList))
 {
-                dlg("You must select at least one positive and one negative event for both Auto-Baking and Manual-Baking before saving.");
+                dlgmessage_return("You must select at least one positive and one negative event for both Auto-Baking and Manual-Baking before saving.");
             form.reset();
             gamsetsmenu();
             }
 else
 {
 writepreffs(autoEventList, manualEventList);
-            dlg("Settings saved. Press enter or space to continue.");
+            dlgmessage_return("Settings saved.");
 writedata();
 readdata();
             preffsmenu();
@@ -829,7 +829,7 @@ if(ingame==true) musicIndex = form.get_list_position(musslist);
         if (form.is_pressed(savesets))
         {
 writepreffs2();
-dlg("Settings saved. Press enter or space to continue.");
+dlgmessage_return("Settings saved.");
 preffsmenu();
 }
         if (key_pressed(KEY_ESCAPE))
@@ -888,7 +888,7 @@ string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
 alertslot=pool.play_stationary("error.ogg",false);
-dlg("Error! Your character's first name is invalid! Press enter or space to continue.");
+dlgmessage_return("Error! Your character's first name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
             usersetsmenu();
@@ -896,7 +896,7 @@ pool.destroy_sound(alertslot);
 else
 {
 playername=fn;
-            dlg("Success! Your character's first name has now been changed to "+playername+". Press enter or space to continue.");
+            dlgmessage_return("Success! Your character's first name has now been changed to "+playername+".");
             form.reset();
             usersetsmenu();
 }
@@ -908,7 +908,7 @@ string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {
 pool.play_stationary("error.ogg",false);
-dlg("Error! Your character's last name is invalid! Press enter or space to continue.");
+dlgmessage_return("Error! Your character's last name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
             usersetsmenu();
@@ -916,7 +916,7 @@ pool.destroy_sound(alertslot);
 else
 {
 playername2=fn2;
-            dlg("Success! Your character's last name has now been changed to "+playername2+". Press enter or space to continue.");
+            dlgmessage_return("Success! Your character's last name has now been changed to "+playername2+".");
             form.reset();
             usersetsmenu();
 }
@@ -924,7 +924,7 @@ playername2=fn2;
         if (form.is_pressed(savesets))
         {
             writepreffs3();
-            dlg("Settings saved. Press enter or space to continue.");
+            dlgmessage_return("Settings saved.");
 preffsmenu();
         }
         if (key_pressed(KEY_ESCAPE))

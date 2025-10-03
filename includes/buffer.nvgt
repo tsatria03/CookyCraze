@@ -24,9 +24,11 @@ if(name=="alerts" or name=="all")
 {
 speak("This buffer can not be muted.",true);
 }
-else{
-muted=muted?false:true;
-speak(name+" "+(muted?"muted":"unmuted"),true);
+else
+{
+muted = !muted;
+spool.play_stationary(muted ? "toggleoff.ogg" : "toggleon.ogg", false);
+speak(name + " " + (muted ? "muted" : "unmuted"), true);
 }
 }
 }
@@ -61,15 +63,40 @@ if (!buffers[b].muted && speakMessage) {
 speak(itemname, true);
 }
 }
-void export_buffers()
+bool export_current_buffer()
 {
-string bufferdir = "logs";
-if (buffers.length() <= 0) return;
+if (bufferpos < 0 || bufferpos >= buffers.length())
+return false;
+buffer@ b = buffers[bufferpos];
+if (b.items.length() == 0)
+{
+speak("There's nothing to export in this buffer.");
+return false;
+}
+string bufferdir = "data/logs";
 if (!directory_exists(bufferdir)) directory_create(bufferdir);
+logfile.open(bufferdir + "/" + b.name + ".log", "ab");
+logfile.write("Exported on " + DATE_MONTH + "/" + DATE_DAY + "/" + DATE_YEAR + "\r\n\r\n");
+string bdata = "";
+for (uint i2 = 0; i2 < b.items.length(); i2++)
+{
+bdata += b.items[i2].name + "\r\n";
+}
+logfile.write(bdata);
+logfile.close();
+speak(b.name + " exported");
+return true;
+}
+bool export_all_buffers()
+{
+string bufferdir = "data/logs";
+if (!directory_exists(bufferdir)) directory_create(bufferdir);
+bool exported = false;
 for (uint i = 0; i < buffers.length(); i++)
 {
 if (buffers[i].items.length() > 0)
 {
+exported = true;
 logfile.open(bufferdir + "/" + buffers[i].name + ".log", "ab");
 logfile.write("Exported on " + DATE_MONTH + "/" + DATE_DAY + "/" + DATE_YEAR + "\r\n\r\n");
 string bdata = "";
@@ -81,8 +108,18 @@ logfile.write(bdata);
 logfile.close();
 }
 }
+if (exported)
+{
+speak("All buffers exported");
+return true;
 }
-void mute_and_unmute_buffer()
+else
+{
+speak("There's nothing to export in these buffers.");
+return false;
+}
+}
+void toggle_buffer()
 {
 if(bufferpos<0 or bufferpos>buffers.length()-1)
 {
@@ -101,7 +138,7 @@ bufferpos=buffers.length()-1;
 else{
 bufferpos++;
 }
-p.play_stationary_extended("bufferswitch.ogg",false,0,(bufferpos*100/buffers.length())-25,0,100,false);
+spool.play_stationary_extended("bufferswitch.ogg",false,0,(bufferpos*100/buffers.length())-25,0,100,false);
 speak(buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? (buffers[bufferpos].bpos + 1) + " of " + buffers[bufferpos].items.length() : "empty") + ".", true);
 }
 void previous_buffer()
@@ -113,7 +150,7 @@ bufferpos=0;
 else{
 bufferpos--;
 }
-p.play_stationary_extended("bufferswitch.ogg",false,0,(bufferpos*100/buffers.length())-25,0,100,false);
+spool.play_stationary_extended("bufferswitch.ogg",false,0,(bufferpos*100/buffers.length())-25,0,100,false);
 speak(buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? (buffers[bufferpos].bpos + 1) + " of " + buffers[bufferpos].items.length() : "empty") + ". ", true);
 }
 void next_buffer_item()
@@ -132,7 +169,7 @@ else
 {
 buffers[bufferpos].bpos++;
 }
-p.play_stationary_extended("bufferchoose.ogg",false,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-60,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-5,false);
+spool.play_stationary_extended("bufferchoose.ogg",false,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-60,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-5,false);
 speak(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
 }
 void previous_buffer_item()
@@ -151,7 +188,7 @@ else
 {
 buffers[bufferpos].bpos--;
 }
-p.play_stationary_extended("bufferchoose.ogg",false,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-60,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-5,false);
+spool.play_stationary_extended("bufferchoose.ogg",false,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-60,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-5,false);
 speak(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
 }
 void top_buffer_item()
@@ -162,7 +199,7 @@ speak("Empty.");
 return;
 }
 buffers[bufferpos].bpos=0;
-p.play_stationary_extended("bufferchoose.ogg",false,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-60,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-5,false);
+spool.play_stationary_extended("bufferchoose.ogg",false,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-60,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-5,false);
 speak(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
 }
 void bottom_buffer_item()
@@ -173,20 +210,83 @@ speak("Empty.");
 return;
 }
 buffers[bufferpos].bpos=buffers[bufferpos].items.length()-1;
-p.play_stationary_extended("bufferchoose.ogg",false,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-60,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-5,false);
+spool.play_stationary_extended("bufferchoose.ogg",false,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-60,0,(buffers[bufferpos].bpos*100/buffers[bufferpos].items.length())-5,false);
 speak(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
 }
 void copy_buffer_item()
 {
-if(buffers[bufferpos].items.length()<=0) return;
-clipboard_copy_text(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
-speak("Copied to clipboard",true);
+if(buffers[bufferpos].items.length()<=0)
+{
+speak("There's nothing to copy in this buffer.");
+return;
 }
-void clear_all_buffer_items()
+clipboard_copy_text(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
+speak("Message copied",true);
+}
+void clear_current_buffer()
+{
+if (bufferpos < 0 || bufferpos >= buffers.length())
+return;
+buffers[bufferpos].items.resize(0);
+buffers[bufferpos].bpos = 0;
+}
+void clear_all_buffers()
 {
 for (uint i = 0; i < buffers.length(); i++)
 {
 buffers[i].items.resize(0);
 buffers[i].bpos = 0;
+}
+}
+
+void buffercheck()
+{
+if(key_repeating(KEY_COMMA))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+top_buffer_item();
+}
+else
+{
+previous_buffer_item();
+}
+}
+if(key_repeating(KEY_PERIOD))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+bottom_buffer_item();
+}
+else
+{
+next_buffer_item();
+}
+}
+if(key_repeating(KEY_LBRACKET))
+{
+previous_buffer();
+}
+if(key_repeating(KEY_RBRACKET))
+{
+next_buffer();
+}
+if (shift_is_down())
+{
+if (key_repeating(KEY_M))
+{
+toggle_buffer();
+}
+if (key_repeating(KEY_C))
+{
+copy_buffer_item();
+}
+if (key_repeating(KEY_BACKSLASH))
+{
+if (export_current_buffer())
+{
+clear_current_buffer();
+}
+}
 }
 }

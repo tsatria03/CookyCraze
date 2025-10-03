@@ -34,6 +34,10 @@ coin50000.ogg
 coinflip.ogg
 cointoss.ogg
 cookflip.ogg
+dlgclose.ogg
+dlgcoppy.ogg
+dlgopen.ogg
+dlgscroll.ogg
 error.ogg
 exitgame.ogg
 female_vomit.ogg
@@ -44,8 +48,6 @@ give.ogg
 heal1.ogg
 heal2.ogg
 heal3.ogg
-heart1.ogg
-heart2.ogg
 heart3.ogg
 hungerdeath.ogg
 hungerstat.ogg
@@ -116,8 +118,6 @@ store_door_open.ogg
 store_music.ogg
 store_order.ogg
 store_welcome.ogg
-switchoff.ogg
-switchon.ogg
 toggleoff.ogg
 toggleon.ogg
 welcome1.ogg

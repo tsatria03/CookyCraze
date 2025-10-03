@@ -1,4 +1,4 @@
-void dlg(string message, int timeout=-1)
+bool dlg(string message, bool dlgcoppy=true, int timeout=-1)
 {
 timer timeouter;
 speak(message);
@@ -6,23 +6,33 @@ while(true)
 {
 wait(5);
 if (timeout>-1 and timeouter.elapsed>=timeout)
-return;
-if (key_pressed(KEY_C))
+return false;
+if (key_repeating(KEY_C) and dlgcoppy==true)
 {
-speak("Copied");
-clipboard_copy_text(message);
+temp.destroy_all();
+temp.play_stationary("dlgcoppy.ogg", false);
+string clean_message = string_replace(message, " Press enter or space to continue.", "", true);
+clipboard_copy_text(clean_message);
+speak("Text copied");
 }
-if (key_pressed(KEY_LEFT) or key_pressed(KEY_RIGHT) or key_pressed(KEY_UP) or key_pressed(KEY_DOWN))
+if (key_repeating(KEY_LEFT) or key_repeating(KEY_RIGHT) or key_repeating(KEY_UP) or key_repeating(KEY_DOWN))
 {
 speak(message);
 }
-if(key_pressed(KEY_SPACE) or key_pressed(KEY_RETURN))
+if (key_repeating(KEY_ESCAPE))
 {
+temp.destroy_all();
+return true;
+}
+if(key_repeating(KEY_RETURN) or key_repeating(KEY_SPACE)  or key_down(KEY_A))
+{
+temp.destroy_all();
 break;
 }
 }
+return false;
 }
-void dlg_buffer(string message, string buffer_name = "misc", int timeout = -1)
+bool dlg_buffer(string message, string buffer_name="misc", bool dlgcoppy=true, int timeout=-1)
 {
 int buffer_index = get_buffer_index(buffer_name);
 if (buffer_index != -1)
@@ -30,30 +40,36 @@ if (buffer_index != -1)
 add_buffer_item(buffer_name, message, false);
 if (buffers[buffer_index].muted)
 {
+return false;
+}
+}
+return dlg(message, dlgcoppy, timeout);
+}
+void dlgmessage(string messages)
+{
+temp.play_stationary("dlgopen.ogg", false);
+string[] d = string_split(messages, "\r\n", true);
+bool escaped = dlg(d[0]);
+if (escaped)
+{
+temp.play_stationary("dlgclose.ogg", false);
+return;
+}
+for (uint i = 1; i < d.length(); i++)
+{
+temp.play_stationary("dlgscroll.ogg", false);
+escaped = dlg(d[i]);
+if (escaped)
+{
+temp.play_stationary("dlgclose.ogg", false);
 return;
 }
 }
-timer timeouter;
-speak(message);
-while (true)
-{
-wait(5);
-if (timeout > -1 && timeouter.elapsed >= timeout)
-return;
-if (key_pressed(KEY_C))
-{
-speak("Copied");
-clipboard_copy_text(message);
+temp.play_stationary("dlgclose.ogg", false);
 }
-if (key_pressed(KEY_LEFT) || key_pressed(KEY_RIGHT) || key_pressed(KEY_UP) || key_pressed(KEY_DOWN))
+void dlgmessage_return(string msg)
 {
-speak(message);
-}
-if(key_pressed(KEY_SPACE) or key_pressed(KEY_RETURN))
-{
-break;
-}
-}
+    dlgmessage(msg + " Press enter or space to continue.");
 }
 void dlgplay(string dlgsound, bool skippable=true, bool fadeable=true, int fadetime=30)
 {
@@ -63,7 +79,7 @@ dlgaudio.play();
 while(dlgaudio.playing)
 {
 wait(5);
-if(key_pressed(KEY_RETURN) and skippable==true or key_pressed(KEY_SPACE) and skippable==true)
+if(key_repeating(KEY_RETURN) and skippable==true or key_repeating(KEY_SPACE) and skippable==true or key_down(KEY_A) and skippable==true)
 {
 if (fadeable==true)
 {
