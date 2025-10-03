@@ -152,7 +152,7 @@ else
 {
 m.fade_music();
 alertslot=pool.play_stationary("error.ogg",false);
-dlgmessage_return("Error! The data assosiated with this save slot does not exist!");
+dlg("Error! The data assosiated with this save slot does not exist!");
 pool.destroy_sound(alertslot);
 ingame=false;
 gamemenu();
@@ -318,14 +318,14 @@ double cookiesToSell = string_to_number(sailam);
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("sellfail.ogg", false);
-        dlgmessage_return("Error! Please enter a valid number of cookies to sell!");
+        dlg("Error! Please enter a valid number of cookies to sell!");
         shopmenu();
     }
     else if (cookiesToSell > cookies)
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("sellfail.ogg", false);
-        dlgmessage_return("Error! You only have " + format_number(cookies) + " cookies available to sell!");
+        dlg("Error! You only have " + format_number(cookies) + " cookies available to sell!");
         shopmenu();
     }
 double totalCoinsEarned = cookiesToSell * 100;
@@ -359,7 +359,7 @@ else if (totalCoinsEarned >= 10000000)
 {
 pool.play_stationary("coin100000.ogg", false);
 }
-dlgmessage_return("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins!");
+dlg("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins!");
 shopmenu();
 }
 if(stm=="back")
@@ -443,7 +443,7 @@ double totalCost = 0;
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("storefail.ogg", false);
-        dlgmessage_return("Error! Please enter a valid number of auto cookies to buy!");
+        dlg("Error! Please enter a valid number of auto cookies to buy!");
         buymenu();
     }
 for (uint i = 0; i < quantity; i++)
@@ -457,13 +457,13 @@ autocooky += quantity;
 double nextUpgradeCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " auto cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
+dlg("Purchase successful! You bought " + format_number(quantity) + " auto cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cookies!");
+dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cookies!");
 buymenu();
 }
 }
@@ -477,7 +477,7 @@ double totalCost = 0;
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("storefail.ogg", false);
-        dlgmessage_return("Error! Please enter a valid number of auto cooky speeds to buy!");
+        dlg("Error! Please enter a valid number of auto cooky speeds to buy!");
         buymenu();
     }
 for (uint i = 0; i < quantity; i++)
@@ -492,13 +492,13 @@ clicktime-=cookyspeed;
 double nextUpgradeCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " auto cooky speeds for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
+dlg("Purchase successful! You bought " + format_number(quantity) + " auto cooky speeds for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cooky speeds!");
+dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cooky speeds!");
 buymenu();
 }
 }
@@ -537,7 +537,7 @@ double totalCost = 0;
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("storefail.ogg", false);
-        dlgmessage_return("Error! Please enter a valid number of manual cookies to buy!");
+        dlg("Error! Please enter a valid number of manual cookies to buy!");
         buymenu();
     }
 for (uint i = 0; i < quantity; i++)
@@ -551,13 +551,13 @@ manulcooky += quantity;
 double nextUpgradeCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
 pool.play_stationary("buy"+random(1,4)+".ogg",false);
 pool.play_stationary("store_order.ogg",false);
-dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " manual cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
+dlg("Purchase successful! You bought " + format_number(quantity) + " manual cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
 pool.play_stationary("storefail.ogg",false);
-dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " manule cookies!");
+dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " manule cookies!");
 buymenu();
 }
 }
@@ -820,7 +820,7 @@ string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
 alertslot=pool.play_stationary("error.ogg",false);
-dlgmessage_return("Error! Your character's first name is invalid!");
+dlg("Error! Your character's first name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
             usersetsmenu();
@@ -840,7 +840,7 @@ string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {
 pool.play_stationary("error.ogg",false);
-dlgmessage_return("Error! Your character's last name is invalid!");
+dlg("Error! Your character's last name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
             usersetsmenu();

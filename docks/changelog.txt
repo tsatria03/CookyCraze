@@ -1,8 +1,10 @@
+new in 2.9
+Resolved an issue where adding a slot multiple times would cause the produced slots menu to not be updated with the correct information for a given slot.
 new in 2.8
 Removed the entire hunger system, as it started to become less useful and more pointless to have in the game.
 Made some small slot manager enhancements. It will now tell you how many slots were produced, automated, and unautomated when going into the main menu and adding new slots in the produced slots menu.
 Made it so the game remembers the last item that was recently selected in the produced slots menu. This is useful for adding spisific set of slots multiple times without having to start over from the top of the menu again.
-Made it so when you start a new game for the first time, you already get 1 auto baking slot enabled by default. You no longer have to automate the first slot every time you start a new game.
+Made it so when you start a new game for the first time, you'll now get 1 auto baking slot enabled by default. You no longer have to automate the first slot every time you start a new game.
 Moved all of the add slot items into a sepret menu in the slot manager menu.
 You can now add packs of multiple baking slots for the auto baking mode.
 Removed the heartbeat sounds tied to pressing the letter H when checking your hunger.

@@ -28,7 +28,7 @@ bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, intr
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
 double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, levcoins=0, manulcooky=0, rank=1, usercoins=0;
-double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5, automationBaseCost = 30, slotBaseCost = 30, automationMultiplier = 1.1, slotMultiplier = 1.1;
+double autoCookyBaseCost = 10, autoCookyMultiplier = 10, autoCookySpeedBaseCost = 20, autoCookySpeedMultiplier = 20, manualCookyBaseCost = 5, manualCookyMultiplier = 5, automationBaseCost = 30, slotBaseCost = 60, automationMultiplier = 1.1, slotMultiplier = 1.2;
 double ambvolume=0, ambpitch=100, foodvolume=0, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
 int ambslot, alertslot, coinslot, eventslot, foodslot, gameslot, heartslot, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
 int evchanse=50, evchanse2=50, playergender=0;
@@ -40,7 +40,7 @@ string ambtype="room1";
 string mustype="music1";
 string playername, playername2;
 string currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game1.crz";
-string version="2.8";
+string version="2.9";
 timer clicktimer;
 file dockfile, logfile;
 audio_form form;

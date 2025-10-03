@@ -139,15 +139,15 @@ rank=1;
 bakemode=0;
 clicktime=1000-cookyspeed;
 automationBaseCost=30;
-slotBaseCost=30;
+slotBaseCost=60;
 autobakeSlotEnabled.resize(1);
 autobakeSlotEnabled[0] = true;
 baking_slots.resize(1);
 baking_slots[0] = true;
 if (baking_slots.length() == 0)
     {
-baking_slots.insert_last(true);
-autobakeSlotEnabled.insert_last(true);
+baking_slots.insert_last(false);
+autobakeSlotEnabled.insert_last(false);
 }
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }

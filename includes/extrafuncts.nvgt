@@ -170,21 +170,7 @@ void set_save_slot(int slot)
     currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game" + string(slot) + ".crz";
     sd = savedata(currentSaveSlot, "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
 }
-void manage_baking_slots()
-{
-setupmenu(false);
-m.add_item("Automated slots", "automated");
-m.add_item("Non-automated slots", "nonauto");
-        m.add_item("Produced slots", "slp");
-m.add_item("Back", "back");
-int produced = baking_slots.length();
-int automated = autobakeSlots;
-int nonauto = produced - automated;
-m.intro_text = "Slot manager menu. You have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " non-automated slot" + (nonauto == 1 ? "" : "s") + ".";
-int mres = m.run();
-if (mres == -1 || m.get_selected_item_id() == "back") clickergame();
-string selected = m.get_selected_item_id();
-if (selected == "slp")
+void add_baking_slots()
 {
     setupmenu(false);
     m.add_item("Add 1 slot for "   + format_number(calc_slot_cost(1))   + " coins", "add_slot");
@@ -197,17 +183,15 @@ if (selected == "slp")
     m.add_item("Add 500 slots for " + format_number(calc_slot_cost(500)) + " coins", "add_slot8");
     m.add_item("Back", "back");
     m.intro_text = "Produced slots menu.";
-    if (last_menu_index > 0 && last_menu_index < m.get_item_count()) m.set_focused_item(last_menu_index, true);
-    while (true)
-    {
+m.set_focused_item(last_menu_index, false);
         int mres2 = m.run();
+last_menu_index = mres2;
+        string slotprod = m.get_selected_item_id();
         if (mres2 == -1 || m.get_selected_item_id() == "back")
         {
+last_menu_index=0;
             manage_baking_slots();
-            break;
         }
-        last_menu_index = m.get_focused_item();
-        string slotprod = m.get_selected_item_id();
         int count = 0;
         if (slotprod == "add_slot")   count = 1;
         if (slotprod == "add_slot2")  count = 5;
@@ -234,19 +218,37 @@ if (selected == "slp")
 int produced = baking_slots.length();
 int automated = autobakeSlots;
 int nonauto = produced - automated;
-speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " non-automated slot" + (nonauto == 1 ? "" : "s") + ".");
+speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ".");
+last_menu_index = mres2;
+            add_baking_slots();
             }
             else
             {
                 alertslot = pool.play_stationary("error.ogg", false);
                 dlg("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
                 pool.destroy_sound(alertslot);
-last_menu_index=0;
-            manage_baking_slots();
-return;
+last_menu_index = mres2;
+add_baking_slots();
 }
-        }
-    }
+}
+}
+void manage_baking_slots()
+{
+setupmenu(false);
+m.add_item("Automated slots", "automated");
+m.add_item("Non-automated slots", "nonauto");
+        m.add_item("Produced slots", "slp");
+m.add_item("Back", "back");
+int produced = baking_slots.length();
+int automated = autobakeSlots;
+int nonauto = produced - automated;
+m.intro_text = "Slot manager menu. You have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " non-automated slot" + (nonauto == 1 ? "" : "s") + ".";
+int mres = m.run();
+if (mres == -1 || m.get_selected_item_id() == "back") clickergame();
+string selected = m.get_selected_item_id();
+if (selected == "slp")
+{       
+add_baking_slots();
 }
 if (selected == "automated" || selected == "nonauto")
 {
