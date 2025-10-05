@@ -1,4 +1,6 @@
 new in 2.9
+Increased the amount of level up coins you're able to earn by 10 percent.
+Reduced the starting cost for producing slots by 50 percent.
 Refactored the slot manager menu to include a single automate a slot item.
 Resolved an issue where adding a slot multiple times would cause the slot producer menu to not be updated with the correct information for a given slot.
 new in 2.8

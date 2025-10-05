@@ -631,8 +631,8 @@ int slotMultiplierSlider = form.create_slider("Slot production Cost Multiplier."
     int manualCookyMultiplierSlider = form.create_slider("Manual Cooky Cost Multiplier.", manualCookyMultiplier, 1, 100, "X", 1);
 int cookieRankModifierSlider = form.create_slider("Cookie Rank Modifier.", cookymod, 1, 100, "x", 1);
 int difficultyRankModifierSlider = form.create_slider("Difficulty rank Modifier.", difmod, 1, 100, "x", 1);
-int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 1, 100, "percent", 1);
-int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 - evchanse2, 1, 100, "percent", 1);
+int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 0, 100, "percent", 1);
+int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 - evchanse2, 0, 100, "percent", 1);
     int autoEventList = form.create_list("Auto-Baking Events", autoBakingEvents.length(), true, false);
     for (uint i = 0; i < autoBakingEvents.length(); i++) {
         form.add_list_item(autoEventList, autoBakingEvents[i], autoBakingEvents[i], -1, autoEventToggles[i]);

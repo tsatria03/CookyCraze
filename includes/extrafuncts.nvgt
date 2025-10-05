@@ -181,6 +181,10 @@ void add_baking_slots()
     m.add_item("Add 100 slots for " + format_number(calc_slot_cost(100)) + " coins", "add_slot6");
     m.add_item("Add 250 slots for " + format_number(calc_slot_cost(250)) + " coins", "add_slot7");
     m.add_item("Add 500 slots for " + format_number(calc_slot_cost(500)) + " coins", "add_slot8");
+m.add_item("Add 1000 slots for " + format_number(calc_slot_cost(1000)) + " coins", "add_slot9");
+m.add_item("Add 2500 slots for " + format_number(calc_slot_cost(2500)) + " coins", "add_slot10");
+m.add_item("Add 5000 slots for " + format_number(calc_slot_cost(5000)) + " coins", "add_slot11");
+m.add_item("Add 10000 slots for " + format_number(calc_slot_cost(10000)) + " coins", "add_slot12");
     m.add_item("Back", "back");
     m.intro_text = "Slot producer menu.";
 m.set_focused_item(last_menu_index, false);
@@ -201,6 +205,10 @@ last_menu_index=0;
         if (slotprod == "add_slot6")  count = 100;
         if (slotprod == "add_slot7")  count = 250;
         if (slotprod == "add_slot8")  count = 500;
+if (slotprod == "add_slot9")  count = 1000;
+if (slotprod == "add_slot10")  count = 2500;
+if (slotprod == "add_slot11")  count = 5000;
+if (slotprod == "add_slot12")  count = 10000;
         if (count > 0)
         {
             double cost = calc_slot_cost(count);
@@ -239,7 +247,7 @@ void manage_baking_slots()
     int produced = baking_slots.length();
     int automated = autobakeSlots;
     int nonauto = produced - automated;
-    m.intro_text = "Slot manager menu. You have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " non-automated slot" + (nonauto == 1 ? "" : "s") + ".";
+    m.intro_text = "Slot manager menu. You have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " unautomated slot" + (nonauto == 1 ? "" : "s") + ".";
     int mres = m.run();
     if (mres == -1 || m.get_selected_item_id() == "back")
 {
@@ -262,7 +270,7 @@ void manage_baking_slots()
         if (nonAutoCount == 0)
 {
                 alertslot = pool.play_stationary("error.ogg", false);
-            dlg("Error! There are no more slots available to automate.");
+            dlg("Error! There are no slots available to automate.");
                 pool.destroy_sound(alertslot);
             manage_baking_slots();
             return;
