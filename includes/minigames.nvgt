@@ -1,4 +1,4 @@
-void coin_game_input()
+void cook_game_input()
 {
 buffercheck();
 if(control_is_down())
@@ -14,7 +14,7 @@ if(savesfx==true) dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
-coingame();
+cookgame();
 }
 if(key_pressed(KEY_L))
 {
@@ -27,7 +27,7 @@ if(savesfx==true) dlgplay("savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
-coingame();
+cookgame();
 }
 }
 if (key_pressed(KEY_C))
@@ -53,19 +53,19 @@ if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
 speak_buffer("You have " + format_number(coins) + " coins.");
 }
 }
-void coingame()
+void cookgame()
 {
     form.reset();
-    form.create_window("Coin flipper", false);
-string[] coinFlipEvents = {"gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky", "gain_cookies", "lose_cookies", "gain_coins", "lose_coins", "increase_cookyspeed", "decrease_cookyspeed"};
-    int coinEventList = form.create_list("Choose the &coin events to use:", coinFlipEvents.length(), true, false);
-bool[] coinEventToggles(coinFlipEvents.length(), true);
-    for (uint i = 0; i < coinFlipEvents.length(); i++)
+    form.create_window("cooky flipper", false);
+string[] cookFlipEvents = {"gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky", "gain_cookies", "lose_cookies", "gain_coins", "lose_coins", "increase_cookyspeed", "decrease_cookyspeed"};
+    int cookEventList = form.create_list("Choose the &cooky events to use:", cookFlipEvents.length(), true, false);
+bool[] cookEventToggles(cookFlipEvents.length(), true);
+    for (uint i = 0; i < cookFlipEvents.length(); i++)
 {
-        form.add_list_item(coinEventList, coinFlipEvents[i], coinFlipEvents[i], -1, coinEventToggles[i]);
+        form.add_list_item(cookEventList, cookFlipEvents[i], cookFlipEvents[i], -1, cookEventToggles[i]);
     }
-int flip = form.create_button("&Flip a coin", true);
-    form.focus(coinEventList);
+int flip = form.create_button("&Flip a cooky", true);
+    form.focus(cookEventList);
     while (true)
     {
         wait(5);
@@ -99,9 +99,9 @@ if(clicktime>=1000)
 {
 clicktime=1000;
 }
-if(form.get_current_focus()!=coinEventList)
+if(form.get_current_focus()!=cookEventList)
 {
-coin_game_input();
+cook_game_input();
 }
         if (key_pressed(KEY_ESCAPE))
         {
@@ -110,55 +110,55 @@ pool.destroy_sound(gameslot);
         }
 if (form.is_pressed(flip))
 {
-    if (coins >= 1)
+    if (cookies >= 1)
     {
-        string[] activeCoinEvents;
-        string[] headsEvents;
-        string[] tailsEvents;
-        for (uint i = 0; i < coinFlipEvents.length(); i++)
+        string[] activeCookEvents;
+        string[] chocsEvents;
+        string[] bisksEvents;
+        for (uint i = 0; i < cookFlipEvents.length(); i++)
         {
-            if (form.is_list_item_checked(coinEventList, i))
+            if (form.is_list_item_checked(cookEventList, i))
             {
-                activeCoinEvents.insert_last(coinFlipEvents[i]);
-                if (coinFlipEvents[i].find("gain") >= 0 || coinFlipEvents[i] == "increase_cookyspeed")
+                activeCookEvents.insert_last(cookFlipEvents[i]);
+                if (cookFlipEvents[i].find("gain") >= 0 || cookFlipEvents[i] == "increase_cookyspeed")
                 {
-                    headsEvents.insert_last(coinFlipEvents[i]);
+                    chocsEvents.insert_last(cookFlipEvents[i]);
                 }
-                else if (coinFlipEvents[i].find("lose") >= 0 || coinFlipEvents[i] == "decrease_cookyspeed")
+                else if (cookFlipEvents[i].find("lose") >= 0 || cookFlipEvents[i] == "decrease_cookyspeed")
                 {
-                    tailsEvents.insert_last(coinFlipEvents[i]);
+                    bisksEvents.insert_last(cookFlipEvents[i]);
                 }
             }
         }
-        if (headsEvents.length() == 0 || tailsEvents.length() == 0)
+        if (chocsEvents.length() == 0 || bisksEvents.length() == 0)
         {
-            dlg_buffer("You must select at least one positive and one negative event before flipping the coin!");
+            dlg_buffer("You must select at least one positive and one negative event before flipping the cooky!");
             form.reset();
-            coingame();
+            cookgame();
         }
-        string[] coinsides = { "heads", "tails" };
-        string side = coinsides[random(0, coinsides.length() - 1)];
+        string[] cooksides = { "chocolate", "bisket" };
+        string side = cooksides[random(0, cooksides.length() - 1)];
         pool.destroy_sound(eventslot);
-        pool.play_stationary("coinflip.ogg", false);
-        dlg_buffer("You flip a coin. It lands on " + side);
-        if (side == "heads" && headsEvents.length() > 0)
+        pool.play_stationary("cookflip.ogg", false);
+        dlg_buffer("You flip a cooky. It lands on " + side);
+        if (side == "chocolate" && chocsEvents.length() > 0)
         {
-            string event = headsEvents[random(0, headsEvents.length() - 1)];
-            trigger_coin_event(event, activeCoinEvents);
+            string event = chocsEvents[random(0, chocsEvents.length() - 1)];
+            trigger_cook_event(event, activeCookEvents);
             form.focus_silently(flip);
         }
-        else if (side == "tails" && tailsEvents.length() > 0)
+        else if (side == "bisket" && bisksEvents.length() > 0)
         {
-            string event = tailsEvents[random(0, tailsEvents.length() - 1)];
-            trigger_coin_event(event, activeCoinEvents);
+            string event = bisksEvents[random(0, bisksEvents.length() - 1)];
+            trigger_cook_event(event, activeCookEvents);
             form.focus_silently(flip);
         }
     }
     else
     {
-        dlg_buffer("You don't have a coin to flip!", "general");
+        dlg_buffer("You don't have a cooky to flip!", "general");
         form.reset();
-        coingame();
+        cookgame();
     }
 }
 }

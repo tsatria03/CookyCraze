@@ -238,9 +238,9 @@ muspool.resume_sound(mustrackslot);
     }
 }
 }
-void trigger_coin_event(string event, string[] activeCoinEvents)
+void trigger_cook_event(string event, string[] activeCookEvents)
 {
-    if (activeCoinEvents.find(event) < 0)
+    if (activeCookEvents.find(event) < 0)
     {
         return;
     }

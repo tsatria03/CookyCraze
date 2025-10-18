@@ -237,7 +237,7 @@ void mingamsmenu()
 {
 form.reset();
 form.create_window("Mini games", false);
-int flip=form.create_button("Play &coin flipper");
+int flip=form.create_button("Play &cooky flipper");
 int slots=form.create_button("play &slot machine");
 form.focus(flip);
 while(true)
@@ -276,7 +276,7 @@ mingamsmenu();
 else if(rank>=10)
 {
 gameslot=pool.play_stationary("gamelaunch.ogg", false);
-coingame();
+cookgame();
 }
 }
 }
