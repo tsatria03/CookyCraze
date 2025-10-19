@@ -187,13 +187,22 @@ m.add_item("Add 5000 slots for " + format_number(calc_slot_cost(5000)) + " coins
 m.add_item("Add 10000 slots for " + format_number(calc_slot_cost(10000)) + " coins", "add_slot12");
     m.add_item("Back", "back");
     m.intro_text = "Slot producer menu.";
-m.set_focused_item(last_menu_index, false);
-        int mres2 = m.run();
-last_menu_index = mres2;
-        string slotprod = m.get_selected_item_id();
-        if (mres2 == -1 || m.get_selected_item_id() == "back")
+    int start_pos = 0;
+    if (last_menu_id != "")
+    {
+        int found = m.find_item_by_id(last_menu_id);
+        if (found != -1)
+            start_pos = found;
+    }
+        int mres2 = m.run(start_pos, true);
+        string slotprod = m.get_item_id(mres2);
+    if (mres2 != -1)
+{
+        last_menu_id = slotprod;
+}
+        if (mres2 == -1 || m.get_item_id(mres2) == "back")
         {
-last_menu_index=0;
+last_menu_id = "";
             manage_baking_slots();
         }
         int count = 0;
@@ -225,7 +234,6 @@ if (slotprod == "add_slot12")  count = 10000;
                 alertslot = pool.play_stationary("prodslot.ogg", false);
 int produced = baking_slots.length();
 speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ".");
-last_menu_index = mres2;
             add_baking_slots();
             }
             else
@@ -233,7 +241,6 @@ last_menu_index = mres2;
                 alertslot = pool.play_stationary("error.ogg", false);
                 dlg("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
                 pool.destroy_sound(alertslot);
-last_menu_index = mres2;
 add_baking_slots();
 }
 }
@@ -249,12 +256,12 @@ void manage_baking_slots()
     int nonauto = produced - automated;
     m.intro_text = "Slot manager menu. You have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " unautomated slot" + (nonauto == 1 ? "" : "s") + ".";
     int mres = m.run();
-    if (mres == -1 || m.get_selected_item_id() == "back")
+    if (mres == -1 || m.get_item_id(mres) == "back")
 {
         clickergame();
         return;
     }
-    string selected = m.get_selected_item_id();
+    string selected = m.get_item_id(mres);
     if (selected == "add")
 {       
         add_baking_slots();
@@ -291,12 +298,12 @@ void manage_baking_slots()
         m.add_item("Back", "back");
         m.intro_text = "Slot automation menu.";
         int slotres = m.run();
-        if (slotres == -1 || m.get_selected_item_id() == "back")
+        if (slotres == -1 || m.get_item_id(mres) == "back")
 {
             manage_baking_slots();
             return;
         }
-        string s = m.get_selected_item_id();
+        string s = m.get_item_id(mres);
         if (s == "automate_all")
 {
             double totalCost = calc_automation_cost(nonAutoCount, automationBaseCost, automationMultiplier);
@@ -337,18 +344,18 @@ else
                 m.add_item("Back", "back");
                 m.intro_text = "Slot " + string(index + 1) + " menu.";
                 int subres = m.run();
-                if (subres == -1 || m.get_selected_item_id() == "back")
+                if (subres == -1 || m.get_item_id(mres) == "back")
 {
                     manage_baking_slots();
                     return;
                 }
-                if (m.get_selected_item_id() == "preview")
+                if (m.get_item_id(mres) == "preview")
 {
                     pool.play_stationary("autobake.ogg", false);
                     manage_baking_slots();
                     return;
                 }
-                if (m.get_selected_item_id() == "automate")
+                if (m.get_item_id(mres) == "automate")
 {
                     if (coins >= singleCost)
 {

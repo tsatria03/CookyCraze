@@ -5,7 +5,7 @@ set_sound_storage("*");
 set_sound_decryption_key("BRn2x3BJd3O0KrB7kb2L6cY4qJYEjVt5OhuVzJmmsoj9wampZL3IAx7IdIQBMyqW7ssXZhsXwD2nrQR4qRL8038swNq0Zc2ObN6mNlWrjIGcYLqEh2t0OHeM",true);
 if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/");
 if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/");
-show_game_window("CookyCraze, version "+version);
+show_window("CookyCraze, version "+version);
 if(gamstence.is_already_running)
 {
 alert("error", "You can only have one instence of this game running!");
@@ -64,7 +64,7 @@ if(mres==-1)
 alert("Profile setup unsuccessful", "Profile setup is needed to start your cookie-baking adventure. Please complete your profile to begin playing!");
 exit();
 }
-if (mres==0)
+if (mres==1)
 {
 dlg("Congratulations! You've successfully completed your profile setup. I'll give you 10 coins to get you started on your way. Press enter or space to continue.");
 usercoins=10;

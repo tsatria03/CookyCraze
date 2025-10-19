@@ -7,7 +7,7 @@ m.add_item("settings menu", "sm");
 m.add_item("exit game", "ex");
 m.intro_text = "Main menu. Please choose an option with your arrow keys, then press enter to activate one.";
 int mres=m.run();
-string main = m.get_selected_item_id();
+string main = m.get_item_id(mres);
 if(mres==-1)
 {
 speak("exiting");
@@ -41,11 +41,11 @@ setupmenu();
 m.add_item("changelog", "changelog");
 m.add_item("credits", "credits");
 m.add_item("readme", "readme");
-if(!SCRIPT_COMPILED) m.add_item("todo_list", "todo_list");
+m.add_item("todo_list", "todo_list");
 m.add_item("back", "back");
 m.intro_text="Documentation menu.";
 int mres=m.run();
-string dnm=m.get_selected_item_id();
+string dnm=m.get_item_id(mres);
 if(mres==-1)
 {
 mainmenu();
@@ -87,7 +87,7 @@ m.add_item("new game", "ng");
 m.add_item("back", "back");
 m.intro_text = "Game menu.";
 int mres=m.run();
-string gamem = m.get_selected_item_id();
+string gamem = m.get_item_id(mres);
 if(mres==-1)
 {
 mainmenu();
@@ -124,7 +124,7 @@ for (uint i = 1; i <= 20; i++)
 m.add_item("Back", "back");
 m.intro_text = "Select the save slot to load the game from.";
 int mres = m.run();
-string slotem = m.get_selected_item_id();
+string slotem = m.get_item_id(mres);
 if(mres==-1)
 {
 gamemenu();
@@ -177,7 +177,7 @@ for (uint i = 1; i <= 20; i++)
 m.add_item("Back", "back");
 m.intro_text = "Select the save slot to start the game from.";
 int mres = m.run();
-string slotem2 = m.get_selected_item_id();
+string slotem2 = m.get_item_id(mres);
 if(mres==-1)
 {
 gamemenu();
@@ -200,7 +200,7 @@ if(mres2==-1)
 ingame=false;
 newgamemenu();
 }
-if(mres2==0)
+if(mres2==1)
 {
 speak("Loading slot " + string(slotNumber));
 m.fade_music();
@@ -213,7 +213,7 @@ ingame=true;
 resetgame();
 clickergame();
 }
-if (mres2==1)
+if (mres2==2)
 {
 ingame=false;
 newgamemenu();
@@ -289,7 +289,7 @@ m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. 
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
 int mres=m.run();
-string stm=m.get_selected_item_id();
+string stm=m.get_item_id(mres);
 if(mres==-1)
 {
 pool.destroy_sound(alertslot);
@@ -386,20 +386,20 @@ m.add_item("manule baking items", "mabi");
 m.add_item("back", "back");
 m.intro_text="Upgrades menu. Please choose a cattigory to purchis.";
 int mres=m.run();
-string stm=m.get_selected_item_id();
+string stm2=m.get_item_id(mres);
 if(mres==-1)
 {
 shopmenu();
 }
-if(stm=="abi")
+if(stm2=="abi")
 {
 abimenu();
 }
-if(stm=="mabi")
+if(stm2=="mabi")
 {
 mabimenu();
 }
-if(stm=="back")
+if(stm2=="back")
 {
 shopmenu();
 }
@@ -428,7 +428,7 @@ m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " co
 m.add_item("back", "back");
 m.intro_text="Automatic baking menu.";
 int mres = m.run();
-string abm = m.get_selected_item_id();
+string abm = m.get_item_id(mres);
 if (mres==-1)
 {
 buymenu();
@@ -522,7 +522,7 @@ m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " 
 m.add_item("back", "back");
 m.intro_text="Manual baking menu.";
 int mres = m.run();
-string mabm = m.get_selected_item_id();
+string mabm = m.get_item_id(mres);
 if (mres==-1)
 {
 buymenu();

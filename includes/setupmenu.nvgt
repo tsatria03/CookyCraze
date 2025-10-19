@@ -1,17 +1,19 @@
-void setupmenu(bool music_added=true)
+void setupmenu(bool music_added = true)
 {
-if(music_added==true)
+if (music_added)
 {
 m.add_music("menumus.ogg");
-}
-else if(music_added==false)
+} else
 {
 m.add_music("");
 }
 m.reset();
-m.automatic_intro=true;
-m.focus_first_item=false;
-m.wrap = true;
+    m.enable_up_and_down = true;
+    m.enable_left_and_right = true;
+    m.enable_home_and_end = true;
+    m.enable_wrapping = true;
+    m.enable_first_letter_navigation=true;
+    m.speak_position = false;
 m.click_sound="menuclick.ogg";
 m.close_sound="menuclose.ogg";
 m.edge_sound="menuedge.ogg";
@@ -22,10 +24,13 @@ m.wrap_sound="menuwrap.ogg";
 void setupmenu2()
 {
 m.add_music("");
-m.reset();
-m.automatic_intro=true;
-m.focus_first_item=false;
-m.wrap = false;
+m.reset(true);
+    m.enable_up_and_down = true;
+    m.enable_left_and_right = true;
+    m.enable_home_and_end = true;
+    m.enable_wrapping = false;
+    m.enable_first_letter_navigation=true;
+    m.speak_position = false;
 m.click_sound="menustoreclick.ogg";
 m.close_sound="menustoreclose.ogg";
 m.edge_sound="menustorebounds.ogg";

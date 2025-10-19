@@ -1,4 +1,7 @@
-new in 2.9beta
+new in 2.9
+Added the ability to navigate to the first letter of any item in a menu.
+Added the ability to search for spisific items of intrest in the new find dialog. You can press F3 in any menu to activate it.
+Recoded the entire menu system for the game.
 Renamed the coin flipper minigame to cooky flipper, along with some new sounds to accompany it.
 Increased the amount of level up coins you're able to earn by 10 percent.
 Reduced the starting cost for producing slots by 50 percent.

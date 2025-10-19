@@ -134,7 +134,7 @@ form.reset();
 ingame=true;
 clickergame();
     }
-if (m.get_selected_item_id() == "quit_no_save")
+if (m.get_item_id(mres) == "quit_no_save")
     {
 pool.destroy_sound(alertslot);
 ambpool.destroy_sound(ambslot);
@@ -146,7 +146,7 @@ if(exitsfx==true) dlgplay("exitgame.ogg");
 ingame=false;
 mainmenu();
     }
-if (m.get_selected_item_id() == "quit_save")
+if (m.get_item_id(mres) == "quit_save")
     {
         writedata();
 pool.destroy_sound(alertslot);
@@ -159,7 +159,7 @@ if(savesfx==true) dlgplay("savegame.ogg");
 ingame=false;
 mainmenu();
     }
-if (m.get_selected_item_id() == "continue")
+if (m.get_item_id(mres) == "continue")
     {
 pool.destroy_sound(alertslot);
 ambpool.resume_sound(ambslot);
@@ -169,7 +169,7 @@ form.reset();
 ingame=true;
 clickergame();
     }
-if (m.get_selected_item_id() == "save_continue")
+if (m.get_item_id(mres) == "save_continue")
     {
         writedata();
 pool.destroy_sound(alertslot);

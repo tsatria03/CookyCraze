@@ -1,14 +1,16 @@
 #pragma document docks
 #pragma embed "data/res/assets.crz"
+
 #include"bgt_compat.nvgt"
 #include"sound_pool.nvgt"
 #include"dget.nvgt"
+
 #include"buffer.nvgt"
+#include"custom_menu.nvgt"
 #include"dlg.nvgt"
 #include"extrafuncts.nvgt"
 #include"events.nvgt"
 #include"form.nvgt"
-#include"form_menu.nvgt"
 #include"game.nvgt"
 #include"input_forms.nvgt"
 #include"menu.nvgt"
@@ -23,7 +25,6 @@ array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
 bool slotDistribution=false;
 int autobakeSlots = 1;
-int last_menu_index=0;
 bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=true;
 bool[] autoEventToggles(autoBakingEvents.length(), true);
 bool[] manualEventToggles(manualBakingEvents.length(), true);
@@ -40,16 +41,18 @@ string ambtype="room1";
 string mustype="music1";
 string playername, playername2;
 string currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game1.crz";
-string version="2.9beta";
+string last_menu_id="";
+string version="2.9";
 timer clicktimer;
 file dockfile, logfile;
 audio_form form;
+custom_menu m;
 instance gamstence("cycrz");
-menu m;
 savedata sd("", "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
 savedata st(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/gamesets.crz", "fCZxssmzxaef1nwF3CklVrGJEx96KXTVO3Nl0Y6aOWaGJDCJAFYy7oQmuxbscvh68TCMruG51OUzkJqlj1ks3uIRHHiCL8ySi21R2");
 savedata st2(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/soundsets.crz", "wiGXPI9eAoXhF7dSihNsf2Z6YPl19so1mjxdtghFAQvfXu3pJd8B6cw3Zyz2BrfCLkrVQbSVYYZqvrOiPbRZWhuci6U337dMkA5dLhGr6Qn604j9kCS9kiW2");
 savedata st3(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/usersets.crz", "V3doOU8o3Wa5JSYSSALUxVEOxy3BgDkkEpo0eymhurTablmQ3buB73iyhYWH8inUToEIokhyDw957cxvGzEHyp3ZbbFjDToNCbCRbEcg4zzX8jYCFn2Ve3tK");
 sound_pool p, temp, spool, pool, ambpool, muspool, storambpool, stormuspool;
 virtual_dialogs vd;
+
 typedef uint8 usmall; typedef int8 small;
