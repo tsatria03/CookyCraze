@@ -25,7 +25,7 @@ void setupmenu2()
 {
 m.add_music("");
 m.reset(true);
-    m.enable_up_and_down = true;
+    m.enable_up_and_down = false;
     m.enable_left_and_right = true;
     m.enable_home_and_end = true;
     m.enable_wrapping = false;

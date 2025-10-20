@@ -256,12 +256,12 @@ void manage_baking_slots()
     int nonauto = produced - automated;
     m.intro_text = "Slot manager menu. You have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ", " + string(automated) + " automated slot" + (automated == 1 ? "" : "s") + ", and " + string(nonauto) + " unautomated slot" + (nonauto == 1 ? "" : "s") + ".";
     int mres = m.run();
+    string selected = m.get_item_id(mres);
     if (mres == -1 || m.get_item_id(mres) == "back")
 {
         clickergame();
         return;
     }
-    string selected = m.get_item_id(mres);
     if (selected == "add")
 {       
         add_baking_slots();
@@ -298,12 +298,12 @@ void manage_baking_slots()
         m.add_item("Back", "back");
         m.intro_text = "Slot automation menu.";
         int slotres = m.run();
-        if (slotres == -1 || m.get_item_id(mres) == "back")
+        if (slotres == -1 || m.get_item_id(slotres) == "back")
 {
             manage_baking_slots();
             return;
         }
-        string s = m.get_item_id(mres);
+        string s = m.get_item_id(slotres);
         if (s == "automate_all")
 {
             double totalCost = calc_automation_cost(nonAutoCount, automationBaseCost, automationMultiplier);
@@ -344,18 +344,18 @@ else
                 m.add_item("Back", "back");
                 m.intro_text = "Slot " + string(index + 1) + " menu.";
                 int subres = m.run();
-                if (subres == -1 || m.get_item_id(mres) == "back")
+                if (subres == -1 || m.get_item_id(subres) == "back")
 {
                     manage_baking_slots();
                     return;
                 }
-                if (m.get_item_id(mres) == "preview")
+                if (m.get_item_id(subres) == "preview")
 {
                     pool.play_stationary("autobake.ogg", false);
                     manage_baking_slots();
                     return;
                 }
-                if (m.get_item_id(mres) == "automate")
+                if (m.get_item_id(subres) == "automate")
 {
                     if (coins >= singleCost)
 {
