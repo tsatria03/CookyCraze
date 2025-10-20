@@ -1,4 +1,4 @@
-new in 2.9
+New in 2.9.
 Updated the readme file with added and modified keyboard shortcuts.
 Fixed some menu navigation issues.
 Added the ability to navigate to the first letter of any item in a menu.
@@ -9,7 +9,7 @@ Increased the amount of level up coins you're able to earn by 10 percent.
 Reduced the starting cost for producing slots by 50 percent.
 Refactored the slot manager menu to include a single automate a slot item.
 Resolved an issue where adding a slot multiple times would cause the slot producer menu to not be updated with the correct information for a given slot.
-new in 2.8
+New in 2.8.
 Removed the entire hunger system, as it started to become less useful and more pointless to have in the game.
 Made some small slot manager enhancements. It will now tell you how many slots were produced, automated, and unautomated when going into the main menu and adding new slots in the slot producer menu.
 Made it so the game remembers the last item that was recently selected in the slot producer menu. This is useful for adding spisific set of slots multiple times without having to start over from the top of the menu again.
@@ -20,7 +20,7 @@ Removed the heartbeat sounds tied to pressing the letter H when checking your hu
 Fixed some bugs with the game saving system.
 Removed the ability to adjust the ambience, music, and store pitches in the sound settings menu.
 Made it so the game data and settings are now saved to the user's AppData folder under tsatria03/CookyCraze/preffs, and tsatria03/CookyCraze/saves.
-new in 2.7
+New in 2.7.
 You can now toggle the save sound for saving and reloading the game in the game settings menu.
 You can now toggle the exit sound upon exiting the game in the game settings menu.
 Added the ability to toggle hunger level warnings and dying from extreme hunger in the game settings menu.
@@ -31,7 +31,7 @@ Made it so the volume of the hunger warning sound gets louder the more you ignor
 Increased your starting maximum hunger from 100 to 1000.
 Added a new ranks buffer that keeps track of how far you've reached in the game. This also keeps track of all of the mini games that you've unlocked as well.
 Added the hunger warning system to all of the mini games.
-new in 2.6
+New in 2.6.
 Added descriptions to some of the items found in the cooky store. Items such as Auto Cooky Speed and Maximum Hunger now come with detailed descriptions that explain what they actually do. This makes it easier to understand how each upgrade affects your gameplay before purchasing it.
 Improved the Hunger System in the game. When your hunger reaches higher than 60 percent, you'll start hearing Warning sounds and receive spoken messages based on how hungry you are. If your hunger reaches its maximum, your character will die from starvation. You'll be prompted to restart the game, or exit back to the main menu.
 Made it so buying auto cooky speed gives you 5 extra milliseconds of bake time per purchase instead of just 1.
@@ -42,7 +42,7 @@ Added the ability to mute the auto baking sounds for when you're in baking mode 
 Fixed some more formatting number issues when values are being spoken.
 Improved] Number Formatting for speaking large numbers in the game. These are now spoken properly using full English variants, like Million, Billion, Trillion, etc. This helps screen readers clearly announce exponential values without having to use scientific notations for them.
 Fixed a bug where entering baking mode could cause the game to crash while it was looping through more slots than it actually had. It’s now fixed so it only checks the actual slots you’ve got, not just how many are automated.
-new in 2.5
+New in 2.5.
 Improved the Status displays found in all of the Slot automation Menus. The slots in the automation and non-automation menus now clearly indicate whether they’re automated or not. When cookie distribution is enabled, each slot will also show how many cookies it produces, making it easier to compare performance across all of your slots.
 Improved the Automate unautomated Slots Feature found in the non automated slots menu. This option now properly increases the automation cost for future slot production upgrades. Previously, it automated multiple slots at once, but didn’t update the base cost, causing single-slot automation to appear cheaper than intended. This issue has now been resolved.
 Added the ability to automate all of your auto baking slots at once in the non automated slots menu.
@@ -53,7 +53,7 @@ You can now manuely bake cookies while your in baking mode to get an extra boost
 Added sounds for the automation and production of slots in the baking mode of the game.
 Changed the behavior of the automation and slot multiplier sliders found in the game settings menu. They will now map slider values more intuitively. Higher values now increase cost progressively. For example, 25 becomes 1.25x, 50 becomes 1.5x, and 100 becomes 2x. This provides much finer control over the cost scaling, and prevents exponential jumps in automation and slot production prices.
 Fixed some automation and slot cost multiplier issues.
-new in 2.4
+New in 2.4.
 You can now adjust the cost multipliers of automation and auto baking slot productions in the game settings menu.
 Made it so the F key anounces how many cookies can get baked per slot, along with how many it can bake within a spesified time interval.
 Added the ability to create and automate your own slots for the baking mode. The more slots you've aquired, the more cookies gets baked per slot, as long as you have enough auto cookies for it.
@@ -64,7 +64,7 @@ Added game reloading support to all of the mini games.
 You can now reload the current save slot for the game by holding control and pressing the letter L without having to go back into the load game menu to do it.
 Slightly modified the hunger anouncements when pressing the letter H.
 Fixed some menu related bugs.
-new in 2.3
+New in 2.3.
 Reorganized the data folder a bit. The game save files will now go in data/saves. The game prefference files will now go in data/preffs. The assets used in the game will also go in data/preffs as well.
 Fixed an issue where the rank would incorrectly increase upon loading a saved game. The game now correctly recalculates the required cookies based on the saved rank and adjusted difficulty settings.
 Fixed an issue where rank progressions could skip levels unexpectedly when reaching the required cookie threshold.
@@ -75,7 +75,7 @@ Added the ability to save multiple games to save slots. You'll now be prompted t
 Added game saving support to all of the mini games.
 Removed the toy mania mini game. This game will now be standalone, and will be receiving updates from time to time as more features get added.
 Fixed some more rounding calculation issues.
-new in 2.2
+New in 2.2.
 Added sounds for checking how hungry you are when pressing the letter H in the main game, and in the coin flipper mini game.
 Modified the hunger logic. You'll now be able to eat more cookies as you level up in the game. You'll no longer be limmited to only holding up to 10000 cookies. The H key will now also tell you how many units of food you can hold up to before getting too full.
 Added buffer navegation support to all of the mini games.
@@ -86,7 +86,7 @@ Added the ability to buy the maximum amount of auto cookies, auto cooky speeds, 
 Made some more menu changes.
 Added the ability to set your own menu music in the menu class. The sound_pool will no longer be used to play them.
 Minor bug fixes.
-new in 2.1
+New in 2.1.
 Fixed a bug where the increase and decrease cooky speed events weren't being Recognize as positive and negative events when choosing them in the coin flipper mini game.
 Made some weapon enhancements for the toy mania mini game.
 Made it so you are required to at least select 1 Positive and one negative auto baking event out of the remaining auto baking events in the auto baking events list before saving the game settings in the game settings menu.
@@ -97,7 +97,7 @@ Replaced the boss hitting sounds with new ones in the toy mania mini game.
 Decreased the amount of keys you need to collect to unlock the door in the toy mania mini game. This value will also be spoken when trying to unlock the door.
 Made it so the ammo of the machine gun resets upon redrawing it in the toy mania mini game.
 Fixed a bug where keys and toys were being broken at the start of a new game despite the clock not allowing them to do it in the toy mania mini game.
-new in 2.0
+New in 2.0.
 Added menu music to sertain menus in the game. You can adjust the volume of the music by pressing the page up and page down keys. The shop menus will still have it's own store music.
 Added a door that will randomly spawn on the map while you're on the boss area in the toy mania mini game. You can't open this door unless you've collected all of the keys that are required to unlock it.
 Replaced the manual baking sounds with new ones.
@@ -118,7 +118,7 @@ Added health mechanics to the toy mania mini game. When a guard or a boss attack
 added behind pitch decrease to the toy mania mini game.
 Made it so toys get broken if you don't collect them on time in the toy mania mini game.
 Added damage and range stats to all of the weapons in the toy mania mini game.
-new in 1.9
+New in 1.9.
 Added a boss that will attack, heal, and teleport around the area in the toy mania mini game. This boss can be killed using your weapons.
 Added the ability to sell all of your cookies at once in the cooky store.
 Made it so the longer the game lasts, the more cars, guards, and toys spawn in the toy mania mini game.
@@ -129,7 +129,7 @@ Added the ability to draw and equip weapons in the toy mania mini game.
 Introduced the toy mania mini game! In this game, you collect as many toys as you can before the timer runs out. The reward you recieve is based on how many toys you've collected through out the entire game. Good luck! This mini game is unlocked at rank 30 or higher.
 Made it so you are required to at least select 1 Positive and one negative coin event out of the remaining coin events in the coin events list before flipping the coin in the coin flipper mini game.
 Made it so you are required to at least select 10 out of the remaining symbols you have in the symbol list before spinning the reels in the slot machine mini game.
-new in 1.8
+New in 1.8.
 Made it so the lists for changing ambience and music tracks can only be accessed if you are in the audio settings of the main game.
 Added the ability to choose from a list of ambiences and music tracks to use with the game in the audio settings menu. These lists can also be saved to the soundsets.crz file as well.
 Updated all single line dlg calls to tell the user what to do after reading one. This especially goes for error messages.
@@ -140,7 +140,7 @@ Fixed up the shop menu. The input box will no longer return you back to the main
 Brought back the information that was given to the user after purchasing an item. It will now tell you the next upgrade cost of all items that are bought in the cooky store.
 Added store anbience volume and pitch sliders to the audio settings menu.
 Added some more music to the main game.
-new in 1.7
+New in 1.7.
 Added the ability to load and start new games in the main menu.
 Replaced the text_input class with a much better virtual_dialogs class. This class includes the ability to create virtual_input_boxes that uses the audio forms class as a backend. The game will now utilize this class for all input prompts from now on.
 Removed the statistics found under each button that told you how many of an item you had while hovering over the button. For example, the button to access the cooky store is now less verbose. Instead of telling you how many coins you have when hovering over the button, it will now just say cooky store.
@@ -151,7 +151,7 @@ Removed the sail start and sail end sliders for selling cookies out of the game 
 Added a sound for checking how many coins you have when pressing the letter M in the main game, and the letter O in the coin flipper and slot machine mini games.
 Fixed the bug where the order of bets were incorrectly placed, causing you not to lose the item that was bet after all of the reels have spun.
 Added sounds for launching mini games. The game will now alert the user if they aren't at a high enough rank to play them.
-new in 1.6
+New in 1.6.
 Addressed an issue where items bet by the slot machine weren't being spoken correctly when the user spun the reels. Instead of saying, you placed a bet of numbered items on item name, it would say, you placed a bet of numbered items on item number.
 Made it so the game doesn't anounce wich reel has been chosen when automatic reel stopping is enabled.
 Added the option to rearange the slot machine symbols alphabetically in the game settings menu.
@@ -162,7 +162,7 @@ Changed the betting logic for the slot machine mini game. Instead of using a sli
 Made it so when you match less than 3 symbols in the slot machine, you win half of your bet back.
 Addressed an issue where the slot machine would only award players the bet if symbols from each reel appeared sequentially in a row. From now on, the slot machine will count how many times any symbol has appeared across all five reels, reguardless of it's position. The bet reward is now based on the highest matching count of symbols, ensuring fairer game play and more dynamic outcomes.
 The slot machine mini game now supports up to 5 reels instead of the normal 3 reels that are usually used in regular casinos. You can now win up to 4 times your bet if you match up to 5 symbols together that are the same.
-new in 1.5
+New in 1.5.
 Added a new mode to the slot machine mini game. You can now manuely control all of the reels while the slot machine is spinning. Press enter to stop each reel to see witch symbol it randomly chooses. If you'd like automatic stopping of all reels, you can find the toggle to turn it on or off in the game settings menu.
 Added various sounds to the slot machine mini game. You can now win 2 or 3 times your bet if you match 2 or 3 symbols together that are the same.
 Improved the slot machine mini game. The reels will now spin automatically for you. You can no longer end up with Negative quantities of items upon losing a bet.
@@ -173,7 +173,7 @@ Fixed up the shop menu a bit and made it so when a user has Purchased an item fr
 You can now adjust the base costs and cost multipliers of items for the shop in the game settings menu.
 Made it so you can no longer buy negative amounts of items in the shop menu.
 Recoded the cost calculation system. It will no longer jump to Outrageously high prices when buying more than a handful of items in the shop menu. The infinit coin bug should finally be resolved once and for all!
-new in 1.4
+New in 1.4.
 Added buffer clearing functions. Introduced clear_all_buffer_items to clear items within a buffer, preventing unnecessary exports of old data.
 Fixed various buffer exporting issues. Buffers can now only be exported if they contain items, preventing empty buffer exports and ensuring cleaner log files. The export buffers function will now skip any buffers without items, ensuring only relevant data is written to those logs.
 Fixed lots of bugs related to sounds not updating properly when volumes and pitches were being changed on them.
@@ -184,7 +184,7 @@ Fixed the bug where buffers continued to speak messages despite being muted. Mut
 Resolved an issue where muted buffers were not logging messages correctly. Muted buffers will now continue logging messages into the buffer for review.
 Introduced a new flexible buffer system that allows you to manage and categorize messages spoken during gameplay. These buffer categories include the folowing. Critical notifications such as hunger warnings and important game milestones, event notifications such as coin flips, auto-baking, and manual-baking, general notifications such as status updates and hunger related tips, and misc notifications such as overall statistics and other game actions, like saving your progress. This system enables better organization of in-game messages, supports navigation through logged events, and allows players to mute/unmute specific buffers that don't need to be spoken, but can still be viewed reguardless of it's mute state.
 You can now toggle playing the intro sound upon starting a new game in the game settings menu.
-new in 1.3
+New in 1.3.
 You can now toggle playing the logo sound upon launching the game in the game settings menu.
 Fixed various issues found in the user settings menu.
 Made it so the game returns the user to the last menu in the shop that was chosen, rather than making them exit the store completely after purchasing something.
@@ -195,7 +195,7 @@ Fixed an issue where deleting the game.crz file would result in having no coins 
 Resolved an issue where event checkboxes in the Game Settings menu did not retain their state after saving, causing all events to revert to being checked when reopening the menu. Now, the selected events are properly saved and loaded as expected.
 Separated the preferences menu into three different sections. You can now access and save audio settings, game settings, and user settings independently of each other.
 Added the ability to customize which events get triggered in the game settings menu. You can use the checkboxes to toggle triggering of auto baking, manule baking, and coin flipping to further refine the events you want to happen durring the game.
-new in 1.2
+New in 1.2.
 Added pitch support to ambience and music in the audio settings menu. I also converted volumes and pitches to percentages for ambiences and music as well.
 Reversed the probability logic for event chances in auto and manual baking. Previously, setting the event chance to 0% resulted in events triggering every time, behaving as though it were set to 100%. Now, a 0% chance will correctly prevent events from triggering, while a 100% chance will trigger events consistently.
 Added the ability to adjust the probability chanse of triggering random events when baking auto or manule cookies.
@@ -206,7 +206,7 @@ Fixed various issues found in all sliders.
 Modified the Hunger System. The hunger mechanics has now been reworked to reflect how hungry your character is, rather than their actual fullness. Your character's hunger will now start at 0, and will increase as they encounter more events.
 Modified the auto cooky speed boost events found in the coin flip and bakery functions.
 You can no longer hold down the spacebar to manuely bake cookies. I couldn't believe this was actually a thing untill someone had mencioned this to me while I was testing it.
-new in 1.1
+New in 1.1.
 Added the ability to quickly save your game progress by pressing Control S. You can also quickly exit the game by pressing Alt F4.
 Added a preferences pannel that let's you adjust various options related to the game, including audio, character information, and other player related things.
 Added ambiences and music tracks. You'll here them across the bord. These can also be adjusted and shuffled in the audio settings of the game.
@@ -217,7 +217,7 @@ Upgraded the effectiveness of the auto cooky speed item in the automatic baking 
 Made it so alert messages Don't use dialogs to notify the player of events while they are in baking mode without having to interupt it.
 Made it so the store open and close sounds can be skipped by pressing the enter key to go in and out of the area faster.
 Fixed a bug where the baking timer was still in the active state even though you didn't have anymore autocookies in your inventory.
-new in 1.0
+New in 1.0.
 Polished up the store a bit, and added sounds for going inside, outside, and browsing through various items.
 Added lots of alerts and sounds for special actions and events that will happen throughout the game.
 You can no longer play the coin flipp minni game unless you are at a high enough rank to do so.
