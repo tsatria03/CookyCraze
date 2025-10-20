@@ -1,5 +1,5 @@
 #define MyAppName "CookyCraze"
-#define MyAppVersion "2.9beta"
+#define MyAppVersion "2.9"
 #define MyAppPublisher "tsatria03"
 #define MyAppURL "https://tsatria03.itch.io/cooky-craze"
 #define MyAppExeName "cycrz.exe"

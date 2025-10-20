@@ -412,9 +412,9 @@ else if ((key_repeating(KEY_LEFT)) && enable_left_and_right)
                 if (current_item != 0)
                 {
                     current_item = 0;
+                }
                     play_click_sound();
                     speak(get_item_description(current_item));
-                }
 }
 else if (key_repeating(KEY_END) && enable_home_and_end)
 {
@@ -425,9 +425,9 @@ else if (key_repeating(KEY_END) && enable_home_and_end)
     if (current_item != int(items.length()) - 1)
     {
         current_item = items.length() - 1;
+    }
         play_click_sound();
     speak(get_item_description(current_item));
-    }
 }
                     else if (key_repeating(KEY_ESCAPE))
             {
