@@ -9,7 +9,7 @@ m.add_music("");
 }
 m.reset();
     m.enable_up_and_down = true;
-    m.enable_left_and_right = false;
+    m.enable_left_and_right = true;
     m.enable_home_and_end = true;
     m.enable_wrapping = true;
     m.enable_first_letter_navigation=true;
@@ -26,7 +26,7 @@ void setupmenu2()
 m.add_music("");
 m.reset(true);
     m.enable_up_and_down = true;
-    m.enable_left_and_right = false;
+    m.enable_left_and_right = true;
     m.enable_home_and_end = true;
     m.enable_wrapping = false;
     m.enable_first_letter_navigation=true;
