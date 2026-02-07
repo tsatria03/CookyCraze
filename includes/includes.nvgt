@@ -42,7 +42,7 @@ string mustype="music1";
 string playername, playername2;
 string currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game1.crz";
 string last_menu_id="";
-string version="2.9";
+string version="3.0";
 timer clicktimer;
 file dockfile, logfile;
 audio_form form;

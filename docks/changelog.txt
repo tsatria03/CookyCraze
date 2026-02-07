@@ -1,3 +1,5 @@
+New in 3.0.
+Added menu wrapping to the cooky store.
 New in 2.9.
 Updated the readme file with added and modified keyboard shortcuts.
 Fixed some menu navigation issues.
