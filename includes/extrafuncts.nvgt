@@ -66,34 +66,23 @@ double buy_item(double level, double base_cost, double multiplier)
 double calc_max_buyable(double coins, double level, double base_cost, double multiplier)
 {
     double currentCost = base_cost * pow(multiplier, level);
-
-    // If multiplier is 1 or invalid, fallback to simple division
     if (multiplier <= 1.000001)
     {
         if (currentCost <= 0) return 0;
         return floor(coins / currentCost);
     }
-
-    double result = floor(
-        log(1 + (coins * (multiplier - 1)) / currentCost)
-        / log(multiplier)
-    );
-
+    double result = floor(log(1 + (coins * (multiplier - 1)) / currentCost) / log(multiplier));
     if (result < 0) result = 0;
-
     return result;
 }
 double calc_total_upgrade_cost(double level, double quantity, double base_cost, double multiplier)
 {
     double startCost = base_cost * pow(multiplier, level);
-
     if (multiplier <= 1.000001)
     {
         return startCost * quantity;
     }
-
     double total = startCost * (pow(multiplier, quantity) - 1) / (multiplier - 1);
-
     return total;
 }
 double calc_automation_cost(double count, double baseCost, double multiplier)
@@ -164,23 +153,81 @@ int string_to_int(string str)
     return isNegative ? -result : result;
 }
 
-string format_number(double num)
+string format_number(double num, bool basic=false, bool scientific=false, bool short_suffix=true)
 {
-    if (num <= 999999 && num >= -999999)
-        return round(num, 0);
+    if (num == 0)
+        return "0";
     double absNum = abs(num);
-    string[] suffixes = {" Million", " Billion", " Trillion", " Quadrillion", " Quintillion", " Sextillion", " Septillion", " Octillion", " Nonillion", " Decillion"};
-    double divisor = 1e6;
-    for (uint i = 0; i < suffixes.length(); i++)
+    if (absNum > 1e308)
+        return "Inf";
+    if (scientific && absNum >= 1000000)
     {
-        double shortened = num / divisor;
-        if (abs(shortened) < 1000 || i == suffixes.length() - 1)
-        {
-            return round(shortened, 2) + suffixes[i];
-        }
-        divisor *= 1000;
+        int exponent = floor(log10(absNum));
+        double mantissa = num * pow(10, -exponent);
+        string sign="+";
+        if (exponent < 0) sign="";
+        return round(mantissa,2) + "e" + sign + exponent;
     }
-    return round(num, 0);
+    if (basic || absNum < 1000)
+    {
+        string str = round(num, absNum < 10 ? 2 : 0);
+        bool negative=false;
+        if (str.substr(0,1)=="-")
+        {
+            negative=true;
+            str=str.substr(1);
+        }
+        string integerPart=str;
+        string decimalPart="";
+        int dot=str.find(".");
+        if(dot!=-1)
+        {
+            integerPart=str.substr(0,dot);
+            decimalPart=str.substr(dot);
+        }
+        string result="";
+        int count=0;
+        for(int i=int(integerPart.length())-1;i>=0;i--)
+        {
+            result=integerPart.substr(i,1)+result;
+            count++;
+            if(count%3==0 && i>0)
+                result=","+result;
+        }
+        if(negative) result="-"+result;
+        return result+decimalPart;
+    }
+    string[] suffix_short={
+        "K","M","B","T",
+        "Qa","Qi","Sx","Sp","Oc",
+        "No","Dc","Ud","Dd","Td",
+        "Qad","Qid","Sxd","Spd","Ocd",
+        "Nod","Vg","Uvg","Dvg","Tvg"
+    };
+    string[] suffix_speech={
+        "k","m","b","t",
+        "qua","qui","sext","sep","oct",
+        "non","dec","und","duo","tre",
+        "quat","quin","sexd","sepd","octd",
+        "nond","vig","unvig","duovig","trevig"
+    };
+    int tier = int(floor(log10(absNum)/3)) - 1;
+    if (tier < 0) tier = 0;
+    int maxTier = suffix_short.length()-1;
+    if (tier > maxTier)
+    {
+        int exponent = floor(log10(absNum));
+        double mantissa = num * pow(10,-exponent);
+        return round(mantissa,2) + "e+" + exponent;
+    }
+    double scale = pow(10,(tier+1)*3);
+    if (scale == 0)
+        return "Inf";
+    double value = num / scale;
+    if (short_suffix)
+        return round(value,2) + suffix_speech[tier];
+    else
+        return round(value,2) + suffix_short[tier];
 }
 
 string convert_to_currency(double number, string currency_symbol)
@@ -203,6 +250,7 @@ void set_save_slot(int slot)
     currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game" + string(slot) + ".crz";
     sd = savedata(currentSaveSlot, "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
 }
+
 void add_baking_slots()
 {
     setupmenu(false);
