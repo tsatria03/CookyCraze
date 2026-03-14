@@ -59,9 +59,42 @@ double max(double a, double b)
 {
 return (a > b) ? a : b;
 }
-double buy_item(double item, double base_cost, double costMultiplier)
+double buy_item(double level, double base_cost, double multiplier)
 {
-return 1+(item*0.1)*base_cost*costMultiplier;
+    return base_cost * pow(multiplier, level);
+}
+double calc_max_buyable(double coins, double level, double base_cost, double multiplier)
+{
+    double currentCost = base_cost * pow(multiplier, level);
+
+    // If multiplier is 1 or invalid, fallback to simple division
+    if (multiplier <= 1.000001)
+    {
+        if (currentCost <= 0) return 0;
+        return floor(coins / currentCost);
+    }
+
+    double result = floor(
+        log(1 + (coins * (multiplier - 1)) / currentCost)
+        / log(multiplier)
+    );
+
+    if (result < 0) result = 0;
+
+    return result;
+}
+double calc_total_upgrade_cost(double level, double quantity, double base_cost, double multiplier)
+{
+    double startCost = base_cost * pow(multiplier, level);
+
+    if (multiplier <= 1.000001)
+    {
+        return startCost * quantity;
+    }
+
+    double total = startCost * (pow(multiplier, quantity) - 1) / (multiplier - 1);
+
+    return total;
 }
 double calc_automation_cost(double count, double baseCost, double multiplier)
 {

@@ -409,20 +409,8 @@ void abimenu()
 setupmenu2();
 double autoCookyCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
 double autoCookySpeedCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
-double maxBuyableAutoCooky = 0;
-double tempCoins = coins;
-while (tempCoins >= buy_item(autocooky + maxBuyableAutoCooky, autoCookyBaseCost, autoCookyMultiplier))
-{
-tempCoins -= buy_item(autocooky + maxBuyableAutoCooky, autoCookyBaseCost, autoCookyMultiplier);
-maxBuyableAutoCooky++;
-}
-double maxBuyableAutoCookySpeed = 0;
-tempCoins = coins;
-while (tempCoins >= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier))
-{
-tempCoins -= buy_item(cookyspeed + maxBuyableAutoCookySpeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
-maxBuyableAutoCookySpeed++;
-}
+double maxBuyableAutoCooky = calc_max_buyable(coins, autocooky, autoCookyBaseCost, autoCookyMultiplier);
+double maxBuyableAutoCookySpeed = calc_max_buyable(coins, cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + format_number(maxBuyableAutoCooky) + ". Description: Each purchase gives you 1 auto cookie to bake with.", "abic");
 m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + format_number(maxBuyableAutoCookySpeed) + ". Description: Each purchase increases your baking speed by 10 milliseconds, helping you bake cookies much faster.", "sabic");
 m.add_item("back", "back");
@@ -446,10 +434,7 @@ double totalCost = 0;
         dlg("Error! Please enter a valid number of auto cookies to buy!");
         buymenu();
     }
-for (uint i = 0; i < quantity; i++)
-{
-totalCost += buy_item(autocooky + i, autoCookyBaseCost, autoCookyMultiplier);
-}
+totalCost = calc_total_upgrade_cost(autocooky, quantity, autoCookyBaseCost, autoCookyMultiplier);
 if (coins >= totalCost)
 {
 coins -= totalCost;
@@ -480,10 +465,7 @@ double totalCost = 0;
         dlg("Error! Please enter a valid number of auto cooky speeds to buy!");
         buymenu();
     }
-for (uint i = 0; i < quantity; i++)
-{
-totalCost += buy_item(cookyspeed + i, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
-}
+totalCost = calc_total_upgrade_cost(cookyspeed, quantity, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
 if (coins >= totalCost)
 {
 coins -= totalCost;
@@ -511,13 +493,7 @@ void mabimenu()
 {
 setupmenu2();
 double manuleCookyCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
-double maxBuyable = 0;
-double tempCoins = coins;
-while (tempCoins >= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manualCookyMultiplier))
-{
-tempCoins -= buy_item(manulcooky + maxBuyable, manualCookyBaseCost, manualCookyMultiplier);
-maxBuyable++;
-}
+double maxBuyable = calc_max_buyable(coins, manulcooky, manualCookyBaseCost, manualCookyMultiplier);
 m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + format_number(maxBuyable) + ". Description: Each purchase gives you 1 manual cookie to bake with.", "mabic");
 m.add_item("back", "back");
 m.intro_text="Manual baking menu.";
@@ -540,10 +516,7 @@ double totalCost = 0;
         dlg("Error! Please enter a valid number of manual cookies to buy!");
         buymenu();
     }
-for (uint i = 0; i < quantity; i++)
-{
-totalCost += buy_item(manulcooky + i, manualCookyBaseCost, manualCookyMultiplier);
-}
+totalCost = calc_total_upgrade_cost(manulcooky, quantity, manualCookyBaseCost, manualCookyMultiplier);
 if (coins >= totalCost)
 {
 coins -= totalCost;
@@ -608,8 +581,8 @@ void gamsetsmenu()
 {
     form.reset();
     form.create_window("Game Settings", false);
-int introSFX = form.create_checkbox("Enable playing the intro sound upon starting the game.", introsfx);
 int logoSFX = form.create_checkbox("Enable playing the logo sound upon launching the game.", logosfx);
+int introSFX = form.create_checkbox("Enable playing the intro sound upon starting the game.", introsfx);
 int exitSFX = form.create_checkbox("Enable playing the exit sound upon exiting the game.", exitsfx);
 int bakeSFX = form.create_checkbox("Enable auto bake sound effects when baking cookies.", bakesfx);
 int coinSFX = form.create_checkbox("Enable coin sound effects when earning money.", coinsfx);

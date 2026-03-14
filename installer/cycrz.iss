@@ -1,3 +1,4 @@
+#define MyAppId "{{1DC03DEF-5A84-4451-9A4A-30B7310E912A}}"
 #define MyAppName "CookyCraze"
 #define MyAppVersion "3.0"
 #define MyAppPublisher "tsatria03"
@@ -5,19 +6,21 @@
 #define MyAppExeName "cycrz.exe"
 #define MyReadme "readme.txt"
 [Setup]
-AppId={{64477427-9EAA-4A52-905B-269D21D008DA}}
+AppId={#MyAppId}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\{#MyAppName}
+DefaultDirName={autopf}\{#MyAppPublisher}\{#MyAppName}\cycrz
 DefaultGroupName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=admin
+UninstallDisplayName={#MyAppName} {#MyAppVersion}
+AppMutex={#MyAppName}_Mutex
 OutputDir=.
 OutputBaseFilename=CookyCraze_windows_installer_password_is_CrazeMastery
 Password=CrazeMastery

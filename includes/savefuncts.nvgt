@@ -92,7 +92,7 @@ void writedata()
 sd.add("autocooky",autocooky);
 sd.add("coins",coins);
 sd.add("cookies",cookies);
-st.add("cookiesrequiered",cookiesrequiered);
+sd.add("cookiesrequiered",cookiesrequiered);
 sd.add("cookyspeed",cookyspeed);
 sd.add("levcoins",levcoins);
 sd.add("manulcooky",manulcooky);
