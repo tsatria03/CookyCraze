@@ -10,7 +10,7 @@ return false;
 if (key_repeating(KEY_C) and dlgcoppy==true)
 {
 temp.destroy_all();
-temp.play_stationary("dlgcoppy.ogg", false);
+temp.play_stationary("sounds/dlg/coppy.ogg", false);
 string clean_message = string_replace(message, " Press enter or space to continue.", "", true);
 clipboard_copy_text(clean_message);
 speak("Text copied");
@@ -47,25 +47,25 @@ return dlg(message, dlgcoppy, timeout);
 }
 void dlgmessage(string messages)
 {
-temp.play_stationary("dlgopen.ogg", false);
+temp.play_stationary("sounds/dlg/open.ogg", false);
 string[] d = string_split(messages, "\r\n", true);
 bool escaped = dlg(d[0]);
 if (escaped)
 {
-temp.play_stationary("dlgclose.ogg", false);
+temp.play_stationary("sounds/dlg/close.ogg", false);
 return;
 }
 for (uint i = 1; i < d.length(); i++)
 {
-temp.play_stationary("dlgscroll.ogg", false);
+temp.play_stationary("sounds/dlg/scroll.ogg", false);
 escaped = dlg(d[i]);
 if (escaped)
 {
-temp.play_stationary("dlgclose.ogg", false);
+temp.play_stationary("sounds/dlg/close.ogg", false);
 return;
 }
 }
-temp.play_stationary("dlgclose.ogg", false);
+temp.play_stationary("sounds/dlg/close.ogg", false);
 }
 void dlgmessage_return(string msg)
 {

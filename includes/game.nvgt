@@ -1,6 +1,53 @@
 void clicker_game_input()
 {
-buffercheck();
+if(key_repeating(KEY_COMMA))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+top_buffer_item();
+}
+else
+{
+previous_buffer_item();
+}
+}
+if(key_repeating(KEY_PERIOD))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+bottom_buffer_item();
+}
+else
+{
+next_buffer_item();
+}
+}
+if(key_repeating(KEY_LBRACKET))
+{
+previous_buffer();
+}
+if(key_repeating(KEY_RBRACKET))
+{
+next_buffer();
+}
+if (shift_is_down())
+{
+if (key_repeating(KEY_M))
+{
+toggle_buffer();
+}
+if (key_repeating(KEY_C))
+{
+copy_buffer_item();
+}
+if (key_repeating(KEY_BACKSLASH))
+{
+if (export_current_buffer())
+{
+clear_current_buffer();
+}
+}
+}
 if(control_is_down())
 {
 if(key_pressed(KEY_S))
@@ -10,7 +57,7 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game saved", "misc");
 if(savesfx==false) wait(500);
-if(savesfx==true) dlgplay("savegame.ogg");
+if(savesfx==true) dlgplay("sounds/misc/savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
@@ -23,7 +70,7 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");
 if(savesfx==false) wait(500);
-if(savesfx==true) dlgplay("savegame.ogg");
+if(savesfx==true) dlgplay("sounds/misc/savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
@@ -33,7 +80,7 @@ clickergame();
 if(key_pressed(KEY_M))
 {
 pool.destroy_sound(coinslot);
-if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
+if(coins>0) coinslot=pool.play_stationary("sounds/misc/cointoss.ogg", false);
 speak_buffer("You have "+format_number(coins)+" coins available to spend", "misc");
 }
 if(key_pressed(KEY_R))
@@ -108,13 +155,13 @@ muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
 speak_buffer("Exiting the game without saving.");
 if(exitsfx==false) wait(500);
-if(exitsfx==true) dlgplay("exitgame.ogg");
+if(exitsfx==true) dlgplay("sounds/misc/exitgame.ogg");
 mainmenu();
 }
 }
 if(key_repeating(KEY_ESCAPE))
 {
-alertslot=pool.play_stationary("alert_critical.ogg",false);
+alertslot=pool.play_stationary("sounds/misc/alert_critical.ogg",false);
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
     setupmenu(false);    
@@ -142,7 +189,7 @@ muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
         speak_buffer("Exiting the game without saving.");
 if(exitsfx==false) wait(500);
-if(exitsfx==true) dlgplay("exitgame.ogg");
+if(exitsfx==true) dlgplay("sounds/misc/exitgame.ogg");
 ingame=false;
 mainmenu();
     }
@@ -155,7 +202,7 @@ muspool.destroy_sound(mustrackslot);
 pool.destroy_all();
         speak_buffer("game saved, Exiting to main menu.");
 if(savesfx==false) wait(500);
-if(savesfx==true) dlgplay("savegame.ogg");
+if(savesfx==true) dlgplay("sounds/misc/savegame.ogg");
 ingame=false;
 mainmenu();
     }
@@ -175,7 +222,7 @@ if (m.get_item_id(mres) == "save_continue")
 pool.destroy_sound(alertslot);
         speak_buffer("game saved, Continuing the game.", "misc");
 if(savesfx==false) wait(500);
-if(savesfx==true) dlgplay("savegame.ogg");
+if(savesfx==true) dlgplay("sounds/misc/savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
@@ -253,13 +300,13 @@ else if(autocooky>=1)
 if(bakemode==0)
 {
 bakemode=1;
-pool.play_stationary("toggleon.ogg", false);
+pool.play_stationary("sounds/misc/toggleon.ogg", false);
 speak_buffer("Baking mode enabled.", "misc");
 }
 else if(bakemode==1)
 {
 bakemode=0;
-pool.play_stationary("toggleoff.ogg", false);
+pool.play_stationary("sounds/misc/toggleoff.ogg", false);
 speak_buffer("Baking mode disabled.", "misc");
 }
 }
@@ -273,7 +320,7 @@ speak_buffer("You need at least 1 manule cooky to start baking cookies.", "gener
 else if(manulcooky>=1)
 {
 cookies+=1*manulcooky;
-pool.play_stationary("manulbake.ogg", false);
+pool.play_stationary("sounds/misc/manulbake.ogg", false);
 if(playervents2==true) attempt_manebaker_event(evchanse2);
 }
 }
@@ -288,10 +335,10 @@ else if(coins>=1)
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
 speak_buffer("You're now entering the cooky store.", "critical");
-dlgplay("store_door_open.ogg");
-alertslot=pool.play_stationary("store_welcome.ogg",false);
-storambslot=storambpool.play_stationary_extended("store_amb.ogg",true,0,0,storambvolume,storambpitch,false);
-stortrackslot=stormuspool.play_stationary_extended("store_music.ogg",true,0,0,stormusvolume,stormuspitch,false);
+dlgplay("sounds/misc/store_door_open.ogg");
+alertslot=pool.play_stationary("sounds/misc/store_welcome.ogg",false);
+storambslot=storambpool.play_stationary_extended("sounds/misc/store_amb.ogg",true,0,0,storambvolume,storambpitch,false);
+stortrackslot=stormuspool.play_stationary_extended("sounds/misc/store_music.ogg",true,0,0,stormusvolume,stormuspitch,false);
 shopmenu();
 }
 }
@@ -311,7 +358,7 @@ if (slotDistribution && autobakeSlots > 0)
 cookies += perSlot;
 }
 }
-if(bakesfx==true) pool.play_stationary("autobake.ogg", false);
+if(bakesfx==true) pool.play_stationary("sounds/misc/autobake.ogg", false);
 if(playervents==true) attempt_autobaker_event(evchanse);
 clicktimer.restart();
 }
@@ -329,44 +376,44 @@ if (cookies >= cookiesrequiered)
     cookiesrequiered = (cookymod * (rank * (rank * difmod)));
     if (levcoins >= 1 && levcoins <= 49)
 {
-        if(coinsfx==true) pool.play_stationary("coin1.ogg", false);
+        if(coinsfx==true) pool.play_stationary("sounds/misc/coin1.ogg", false);
     }
 else if (levcoins >= 50 && levcoins <= 999)
 {
-        if(coinsfx==true) pool.play_stationary("coin50.ogg", false);
+        if(coinsfx==true) pool.play_stationary("sounds/misc/coin50.ogg", false);
     }
 else if (levcoins >= 1000 && levcoins <= 9999)
 {
-        if(coinsfx==true) pool.play_stationary("coin1000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("sounds/misc/coin1000.ogg", false);
     }
 else if (levcoins >= 10000 && levcoins <= 49999)
 {
-        if(coinsfx==true) pool.play_stationary("coin10000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("sounds/misc/coin10000.ogg", false);
     }
 else if (levcoins >= 50000 && levcoins <= 99999)
 {
-        if(coinsfx==true) pool.play_stationary("coin50000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("sounds/misc/coin50000.ogg", false);
     }
 else if (levcoins >= 100000 && levcoins <= 999999)
 {
-        if(coinsfx==true) pool.play_stationary("coin100000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("sounds/misc/coin100000.ogg", false);
     }
 else if (levcoins >= 1000000)
 {
-        if(coinsfx==true) pool.play_stationary("coin100000.ogg", false);
+        if(coinsfx==true) pool.play_stationary("sounds/misc/coin100000.ogg", false);
     }
-    if(ranksfx==true) pool.play_stationary("achievement" + random(1, 2) + ".ogg", false);
+    if(ranksfx==true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
     speak_buffer("Congratulations! You've successfully made it to rank " + format_number(rank) + "! You've earned " + format_number(levcoins) + " coins for your achievement. Great work!", "ranks");
 if(rank==10)
 {
 levcoins += 100 * rank*2;
-if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
+if(coinsfx==true) pool.play_stationary("sounds/misc/alert_large.ogg", false);
 dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the coin flipper minni game. You've also earned an extra "+format_number(levcoins)+" coins for your hard work. Keep it up!", "ranks");
 }
 if(rank==20)
 {
 levcoins += 100 * rank*4;
-if(coinsfx==true) pool.play_stationary("alert_large.ogg", false);
+if(coinsfx==true) pool.play_stationary("sounds/misc/alert_large.ogg", false);
 dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+format_number(levcoins)+" coins for your hard work. Keep it up!", "ranks");
 }
 }

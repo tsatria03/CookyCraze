@@ -1,8 +1,6 @@
 #include"includes/includes.nvgt"
 void main()
 {
-set_sound_storage("*");
-set_sound_decryption_key("BRn2x3BJd3O0KrB7kb2L6cY4qJYEjVt5OhuVzJmmsoj9wampZL3IAx7IdIQBMyqW7ssXZhsXwD2nrQR4qRL8038swNq0Zc2ObN6mNlWrjIGcYLqEh2t0OHeM",true);
 if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/");
 if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/");
 show_window("CookyCraze, version "+version);
@@ -22,7 +20,7 @@ readdata();
 readpreffs();
 readpreffs2();
 readpreffs3();
-if(logosfx==true) dlgplay("logo"+random(1,2)+".ogg");
+if(logosfx==true) dlgplay("sounds/misc/logo"+random(1,2)+".ogg");
 if(playerprofed == false)
 {
 wait(500);
@@ -69,7 +67,7 @@ if (mres==1)
 dlg("Congratulations! You've successfully completed your profile setup. I'll give you 10 coins to get you started on your way. Press enter or space to continue.");
 usercoins=10;
 coins=usercoins;
-dlgplay("coin1.ogg");
+dlgplay("sounds/misc/coin1.ogg");
 if (playergender == 0) 
 {
 dlg("Nice to meat you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks! Press enter or space to continue.");

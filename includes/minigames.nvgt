@@ -1,6 +1,53 @@
 void cook_game_input()
 {
-buffercheck();
+if(key_repeating(KEY_COMMA))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+top_buffer_item();
+}
+else
+{
+previous_buffer_item();
+}
+}
+if(key_repeating(KEY_PERIOD))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+bottom_buffer_item();
+}
+else
+{
+next_buffer_item();
+}
+}
+if(key_repeating(KEY_LBRACKET))
+{
+previous_buffer();
+}
+if(key_repeating(KEY_RBRACKET))
+{
+next_buffer();
+}
+if (shift_is_down())
+{
+if (key_repeating(KEY_M))
+{
+toggle_buffer();
+}
+if (key_repeating(KEY_C))
+{
+copy_buffer_item();
+}
+if (key_repeating(KEY_BACKSLASH))
+{
+if (export_current_buffer())
+{
+clear_current_buffer();
+}
+}
+}
 if(control_is_down())
 {
 if(key_pressed(KEY_S))
@@ -10,7 +57,7 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game saved", "misc");
 if(savesfx==false) wait(500);
-if(savesfx==true) dlgplay("savegame.ogg");
+if(savesfx==true) dlgplay("sounds/misc/savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
@@ -23,7 +70,7 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");
 if(savesfx==false) wait(500);
-if(savesfx==true) dlgplay("savegame.ogg");
+if(savesfx==true) dlgplay("sounds/misc/savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
@@ -49,7 +96,7 @@ speak_buffer("You have " + format_number(manulcooky) + " manual cookies.");
         if (key_pressed(KEY_O))
 {
 pool.destroy_sound(coinslot);
-if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
+if(coins>0) coinslot=pool.play_stationary("sounds/misc/cointoss.ogg", false);
 speak_buffer("You have " + format_number(coins) + " coins.");
 }
 }
@@ -139,7 +186,7 @@ if (form.is_pressed(flip))
         string[] cooksides = { "chocolate", "bisket" };
         string side = cooksides[random(0, cooksides.length() - 1)];
         pool.destroy_sound(eventslot);
-        pool.play_stationary("cookflip.ogg", false);
+        pool.play_stationary("sounds/misc/cookflip.ogg", false);
         dlg_buffer("You flip a cooky. It lands on " + side);
         if (side == "chocolate" && chocsEvents.length() > 0)
         {
@@ -165,7 +212,54 @@ if (form.is_pressed(flip))
 }
 void slots_game_input()
 {
-buffercheck();
+if(key_repeating(KEY_COMMA))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+top_buffer_item();
+}
+else
+{
+previous_buffer_item();
+}
+}
+if(key_repeating(KEY_PERIOD))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+bottom_buffer_item();
+}
+else
+{
+next_buffer_item();
+}
+}
+if(key_repeating(KEY_LBRACKET))
+{
+previous_buffer();
+}
+if(key_repeating(KEY_RBRACKET))
+{
+next_buffer();
+}
+if (shift_is_down())
+{
+if (key_repeating(KEY_M))
+{
+toggle_buffer();
+}
+if (key_repeating(KEY_C))
+{
+copy_buffer_item();
+}
+if (key_repeating(KEY_BACKSLASH))
+{
+if (export_current_buffer())
+{
+clear_current_buffer();
+}
+}
+}
 if(control_is_down())
 {
 if(key_pressed(KEY_S))
@@ -175,7 +269,7 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game saved", "misc");
 if(savesfx==false) wait(500);
-if(savesfx==true) dlgplay("savegame.ogg");
+if(savesfx==true) dlgplay("sounds/misc/savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
@@ -188,7 +282,7 @@ ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");
 if(savesfx==false) wait(500);
-if(savesfx==true) dlgplay("savegame.ogg");
+if(savesfx==true) dlgplay("sounds/misc/savegame.ogg");
 ambpool.resume_sound(ambslot);
 muspool.resume_sound(mustrackslot);
 form.reset();
@@ -214,7 +308,7 @@ speak_buffer("You have " + format_number(manulcooky) + " manual cookies.");
         if (key_pressed(KEY_O))
 {
 pool.destroy_sound(coinslot);
-if(coins>0) coinslot=pool.play_stationary("cointoss.ogg", false);
+if(coins>0) coinslot=pool.play_stationary("sounds/misc/cointoss.ogg", false);
 speak_buffer("You have " + format_number(coins) + " coins.");
 }
 }
@@ -325,19 +419,19 @@ form.reset();
 slotsgame();
             }
 pool.destroy_sound(machineslot);
-pool.play_stationary("slotbet1.ogg", false);
+pool.play_stationary("sounds/misc/slotbet1.ogg", false);
 if(selectedBet==0) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on cookies.");
 if(selectedBet==1) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on coins.");
 if(selectedBet==2) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on auto cookies.");
 if(selectedBet==3) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on auto cooky speeds.");
 if(selectedBet==4) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on manual cookies.");
 wait_async(1000);
-pool.play_stationary("slotbet2.ogg", false);
+pool.play_stationary("sounds/misc/slotbet2.ogg", false);
 wait_async(random(600, 800));
-pool.play_stationary("slotbet3.ogg", false);
+pool.play_stationary("sounds/misc/slotbet3.ogg", false);
 wait_async(1000);
-pool.play_stationary("slotlever.ogg", false);
-machineslot=pool.play_stationary("slotspin.ogg", true);
+pool.play_stationary("sounds/misc/slotlever.ogg", false);
+machineslot=pool.play_stationary("sounds/misc/slotspin.ogg", true);
 if(slotmode==true) speak_buffer("spinning...");
 if(slotmode==false) dlg_buffer("spinning. Press enter or space to stop each reel.");
 if(slotmode==true) wait(random(1000,2000));
@@ -348,7 +442,7 @@ if(slotmode==true) wait(random(1000,2000));
             reel1 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait_async(random(1000, 2000));
 pool.destroy_sound(machineslot);
-pool.play_stationary("slotstop1.ogg", false);
+pool.play_stationary("sounds/misc/slotstop1.ogg", false);
 if(slotmode==true) speak_buffer(reel1);
 else if(slotmode==false) dlg_buffer("The first reel shows " + reel1);
                 }
@@ -356,7 +450,7 @@ else if(slotmode==false) dlg_buffer("The first reel shows " + reel1);
                 {
             reel2 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait_async(random(1000, 2000));
-pool.play_stationary("slotstop2.ogg", false);
+pool.play_stationary("sounds/misc/slotstop2.ogg", false);
 if(slotmode==true) speak_buffer(reel2);
 else if(slotmode==false) dlg_buffer("The second reel shows " + reel2);
                 }
@@ -364,7 +458,7 @@ else if(slotmode==false) dlg_buffer("The second reel shows " + reel2);
                 {
             reel3 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait_async(random(1000, 2000));
-pool.play_stationary("slotstop3.ogg", false);
+pool.play_stationary("sounds/misc/slotstop3.ogg", false);
 if(slotmode==true) speak_buffer(reel3);
 else if(slotmode==false) dlg_buffer("The third reel shows " + reel3);
                 }
@@ -372,7 +466,7 @@ else if(slotmode==false) dlg_buffer("The third reel shows " + reel3);
                 {
             reel4 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait_async(random(1000, 2000));
-pool.play_stationary("slotstop1.ogg", false);
+pool.play_stationary("sounds/misc/slotstop1.ogg", false);
 if(slotmode==true) speak_buffer(reel4);
 else if(slotmode==false) dlg_buffer("The forth reel shows " + reel4);
                 }
@@ -380,7 +474,7 @@ else if(slotmode==false) dlg_buffer("The forth reel shows " + reel4);
                 {
             reel5 = activeSymbols[random(0, activeSymbols.length() - 1)];
 if(slotmode==true) wait_async(random(1000, 2000));
-pool.play_stationary("slotstop2.ogg", false);
+pool.play_stationary("sounds/misc/slotstop2.ogg", false);
 if(slotmode==true) speak_buffer(reel5);
 else if(slotmode==false) dlg_buffer("The fith reel shows " + reel5);
                 }
@@ -409,7 +503,7 @@ if (maxMatch == 5)
 {
             if(slotmode==true) wait_async(random(1000, 2000));
 pool.destroy_sound(machineslot);
-                pool.play_stationary("slotwin1.ogg", false);
+                pool.play_stationary("sounds/misc/slotwin1.ogg", false);
                 dlg_buffer("You won 4 times your bet!");
 form.focus(spinButton);
                 if (selectedBet == 0)
@@ -438,7 +532,7 @@ else if (maxMatch == 4)
             {
 if(slotmode==true) wait_async(random(1000, 2000));
 pool.destroy_sound(machineslot);
-pool.play_stationary("slotwin1.ogg", false);
+pool.play_stationary("sounds/misc/slotwin1.ogg", false);
                 dlg_buffer("You won triple your bet!");
 form.focus(spinButton);
                 if (selectedBet == 0)
@@ -467,7 +561,7 @@ else if (maxMatch == 3)
             {
 if(slotmode==true) wait_async(random(1000, 2000));
 pool.destroy_sound(machineslot);
-pool.play_stationary("slotwin2.ogg", false);
+pool.play_stationary("sounds/misc/slotwin2.ogg", false);
                 dlg_buffer("You won double your bet!");
 form.focus(spinButton);
                 if (selectedBet == 0)
@@ -496,7 +590,7 @@ else if (maxMatch == 2)
             {
 if(slotmode==true) wait_async(random(1000, 2000));
 pool.destroy_sound(machineslot);
-pool.play_stationary("slotwin3.ogg", false);
+pool.play_stationary("sounds/misc/slotwin3.ogg", false);
                 dlg_buffer("You won half your bet!");
 form.focus(spinButton);
                 if (selectedBet == 0)
@@ -525,7 +619,7 @@ manulcooky += betAmount/2;
             {
 if(slotmode==true) wait_async(random(1000, 2000));
 pool.destroy_sound(machineslot);
-                pool.play_stationary("slotlose.ogg", false);
+                pool.play_stationary("sounds/misc/slotlose.ogg", false);
                 dlg_buffer("You lost the bet!");
 form.focus(spinButton);
             if (selectedBet == 0)

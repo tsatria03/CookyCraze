@@ -1,4 +1,6 @@
 New in 3.0.
+Made it so the sounds for the game are no longer encripted from now on.
+Fixed some critical number formatting issues.
 Made it so you start with 1 manual cooky by default when starting a new game.
 Recoded the purchase logic for buying upgrades in the cooky store to be a lot faster than before.
 Added menu wrapping to the cooky store.

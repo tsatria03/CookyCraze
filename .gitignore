@@ -1,7 +1,6 @@
-*.ogg
-*.wav
+*.ini
 New File*.txt
+
 lib/
-logs/
 releases/
 sounds/

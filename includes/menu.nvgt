@@ -139,11 +139,11 @@ if (file_exists(currentSaveSlot))
 {
 speak("Loading slot " + string(slotNumber));
 m.fade_music();
-if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+if(introsfx==true) pool.play_stationary("sounds/misc/welcome" + random(1, 3) + ".ogg", false);        
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 readdata();
 clickergame();
@@ -151,7 +151,7 @@ clickergame();
 else
 {
 m.fade_music();
-alertslot=pool.play_stationary("error.ogg",false);
+alertslot=pool.play_stationary("sounds/misc/error.ogg",false);
 dlg("Error! The data assosiated with this save slot does not exist!");
 pool.destroy_sound(alertslot);
 ingame=false;
@@ -204,11 +204,11 @@ if(mres2==1)
 {
 speak("Loading slot " + string(slotNumber));
 m.fade_music();
-if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+if(introsfx==true) pool.play_stationary("sounds/misc/welcome" + random(1, 3) + ".ogg", false);        
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 resetgame();
 clickergame();
@@ -223,11 +223,11 @@ else
 {
 speak("Loading slot " + string(slotNumber));
 m.fade_music();
-if(introsfx==true) pool.play_stationary("welcome" + random(1, 3) + ".ogg", false);        
+if(introsfx==true) pool.play_stationary("sounds/misc/welcome" + random(1, 3) + ".ogg", false);        
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 resetgame();
 clickergame();
@@ -253,14 +253,14 @@ if(form.is_pressed(slots))
 {
 if(rank<20)
 {
-gameslot=pool.play_stationary("gamefail.ogg", false);
+gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
 dlg_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 20 or higher to play this.", "critical");
 form.reset();
 mingamsmenu();
 }
 else if(rank>=20)
 {
-gameslot=pool.play_stationary("gamelaunch.ogg", false);
+gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
 slotsgame();
 }
 }
@@ -268,14 +268,14 @@ if(form.is_pressed(flip))
 {
 if(rank<10)
 {
-gameslot=pool.play_stationary("gamefail.ogg", false);
+gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
 dlg_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 10 or higher to play this.", "critical");
 form.reset();
 mingamsmenu();
 }
 else if(rank>=10)
 {
-gameslot=pool.play_stationary("gamelaunch.ogg", false);
+gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
 cookgame();
 }
 }
@@ -297,11 +297,11 @@ pool.destroy_sound(storslot);
 storambpool.destroy_sound(storambslot);
 stormuspool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
-dlgplay("store_door_close.ogg");
+dlgplay("sounds/misc/store_door_close.ogg");
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clickergame();
 }
@@ -317,14 +317,14 @@ double cookiesToSell = string_to_number(sailam);
     if (cookiesToSell <= 0)
     {
         pool.destroy_sound(alertslot);
-        pool.play_stationary("sellfail.ogg", false);
+        pool.play_stationary("sounds/misc/sellfail.ogg", false);
         dlg("Error! Please enter a valid number of cookies to sell!");
         shopmenu();
     }
     else if (cookiesToSell > cookies)
     {
         pool.destroy_sound(alertslot);
-        pool.play_stationary("sellfail.ogg", false);
+        pool.play_stationary("sounds/misc/sellfail.ogg", false);
         dlg("Error! You only have " + format_number(cookies) + " cookies available to sell!");
         shopmenu();
     }
@@ -333,31 +333,31 @@ cookies -= cookiesToSell;
 coins += totalCoinsEarned;
 if (totalCoinsEarned >= 10 && totalCoinsEarned <= 490)
 {
-pool.play_stationary("coin1.ogg", false);
+pool.play_stationary("sounds/misc/coin1.ogg", false);
 }
 else if (totalCoinsEarned >= 500 && totalCoinsEarned <= 9990)
 {
-pool.play_stationary("coin50.ogg", false);
+pool.play_stationary("sounds/misc/coin50.ogg", false);
 }
 else if (totalCoinsEarned >= 10000 && totalCoinsEarned <= 99990)
 {
-pool.play_stationary("coin1000.ogg", false);
+pool.play_stationary("sounds/misc/coin1000.ogg", false);
 }
 else if (totalCoinsEarned >= 100000 && totalCoinsEarned <= 499990)
 {
-pool.play_stationary("coin10000.ogg", false);
+pool.play_stationary("sounds/misc/coin10000.ogg", false);
 }
 else if (totalCoinsEarned >= 500000 && totalCoinsEarned <= 999990)
 {
-pool.play_stationary("coin50000.ogg", false);
+pool.play_stationary("sounds/misc/coin50000.ogg", false);
 }
 else if (totalCoinsEarned >= 1000000 && totalCoinsEarned <= 9999990)
 {
-pool.play_stationary("coin100000.ogg", false);
+pool.play_stationary("sounds/misc/coin100000.ogg", false);
 }
 else if (totalCoinsEarned >= 10000000)
 {
-pool.play_stationary("coin100000.ogg", false);
+pool.play_stationary("sounds/misc/coin100000.ogg", false);
 }
 dlg("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins!");
 shopmenu();
@@ -369,11 +369,11 @@ pool.destroy_sound(storslot);
 storambpool.destroy_sound(storambslot);
 stormuspool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
-dlgplay("store_door_close.ogg");
+dlgplay("sounds/misc/store_door_close.ogg");
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended(ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended(mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clickergame();
 }
@@ -430,7 +430,7 @@ double totalCost = 0;
     if (quantity <= 0)
     {
         pool.destroy_sound(alertslot);
-        pool.play_stationary("storefail.ogg", false);
+        pool.play_stationary("sounds/misc/storefail.ogg", false);
         dlg("Error! Please enter a valid number of auto cookies to buy!");
         buymenu();
     }
@@ -440,14 +440,14 @@ if (coins >= totalCost)
 coins -= totalCost;
 autocooky += quantity;
 double nextUpgradeCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
-pool.play_stationary("buy"+random(1,4)+".ogg",false);
-pool.play_stationary("store_order.ogg",false);
+pool.play_stationary("sounds/misc/buy"+random(1,4)+".ogg",false);
+pool.play_stationary("sounds/misc/store_order.ogg",false);
 dlg("Purchase successful! You bought " + format_number(quantity) + " auto cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
-pool.play_stationary("storefail.ogg",false);
+pool.play_stationary("sounds/misc/storefail.ogg",false);
 dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cookies!");
 buymenu();
 }
@@ -461,7 +461,7 @@ double totalCost = 0;
     if (quantity <= 0)
     {
         pool.destroy_sound(alertslot);
-        pool.play_stationary("storefail.ogg", false);
+        pool.play_stationary("sounds/misc/storefail.ogg", false);
         dlg("Error! Please enter a valid number of auto cooky speeds to buy!");
         buymenu();
     }
@@ -472,14 +472,14 @@ coins -= totalCost;
 cookyspeed += quantity*10;
 clicktime-=cookyspeed;
 double nextUpgradeCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
-pool.play_stationary("buy"+random(1,4)+".ogg",false);
-pool.play_stationary("store_order.ogg",false);
+pool.play_stationary("sounds/misc/buy"+random(1,4)+".ogg",false);
+pool.play_stationary("sounds/misc/store_order.ogg",false);
 dlg("Purchase successful! You bought " + format_number(quantity) + " auto cooky speeds for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
-pool.play_stationary("storefail.ogg",false);
+pool.play_stationary("sounds/misc/storefail.ogg",false);
 dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cooky speeds!");
 buymenu();
 }
@@ -512,7 +512,7 @@ double totalCost = 0;
     if (quantity <= 0)
     {
         pool.destroy_sound(alertslot);
-        pool.play_stationary("storefail.ogg", false);
+        pool.play_stationary("sounds/misc/storefail.ogg", false);
         dlg("Error! Please enter a valid number of manual cookies to buy!");
         buymenu();
     }
@@ -522,14 +522,14 @@ if (coins >= totalCost)
 coins -= totalCost;
 manulcooky += quantity;
 double nextUpgradeCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
-pool.play_stationary("buy"+random(1,4)+".ogg",false);
-pool.play_stationary("store_order.ogg",false);
+pool.play_stationary("sounds/misc/buy"+random(1,4)+".ogg",false);
+pool.play_stationary("sounds/misc/store_order.ogg",false);
 dlg("Purchase successful! You bought " + format_number(quantity) + " manual cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
 buymenu();
 }
 else
 {
-pool.play_stationary("storefail.ogg",false);
+pool.play_stationary("sounds/misc/storefail.ogg",false);
 dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " manule cookies!");
 buymenu();
 }
@@ -722,14 +722,14 @@ if(ingame==true) ambienceIndex = form.get_list_position(amblist);
         {
             ambtype = ambOptions[ambienceIndex];
             ambpool.destroy_sound(ambslot);
-            ambslot = ambpool.play_stationary_extended(ambtype + ".ogg", true, 0, 0, ambvolume, ambpitch, false);
+            ambslot = ambpool.play_stationary_extended("sounds/misc/"+ambtype + ".ogg", true, 0, 0, ambvolume, ambpitch, false);
         }
 if(ingame==true) musicIndex = form.get_list_position(musslist);
         if (musicIndex != -1 && musOptions[musicIndex] != mustype)
         {
             mustype = musOptions[musicIndex];
             muspool.destroy_sound(mustrackslot);
-            mustrackslot = muspool.play_stationary_extended(mustype + ".ogg", true, 0, 0, musvolume, muspitch, false);
+            mustrackslot = muspool.play_stationary_extended("sounds/misc/"+mustype + ".ogg", true, 0, 0, musvolume, muspitch, false);
         }
         if (form.is_pressed(savesets))
         {
@@ -792,7 +792,7 @@ vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This chara
 string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
-alertslot=pool.play_stationary("error.ogg",false);
+alertslot=pool.play_stationary("sounds/misc/error.ogg",false);
 dlg("Error! Your character's first name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
@@ -812,7 +812,7 @@ vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This chara
 string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {
-pool.play_stationary("error.ogg",false);
+pool.play_stationary("sounds/misc/error.ogg",false);
 dlg("Error! Your character's last name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
