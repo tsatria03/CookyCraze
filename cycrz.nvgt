@@ -127,7 +127,7 @@ clicktime=1000-cookyspeed;
 automationBaseCost=15;
 slotBaseCost=30;
 manualSlots=0;
-manualSlotBaseCost=50;
+manualSlotBaseCost=30;
 autobakeSlots=0;
 autobakeSlotEnabled.resize(0);
 baking_slots.resize(0);

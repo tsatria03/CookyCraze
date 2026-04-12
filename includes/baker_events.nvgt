@@ -11,8 +11,6 @@ class event_item
     string description; // %amount% is substituted at trigger time
 }
 
-// Evaluates a raw amount string such as "40", "10*rank", "80/rank", "5+rank", "100-rank"
-// against the current rank value and returns the resulting double.
 double eval_event_amount(string raw, double rank_val)
 {
     if (raw.find("*rank") != -1)
@@ -49,13 +47,10 @@ event_item[]@ parse_event_items(string filepath)
     while (!f.eof)
     {
         string line = f.read_line();
-        // strip trailing newline/carriage return
         while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
             line = line.substr(0, line.length() - 1);
-        // skip empty lines and comment lines
         if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
             continue;
-        // split on colons, max 9 parts so description can contain colons
         string[] parts;
         int lastPos = 0;
         int colonCount = 0;
@@ -87,7 +82,6 @@ event_item[]@ parse_event_items(string filepath)
     return items;
 }
 
-// Applies a single loaded event_item to the game state and returns the spoken message.
 string apply_event(event_item@ item)
 {
     double minVal = eval_event_amount(item.min_amount, rank);
@@ -184,7 +178,6 @@ string apply_event(event_item@ item)
     return msg;
 }
 
-// Plays the appropriate sound effects for a given event item.
 void play_event_sounds(event_item@ item)
 {
     if (eventsfx == false) return;

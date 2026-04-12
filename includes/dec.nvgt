@@ -6,7 +6,7 @@ bool bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, intr
 double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, levcoins=0, manulcooky=1, rank=1, usercoins=0;
 double automationBaseCost = 15, slotBaseCost = 30, automationMultiplier = 1.1, slotMultiplier = 1.001;
 int manualSlots = 0;
-double manualSlotBaseCost = 50, manualSlotMultiplier = 1.002;
+double manualSlotBaseCost = 30, manualSlotMultiplier = 1.001;
 double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
 int ambslot, alertslot, coinslot, eventslot, gameslot, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
 int evchanse=50, evchanse2=50, playergender=0;

@@ -64,3 +64,15 @@ gain_autocooky:3:1:autocooky:10*rank:50*rank:false:100:Nice! You gained %amount%
 lose_autocooky:3:2:autocooky:10*rank:50*rank:false:100:Dam! You lost %amount% auto-cookies. Your auto-baking rate has been decreased.
 gain_manulcooky:3:1:manulcooky:10*rank:50*rank:false:100:Great! You gained %amount% manual cookies. You can now bake more cookies with each click.
 lose_manulcooky:3:2:manulcooky:10*rank:50*rank:false:100:Shucks! You lost %amount% manual cookies. Your baking rate per click has decreased.
+
+; --- Percentage based events ---
+baking_miracle:3:1:cookies:5:15:true:100:A baking miracle! The stars aligned and %amount% percent of your cookies multiplied into even more. What a windfall!
+cookie_crumble:3:2:cookies:5:15:true:100:Oh no! A shelf collapsed in your bakery and crumbled %amount% percent of your cookie stockpile. What a mess!
+coin_jackpot:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current coins. Your wallet is feeling heavy!
+coin_drain:3:2:coins:5:10:true:100:Oh no! A billing error drained %amount% percent of your coins. Better keep a closer eye on your finances!
+autocooky_surge:3:1:autocooky:3:8:true:100:Incredible! A surge of baking energy boosted your auto cookie production by %amount% percent. Your ovens are roaring!
+autocooky_slump:3:2:autocooky:3:8:true:100:Uh oh! A baking slump hit your kitchen hard, reducing your auto cookie production by %amount% percent.
+manulcooky_inspiration:3:1:manulcooky:3:8:true:100:Inspiration struck! Your hands found a new rhythm, boosting your manual cookie output by %amount% percent per click.
+manulcooky_fatigue:3:2:manulcooky:3:8:true:100:Your hands are exhausted! A bout of baking fatigue reduced your manual cookie output by %amount% percent per click.
+speed_rush:3:1:cookyspeed:5:10:true:100:A rush of energy surged through your kitchen, cutting your bake interval by %amount% percent. Everything is moving faster!
+speed_drag:3:2:cookyspeed:5:10:true:100:Something gummed up the works! Your bake interval increased by %amount% percent, slowing everything down.

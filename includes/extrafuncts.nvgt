@@ -315,14 +315,14 @@ if (slotprod == "add_slot12")  count = 10000;
                     slotBaseCost *= slotMultiplier;
                 }
                 pool.destroy_sound(alertslot);
-                alertslot = pool.play_stationary("prodslot.ogg", false);
+                alertslot = pool.play_stationary("sounds/misc/prodslot.ogg", false);
 int produced = baking_slots.length();
 speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ".");
             add_baking_slots();
             }
             else
             {
-                alertslot = pool.play_stationary("error.ogg", false);
+                alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
                 dlg("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
                 pool.destroy_sound(alertslot);
 add_baking_slots();
@@ -386,13 +386,13 @@ void add_manual_slots()
             for (int i = 0; i < count; i++)
                 manualSlotBaseCost *= manualSlotMultiplier;
             pool.destroy_sound(alertslot);
-            alertslot = pool.play_stationary("prodslot.ogg", false);
+            alertslot = pool.play_stationary("sounds/misc/prodslot.ogg", false);
             speak("Added " + string(count) + " manual " + (count == 1 ? "slot" : "slots") + ". You now have " + string(manualSlots) + " manual " + (manualSlots == 1 ? "slot" : "slots") + ".");
             add_manual_slots();
         }
         else
         {
-            alertslot = pool.play_stationary("error.ogg", false);
+            alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
             dlg("Error! You don't have enough coins to add " + string(count) + " manual " + (count == 1 ? "slot" : "slots") + "!");
             pool.destroy_sound(alertslot);
             add_manual_slots();
@@ -437,7 +437,7 @@ void manage_baking_slots()
     int produced = baking_slots.length();
     int automated = autobakeSlots;
     int nonauto = produced - automated;
-    m.intro_text = "Slot manager menu. You have " + string(produced) + " produced auto " + (produced == 1 ? "slot" : "slots") + ", " + string(automated) + " automated " + (automated == 1 ? "slot" : "slots") + ", and " + string(nonauto) + " unautomated " + (nonauto == 1 ? "slot" : "slots") + ". You have " + string(manualSlots) + " manual " + (manualSlots == 1 ? "slot" : "slots") + ".";
+    m.intro_text = "Slot manager menu.";
     int mres = m.run();
     string selected = m.get_item_id(mres);
     if (mres == -1 || selected == "back")
@@ -466,7 +466,7 @@ void automate_baking_slots()
         }
         if (nonAutoCount == 0)
         {
-            alertslot = pool.play_stationary("error.ogg", false);
+            alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
             dlg("Error! There are no slots available to automate.");
             pool.destroy_sound(alertslot);
             auto_slots_menu();
@@ -510,12 +510,12 @@ void automate_baking_slots()
                     }
                 }
                 pool.destroy_sound(alertslot);
-                alertslot = pool.play_stationary("autslot.ogg", false);
+                alertslot = pool.play_stationary("sounds/misc/autslot.ogg", false);
                 speak("Successfully automated " + string(nonAutoCount) + " slot" + (nonAutoCount == 1 ? "" : "s") + ".");
             }
             else
             {
-                alertslot = pool.play_stationary("error.ogg", false);
+                alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
                 dlg("Error! You don't have enough coins to automate all slots!");
                 pool.destroy_sound(alertslot);
             }
@@ -541,7 +541,7 @@ void automate_baking_slots()
                 }
                 if (m.get_item_id(subres) == "preview")
                 {
-                    pool.play_stationary("autobake.ogg", false);
+                    pool.play_stationary("sounds/misc/autobake.ogg", false);
                     auto_slots_menu();
                     return;
                 }
@@ -554,12 +554,12 @@ void automate_baking_slots()
                         autobakeSlots++;
                         automationBaseCost *= automationMultiplier;
                         pool.destroy_sound(alertslot);
-                        alertslot = pool.play_stationary("autslot.ogg", false);
+                        alertslot = pool.play_stationary("sounds/misc/autslot.ogg", false);
                         speak("Slot " + string(index + 1) + " is now automated.");
                     }
                     else
                     {
-                        alertslot = pool.play_stationary("error.ogg", false);
+                        alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
                         dlg("Error! You don't have enough coins to automate this slot!");
                         pool.destroy_sound(alertslot);
                     }

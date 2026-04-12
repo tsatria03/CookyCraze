@@ -19,12 +19,10 @@ store_item[]@ parse_store_items(string filepath)
     while (!f.eof)
     {
         string line = f.read_line();
-        // strip trailing newline/carriage return
         while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
             line = line.substr(0, line.length() - 1);
         if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
             continue;
-        // split on colons, max 8 parts so description can contain colons
         string[] parts;
         int lastPos = 0;
         int colonCount = 0;

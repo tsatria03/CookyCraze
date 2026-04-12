@@ -151,7 +151,7 @@ clickergame();
 else
 {
 m.fade_music();
-alertslot=pool.play_stationary("sounds/misc/error.ogg",false);
+alertslot=pool.play_stationary("sounds/dlg/error.ogg",false);
 dlg("Error! The data assosiated with this save slot does not exist!");
 pool.destroy_sound(alertslot);
 ingame=false;
@@ -557,9 +557,9 @@ int playvents2 = form.create_checkbox("Enable player events during manual baking
 int ordsyms = form.create_checkbox("Enable alphabetical symbol listing for the slot machine mini game.", orderedSyms);
 int reelspin = form.create_checkbox("Enable automatic stopping of reels for the slot machine mini game.", slotmode);
 int bakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across automated slots.", slotDistribution);
-int automationMultiplierSlider = form.create_slider("Automation slot Cost Multiplier.", (automationMultiplier - 1.0) * 1000, 1, 100, "X", 1);
-int slotMultiplierSlider = form.create_slider("Auto slot production Cost Multiplier.", (slotMultiplier - 1.0) * 1000, 1, 100, "X", 1);
-int manualSlotMultiplierSlider = form.create_slider("Manual slot production Cost Multiplier.", (manualSlotMultiplier - 1.0) * 1000, 1, 100, "X", 1);
+int automationMultiplierSlider = form.create_slider("Automation slot Cost Multiplier.", (automationMultiplier - 1.0) * 100, 1, 100, "X", 1);
+int slotMultiplierSlider = form.create_slider("Auto slot production Cost Multiplier.", (slotMultiplier - 1.0) * 100, 1, 100, "X", 1);
+int manualSlotMultiplierSlider = form.create_slider("Manual slot production Cost Multiplier.", (manualSlotMultiplier - 1.0) * 100, 1, 100, "X", 1);
 int cookieRankModifierSlider = form.create_slider("Cookie Rank Modifier.", cookymod, 1, 100, "x", 1);
 int difficultyRankModifierSlider = form.create_slider("Difficulty rank Modifier.", difmod, 1, 100, "x", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 0, 100, "percent", 1);
@@ -571,9 +571,9 @@ form.focus(introSFX);
     {
         wait(5);
         form.monitor();
-automationMultiplier = 1.0 + (form.get_slider(automationMultiplierSlider) * 0.001);
-slotMultiplier = 1.0 + (form.get_slider(slotMultiplierSlider) * 0.001);
-manualSlotMultiplier = 1.0 + (form.get_slider(manualSlotMultiplierSlider) * 0.001);
+automationMultiplier = 1.0 + (form.get_slider(automationMultiplierSlider) * 0.01);
+slotMultiplier = 1.0 + (form.get_slider(slotMultiplierSlider) * 0.01);
+manualSlotMultiplier = 1.0 + (form.get_slider(manualSlotMultiplierSlider) * 0.01);
 cookymod = form.get_slider(cookieRankModifierSlider);
 difmod = form.get_slider(difficultyRankModifierSlider);
 evchanse = 100 - form.get_slider(autoChanceSlider);
@@ -728,7 +728,7 @@ vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This chara
 string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
-alertslot=pool.play_stationary("sounds/misc/error.ogg",false);
+alertslot=pool.play_stationary("sounds/dlg/error.ogg",false);
 dlg("Error! Your character's first name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
@@ -748,7 +748,7 @@ vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This chara
 string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {
-pool.play_stationary("sounds/misc/error.ogg",false);
+pool.play_stationary("sounds/dlg/error.ogg",false);
 dlg("Error! Your character's last name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
