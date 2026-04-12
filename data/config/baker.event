@@ -54,13 +54,13 @@
 ;  Use %amount% as a placeholder and it will be replaced with the actual calculated value.
 ;  If the event does not need to speak a number, simply leave %amount% out.
 
-fire_spark:3:2:cookies:20:20:true:50:Oh no! A fire spark burned some of your cookies. You lost %amount% cookies.
-bonus_cookies:3:1:cookies:40*rank:80*rank:false:50:Lucky bake! You gained an extra %amount% cookies!
-increase_cookyspeed:3:1:cookyspeed:10/rank:10/rank:false:50:Amazing! Your baking speed has increased by %amount% ms. Cookies bake faster now.
-decrease_cookyspeed:3:2:cookyspeed:10*rank:10*rank:false:50:Oh no! Something has slowed down your baking speed by %amount% ms.
-gain_coins:3:1:coins:40*rank:80*rank:false:50:Wonderful! You found a coin stash! You gained %amount% coins.
-lose_coins:3:2:coins:40*rank:80*rank:false:50:Oh crap! Some coins fell out of your pocket! You lost %amount% coins.
-gain_autocooky:3:1:autocooky:10*rank:50*rank:false:50:Nice! You gained %amount% auto-cookies. Your auto baking rate has increased.
-lose_autocooky:3:2:autocooky:10*rank:50*rank:false:50:Dam! You lost %amount% auto-cookies. Your auto-baking rate has been decreased.
-gain_manulcooky:3:1:manulcooky:10*rank:50*rank:false:50:Great! You gained %amount% manual cookies. You can now bake more cookies with each click.
-lose_manulcooky:3:2:manulcooky:10*rank:50*rank:false:50:Shucks! You lost %amount% manual cookies. Your baking rate per click has decreased.
+fire_spark:3:2:cookies:20:20:true:100:Oh no! A fire spark burned some of your cookies. You lost %amount% cookies.
+bonus_cookies:3:1:cookies:40*rank:80*rank:false:100:Lucky bake! You gained an extra %amount% cookies!
+increase_cookyspeed:3:1:cookyspeed:10/rank:10/rank:false:100:Amazing! Your baking speed has increased by %amount% ms. Cookies bake faster now.
+decrease_cookyspeed:3:2:cookyspeed:10*rank:10*rank:false:100:Oh no! Something has slowed down your baking speed by %amount% ms.
+gain_coins:3:1:coins:40*rank:80*rank:false:100:Wonderful! You found a coin stash! You gained %amount% coins.
+lose_coins:3:2:coins:40*rank:80*rank:false:100:Oh crap! Some coins fell out of your pocket! You lost %amount% coins.
+gain_autocooky:3:1:autocooky:10*rank:50*rank:false:100:Nice! You gained %amount% auto-cookies. Your auto baking rate has increased.
+lose_autocooky:3:2:autocooky:10*rank:50*rank:false:100:Dam! You lost %amount% auto-cookies. Your auto-baking rate has been decreased.
+gain_manulcooky:3:1:manulcooky:10*rank:50*rank:false:100:Great! You gained %amount% manual cookies. You can now bake more cookies with each click.
+lose_manulcooky:3:2:manulcooky:10*rank:50*rank:false:100:Shucks! You lost %amount% manual cookies. Your baking rate per click has decreased.

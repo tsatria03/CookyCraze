@@ -6,6 +6,7 @@ class store_item
     double cost_multiplier;
     double amount;
     int min_rank;
+    bool use_percent;
     string description;
 }
 
@@ -23,13 +24,13 @@ store_item[]@ parse_store_items(string filepath)
             line = line.substr(0, line.length() - 1);
         if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
             continue;
-        // split on colons, max 7 parts so description can contain colons
+        // split on colons, max 8 parts so description can contain colons
         string[] parts;
         int lastPos = 0;
         int colonCount = 0;
         for (uint i = 0; i < line.length(); i++)
         {
-            if (line.substr(i, 1) == ":" && colonCount < 6)
+            if (line.substr(i, 1) == ":" && colonCount < 7)
             {
                 parts.insert_last(line.substr(lastPos, i - lastPos));
                 lastPos = i + 1;
@@ -37,7 +38,7 @@ store_item[]@ parse_store_items(string filepath)
             }
         }
         parts.insert_last(line.substr(lastPos));
-        if (parts.length() < 7)
+        if (parts.length() < 8)
             continue;
         store_item item;
         item.item_type = parts[0];
@@ -46,7 +47,8 @@ store_item[]@ parse_store_items(string filepath)
         item.cost_multiplier = string_to_number(parts[3]);
         item.amount = string_to_number(parts[4]);
         item.min_rank = string_to_int(parts[5]);
-        string desc = parts[6];
+        item.use_percent = (parts[6] == "true");
+        string desc = parts[7];
         string amt_str = string(int(item.amount));
         int ph = desc.find("%item_count");
         while (ph != -1)

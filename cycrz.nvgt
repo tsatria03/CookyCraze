@@ -3,6 +3,7 @@ void main()
 {
 if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/");
 if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/");
+getver();
 show_window("CookyCraze, version "+version);
 if(gamstence.is_already_running)
 {
@@ -16,10 +17,10 @@ create_buffer("events");
 create_buffer("general");
 create_buffer("misc");
 create_buffer("ranks");
-loadedEvents = parse_event_items("data/events/baker.events");
+loadedEvents = parse_event_items("data/config/baker.event");
 if (loadedEvents.length() == 0)
 {
-    alert("Error", "Could not load event data from data/events/baker.events. Please check the file and try again.");
+    alert("Error", "Could not load event data from data/config/baker.event. Please check the file and try again.");
     exit();
 }
 readdata();
@@ -106,30 +107,11 @@ mainmenu();
 }
 }
 
-void dockread(const string&in filename)
+void getver()
 {
-if(!file_exists(filename))
-{
-alert("Error","Could not fined "+string_replace(filename, "docks/", "", true));
-docksmenu();
-}
-dockfile.open(filename,"rb");
-string docktext=dockfile.read();
-dockfile.close();
-form.reset();
-form.create_window("Viewing "+string_replace(filename, "docks/", "", true),false,false,false);
-int dockbox=form.create_input_box(string_replace(filename, "docks/", "", true), docktext, read_only:true, multiline:true);
-int dockclose=form.create_button("&close",false,true);
-form.focus(dockbox);
-while(true)
-{
-wait(5);
-form.monitor();
-if (form.is_pressed(dockclose))
-{
-docksmenu();
-}
-}
+dockver.open("docks/version.txt","rb");
+version=dockver.read();
+dockver.close();
 }
 void resetgame()
 {
@@ -144,16 +126,10 @@ bakemode=0;
 clicktime=1000-cookyspeed;
 automationBaseCost=15;
 slotBaseCost=30;
-autobakeSlotEnabled.resize(1);
-autobakeSlotEnabled[0] = true;
-baking_slots.resize(1);
-baking_slots[0] = true;
-autobakeSlots = 1;
-if (baking_slots.length() == 0)
-    {
-autobakeSlotEnabled.insert_last(true);
-baking_slots.insert_last(true);
-    autobakeSlots = 1;
-}
+manualSlots=0;
+manualSlotBaseCost=50;
+autobakeSlots=0;
+autobakeSlotEnabled.resize(0);
+baking_slots.resize(0);
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }

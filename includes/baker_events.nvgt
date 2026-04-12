@@ -98,7 +98,7 @@ string apply_event(event_item@ item)
         minVal = maxVal;
         maxVal = tmp;
     }
-    double amount = random(minVal, maxVal);
+    double amount = max(1.0, random(minVal, maxVal));
     double actualAmount = 0;
     if (item.target == "cookies")
     {

@@ -107,13 +107,20 @@ if (key_pressed(KEY_F))
             cookiesPerSlot = autocooky;
             totalCookies = autocooky * slotCount;
         }
-        if (clicktime == 1000)
+        if (slotCount > 0)
         {
-            speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies per second. With " + slotCount + " automated slots, you produce " + format_number(totalCookies) + " cookies per second.", "misc");
+            string slotWord = (slotCount == 1) ? "slot" : "slots";
+            if (clicktime == 1000)
+                speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies per second. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " cookies per second.", "misc");
+            else
+                speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies every " + clicktime + " milliseconds. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " cookies every " + clicktime + " milliseconds.", "misc");
         }
         else
         {
-            speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies every " + clicktime + " milliseconds. With " + slotCount + " automated slots, you produce " + format_number(totalCookies) + " cookies every " + clicktime + " milliseconds.", "misc");
+            if (clicktime == 1000)
+                speak_buffer("You produce " + format_number(autocooky) + " cookies per second.", "misc");
+            else
+                speak_buffer("You produce " + format_number(autocooky) + " cookies every " + clicktime + " milliseconds.", "misc");
         }
     }
 if(key_pressed(KEY_C))
@@ -133,18 +140,16 @@ speak_buffer("You baked a total of"+cookies+"cookies.", "misc");
 }
 if(key_pressed(KEY_J))
 {
-if(manulcooky<1)
-{
-speak_buffer("You  produce "+format_number(manulcooky)+" cookies per press.", "misc");
-}
-else if(manulcooky==1)
-{
-speak_buffer("You  produce "+format_number(manulcooky)+" cooky per press.", "misc");
-}
-else if(manulcooky>=2)
-{
-speak_buffer("You  produce "+format_number(manulcooky)+" cookies per press.", "misc");
-}
+    string cookyWord = (manulcooky == 1) ? "cooky" : "cookies";
+    if (manualSlots > 0)
+    {
+        double totalManual = manulcooky * manualSlots;
+        string totalWord = (totalManual == 1) ? "cooky" : "cookies";
+        string slotWord = (manualSlots == 1) ? "slot" : "slots";
+        speak_buffer("You produce " + format_number(manulcooky) + " " + cookyWord + " per press. With " + manualSlots + " manual " + slotWord + ", you produce " + format_number(totalManual) + " " + totalWord + " per press.", "misc");
+    }
+    else
+        speak_buffer("You produce " + format_number(manulcooky) + " " + cookyWord + " per press.", "misc");
 }
 if(alt_is_down())
 {
@@ -319,7 +324,7 @@ speak_buffer("You need at least 1 manule cooky to start baking cookies.", "gener
 }
 else if(manulcooky>=1)
 {
-cookies+=1*manulcooky;
+    cookies += (manualSlots > 0) ? manulcooky * manualSlots : manulcooky;
 pool.play_stationary("sounds/misc/manulbake.ogg", false);
 if(playervents2==true) attempt_manebaker_event(evchanse2);
 }
