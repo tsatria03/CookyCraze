@@ -16,6 +16,12 @@ create_buffer("events");
 create_buffer("general");
 create_buffer("misc");
 create_buffer("ranks");
+loadedEvents = parse_event_items("data/events/baker.events");
+if (loadedEvents.length() == 0)
+{
+    alert("Error", "Could not load event data from data/events/baker.events. Please check the file and try again.");
+    exit();
+}
 readdata();
 readpreffs();
 readpreffs2();

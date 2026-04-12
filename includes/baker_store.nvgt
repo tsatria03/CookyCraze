@@ -1,0 +1,62 @@
+class store_item
+{
+    string item_type;
+    int target;
+    double base_cost;
+    double cost_multiplier;
+    double amount;
+    int min_rank;
+    string description;
+}
+
+store_item[]@ parse_store_items(string filepath)
+{
+    store_item[] items;
+    file f;
+    if (!f.open(filepath, "r"))
+        return items;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        // strip trailing newline/carriage return
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        // split on colons, max 7 parts so description can contain colons
+        string[] parts;
+        int lastPos = 0;
+        int colonCount = 0;
+        for (uint i = 0; i < line.length(); i++)
+        {
+            if (line.substr(i, 1) == ":" && colonCount < 6)
+            {
+                parts.insert_last(line.substr(lastPos, i - lastPos));
+                lastPos = i + 1;
+                colonCount++;
+            }
+        }
+        parts.insert_last(line.substr(lastPos));
+        if (parts.length() < 7)
+            continue;
+        store_item item;
+        item.item_type = parts[0];
+        item.target = string_to_int(parts[1]);
+        item.base_cost = string_to_number(parts[2]);
+        item.cost_multiplier = string_to_number(parts[3]);
+        item.amount = string_to_number(parts[4]);
+        item.min_rank = string_to_int(parts[5]);
+        string desc = parts[6];
+        string amt_str = string(int(item.amount));
+        int ph = desc.find("%item_count");
+        while (ph != -1)
+        {
+            desc = desc.substr(0, ph) + amt_str + desc.substr(ph + 11);
+            ph = desc.find("%item_count");
+        }
+        item.description = desc;
+        items.insert_last(item);
+    }
+    f.close();
+    return items;
+}

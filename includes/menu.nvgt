@@ -385,7 +385,7 @@ bakermenu();
 }
 void bakermenu()
 {
-    store_item[] items = parse_store_items("data/shops/baker.store");
+    store_item[] items = parse_store_items("data/shop/baker.store");
     if (items.length() == 0)
     {
         dlg("Error! Could not load the baking shop items.");
@@ -515,14 +515,6 @@ int cookieRankModifierSlider = form.create_slider("Cookie Rank Modifier.", cooky
 int difficultyRankModifierSlider = form.create_slider("Difficulty rank Modifier.", difmod, 1, 100, "x", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 1, 100, "percent", 1);
 int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 - evchanse2, 1, 100, "percent", 1);
-    int autoEventList = form.create_list("Auto-Baking Events", autoBakingEvents.length(), true, false);
-    for (uint i = 0; i < autoBakingEvents.length(); i++) {
-        form.add_list_item(autoEventList, autoBakingEvents[i], autoBakingEvents[i], -1, autoEventToggles[i]);
-    }
-    int manualEventList = form.create_list("Manual-Baking Events", manualBakingEvents.length(), true, false);
-    for (uint i = 0; i < manualBakingEvents.length(); i++) {
-        form.add_list_item(manualEventList, manualBakingEvents[i], manualBakingEvents[i], -1, manualEventToggles[i]);
-    }
 int savesets = form.create_button("&save settings", true);
 int cansets = form.create_button("&cancel");
 form.focus(introSFX);
@@ -551,20 +543,11 @@ orderedSyms = form.is_checked(ordsyms);
 slotmode = form.is_checked(reelspin);
         if (form.is_pressed(savesets))
         {
-            if (!validate_event_selection(autoEventList, manualEventList))
-{
-                dlgmessage_return("You must select at least one positive and one negative event for both Auto-Baking and Manual-Baking before saving.");
-            form.reset();
-            gamsetsmenu();
-            }
-else
-{
-writepreffs(autoEventList, manualEventList);
+writepreffs();
             dlgmessage_return("Settings saved.");
 writedata();
 readdata();
             preffsmenu();
-        }
         }
 if (key_pressed(KEY_ESCAPE))
         {

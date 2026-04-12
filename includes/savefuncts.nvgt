@@ -188,24 +188,8 @@ if(st.d.exists("evchanse2"))
 {
 evchanse2=st.read_int("evchanse2");
 }
-    autoEventToggles.resize(autoBakingEvents.length());
-    manualEventToggles.resize(manualBakingEvents.length());
-    for (uint i = 0; i < autoBakingEvents.length(); i++)
-{
-        if (st.d.exists("autoEvent_" + autoBakingEvents[i]))
-{
-            autoEventToggles[i] = st.read_bool("autoEvent_" + autoBakingEvents[i]);
-        }
-    }
-    for (uint i = 0; i < manualBakingEvents.length(); i++)
-{
-        if (st.d.exists("manualEvent_" + manualBakingEvents[i]))
-{
-            manualEventToggles[i] = st.read_bool("manualEvent_" + manualBakingEvents[i]);
-        }
-    }
 }
-void writepreffs(int autoEventList, int manualEventList)
+void writepreffs()
 {
 st.add("bakesfx",bakesfx);
 st.add("coinsfx",coinsfx);
@@ -226,18 +210,6 @@ st.add("difmod",difmod);
 st.add("cookymod",cookymod);
 st.add("evchanse",evchanse);
 st.add("evchanse2",evchanse2);
-    autoEventToggles.resize(autoBakingEvents.length());
-    manualEventToggles.resize(manualBakingEvents.length());
-    for (uint i = 0; i < autoBakingEvents.length(); i++)
-{
-        autoEventToggles[i] = form.is_list_item_checked(autoEventList, i);
-        st.add("autoEvent_" + autoBakingEvents[i], autoEventToggles[i]);
-    }
-    for (uint i = 0; i < manualBakingEvents.length(); i++)
-{
-        manualEventToggles[i] = form.is_list_item_checked(manualEventList, i);
-        st.add("manualEvent_" + manualBakingEvents[i], manualEventToggles[i]);
-    }
 st.save();
 }
 void readpreffs2()

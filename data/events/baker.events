@@ -1,0 +1,66 @@
+;CookyCraze event configuration file.
+;Each line defines one event that can fire during baking. Lines starting with #, //, or ; are ignored.
+
+;Format: event_name:baking_type:polarity:target:min_amount:max_amount:use_percent:chance:description
+
+;event_name
+;  The internal name of this event. Used for identification only. Can be anything you like.
+
+;baking_type
+;  Controls which baking mode can trigger this event.
+;  1 = auto baking only. The message is spoken non-interruptively in the background.
+;  2 = manual baking only. The message appears as a dialog the player must dismiss.
+;  3 = both modes. Delivery method depends on which mode triggered it.
+
+;polarity
+;  Declares whether this event is good or bad for the player.
+;  1 = positive. The event gives the player something or helps them.
+;  2 = negative. The event takes something away or hurts them.
+
+;target
+;  The stat this event affects when it fires.
+;  cookies    = the player's current cookie count.
+;  coins      = the player's current coin count.
+;  autocooky  = the player's auto cookie production rate.
+;  manulcooky = the player's manual cookie production rate.
+;  cookyspeed = the player's baking speed. Positive events reduce the interval, negative events increase it.
+
+;min_amount and max_amount
+;  The range of values the effect can roll between. A random value between min and max is chosen each time.
+;  If min and max are the same, the effect is always that exact value.
+
+;  Rank operators can be appended to scale the amount with the player's current rank:
+;    *rank  multiplies the amount by rank. Effect grows stronger as the player progresses.
+;    /rank  divides the amount by rank. Effect grows weaker as the player progresses.
+;    +rank  adds rank to the amount. Gentle linear growth as the player progresses.
+;    -rank  subtracts rank from the amount. Effect diminishes as the player progresses.
+
+;  Examples: 40*rank, 10/rank, 5+rank, 100-rank
+
+;use_percent
+;  Controls whether the rolled amount is treated as a flat value or a percentage of the player's current stat.
+;  false = the rolled amount is applied directly. e.g. a roll of 60 gives or takes exactly 60.
+;  true  = the rolled amount is treated as a percentage of what the player currently has.
+;          e.g. a roll of 20 with use_percent true takes 20% of the player's current cookies.
+;          This keeps the effect proportional regardless of how much the player has accumulated.
+
+;chance
+;  The probability of this event firing when it is selected, from 1 to 100.
+;  100 means it always fires when chosen. 50 means it fires roughly half the time.
+;  Set to 0 to effectively disable this event without removing it from the file.
+
+;description
+;  The message spoken to the player when this event fires.
+;  Use %amount% as a placeholder and it will be replaced with the actual calculated value.
+;  If the event does not need to speak a number, simply leave %amount% out.
+
+fire_spark:3:2:cookies:20:20:true:50:Oh no! A fire spark burned some of your cookies. You lost %amount% cookies.
+bonus_cookies:3:1:cookies:40*rank:80*rank:false:50:Lucky bake! You gained an extra %amount% cookies!
+increase_cookyspeed:3:1:cookyspeed:10/rank:10/rank:false:50:Amazing! Your baking speed has increased by %amount% ms. Cookies bake faster now.
+decrease_cookyspeed:3:2:cookyspeed:10*rank:10*rank:false:50:Oh no! Something has slowed down your baking speed by %amount% ms.
+gain_coins:3:1:coins:40*rank:80*rank:false:50:Wonderful! You found a coin stash! You gained %amount% coins.
+lose_coins:3:2:coins:40*rank:80*rank:false:50:Oh crap! Some coins fell out of your pocket! You lost %amount% coins.
+gain_autocooky:3:1:autocooky:10*rank:50*rank:false:50:Nice! You gained %amount% auto-cookies. Your auto baking rate has increased.
+lose_autocooky:3:2:autocooky:10*rank:50*rank:false:50:Dam! You lost %amount% auto-cookies. Your auto-baking rate has been decreased.
+gain_manulcooky:3:1:manulcooky:10*rank:50*rank:false:50:Great! You gained %amount% manual cookies. You can now bake more cookies with each click.
+lose_manulcooky:3:2:manulcooky:10*rank:50*rank:false:50:Shucks! You lost %amount% manual cookies. Your baking rate per click has decreased.

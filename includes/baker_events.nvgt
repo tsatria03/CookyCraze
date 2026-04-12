@@ -1,0 +1,261 @@
+class event_item
+{
+    string event_name;
+    int baking_type;   // 1=auto, 2=manual, 3=both
+    int polarity;      // 1=positive, 2=negative
+    string target;     // cookies, coins, autocooky, manulcooky, cookyspeed
+    string min_amount; // raw string, may contain rank operators e.g. 40*rank
+    string max_amount; // raw string, may contain rank operators e.g. 80/rank
+    bool use_percent;
+    int chance;        // 1 to 100
+    string description; // %amount% is substituted at trigger time
+}
+
+// Evaluates a raw amount string such as "40", "10*rank", "80/rank", "5+rank", "100-rank"
+// against the current rank value and returns the resulting double.
+double eval_event_amount(string raw, double rank_val)
+{
+    if (raw.find("*rank") != -1)
+    {
+        string numPart = raw.substr(0, raw.find("*rank"));
+        return string_to_number(numPart) * rank_val;
+    }
+    else if (raw.find("/rank") != -1)
+    {
+        string numPart = raw.substr(0, raw.find("/rank"));
+        double divisor = rank_val;
+        if (divisor == 0) divisor = 1;
+        return string_to_number(numPart) / divisor;
+    }
+    else if (raw.find("+rank") != -1)
+    {
+        string numPart = raw.substr(0, raw.find("+rank"));
+        return string_to_number(numPart) + rank_val;
+    }
+    else if (raw.find("-rank") != -1)
+    {
+        string numPart = raw.substr(0, raw.find("-rank"));
+        return string_to_number(numPart) - rank_val;
+    }
+    return string_to_number(raw);
+}
+
+event_item[]@ parse_event_items(string filepath)
+{
+    event_item[] items;
+    file f;
+    if (!f.open(filepath, "r"))
+        return items;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        // strip trailing newline/carriage return
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        // skip empty lines and comment lines
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        // split on colons, max 9 parts so description can contain colons
+        string[] parts;
+        int lastPos = 0;
+        int colonCount = 0;
+        for (uint i = 0; i < line.length(); i++)
+        {
+            if (line.substr(i, 1) == ":" && colonCount < 8)
+            {
+                parts.insert_last(line.substr(lastPos, i - lastPos));
+                lastPos = i + 1;
+                colonCount++;
+            }
+        }
+        parts.insert_last(line.substr(lastPos));
+        if (parts.length() < 9)
+            continue;
+        event_item item;
+        item.event_name   = parts[0];
+        item.baking_type  = string_to_int(parts[1]);
+        item.polarity     = string_to_int(parts[2]);
+        item.target       = parts[3];
+        item.min_amount   = parts[4];
+        item.max_amount   = parts[5];
+        item.use_percent  = (parts[6] == "true");
+        item.chance       = string_to_int(parts[7]);
+        item.description  = parts[8];
+        items.insert_last(item);
+    }
+    f.close();
+    return items;
+}
+
+// Applies a single loaded event_item to the game state and returns the spoken message.
+string apply_event(event_item@ item)
+{
+    double minVal = eval_event_amount(item.min_amount, rank);
+    double maxVal = eval_event_amount(item.max_amount, rank);
+    if (minVal > maxVal)
+    {
+        double tmp = minVal;
+        minVal = maxVal;
+        maxVal = tmp;
+    }
+    double amount = random(minVal, maxVal);
+    double actualAmount = 0;
+    if (item.target == "cookies")
+    {
+        if (item.use_percent)
+            actualAmount = cookies * (amount / 100.0);
+        else
+            actualAmount = amount;
+        if (item.polarity == 1)
+            cookies += actualAmount;
+        else
+        {
+            actualAmount = min(actualAmount, cookies);
+            cookies -= actualAmount;
+        }
+    }
+    else if (item.target == "coins")
+    {
+        if (item.use_percent)
+            actualAmount = coins * (amount / 100.0);
+        else
+            actualAmount = amount;
+        if (item.polarity == 1)
+            coins += actualAmount;
+        else
+        {
+            actualAmount = min(actualAmount, coins);
+            coins -= actualAmount;
+        }
+    }
+    else if (item.target == "autocooky")
+    {
+        if (item.use_percent)
+            actualAmount = autocooky * (amount / 100.0);
+        else
+            actualAmount = amount;
+        if (item.polarity == 1)
+            autocooky += actualAmount;
+        else
+        {
+            actualAmount = min(actualAmount, autocooky);
+            autocooky = max(0, autocooky - actualAmount);
+        }
+    }
+    else if (item.target == "manulcooky")
+    {
+        if (item.use_percent)
+            actualAmount = manulcooky * (amount / 100.0);
+        else
+            actualAmount = amount;
+        if (item.polarity == 1)
+            manulcooky += actualAmount;
+        else
+        {
+            actualAmount = min(actualAmount, manulcooky);
+            manulcooky = max(0, manulcooky - actualAmount);
+        }
+    }
+    else if (item.target == "cookyspeed")
+    {
+        if (item.use_percent)
+            actualAmount = cookyspeed * (amount / 100.0);
+        else
+            actualAmount = amount;
+        if (item.polarity == 1)
+        {
+            cookyspeed = max(50, cookyspeed - actualAmount);
+            clicktime -= actualAmount;
+        }
+        else
+        {
+            cookyspeed = min(1000, cookyspeed + actualAmount);
+            clicktime += actualAmount;
+        }
+    }
+    string msg = item.description;
+    string amt_str = format_number(actualAmount);
+    int ph = msg.find("%amount%");
+    while (ph != -1)
+    {
+        msg = msg.substr(0, ph) + amt_str + msg.substr(ph + 8);
+        ph = msg.find("%amount%");
+    }
+    return msg;
+}
+
+// Plays the appropriate sound effects for a given event item.
+void play_event_sounds(event_item@ item)
+{
+    if (eventsfx == false) return;
+    if (item.polarity == 1)
+    {
+        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+        pool.play_stationary("sounds/misc/give.ogg", false);
+        if (item.target == "coins")
+            pool.play_stationary("sounds/misc/coin50.ogg", false);
+        else if (item.target == "cookyspeed")
+            pool.play_stationary("sounds/misc/powerup.ogg", false);
+    }
+    else
+    {
+        pool.play_stationary("sounds/misc/alert_small.ogg", false);
+        pool.play_stationary("sounds/misc/lose.ogg", false);
+        if (item.target == "cookies")
+            pool.play_stationary("sounds/misc/burn" + random(1, 3) + ".ogg", false);
+        else if (item.target == "coins")
+            pool.play_stationary("sounds/misc/cointoss.ogg", false);
+        else if (item.target == "cookyspeed")
+            pool.play_stationary("sounds/misc/powerdown.ogg", false);
+    }
+}
+
+void attempt_autobaker_event(int probability_chance)
+{
+    evchanse = probability_chance;
+    if (loadedEvents.length() == 0) return;
+    if (!playervents) return;
+    event_item[] pool_auto;
+    for (uint i = 0; i < loadedEvents.length(); i++)
+    {
+        if (loadedEvents[i].baking_type == 1 || loadedEvents[i].baking_type == 3)
+        {
+            if (loadedEvents[i].chance > 0)
+                pool_auto.insert_last(loadedEvents[i]);
+        }
+    }
+    if (pool_auto.length() == 0) return;
+    event_item@ item = pool_auto[random(0, pool_auto.length() - 1)];
+    if (random(0, 100) > item.chance) return;
+    if (random(0, probability_chance) != 0) return;
+    play_event_sounds(item);
+    string msg = apply_event(item);
+    speak_buffer(msg, "events");
+}
+
+void attempt_manebaker_event(int probability_chance)
+{
+    evchanse2 = probability_chance;
+    if (loadedEvents.length() == 0) return;
+    if (!playervents2) return;
+    event_item[] pool_manual;
+    for (uint i = 0; i < loadedEvents.length(); i++)
+    {
+        if (loadedEvents[i].baking_type == 2 || loadedEvents[i].baking_type == 3)
+        {
+            if (loadedEvents[i].chance > 0)
+                pool_manual.insert_last(loadedEvents[i]);
+        }
+    }
+    if (pool_manual.length() == 0) return;
+    event_item@ item = pool_manual[random(0, pool_manual.length() - 1)];
+    if (random(0, 100) > item.chance) return;
+    if (random(0, probability_chance) != 0) return;
+    ambpool.pause_sound(ambslot);
+    muspool.pause_sound(mustrackslot);
+    play_event_sounds(item);
+    string msg = apply_event(item);
+    dlg_buffer(msg, "events");
+    ambpool.resume_sound(ambslot);
+    muspool.resume_sound(mustrackslot);
+}
