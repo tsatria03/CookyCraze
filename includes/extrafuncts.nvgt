@@ -51,6 +51,12 @@ bool validate_event_selection(int autoEventList, int manualEventList)
     return (hasPositiveAuto && hasNegativeAuto && hasPositiveManual && hasNegativeManual);
 }
 
+double clamp(double value, double min, double max)
+{
+value=value<min? min:value;
+value=value>max? max:value;
+return value;
+}
 double min(double a, double b)
 {
 return (a < b) ? a : b;
@@ -59,53 +65,45 @@ double max(double a, double b)
 {
 return (a > b) ? a : b;
 }
+double safe_cap(double value)
+{
+    if (value != value) return 1e308;
+    return clamp(value, 0, 1e308);
+}
 double buy_item(double level, double base_cost, double multiplier)
 {
-    return base_cost * pow(multiplier, level);
+    return safe_cap(base_cost * pow(multiplier, level));
 }
 double calc_max_buyable(double coins, double level, double base_cost, double multiplier)
 {
-    double currentCost = base_cost * pow(multiplier, level);
+    double currentCost = safe_cap(base_cost * pow(multiplier, level));
+    if (currentCost <= 0) return 0;
     if (multiplier <= 1.000001)
-    {
-        if (currentCost <= 0) return 0;
         return floor(coins / currentCost);
-    }
     double result = floor(log(1 + (coins * (multiplier - 1)) / currentCost) / log(multiplier));
-    if (result < 0) result = 0;
+    if (result < 0 || result != result) result = 0;
     return result;
 }
 double calc_total_upgrade_cost(double level, double quantity, double base_cost, double multiplier)
 {
-    double startCost = base_cost * pow(multiplier, level);
+    double startCost = safe_cap(base_cost * pow(multiplier, level));
     if (multiplier <= 1.000001)
-    {
-        return startCost * quantity;
-    }
-    double total = startCost * (pow(multiplier, quantity) - 1) / (multiplier - 1);
-    return total;
+        return safe_cap(startCost * quantity);
+    return safe_cap(startCost * (pow(multiplier, quantity) - 1) / (multiplier - 1));
 }
 double calc_automation_cost(double count, double baseCost, double multiplier)
 {
-    double total = 0;
-    double cost = baseCost;
-    for (int i = 0; i < count; i++)
-    {
-        total += cost;
-        cost *= multiplier;
-    }
-    return total;
+    if (multiplier <= 1.000001)
+        return safe_cap(baseCost * count);
+    return safe_cap(baseCost * (pow(multiplier, count) - 1) / (multiplier - 1));
 }
 double calc_slot_cost(double count)
 {
-    double total = 0;
-    double cost = slotBaseCost;
-    for (int i = 0; i < count; i++)
-    {
-        total += cost;
-        cost *= slotMultiplier;
-    }
-    return total;
+    if (slotMultiplier <= 1.000001)
+        return min(slotBaseCost * count, 1e308);
+    double result = slotBaseCost * (pow(slotMultiplier, count) - 1) / (slotMultiplier - 1);
+    if (result > 1e308 || result != result) return 1e308;
+    return result;
 }
 double get_save_rank(string saveFile)
 {
@@ -225,9 +223,9 @@ string format_number(double num, bool basic=false, bool scientific=false, bool s
         return "Inf";
     double value = num / scale;
     if (short_suffix)
-        return round(value,2) + suffix_speech[tier];
-    else
         return round(value,2) + suffix_short[tier];
+    else
+        return round(value,2) + suffix_speech[tier];
 }
 
 string convert_to_currency(double number, string currency_symbol)

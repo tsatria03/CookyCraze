@@ -312,8 +312,9 @@ buymenu();
 if(stm=="slm")
 {
 vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string sailam=vd.input_box("","How many cookies would you like to sell? Press enter to sell the maximum amount.", string(round(cookies,0)));
-double cookiesToSell = string_to_number(sailam);
+double sellableCookies = floor(cookies);
+string sailam=vd.input_box("","How many cookies would you like to sell? Press enter to sell the maximum amount.", string(sellableCookies));
+double cookiesToSell = floor(string_to_number(sailam));
     if (cookiesToSell <= 0)
     {
         pool.destroy_sound(alertslot);
@@ -321,11 +322,11 @@ double cookiesToSell = string_to_number(sailam);
         dlg("Error! Please enter a valid number of cookies to sell!");
         shopmenu();
     }
-    else if (cookiesToSell > cookies)
+    else if (cookiesToSell > sellableCookies)
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("sounds/misc/sellfail.ogg", false);
-        dlg("Error! You only have " + format_number(cookies) + " cookies available to sell!");
+        dlg("Error! You only have " + format_number(sellableCookies) + " cookies available to sell!");
         shopmenu();
     }
 double totalCoinsEarned = cookiesToSell * 100;
@@ -380,164 +381,78 @@ clickergame();
 }
 void buymenu()
 {
-setupmenu2();
-m.add_item("automatic baking items", "abi");
-m.add_item("manule baking items", "mabi");
-m.add_item("back", "back");
-m.intro_text="Upgrades menu. Please choose a cattigory to purchis.";
-int mres=m.run();
-string stm2=m.get_item_id(mres);
-if(mres==-1)
-{
-shopmenu();
+bakermenu();
 }
-if(stm2=="abi")
+void bakermenu()
 {
-abimenu();
-}
-if(stm2=="mabi")
-{
-mabimenu();
-}
-if(stm2=="back")
-{
-shopmenu();
-}
-}
-void abimenu()
-{
-setupmenu2();
-double autoCookyCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
-double autoCookySpeedCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
-double maxBuyableAutoCooky = calc_max_buyable(coins, autocooky, autoCookyBaseCost, autoCookyMultiplier);
-double maxBuyableAutoCookySpeed = calc_max_buyable(coins, cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
-m.add_item("Auto cooky, costs " + format_number(autoCookyCost) + " coins. You can buy " + format_number(maxBuyableAutoCooky) + ". Description: Each purchase gives you 1 auto cookie to bake with.", "abic");
-m.add_item("Auto cooky speed, costs " + format_number(autoCookySpeedCost) + " coins. You can buy " + format_number(maxBuyableAutoCookySpeed) + ". Description: Each purchase increases your baking speed by 10 milliseconds, helping you bake cookies much faster.", "sabic");
-m.add_item("back", "back");
-m.intro_text="Automatic baking menu.";
-int mres = m.run();
-string abm = m.get_item_id(mres);
-if (mres==-1)
-{
-buymenu();
-}
-if (abm == "abic")
-{
-vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string autocook = vd.input_box("","How many auto cookies would you like to buy? Press enter to buy the maximum amount.", string(round(maxBuyableAutoCooky,0)));
-double quantity = string_to_number(autocook);
-double totalCost = 0;
-    if (quantity <= 0)
+    store_item[] items = parse_store_items("data/shops/baker.store");
+    if (items.length() == 0)
     {
-        pool.destroy_sound(alertslot);
-        pool.play_stationary("sounds/misc/storefail.ogg", false);
-        dlg("Error! Please enter a valid number of auto cookies to buy!");
-        buymenu();
+        dlg("Error! Could not load the baking shop items.");
+        shopmenu();
+        return;
     }
-totalCost = calc_total_upgrade_cost(autocooky, quantity, autoCookyBaseCost, autoCookyMultiplier);
-if (coins >= totalCost)
-{
-coins -= totalCost;
-autocooky += quantity;
-double nextUpgradeCost = buy_item(autocooky, autoCookyBaseCost, autoCookyMultiplier);
-pool.play_stationary("sounds/misc/buy"+random(1,4)+".ogg",false);
-pool.play_stationary("sounds/misc/store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(quantity) + " auto cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
-buymenu();
-}
-else
-{
-pool.play_stationary("sounds/misc/storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cookies!");
-buymenu();
-}
-}
-if (abm == "sabic")
-{
-vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string autocooksp = vd.input_box("","How many auto cookie speeds would you like to buy? Press enter to buy the maximum amount.", string(round(maxBuyableAutoCookySpeed,0)));
-double quantity = string_to_number(autocooksp);
-double totalCost = 0;
-    if (quantity <= 0)
+    setupmenu2();
+    for (uint i = 0; i < items.length(); i++)
     {
-        pool.destroy_sound(alertslot);
-        pool.play_stationary("sounds/misc/storefail.ogg", false);
-        dlg("Error! Please enter a valid number of auto cooky speeds to buy!");
-        buymenu();
+        if (items[i].min_rank > 0 && rank < items[i].min_rank) continue;
+        double level = (items[i].target == 2) ? manulcooky - 1 : (items[i].target == 3) ? cookyspeed : autocooky;
+        double cost = buy_item(level, items[i].base_cost, items[i].cost_multiplier);
+        double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
+        m.add_item(items[i].item_type + ", costs " + format_number(cost) + " coins. You can buy " + format_number(maxbuy) + ". Description: " + items[i].description, "item" + string(i));
     }
-totalCost = calc_total_upgrade_cost(cookyspeed, quantity, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
-if (coins >= totalCost)
-{
-coins -= totalCost;
-cookyspeed += quantity*10;
-clicktime-=cookyspeed;
-double nextUpgradeCost = buy_item(cookyspeed, autoCookySpeedBaseCost, autoCookySpeedMultiplier);
-pool.play_stationary("sounds/misc/buy"+random(1,4)+".ogg",false);
-pool.play_stationary("sounds/misc/store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(quantity) + " auto cooky speeds for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
-buymenu();
-}
-else
-{
-pool.play_stationary("sounds/misc/storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " auto cooky speeds!");
-buymenu();
-}
-}
-if (abm == "back")
-{
-buymenu();
-}
-}
-void mabimenu()
-{
-setupmenu2();
-double manuleCookyCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
-double maxBuyable = calc_max_buyable(coins, manulcooky, manualCookyBaseCost, manualCookyMultiplier);
-m.add_item("Manual cooky, costs " + format_number(manuleCookyCost) + " coins. " + "You can buy " + format_number(maxBuyable) + ". Description: Each purchase gives you 1 manual cookie to bake with.", "mabic");
-m.add_item("back", "back");
-m.intro_text="Manual baking menu.";
-int mres = m.run();
-string mabm = m.get_item_id(mres);
-if (mres==-1)
-{
-buymenu();
-}    
-if (mabm == "mabic")
-{
-vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string manulcook = vd.input_box("","How many manule cookies would you like to buy? Press enter to buy the maximum amount.", string(round(maxBuyable,0)));
-double quantity = string_to_number(manulcook);
-double totalCost = 0;
-    if (quantity <= 0)
+    m.add_item("back", "back");
+    m.intro_text = "Baking upgrades menu.";
+    int mres = m.run();
+    string sel = m.get_item_id(mres);
+    if (mres == -1 || sel == "back")
     {
-        pool.destroy_sound(alertslot);
-        pool.play_stationary("sounds/misc/storefail.ogg", false);
-        dlg("Error! Please enter a valid number of manual cookies to buy!");
-        buymenu();
+        shopmenu();
+        return;
     }
-totalCost = calc_total_upgrade_cost(manulcooky, quantity, manualCookyBaseCost, manualCookyMultiplier);
-if (coins >= totalCost)
-{
-coins -= totalCost;
-manulcooky += quantity;
-double nextUpgradeCost = buy_item(manulcooky, manualCookyBaseCost, manualCookyMultiplier);
-pool.play_stationary("sounds/misc/buy"+random(1,4)+".ogg",false);
-pool.play_stationary("sounds/misc/store_order.ogg",false);
-dlg("Purchase successful! You bought " + format_number(quantity) + " manual cookies for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextUpgradeCost) + " coins.");
-buymenu();
-}
-else
-{
-pool.play_stationary("sounds/misc/storefail.ogg",false);
-dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " manule cookies!");
-buymenu();
-}
-}
-if (mabm == "back")
-{
-buymenu();
-}
+    for (uint i = 0; i < items.length(); i++)
+    {
+        if (sel != "item" + string(i)) continue;
+        double level = (items[i].target == 2) ? manulcooky - 1 : (items[i].target == 3) ? cookyspeed : autocooky;
+        double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
+        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+        string input = vd.input_box("", "How many " + items[i].item_type + " would you like to buy? Press enter to buy the maximum amount.", string(round(maxbuy, 0)));
+        double quantity = string_to_number(input);
+        if (quantity <= 0)
+        {
+            pool.destroy_sound(alertslot);
+            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            dlg("Error! Please enter a valid number to buy!");
+            bakermenu();
+            return;
+        }
+        double totalCost = calc_total_upgrade_cost(level, quantity, items[i].base_cost, items[i].cost_multiplier);
+        if (coins >= totalCost)
+        {
+            coins -= totalCost;
+            if (items[i].target == 1)
+                autocooky += quantity * items[i].amount;
+            else if (items[i].target == 2)
+                manulcooky += quantity * items[i].amount;
+            else if (items[i].target == 3)
+            {
+                cookyspeed += quantity * items[i].amount;
+                clicktime -= cookyspeed;
+            }
+            double nextCost = buy_item(level + quantity, items[i].base_cost, items[i].cost_multiplier);
+            pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
+            pool.play_stationary("sounds/misc/store_order.ogg", false);
+            dlg("Purchase successful! You bought " + format_number(quantity) + " " + items[i].item_type + " for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextCost) + " coins.");
+            bakermenu();
+        }
+        else
+        {
+            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " " + items[i].item_type + "!");
+            bakermenu();
+        }
+        return;
+    }
 }
 void preffsmenu()
 {
@@ -594,14 +509,8 @@ int playvents2 = form.create_checkbox("Enable player events during manual baking
 int ordsyms = form.create_checkbox("Enable alphabetical symbol listing for the slot machine mini game.", orderedSyms);
 int reelspin = form.create_checkbox("Enable automatic stopping of reels for the slot machine mini game.", slotmode);
 int bakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across automated slots.", slotDistribution);
-int automationMultiplierSlider = form.create_slider("Automation slot Cost Multiplier.", (automationMultiplier - 1.0) * 100, 1, 100, "X", 1);
-int slotMultiplierSlider = form.create_slider("Slot production Cost Multiplier.", (slotMultiplier - 1.0) * 100, 1, 100, "X", 1);
-    int autoCookyBaseCostSlider = form.create_slider("Auto Cooky Base Cost.", autoCookyBaseCost, 1, 100, "coins", 1);
-    int autoCookyMultiplierSlider = form.create_slider("Auto Cooky Cost Multiplier.", autoCookyMultiplier, 1, 100, "X", 1);
-    int autoCookySpeedBaseCostSlider = form.create_slider("Auto Cooky Speed Base Cost.", autoCookySpeedBaseCost, 1, 100, "coins", 1);
-    int autoCookySpeedMultiplierSlider = form.create_slider("Auto Cooky Speed Cost Multiplier.", autoCookySpeedMultiplier, 1, 100, "X", 1);
-    int manualCookyBaseCostSlider = form.create_slider("Manual Cooky Base Cost.", manualCookyBaseCost, 1, 100, "coins", 1);
-    int manualCookyMultiplierSlider = form.create_slider("Manual Cooky Cost Multiplier.", manualCookyMultiplier, 1, 100, "X", 1);
+int automationMultiplierSlider = form.create_slider("Automation slot Cost Multiplier.", (automationMultiplier - 1.0) * 1000, 1, 100, "X", 1);
+int slotMultiplierSlider = form.create_slider("Slot production Cost Multiplier.", (slotMultiplier - 1.0) * 1000, 1, 100, "X", 1);
 int cookieRankModifierSlider = form.create_slider("Cookie Rank Modifier.", cookymod, 1, 100, "x", 1);
 int difficultyRankModifierSlider = form.create_slider("Difficulty rank Modifier.", difmod, 1, 100, "x", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 1, 100, "percent", 1);
@@ -621,14 +530,8 @@ form.focus(introSFX);
     {
         wait(5);
         form.monitor();
-automationMultiplier = 1.0 + (form.get_slider(automationMultiplierSlider) * 0.01);
-slotMultiplier = 1.0 + (form.get_slider(slotMultiplierSlider) * 0.01);
-       autoCookyBaseCost = form.get_slider(autoCookyBaseCostSlider);
-        autoCookyMultiplier = form.get_slider(autoCookyMultiplierSlider);
-        autoCookySpeedBaseCost = form.get_slider(autoCookySpeedBaseCostSlider);
-        autoCookySpeedMultiplier = form.get_slider(autoCookySpeedMultiplierSlider);
-        manualCookyBaseCost = form.get_slider(manualCookyBaseCostSlider);
-        manualCookyMultiplier = form.get_slider(manualCookyMultiplierSlider);
+automationMultiplier = 1.0 + (form.get_slider(automationMultiplierSlider) * 0.001);
+slotMultiplier = 1.0 + (form.get_slider(slotMultiplierSlider) * 0.001);
 cookymod = form.get_slider(cookieRankModifierSlider);
 difmod = form.get_slider(difficultyRankModifierSlider);
 evchanse = 100 - form.get_slider(autoChanceSlider);

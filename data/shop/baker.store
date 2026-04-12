@@ -1,0 +1,4 @@
+auto_cooky:1:10:1.25:1:0:Each purchase gives you %item_count auto cookie to bake with.
+auto_cooky_speed:3:20:1.25:10:0:Each purchase increases your baking speed by %item_count Ms, helping you bake cookies much faster.
+manual_cooky:2:25:1.25:1:Each purchase gives you %item_count manual cookie to bake with.
+turbo_oven:1:500:1.5:25:A high powered oven that gives you %item_count auto cookies per purchase. Bake like a pro!

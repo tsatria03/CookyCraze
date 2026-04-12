@@ -391,14 +391,14 @@ pool.destroy_sound(gameslot);
         {
             selectedBet = form.get_list_position(betChoice);
 string betStr = form.get_text(betInput);
-betAmount = string_to_number(betStr);
+betAmount = floor(string_to_number(betStr));
     if (betAmount <= 0)
     {
         dlg_buffer("Invalid bet amount. Please enter a valid number!");
 form.reset();
 slotsgame();
     }
-            if ((selectedBet == 0 && cookies < betAmount) || (selectedBet == 1 && coins < betAmount) || (selectedBet == 2 && autocooky < betAmount) || (selectedBet == 3 && cookyspeed < betAmount) || (selectedBet == 4 && manulcooky < betAmount))
+            if ((selectedBet == 0 && floor(cookies) < betAmount) || (selectedBet == 1 && floor(coins) < betAmount) || (selectedBet == 2 && floor(autocooky) < betAmount) || (selectedBet == 3 && floor(cookyspeed) < betAmount) || (selectedBet == 4 && floor(manulcooky) < betAmount))
             {
                 dlg_buffer("You don't have enough of that item to bet!");
 form.reset();

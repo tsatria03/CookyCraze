@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(du -sh /c/Users/tonys/OneDrive/Documents/github/CookyCraze/*)"
+    ]
+  }
+}

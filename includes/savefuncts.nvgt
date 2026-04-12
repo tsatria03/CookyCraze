@@ -172,30 +172,6 @@ if (st.d.exists("slotMultiplier"))
 {
 slotMultiplier = st.read_double("slotMultiplier");
 }
-if(st.d.exists("autoCookyBaseCost"))
-{
-autoCookyBaseCost=st.read_double("autoCookyBaseCost");
-}
-if(st.d.exists("autoCookyMultiplier"))
-{
-autoCookyMultiplier=st.read_double("autoCookyMultiplier");
-}
-if(st.d.exists("autoCookySpeedBaseCost"))
-{
-autoCookySpeedBaseCost=st.read_double("autoCookySpeedBaseCost");
-}
-if(st.d.exists("autoCookySpeedMultiplier"))
-{
-autoCookySpeedMultiplier=st.read_double("autoCookySpeedMultiplier");
-}
-if(st.d.exists("manualCookyBaseCost"))
-{
-manualCookyBaseCost=st.read_double("manualCookyBaseCost");
-}
-if(st.d.exists("manualCookyMultiplier"))
-{
-manualCookyMultiplier=st.read_double("manualCookyMultiplier");
-}
 if(st.d.exists("difmod"))
 {
 difmod=st.read_double("difmod");
@@ -246,12 +222,6 @@ st.add("orderedSyms",orderedSyms);
 st.add("slotmode",slotmode);
 st.add("automationMultiplier", automationMultiplier);
 st.add("slotMultiplier", slotMultiplier);
-st.add("autoCookyBaseCost",autoCookyBaseCost);
-st.add("autoCookyMultiplier",autoCookyMultiplier);
-st.add("autoCookySpeedBaseCost",autoCookySpeedBaseCost);
-st.add("autoCookySpeedMultiplier",autoCookySpeedMultiplier);
-st.add("manualCookyBaseCost",manualCookyBaseCost);
-st.add("manualCookyMultiplier",manualCookyMultiplier);
 st.add("difmod",difmod);
 st.add("cookymod",cookymod);
 st.add("evchanse",evchanse);

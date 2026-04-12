@@ -1,5 +1,14 @@
 New in 3.0.
-Made it so the sounds for the game are no longer encripted from now on.
+Fixed the automation and slot production cost multiplier sliders in the game settings menu. They now correctly map to a range of 1.01 to 2.0, preventing costs from overflowing at large slot and automation counts.
+Fixed a bug where slot production and automation costs could overflow into infinity or scientific notation at large counts. These now use the geometric series formula and are capped at the maximum double value.
+Fixed the number formatting function so that large numbers correctly display short suffixes like M, B, T instead of spoken words. The short and spoken suffix arrays were previously swapped.
+Fixed a bug where selling the maximum amount of cookies could sometimes fail due to floating point precision issues. Cookie counts are now floored before comparing and selling.
+Fixed a bug where placing a bet in the slot machine could incorrectly trigger a not enough items error due to floating point precision. Bet amounts and resource values are now floored before comparing.
+Moved the automatic and manual baking shop menus into a single baking upgrades menu. The item's target field now determines what variable it affects, making separate menus unnecessary.
+Added rank based unlocking for shop items. Items with a minimum rank requirement will only appear in the shop once the player has reached that rank, giving players new content to look forward to as they progress.
+Removed the hardcoded base cost and cost multiplier settings for auto cookies, auto cookie speed, and manual cookies from the game settings menu. These are now configured directly in the baker.store file on a per item basis.
+Added the ability to add your own items to the cooky store. You are no longer limmited to buying the items that the game already provides. Items are defined in data/shops/baker.store, and each item specifies its name, what it affects, base cost, cost multiplier, amount per purchase, minimum rank required, and a description for that item.
+Changed the way sounds are played in the game. The sounds are no longer encripted from now on.
 Fixed some critical number formatting issues.
 Made it so you start with 1 manual cooky by default when starting a new game.
 Recoded the purchase logic for buying upgrades in the cooky store to be a lot faster than before.

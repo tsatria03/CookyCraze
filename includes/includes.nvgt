@@ -18,6 +18,7 @@
 #include"menu.nvgt"
 #include"minigames.nvgt"
 #include"savedata.nvgt"
+#include"store.nvgt"
 #include"savefuncts.nvgt"
 #include"speech.nvgt"
 #include"virtual_dialogs.nvgt"
