@@ -1,0 +1,77 @@
+class payout_item
+{
+    int matches;
+    double multiplier;
+    string sound;
+    string message;
+}
+
+void parse_slots_table(string filepath, string[]@ symbols_out, payout_item[]@ payouts_out, int@ reels_out)
+{
+    file f;
+    if (!f.open(filepath, "r"))
+        return;
+    bool in_payouts = false;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        if (line == "[payouts]")
+        {
+            in_payouts = true;
+            continue;
+        }
+        if (!in_payouts)
+        {
+            int eq = line.find("=");
+            if (eq == -1) continue;
+            string key = line.substr(0, eq);
+            string val = line.substr(eq + 1);
+            if (key == "reels")
+            {
+                reels_out = max(2, string_to_int(val));
+            }
+            else if (key == "symbols")
+            {
+                string[] parts = val.split(",");
+                for (uint i = 0; i < parts.length(); i++)
+                {
+                    string s = parts[i];
+                    while (s.length() > 0 && s.substr(0, 1) == " ")
+                        s = s.substr(1);
+                    while (s.length() > 0 && s.substr(s.length() - 1) == " ")
+                        s = s.substr(0, s.length() - 1);
+                    if (s.length() > 0)
+                        symbols_out.insert_last(s);
+                }
+            }
+        }
+        else
+        {
+            string[] parts;
+            int lastPos = 0;
+            int colonCount = 0;
+            for (uint i = 0; i < line.length(); i++)
+            {
+                if (line.substr(i, 1) == ":" && colonCount < 3)
+                {
+                    parts.insert_last(line.substr(lastPos, i - lastPos));
+                    lastPos = i + 1;
+                    colonCount++;
+                }
+            }
+            parts.insert_last(line.substr(lastPos));
+            if (parts.length() < 4) continue;
+            payout_item item;
+            item.matches    = string_to_int(parts[0]);
+            item.multiplier = string_to_number(parts[1]);
+            item.sound      = parts[2];
+            item.message    = parts[3];
+            payouts_out.insert_last(item);
+        }
+    }
+    f.close();
+}

@@ -1,0 +1,50 @@
+;CookyCraze slot machine configuration file.
+;Lines starting with #, //, or ; are ignored.
+
+;--- Symbols ---
+;Format: symbols=name, name, name, ...
+;A comma separated list of symbol names for the slot machine reels.
+;Spaces after commas are optional. Both "apple,banana" and "apple, banana" are accepted.
+;You must have at least 10 symbols defined for the machine to spin.
+
+symbols=apple, banana, bean, bell, bottel, bronze, car, carot, celery, chain, chime, clover, copper, crate, crown, diamond, flower, gem, glass, gold, grape, heart, iron, leef, metal, nickle, orange, peach, pebble, pepper, pees, potato, rack, rock, rose, silver, spade, star, stone, tomato
+
+;--- Reels ---
+;Format: reels=number
+;The number of reels the slot machine spins. Must be at least 2.
+;Make sure your payout matches values do not exceed this number, otherwise they can never be triggered.
+
+;Example: if you change to reels=3, remove any payout lines where the match value exceeds 3.
+;  reels=3
+;  3:4:slotwin1.ogg:You won 4 times your bet!
+;  2:2:slotwin2.ogg:You won double your bet!
+;  0:0:slotlose.ogg:You lost the bet!
+
+reels=5
+
+;--- Payouts ---
+;Format: matches:multiplier:sound:message
+
+;matches
+;  The number of matching symbols across the reels required to trigger this payout.
+;  Use 0 to define the loss outcome when no symbols match.
+;  This value should not exceed the number of reels.
+
+;multiplier
+;  How much of the bet is returned to the player.
+;  4 means the player wins 4 times their bet.
+;  0.5 means the player wins half their bet.
+;  0 means the player loses their bet entirely.
+
+;sound
+;  The sound file to play when this outcome fires, relative to sounds/misc/.
+
+;message
+;  The text spoken to the player when this outcome fires.
+
+[payouts]
+5:4:slotwin1.ogg:You won 4 times your bet!
+4:3:slotwin1.ogg:You won triple your bet!
+3:2:slotwin2.ogg:You won double your bet!
+2:0.5:slotwin3.ogg:You won half your bet!
+0:0:slotlose.ogg:You lost the bet!

@@ -1,0 +1,69 @@
+;CookyCraze cooky flipper event configuration file.
+;Each line defines one event that can fire during a cooky flipper game. Lines starting with #, //, or ; are ignored.
+
+;Format: event_name:sound:polarity:target:min_amount:max_amount:use_percent:chance:description
+
+;event_name
+;  The internal name of this event. Used for identification only. Can be anything you like.
+
+;sound
+;  The sound file or files to play when this event fires, relative to sounds/misc/. Do not include the folder path.
+;  Example: burn1.ogg
+;  You can use a random range by writing the number part as (min,max). Example: bee(1,4).ogg
+;  You can play multiple sounds by separating them with commas. Example: gain.ogg,give.ogg,coin50.ogg
+;  Each sound in the list is resolved and played independently, so random ranges work per entry.
+;  The alert sound (alert_large for positive, alert_small for negative) is always played automatically.
+;  Set to none to play no additional sound.
+
+;polarity
+;  Declares whether this event is good or bad for the player.
+;  1 = positive. The event gives the player something or helps them.
+;  2 = negative. The event takes something away or hurts them.
+
+;target
+;  The stat this event affects when it fires.
+;  cookies    = the player's current cookie count.
+;  coins      = the player's current coin count.
+;  autocooky  = the player's auto cookie production rate.
+;  manulcooky = the player's manual cookie production rate.
+;  cookyspeed = the player's baking speed. Positive events reduce the interval, negative events increase it.
+
+;min_amount and max_amount
+;  The range of values the effect can roll between. A random value between min and max is chosen each time.
+;  If min and max are the same, the effect is always that exact value.
+
+;  Rank operators can be appended to scale the amount with the player's current rank:
+;    *rank  multiplies the amount by rank. Effect grows stronger as the player progresses.
+;    /rank  divides the amount by rank. Effect grows weaker as the player progresses.
+;    +rank  adds rank to the amount. Gentle linear growth as the player progresses.
+;    -rank  subtracts rank from the amount. Effect diminishes as the player progresses.
+
+;  Examples: 40*rank, 10/rank, 5+rank, 100-rank
+
+;use_percent
+;  Controls whether the rolled amount is treated as a flat value or a percentage of the player's current stat.
+;  false = the rolled amount is applied directly. e.g. a roll of 60 gives or takes exactly 60.
+;  true  = the rolled amount is treated as a percentage of what the player currently has.
+;          e.g. a roll of 20 with use_percent true takes 20% of the player's current cookies.
+;          This keeps the effect proportional regardless of how much the player has accumulated.
+
+;chance
+;  The probability of this event firing when it is selected, from 1 to 100.
+;  100 means it always fires when chosen. 50 means it fires roughly half the time.
+;  Set to 0 to effectively disable this event without removing it from the file.
+
+;description
+;  The message spoken to the player when this event fires.
+;  Use %amount% as a placeholder and it will be replaced with the actual calculated value.
+;  If the event does not need to speak a number, simply leave %amount% out.
+
+gain_cookies:gain.ogg,give.ogg:1:cookies:15*rank:30*rank:false:100:Jackpot! You gained %amount% cookies!
+lose_cookies:lose.ogg,bee(1,4).ogg:2:cookies:15*rank:30*rank:false:100:Oh no! You lost %amount% cookies.
+gain_coins:gain.ogg,give.ogg,coin50.ogg:1:coins:15*rank:30*rank:false:100:Lucky flip! You gained %amount% coins.
+lose_coins:lose.ogg,cointoss.ogg:2:coins:15*rank:30*rank:false:100:Unfortunate flip! You lost %amount% coins.
+gain_autocooky:gain.ogg,give.ogg:1:autocooky:1*rank:5*rank:false:100:Lucky flip! You gained some auto-cookies. Now your auto-baking rate has increased.
+lose_autocooky:lose.ogg:2:autocooky:1*rank:5*rank:false:100:Bad luck! You lost some auto-cookies.
+gain_manulcooky:gain.ogg,give.ogg:1:manulcooky:1*rank:5*rank:false:100:Nice! You gained some manual cookies. You can now bake more cookies with each click.
+lose_manulcooky:lose.ogg:2:manulcooky:1*rank:5*rank:false:100:Oops! You lost some manual cookies.
+increase_cookyspeed:gain.ogg,give.ogg,powerup.ogg:1:cookyspeed:5/rank:5/rank:false:100:Cool! Your baking speed has been increased slightly.
+decrease_cookyspeed:lose.ogg,powerdown.ogg:2:cookyspeed:5*rank:5*rank:false:100:Oh dear! Something has slowed down your baking speed.

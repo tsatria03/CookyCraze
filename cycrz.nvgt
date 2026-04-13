@@ -23,6 +23,18 @@ if (loadedEvents.length() == 0)
     alert("Error", "Could not load event data from data/config/baker.event. Please check the file and try again.");
     exit();
 }
+loadedFlipperEvents = parse_flipper_items("data/config/flipper.event");
+if (loadedFlipperEvents.length() == 0)
+{
+    alert("Error", "Could not load flipper event data from data/config/flipper.event. Please check the file and try again.");
+    exit();
+}
+parse_slots_table("data/config/slots.table", slotSymbols, slotPayouts, slotReels);
+if (slotSymbols.length() < 10 || slotPayouts.length() == 0)
+{
+    alert("Error", "Could not load slot machine data from data/config/slots.table. Please check the file and try again.");
+    exit();
+}
 readdata();
 readpreffs();
 readpreffs2();
@@ -116,6 +128,9 @@ dockver.close();
 void resetgame()
 {
 autocooky=0;
+autocooky_purchases=0;
+manulcooky_purchases=0;
+cookyspeed_purchases=0;
 coins=10;
 cookies=0;
 cookyspeed=0;

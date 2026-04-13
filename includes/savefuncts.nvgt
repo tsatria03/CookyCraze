@@ -49,6 +49,18 @@ if (sd.d.exists("manualSlotBaseCost"))
 {
 manualSlotBaseCost = sd.read_double("manualSlotBaseCost");
 }
+if (sd.d.exists("autocooky_purchases"))
+{
+autocooky_purchases = sd.read_double("autocooky_purchases");
+}
+if (sd.d.exists("manulcooky_purchases"))
+{
+manulcooky_purchases = sd.read_double("manulcooky_purchases");
+}
+if (sd.d.exists("cookyspeed_purchases"))
+{
+cookyspeed_purchases = sd.read_double("cookyspeed_purchases");
+}
 if(sd.d.exists("bakemode"))
 {
 bakemode=sd.read_int("bakemode");
@@ -107,6 +119,9 @@ sd.add("automationBaseCost", automationBaseCost);
 sd.add("slotBaseCost", slotBaseCost);
 sd.add("manualSlots", manualSlots);
 sd.add("manualSlotBaseCost", manualSlotBaseCost);
+sd.add("autocooky_purchases", autocooky_purchases);
+sd.add("manulcooky_purchases", manulcooky_purchases);
+sd.add("cookyspeed_purchases", cookyspeed_purchases);
 sd.add("bakemode",bakemode);
 sd.add("clicktime",clicktime);
 sd.add("autobakeSlots", autobakeSlots);

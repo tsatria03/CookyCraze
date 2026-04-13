@@ -400,7 +400,7 @@ void bakermenu()
             m.add_item(items[i].item_type + ". Unlocked at rank " + string(items[i].min_rank) + ". Description: " + items[i].description, "locked" + string(i));
             continue;
         }
-        double level = (items[i].target == 2) ? manulcooky - 1 : (items[i].target == 3) ? cookyspeed : autocooky;
+        double level = (items[i].target == 2) ? manulcooky_purchases : (items[i].target == 3) ? cookyspeed_purchases : autocooky_purchases;
         double cost = buy_item(level, items[i].base_cost, items[i].cost_multiplier);
         double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
         m.add_item(items[i].item_type + ", costs " + format_number(cost) + " coins. You can buy " + format_number(maxbuy) + ". Description: " + items[i].description, "item" + string(i));
@@ -434,7 +434,7 @@ void bakermenu()
             return;
         }
         if (sel != "item" + string(i)) continue;
-        double level = (items[i].target == 2) ? manulcooky - 1 : (items[i].target == 3) ? cookyspeed : autocooky;
+        double level = (items[i].target == 2) ? manulcooky_purchases : (items[i].target == 3) ? cookyspeed_purchases : autocooky_purchases;
         double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
         vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
         string input = vd.input_box("", "How many " + items[i].item_type + " would you like to buy? Press enter to buy the maximum amount.", string(round(maxbuy, 0)));
@@ -457,6 +457,7 @@ void bakermenu()
                     autocooky += (autocooky * (items[i].amount / 100.0)) * quantity;
                 else
                     autocooky += quantity * items[i].amount;
+                autocooky_purchases += quantity;
             }
             else if (items[i].target == 2)
             {
@@ -464,6 +465,7 @@ void bakermenu()
                     manulcooky += (manulcooky * (items[i].amount / 100.0)) * quantity;
                 else
                     manulcooky += quantity * items[i].amount;
+                manulcooky_purchases += quantity;
             }
             else if (items[i].target == 3)
             {
@@ -478,6 +480,7 @@ void bakermenu()
                     cookyspeed += quantity * items[i].amount;
                     clicktime -= cookyspeed;
                 }
+                cookyspeed_purchases += quantity;
             }
             double nextCost = buy_item(level + quantity, items[i].base_cost, items[i].cost_multiplier);
             pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);

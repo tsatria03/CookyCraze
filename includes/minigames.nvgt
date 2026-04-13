@@ -104,12 +104,10 @@ void cookgame()
 {
     form.reset();
     form.create_window("cooky flipper", false);
-string[] cookFlipEvents = {"gain_autocooky", "lose_autocooky", "gain_manulcooky", "lose_manulcooky", "gain_cookies", "lose_cookies", "gain_coins", "lose_coins", "increase_cookyspeed", "decrease_cookyspeed"};
-    int cookEventList = form.create_list("Choose the &cooky events to use:", cookFlipEvents.length(), true, false);
-bool[] cookEventToggles(cookFlipEvents.length(), true);
-    for (uint i = 0; i < cookFlipEvents.length(); i++)
-{
-        form.add_list_item(cookEventList, cookFlipEvents[i], cookFlipEvents[i], -1, cookEventToggles[i]);
+    int cookEventList = form.create_list("Choose the &cooky events to use:", loadedFlipperEvents.length(), true, false);
+    for (uint i = 0; i < loadedFlipperEvents.length(); i++)
+    {
+        form.add_list_item(cookEventList, loadedFlipperEvents[i].event_name, loadedFlipperEvents[i].event_name, -1, true);
     }
 int flip = form.create_button("&Flip a cooky", true);
     form.focus(cookEventList);
@@ -159,22 +157,16 @@ if (form.is_pressed(flip))
 {
     if (cookies >= 1)
     {
-        string[] activeCookEvents;
-        string[] chocsEvents;
-        string[] bisksEvents;
-        for (uint i = 0; i < cookFlipEvents.length(); i++)
+        event_item[] chocsEvents;
+        event_item[] bisksEvents;
+        for (uint i = 0; i < loadedFlipperEvents.length(); i++)
         {
             if (form.is_list_item_checked(cookEventList, i))
             {
-                activeCookEvents.insert_last(cookFlipEvents[i]);
-                if (cookFlipEvents[i].find("gain") >= 0 || cookFlipEvents[i] == "increase_cookyspeed")
-                {
-                    chocsEvents.insert_last(cookFlipEvents[i]);
-                }
-                else if (cookFlipEvents[i].find("lose") >= 0 || cookFlipEvents[i] == "decrease_cookyspeed")
-                {
-                    bisksEvents.insert_last(cookFlipEvents[i]);
-                }
+                if (loadedFlipperEvents[i].polarity == 1)
+                    chocsEvents.insert_last(loadedFlipperEvents[i]);
+                else
+                    bisksEvents.insert_last(loadedFlipperEvents[i]);
             }
         }
         if (chocsEvents.length() == 0 || bisksEvents.length() == 0)
@@ -190,14 +182,12 @@ if (form.is_pressed(flip))
         dlg_buffer("You flip a cooky. It lands on " + side);
         if (side == "chocolate" && chocsEvents.length() > 0)
         {
-            string event = chocsEvents[random(0, chocsEvents.length() - 1)];
-            trigger_cook_event(event, activeCookEvents);
+            trigger_cook_event(chocsEvents[random(0, chocsEvents.length() - 1)]);
             form.focus_silently(flip);
         }
         else if (side == "bisket" && bisksEvents.length() > 0)
         {
-            string event = bisksEvents[random(0, bisksEvents.length() - 1)];
-            trigger_cook_event(event, activeCookEvents);
+            trigger_cook_event(bisksEvents[random(0, bisksEvents.length() - 1)]);
             form.focus_silently(flip);
         }
     }
@@ -323,14 +313,16 @@ void slotsgame()
     form.add_list_item(betChoice, "Auto Cookies");
     form.add_list_item(betChoice, "Auto Cookie Speeds");
     form.add_list_item(betChoice, "Manual Cookies");
-string[] symbols;
-if(orderedSyms==true)
+string[] symbols = slotSymbols;
+if (orderedSyms == false)
 {
-symbols = {"apple", "banana", "bean", "bell", "bottel", "bronze", "car", "carot", "celery", "chain", "chime", "clover", "copper", "crate", "crown", "diamond", "flower", "gem", "glass", "gold", "grape", "heart", "iron", "leef", "metal", "nickle", "orange", "peach", "pebble", "pepper", "pees", "potato", "rack", "rock", "rose", "silver", "spade", "star", "stone", "tomato"};
-}
-if(orderedSyms==false)
-{
-symbols = {"bell", "chime", "heart", "pebble", "star", "clover", "diamond", "spade", "crown", "gem", "apple", "grape", "peach", "orange", "banana", "gold", "silver", "bronze", "iron", "copper", "crate", "stone", "nickle", "pepper", "tomato", "carot", "celery", "bean", "pees", "potato", "car", "glass", "bottel", "rack", "chain", "metal", "rock", "leef", "flower", "rose"};
+    for (uint i = symbols.length() - 1; i > 0; i--)
+    {
+        uint j = random(0, i);
+        string tmp = symbols[i];
+        symbols[i] = symbols[j];
+        symbols[j] = tmp;
+    }
 }
     int symbolChoices = form.create_list("Choose the s&ymbols to use:", symbols.length(), true, false);
     bool[] symbolToggles(symbols.length(), true);
@@ -342,7 +334,7 @@ int betInput = form.create_input_box("Enter your b&et amount:", "", "", 0, false
     int spinButton = form.create_button("Spin the &reels", true);
 form.focus(betChoice);
 form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
-string reel1 = "", reel2 = "", reel3 = "", reel4 = "", reel5 = "";
+string[] reelResults(slotReels, "");
     int selectedBet = 0;
     double betAmount = 0;
     while (true)
@@ -435,52 +427,19 @@ machineslot=pool.play_stationary("sounds/misc/slotspin.ogg", true);
 if(slotmode==true) speak_buffer("spinning...");
 if(slotmode==false) dlg_buffer("spinning. Press enter or space to stop each reel.");
 if(slotmode==true) wait(random(1000,2000));
-            for (uint i = 0; i < 5; i++)
+            string[] stopSounds = {"slotstop1.ogg", "slotstop2.ogg", "slotstop3.ogg"};
+            string[] reelNames = {"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"};
+            for (int i = 0; i < slotReels; i++)
             {
-                if (i == 0) 
-                {
-            reel1 = activeSymbols[random(0, activeSymbols.length() - 1)];
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.destroy_sound(machineslot);
-pool.play_stationary("sounds/misc/slotstop1.ogg", false);
-if(slotmode==true) speak_buffer(reel1);
-else if(slotmode==false) dlg_buffer("The first reel shows " + reel1);
-                }
-                else if (i == 1) 
-                {
-            reel2 = activeSymbols[random(0, activeSymbols.length() - 1)];
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.play_stationary("sounds/misc/slotstop2.ogg", false);
-if(slotmode==true) speak_buffer(reel2);
-else if(slotmode==false) dlg_buffer("The second reel shows " + reel2);
-                }
-                else if (i == 2) 
-                {
-            reel3 = activeSymbols[random(0, activeSymbols.length() - 1)];
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.play_stationary("sounds/misc/slotstop3.ogg", false);
-if(slotmode==true) speak_buffer(reel3);
-else if(slotmode==false) dlg_buffer("The third reel shows " + reel3);
-                }
-                else if (i == 3) 
-                {
-            reel4 = activeSymbols[random(0, activeSymbols.length() - 1)];
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.play_stationary("sounds/misc/slotstop1.ogg", false);
-if(slotmode==true) speak_buffer(reel4);
-else if(slotmode==false) dlg_buffer("The forth reel shows " + reel4);
-                }
-                else if (i == 4) 
-                {
-            reel5 = activeSymbols[random(0, activeSymbols.length() - 1)];
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.play_stationary("sounds/misc/slotstop2.ogg", false);
-if(slotmode==true) speak_buffer(reel5);
-else if(slotmode==false) dlg_buffer("The fith reel shows " + reel5);
-                }
+                reelResults[i] = activeSymbols[random(0, activeSymbols.length() - 1)];
+                if (slotmode == true) wait_async(random(1000, 2000));
+                if (i == 0) pool.destroy_sound(machineslot);
+                pool.play_stationary("sounds/misc/" + stopSounds[i % stopSounds.length()], false);
+                if (slotmode == true) speak_buffer(reelResults[i]);
+                else dlg_buffer("The " + (i < int(reelNames.length()) ? reelNames[i] : string(i + 1)) + " reel shows " + reelResults[i]);
             }
 int[] symbolCount(symbols.length());
-string[] reels = {reel1, reel2, reel3, reel4, reel5};
+string[] reels = reelResults;
 for (uint i = 0; i < reels.length(); i++)
 {
     for (uint j = 0; j < symbols.length(); j++)
@@ -499,151 +458,41 @@ for (uint i = 0; i < symbolCount.length(); i++)
         maxMatch = symbolCount[i];
     }
 }
-if (maxMatch == 5)
+payout_item@ payout = null;
+for (uint i = 0; i < slotPayouts.length(); i++)
 {
-            if(slotmode==true) wait_async(random(1000, 2000));
-pool.destroy_sound(machineslot);
-                pool.play_stationary("sounds/misc/slotwin1.ogg", false);
-                dlg_buffer("You won 4 times your bet!");
-form.focus(spinButton);
-                if (selectedBet == 0)
-{
-cookies += betAmount*4;
+    if (slotPayouts[i].matches == maxMatch || (maxMatch < 2 && slotPayouts[i].matches == 0))
+    {
+        @payout = slotPayouts[i];
+        break;
+    }
 }
-                else if (selectedBet == 1)
+if (payout !is null)
 {
-coins += betAmount*4;
+    if (slotmode == true) wait_async(random(1000, 2000));
+    pool.destroy_sound(machineslot);
+    if (payout.sound != "" && payout.sound != "none")
+        pool.play_stationary("sounds/misc/" + payout.sound, false);
+    dlg_buffer(payout.message);
+    form.focus(spinButton);
+    double change = betAmount * payout.multiplier;
+    if (payout.multiplier == 0)
+    {
+        if (selectedBet == 0) cookies -= betAmount;
+        else if (selectedBet == 1) coins -= betAmount;
+        else if (selectedBet == 2) autocooky -= betAmount;
+        else if (selectedBet == 3) { cookyspeed -= betAmount; clicktime += betAmount; }
+        else if (selectedBet == 4) manulcooky -= betAmount;
+    }
+    else
+    {
+        if (selectedBet == 0) cookies += change;
+        else if (selectedBet == 1) coins += change;
+        else if (selectedBet == 2) autocooky += change;
+        else if (selectedBet == 3) { cookyspeed += change; clicktime -= change; }
+        else if (selectedBet == 4) manulcooky += change;
+    }
 }
-                else if (selectedBet == 2)
-{
-autocooky += betAmount*4;
-}
-                else if (selectedBet == 3)
-{
-cookyspeed += betAmount*4;
-clicktime-=cookyspeed;
-}
-                else if (selectedBet == 4)
-{
-manulcooky += betAmount*4;
-}
-            }
-else if (maxMatch == 4)
-            {
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.destroy_sound(machineslot);
-pool.play_stationary("sounds/misc/slotwin1.ogg", false);
-                dlg_buffer("You won triple your bet!");
-form.focus(spinButton);
-                if (selectedBet == 0)
-{
-cookies += betAmount*3;
-}
-                else if (selectedBet == 1)
-{
-coins += betAmount*3;
-}
-                else if (selectedBet == 2)
-{
-autocooky += betAmount*3;
-}
-                else if (selectedBet == 3)
-{
-cookyspeed += betAmount*3;
-clicktime-=cookyspeed;
-}
-                else if (selectedBet == 4)
-{
-manulcooky += betAmount*3;
-}
-            }
-else if (maxMatch == 3)
-            {
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.destroy_sound(machineslot);
-pool.play_stationary("sounds/misc/slotwin2.ogg", false);
-                dlg_buffer("You won double your bet!");
-form.focus(spinButton);
-                if (selectedBet == 0)
-{
-cookies += betAmount*2;
-}
-                else if (selectedBet == 1)
-{
-coins += betAmount*2;
-}
-                else if (selectedBet == 2)
-{
-autocooky += betAmount*2;
-}
-                else if (selectedBet == 3)
-{
-cookyspeed += betAmount*2;
-clicktime-=cookyspeed;
-}
-                else if (selectedBet == 4)
-{
-manulcooky += betAmount*2;
-}
-            }
-else if (maxMatch == 2)
-            {
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.destroy_sound(machineslot);
-pool.play_stationary("sounds/misc/slotwin3.ogg", false);
-                dlg_buffer("You won half your bet!");
-form.focus(spinButton);
-                if (selectedBet == 0)
-{
-cookies += betAmount/2;
-}
-                else if (selectedBet == 1)
-{
-coins += betAmount/2;
-}
-                else if (selectedBet == 2)
-{
-autocooky += betAmount/2;
-}
-                else if (selectedBet == 3)
-{
-cookyspeed += betAmount/2;
-clicktime-=cookyspeed;
-}
-                else if (selectedBet == 4)
-{
-manulcooky += betAmount/2;
-}
-            }
-            else
-            {
-if(slotmode==true) wait_async(random(1000, 2000));
-pool.destroy_sound(machineslot);
-                pool.play_stationary("sounds/misc/slotlose.ogg", false);
-                dlg_buffer("You lost the bet!");
-form.focus(spinButton);
-            if (selectedBet == 0)
-{
-cookies -= betAmount;
-}
-            else if (selectedBet == 1)
-{
-coins -= betAmount;
-}
-            else if (selectedBet == 2)
-{
-autocooky -= betAmount;
-}
-            else if (selectedBet == 3)
-{
-cookyspeed -= betAmount;
-clicktime+=cookyspeed;
-}
-            else if (selectedBet == 4)
-{
-manulcooky -= betAmount;
-}
-            }
         }
 }
     }

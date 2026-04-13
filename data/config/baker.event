@@ -76,12 +76,12 @@ lose_manulcooky:lose.ogg:3:2:manulcooky:10*rank:50*rank:false:100:Shucks! You lo
 
 ; --- Percentage based events ---
 baking_miracle:give.ogg:3:1:cookies:5:15:true:100:A baking miracle! The stars aligned and %amount% percent of your cookies multiplied into even more. What a windfall!
-cookie_crumble:burn(1,3).ogg:3:2:cookies:5:15:true:100:Oh no! A shelf collapsed in your bakery and crumbled %amount% percent of your cookie stockpile. What a mess!
-coin_jackpot:coin50.ogg:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current coins. Your wallet is feeling heavy!
-coin_drain:cointoss.ogg:3:2:coins:5:10:true:100:Oh no! A billing error drained %amount% percent of your coins. Better keep a closer eye on your finances!
+cookie_crumble:lose.ogg,burn(1,3).ogg:3:2:cookies:5:15:true:100:Oh no! A shelf collapsed in your bakery and crumbled %amount% percent of your cookie stockpile. What a mess!
+coin_jackpot:give.ogg,coin50.ogg:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current coins. Your wallet is feeling heavy!
+coin_drain:lose.ogg,cointoss.ogg:3:2:coins:5:10:true:100:Oh no! A billing error drained %amount% percent of your coins. Better keep a closer eye on your finances!
 autocooky_surge:give.ogg:3:1:autocooky:3:8:true:100:Incredible! A surge of baking energy boosted your auto cookie production by %amount% percent. Your ovens are roaring!
 autocooky_slump:lose.ogg:3:2:autocooky:3:8:true:100:Uh oh! A baking slump hit your kitchen hard, reducing your auto cookie production by %amount% percent.
 manulcooky_inspiration:give.ogg:3:1:manulcooky:3:8:true:100:Inspiration struck! Your hands found a new rhythm, boosting your manual cookie output by %amount% percent per click.
 manulcooky_fatigue:lose.ogg:3:2:manulcooky:3:8:true:100:Your hands are exhausted! A bout of baking fatigue reduced your manual cookie output by %amount% percent per click.
-speed_rush:powerup.ogg:3:1:cookyspeed:5:10:true:100:A rush of energy surged through your kitchen, cutting your bake interval by %amount% percent. Everything is moving faster!
-speed_drag:powerdown.ogg:3:2:cookyspeed:5:10:true:100:Something gummed up the works! Your baking speed has slowed down by %amount% percent. Everything is taking longer!
+speed_rush:give.ogg,powerup.ogg:3:1:cookyspeed:5:10:true:100:A rush of energy surged through your kitchen, cutting your bake interval by %amount% percent. Everything is moving faster!
+speed_drag:lose.ogg,powerdown.ogg:3:2:cookyspeed:5:10:true:100:Something gummed up the works! Your baking speed has slowed down by %amount% percent. Everything is taking longer!
