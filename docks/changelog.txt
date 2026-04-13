@@ -1,3 +1,9 @@
+New in 3.6.
+Reorganised the data/config folder into three subfolders. Events are now in data/config/events, tables are now in data/config/tables, and stores are now in data/config/stores.
+Expanded the bundle shop with a full progression of bundles spanning ranks 0 through 500, matching the same rank curve as the singles shop. Bundles are spread across seven categories including Beginner, Advanced, Expert, Veteran, Master, Legendary, and Godlike, with a total of 38 bundles covering all three stat types throughout the entire game.
+Made it so both the category position and the bundle position within a category is now remembered when navigating back, matching the same focus behaviour as the singles shop.
+The bundle shop now shows a category menu first, with each category displaying how many of its bundles you can currently afford out of the total. Locked categories show their required rank and description. Selecting a category opens the bundles within it, and pressing back returns to the category menu.
+Added category support to the bundle shop, mirroring the same system used in the singles shop. Bundle categories are defined in bundle.store using the same alias format as baker.store, supporting an optional minimum rank and description per category.
 New in 3.5.
 Fixed a bug in the bundle shop parser where the description field was bleeding into the quantity of the last item in the bundle, causing values like 2:A well-rounded bundle to appear in the menu label. The parser now correctly skips past the item type and quantity colon inside the last pair before searching for the description separator.
 Reorganised the buy upgrades menu into two sub-menus, bundles and singles, listed in alphabetical order. Bundles leads to the bundle shop and singles leads to the existing category upgrade shop. Both return to the buy upgrades menu on back or escape.

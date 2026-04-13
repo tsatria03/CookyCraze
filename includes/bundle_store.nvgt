@@ -9,15 +9,26 @@ class bundle_item
     string name;
     int min_rank;
     string description;
+    string menu;
     bundle_entry[] entries;
 }
 
-void parse_bundles(string filepath, bundle_item[]@ bundles_out)
+class bundle_menu
+{
+    string alias;
+    string name;
+    int min_rank;
+    string description;
+}
+
+void parse_bundles(string filepath, bundle_item[]@ bundles_out, bundle_menu[]@ menus_out)
 {
     file f;
     if (!f.open(filepath, "r"))
         return;
     bool in_section = false;
+    dictionary menuAliases;
+    bundle_menu[] menuDefs;
     while (!f.eof)
     {
         string line = f.read_line();
@@ -33,39 +44,62 @@ void parse_bundles(string filepath, bundle_item[]@ bundles_out)
         if (!in_section)
             continue;
 
-        // Format: name:min_rank:items_block:description
-        // name and min_rank are before the first two colons.
-        // description is after the last pipe-separated items block colon.
-        // We split name and min_rank from the front, then find the items block
-        // by locating the last colon that is not inside a pipe pair.
+        int eq = line.find("=");
+        if (eq != -1)
+        {
+            string alias = line.substr(0, eq);
+            string rest = line.substr(eq + 1);
+            bundle_menu bm;
+            bm.alias = alias;
+            int pipe1 = rest.find("|");
+            if (pipe1 != -1)
+            {
+                bm.name = rest.substr(0, pipe1);
+                string rest2 = rest.substr(pipe1 + 1);
+                int pipe2 = rest2.find("|");
+                if (pipe2 != -1)
+                {
+                    bm.min_rank = string_to_int(rest2.substr(0, pipe2));
+                    bm.description = rest2.substr(pipe2 + 1);
+                }
+                else
+                {
+                    bm.min_rank = string_to_int(rest2);
+                    bm.description = "";
+                }
+            }
+            else
+            {
+                bm.name = rest;
+                bm.min_rank = 0;
+                bm.description = "";
+            }
+            menuAliases.set(alias, bm.name);
+            menuDefs.insert_last(bm);
+            continue;
+        }
 
-        // Extract name (first colon)
         int c1 = line.find(":");
         if (c1 == -1) continue;
-        string bname = line.substr(0, c1);
+        string bmenu_alias = line.substr(0, c1);
 
-        // Extract min_rank (second colon)
         int c2 = line.find(":", c1 + 1);
         if (c2 == -1) continue;
-        int bminrank = string_to_int(line.substr(c1 + 1, c2 - c1 - 1));
+        string bname = line.substr(c1 + 1, c2 - c1 - 1);
 
-        // Remainder after min_rank is items_block:description
-        // The items block contains pipe-separated item_type:quantity pairs.
-        // The description starts after the last colon that follows a pipe segment quantity.
-        // Strategy: find the last | in the remainder, then find the colon after it.
-        string remainder = line.substr(c2 + 1);
-        // Find the last pipe in remainder, then find the colon after it
-        // That colon separates the last quantity from the description
+        int c3 = line.find(":", c2 + 1);
+        if (c3 == -1) continue;
+        int bminrank = string_to_int(line.substr(c2 + 1, c3 - c2 - 1));
+
+        string remainder = line.substr(c3 + 1);
         int lastPipe = -1;
         for (uint i = 0; i < remainder.length(); i++)
         {
             if (remainder.substr(i, 1) == "|")
                 lastPipe = i;
         }
-        // Search for colon after the last pipe (skipping the item_type:quantity colon inside the last pair)
         int descColon = -1;
         int searchFrom = (lastPipe != -1) ? lastPipe + 1 : 0;
-        // Skip past the item_type name (find the colon for quantity first, then find the next colon after the quantity)
         int quantityColon = -1;
         for (uint i = searchFrom; i < remainder.length(); i++)
         {
@@ -76,7 +110,6 @@ void parse_bundles(string filepath, bundle_item[]@ bundles_out)
             }
         }
         if (quantityColon == -1) continue;
-        // Now find the colon after the quantity number — that's the description separator
         for (uint i = quantityColon + 1; i < remainder.length(); i++)
         {
             if (remainder.substr(i, 1) == ":")
@@ -93,8 +126,15 @@ void parse_bundles(string filepath, bundle_item[]@ bundles_out)
         b.name = bname;
         b.min_rank = bminrank;
         b.description = bdescription;
+        if (menuAliases.exists(bmenu_alias))
+        {
+            string resolvedMenu;
+            menuAliases.get(bmenu_alias, resolvedMenu);
+            b.menu = resolvedMenu;
+        }
+        else
+            b.menu = bmenu_alias;
 
-        // Parse pipe-separated item_type:quantity pairs
         string[] pairs;
         int pipeStart = 0;
         for (uint i = 0; i <= items_block.length(); i++)
@@ -119,5 +159,7 @@ void parse_bundles(string filepath, bundle_item[]@ bundles_out)
             continue;
         bundles_out.insert_last(b);
     }
+    for (uint i = 0; i < menuDefs.length(); i++)
+        menus_out.insert_last(menuDefs[i]);
     f.close();
 }
