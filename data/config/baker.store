@@ -183,6 +183,6 @@ absolute_zero_timer:3:300000000000000:2.0:1000:500:false:A timer that freezes ti
 godlike_culture:1:450000000000000:2.0:10:500:true:A godlike baking culture wielded only by the mightiest bakers, increasing your auto cookie output by %item_count percent per purchase.
 godlike_touch:2:400000000000000:2.0:10:500:true:A godlike baking touch that transcends all existence, adding %item_count percent of your current manual cookies to every click.
 absolute_drift:3:380000000000000:2.0:10:500:true:An absolute drift field that bends time to its breaking point, cutting your bake interval by %item_count percent of its current value per upgrade.
-golden_touch:1:500000000000000:2.0:5:500:true:An ancient golden touch that multiplies your existing auto cookie production by %item_count percent per purchase. Scales with everything you have built so far.
-bakers_blessing:2:500000000000000:2.0:5:500:true:A divine blessing from the baking gods that adds %item_count percent of your current manual cookies to every click. The more you have, the more you gain.
-time_fraction:3:500000000000000:2.0:5:500:true:A fragment of compressed time that reduces your baking interval by %item_count percent of your current speed per upgrade. Grows more powerful the faster you already are.
+golden_touch:1:500000000000000:2.0:10:500:true:An ancient golden touch that multiplies your existing auto cookie production by %item_count percent per purchase. Scales with everything you have built so far.
+bakers_blessing:2:500000000000000:2.0:10:500:true:A divine blessing from the baking gods that adds %item_count percent of your current manual cookies to every click. The more you have, the more you gain.
+time_fraction:3:500000000000000:2.0:10:500:true:A fragment of compressed time that reduces your baking interval by %item_count percent of your current speed per upgrade. Grows more powerful the faster you already are.

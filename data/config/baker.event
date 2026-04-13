@@ -1,10 +1,19 @@
 ;CookyCraze event configuration file.
 ;Each line defines one event that can fire during baking. Lines starting with #, //, or ; are ignored.
 
-;Format: event_name:baking_type:polarity:target:min_amount:max_amount:use_percent:chance:description
+;Format: event_name:sound:baking_type:polarity:target:min_amount:max_amount:use_percent:chance:description
 
 ;event_name
 ;  The internal name of this event. Used for identification only. Can be anything you like.
+
+;sound
+;  The sound file or files to play when this event fires, relative to sounds/misc/. Do not include the folder path.
+;  Example: burn1.ogg
+;  You can use a random range by writing the number part as (min,max). Example: burn(1,3).ogg
+;  You can play multiple sounds by separating them with commas. Example: lose.ogg,burn(1,3).ogg
+;  Each sound in the list is resolved and played independently, so random ranges work per entry.
+;  The alert sound (alert_large for positive, alert_small for negative) is always played automatically.
+;  Set to none to play no additional sound.
 
 ;baking_type
 ;  Controls which baking mode can trigger this event.
@@ -54,25 +63,25 @@
 ;  Use %amount% as a placeholder and it will be replaced with the actual calculated value.
 ;  If the event does not need to speak a number, simply leave %amount% out.
 
-fire_spark:3:2:cookies:20:20:true:100:Oh no! A fire spark burned some of your cookies. You lost %amount% cookies.
-bonus_cookies:3:1:cookies:40*rank:80*rank:false:100:Lucky bake! You gained an extra %amount% cookies!
-increase_cookyspeed:3:1:cookyspeed:10/rank:10/rank:false:100:Amazing! Your baking speed has increased by %amount% ms. Cookies bake faster now.
-decrease_cookyspeed:3:2:cookyspeed:10*rank:10*rank:false:100:Oh no! Something has slowed down your baking speed by %amount% ms.
-gain_coins:3:1:coins:40*rank:80*rank:false:100:Wonderful! You found a coin stash! You gained %amount% coins.
-lose_coins:3:2:coins:40*rank:80*rank:false:100:Oh crap! Some coins fell out of your pocket! You lost %amount% coins.
-gain_autocooky:3:1:autocooky:10*rank:50*rank:false:100:Nice! You gained %amount% auto-cookies. Your auto baking rate has increased.
-lose_autocooky:3:2:autocooky:10*rank:50*rank:false:100:Dam! You lost %amount% auto-cookies. Your auto-baking rate has been decreased.
-gain_manulcooky:3:1:manulcooky:10*rank:50*rank:false:100:Great! You gained %amount% manual cookies. You can now bake more cookies with each click.
-lose_manulcooky:3:2:manulcooky:10*rank:50*rank:false:100:Shucks! You lost %amount% manual cookies. Your baking rate per click has decreased.
+fire_spark:lose.ogg,burn(1,3).ogg:3:2:cookies:20:20:true:100:Oh no! A fire spark broke out in your bakery! You lost %amount% cookies.
+bonus_cookies:give.ogg:3:1:cookies:40*rank:80*rank:false:100:Lucky bake! You gained an extra %amount% cookies!
+increase_cookyspeed:give.ogg,powerup.ogg:3:1:cookyspeed:10/rank:10/rank:false:100:Amazing! Your baking speed has increased by %amount% ms. Cookies bake faster now.
+decrease_cookyspeed:lose.ogg,powerdown.ogg:3:2:cookyspeed:10*rank:10*rank:false:100:Oh no! Something has slowed down your baking speed by %amount% ms.
+gain_coins:give.ogg,coin50.ogg:3:1:coins:40*rank:80*rank:false:100:Wonderful! You found a coin stash! You gained %amount% coins.
+lose_coins:lose.ogg,cointoss.ogg:3:2:coins:40*rank:80*rank:false:100:Oh crap! Your pocket had a hole in it! You lost %amount% coins.
+gain_autocooky:give.ogg:3:1:autocooky:10*rank:50*rank:false:100:Nice! You gained %amount% auto-cookies. Your auto baking rate has increased.
+lose_autocooky:lose.ogg:3:2:autocooky:10*rank:50*rank:false:100:Dam! You lost %amount% auto-cookies. Your auto-baking rate has been decreased.
+gain_manulcooky:give.ogg:3:1:manulcooky:10*rank:50*rank:false:100:Great! You gained %amount% manual cookies. Your baking rate per click has increased.
+lose_manulcooky:lose.ogg:3:2:manulcooky:10*rank:50*rank:false:100:Shucks! You lost %amount% manual cookies. Your baking rate per click has decreased.
 
 ; --- Percentage based events ---
-baking_miracle:3:1:cookies:5:15:true:100:A baking miracle! The stars aligned and %amount% percent of your cookies multiplied into even more. What a windfall!
-cookie_crumble:3:2:cookies:5:15:true:100:Oh no! A shelf collapsed in your bakery and crumbled %amount% percent of your cookie stockpile. What a mess!
-coin_jackpot:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current coins. Your wallet is feeling heavy!
-coin_drain:3:2:coins:5:10:true:100:Oh no! A billing error drained %amount% percent of your coins. Better keep a closer eye on your finances!
-autocooky_surge:3:1:autocooky:3:8:true:100:Incredible! A surge of baking energy boosted your auto cookie production by %amount% percent. Your ovens are roaring!
-autocooky_slump:3:2:autocooky:3:8:true:100:Uh oh! A baking slump hit your kitchen hard, reducing your auto cookie production by %amount% percent.
-manulcooky_inspiration:3:1:manulcooky:3:8:true:100:Inspiration struck! Your hands found a new rhythm, boosting your manual cookie output by %amount% percent per click.
-manulcooky_fatigue:3:2:manulcooky:3:8:true:100:Your hands are exhausted! A bout of baking fatigue reduced your manual cookie output by %amount% percent per click.
-speed_rush:3:1:cookyspeed:5:10:true:100:A rush of energy surged through your kitchen, cutting your bake interval by %amount% percent. Everything is moving faster!
-speed_drag:3:2:cookyspeed:5:10:true:100:Something gummed up the works! Your bake interval increased by %amount% percent, slowing everything down.
+baking_miracle:give.ogg:3:1:cookies:5:15:true:100:A baking miracle! The stars aligned and %amount% percent of your cookies multiplied into even more. What a windfall!
+cookie_crumble:burn(1,3).ogg:3:2:cookies:5:15:true:100:Oh no! A shelf collapsed in your bakery and crumbled %amount% percent of your cookie stockpile. What a mess!
+coin_jackpot:coin50.ogg:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current coins. Your wallet is feeling heavy!
+coin_drain:cointoss.ogg:3:2:coins:5:10:true:100:Oh no! A billing error drained %amount% percent of your coins. Better keep a closer eye on your finances!
+autocooky_surge:give.ogg:3:1:autocooky:3:8:true:100:Incredible! A surge of baking energy boosted your auto cookie production by %amount% percent. Your ovens are roaring!
+autocooky_slump:lose.ogg:3:2:autocooky:3:8:true:100:Uh oh! A baking slump hit your kitchen hard, reducing your auto cookie production by %amount% percent.
+manulcooky_inspiration:give.ogg:3:1:manulcooky:3:8:true:100:Inspiration struck! Your hands found a new rhythm, boosting your manual cookie output by %amount% percent per click.
+manulcooky_fatigue:lose.ogg:3:2:manulcooky:3:8:true:100:Your hands are exhausted! A bout of baking fatigue reduced your manual cookie output by %amount% percent per click.
+speed_rush:powerup.ogg:3:1:cookyspeed:5:10:true:100:A rush of energy surged through your kitchen, cutting your bake interval by %amount% percent. Everything is moving faster!
+speed_drag:powerdown.ogg:3:2:cookyspeed:5:10:true:100:Something gummed up the works! Your baking speed has slowed down by %amount% percent. Everything is taking longer!
