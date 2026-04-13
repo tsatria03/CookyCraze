@@ -1,0 +1,152 @@
+class rank_sound_item
+{
+    double min_amount;
+    string sound;
+}
+
+class rank_reward_item
+{
+    int rank;
+    string target;
+    string min_amount;
+    string max_amount;
+    string unlock;
+    string message;
+}
+
+void parse_ranks_table(string filepath, rank_sound_item[]@ sounds_out, rank_reward_item[]@ default_out, rank_reward_item[]@ rewards_out)
+{
+    file f;
+    if (!f.open(filepath, "r"))
+        return;
+    string section = "";
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        if (line == "[sounds]") { section = "sounds"; continue; }
+        if (line == "[default]") { section = "default"; continue; }
+        if (line == "[rewards]") { section = "rewards"; continue; }
+        if (section == "sounds")
+        {
+            int colon = line.find(":");
+            if (colon == -1) continue;
+            rank_sound_item item;
+            item.min_amount = string_to_number(line.substr(0, colon));
+            item.sound = line.substr(colon + 1);
+            sounds_out.insert_last(item);
+        }
+        else if (section == "default")
+        {
+            string[] parts;
+            int lastPos = 0;
+            int colonCount = 0;
+            for (uint i = 0; i < line.length(); i++)
+            {
+                if (line.substr(i, 1) == ":" && colonCount < 4)
+                {
+                    parts.insert_last(line.substr(lastPos, i - lastPos));
+                    lastPos = i + 1;
+                    colonCount++;
+                }
+            }
+            parts.insert_last(line.substr(lastPos));
+            if (parts.length() < 5) continue;
+            rank_reward_item item;
+            item.rank       = 0;
+            item.target     = parts[0];
+            item.min_amount = parts[1];
+            item.max_amount = parts[2];
+            item.unlock     = parts[3];
+            item.message    = parts[4];
+            default_out.insert_last(item);
+        }
+        else if (section == "rewards")
+        {
+            string[] parts;
+            int lastPos = 0;
+            int colonCount = 0;
+            for (uint i = 0; i < line.length(); i++)
+            {
+                if (line.substr(i, 1) == ":" && colonCount < 5)
+                {
+                    parts.insert_last(line.substr(lastPos, i - lastPos));
+                    lastPos = i + 1;
+                    colonCount++;
+                }
+            }
+            parts.insert_last(line.substr(lastPos));
+            if (parts.length() < 6) continue;
+            rank_reward_item item;
+            item.rank       = string_to_int(parts[0]);
+            item.target     = parts[1];
+            item.min_amount = parts[2];
+            item.max_amount = parts[3];
+            item.unlock     = parts[4];
+            item.message    = parts[5];
+            rewards_out.insert_last(item);
+        }
+    }
+    f.close();
+}
+
+string apply_rank_reward(rank_reward_item@ item, double current_rank)
+{
+    double minVal = eval_event_amount(item.min_amount, current_rank);
+    double maxVal = eval_event_amount(item.max_amount, current_rank);
+    if (minVal > maxVal) { double tmp = minVal; minVal = maxVal; maxVal = tmp; }
+    double amount = max(1.0, double(random(int(minVal), int(maxVal))));
+    amount = floor(amount);
+    lastRewardAmount = amount;
+    if (item.target == "cookies")
+        cookies += amount;
+    else if (item.target == "coins")
+        coins += amount;
+    else if (item.target == "autocooky")
+        autocooky += amount;
+    else if (item.target == "manulcooky")
+        manulcooky += amount;
+    else if (item.target == "cookyspeed")
+    {
+        cookyspeed += amount;
+        clicktime -= amount;
+    }
+    string msg = item.message;
+    string amt_str = format_number(amount);
+    string rank_str = format_number(current_rank);
+    int ph = msg.find("%amount%");
+    while (ph != -1) { msg = msg.substr(0, ph) + amt_str + msg.substr(ph + 8); ph = msg.find("%amount%"); }
+    ph = msg.find("%rank%");
+    while (ph != -1) { msg = msg.substr(0, ph) + rank_str + msg.substr(ph + 6); ph = msg.find("%rank%"); }
+    ph = msg.find("%name%");
+    while (ph != -1) { msg = msg.substr(0, ph) + playername + msg.substr(ph + 6); ph = msg.find("%name%"); }
+    return msg;
+}
+
+void play_rank_sound(double amount)
+{
+    if (coinsfx == false) return;
+    string soundfile = "";
+    for (int i = rankSounds.length() - 1; i >= 0; i--)
+    {
+        if (amount >= rankSounds[i].min_amount)
+        {
+            soundfile = rankSounds[i].sound;
+            break;
+        }
+    }
+    if (soundfile != "")
+        pool.play_stationary("sounds/misc/" + soundfile, false);
+}
+
+void handle_rank_unlock(string unlock)
+{
+    if (unlock == "none" || unlock == "") return;
+    if (unlock == "flipper")
+        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+    else if (unlock == "slots")
+        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+}

@@ -6,7 +6,7 @@ class payout_item
     string message;
 }
 
-void parse_slots_table(string filepath, string[]@ symbols_out, payout_item[]@ payouts_out, int@ reels_out)
+void parse_slots_table(string filepath, string[]@ symbols_out, payout_item[]@ payouts_out, int &out reels_out)
 {
     file f;
     if (!f.open(filepath, "r"))

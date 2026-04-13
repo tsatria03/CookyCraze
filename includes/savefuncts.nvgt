@@ -21,10 +21,6 @@ if(sd.d.exists("cookyspeed"))
 {
 cookyspeed=sd.read_double("cookyspeed");
 }
-if(sd.d.exists("levcoins"))
-{
-levcoins=sd.read_double("levcoins");
-}
 if(sd.d.exists("manulcooky"))
 {
 manulcooky=sd.read_double("manulcooky");
@@ -112,7 +108,6 @@ sd.add("coins",coins);
 sd.add("cookies",cookies);
 sd.add("cookiesrequiered",cookiesrequiered);
 sd.add("cookyspeed",cookyspeed);
-sd.add("levcoins",levcoins);
 sd.add("manulcooky",manulcooky);
 sd.add("rank",rank);
 sd.add("automationBaseCost", automationBaseCost);
@@ -171,6 +166,10 @@ if (st.d.exists("slotDistribution"))
 {
 slotDistribution = st.read_bool("slotDistribution");
 }
+if (st.d.exists("manualSlotDistribution"))
+{
+manualSlotDistribution = st.read_bool("manualSlotDistribution");
+}
 if(st.d.exists("playervents"))
 {
 playervents=st.read_bool("playervents");
@@ -227,6 +226,7 @@ st.add("logosfx",logosfx);
 st.add("ranksfx",ranksfx);
 st.add("savesfx",savesfx);
 st.add("slotDistribution",slotDistribution);
+st.add("manualSlotDistribution",manualSlotDistribution);
 st.add("playervents",playervents);
 st.add("playervents2",playervents2);
 st.add("orderedSyms",orderedSyms);

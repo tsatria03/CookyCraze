@@ -1,0 +1,63 @@
+;CookyCraze rank rewards configuration file.
+;Lines starting with #, //, or ; are ignored.
+
+;--- Sounds ---
+;Format: min_amount:sound
+;Defines which sound plays based on the reward amount when a rank up occurs.
+;The first entry whose min_amount is less than or equal to the reward amount is used.
+;Order from lowest to highest. The last entry covers everything above its minimum.
+;sound is relative to sounds/misc/.
+
+[sounds]
+1:coin1.ogg
+50:coin50.ogg
+1000:coin1000.ogg
+10000:coin10000.ogg
+50000:coin50000.ogg
+100000:coin100000.ogg
+
+;--- Default ---
+;Format: target:min_amount:max_amount:unlock:message
+;Defines the reward every rank receives automatically.
+;Only one default line is allowed. If omitted, ranks give nothing by default.
+
+;target
+;  The stat this reward affects.
+;  cookies    = the player's current cookie count.
+;  coins      = the player's current coin count.
+;  autocooky  = the player's auto cookie production rate.
+;  manulcooky = the player's manual cookie production rate.
+;  cookyspeed = the player's baking speed.
+
+;min_amount and max_amount
+;  The range of values the reward can roll between.
+;  Rank operators can be appended to scale with the player's current rank.
+;    *rank  multiplies the amount by rank.
+;    /rank  divides the amount by rank.
+;    +rank  adds rank to the amount.
+;    -rank  subtracts rank from the amount.
+
+;unlock
+;  An optional feature to unlock at this rank. Use none for no unlock.
+;  flipper = unlocks the cooky flipper minigame.
+;  slots   = unlocks the slot machine minigame.
+
+;message
+;  The text spoken to the player when this reward fires.
+;  Use %rank% as a placeholder for the current rank number.
+;  Use %amount% as a placeholder for the actual reward amount.
+;  Use %name% as a placeholder for the player's name.
+
+[default]
+coins:200*rank:200*rank:none:Congratulations! You've successfully made it to rank %rank%! You've earned %amount% coins for your achievement. Great work!
+
+;--- Rewards ---
+;Format: rank:target:min_amount:max_amount:unlock:message
+;Defines special milestone rewards for specific ranks.
+;Multiple lines with the same rank number are all valid rewards for that rank, and one will be chosen at random when the player reaches it.
+;Milestone rewards fire in addition to the default reward, not instead of it.
+;Supports the same rank operators, unlock values, and placeholders as the default.
+
+[rewards]
+10:coins:200*rank:200*rank:flipper:Congratulations %name%! You've successfully unlocked the cooky flipper minigame! You've also earned an extra %amount% coins for your hard work. Keep it up!
+20:coins:200*rank:200*rank:slots:Congratulations %name%! You've successfully unlocked the slot machine minigame! You've also earned an extra %amount% coins for your hard work. Keep it up!

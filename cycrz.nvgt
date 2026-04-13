@@ -35,6 +35,12 @@ if (slotSymbols.length() < 10 || slotPayouts.length() == 0)
     alert("Error", "Could not load slot machine data from data/config/slots.table. Please check the file and try again.");
     exit();
 }
+parse_ranks_table("data/config/ranks.table", rankSounds, rankDefault, rankRewards);
+if (rankSounds.length() == 0 || rankDefault.length() == 0)
+{
+    alert("Error", "Could not load rank reward data from data/config/ranks.table. Please check the file and try again.");
+    exit();
+}
 readdata();
 readpreffs();
 readpreffs2();
@@ -134,7 +140,6 @@ cookyspeed_purchases=0;
 coins=10;
 cookies=0;
 cookyspeed=0;
-levcoins=0;
 manulcooky=1;
 rank=1;
 bakemode=0;

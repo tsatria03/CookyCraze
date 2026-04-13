@@ -390,7 +390,12 @@ betAmount = floor(string_to_number(betStr));
 form.reset();
 slotsgame();
     }
-            if ((selectedBet == 0 && floor(cookies) < betAmount) || (selectedBet == 1 && floor(coins) < betAmount) || (selectedBet == 2 && floor(autocooky) < betAmount) || (selectedBet == 3 && floor(cookyspeed) < betAmount) || (selectedBet == 4 && floor(manulcooky) < betAmount))
+            if (selectedBet == 0) betAmount = min(betAmount, floor(cookies));
+            else if (selectedBet == 1) betAmount = min(betAmount, floor(coins));
+            else if (selectedBet == 2) betAmount = min(betAmount, floor(autocooky));
+            else if (selectedBet == 3) betAmount = min(betAmount, floor(cookyspeed));
+            else if (selectedBet == 4) betAmount = min(betAmount, floor(manulcooky));
+            if (betAmount <= 0)
             {
                 dlg_buffer("You don't have enough of that item to bet!");
 form.reset();
@@ -412,11 +417,11 @@ slotsgame();
             }
 pool.destroy_sound(machineslot);
 pool.play_stationary("sounds/misc/slotbet1.ogg", false);
-if(selectedBet==0) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on cookies.");
-if(selectedBet==1) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on coins.");
-if(selectedBet==2) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on auto cookies.");
-if(selectedBet==3) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on auto cooky speeds.");
-if(selectedBet==4) speak_buffer("You placed a bet of " + format_number(betAmount) + " items on manual cookies.");
+if(selectedBet==0) speak_buffer("You placed a bet of " + format_number(betAmount) + " cookies.");
+if(selectedBet==1) speak_buffer("You placed a bet of " + format_number(betAmount) + " coins.");
+if(selectedBet==2) speak_buffer("You placed a bet of " + format_number(betAmount) + " auto cookies.");
+if(selectedBet==3) speak_buffer("You placed a bet of " + format_number(betAmount) + " auto cooky speeds.");
+if(selectedBet==4) speak_buffer("You placed a bet of " + format_number(betAmount) + " manual cookies.");
 wait_async(1000);
 pool.play_stationary("sounds/misc/slotbet2.ogg", false);
 wait_async(random(600, 800));
@@ -478,11 +483,11 @@ if (payout !is null)
     double change = betAmount * payout.multiplier;
     if (payout.multiplier == 0)
     {
-        if (selectedBet == 0) cookies -= betAmount;
-        else if (selectedBet == 1) coins -= betAmount;
-        else if (selectedBet == 2) autocooky -= betAmount;
-        else if (selectedBet == 3) { cookyspeed -= betAmount; clicktime += betAmount; }
-        else if (selectedBet == 4) manulcooky -= betAmount;
+        if (selectedBet == 0) { cookies -= betAmount; if (cookies < 0) cookies = 0; }
+        else if (selectedBet == 1) { coins -= betAmount; if (coins < 0) coins = 0; }
+        else if (selectedBet == 2) { autocooky -= betAmount; if (autocooky < 0) autocooky = 0; }
+        else if (selectedBet == 3) { cookyspeed -= betAmount; clicktime += betAmount; if (cookyspeed < 0) cookyspeed = 0; }
+        else if (selectedBet == 4) { manulcooky -= betAmount; if (manulcooky < 0) manulcooky = 0; }
     }
     else
     {
@@ -492,6 +497,11 @@ if (payout !is null)
         else if (selectedBet == 3) { cookyspeed += change; clicktime -= change; }
         else if (selectedBet == 4) manulcooky += change;
     }
+    cookies = floor(cookies);
+    coins = floor(coins);
+    autocooky = floor(autocooky);
+    cookyspeed = floor(cookyspeed);
+    manulcooky = floor(manulcooky);
 }
         }
 }

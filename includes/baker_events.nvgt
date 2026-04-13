@@ -210,7 +210,7 @@ string apply_event(event_item@ item)
         msg = msg.substr(0, ph) + amt_str + msg.substr(ph + 8);
         ph = msg.find("%amount%");
     }
-    if (actualAmount == 1)
+    if (!item.use_percent && actualAmount == 1)
     {
         string[] plurals = {"cookies", "coins", "auto-cookies", "manual cookies"};
         string[] singles = {"cookie", "coin", "auto-cookie", "manual cookie"};

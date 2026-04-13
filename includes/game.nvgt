@@ -143,7 +143,7 @@ if(key_pressed(KEY_J))
     string cookyWord = (manulcooky == 1) ? "cooky" : "cookies";
     if (manualSlots > 0)
     {
-        double totalManual = manulcooky * manualSlots;
+        double totalManual = manualSlotDistribution ? manulcooky : manulcooky * manualSlots;
         string totalWord = (totalManual == 1) ? "cooky" : "cookies";
         string slotWord = (manualSlots == 1) ? "slot" : "slots";
         speak_buffer("You produce " + format_number(manulcooky) + " " + cookyWord + " per press. With " + manualSlots + " manual " + slotWord + ", you produce " + format_number(totalManual) + " " + totalWord + " per press.", "misc");
@@ -253,23 +253,28 @@ while(true)
 wait(5);
 form.monitor();
 clicker_game_input();
+autocooky = floor(autocooky);
 if(autocooky<=0)
 {
 bakemode=0;
 autocooky=0;
 }
+coins = floor(coins);
 if(coins<=0)
 {
 coins=0;
 }
+cookies = floor(cookies);
 if(cookies<=0)
 {
 cookies=0;
 }
+cookyspeed = floor(cookyspeed);
 if(cookyspeed<=0)
 {
 cookyspeed=0;
 }
+manulcooky = floor(manulcooky);
 if(manulcooky<=0)
 {
 manulcooky=0;
@@ -324,7 +329,15 @@ speak_buffer("You need at least 1 manule cooky to start baking cookies.", "gener
 }
 else if(manulcooky>=1)
 {
-    cookies += (manualSlots > 0) ? manulcooky * manualSlots : manulcooky;
+    if (manualSlots > 0)
+    {
+        if (manualSlotDistribution)
+            cookies += manulcooky;
+        else
+            cookies += manulcooky * manualSlots;
+    }
+    else
+        cookies += manulcooky;
 pool.play_stationary("sounds/misc/manulbake.ogg", false);
 if(playervents2==true) attempt_manebaker_event(evchanse2);
 }
@@ -375,52 +388,31 @@ pool.destroy_all();
 }
 if (cookies >= cookiesrequiered)
 {
-    levcoins+=100 * rank;
-    rank+=1;
-    coins += levcoins;
+    rank += 1;
     cookiesrequiered = (cookymod * (rank * (rank * difmod)));
-    if (levcoins >= 1 && levcoins <= 49)
-{
-        if(coinsfx==true) pool.play_stationary("sounds/misc/coin1.ogg", false);
+    if (rankDefault.length() > 0)
+    {
+        string defaultMsg = apply_rank_reward(rankDefault[0], rank);
+        play_rank_sound(lastRewardAmount);
+        if (ranksfx == true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
+        handle_rank_unlock(rankDefault[0].unlock);
+        speak_buffer(defaultMsg, "ranks");
     }
-else if (levcoins >= 50 && levcoins <= 999)
-{
-        if(coinsfx==true) pool.play_stationary("sounds/misc/coin50.ogg", false);
+    rank_reward_item[] matching;
+    for (uint i = 0; i < rankRewards.length(); i++)
+    {
+        if (rankRewards[i].rank == int(rank))
+            matching.insert_last(rankRewards[i]);
     }
-else if (levcoins >= 1000 && levcoins <= 9999)
-{
-        if(coinsfx==true) pool.play_stationary("sounds/misc/coin1000.ogg", false);
+    if (matching.length() > 0)
+    {
+        rank_reward_item@ milestone = matching[random(0, matching.length() - 1)];
+        string milestoneMsg = apply_rank_reward(milestone, rank);
+        play_rank_sound(lastRewardAmount);
+        if (ranksfx == true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
+        handle_rank_unlock(milestone.unlock);
+        dlg_buffer(milestoneMsg, "ranks");
     }
-else if (levcoins >= 10000 && levcoins <= 49999)
-{
-        if(coinsfx==true) pool.play_stationary("sounds/misc/coin10000.ogg", false);
-    }
-else if (levcoins >= 50000 && levcoins <= 99999)
-{
-        if(coinsfx==true) pool.play_stationary("sounds/misc/coin50000.ogg", false);
-    }
-else if (levcoins >= 100000 && levcoins <= 999999)
-{
-        if(coinsfx==true) pool.play_stationary("sounds/misc/coin100000.ogg", false);
-    }
-else if (levcoins >= 1000000)
-{
-        if(coinsfx==true) pool.play_stationary("sounds/misc/coin100000.ogg", false);
-    }
-    if(ranksfx==true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
-    speak_buffer("Congratulations! You've successfully made it to rank " + format_number(rank) + "! You've earned " + format_number(levcoins) + " coins for your achievement. Great work!", "ranks");
-if(rank==10)
-{
-levcoins += 100 * rank*2;
-if(coinsfx==true) pool.play_stationary("sounds/misc/alert_large.ogg", false);
-dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the coin flipper minni game. You've also earned an extra "+format_number(levcoins)+" coins for your hard work. Keep it up!", "ranks");
-}
-if(rank==20)
-{
-levcoins += 100 * rank*4;
-if(coinsfx==true) pool.play_stationary("sounds/misc/alert_large.ogg", false);
-dlg_buffer("Congratulations "+playername+"! You've successfully unlocked the slot machine minni game. You've also earned an extra "+format_number(levcoins)+" coins for your hard work. Keep it up!", "ranks");
-}
 }
 }
 }

@@ -22,6 +22,7 @@
 #include"savedata.nvgt"
 #include"baker_store.nvgt"
 #include"slots_table.nvgt"
+#include"ranks_table.nvgt"
 #include"savefuncts.nvgt"
 #include"speech.nvgt"
 #include"virtual_dialogs.nvgt"
