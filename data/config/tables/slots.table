@@ -22,6 +22,20 @@ symbols=apple, banana, bean, bell, bottel, bronze, car, carot, celery, chain, ch
 
 reels=5
 
+;--- Bet Limits ---
+
+;min_bet
+;  The minimum amount of any item a player must bet per spin.
+;  If the player enters less than this amount, the bet is rejected.
+;  Set to 1 to allow any positive bet.
+min_bet=1
+
+;max_bet
+;  The maximum amount of any item a player can bet per spin.
+;  If the player enters more than this amount, the bet is silently clamped to this value.
+;  Set to 0 to allow unlimited bets (only capped by the player's available amount).
+max_bet=0
+
 ;--- Payouts ---
 ;Format: matches:multiplier:sound:message
 

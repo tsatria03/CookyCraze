@@ -54,16 +54,22 @@
 
 ;description
 ;  The message spoken to the player when this event fires.
-;  Use %amount% as a placeholder and it will be replaced with the actual calculated value.
-;  If the event does not need to speak a number, simply leave %amount% out.
+;  Use %amount% as a placeholder and it will be replaced with the rolled value.
+;  For flat events (use_percent false), %amount% shows the exact flat amount gained or lost.
+;  For percentage events (use_percent true), %amount% shows the rolled percentage, e.g. 10.
+;  Use %actual% as an optional placeholder to show the real computed stat change.
+;  For percentage events, %actual% shows the true amount gained or lost after applying the percentage.
+;  For example, if you have 200 coins and lose 10 percent, %amount% shows 10 and %actual% shows 20.
+;  For flat events, %actual% and %amount% show the same value, so only %amount% is needed.
+;  If neither placeholder is needed, simply leave them out of the description.
 
 gain_cookies:gain.ogg,give.ogg:1:cookies:15*rank:30*rank:false:100:Jackpot! You gained %amount% cookies!
 lose_cookies:lose.ogg,bee(1,4).ogg:2:cookies:15*rank:30*rank:false:100:Oh no! You lost %amount% cookies.
 gain_coins:gain.ogg,give.ogg,coin50.ogg:1:coins:15*rank:30*rank:false:100:Lucky flip! You gained %amount% coins.
 lose_coins:lose.ogg,cointoss.ogg:2:coins:15*rank:30*rank:false:100:Unfortunate flip! You lost %amount% coins.
-gain_autocooky:gain.ogg,give.ogg:1:autocooky:1*rank:5*rank:false:100:Lucky flip! You gained some auto-cookies. Now your auto-baking rate has increased.
-lose_autocooky:lose.ogg:2:autocooky:1*rank:5*rank:false:100:Bad luck! You lost some auto-cookies.
-gain_manulcooky:gain.ogg,give.ogg:1:manulcooky:1*rank:5*rank:false:100:Nice! You gained some manual cookies. You can now bake more cookies with each click.
-lose_manulcooky:lose.ogg:2:manulcooky:1*rank:5*rank:false:100:Oops! You lost some manual cookies.
-increase_cookyspeed:gain.ogg,give.ogg,powerup.ogg:1:cookyspeed:5/rank:5/rank:false:100:Cool! Your baking speed has been increased slightly.
-decrease_cookyspeed:lose.ogg,powerdown.ogg:2:cookyspeed:5*rank:5*rank:false:100:Oh dear! Something has slowed down your baking speed.
+gain_autocooky:gain.ogg,give.ogg:1:autocooky:1*rank:5*rank:false:100:Lucky flip! You gained %amount% auto-cookies. Your auto-baking rate has increased.
+lose_autocooky:lose.ogg:2:autocooky:1*rank:5*rank:false:100:Bad luck! You lost %amount% auto-cookies. Your auto-baking rate has decreased.
+gain_manulcooky:gain.ogg,give.ogg:1:manulcooky:1*rank:5*rank:false:100:Nice! You gained %amount% manual cookies. You can now bake more cookies with each click.
+lose_manulcooky:lose.ogg:2:manulcooky:1*rank:5*rank:false:100:Oops! You lost %amount% manual cookies. Your baking rate per click has decreased.
+increase_cookyspeed:gain.ogg,give.ogg,powerup.ogg:1:cookyspeed:5/rank:5/rank:false:100:Cool! Your baking speed has increased by %amount%ms.
+decrease_cookyspeed:lose.ogg,powerdown.ogg:2:cookyspeed:5*rank:5*rank:false:100:Oh dear! Something has slowed down your baking speed by %amount%ms.

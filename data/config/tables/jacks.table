@@ -1,0 +1,82 @@
+;CookyCraze blackjack configuration file.
+;Lines starting with #, //, or ; are ignored.
+
+;--- Settings ---
+
+;dealer_stand
+;  The point value at which the dealer stops drawing cards.
+;  Standard casino rules use 17. Lower values favour the player, higher values favour the dealer.
+dealer_stand=17
+
+;natural_multiplier
+;  The payout multiplier for a natural blackjack (21 on the first two cards: an Ace plus a 10-value card).
+;  Standard casino rules use 1.5, meaning a 100-coin bet returns 250 coins total (bet + 150 winnings).
+;  Set to 2 to treat naturals the same as a regular win.
+natural_multiplier=1.5
+
+;win_multiplier
+;  The payout multiplier for a standard win (player beats dealer without a natural).
+;  Standard casino rules use 2, meaning a 100-coin bet returns 200 coins total (bet + 100 winnings).
+win_multiplier=2
+
+;push_multiplier
+;  The payout multiplier for a push (player and dealer tie).
+;  Standard casino rules use 1, meaning the player gets their original bet back.
+push_multiplier=1
+
+;min_bet
+;  The minimum amount of any item a player must bet per round.
+;  If the player enters less than this amount, the bet is rejected.
+;  Set to 1 to allow any positive bet.
+min_bet=1
+
+;max_bet
+;  The maximum amount of any item a player can bet per round.
+;  If the player enters more than this amount, the bet is clamped to this value.
+;  Set to 0 to allow unlimited bets (only capped by the player's available amount).
+max_bet=0
+
+;--- Sounds ---
+
+;win_sound
+;  Sound to play when the player wins. Relative to sounds/misc/.
+;  Supports random range syntax: jackwin(1,4).ogg picks a random file from jackwin1 to jackwin4.
+win_sound=jackwin(1,4).ogg
+
+;lose_sound
+;  Sound to play when the player busts or loses to the dealer.
+lose_sound=lose.ogg
+
+;player_draw_sound
+;  Sound to play when the player draws a card.
+player_draw_sound=jackplayer.ogg
+
+;dealer_draw_sound
+;  Sound to play when the dealer draws a card.
+dealer_draw_sound=jackdealer.ogg
+
+;--- Messages ---
+
+;natural_message
+;  Message spoken when the player hits a natural blackjack. %bet% is replaced with the bet amount, %win% with the winnings.
+natural_message=Blackjack! You hit a natural 21 and win %win%!
+
+;win_message
+;  Message spoken when the player wins normally. %score% is the player score, %dealer% is the dealer score, %win% is the winnings.
+win_message=You win! %score% against the dealer's %dealer%. You gained %win%!
+
+;bust_message
+;  Message spoken when the player busts.
+bust_message=Bust! You went over 21 with %score%. You lost your bet.
+
+;dealer_bust_message
+;  Message spoken when the dealer busts.
+dealer_bust_message=Dealer busts with %dealer%! You win and gained %win%!
+
+;lose_message
+;  Message spoken when the dealer beats the player.
+lose_message=You lose. %score% against the dealer's %dealer%. You lost your bet.
+
+;push_message
+;  Message spoken on a tie.
+push_message=Push. You and the dealer both have %score%. Your bet has been returned.

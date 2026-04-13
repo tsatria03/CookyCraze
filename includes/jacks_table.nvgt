@@ -1,0 +1,55 @@
+class jacks_config
+{
+    int dealer_stand = 17;
+    double natural_multiplier = 1.5;
+    double win_multiplier = 2.0;
+    double push_multiplier = 1.0;
+    double min_bet = 1.0;
+    double max_bet = 0.0;
+    string win_sound = "jackwin(1,4).ogg";
+    string lose_sound = "lose.ogg";
+    string player_draw_sound = "jackplayer.ogg";
+    string dealer_draw_sound = "jackdealer.ogg";
+    string natural_message = "Blackjack! You hit a natural 21 and win %win% coins!";
+    string win_message = "You win! %score% against the dealer's %dealer%. You gained %win% coins!";
+    string bust_message = "Bust! You went over 21 with %score%. You lost your bet.";
+    string dealer_bust_message = "Dealer busts with %dealer%! You win and gained %win% coins!";
+    string lose_message = "You lose. %score% against the dealer's %dealer%. You lost your bet.";
+    string push_message = "Push. You and the dealer both have %score%. Your bet has been returned.";
+}
+
+void parse_jacks_table(string filepath, jacks_config@ cfg)
+{
+    file f;
+    if (!f.open(filepath, "r"))
+        return;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        int eq = line.find("=");
+        if (eq == -1) continue;
+        string key = line.substr(0, eq);
+        string val = line.substr(eq + 1);
+        if (key == "dealer_stand") cfg.dealer_stand = max(1, string_to_int(val));
+        else if (key == "min_bet") cfg.min_bet = max(1.0, string_to_number(val));
+        else if (key == "max_bet") cfg.max_bet = max(0.0, string_to_number(val));
+        else if (key == "natural_multiplier") cfg.natural_multiplier = string_to_number(val);
+        else if (key == "win_multiplier") cfg.win_multiplier = string_to_number(val);
+        else if (key == "push_multiplier") cfg.push_multiplier = string_to_number(val);
+        else if (key == "win_sound") cfg.win_sound = val;
+        else if (key == "lose_sound") cfg.lose_sound = val;
+        else if (key == "player_draw_sound") cfg.player_draw_sound = val;
+        else if (key == "dealer_draw_sound") cfg.dealer_draw_sound = val;
+        else if (key == "natural_message") cfg.natural_message = val;
+        else if (key == "win_message") cfg.win_message = val;
+        else if (key == "bust_message") cfg.bust_message = val;
+        else if (key == "dealer_bust_message") cfg.dealer_bust_message = val;
+        else if (key == "lose_message") cfg.lose_message = val;
+        else if (key == "push_message") cfg.push_message = val;
+    }
+    f.close();
+}

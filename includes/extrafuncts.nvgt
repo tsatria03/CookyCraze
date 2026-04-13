@@ -323,7 +323,7 @@ speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now 
             else
             {
                 alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-                dlg("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
+                dlgmessage_return("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
                 pool.destroy_sound(alertslot);
 add_baking_slots();
 }
@@ -393,7 +393,7 @@ void add_manual_slots()
         else
         {
             alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-            dlg("Error! You don't have enough coins to add " + string(count) + " manual " + (count == 1 ? "slot" : "slots") + "!");
+            dlgmessage_return("Error! You don't have enough coins to add " + string(count) + " manual " + (count == 1 ? "slot" : "slots") + "!");
             pool.destroy_sound(alertslot);
             add_manual_slots();
         }
@@ -467,7 +467,7 @@ void automate_baking_slots()
         if (nonAutoCount == 0)
         {
             alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-            dlg("Error! There are no slots available to automate.");
+            dlgmessage_return("Error! There are no slots available to automate.");
             pool.destroy_sound(alertslot);
             auto_slots_menu();
             return;
@@ -516,7 +516,7 @@ void automate_baking_slots()
             else
             {
                 alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-                dlg("Error! You don't have enough coins to automate all slots!");
+                dlgmessage_return("Error! You don't have enough coins to automate all slots!");
                 pool.destroy_sound(alertslot);
             }
             auto_slots_menu();
@@ -560,7 +560,7 @@ void automate_baking_slots()
                     else
                     {
                         alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-                        dlg("Error! You don't have enough coins to automate this slot!");
+                        dlgmessage_return("Error! You don't have enough coins to automate this slot!");
                         pool.destroy_sound(alertslot);
                     }
                     auto_slots_menu();
@@ -572,7 +572,7 @@ void automate_baking_slots()
 void wait_async(int milliseconds)
 {
     timer WaitTimer;
-    WaitTimer.restart();    
+    WaitTimer.restart();
     while (WaitTimer.elapsed < milliseconds)
     {
         wait(5);
@@ -584,5 +584,38 @@ if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput an
         {
             key_code key = keys[i];
         }
+    }
+}
+
+void jack_deal_card(bool to_player, int&inout p_points, int&inout p_aces, int&inout d_points, int&inout d_aces)
+{
+    int r = random(1, 13);
+    int s = random(1, 4);
+    int v = (r == 1 ? 11 : (r >= 11 ? 10 : r));
+    string rname = (r == 1 ? "Ace" : (r == 11 ? "Jack" : (r == 12 ? "Queen" : (r == 13 ? "King" : string(r)))));
+    string sname = (s == 1 ? "Hearts" : (s == 2 ? "Diamonds" : (s == 3 ? "Clubs" : "Spades")));
+    if (to_player)
+    {
+        pool.play_stationary("sounds/misc/" + resolve_sound(jacksConfig.player_draw_sound), false);
+        p_points += v;
+        if (v == 11) p_aces++;
+        while (p_points > 21 && p_aces > 0)
+        {
+            p_points -= 10;
+            p_aces--;
+        }
+        dlg_buffer("You drew a " + rname + " of " + sname + ", for a total of " + p_points + ".");
+    }
+    else
+    {
+        pool.play_stationary("sounds/misc/" + resolve_sound(jacksConfig.dealer_draw_sound), false);
+        d_points += v;
+        if (v == 11) d_aces++;
+        while (d_points > 21 && d_aces > 0)
+        {
+            d_points -= 10;
+            d_aces--;
+        }
+        dlg_buffer("Dealer drew a " + rname + " of " + sname + ", for a total of " + d_points + ".");
     }
 }

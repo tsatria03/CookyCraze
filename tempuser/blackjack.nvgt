@@ -1,0 +1,177 @@
+double betcost=0, cash=500;
+int player_points = 0, dealer_points = 0;
+int player_aces = 0, dealer_aces = 0;
+void main()
+{
+show_game_window("Blackjack");
+wait(500);
+game();
+}
+void deal_card(bool to_player, bool announce)
+{
+int r = random(1, 13);
+int s = random(1, 4);
+int v = (r == 1 ? 11 : (r >= 11 ? 10 : r));
+if (to_player)
+{
+pool.play_stationary("draw_player.ogg", false);
+player_points += v;
+if (v == 11) player_aces++;
+while (player_points > 21 && player_aces > 0)
+{
+player_points -= 10;
+player_aces--; }
+}
+else
+{
+pool.play_stationary("draw_dealer.ogg", false);
+dealer_points += v;
+if (v == 11) dealer_aces++;
+while (dealer_points > 21 && dealer_aces > 0)
+{
+dealer_points -= 10;
+dealer_aces--; }
+}
+if (announce)
+{
+string rname = (r == 1 ? "Ace" : (r == 11 ? "Jack" : (r == 12 ? "Queen" : (r == 13 ? "King" : "" + r))));
+string sname = (s == 1 ? "Hearts" : (s == 2 ? "Diamonds" : (s == 3 ? "Clubs" : "Spades")));
+if (to_player) speak("You drew a " + rname + " of " + sname + ", for a total score of " + player_points);
+else speak("Dealer drew a " + rname + " of " + sname + ", for a total score of " + dealer_points);
+}
+}
+void game()
+{
+speak("Welcome to Blackjack. Press Enter to place a bet. H to hit, S to stand, C to check your cash, and B to check your bet.");
+while(true)
+{
+wait(5);
+if(cash<=0)
+{
+cash=0;
+}
+if(betcost<=0)
+{
+betcost=0;
+}
+if (key_pressed(KEY_B))
+{
+speak("Your current bet is " + betcost + " dollar" + (betcost == 1 ? "" : "s"));
+}
+if (key_pressed(KEY_C))
+{
+speak("You currently have " + cash + " dollar" + (cash == 1 ? "" : "s"));
+}
+if(key_pressed(KEY_RETURN))
+{
+if(cash==0)
+{
+dlg("Error. You don't have enough cash to bet.");
+continue;
+}
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>_?/+-=`~", false, "");
+string betcash=vd.input_box("", "How much cash would you like to bet?");
+    if(betcash == "")
+        continue;
+double betnum = string_to_number(betcash);
+if(betnum<=0)
+{
+dlg("Error. Invalid bet entered. Please try again.");
+continue;
+}
+if(betnum>cash)
+{
+dlg("Error. You don't have enough money to bet "+betnum+" dollars.");
+continue;
+}
+betcost = clamp(betnum, 1, cash);
+cash-=betcost;
+pool.play_stationary("buy" + random(1, 4) + ".ogg", false);
+speak("Success. You just bet " + betcost + " dollars. Dealing.");
+wait(random(1000, 2000));
+player_points = dealer_points = 0;
+player_aces = dealer_aces = 0;
+deal_card(true,  true);
+wait(random(1000, 2000));
+deal_card(false, true);
+wait(random(1000, 2000));
+deal_card(true,  true);
+}
+if(key_pressed(KEY_H))
+{
+if(betcost==0)
+{
+dlg("Error! Please bet some money before playing!");
+continue;
+}
+speak("hit");
+wait(200);
+deal_card(true, true);
+if (player_points > 21)
+{
+wait(500);
+dlg("Bust! You have " + player_points + ". You lose.");
+betcost = 0;
+player_points = dealer_points = 0;
+player_aces = dealer_aces = 0;
+continue;
+}
+if (player_points == 21)
+{
+wait(500);
+pool.play_stationary("buy" + random(1, 4) + ".ogg", false);
+dlg("Twenty-one on a hit! You win with " + player_points + ".");
+cash += betcost * 2;
+betcost = 0;
+player_points = dealer_points = 0;
+player_aces = dealer_aces = 0;
+continue;
+}
+}
+if (key_pressed(KEY_S))
+{
+if(betcost==0)
+{
+dlg("Error! Please bet some money before playing!");
+continue;
+}
+speak("stand");
+wait(200);
+while (dealer_points < 17)
+{
+deal_card(false, true);
+wait(random(1000, 2000));
+}
+int outcome = 0;
+if (dealer_points > 21) outcome = 1;
+else if (player_points > dealer_points) outcome = 1;
+else if (player_points < dealer_points) outcome = -1;
+if (outcome == 1)
+{
+wait(500);
+pool.play_stationary("buy" + random(1, 4) + ".ogg", false);
+dlg("You win! " + player_points + " against dealer's " + dealer_points + ".");
+cash += betcost * 2;
+}
+else if (outcome == -1)
+{
+wait(500);
+dlg("You lose. " + player_points + " against dealer's " + dealer_points + ".");
+}
+else
+{
+wait(500);
+dlg("Push. You and the dealer both have " + player_points + ".");
+cash += betcost;
+}
+betcost = 0;
+player_points = dealer_points = 0;
+player_aces = dealer_aces = 0;
+continue;
+}
+if(key_pressed(KEY_ESCAPE))
+{
+exit();
+}
+}
+}

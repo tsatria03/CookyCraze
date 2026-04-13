@@ -59,7 +59,7 @@ string resolve_sound(string raw)
     return raw;
 }
 
-event_item[]@ parse_event_items(string filepath)
+event_item[]@ parse_baker_events(string filepath)
 {
     event_item[] items;
     file f;
@@ -209,6 +209,12 @@ string apply_event(event_item@ item)
     {
         msg = msg.substr(0, ph) + amt_str + msg.substr(ph + 8);
         ph = msg.find("%amount%");
+    }
+    int ph2 = msg.find("%actual%");
+    while (ph2 != -1)
+    {
+        msg = msg.substr(0, ph2) + format_number(actualAmount) + msg.substr(ph2 + 8);
+        ph2 = msg.find("%actual%");
     }
     if (!item.use_percent && actualAmount == 1)
     {

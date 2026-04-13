@@ -152,7 +152,7 @@ else
 {
 m.fade_music();
 alertslot=pool.play_stationary("sounds/dlg/error.ogg",false);
-dlg("Error! The data assosiated with this save slot does not exist!");
+dlgmessage_return("Error! The data assosiated with this save slot does not exist!");
 pool.destroy_sound(alertslot);
 ingame=false;
 gamemenu();
@@ -237,9 +237,10 @@ void mingamsmenu()
 {
 form.reset();
 form.create_window("Mini games", false);
+int jack=form.create_button("Play &blackjack");
 int flip=form.create_button("Play &cooky flipper");
 int slots=form.create_button("play &slot machine");
-form.focus(flip);
+form.focus(jack);
 while(true)
 {
 wait(5);
@@ -249,34 +250,49 @@ form.monitor();
 form.reset();
 clickergame();
 }
-if(form.is_pressed(slots))
-{
-if(rank<20)
-{
-gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
-dlg_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 20 or higher to play this.", "critical");
-form.reset();
-mingamsmenu();
-}
-else if(rank>=20)
-{
-gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
-slotsgame();
-}
-}
-if(form.is_pressed(flip))
+if(form.is_pressed(jack))
 {
 if(rank<10)
 {
 gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
-dlg_buffer("Sorry "+playername+". This minni game is locked. Please be at rank 10 or higher to play this.", "critical");
+dlg_buffer("Sorry "+playername+". This mini game is locked. Please be at rank 10 or higher to play this.", "critical");
 form.reset();
 mingamsmenu();
 }
-else if(rank>=10)
+else
+{
+gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
+jackgame();
+}
+}
+if(form.is_pressed(flip))
+{
+if(rank<20)
+{
+gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
+dlg_buffer("Sorry "+playername+". This mini game is locked. Please be at rank 20 or higher to play this.", "critical");
+form.reset();
+mingamsmenu();
+}
+else
 {
 gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
 cookgame();
+}
+}
+if(form.is_pressed(slots))
+{
+if(rank<30)
+{
+gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
+dlg_buffer("Sorry "+playername+". This mini game is locked. Please be at rank 30 or higher to play this.", "critical");
+form.reset();
+mingamsmenu();
+}
+else
+{
+gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
+slotsgame();
 }
 }
 }
@@ -288,8 +304,18 @@ m.add_item("buy upgrades", "bmu");
 m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky is sold for 100 coins.", "slm");
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
-int mres=m.run();
+int shop_start = 0;
+if (shopmenu_last_id != "")
+{
+    int found = m.find_item_by_id(shopmenu_last_id);
+    if (found != -1) shop_start = found;
+}
+int mres=m.run(shop_start, true);
 string stm=m.get_item_id(mres);
+if (mres != -1 && stm != "back")
+    shopmenu_last_id = stm;
+else
+    shopmenu_last_id = "";
 if(mres==-1)
 {
 pool.destroy_sound(alertslot);
@@ -319,7 +345,7 @@ double cookiesToSell = floor(string_to_number(sailam));
     {
         pool.destroy_sound(alertslot);
         pool.play_stationary("sounds/misc/sellfail.ogg", false);
-        dlg("Error! Please enter a valid number of cookies to sell!");
+        dlgmessage_return("Error! Please enter a valid number of cookies to sell!");
         shopmenu();
     }
     if (cookiesToSell > sellableCookies)
@@ -355,7 +381,7 @@ else if (totalCoinsEarned >= 10000000)
 {
 pool.play_stationary("sounds/misc/coin100000.ogg", false);
 }
-dlg("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins!");
+dlgmessage_return("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins!");
 shopmenu();
 }
 if(stm=="back")
@@ -381,13 +407,21 @@ void buymenu()
     m.add_item("singles", "singles");
     m.add_item("back", "back");
     m.intro_text = "Upgrades menu. What would you like to browse?";
-    int mres = m.run(0, true);
+    int buy_start = 0;
+    if (buymenu_last_id != "")
+    {
+        int found = m.find_item_by_id(buymenu_last_id);
+        if (found != -1) buy_start = found;
+    }
+    int mres = m.run(buy_start, true);
     string sel = m.get_item_id(mres);
     if (mres == -1 || sel == "back")
     {
+        buymenu_last_id = "";
         shopmenu();
         return;
     }
+    buymenu_last_id = sel;
     if (sel == "singles")
         bakermenu();
     else if (sel == "bundles")
@@ -400,7 +434,7 @@ void bakermenu()
     parse_store("data/config/stores/baker.store", items, menus);
     if (items.length() == 0)
     {
-        dlg("Error! Could not load the baking shop items.");
+        dlgmessage_return("Error! Could not load the baking shop items.");
         shopmenu();
         return;
     }
@@ -458,7 +492,7 @@ void bakermenu()
     {
         int idx = string_to_int(sel.substr(6));
         pool.play_stationary("sounds/misc/storefail.ogg", false);
-        dlg("This category is locked. You need to reach rank " + string(menus[idx].min_rank) + " to access it.");
+        dlgmessage_return("This category is locked. You need to reach rank " + string(menus[idx].min_rank) + " to access it.");
         bakermenu();
         return;
     }
@@ -531,7 +565,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         {
             pool.destroy_sound(alertslot);
             pool.play_stationary("sounds/misc/storefail.ogg", false);
-            dlg("Error! Please enter a valid number to buy!");
+            dlgmessage_return("Error! Please enter a valid number to buy!");
             bakercategorymenu(items, chosenMenu);
             return;
         }
@@ -600,15 +634,19 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         if (totalSpent > 0)
         {
             string log = "";
-            if (autoGained > 0) { if (log != "") log += ", "; log += format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"); }
-            if (autoPercentGained > 0) { if (log != "") log += ", "; log += format_number(autoPercentGained) + "% auto cookies"; }
-            if (manulGained > 0) { if (log != "") log += ", "; log += format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"); }
-            if (manulPercentGained > 0) { if (log != "") log += ", "; log += format_number(manulPercentGained) + "% manual cookies"; }
-            if (speedGained > 0) { if (log != "") log += ", "; log += format_number(speedGained) + "ms baking speed"; }
-            if (speedPercentGained > 0) { if (log != "") log += ", "; log += format_number(speedPercentGained) + "% baking speed"; }
+            string[] logParts;
+            if (autoGained > 0) logParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"));
+            if (autoPercentGained > 0) logParts.insert_last(format_number(autoPercentGained) + "% auto cookies");
+            if (manulGained > 0) logParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"));
+            if (manulPercentGained > 0) logParts.insert_last(format_number(manulPercentGained) + "% manual cookies");
+            if (speedGained > 0) logParts.insert_last(format_number(speedGained) + "ms of baking speed");
+            if (speedPercentGained > 0) logParts.insert_last(format_number(speedPercentGained) + "% baking speed");
+            if (logParts.length() == 1) log = logParts[0];
+            else if (logParts.length() == 2) log = logParts[0] + " and " + logParts[1];
+            else { for (uint li = 0; li < logParts.length() - 1; li++) { if (log != "") log += ", "; log += logParts[li]; } log += ", and " + logParts[logParts.length() - 1]; }
             pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
             pool.play_stationary("sounds/misc/store_order.ogg", false);
-            speak("Bulk purchase complete! You gained " + log + " for a total of " + format_number(totalSpent) + " coins.");
+            dlgmessage_return("Bulk purchase complete! You gained " + log + " for a total of " + format_number(totalSpent) + " coins.");
         }
         else
             speak("Nothing affordable to buy.");
@@ -620,7 +658,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         if (sel == "locked" + string(i))
         {
             pool.play_stationary("sounds/misc/storefail.ogg", false);
-            dlg("This item is locked. You need to reach rank " + string(items[i].min_rank) + " to purchase it.");
+            dlgmessage_return("This item is locked. You need to reach rank " + string(items[i].min_rank) + " to purchase it.");
             bakercategorymenu(items, chosenMenu);
             return;
         }
@@ -634,7 +672,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         {
             pool.destroy_sound(alertslot);
             pool.play_stationary("sounds/misc/storefail.ogg", false);
-            dlg("Error! Please enter a valid number to buy!");
+            dlgmessage_return("Error! Please enter a valid number to buy!");
             bakercategorymenu(items, chosenMenu);
             return;
         }
@@ -684,13 +722,23 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
                 itemWord = itemName.substr(0, itemName.length() - 1) + "ies";
             else
                 itemWord = itemName + "s";
-            speak("Purchase successful! You bought " + format_number(quantity) + " " + itemWord + " for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextCost) + " coins.");
+            dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " " + itemWord + " for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextCost) + " coins.");
             bakercategorymenu(items, chosenMenu);
         }
         else
         {
             pool.play_stationary("sounds/misc/storefail.ogg", false);
-            dlg("Error! You don't have enough coins to buy " + format_number(quantity) + " " + items[i].item_type + "!");
+            string errName = string_replace(items[i].item_type, "_", " ", true);
+            string errWord;
+            if (quantity == 1)
+                errWord = errName;
+            else if (errName.length() > 0 && errName.substr(errName.length() - 1) == "y")
+                errWord = errName.substr(0, errName.length() - 1) + "ies";
+            else if (errName.length() > 0 && errName.substr(errName.length() - 1) == "s")
+                errWord = errName;
+            else
+                errWord = errName + "s";
+            dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " " + errWord + "!");
             bakercategorymenu(items, chosenMenu);
         }
         return;
@@ -769,7 +817,7 @@ void bundlemenu()
     {
         int idx = string_to_int(sel.substr(6));
         pool.play_stationary("sounds/misc/storefail.ogg", false);
-        dlg("This category is locked. You need to reach rank " + string(menus[idx].min_rank) + " to access it.");
+        dlgmessage_return("This category is locked. You need to reach rank " + string(menus[idx].min_rank) + " to access it.");
         bundlemenu();
         return;
     }
@@ -827,7 +875,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
     {
         int idx = string_to_int(sel.substr(6));
         pool.play_stationary("sounds/misc/storefail.ogg", false);
-        dlg("This bundle is locked. You need to reach rank " + string(bundles[idx].min_rank) + " to purchase it.");
+        dlgmessage_return("This bundle is locked. You need to reach rank " + string(bundles[idx].min_rank) + " to purchase it.");
         bundlecategorymenu(bundles, chosenMenu, storeItems);
         return;
     }
@@ -855,7 +903,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         {
             pool.destroy_sound(alertslot);
             pool.play_stationary("sounds/misc/storefail.ogg", false);
-            dlg("Error! Please enter a valid number to buy!");
+            dlgmessage_return("Error! Please enter a valid number to buy!");
             bundlecategorymenu(bundles, chosenMenu, storeItems);
             return;
         }
@@ -863,7 +911,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         if (coins < grandTotal)
         {
             pool.play_stationary("sounds/misc/storefail.ogg", false);
-            dlg("Error! You don't have enough coins to buy " + format_number(qty) + " " + bundles[idx].name + "!");
+            dlgmessage_return("Error! You don't have enough coins to buy " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + "!");
             bundlecategorymenu(bundles, chosenMenu, storeItems);
             return;
         }
@@ -900,13 +948,29 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
                 }
             }
         }
-        if (autoGained > 0) { if (gainLog != "") gainLog += ", "; gainLog += format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"); }
-        if (manulGained > 0) { if (gainLog != "") gainLog += ", "; gainLog += format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"); }
-        if (speedGained > 0) { if (gainLog != "") gainLog += ", "; gainLog += format_number(speedGained) + "ms baking speed"; }
+        string[] gainParts;
+        if (autoGained > 0) gainParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"));
+        if (manulGained > 0) gainParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"));
+        if (speedGained > 0) gainParts.insert_last(format_number(speedGained) + "ms of baking speed");
+        if (gainParts.length() == 1) gainLog = gainParts[0];
+        else if (gainParts.length() == 2) gainLog = gainParts[0] + " and " + gainParts[1];
+        else { for (uint li = 0; li < gainParts.length() - 1; li++) { if (gainLog != "") gainLog += ", "; gainLog += gainParts[li]; } gainLog += ", and " + gainParts[gainParts.length() - 1]; }
+        double nextBundleCost = 0;
+        for (uint j = 0; j < bundles[idx].entries.length(); j++)
+        {
+            for (uint k = 0; k < storeItems.length(); k++)
+            {
+                if (storeItems[k].item_type == bundles[idx].entries[j].item_type)
+                {
+                    double level = (storeItems[k].target == 2) ? manulcooky_purchases : (storeItems[k].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+                    nextBundleCost += calc_total_upgrade_cost(level, bundles[idx].entries[j].quantity, storeItems[k].base_cost, storeItems[k].cost_multiplier);
+                    break;
+                }
+            }
+        }
         pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
         pool.play_stationary("sounds/misc/store_order.ogg", false);
-        string bundleWord = (qty == 1) ? "bundle" : "bundles";
-        speak("Purchase successful! You bought " + format_number(qty) + " " + bundles[idx].name + " " + bundleWord + " for " + format_number(grandTotal) + " coins. You gained " + gainLog + ".");
+        dlgmessage_return("Purchase successful! You bought " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + " for " + format_number(grandTotal) + " coins. You gained " + gainLog + ". Next bundle will cost " + format_number(nextBundleCost) + " coins.");
         bundlecategorymenu(bundles, chosenMenu, storeItems);
         return;
     }
@@ -1141,7 +1205,7 @@ string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
 alertslot=pool.play_stationary("sounds/dlg/error.ogg",false);
-dlg("Error! Your character's first name is invalid!");
+dlgmessage_return("Error! Your character's first name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
             usersetsmenu();
@@ -1161,7 +1225,7 @@ string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {
 pool.play_stationary("sounds/dlg/error.ogg",false);
-dlg("Error! Your character's last name is invalid!");
+dlgmessage_return("Error! Your character's last name is invalid!");
 pool.destroy_sound(alertslot);
             form.reset();
             usersetsmenu();

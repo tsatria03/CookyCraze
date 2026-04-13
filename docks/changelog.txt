@@ -1,4 +1,31 @@
+New in 3.8.
+Added minimum and maximum bet limits to slots.table for the slot machine, matching the same system as blackjack. The min_bet key rejects any bet below the threshold. The max_bet key silently clamps bets above the limit. Setting max_bet to 0 allows unlimited bets.
+Updated ranks.table to include a blackjack unlock entry at rank 10, moving the cooky flipper unlock to rank 20 and the slot machine unlock to rank 30. The ranks.table comment header now documents all three unlock values.
+Fixed a bug where the amount bet was not being subtracted from the player's total before the round began.
+Made it so the card scores and ace counts reset correctly at the end of every round, whether you win, lose, or push.
+Made it so you can no longer bet more than the amount of the item you currently hold.
+Made it so you are required to place a bet before cards are dealt.
+Made it so you don't have to stand every time you get 21 points. The game now automatically resolves the round when your score hits 21.
+Updated jacks.table to reload alongside all other configuration files when Control L is pressed, both in the main game and inside each minigame.
+Added minimum and maximum bet limits to jacks.table. The min_bet key rejects any bet below the threshold. The max_bet key silently clamps bets above the limit. Setting max_bet to 0 allows unlimited bets. Both apply regardless of which item is being bet.
+Added support for betting any item you want in blackjack. This matches the same system as the slot machine. You can bet cookies, coins, auto cookies, auto cookie speeds, or manual cookies. Wins, losses, naturals, and pushes all apply to whichever item you chose. Baking speed bets correctly adjust the bake interval in both directions.
+New in 3.7.
+Added a fully configurable jacks.table file for blackjack. This supports setting the dealer stand threshold, payout multipliers for naturals, wins, and pushes, minimum and maximum bet limits, sounds for each event, and messages for every outcome.
+Made it so the dealer stands at 17 by default, matching standard casino rules.
+Made it so a natural blackjack, 21 on the opening two cards, pays out at 1.5x the bet. Standard wins pay 2x. Ties return the original bet.
+Added hit and stand actions to blackjack. Hitting draws another card. Standing triggers the dealer to draw until reaching the stand threshold, then the scores are compared.
+Moved the cooky flipper unlock to rank 20 and the slot machine unlock to rank 30 to make room for blackjack at rank 10.
+Added blackjack as a new minigame, unlocked at rank 10. Players bet an item of their choice and receive two cards to start.
+The cooky store menu and the upgrades sub-menu now remember your last selected position when you return to them, completing full position memory across the entire shop system. All four levels of the shop, the store menu, the upgrades menu, the singles category menu, the singles item menu, the bundles category menu, and the bundles item menu, now restore focus to where you left off.
+Added a new optional %actual% placeholder to the event description format in baker.event and flipper.event. For percentage based events, %actual% is replaced with the real computed stat change rather than the percentage value. This makes event messages more informative by showing both the percentage and the exact amount gained or lost. If omitted from a description the message remains concise as before. All ten built-in percentage events in baker.event have been updated to include the %actual% placeholder. Both baker.event and flipper.event now document both the %amount% and %actual% placeholders in their comment headers.
+Updated the flipper event descriptions to report exact values rather than vague wording. Events that previously said things like you gained some auto-cookies now say you gained %amount% auto-cookies so the player always knows the precise stat change. The baking speed events also now report the exact millisecond value gained or lost.
+Updated the dlg sounds with new ones.
 New in 3.6.
+Bundle purchase messages now show the next bundle cost after a successful purchase, matching the same behaviour as the singles shop. The cost reflects the updated prices after the purchase has been applied.
+Updated the Control L key to also reload all configuration files alongside the save data. This includes baker.event, flipper.event, slots.table, and ranks.table. Changes to any of these files are now picked up without a full game restart. The store files baker.store and bundle.store already reloads every time the shop is opened.
+Made it so bundle purchasing and bulk buying messages now use natural language list formatting, inserting and before the last item in the gain list. For example, you gained 5 auto cookies, 3 manual cookies, and 20ms baking speed instead of a plain comma separated list.
+Fixed the bundle shop purchase and error messages saying the bundle name twice when the name already contained the word bundle, for example Starter Bundle bundle. The word bundle is no longer appended separately and pluralization is handled by adding s directly to the end of the bundle name when the quantity is greater than one.
+Fixed error messages in the singles shop displaying item names with underscores and no pluralization, for example manual_cooky instead of manual cookies. Item names are now formatted the same way as purchase success messages, with underscores replaced by spaces and correct plural forms applied.
 Reorganised the data/config folder into three subfolders. Events are now in data/config/events, tables are now in data/config/tables, and stores are now in data/config/stores.
 Expanded the bundle shop with a full progression of bundles spanning ranks 0 through 500, matching the same rank curve as the singles shop. Bundles are spread across seven categories including Beginner, Advanced, Expert, Veteran, Master, Legendary, and Godlike, with a total of 38 bundles covering all three stat types throughout the entire game.
 Made it so both the category position and the bundle position within a category is now remembered when navigating back, matching the same focus behaviour as the singles shop.

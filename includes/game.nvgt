@@ -66,6 +66,11 @@ clickergame();
 if(key_pressed(KEY_L))
 {
 readdata();
+loadedEvents = parse_baker_events("data/config/events/baker.event");
+loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
+parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet);
+parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
+parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");

@@ -24,6 +24,7 @@
 #include"bundle_store.nvgt"
 #include"slots_table.nvgt"
 #include"ranks_table.nvgt"
+#include"jacks_table.nvgt"
 #include"savefuncts.nvgt"
 #include"speech.nvgt"
 #include"virtual_dialogs.nvgt"

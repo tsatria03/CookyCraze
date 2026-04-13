@@ -6,8 +6,10 @@ class payout_item
     string message;
 }
 
-void parse_slots_table(string filepath, string[]@ symbols_out, payout_item[]@ payouts_out, int &out reels_out)
+void parse_slots_table(string filepath, string[]@ symbols_out, payout_item[]@ payouts_out, int &out reels_out, double &out min_bet_out, double &out max_bet_out)
 {
+    min_bet_out = 1.0;
+    max_bet_out = 0.0;
     file f;
     if (!f.open(filepath, "r"))
         return;
@@ -33,6 +35,14 @@ void parse_slots_table(string filepath, string[]@ symbols_out, payout_item[]@ pa
             if (key == "reels")
             {
                 reels_out = max(2, string_to_int(val));
+            }
+            else if (key == "min_bet")
+            {
+                min_bet_out = max(1.0, string_to_number(val));
+            }
+            else if (key == "max_bet")
+            {
+                max_bet_out = max(0.0, string_to_number(val));
             }
             else if (key == "symbols")
             {
