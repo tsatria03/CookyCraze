@@ -1,0 +1,123 @@
+class bundle_entry
+{
+    string item_type;
+    double quantity;
+}
+
+class bundle_item
+{
+    string name;
+    int min_rank;
+    string description;
+    bundle_entry[] entries;
+}
+
+void parse_bundles(string filepath, bundle_item[]@ bundles_out)
+{
+    file f;
+    if (!f.open(filepath, "r"))
+        return;
+    bool in_section = false;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        if (line == "[bundles]")
+        {
+            in_section = true;
+            continue;
+        }
+        if (!in_section)
+            continue;
+
+        // Format: name:min_rank:items_block:description
+        // name and min_rank are before the first two colons.
+        // description is after the last pipe-separated items block colon.
+        // We split name and min_rank from the front, then find the items block
+        // by locating the last colon that is not inside a pipe pair.
+
+        // Extract name (first colon)
+        int c1 = line.find(":");
+        if (c1 == -1) continue;
+        string bname = line.substr(0, c1);
+
+        // Extract min_rank (second colon)
+        int c2 = line.find(":", c1 + 1);
+        if (c2 == -1) continue;
+        int bminrank = string_to_int(line.substr(c1 + 1, c2 - c1 - 1));
+
+        // Remainder after min_rank is items_block:description
+        // The items block contains pipe-separated item_type:quantity pairs.
+        // The description starts after the last colon that follows a pipe segment quantity.
+        // Strategy: find the last | in the remainder, then find the colon after it.
+        string remainder = line.substr(c2 + 1);
+        // Find the last pipe in remainder, then find the colon after it
+        // That colon separates the last quantity from the description
+        int lastPipe = -1;
+        for (uint i = 0; i < remainder.length(); i++)
+        {
+            if (remainder.substr(i, 1) == "|")
+                lastPipe = i;
+        }
+        // Search for colon after the last pipe (skipping the item_type:quantity colon inside the last pair)
+        int descColon = -1;
+        int searchFrom = (lastPipe != -1) ? lastPipe + 1 : 0;
+        // Skip past the item_type name (find the colon for quantity first, then find the next colon after the quantity)
+        int quantityColon = -1;
+        for (uint i = searchFrom; i < remainder.length(); i++)
+        {
+            if (remainder.substr(i, 1) == ":")
+            {
+                quantityColon = i;
+                break;
+            }
+        }
+        if (quantityColon == -1) continue;
+        // Now find the colon after the quantity number — that's the description separator
+        for (uint i = quantityColon + 1; i < remainder.length(); i++)
+        {
+            if (remainder.substr(i, 1) == ":")
+            {
+                descColon = i;
+                break;
+            }
+        }
+        if (descColon == -1) continue;
+        string items_block = remainder.substr(0, descColon);
+        string bdescription = remainder.substr(descColon + 1);
+
+        bundle_item b;
+        b.name = bname;
+        b.min_rank = bminrank;
+        b.description = bdescription;
+
+        // Parse pipe-separated item_type:quantity pairs
+        string[] pairs;
+        int pipeStart = 0;
+        for (uint i = 0; i <= items_block.length(); i++)
+        {
+            if (i == items_block.length() || items_block.substr(i, 1) == "|")
+            {
+                string pair = items_block.substr(pipeStart, i - pipeStart);
+                pairs.insert_last(pair);
+                pipeStart = i + 1;
+            }
+        }
+        for (uint i = 0; i < pairs.length(); i++)
+        {
+            int sep = pairs[i].find(":");
+            if (sep == -1) continue;
+            bundle_entry e;
+            e.item_type = pairs[i].substr(0, sep);
+            e.quantity = string_to_number(pairs[i].substr(sep + 1));
+            b.entries.insert_last(e);
+        }
+        if (b.entries.length() == 0)
+            continue;
+        bundles_out.insert_last(b);
+    }
+    f.close();
+}

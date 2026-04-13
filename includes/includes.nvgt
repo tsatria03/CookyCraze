@@ -21,6 +21,7 @@
 #include"minigames.nvgt"
 #include"savedata.nvgt"
 #include"baker_store.nvgt"
+#include"bundle_store.nvgt"
 #include"slots_table.nvgt"
 #include"ranks_table.nvgt"
 #include"savefuncts.nvgt"

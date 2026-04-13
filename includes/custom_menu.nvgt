@@ -215,7 +215,7 @@ return;
 }
 void find_searched_item()
 {
-    string query = input_box("Find an item", "Enter a keyword to search for:", last_search_query);
+    string query = vd.input_box("Find an item", "Enter a keyword to search for:", last_search_query);
     if (query == "" || get_last_error() == -12)
     {
         speak("Cancelled.");

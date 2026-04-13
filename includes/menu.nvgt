@@ -376,11 +376,28 @@ clickergame();
 }
 void buymenu()
 {
-bakermenu();
+    setupmenu2();
+    m.add_item("bundles", "bundles");
+    m.add_item("singles", "singles");
+    m.add_item("back", "back");
+    m.intro_text = "Upgrades menu. What would you like to browse?";
+    int mres = m.run(0, true);
+    string sel = m.get_item_id(mres);
+    if (mres == -1 || sel == "back")
+    {
+        shopmenu();
+        return;
+    }
+    if (sel == "singles")
+        bakermenu();
+    else if (sel == "bundles")
+        bundlemenu();
 }
 void bakermenu()
 {
-    store_item[] items = parse_store_items("data/config/baker.store");
+    store_item[] items;
+    store_menu[] menus;
+    parse_store("data/config/baker.store", items, menus);
     if (items.length() == 0)
     {
         dlg("Error! Could not load the baking shop items.");
@@ -388,8 +405,74 @@ void bakermenu()
         return;
     }
     setupmenu2();
+    for (uint i = 0; i < menus.length(); i++)
+    {
+        if (menus[i].min_rank > 0 && rank < menus[i].min_rank)
+        {
+            string label = menus[i].name + ". Unlocked at rank " + string(menus[i].min_rank) + ".";
+            if (menus[i].description != "")
+                label += " Description: " + menus[i].description;
+            m.add_item(label, "locked" + string(i));
+        }
+        else
+        {
+            int totalItems = 0;
+            int affordableItems = 0;
+            for (uint j = 0; j < items.length(); j++)
+            {
+                if (items[j].menu != menus[i].name) continue;
+                totalItems++;
+                if (items[j].min_rank > 0 && rank < items[j].min_rank) continue;
+                double level = (items[j].target == 2) ? manulcooky_purchases : (items[j].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+                double cost = buy_item(level, items[j].base_cost, items[j].cost_multiplier);
+                if (coins >= cost)
+                    affordableItems++;
+            }
+            string itemWord = (totalItems == 1) ? "item" : "items";
+            string label = menus[i].name + ". Contains " + string(affordableItems) + " out of " + string(totalItems) + " purchasable " + itemWord + ".";
+            if (menus[i].description != "")
+                label += " Description: " + menus[i].description;
+            m.add_item(label, "cat" + string(i));
+        }
+    }
+    m.add_item("back", "back");
+    m.intro_text = "Singles menu. Please choose a category to browse.";
+    int start_pos = 0;
+    if (baker_last_cat_id != "")
+    {
+        int found = m.find_item_by_id(baker_last_cat_id);
+        if (found != -1)
+            start_pos = found;
+    }
+    int mres = m.run(start_pos, true);
+    string sel = m.get_item_id(mres);
+    if (mres != -1)
+        baker_last_cat_id = sel;
+    if (mres == -1 || sel == "back")
+    {
+        baker_last_cat_id = "";
+        shopmenu();
+        return;
+    }
+    if (sel.substr(0, 6) == "locked")
+    {
+        int idx = string_to_int(sel.substr(6));
+        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        dlg("This menu is locked. You need to reach rank " + string(menus[idx].min_rank) + " to access it.");
+        bakermenu();
+        return;
+    }
+    int catIndex = string_to_int(sel.substr(3));
+    string chosenMenu = menus[catIndex].name;
+    bakercategorymenu(items, chosenMenu);
+}
+
+void bakercategorymenu(store_item[]@ items, string chosenMenu)
+{
+    setupmenu2();
     for (uint i = 0; i < items.length(); i++)
     {
+        if (items[i].menu != chosenMenu) continue;
         if (items[i].min_rank > 0 && rank < items[i].min_rank)
         {
             m.add_item(items[i].item_type + ". Unlocked at rank " + string(items[i].min_rank) + ". Description: " + items[i].description, "locked" + string(i));
@@ -400,8 +483,19 @@ void bakermenu()
         double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
         m.add_item(items[i].item_type + ", costs " + format_number(cost) + " coins. You can buy " + format_number(maxbuy) + ". Description: " + items[i].description, "item" + string(i));
     }
+    bool anyAffordable = false;
+    for (uint i = 0; i < items.length(); i++)
+    {
+        if (items[i].menu != chosenMenu) continue;
+        if (items[i].min_rank > 0 && rank < items[i].min_rank) continue;
+        double level = (items[i].target == 2) ? manulcooky_purchases : (items[i].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+        double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
+        if (maxbuy >= 1) { anyAffordable = true; break; }
+    }
+    if (anyAffordable)
+        m.add_item("Buy all affordable items", "buyall");
     m.add_item("back", "back");
-    m.intro_text = "Baking upgrades menu.";
+    m.intro_text = chosenMenu + ".";
     int start_pos = 0;
     if (baker_last_item_id != "")
     {
@@ -416,7 +510,109 @@ void bakermenu()
     if (mres == -1 || sel == "back")
     {
         baker_last_item_id = "";
-        shopmenu();
+        bakermenu();
+        return;
+    }
+    if (sel == "buyall")
+    {
+        double overallMax = 0;
+        for (uint i = 0; i < items.length(); i++)
+        {
+            if (items[i].menu != chosenMenu) continue;
+            if (items[i].min_rank > 0 && rank < items[i].min_rank) continue;
+            double level = (items[i].target == 2) ? manulcooky_purchases : (items[i].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+            double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
+            if (maxbuy > overallMax) overallMax = maxbuy;
+        }
+        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+        string bulkInput = vd.input_box("", "How many of each item would you like to buy? Press enter to buy the maximum amount.", string(round(overallMax, 0)));
+        double bulkQuantity = string_to_number(bulkInput);
+        if (bulkQuantity <= 0)
+        {
+            pool.destroy_sound(alertslot);
+            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            dlg("Error! Please enter a valid number to buy!");
+            bakercategorymenu(items, chosenMenu);
+            return;
+        }
+        double totalSpent = 0;
+        double autoGained = 0, manulGained = 0, speedGained = 0;
+        double autoPercentGained = 0, manulPercentGained = 0, speedPercentGained = 0;
+        for (uint i = 0; i < items.length(); i++)
+        {
+            if (items[i].menu != chosenMenu) continue;
+            if (items[i].min_rank > 0 && rank < items[i].min_rank) continue;
+            double level = (items[i].target == 2) ? manulcooky_purchases : (items[i].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+            double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
+            if (maxbuy < 1) continue;
+            double quantity = (bulkQuantity < maxbuy) ? bulkQuantity : maxbuy;
+            double totalCost = calc_total_upgrade_cost(level, quantity, items[i].base_cost, items[i].cost_multiplier);
+            coins -= totalCost;
+            totalSpent += totalCost;
+            if (items[i].target == 1)
+            {
+                if (items[i].use_percent)
+                {
+                    double gained = (autocooky * (items[i].amount / 100.0)) * quantity;
+                    autocooky += gained;
+                    autoPercentGained += items[i].amount * quantity;
+                }
+                else
+                {
+                    autocooky += quantity * items[i].amount;
+                    autoGained += quantity * items[i].amount;
+                }
+                autocooky_purchases += quantity;
+            }
+            else if (items[i].target == 2)
+            {
+                if (items[i].use_percent)
+                {
+                    double gained = (manulcooky * (items[i].amount / 100.0)) * quantity;
+                    manulcooky += gained;
+                    manulPercentGained += items[i].amount * quantity;
+                }
+                else
+                {
+                    manulcooky += quantity * items[i].amount;
+                    manulGained += quantity * items[i].amount;
+                }
+                manulcooky_purchases += quantity;
+            }
+            else if (items[i].target == 3)
+            {
+                if (items[i].use_percent)
+                {
+                    double gained = (cookyspeed * (items[i].amount / 100.0)) * quantity;
+                    cookyspeed += gained;
+                    clicktime -= gained;
+                    speedPercentGained += items[i].amount * quantity;
+                }
+                else
+                {
+                    cookyspeed += quantity * items[i].amount;
+                    clicktime -= cookyspeed;
+                    speedGained += quantity * items[i].amount;
+                }
+                cookyspeed_purchases += quantity;
+            }
+        }
+        if (totalSpent > 0)
+        {
+            string log = "";
+            if (autoGained > 0) { if (log != "") log += ", "; log += format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"); }
+            if (autoPercentGained > 0) { if (log != "") log += ", "; log += format_number(autoPercentGained) + "% auto cookies"; }
+            if (manulGained > 0) { if (log != "") log += ", "; log += format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"); }
+            if (manulPercentGained > 0) { if (log != "") log += ", "; log += format_number(manulPercentGained) + "% manual cookies"; }
+            if (speedGained > 0) { if (log != "") log += ", "; log += format_number(speedGained) + "ms baking speed"; }
+            if (speedPercentGained > 0) { if (log != "") log += ", "; log += format_number(speedPercentGained) + "% baking speed"; }
+            pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
+            pool.play_stationary("sounds/misc/store_order.ogg", false);
+            speak("Bulk purchase complete! You gained " + log + " for a total of " + format_number(totalSpent) + " coins.");
+        }
+        else
+            speak("Nothing affordable to buy.");
+        bakercategorymenu(items, chosenMenu);
         return;
     }
     for (uint i = 0; i < items.length(); i++)
@@ -424,8 +620,8 @@ void bakermenu()
         if (sel == "locked" + string(i))
         {
             pool.play_stationary("sounds/misc/storefail.ogg", false);
-            dlg("This item is locked. You need to reach rank " + string(items[i].min_rank) + " to unlock it.");
-            bakermenu();
+            dlg("This item is locked. You need to reach rank " + string(items[i].min_rank) + " to purchase it.");
+            bakercategorymenu(items, chosenMenu);
             return;
         }
         if (sel != "item" + string(i)) continue;
@@ -439,7 +635,7 @@ void bakermenu()
             pool.destroy_sound(alertslot);
             pool.play_stationary("sounds/misc/storefail.ogg", false);
             dlg("Error! Please enter a valid number to buy!");
-            bakermenu();
+            bakercategorymenu(items, chosenMenu);
             return;
         }
         double totalCost = calc_total_upgrade_cost(level, quantity, items[i].base_cost, items[i].cost_multiplier);
@@ -489,17 +685,147 @@ void bakermenu()
             else
                 itemWord = itemName + "s";
             speak("Purchase successful! You bought " + format_number(quantity) + " " + itemWord + " for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextCost) + " coins.");
-            bakermenu();
+            bakercategorymenu(items, chosenMenu);
         }
         else
         {
             pool.play_stationary("sounds/misc/storefail.ogg", false);
             speak("Error! You don't have enough coins to buy " + format_number(quantity) + " " + items[i].item_type + "!");
-            bakermenu();
+            bakercategorymenu(items, chosenMenu);
         }
         return;
     }
 }
+void bundlemenu()
+{
+    bundle_item[] bundles;
+    store_item[] storeItems;
+    store_menu[] storeMenus;
+    parse_bundles(DIRECTORY_APPDATA + "tsatria03/CookyCraze/config/bundle.store", bundles);
+    if (bundles.length() == 0)
+        parse_bundles("data/config/bundle.store", bundles);
+    parse_store("data/config/baker.store", storeItems, storeMenus);
+    setupmenu2();
+    for (uint i = 0; i < bundles.length(); i++)
+    {
+        if (bundles[i].min_rank > 0 && rank < bundles[i].min_rank)
+        {
+            m.add_item(bundles[i].name + ". Unlocked at rank " + string(bundles[i].min_rank) + ". Description: " + bundles[i].description, "locked" + string(i));
+            continue;
+        }
+        double totalCost = 0;
+        for (uint j = 0; j < bundles[i].entries.length(); j++)
+        {
+            for (uint k = 0; k < storeItems.length(); k++)
+            {
+                if (storeItems[k].item_type == bundles[i].entries[j].item_type)
+                {
+                    double level = (storeItems[k].target == 2) ? manulcooky_purchases : (storeItems[k].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+                    totalCost += calc_total_upgrade_cost(level, bundles[i].entries[j].quantity, storeItems[k].base_cost, storeItems[k].cost_multiplier);
+                    break;
+                }
+            }
+        }
+        double canAfford = (totalCost > 0) ? floor(coins / totalCost) : 0;
+        m.add_item(bundles[i].name + ". Costs " + format_number(totalCost) + " coins. You can buy " + format_number(canAfford) + ". Description: " + bundles[i].description, "bundle" + string(i));
+    }
+    m.add_item("back", "back");
+    m.intro_text = "Bundles menu. Please choose a bundle to browse.";
+    int mres = m.run(0, true);
+    string sel = m.get_item_id(mres);
+    if (mres == -1 || sel == "back")
+    {
+        buymenu();
+        return;
+    }
+    if (sel.substr(0, 6) == "locked")
+    {
+        int idx = string_to_int(sel.substr(6));
+        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        dlg("This bundle is locked. You need to reach rank " + string(bundles[idx].min_rank) + " to purchase it.");
+        bundlemenu();
+        return;
+    }
+    if (sel.substr(0, 6) == "bundle")
+    {
+        int idx = string_to_int(sel.substr(6));
+        double totalCost = 0;
+        for (uint j = 0; j < bundles[idx].entries.length(); j++)
+        {
+            for (uint k = 0; k < storeItems.length(); k++)
+            {
+                if (storeItems[k].item_type == bundles[idx].entries[j].item_type)
+                {
+                    double level = (storeItems[k].target == 2) ? manulcooky_purchases : (storeItems[k].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+                    totalCost += calc_total_upgrade_cost(level, bundles[idx].entries[j].quantity, storeItems[k].base_cost, storeItems[k].cost_multiplier);
+                    break;
+                }
+            }
+        }
+        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+        string input = vd.input_box("", "How many " + bundles[idx].name + " would you like to buy? Press enter to buy 1.", "1");
+        double qty = string_to_number(input);
+        if (qty <= 0)
+        {
+            pool.destroy_sound(alertslot);
+            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            dlg("Error! Please enter a valid number to buy!");
+            bundlemenu();
+            return;
+        }
+        double grandTotal = totalCost * qty;
+        if (coins < grandTotal)
+        {
+            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            speak("Error! You don't have enough coins to buy " + format_number(qty) + " " + bundles[idx].name + "!");
+            bundlemenu();
+            return;
+        }
+        coins -= grandTotal;
+        string gainLog = "";
+        double autoGained = 0, manulGained = 0, speedGained = 0;
+        for (uint j = 0; j < bundles[idx].entries.length(); j++)
+        {
+            for (uint k = 0; k < storeItems.length(); k++)
+            {
+                if (storeItems[k].item_type == bundles[idx].entries[j].item_type)
+                {
+                    double amount = bundles[idx].entries[j].quantity * qty;
+                    if (storeItems[k].target == 1)
+                    {
+                        autocooky += amount * storeItems[k].amount;
+                        autocooky_purchases += amount;
+                        autoGained += amount * storeItems[k].amount;
+                    }
+                    else if (storeItems[k].target == 2)
+                    {
+                        manulcooky += amount * storeItems[k].amount;
+                        manulcooky_purchases += amount;
+                        manulGained += amount * storeItems[k].amount;
+                    }
+                    else if (storeItems[k].target == 3)
+                    {
+                        cookyspeed += amount * storeItems[k].amount;
+                        clicktime -= amount * storeItems[k].amount;
+                        cookyspeed_purchases += amount;
+                        speedGained += amount * storeItems[k].amount;
+                    }
+                    break;
+                }
+            }
+        }
+        if (autoGained > 0) { if (gainLog != "") gainLog += ", "; gainLog += format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"); }
+        if (manulGained > 0) { if (gainLog != "") gainLog += ", "; gainLog += format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"); }
+        if (speedGained > 0) { if (gainLog != "") gainLog += ", "; gainLog += format_number(speedGained) + "ms baking speed"; }
+        pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
+        pool.play_stationary("sounds/misc/store_order.ogg", false);
+        string bundleWord = (qty == 1) ? "bundle" : "bundles";
+        speak("Purchase successful! You bought " + format_number(qty) + " " + bundles[idx].name + " " + bundleWord + " for " + format_number(grandTotal) + " coins. You gained " + gainLog + ".");
+        bundlemenu();
+        return;
+    }
+}
+
 void preffsmenu()
 {
 form.reset();

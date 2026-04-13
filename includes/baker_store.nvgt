@@ -1,3 +1,11 @@
+class store_menu
+{
+    string alias;
+    string name;
+    int min_rank;
+    string description;
+}
+
 class store_item
 {
     string item_type;
@@ -7,15 +15,17 @@ class store_item
     double amount;
     int min_rank;
     bool use_percent;
+    string menu;
     string description;
 }
 
-store_item[]@ parse_store_items(string filepath)
+void parse_store(string filepath, store_item[]@ items_out, store_menu[]@ menus_out)
 {
-    store_item[] items;
     file f;
     if (!f.open(filepath, "r"))
-        return items;
+        return;
+    store_menu[] menuDefs;
+    dictionary menuAliases;
     while (!f.eof)
     {
         string line = f.read_line();
@@ -23,12 +33,46 @@ store_item[]@ parse_store_items(string filepath)
             line = line.substr(0, line.length() - 1);
         if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
             continue;
+        int eq = line.find("=");
+        if (eq != -1)
+        {
+            string alias = line.substr(0, eq);
+            string rest = line.substr(eq + 1);
+            store_menu sm;
+            sm.alias = alias;
+            int pipe1 = rest.find("|");
+            if (pipe1 != -1)
+            {
+                sm.name = rest.substr(0, pipe1);
+                string rest2 = rest.substr(pipe1 + 1);
+                int pipe2 = rest2.find("|");
+                if (pipe2 != -1)
+                {
+                    sm.min_rank = string_to_int(rest2.substr(0, pipe2));
+                    sm.description = rest2.substr(pipe2 + 1);
+                }
+                else
+                {
+                    sm.min_rank = string_to_int(rest2);
+                    sm.description = "";
+                }
+            }
+            else
+            {
+                sm.name = rest;
+                sm.min_rank = 0;
+                sm.description = "";
+            }
+            menuAliases.set(alias, sm.name);
+            menuDefs.insert_last(sm);
+            continue;
+        }
         string[] parts;
         int lastPos = 0;
         int colonCount = 0;
         for (uint i = 0; i < line.length(); i++)
         {
-            if (line.substr(i, 1) == ":" && colonCount < 7)
+            if (line.substr(i, 1) == ":" && colonCount < 8)
             {
                 parts.insert_last(line.substr(lastPos, i - lastPos));
                 lastPos = i + 1;
@@ -36,17 +80,26 @@ store_item[]@ parse_store_items(string filepath)
             }
         }
         parts.insert_last(line.substr(lastPos));
-        if (parts.length() < 8)
+        if (parts.length() < 9)
             continue;
         store_item item;
-        item.item_type = parts[0];
-        item.target = string_to_int(parts[1]);
-        item.base_cost = string_to_number(parts[2]);
-        item.cost_multiplier = string_to_number(parts[3]);
-        item.amount = string_to_number(parts[4]);
-        item.min_rank = string_to_int(parts[5]);
-        item.use_percent = (parts[6] == "true");
-        string desc = parts[7];
+        string menuAlias = parts[0];
+        if (menuAliases.exists(menuAlias))
+        {
+            string resolvedMenu;
+            menuAliases.get(menuAlias, resolvedMenu);
+            item.menu = resolvedMenu;
+        }
+        else
+            item.menu = menuAlias;
+        item.item_type = parts[1];
+        item.target = string_to_int(parts[2]);
+        item.base_cost = string_to_number(parts[3]);
+        item.cost_multiplier = string_to_number(parts[4]);
+        item.amount = string_to_number(parts[5]);
+        item.min_rank = string_to_int(parts[6]);
+        item.use_percent = (parts[7] == "true");
+        string desc = parts[8];
         string amt_str = string(int(item.amount));
         int ph = desc.find("%item_count");
         while (ph != -1)
@@ -55,8 +108,17 @@ store_item[]@ parse_store_items(string filepath)
             ph = desc.find("%item_count");
         }
         item.description = desc;
-        items.insert_last(item);
+        items_out.insert_last(item);
     }
+    for (uint i = 0; i < menuDefs.length(); i++)
+        menus_out.insert_last(menuDefs[i]);
     f.close();
+}
+
+store_item[]@ parse_store_items(string filepath)
+{
+    store_item[] items;
+    store_menu[] menus;
+    parse_store(filepath, items, menus);
     return items;
 }

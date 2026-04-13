@@ -29,6 +29,7 @@ string playername, playername2;
 string currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game1.crz";
 string last_menu_id="";
 string baker_last_item_id="";
+string baker_last_cat_id="";
 string version;
 timer clicktimer;
 file dockfile, dockver, logfile;

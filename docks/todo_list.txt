@@ -1,5 +1,6 @@
 ##These are the things that are already finished from earlier versions of the game.
 
+**Finished. Add a category menu system to the baking upgrades shop so items are grouped into submenus defined in baker.store.
 **Finished. Fix the automation and slot production cost multiplier sliders displaying incorrect values.
 **Finished. Fix shop prices scaling incorrectly based on stat values instead of purchase counts.
 **Finished. Add a toggle to evenly distribute cookie production across manual slots.
