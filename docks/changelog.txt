@@ -1,4 +1,16 @@
 New in 4.0.
+Renamed some sounds in the game where appropriate.
+Removed the redundant achievement sound from the achievements menu when reading an already unlocked achievement. The sound now only plays when an achievement is first earned during play.
+Added some new sounds for recieving textual achievements.
+Fixed a bug where all of the statistics were not being reset when starting a new game, causing achievements to fire incorrectly on a fresh save.
+Fixed a bug where starting a new game without closing the application would block achievements from firing on the new save. The unlocked achievement state is now cleared as part of the game reset.
+Fixed a bug where all of the achievements would fire at once on game load. Already earned achievements are now silently pre-populated on startup and after reloading, so only newly earned ones announce during play.
+Added an achievements buffer to track all achievements earned during play. Achievements that unlock passively are announced non-interruptively through the buffer, while reading one from the menu shows a dismissible dialog.
+Added an achievements system with 100 achievements spread across all tracked statistics. Achievements are shown in a dedicated menu from the main game interface, and each one displays its name and locked or unlocked status. Pressing enter on an unlocked achievement re-speaks its description, and pressing enter on a locked one tells you what you need to do to unlock it. All achievements are fully configurable in achievements.table.
+Fixed a bug where per slot values with the F key was being incorrectly calculated when cookie distribution was enabled.
+Fixed plural bugs with the R and F keys where cookie counts were always spoken as cookies even when the value was exactly 1.
+Fixed a plural bug with the C key where the conditions were in the wrong order, causing the singular and plural branches to never fire correctly.
+Fixed the purchase prompt in the singles shop displaying item names with underscores instead of spaces.
 Corrected spelling and grammar errors throughout the entire changelog and readme files.
 Fixed some inaccuracies found in the configuration file reference section of the readme related to how bundle.store handles its section header, and where category aliases are defined.
 Fixed a bug where bundles would not show up in the shop. This happened because the menu definitions were not being read correctly on startup.

@@ -17,6 +17,8 @@ Reach new ranks by baking cookies. Every rank rewards you with coins, and milest
 
 The coin reward scales with your current rank, so higher ranks pay out more. Certain milestone ranks also award bonus stat boosts on top of the coin reward, such as extra auto cookies or manual cookies. All rewards and unlock ranks are fully configurable in ranks.table.
 
+Regular rank rewards are announced non-interruptively in the background and stored in the ranks buffer. Milestone rank rewards show a dialog you must dismiss, since they carry more significant information.
+
 The singles shop.
 Buy individual stat upgrades using your coins. Three stats are available: auto cookies, manual cookies, and baking speed.
 
@@ -71,7 +73,7 @@ Manage and configure your baking slots to balance automated and manual cookie pr
 There are two types of slots. Auto slots bake cookies passively without any input, scaling with your auto cookie stat. Manual slots multiply the output of each bake press, scaling with your manual cookie stat. You can purchase additional slots of either type, and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual. Both the auto slots and manual slots submenus are locked behind a rank requirement, defaulting to rank 40. The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
 
 Info menu.
-Access the Statistics screen and Baker info screen from a single Info button in the main game interface, located before the Manage baking slots button.
+Access the Statistics screen and Baker info screen from a single Info button in the main game interface.
 
 Statistics screen.
 View a summary of everything you have done in your current playthrough. Open it from the Info menu.
@@ -131,6 +133,13 @@ Current rank: your current rank number.
 Current cookies: how many cookies you have right now.
 Cookies needed for next rank: how many cookies are required to reach the next rank.
 Current coins: how many coins you currently have.
+
+Achievements.
+Track your progress and earn recognition for milestones across every part of the game.
+
+There are 100 achievements spread across all tracked statistics, including baking, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack. Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
+
+Achievements are shown in a dedicated menu accessible from the main game interface. Every achievement is always visible in the list, showing its name followed by locked or unlocked. Pressing enter on an unlocked achievement re-speaks its description. Pressing enter on a locked achievement tells you what you need to do to unlock it. When you earn an achievement during play, the game announces it non-interruptively in the background and stores it in the achievements buffer so you can review it later. Pressing enter on an unlocked achievement in the menu shows a dialog you can read at your own pace.
 
 Save slots.
 
@@ -474,3 +483,29 @@ A pipe separated list of item_type:quantity pairs. Each item_type must match an 
 
 description
 A short description of what this bundle contains and who it is for.
+
+achievements.table
+
+Location: data/config/tables/achievements.table
+
+Defines all achievements in the game.
+
+Format: id:stat:threshold:name:description:hint
+
+id
+The internal identifier for this achievement. Used by the parser only. Must be unique across all entries. Use lowercase letters and underscores, no spaces. Example: first_spin
+
+stat
+The statistic this achievement tracks. Must match one of the tracked statistics in the game. Example: slot_spins, blackjack_wins, cookies_baked
+
+threshold
+The value the stat must reach to unlock this achievement.
+
+name
+The display name shown to the player in the achievements menu and spoken when unlocked. This can be anything you like and does not need to match the id. Example: One Armed Baker
+
+description
+The message spoken to the player when they press enter on an unlocked achievement. Use %threshold% as a placeholder and it will be replaced with the threshold value at display time. This means if you change the threshold, the description updates automatically.
+
+hint
+The message spoken to the player when they press enter on a locked achievement. Supports the same %threshold% placeholder as the description field. Use this to tell the player what they need to do to unlock it.

@@ -151,11 +151,11 @@ void handle_rank_unlock(string unlock)
 {
     if (unlock == "none" || unlock == "") return;
     if (unlock == "blackjack")
-        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+        pool.play_stationary("sounds/misc/alert_big.ogg", false);
     else if (unlock == "flipper")
-        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+        pool.play_stationary("sounds/misc/alert_big.ogg", false);
     else if (unlock == "slots")
-        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+        pool.play_stationary("sounds/misc/alert_big.ogg", false);
     else if (unlock == "slotmanager")
-        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+        pool.play_stationary("sounds/misc/alert_big.ogg", false);
 }

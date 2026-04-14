@@ -22,6 +22,7 @@
 #include"savedata.nvgt"
 #include"baker_store.nvgt"
 #include"bundle_store.nvgt"
+#include"achievements_table.nvgt"
 #include"slots_table.nvgt"
 #include"ranks_table.nvgt"
 #include"jacks_table.nvgt"

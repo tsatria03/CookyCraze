@@ -21,6 +21,8 @@ int bakemode=0,  clicktime=1000-cookyspeed;
 int ambienceIndex=0, musicIndex=0;
 event_item[] loadedEvents;
 event_item[] loadedFlipperEvents;
+achievement_item[] loadedAchievements;
+dictionary achievementsUnlocked;
 int slotManagerUnlockRank = 50;
 string[] slotSymbols;
 payout_item[] slotPayouts;

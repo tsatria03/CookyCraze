@@ -5,9 +5,10 @@ form.create_window("CookyCraze", false);
 int manulbake=form.create_button("Bake cook&ies");
 int shop=form.create_button("Cooky &store");
 int autobake=form.create_button("Enter baking m&ode");
-int infoBtn=form.create_button("I&nfo");
+int achievementsBtn = form.create_button("&Achievements");
     int manageSlots = form.create_button("Manage baking s&lots");
 int minigames=form.create_button("mini &games");
+int infoBtn=form.create_button("I&nfo");
 int preffs=form.create_button("&preferences");
 form.focus(manulbake);
 while(true)
@@ -52,6 +53,12 @@ clicktime=1000;
         if (form.is_pressed(manageSlots))
         {
 manage_baking_slots();
+        }
+        if (form.is_pressed(achievementsBtn))
+        {
+            achievements_menu(loadedAchievements, achievementsUnlocked);
+            form.reset();
+            clickergame();
         }
 if (form.is_pressed(minigames))
 {
@@ -162,7 +169,7 @@ if (cookies >= cookiesrequiered)
     {
         string defaultMsg = apply_rank_reward(rankDefault[0], rank);
         play_rank_sound(lastRewardAmount);
-        if (ranksfx == true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
+        if (ranksfx == true) pool.play_stationary("sounds/misc/rankach" + random(1, 2) + ".ogg", false);
         handle_rank_unlock(rankDefault[0].unlock);
         speak_buffer(defaultMsg, "ranks");
     }
@@ -177,11 +184,12 @@ if (cookies >= cookiesrequiered)
         rank_reward_item@ milestone = matching[random(0, matching.length() - 1)];
         string milestoneMsg = apply_rank_reward(milestone, rank);
         play_rank_sound(lastRewardAmount);
-        if (ranksfx == true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
+        if (ranksfx == true) pool.play_stationary("sounds/misc/rankach" + random(1, 2) + ".ogg", false);
         handle_rank_unlock(milestone.unlock);
         dlg_buffer(milestoneMsg, "ranks");
     }
 }
+check_achievements(loadedAchievements, achievementsUnlocked);
 }
 }
 
@@ -258,6 +266,9 @@ loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
 parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
 parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
 parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+loadedAchievements = parse_achievements("data/config/tables/achievements.table");
+achievementsUnlocked.delete_all();
+init_achievements(loadedAchievements, achievementsUnlocked);
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");
@@ -277,7 +288,10 @@ speak_buffer("You have "+format_number(coins)+" coins available to spend", "misc
 }
 if(key_pressed(KEY_R))
 {
-speak_buffer("You're currently rank "+format_number(rank)+" with "+format_number(cookies)+" cookies. Your next rank requires "+(format_number(cookiesrequiered-cookies))+" cookies.", "misc");
+string rCookyWord = (cookies == 1) ? "cooky" : "cookies";
+double cookiesNeeded = cookiesrequiered - cookies;
+string rNeededWord = (cookiesNeeded == 1) ? "cooky" : "cookies";
+speak_buffer("You're currently rank " + format_number(rank) + " with " + format_number(cookies) + " " + rCookyWord + ". Your next rank requires " + format_number(cookiesNeeded) + " " + rNeededWord + ".", "misc");
 }
 if (key_pressed(KEY_F))
 {
@@ -291,8 +305,8 @@ if (key_pressed(KEY_F))
         double totalCookies;
         if (slotDistribution)
         {
-            cookiesPerSlot = autocooky;
-            totalCookies = autocooky / slotCount;
+            cookiesPerSlot = (slotCount > 0) ? autocooky / slotCount : autocooky;
+            totalCookies = autocooky;
         }
         else
         {
@@ -302,33 +316,26 @@ if (key_pressed(KEY_F))
         if (slotCount > 0)
         {
             string slotWord = (slotCount == 1) ? "slot" : "slots";
+            string perSlotWord = (cookiesPerSlot == 1) ? "cooky" : "cookies";
+            string totalWord = (totalCookies == 1) ? "cooky" : "cookies";
             if (clicktime == 1000)
-                speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies per second. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " cookies per second.", "misc");
+                speak_buffer("You produce " + format_number(cookiesPerSlot) + " " + perSlotWord + " per second per slot. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " " + totalWord + " per second in total.", "misc");
             else
-                speak_buffer("You produce " + format_number(cookiesPerSlot) + " cookies every " + clicktime + " milliseconds. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " cookies every " + clicktime + " milliseconds.", "misc");
+                speak_buffer("You produce " + format_number(cookiesPerSlot) + " " + perSlotWord + " every " + clicktime + " milliseconds per slot. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " " + totalWord + " every " + clicktime + " milliseconds in total.", "misc");
         }
         else
         {
+            string autoWord = (autocooky == 1) ? "cooky" : "cookies";
             if (clicktime == 1000)
-                speak_buffer("You produce " + format_number(autocooky) + " cookies per second.", "misc");
+                speak_buffer("You produce " + format_number(autocooky) + " " + autoWord + " per second.", "misc");
             else
-                speak_buffer("You produce " + format_number(autocooky) + " cookies every " + clicktime + " milliseconds.", "misc");
+                speak_buffer("You produce " + format_number(autocooky) + " " + autoWord + " every " + clicktime + " milliseconds.", "misc");
         }
     }
 if(key_pressed(KEY_C))
 {
-if(cookies>=0)
-{
-speak_buffer("You baked a total of "+format_number(cookies)+" cookies.", "misc");
-}
-else if(cookies>=1)
-{
-speak_buffer("You baked a total of"+cookies+"cooky.", "misc");
-}
-else if(cookies>=2)
-{
-speak_buffer("You baked a total of"+cookies+"cookies.", "misc");
-}
+string cookyCountWord = (cookies == 1) ? "cooky" : "cookies";
+speak_buffer("You baked a total of " + format_number(cookies) + " " + cookyCountWord + ".", "misc");
 }
 if(key_pressed(KEY_J))
 {

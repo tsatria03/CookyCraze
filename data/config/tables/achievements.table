@@ -1,0 +1,125 @@
+; Baking
+first_bite:cookies_baked:1:First Bite:Bake your very first cookie. Every great bakery starts somewhere.:Bake your first cookie to unlock this.
+getting_warmed_up:cookies_baked:100:Getting Warmed Up:Bake %threshold% cookies. The oven is starting to heat up.:Bake %threshold% cookies to unlock this.
+on_a_roll:cookies_baked:1000:On a Roll:Bake %threshold% cookies. You're really getting the hang of this.:Bake %threshold% cookies to unlock this.
+cookie_factory:cookies_baked:10000:Cookie Factory:Bake %threshold% cookies. This is no longer a hobby. This is a business.:Bake %threshold% cookies to unlock this.
+legendary_baker:cookies_baked:100000:Legendary Baker:Bake %threshold% cookies. The baking gods themselves bow before you.:Bake %threshold% cookies to unlock this.
+
+; Economy
+first_coin:coins_earned:50:First Coin:Earn your first coins through selling. A humble beginning to what will surely be a great fortune.:Earn %threshold% coins through selling to unlock this.
+pocket_change:coins_earned:100:Pocket Change:Earn %threshold% coins. Not much, but it's a start.:Earn %threshold% coins to unlock this.
+making_bank:coins_earned:10000:Making Bank:Earn %threshold% coins. The coin reserves are looking healthy.:Earn %threshold% coins to unlock this.
+filthy_rich:coins_earned:1000000:Filthy Rich:Earn %threshold% coins. You could swim in these if you wanted to.:Earn %threshold% coins to unlock this.
+coin_god:coins_earned:1000000000:Coin God:Earn %threshold% coins. At this point coins have lost all meaning.:Earn %threshold% coins to unlock this.
+
+; Upgrades
+first_upgrade:upgrades_purchased:1:First Upgrade:Purchase your first upgrade. Every empire begins with a single investment.:Purchase your first upgrade to unlock this.
+upgrade_enthusiast:upgrades_purchased:50:Upgrade Enthusiast:Purchase %threshold% upgrades. You have a problem, and it's a good one.:Purchase %threshold% upgrades to unlock this.
+upgrade_addict:upgrades_purchased:500:Upgrade Addict:Purchase %threshold% upgrades. The shop owner knows you by name at this point.:Purchase %threshold% upgrades to unlock this.
+upgrade_maniac:upgrades_purchased:5000:Upgrade Maniac:Purchase %threshold% upgrades. You have spent more time in the shop than in the bakery.:Purchase %threshold% upgrades to unlock this.
+upgrade_legend:upgrades_purchased:50000:Upgrade Legend:Purchase %threshold% upgrades. There is nothing left to buy. You have bought it all.:Purchase %threshold% upgrades to unlock this.
+
+; Bundles
+first_bundle:bundles_purchased:1:Bundle of Joy:Purchase your very first bundle. Why buy one thing when you can buy everything at once?:Purchase your first bundle to unlock this.
+bundle_lover:bundles_purchased:10:Bundle Lover:Purchase %threshold% bundles. You have developed a taste for efficiency.:Purchase %threshold% bundles to unlock this.
+bundle_hoarder:bundles_purchased:100:Bundle Hoarder:Purchase %threshold% bundles. The bundle shop is your second home.:Purchase %threshold% bundles to unlock this.
+bundle_fanatic:bundles_purchased:500:Bundle Fanatic:Purchase %threshold% bundles. You don't buy singles anymore. You never did.:Purchase %threshold% bundles to unlock this.
+bundle_overlord:bundles_purchased:5000:Bundle Overlord:Purchase %threshold% bundles. The singles shop weeps knowing you never visit.:Purchase %threshold% bundles to unlock this.
+
+; Events
+first_event:events_fired:1:Things Happen:Trigger your first random event. Baking is full of surprises.:Trigger your first random event to unlock this.
+event_prone:events_fired:50:Event Prone:Trigger %threshold% random events. Life in the bakery is never boring.:Trigger %threshold% random events to unlock this.
+chaos_magnet:events_fired:250:Chaos Magnet:Trigger %threshold% random events. You are a walking disaster and a miracle all at once.:Trigger %threshold% random events to unlock this.
+event_veteran:events_fired:1000:Event Veteran:Trigger %threshold% random events. At this point you have seen everything.:Trigger %threshold% random events to unlock this.
+event_legend:events_fired:5000:Event Legend:Trigger %threshold% random events. The universe itself cannot stop throwing things at your bakery.:Trigger %threshold% random events to unlock this.
+
+; Cooky flipper
+first_flip:flipper_flips:1:Chocolate or Bisket:Flip the cooky for the first time. Luck is on your side. Probably.:Flip the cooky for the first time to unlock this.
+flip_happy:flipper_flips:25:Flip Happy:Flip the cooky %threshold% times. You just can't stop.:Flip the cooky %threshold% times to unlock this.
+flipper_fanatic:flipper_flips:100:Flipper Fanatic:Flip the cooky %threshold% times. This is less about luck and more about obsession at this point.:Flip the cooky %threshold% times to unlock this.
+flipper_addict:flipper_flips:500:Flipper Addict:Flip the cooky %threshold% times. Your thumb is going to fall off.:Flip the cooky %threshold% times to unlock this.
+flipper_legend:flipper_flips:2000:Flipper Legend:Flip the cooky %threshold% times. You have flipped more cookys than you have baked cookies.:Flip the cooky %threshold% times to unlock this.
+
+; Slot machine - spins
+first_spin:slot_spins:1:One Armed Baker:Pull the lever for the first time. The reels are calling your name.:Spin the slot machine for the first time to unlock this.
+spin_novice:slot_spins:10:Spin Novice:Spin the reels %threshold% times. You are just getting started.:Spin the reels %threshold% times to unlock this.
+spin_cycle:slot_spins:25:Spin Cycle:Spin the reels %threshold% times. You are dangerously comfortable with this.:Spin the reels %threshold% times to unlock this.
+reel_regular:slot_spins:50:Reel Regular:Spin the reels %threshold% times. The slot machine recognizes you now.:Spin the reels %threshold% times to unlock this.
+reel_addict:slot_spins:100:Reel Addict:Spin the reels %threshold% times. The sounds of spinning reels haunt your dreams.:Spin the reels %threshold% times to unlock this.
+spin_obsessed:slot_spins:250:Spin Obsessed:Spin the reels %threshold% times. You have a type, and it is spinning things.:Spin the reels %threshold% times to unlock this.
+slot_veteran:slot_spins:500:Slot Veteran:Spin the reels %threshold% times. You have seen every possible outcome at least twice.:Spin the reels %threshold% times to unlock this.
+reel_machine:slot_spins:1000:Reel Machine:Spin the reels %threshold% times. You and the slot machine are practically one at this point.:Spin the reels %threshold% times to unlock this.
+slot_devotee:slot_spins:2500:Slot Devotee:Spin the reels %threshold% times. Other bakers bake cookies. You spin reels.:Spin the reels %threshold% times to unlock this.
+slot_legend:slot_spins:5000:Slot Legend:Spin the reels %threshold% times. The slot machine has become a way of life.:Spin the reels %threshold% times to unlock this.
+
+; Slot machine - wins
+first_slot_win:slot_wins:1:Beginner's Luck:Win on the slot machine for the first time. Don't get used to it.:Win on the slot machine for the first time to unlock this.
+lucky_once:slot_wins:5:Lucky Once:Win on the slot machine %threshold% times. Lightning has struck twice, and then some.:Win on the slot machine %threshold% times to unlock this.
+getting_lucky:slot_wins:10:Getting Lucky:Win on the slot machine %threshold% times. Fortune is starting to take notice of you.:Win on the slot machine %threshold% times to unlock this.
+lucky_streak:slot_wins:25:Lucky Streak:Win on the slot machine %threshold% times. Fortune favors the persistent.:Win on the slot machine %threshold% times to unlock this.
+reel_winner:slot_wins:50:Reel Winner:Win on the slot machine %threshold% times. You know something the other bakers don't.:Win on the slot machine %threshold% times to unlock this.
+high_roller:slot_wins:100:High Roller:Win on the slot machine %threshold% times. The reels love you and you know it.:Win on the slot machine %threshold% times to unlock this.
+slot_charmed:slot_wins:250:Slot Charmed:Win on the slot machine %threshold% times. You were born under a lucky star.:Win on the slot machine %threshold% times to unlock this.
+slot_champion:slot_wins:500:Slot Champion:Win on the slot machine %threshold% times. You have cracked the code. Probably.:Win on the slot machine %threshold% times to unlock this.
+reel_royalty:slot_wins:1000:Reel Royalty:Win on the slot machine %threshold% times. Other players watch in silent awe.:Win on the slot machine %threshold% times to unlock this.
+jackpot_king:slot_wins:2000:Jackpot King:Win on the slot machine %threshold% times. At this point the slot machine is just your personal piggy bank.:Win on the slot machine %threshold% times to unlock this.
+
+; Slot machine - losses
+first_slot_loss:slot_losses:1:Easy Come Easy Go:Lose on the slot machine for the first time. It happens to everyone.:Lose on the slot machine for the first time to unlock this.
+learning_experience:slot_losses:5:Learning Experience:Lose on the slot machine %threshold% times. You are learning a lot. Mostly what not to do.:Lose on the slot machine %threshold% times to unlock this.
+bad_luck_baker:slot_losses:10:Bad Luck Baker:Lose on the slot machine %threshold% times. The reels are not impressed with you.:Lose on the slot machine %threshold% times to unlock this.
+glutton_for_punishment:slot_losses:25:Glutton for Punishment:Lose on the slot machine %threshold% times. You keep coming back for more, and more keeps saying no.:Lose on the slot machine %threshold% times to unlock this.
+slot_punching_bag:slot_losses:50:Slot Punching Bag:Lose on the slot machine %threshold% times. The machine has your number and it is zero.:Lose on the slot machine %threshold% times to unlock this.
+masochist_baker:slot_losses:100:Masochist Baker:Lose on the slot machine %threshold% times. At some point this stopped being bad luck and started being a lifestyle.:Lose on the slot machine %threshold% times to unlock this.
+reels_of_doom:slot_losses:250:Reels of Doom:Lose on the slot machine %threshold% times. The reels spin and you already know how this ends.:Lose on the slot machine %threshold% times to unlock this.
+loss_connoisseur:slot_losses:500:Loss Connoisseur:Lose on the slot machine %threshold% times. You have refined the art of losing to a science.:Lose on the slot machine %threshold% times to unlock this.
+professional_loser:slot_losses:1000:Professional Loser:Lose on the slot machine %threshold% times. You could teach a masterclass in this.:Lose on the slot machine %threshold% times to unlock this.
+born_to_lose:slot_losses:2000:Born to Lose:Lose on the slot machine %threshold% times. The machine has taken everything and you keep feeding it more.:Lose on the slot machine %threshold% times to unlock this.
+
+; Blackjack - hands played
+deal_me_in:blackjack_hands:1:Deal Me In:Play your first hand of blackjack. You sit down at the table with confidence and absolutely no plan.:Play your first hand of blackjack to unlock this.
+card_curious:blackjack_hands:5:Card Curious:Play %threshold% hands of blackjack. You are starting to understand the rules. Maybe.:Play %threshold% hands of blackjack to unlock this.
+table_regular:blackjack_hands:10:Table Regular:Play %threshold% hands of blackjack. The dealer is starting to recognize your face.:Play %threshold% hands of blackjack to unlock this.
+getting_comfortable:blackjack_hands:25:Getting Comfortable:Play %threshold% hands of blackjack. You have settled in nicely at the table.:Play %threshold% hands of blackjack to unlock this.
+card_shark:blackjack_hands:50:Card Shark:Play %threshold% hands of blackjack. The dealer is starting to look nervous.:Play %threshold% hands of blackjack to unlock this.
+seasoned_player:blackjack_hands:100:Seasoned Player:Play %threshold% hands of blackjack. You have seen enough to know what you're doing. Mostly.:Play %threshold% hands of blackjack to unlock this.
+table_veteran:blackjack_hands:250:Table Veteran:Play %threshold% hands of blackjack. You have outlasted every other player at the table.:Play %threshold% hands of blackjack to unlock this.
+blackjack_veteran:blackjack_hands:500:Blackjack Veteran:Play %threshold% hands of blackjack. You have seen every hand the deck has to offer.:Play %threshold% hands of blackjack to unlock this.
+card_obsessed:blackjack_hands:1000:Card Obsessed:Play %threshold% hands of blackjack. The cards are an extension of your hands at this point.:Play %threshold% hands of blackjack to unlock this.
+blackjack_legend:blackjack_hands:2000:Blackjack Legend:Play %threshold% hands of blackjack. You and the dealer have an understanding at this point.:Play %threshold% hands of blackjack to unlock this.
+
+; Blackjack - wins
+first_blackjack_win:blackjack_wins:1:Winner Winner Cookie Dinner:Win your first hand of blackjack. The table is yours.:Win your first hand of blackjack to unlock this.
+double_down:blackjack_wins:5:Double Down:Win %threshold% hands of blackjack. You are building momentum.:Win %threshold% hands of blackjack to unlock this.
+on_a_winning_streak:blackjack_wins:10:On a Winning Streak:Win %threshold% hands of blackjack. Lady luck has taken a liking to you.:Win %threshold% hands of blackjack to unlock this.
+table_dominator:blackjack_wins:25:Table Dominator:Win %threshold% hands of blackjack. The dealer is starting to sweat.:Win %threshold% hands of blackjack to unlock this.
+blackjack_ace:blackjack_wins:50:Blackjack Ace:Win %threshold% hands of blackjack. You make this look easy.:Win %threshold% hands of blackjack to unlock this.
+card_commander:blackjack_wins:100:Card Commander:Win %threshold% hands of blackjack. The table bends to your will.:Win %threshold% hands of blackjack to unlock this.
+unstoppable:blackjack_wins:250:Unstoppable:Win %threshold% hands of blackjack. Nothing can slow you down at this table.:Win %threshold% hands of blackjack to unlock this.
+blackjack_master:blackjack_wins:500:Blackjack Master:Win %threshold% hands of blackjack. The dealer secretly hates you.:Win %threshold% hands of blackjack to unlock this.
+card_legend:blackjack_wins:1000:Card Legend:Win %threshold% hands of blackjack. Other players whisper your name in hushed tones.:Win %threshold% hands of blackjack to unlock this.
+blackjack_god:blackjack_wins:2000:Blackjack God:Win %threshold% hands of blackjack. At this point you aren't even playing cards anymore. You are performing.:Win %threshold% hands of blackjack to unlock this.
+
+; Blackjack - losses
+first_bust:blackjack_losses:1:Busted:Lose your first hand of blackjack. It happens to the best of us. Really.:Lose your first hand of blackjack to unlock this.
+tough_luck:blackjack_losses:5:Tough Luck:Lose %threshold% hands of blackjack. The cards are just not cooperating today.:Lose %threshold% hands of blackjack to unlock this.
+rough_at_the_tables:blackjack_losses:10:Rough at the Tables:Lose %threshold% hands of blackjack. The dealer is starting to feel bad for you. Almost.:Lose %threshold% hands of blackjack to unlock this.
+on_a_losing_streak:blackjack_losses:25:On a Losing Streak:Lose %threshold% hands of blackjack. Maybe take a break. Just a suggestion.:Lose %threshold% hands of blackjack to unlock this.
+dealers_favorite:blackjack_losses:50:Dealer's Favorite:Lose %threshold% hands of blackjack. You are personally funding the dealer's retirement.:Lose %threshold% hands of blackjack to unlock this.
+chronic_loser:blackjack_losses:100:Chronic Loser:Lose %threshold% hands of blackjack. You have a gift. Unfortunately it is for losing.:Lose %threshold% hands of blackjack to unlock this.
+the_house_wins:blackjack_losses:250:The House Always Wins:Lose %threshold% hands of blackjack. You have proven the old saying correct beyond all reasonable doubt.:Lose %threshold% hands of blackjack to unlock this.
+walking_atm:blackjack_losses:500:Walking ATM:Lose %threshold% hands of blackjack. The dealer lights up whenever you sit down.:Lose %threshold% hands of blackjack to unlock this.
+loss_artist:blackjack_losses:1000:Loss Artist:Lose %threshold% hands of blackjack. You have elevated losing to an art form.:Lose %threshold% hands of blackjack to unlock this.
+walking_donation:blackjack_losses:2000:Walking Donation:Lose %threshold% hands of blackjack. You are not playing blackjack anymore. You are just giving things away.:Lose %threshold% hands of blackjack to unlock this.
+
+; Blackjack - pushes
+first_push:blackjack_pushes:1:Too Close to Call:Push your first hand of blackjack. Nobody wins, nobody loses. How unsatisfying.:Push your first hand of blackjack to unlock this.
+push_it:blackjack_pushes:5:Push It:Push %threshold% hands of blackjack. You have a talent for landing exactly where the dealer lands.:Push %threshold% hands of blackjack to unlock this.
+mirror_image:blackjack_pushes:10:Mirror Image:Push %threshold% hands of blackjack. You and the dealer are finishing each other's sentences.:Push %threshold% hands of blackjack to unlock this.
+tie_enthusiast:blackjack_pushes:25:Tie Enthusiast:Push %threshold% hands of blackjack. You don't win, you don't lose, you just exist at the table.:Push %threshold% hands of blackjack to unlock this.
+tie_specialist:blackjack_pushes:50:Tie Specialist:Push %threshold% hands of blackjack. You have made an art out of going nowhere.:Push %threshold% hands of blackjack to unlock this.
+perpetual_standoff:blackjack_pushes:100:Perpetual Standoff:Push %threshold% hands of blackjack. The dealer mirrors your every move. It is getting eerie.:Push %threshold% hands of blackjack to unlock this.
+deadlock:blackjack_pushes:250:Deadlock:Push %threshold% hands of blackjack. Neither side will yield. Neither side ever does.:Push %threshold% hands of blackjack to unlock this.
+perpetual_draw:blackjack_pushes:500:Perpetual Draw:Push %threshold% hands of blackjack. You have achieved a perfect balance of winning nothing and losing nothing.:Push %threshold% hands of blackjack to unlock this.
+tie_machine:blackjack_pushes:1000:Tie Machine:Push %threshold% hands of blackjack. Scientists have been called in to study you.:Push %threshold% hands of blackjack to unlock this.
+push_legend:blackjack_pushes:2000:Push Legend:Push %threshold% hands of blackjack. You have achieved something that defies all probability. Congratulations on absolutely nothing.:Push %threshold% hands of blackjack to unlock this.

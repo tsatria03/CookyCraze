@@ -12,6 +12,7 @@ exit();
 }
 else
 {
+create_buffer("achievements");
 create_buffer("critical");
 create_buffer("events");
 create_buffer("general");
@@ -42,7 +43,9 @@ if (rankSounds.length() == 0 || rankDefault.length() == 0)
     exit();
 }
 parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+loadedAchievements = parse_achievements("data/config/tables/achievements.table");
 readdata();
+init_achievements(loadedAchievements, achievementsUnlocked);
 readpreffs();
 readpreffs2();
 readpreffs3();
@@ -134,6 +137,20 @@ dockver.close();
 }
 void resetgame()
 {
+achievementsUnlocked.delete_all();
+stat_cookies_baked=0;
+stat_coins_earned=0;
+stat_upgrades_purchased=0;
+stat_bundles_purchased=0;
+stat_events_fired=0;
+stat_flipper_flips=0;
+stat_slot_spins=0;
+stat_slot_wins=0;
+stat_slot_losses=0;
+stat_jack_hands=0;
+stat_jack_wins=0;
+stat_jack_losses=0;
+stat_jack_pushes=0;
 autocooky=0;
 autocooky_purchases=0;
 manulcooky_purchases=0;

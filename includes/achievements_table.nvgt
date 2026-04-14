@@ -1,0 +1,148 @@
+class achievement_item
+{
+    string id;
+    string stat;
+    double threshold;
+    string name;
+    string description;
+    string hint;
+}
+
+achievement_item[] parse_achievements(string filepath)
+{
+    achievement_item[] items;
+    file f;
+    if (!f.open(filepath, "r"))
+        return items;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        string[] parts;
+        int lastPos = 0;
+        int colonCount = 0;
+        for (uint i = 0; i < line.length(); i++)
+        {
+            if (line.substr(i, 1) == ":" && colonCount < 5)
+            {
+                parts.insert_last(line.substr(lastPos, i - lastPos));
+                lastPos = i + 1;
+                colonCount++;
+            }
+        }
+        parts.insert_last(line.substr(lastPos));
+        if (parts.length() < 6)
+            continue;
+        achievement_item item;
+        item.id = parts[0];
+        item.stat = parts[1];
+        item.threshold = string_to_number(parts[2]);
+        item.name = parts[3];
+        item.description = parts[4];
+        item.hint = parts[5];
+        string threshStr = string(int(item.threshold));
+        int ph = item.description.find("%threshold%");
+        while (ph != -1)
+        {
+            item.description = item.description.substr(0, ph) + threshStr + item.description.substr(ph + 11);
+            ph = item.description.find("%threshold%");
+        }
+        ph = item.hint.find("%threshold%");
+        while (ph != -1)
+        {
+            item.hint = item.hint.substr(0, ph) + threshStr + item.hint.substr(ph + 11);
+            ph = item.hint.find("%threshold%");
+        }
+        items.insert_last(item);
+    }
+    f.close();
+    return items;
+}
+
+double get_stat_value(string stat)
+{
+    if (stat == "cookies_baked") return stat_cookies_baked;
+    if (stat == "coins_earned") return stat_coins_earned;
+    if (stat == "upgrades_purchased") return stat_upgrades_purchased;
+    if (stat == "bundles_purchased") return stat_bundles_purchased;
+    if (stat == "events_fired") return stat_events_fired;
+    if (stat == "flipper_flips") return stat_flipper_flips;
+    if (stat == "slot_spins") return stat_slot_spins;
+    if (stat == "slot_wins") return stat_slot_wins;
+    if (stat == "slot_losses") return stat_slot_losses;
+    if (stat == "blackjack_hands") return stat_jack_hands;
+    if (stat == "blackjack_wins") return stat_jack_wins;
+    if (stat == "blackjack_losses") return stat_jack_losses;
+    if (stat == "blackjack_pushes") return stat_jack_pushes;
+    if (stat == "rank") return rank;
+    return 0;
+}
+
+void init_achievements(achievement_item[]@ achievements, dictionary@ unlocked)
+{
+    for (uint i = 0; i < achievements.length(); i++)
+    {
+        if (get_stat_value(achievements[i].stat) >= achievements[i].threshold)
+            unlocked.set(achievements[i].id, true);
+    }
+}
+
+void check_achievements(achievement_item[]@ achievements, dictionary@ unlocked)
+{
+    for (uint i = 0; i < achievements.length(); i++)
+    {
+        if (unlocked.exists(achievements[i].id))
+            continue;
+        if (get_stat_value(achievements[i].stat) >= achievements[i].threshold)
+        {
+            unlocked.set(achievements[i].id, true);
+            show_achievement(achievements[i]);
+        }
+    }
+}
+
+void show_achievement(achievement_item@ item)
+{
+    pool.play_stationary("sounds/misc/gameach" + random(1, 2) + ".ogg", false);
+    speak_buffer("Achievement unlocked! " + item.name + ". " + item.description, "achievements");
+}
+
+void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked)
+{
+    while (true)
+    {
+wait(5);
+        setupmenu(false);
+        for (uint i = 0; i < achievements.length(); i++)
+        {
+            bool isUnlocked = unlocked.exists(achievements[i].id);
+            string label = achievements[i].name + ", " + (isUnlocked ? "unlocked" : "locked");
+            m.add_item(label, achievements[i].id);
+        }
+        m.add_item("Back", "back");
+        m.intro_text = "Achievements menu. " + string(unlocked.get_keys().length()) + " of " + string(achievements.length()) + " unlocked.";
+        int res = m.run();
+        if (res == -1)
+            break;
+        string sel = m.get_item_id(res);
+        if (sel == "back")
+            break;
+        for (uint i = 0; i < achievements.length(); i++)
+        {
+            if (achievements[i].id != sel) continue;
+            if (unlocked.exists(achievements[i].id))
+            {
+                dlgmessage_return(achievements[i].name + ". " + achievements[i].description);
+            }
+            else
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlgmessage_return("This achievement is locked. " + achievements[i].hint);
+            }
+            break;
+        }
+    }
+}

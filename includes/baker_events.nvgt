@@ -241,7 +241,7 @@ void play_event_sounds(event_item@ item)
 {
     if (eventsfx == false) return;
     if (item.polarity == 1)
-        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+        pool.play_stationary("sounds/misc/alert_big.ogg", false);
     else
         pool.play_stationary("sounds/misc/alert_small.ogg", false);
     if (item.sound != "" && item.sound != "none")
