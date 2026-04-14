@@ -110,8 +110,11 @@ void check_achievements(achievement_item[]@ achievements, dictionary@ unlocked)
 
 void show_achievement(achievement_item@ item)
 {
-    pool.play_stationary("sounds/misc/gameach" + random(1, 2) + ".ogg", false);
-    speak_buffer("Achievement unlocked! " + item.name + ". " + item.description, "achievements");
+    if (achsfx == true) pool.play_stationary("sounds/misc/gameach" + random(1, 2) + ".ogg", false);
+    if (bakemode == 1)
+        speak_buffer("Achievement unlocked! " + item.name + ". " + item.description, "achievements");
+    else
+        dlg_buffer("Achievement unlocked! " + item.name + ". " + item.description, "achievements");
 }
 
 int count_category(achievement_item[]@ achievements, string[]@ stats)

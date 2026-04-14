@@ -288,7 +288,7 @@ void show_baker_statistics()
 {
     string txt = "";
     txt += "Baking\r\n";
-    txt += "Bakes performed: " + format_number(stat_cookies_baked) + "\r\n";
+    txt += "Bakes performed: " + format_number(stat_bakes_performed) + "\r\n";
     txt += "\r\n";
     txt += "Baking slots manager\r\n";
     txt += "Auto slots purchased: " + format_number(stat_auto_slots_purchased) + "\r\n";

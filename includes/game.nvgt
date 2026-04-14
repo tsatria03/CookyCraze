@@ -107,16 +107,19 @@ speak_buffer("You need at least 1 manule cooky to start baking cookies.", "gener
 }
 else if(manulcooky>=1)
 {
+    double manualGain = 0;
     if (manualSlots > 0)
     {
         if (manualSlotDistribution)
-            cookies += manulcooky;
+            manualGain = manulcooky;
         else
-            cookies += manulcooky * manualSlots;
+            manualGain = manulcooky * manualSlots;
     }
     else
-        cookies += manulcooky;
-stat_cookies_baked++;
+        manualGain = manulcooky;
+    cookies += manualGain;
+stat_cookies_baked += manualGain;
+stat_bakes_performed++;
 pool.play_stationary("sounds/misc/manulbake.ogg", false);
 if(playervents2==true) attempt_manebaker_event(evchanse2);
 }
@@ -143,6 +146,7 @@ if(bakemode==1 and autocooky>=1)
 {
 if(clicktimer.elapsed>=clicktime)
 {
+double autoGain = 0;
 if (autobakeSlots > 0)
 {
 double perSlot = autocooky;
@@ -154,15 +158,17 @@ if (slotDistribution && autobakeSlots > 0)
 {
             if (autobakeSlotEnabled[i])
 {
-cookies += perSlot;
+autoGain += perSlot;
 }
 }
 }
 else
 {
-cookies += autocooky;
+autoGain = autocooky;
 }
-stat_cookies_baked++;
+cookies += autoGain;
+stat_cookies_baked += autoGain;
+stat_bakes_performed++;
 if(bakesfx==true) pool.play_stationary("sounds/misc/autobake.ogg", false);
 if(playervents==true) attempt_autobaker_event(evchanse);
 clicktimer.restart();
@@ -198,7 +204,10 @@ if (cookies >= cookiesrequiered)
         play_rank_sound(lastRewardAmount);
         if (ranksfx == true) pool.play_stationary("sounds/misc/rankach" + random(1, 2) + ".ogg", false);
         handle_rank_unlock(milestone.unlock);
-        dlg_buffer(milestoneMsg, "ranks");
+        if (bakemode == 1)
+            speak_buffer(milestoneMsg, "critical");
+        else
+            dlg_buffer(milestoneMsg, "critical");
     }
 }
 check_achievements(loadedAchievements, achievementsUnlocked);
@@ -331,9 +340,9 @@ if (key_pressed(KEY_F))
             string perSlotWord = (cookiesPerSlot == 1) ? "cooky" : "cookies";
             string totalWord = (totalCookies == 1) ? "cooky" : "cookies";
             if (clicktime == 1000)
-                speak_buffer("You produce " + format_number(cookiesPerSlot) + " " + perSlotWord + " per second per slot. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " " + totalWord + " per second in total.", "misc");
+                speak_buffer("You produce " + format_number(cookiesPerSlot) + " " + perSlotWord + " per second. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " " + totalWord + " per second.", "misc");
             else
-                speak_buffer("You produce " + format_number(cookiesPerSlot) + " " + perSlotWord + " every " + clicktime + " milliseconds per slot. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " " + totalWord + " every " + clicktime + " milliseconds in total.", "misc");
+                speak_buffer("You produce " + format_number(cookiesPerSlot) + " " + perSlotWord + " every " + clicktime + " milliseconds. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " " + totalWord + " every " + clicktime + " milliseconds.", "misc");
         }
         else
         {

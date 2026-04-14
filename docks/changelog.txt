@@ -1,4 +1,8 @@
 New in 4.2.
+Made it so milestone rank rewards and achievement unlocks now show as dismissible dialogs when baking mode is off, and are delivered non-interruptively through the buffer when baking mode is on. This prevents interruptions during automated play, while still making sure you don't miss anything when baking manually.
+Made it so milestone rank rewards now go to the critical buffer instead of the ranks buffer, so they are harder to miss. Regular rank announcements still go to the ranks buffer as before.
+Fixed a bug where the cookies baked stat was counting bake cycles instead of actual cookies produced, causing baking achievements to never fire and progress to show incorrect values. The stat now tracks real cookie output, so achievements unlock at the right thresholds. A separate bakes performed counter has been added to the baker statistics screen to preserve that information.
+Added a toggle to the game settings menu to enable or disable achievement sound effects when unlocking achievements.
 Made it so auto baking now works even when no baking slots have been purchased yet. Auto baking falls back to using your full auto cookie value directly when no slots are owned, so new players can benefit from using the baking mode before ever touching the baking slots manager.
 New in 4.1.
 Moved the baking slots manager section to immediately after baking in both the baker statistics screen and the achievement statistics screen, so related information is grouped together rather than appearing at the end.

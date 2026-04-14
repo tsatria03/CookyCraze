@@ -140,6 +140,7 @@ void resetgame()
 achievementsUnlocked.delete_all();
 achievements_last_id="";
 stat_cookies_baked=0;
+stat_bakes_performed=0;
 stat_coins_earned=0;
 stat_upgrades_purchased=0;
 stat_bundles_purchased=0;
