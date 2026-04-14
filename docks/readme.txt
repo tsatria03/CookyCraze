@@ -1,16 +1,16 @@
 Welcome to Cooky Craze!
-In this game, you bake and sell cookies to earn coins, climb the ranks, and build the ultimate automated bakery. Start out clicking manually, then invest your coins into upgrades, unlock minigames, and automate your production until cookies are practically baking themselves. Every rank you reach brings a reward, and milestones along the way to unlock powerful new features. Can you reach the highest rank and become the ultimate baker? Let's find out!
+In this game, you bake and sell cookies to earn coins, climb the ranks, and build the ultimate automated bakery. Start out clicking manually, then invest your coins into upgrades, unlock minigames, and automate your production until cookies are practically baking themselves. Every rank you reach brings a reward, and milestones along the way unlock powerful new features. Can you reach the highest rank and become the ultimate baker? Let's find out!
 
 Game features
 
 Baking and selling cookies.
-Bake cookies and sell them to earn coins. The more you bake, the higher your rank and the more you earn.
+Bake cookies and sell them to earn coins. The more you bake, the higher your rank, and the more you earn.
 
 You can bake manually by pressing the bake button, or let auto-baking handle it passively. Every cookie baked counts toward your rank progress. Your earnings per bake scale with your rank, so the further you progress, the faster coins accumulate.
 
-To sell cookies and earn coins, enter the cooky store and choose the sell option. You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in. Press enter to sell everything you have, or type a smaller number to sell only part of your supply. Each cookie sells for a fixed rate, so the more you bake before selling the larger your payout.
+To sell cookies and earn coins, enter the cooky store and choose the sell option. You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in. Press enter to sell everything you have, or type a smaller number to sell only part of your supply. Each cookie sells for a fixed rate, so the more you bake before selling, the larger your payout.
 
-Baking mode is a toggle that activates automatic cookie production. To enable it you need at least one auto cookie. Once active, cookies are baked automatically on a timed cycle without any input needed. You can still press the bake button manually while baking mode is running to get an extra boost on top of the automatic output. Baking mode turns off automatically if your auto cookie count drops to zero.
+Baking mode is a toggle that activates automatic cookie production. To enable it, you need at least one auto cookie. Once active, cookies are baked automatically on a timed cycle without any input needed. You can still press the bake button manually while baking mode is running to get an extra boost on top of the automatic output. Baking mode turns off automatically if your auto cookie count drops to zero.
 
 Ranking up.
 Reach new ranks by baking cookies. Every rank rewards you with coins, and milestone ranks unlock new features.
@@ -26,7 +26,7 @@ There are four ways to purchase in the singles shop.
 
 The first is buying a single item at a custom quantity. Select any item in a category and you will be prompted to enter how many you want. Type the exact number you want and confirm to buy precisely that amount at the current price.
 
-The second is buying a single item at the maximum quantity. When the purchase prompt appears the maximum number you can currently afford is already filled in. Simply press enter without typing anything and the game buys as many of that item as your coins allow in one transaction.
+The second is buying a single item at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in. Simply press enter without typing anything and the game buys as many of that item as your coins allow in one transaction.
 
 The third is buying all affordable items at a custom quantity. At the bottom of each category is a buy all affordable items option, which appears whenever at least one item in the category is within your budget. Selecting it prompts you for a quantity. Type a number and the game buys that many of every affordable item in the category at once, skipping any you cannot afford. This lets you spread a large purchase across multiple stats in a single action instead of visiting each item individually.
 
@@ -39,26 +39,26 @@ Bundles are organized into categories by rank, spanning the full progression of 
 
 One important thing to understand about bundle pricing: bundles do not have their own fixed prices. Instead, the game uses the singles shop as a backend price engine. When you go to buy a bundle, the game looks up the current price of each item inside it from the singles shop, based on how many of that item you have already bought, and adds them all up to get the bundle's total cost. This means bundle prices scale up naturally as you progress, just like singles do. The more upgrades you have already bought, the more expensive both the singles and the bundles become. The advantage of bundles is that they package multiple items into one convenient purchase, so you get more total stats per transaction than buying the same items one at a time.
 
-Bundles support the same quantity system as the singles shop. When you select a bundle you are prompted for how many you want to buy, with the maximum you can currently afford already filled in. You can type a specific number to buy exactly that many, or press enter to buy as many as your coins allow. The total cost shown in the menu is always per bundle, so the game multiplies that by your chosen quantity at checkout.
+Bundles support the same quantity system as the singles shop. When you select a bundle, you are prompted for how many you want to buy, with the maximum you can currently afford already filled in. You can type a specific number to buy exactly that many, or press enter to buy as many as your coins allow. The total cost shown in the menu is always per bundle, so the game multiplies that by your chosen quantity at checkout.
 
-The key difference between bundles and the singles shop bulk buy is not price, but convenience. Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats. A bundle packages a curated combination of stats into a single purchase, so you can upgrade auto cookies, manual cookies, and baking speed all at once without any extra navigation. The cost works out the same either way since both use the singles shop prices as the foundation.
+The key difference between bundles and the singles shop bulk buy is not price, but convenience. Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats. A bundle packages a curated combination of stats into a single purchase, so you can upgrade auto cookies, manual cookies, and baking speed all at once without any extra navigation. The cost works out the same either way, since both use the singles shop prices as the foundation.
 
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
 
-Events can give or take auto cookies, manual cookies, baking speed, and more. Some are percentage based, others are flat amounts. Events fire automatically during gameplay and are fully configurable in baker.event.
+Events can give or take auto cookies, manual cookies, baking speed, and more. Some are percentage based, and others are flat amounts. Events fire automatically during gameplay and are fully configurable in baker.event.
 
 Blackjack. Unlocked at rank 10.
 A card game where you bet an item of your choice and try to reach 21 without going over.
 
-You can bet cookies, coins, auto cookies, manual cookies, or baking speed. A natural 21 on your opening two cards pays out at 1.5 times your bet. A standard win pays double. A tie returns your original bet. The dealer stands at 17 by default. You can draw cards manually or enable automatic drawing in the settings. All payouts, sounds, messages, and bet limits are configurable in jacks.table. A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
+You can bet cookies, coins, auto cookies, manual cookies, or baking speed. A natural 21 on your opening two cards pays out at 1.5 times your bet. A standard win pays double, and a tie returns your original bet. The dealer stands at 17 by default. You can draw cards manually, or enable automatic drawing in the settings. All payouts, sounds, messages, and bet limits are configurable in jacks.table. A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 
 Cooky flipper. Unlocked at rank 20.
 Flip a coin to trigger a random event that can boost or reduce your stats.
 
-Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list. Some events are positive, others are negative, so there is an element of risk. The event list and their effects are fully customizable in flipper.event.
+Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list. Some events are positive, and others are negative, so there is an element of risk. The event list and their effects are fully customizable in flipper.event.
 
-Before flipping you are shown a checkbox list of all available events loaded from flipper.event. You must have at least one positive event and one negative event checked before you can flip. This lets you curate your own risk pool, opting into only the events you are comfortable with or leaving everything checked to get the full range of outcomes.
+Before flipping, you are shown a checkbox list of all available events loaded from flipper.event. You must have at least one positive event and one negative event checked before you can flip. This lets you curate your own risk pool, opting into only the events you are comfortable with, or leaving everything checked to get the full range of outcomes.
 
 Slot machine. Unlocked at rank 30.
 Spin the reels and match symbols to win multiples of your bet.
@@ -68,7 +68,7 @@ Like the other minigames, you choose which item to bet and how much. Payouts dep
 Baking slot manager. Unlocked at rank 40.
 Manage and configure your baking slots to balance automated and manual cookie production.
 
-There are two types of slots. Auto slots bake cookies passively without any input, scaling with your auto cookie stat. Manual slots multiply the output of each bake press, scaling with your manual cookie stat. You can purchase additional slots of either type and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual. Both the auto slots and manual slots submenus are locked behind a rank requirement, defaulting to rank 40. The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
+There are two types of slots. Auto slots bake cookies passively without any input, scaling with your auto cookie stat. Manual slots multiply the output of each bake press, scaling with your manual cookie stat. You can purchase additional slots of either type, and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual. Both the auto slots and manual slots submenus are locked behind a rank requirement, defaulting to rank 40. The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
 
 Info menu.
 Access the Statistics screen and Baker info screen from a single Info button in the main game interface, located before the Manage baking slots button.
@@ -80,7 +80,7 @@ The statistics screen is divided into five sections.
 
 Baking.
 
-Bakes performed: counts every time you press the bake button manually or your auto baking completes a cycle.
+Bakes performed: counts every time you press the bake button manually, or your auto baking completes a cycle.
 
 Economy.
 
@@ -103,7 +103,7 @@ Blackjack.
 
 Hands played: counts every round where a bet was placed and cards were dealt.
 Wins: counts rounds you won, including naturals, hitting 21, and dealer busts.
-Losses: counts rounds where you busted or the dealer beat you.
+Losses: counts rounds where you busted, or the dealer beat you.
 Pushes: counts rounds that ended in a tie, where your original bet was returned.
 
 All stats are saved with your game data and persist between sessions.
@@ -175,8 +175,8 @@ Configuration files for modders
 All configuration files are located in the data/config folder and are split into three subfolders.
 Lines starting with a semicolon, hash, or double slash are treated as comments and ignored by the parser.
 
-Two of the files, ranks.table and slots.table, use section headers in square brackets such as [sounds], [default], [rewards], and [payouts]. These are not cosmetic. The parser uses them to know which format to expect, since each section in those files uses a completely different line structure. Do not remove or rename these headers or the parser will not be able to read the file correctly.
-The other five files, baker.event, flipper.event, jacks.table, baker.store, and bundle.store, do not use functional section headers. Every line in those files follows the same format throughout. They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely without affecting how the game reads the file.
+Two of the files, ranks.table and slots.table, use section headers in square brackets such as [sounds], [default], [rewards], and [payouts]. These are not cosmetic. The parser uses them to know which format to expect, since each section in those files uses a completely different line structure. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
+Four of the remaining files, baker.event, flipper.event, jacks.table, and baker.store, do not use functional section headers. Every line in those files follows the same format throughout. They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely without affecting how the game reads the file. The fifth file, bundle.store, uses one functional section header, [bundles], which marks where the bundle definitions begin. Aliases defined above it are always read regardless of position, but bundle lines are only read after the header appears.
 
 baker.event
 
@@ -213,7 +213,7 @@ cookies    = the player's current cookie count.
 coins      = the player's current coin count.
 autocooky  = the player's auto cookie production rate.
 manulcooky = the player's manual cookie production rate.
-cookyspeed = the player's baking speed. Positive events reduce the interval, negative events increase it.
+cookyspeed = the player's baking speed. Positive events reduce the interval, and negative events increase it.
 
 min_amount and max_amount
 The range of values the effect can roll between. A random value between min and max is chosen each time.
@@ -231,7 +231,7 @@ true  = the rolled amount is treated as a percentage of what the player currentl
 
 chance
 The probability of this event firing when it is selected, from 1 to 100.
-100 means it always fires when chosen. 50 means it fires roughly half the time.
+100 means it always fires when chosen, and 50 means it fires roughly half the time.
 Set to 0 to effectively disable this event without removing it from the file.
 
 description
@@ -248,7 +248,7 @@ flipper.event
 
 Location: data/config/events/flipper.event
 
-Defines events triggered by the cooky flipper minigame. Uses the same format as baker.event except there is no baking_type field since flipper events are always shown as dialogs.
+Defines events triggered by the cooky flipper minigame. Uses the same format as baker.event, except there is no baking_type field since flipper events are always shown as dialogs.
 
 Format: event_name:sound:polarity:target:min_amount:max_amount:use_percent:chance:description
 
@@ -273,7 +273,7 @@ Defines the reward every rank receives automatically. Only one default line is a
 
 Rewards section.
 Format: rank:target:min_amount:max_amount:unlock:message
-Defines special milestone rewards for specific ranks. Multiple lines with the same rank are all valid and one is chosen at random when the player reaches that rank. Milestone rewards fire in addition to the default reward.
+Defines special milestone rewards for specific ranks. Multiple lines with the same rank are all valid, and one is chosen at random when the player reaches that rank. Milestone rewards fire in addition to the default reward.
 
 target
 The stat this reward affects.
@@ -330,7 +330,7 @@ matches
 The number of matching symbols across the reels required to trigger this payout. Use 0 to define the loss outcome. This value should not exceed the number of reels.
 
 multiplier
-How much of the bet is returned to the player. 4 means the player wins 4 times their bet. 0.5 means the player wins half their bet. 0 means the player loses their bet entirely.
+How much of the bet is returned to the player. 4 means the player wins 4 times their bet. 0.5 means the player wins half their bet, and 0 means the player loses their bet entirely.
 
 sound
 The sound file to play when this outcome fires, relative to sounds/misc/.
@@ -412,7 +412,7 @@ Defines the singles shop categories and upgrade items.
 Menu aliases.
 Format: alias=Full Menu Name
 Format with rank and description: alias=Full Menu Name|min_rank|Description
-Define short aliases for menu names at the top of the file. Use the alias as the first field on item lines to assign items to that category. Optionally append a pipe followed by a minimum rank and another pipe followed by a description. Locked categories show their required rank in the shop.
+Define short aliases for menu names at the top of the file. Use the alias as the first field on item lines to assign items to that category. Optionally append a pipe followed by a minimum rank, and another pipe followed by a description. Locked categories show their required rank in the shop.
 
 Item format: menu:item_type:target:base_cost:cost_multiplier:amount:min_rank:use_percent:description
 
@@ -432,7 +432,7 @@ base_cost
 The starting price of this item in coins before any purchases have been made.
 
 cost_multiplier
-How much the cost increases with each purchase. Uses geometric scaling. 1.25 means each purchase costs 25 percent more than the last. 1.0 means the price never changes.
+How much the cost increases with each purchase. Uses geometric scaling. 1.25 means each purchase costs 25 percent more than the last, and 1.0 means the price never changes.
 
 amount
 How much of the target stat is gained per purchase. For flat items this is a fixed number. For percentage items this is the percentage value. For cooky_speed flat items, this is the number of milliseconds the bake interval is reduced by. Use %item_count in the description as a placeholder and it will be replaced with this value.
@@ -456,7 +456,7 @@ Defines the bundle shop categories and bundles.
 
 Category aliases.
 Format: alias=Full Category Name|min_rank|Description
-Defined under the [menus] section header. Works the same as baker.store menu aliases. The min_rank and description are optional.
+Defined at the top of the file, before the [bundles] section header. Works the same as baker.store menu aliases. The min_rank and description are optional.
 
 Bundle format: menu_alias:name:min_rank:item_type:quantity|item_type:quantity|...:description
 
