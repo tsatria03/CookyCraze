@@ -1,123 +1,123 @@
 New in 3.9.
-Added a configurable confirm_threshold key to both slots.table and jacks.table using the format amount:use_percent. When a bet meets or exceeds the threshold, a yes or no confirmation menu appears before the bet is placed. Set use_percent to false for a flat threshold or true to trigger based on a percentage of what the player currently holds. Set the amount to 0 to disable the prompt. Both files default to 1000:false.
-Grouped the Baker info and Statistics screens under a single Info button in the main game interface. Pressing Info opens a small submenu where you can choose which screen to view.
-Added a baker info screen accessible from the Info menu. Press Baker info to open a read-only snapshot of your current production values, slot counts, rank progress, cookies, and coins.
-Added a statistics screen accessible from the Info menu. Press Statistics to open a read-only summary of everything you have done across your playthrough. Tracked stats include bakes performed, coins earned, upgrades purchased, bundles purchased, events fired, flipper flips, slot machine spins, wins, and losses, and blackjack hands, wins, losses, and pushes. All stats save and load with the rest of your game data.
-Moved all configuration file documentation out of the config files themselves and into the readme. All seven config files, baker.event, flipper.event, slots.table, jacks.table, ranks.table, baker.store, and bundle.store, are now comment free and contain only data. The readme now has a full modder reference section documenting every field, every valid value, and every placeholder for each file.
-Rewrote the readme file to cover all current game features. Each feature now has a short summary followed by a more detailed explanation. The file also includes a full keyboard command reference and a configuration file reference for modders.
-The auto slots and manual slots options inside the baking slot manager are now locked behind a configurable rank requirement, defaulting to rank 40. The slot manager menu itself is still accessible, but attempting to enter either submenu before reaching the required rank plays a failure sound and shows a message. The unlock rank is read from ranks.table automatically, so modders can change it without touching any code.
-Added a %item% placeholder to blackjack win messages in jacks.table. It is replaced with the name of the item you bet, so messages now say things like you win and gained 100 coins instead of just you win and gained 100. All three win messages, natural blackjack, standard win, and dealer bust, support this placeholder.
-Made it so blackjack now refocuses on the deal button after every round outcome, matching the way the slot machine refocuses on the spin button after each spin. This means you can immediately place a new bet without navigating back to the deal button manually.
-Added an automatic card drawing toggle for blackjack in the game settings menu. When enabled, card draws are spoken automatically with timed delays between each one and no dismissal is needed. When disabled, each card draw shows a dialog that must be dismissed before the next card is drawn, matching the manual reel mode in the slot machine. The setting saves and loads with the rest of the game preferences.
+Added a bet confirmation prompt to the slot machine and blackjack. When your bet reaches a set amount or percentage, the game asks you to confirm before placing it.
+Grouped the baker info and statistics screens under a single Info button in the main game interface. Pressing it opens a small submenu where you can choose which screen to view.
+Added a baker info screen showing a read-only snapshot of your current production values, slot counts, rank progress, cookies, and coins.
+Added a statistics screen that tracks everything you've done across your playthrough, including bakes performed, coins earned, upgrades purchased, minigame wins and losses, and more. All stats save and load with the rest of your game data.
+Moved all configuration file documentation out of the config files and into the readme. All seven config files are now comment free and contain only data.
+Rewrote the readme file to cover all current game features, including a full keyboard command reference and a configuration file reference for modders.
+Made it so the auto slots and manual slots submenus in the baking slot manager are now locked behind a rank requirement, defaulting to rank 40. The slot manager itself is still accessible, but entering either submenu before reaching the required rank plays a failure sound and shows a message.
+Added a %item% placeholder to blackjack win messages, so they now say things like you won and gained 100 coins instead of just you won and gained 100.
+Made it so blackjack refocuses on the deal button after every round, so you can immediately place a new bet without navigating back to it manually.
+Added an automatic card drawing toggle for blackjack in the game settings menu. When enabled, cards are drawn and spoken automatically with timed delays between each one.
 New in 3.8.
-Added minimum and maximum bet limits to slots.table for the slot machine, matching the same system as blackjack. The min_bet key rejects any bet below the threshold. The max_bet key silently clamps bets above the limit. Setting max_bet to 0 allows unlimited bets.
-Updated ranks.table to include a blackjack unlock entry at rank 10, moving the cooky flipper unlock to rank 20 and the slot machine unlock to rank 30. The ranks.table comment header now documents all three unlock values.
-Fixed a bug where the amount bet was not being subtracted from the player's total before the round began.
-Made it so the card scores and ace counts reset correctly at the end of every round, whether you win, lose, or push.
-Made it so you can no longer bet more than the amount of the item you currently hold.
-Made it so you are required to place a bet before cards are dealt.
-Made it so you don't have to stand every time you get 21 points. The game now automatically resolves the round when your score hits 21.
-Updated jacks.table to reload alongside all other configuration files when Control L is pressed, both in the main game and inside each minigame.
-Added minimum and maximum bet limits to jacks.table. The min_bet key rejects any bet below the threshold. The max_bet key silently clamps bets above the limit. Setting max_bet to 0 allows unlimited bets. Both apply regardless of which item is being bet.
-Added support for betting any item you want in blackjack. This matches the same system as the slot machine. You can bet cookies, coins, auto cookies, auto cookie speeds, or manual cookies. Wins, losses, naturals, and pushes all apply to whichever item you chose. Baking speed bets correctly adjust the bake interval in both directions.
+Added minimum and maximum bet limits to the slot machine, matching the same system already in place for blackjack.
+Updated the rank unlock order so blackjack unlocks at rank 10, the cooky flipper at rank 20, and the slot machine at rank 30.
+Fixed a bug where the amount bet was not being subtracted from the player's total before the round began in blackjack.
+Fixed a bug where card scores and ace counts were not resetting correctly at the end of every round in blackjack.
+Made it so you can no longer bet more than the amount of the item you currently hold in blackjack.
+Made it so you are required to place a bet before cards are dealt in blackjack.
+Made it so the game automatically resolves the round when your score hits 21, so you no longer have to stand manually in blackjack.
+Updated jacks.table to reload alongside all other configuration files when Control L is pressed.
+Added minimum and maximum bet limits to jacks.table for blackjack. Setting max_bet to 0 allows unlimited bets.
+Added support for betting any item you want in blackjack, including cookies, coins, auto cookies, manual cookies, and baking speed.
 New in 3.7.
-Added a fully configurable jacks.table file for blackjack. This supports setting the dealer stand threshold, payout multipliers for naturals, wins, and pushes, minimum and maximum bet limits, sounds for each event, and messages for every outcome.
-Made it so the dealer stands at 17 by default, matching standard casino rules.
-Made it so a natural blackjack, 21 on the opening two cards, pays out at 1.5x the bet. Standard wins pay 2x. Ties return the original bet.
-Added hit and stand actions to blackjack. Hitting draws another card. Standing triggers the dealer to draw until reaching the stand threshold, then the scores are compared.
+Added a fully configurable jacks.table file for blackjack, supporting the dealer stand threshold, payout multipliers, bet limits, sounds, and messages for every outcome.
+Made it so the dealer stands at 17 by default, matching standard casino rules in blackjack.
+Made it so a natural blackjack pays out at 1.5 times your bet, standard wins pay 2 times, and ties return the original bet.
+Added hit and stand actions to blackjack. Hitting draws another card, and standing triggers the dealer to draw until reaching the stand threshold.
 Moved the cooky flipper unlock to rank 20 and the slot machine unlock to rank 30 to make room for blackjack at rank 10.
-Added blackjack as a new minigame, unlocked at rank 10. Players bet an item of their choice and receive two cards to start.
-The cooky store menu and the upgrades sub-menu now remember your last selected position when you return to them, completing full position memory across the entire shop system. All four levels of the shop, the store menu, the upgrades menu, the singles category menu, the singles item menu, the bundles category menu, and the bundles item menu, now restore focus to where you left off.
-Added a new optional %actual% placeholder to the event description format in baker.event and flipper.event. For percentage based events, %actual% is replaced with the real computed stat change rather than the percentage value. This makes event messages more informative by showing both the percentage and the exact amount gained or lost. If omitted from a description the message remains concise as before. All ten built-in percentage events in baker.event have been updated to include the %actual% placeholder. Both baker.event and flipper.event now document both the %amount% and %actual% placeholders in their comment headers.
-Updated the flipper event descriptions to report exact values rather than vague wording. Events that previously said things like you gained some auto-cookies now say you gained %amount% auto-cookies so the player always knows the precise stat change. The baking speed events also now report the exact millisecond value gained or lost.
-Updated the dlg sounds with new ones.
+Added blackjack as a new minigame, unlocked at rank 10. You can bet an item of your choice and receive two cards to start.
+Made it so the entire shop system will now have full position memory. Every level, including the store menu, upgrades menu, category menus, and bundle menus, restores focus to where you left off.
+Added an optional %actual% placeholder to event descriptions in baker.event and flipper.event. For percentage based events, it shows the real computed stat change alongside the percentage value.
+Updated the flipper event descriptions to report exact values gained or lost instead of vague wording.
+Updated the dialog sounds with better ones.
 New in 3.6.
-Bundle purchase messages now show the next bundle cost after a successful purchase, matching the same behaviour as the singles shop. The cost reflects the updated prices after the purchase has been applied.
-Updated the Control L key to also reload all configuration files alongside the save data. This includes baker.event, flipper.event, slots.table, and ranks.table. Changes to any of these files are now picked up without a full game restart. The store files baker.store and bundle.store already reloads every time the shop is opened.
-Made it so bundle purchasing and bulk buying messages now use natural language list formatting, inserting and before the last item in the gain list. For example, you gained 5 auto cookies, 3 manual cookies, and 20ms baking speed instead of a plain comma separated list.
-Fixed the bundle shop purchase and error messages saying the bundle name twice when the name already contained the word bundle, for example Starter Bundle bundle. The word bundle is no longer appended separately and pluralization is handled by adding s directly to the end of the bundle name when the quantity is greater than one.
-Fixed error messages in the singles shop displaying item names with underscores and no pluralization, for example manual_cooky instead of manual cookies. Item names are now formatted the same way as purchase success messages, with underscores replaced by spaces and correct plural forms applied.
-Reorganised the data/config folder into three subfolders. Events are now in data/config/events, tables are now in data/config/tables, and stores are now in data/config/stores.
-Expanded the bundle shop with a full progression of bundles spanning ranks 0 through 500, matching the same rank curve as the singles shop. Bundles are spread across seven categories including Beginner, Advanced, Expert, Veteran, Master, Legendary, and Godlike, with a total of 38 bundles covering all three stat types throughout the entire game.
-Made it so both the category position and the bundle position within a category is now remembered when navigating back, matching the same focus behaviour as the singles shop.
-The bundle shop now shows a category menu first, with each category displaying how many of its bundles you can currently afford out of the total. Locked categories show their required rank and description. Selecting a category opens the bundles within it, and pressing back returns to the category menu.
-Added category support to the bundle shop, mirroring the same system used in the singles shop. Bundle categories are defined in bundle.store using the same alias format as baker.store, supporting an optional minimum rank and description per category.
+Bundle purchase messages now show the next bundle cost after a successful purchase, matching the same behaviour as the singles shop.
+Updated the Control L key to also reload all configuration files alongside the save data. Changes are now picked up without a full game restart.
+Made it so bundle and bulk buy messages now use natural language list formatting, inserting and before the last item in the list.
+Fixed bundle shop messages saying the bundle name twice when the name already contained the word bundle.
+Fixed error messages in the singles shop displaying item names with underscores and no pluralization, for example manual_cooky instead of manual cookies.
+Reorganised the data/config folder into three subfolders for events, tables, and stores.
+Expanded the bundle shop with a full progression of 38 bundles across 7 categories, spanning ranks 0 through 500.
+Made it so both the category position and the bundle position within a category are remembered when navigating back to a previous menu.
+Made it so the bundle shop now shows a category menu first, with each category displaying how many bundles you can currently afford. Locked categories show their required rank.
+Added category support to the bundle shop, mirroring the same system used in the singles shop.
 New in 3.5.
-Fixed a bug in the bundle shop parser where the description field was bleeding into the quantity of the last item in the bundle, causing values like 2:A well-rounded bundle to appear in the menu label. The parser now correctly skips past the item type and quantity colon inside the last pair before searching for the description separator.
-Reorganised the buy upgrades menu into two sub-menus, bundles and singles, listed in alphabetical order. Bundles leads to the bundle shop and singles leads to the existing category upgrade shop. Both return to the buy upgrades menu on back or escape.
-Updated the intro text for the buy upgrades menu, the bundles menu, and the singles menu to be consistent with the rest of the shop.
-Added a bundle shop to the cooky store. Bundles are preset upgrade packages defined in data/config/bundle.store, each combining multiple flat stat upgrades into a single purchase. The shop shows each bundle's dynamic cost calculated from the current shop prices of its component items, so the price scales naturally with your progression just like the normal shop. Bundles can be locked behind a minimum rank. When purchasing a bundle you are asked how many you want to buy, and the total cost is the per-bundle price multiplied by that quantity. After purchasing, the game reports exactly what stats you gained. Twelve bundles ship with the game ranging from the rank 0 Starter Bundle up to the rank 100 Legendary Bundle. New bundles can be added to bundle.store at any time without touching any code.
-Added a bulk buy option to each shop category menu. When at least one item in the category is affordable, a Buy all affordable items entry appears at the bottom of the list. Selecting it prompts you for how many of each item you want to buy, with the maximum affordable quantity as the default. You can type a lower number to buy less of each item, or leave it at the default to spend as much as possible. Each item is individually capped to what you can actually afford, so typing a number higher than what you can afford for a given item simply buys the maximum for that item. The result reports the actual stat gains grouped by type, for example you gained 15 manual cookies, 30 auto cookies, 5% baking speed for a total of 2.73K coins.
-Added milestone rank rewards for ranks 50, 100, 250, and 500 to ranks.table. Ranks 50 and 250 reward bonus auto cookies, and ranks 100 and 500 reward bonus manual cookies. All four rewards scale with the player's current rank using the rank operator, so the amounts grow significantly by the time you reach them.
-The baking upgrades category menu now remembers which category you had selected when you return to it, matching the same focus behaviour as the item menus within each category.
-The baking upgrades category menu now shows how many unlocked items in each category you can currently afford out of the total unlocked items, for example contains 3 of 42 purchasable items. The count updates every time you open the menu, so it reflects your current coin balance and rank. The total always reflects all unlocked items in the category regardless of affordability, while the left number shows only how many of those you can currently afford with your coins. Locked menus continue to show only their rank requirement since their contents are not yet accessible.
-Shop category menus defined in baker.store can now be locked behind a minimum rank and given a description. The alias definition supports an optional pipe separated rank and description, for example usermenu=User Created Items|5|Custom items created by the community. Locked menus appear in the category list showing their required rank and description, and selecting one plays the fail sound and tells the player what rank is needed. Menus without a rank or description continue to work as before.
-Added a category menu system to the baking upgrades shop. Instead of one long list of every item, the shop now shows a category menu first. Each category is defined in baker.store using a short alias at the top of the file, such as autmenu for Auto Baking Menu. Items are assigned to a category by placing the alias as the first field on their line. Adding a new category requires only a new alias definition and no script changes. Pressing back or escape from a category returns you to the category menu rather than all the way out to the store.
+Fixed a bug in the bundle shop where the description field was bleeding into the quantity of the last item in the bundle, causing broken values to appear in the menu label.
+Reorganised the buy upgrades menu into two sub-menus, bundles and singles. Both return to the buy upgrades menu when pressing back or escape.
+Updated the menu text for the buy upgrades menu, the bundles menu, and the singles menu to be consistent with the rest of the shop.
+Added a bundle shop to the cooky store. Bundles are preset upgrade packages with dynamic pricing that scales naturally with your progression. You can buy multiple at once, and the game reports exactly what stats you gained.
+Added a bulk buy option to each shop category menu. Select Buy all affordable items, type how many you want, and each item is individually capped to what you can actually afford.
+Added milestone rank rewards for reaching ranks 50, 100, 250, and 500. Rewards scale with your current rank, so the higher you are when you hit them, the bigger the bonus you'll recieve from those rewards.
+Made it so the baking upgrades category menu now remembers which category you had selected when you return to it.
+Made it so the baking upgrades category menu now shows how many items you can currently afford out of the total unlocked items in each category.
+Shop category menus can now be locked behind a minimum rank and given a description. Locked menus show their required rank, and selecting one plays the fail sound and tells you what rank is needed.
+Added a category menu system to the baking upgrades shop. Instead of one long list, items are now grouped into categories defined in baker.store.
 New in 3.4.
-Updated the todo list file with the latest bug fix and feature improvements made to the game.
-Fixed a long standing bug where the auto slot production and manual slot production cost multiplier sliders in the game settings menu displayed a value of 0.099999999999989X instead of 1X on opening. This was caused by the default multiplier value of 1.001 losing precision when converted to a slider position. The defaults are now 1.01, which maps cleanly to 1X with no floating point errors.
-Fixed a bug where stats such as coins, cookies, auto cookies, manual cookies, and baking speed could display fractional values like 0.76 coins due to floating point drift from percentage events or slot machine payouts. All five stats are now floored to whole numbers every game tick in the main game, and immediately after every slot machine win or loss inside the minigame.
-Fixed a bug where losing a bet in the slot machine could cause a stat to go negative, resulting in values like 0.76 coins. Stats are now clamped to zero immediately after a loss is applied.
-Fixed the slot machine bet confirmation messages. They previously said you placed a bet of X items on coins. They now correctly say you placed a bet of X coins, or the appropriate item name for each bet type.
-Fixed a bug where placing a bet in the slot machine at very large quantities could incorrectly fail with a not enough of that item error. The bet is now clamped to your available amount instead of being rejected, matching the same fix applied to cookie selling.
-Added a toggle to evenly distribute cookie production across manual slots in the game settings menu. When enabled, your manual cookie output is split across your slots rather than multiplied by them, mirroring the existing option for automated slots.
-Fixed a bug where selling cookies at very large quantities could incorrectly fail with a not enough cookies error. This happened because typing the full number back into the input box caused floating point precision loss at large values, making the parsed amount appear slightly higher than the actual cookie count. The sell logic now clamps the typed amount to your available cookies instead of rejecting it, so typing more than you have simply sells everything.
-Removed the levcoins variable entirely. Rank rewards are now applied directly to the target stat by the reward system rather than being accumulated in a middleman variable.
-Replaced the hardcoded rank reward system with a fully data-driven one defined in data/config/ranks.table. Sounds, default per-rank rewards, and milestone rewards are each configured in their own section, supporting stat targets, rank-scaled amounts, optional unlocks, and message placeholders. Milestone rewards fire alongside the default, with multiple entries per rank chosen at random.
+Updated the todo list file with the latest bug fixes and feature improvements made to the game.
+Fixed a long standing bug where the slot production cost multiplier sliders displayed an incorrect value on opening.
+Fixed a bug where stats could display fractional values due to floating point drift. All five stats are now floored to whole numbers every game tick.
+Fixed a bug where losing a bet in the slot machine could cause a stat to go negative.
+Fixed the slot machine bet messages incorrectly saying you placed a bet of X items on coins instead of the correct item name.
+Fixed a bug where placing a very large bet or selling a very large number of cookies could incorrectly fail with a not enough items error. Amounts are now clamped to what you actually have.
+Added a toggle to evenly distribute cookie production across manual slots in the game settings menu, mirroring the existing option for automated slots.
+Fixed a bug where selling cookies at very large quantities could incorrectly fail with a not enough cookies error.
+Removed the levcoins variable. Rank rewards are now applied directly to the target stat instead of being accumulated in a middleman variable.
+Replaced the hardcoded rank reward system with a fully data-driven one, defined in ranks.table. This supports stat targets, rank-scaled amounts, optional unlocks, and message placeholders.
 New in 3.3.
-Made the slot machine reel count configurable via the reels= line in slots.table. The default is 5. If you change this value, make sure no payout match value in the same file exceeds the reel count, otherwise that payout can never be triggered.
-Replaced the hardcoded slot machine symbol list with a data-driven one. Symbols are now defined as a single comma separated line in data/config/slots.table. The alphabetical symbol ordering setting in game settings continues to work as before, with the unordered mode now shuffling the loaded symbols rather than using a second hardcoded list.
-Replaced the hardcoded slot machine payout tiers with a data-driven payout table in slots.table. Each payout line defines the number of matching symbols required, the multiplier applied to the bet, the sound to play, and the message spoken to the player.
-The chance field in flipper.event is now respected when an event fires. Setting an event's chance to less than 100 means it may not fire even when selected, and setting it to 0 effectively disables it without removing it from the file or the checkbox list.
-Made it so all of the flipper events now share the same underlying logic as the main baker event system, including percentage support, rank operators, the zero stat guard, plurality fixes, multiple sounds with random range syntax, and the alert sound for positive and negative events.
-The cooky flipper event list in the game UI is now built dynamically from the loaded flipper events, so any events you add to flipper.event will automatically appear as options in the checkbox list.
-Replaced the hardcoded cooky flipper event system with a fully data-driven one. Flipper events are now defined in data/config/flipper.event and are loaded at startup, making them fully customisable without touching any script. The format is identical to baker.event except there is no baking_type field since flipper events are always shown as dialogs.
-Fixed a bug where shop prices were scaling based on the player's current stat values rather than how many times they had actually purchased upgrades. This caused events and minigame winnings that boosted stats for free to make shop items appear far more expensive than intended. Shop pricing now tracks purchases independently for each stat category, so only actual shop purchases affect the cost of future upgrades.
-Fixed a bug where percentage based events could fire and display zero as the amount affected. Negative events now silently skip if the targeted stat is below 1, preventing messages like you lost 0 auto-cookies from ever appearing.
-Fixed the speed drag event description which previously said your bake interval increased, which sounded like a positive effect. It now correctly says your baking speed has slowed down to make it clear it is a negative event.
+Made the slot machine reel count configurable via slots.table. The default is 5.
+Replaced the hardcoded slot machine symbol list with a data-driven one, defined in slots.table.
+Replaced the hardcoded slot machine payout tiers with a data-driven payout table in slots.table. Each entry defines the number of matches required, the multiplier, the sound, and the message.
+Made it so the chance field in flipper.event is now respected. Setting it to less than 100 means the event may not fire even when selected, and setting it to 0 effectively disables it.
+Made it so all flipper events now share the same underlying logic as the main baker event system, including percentage support, rank operators, and multiple pares of sounds.
+Made it so the cooky flipper event list is now built dynamically from the loaded flipper events, so any events you add to flipper.event will automatically appear as options in the checkbox list.
+Replaced the hardcoded cooky flipper event system with a fully data-driven one defined in flipper.event.
+Fixed a bug where shop prices were scaling based on your current stat values rather than how many times you had actually purchased upgrades. Only actual shop purchases now affect the cost of future upgrades.
+Fixed a bug where percentage based events could fire and display zero as the amount affected. Negative events now silently skip if the targeted stat is below 1.
+Fixed the speed drag event description, which previously sounded like a positive effect. It now correctly says your baking speed has slowed down.
 New in 3.2.
-Fixed a bug where percentage based events could display a decimal amount such as 0.9 instead of a whole number. All stat amounts for cookies, coins, auto-cookies, and manual cookies are now floored to a whole number before being applied and displayed.
-Fixed a bug where negative percentage events could still fire and report losing 0 of a stat when the player's current value of that stat was below 1. The event now silently skips in this case rather than showing a meaningless message.
-Fixed a bug where comma separated sounds in the event file were being split incorrectly when a filename contained a comma inside parentheses, such as burn(1,3).ogg. The sound splitter now ignores commas inside parentheses so random range filenames are resolved correctly.
-Fixed event messages not using the correct singular form when the amount is exactly 1. Words like cookies, coins, auto-cookies, and manual cookies are now replaced with their singular forms throughout the entire message, not just the first occurrence.
-Reworded several built in event descriptions that contained the stat word more than once, which previously caused the wrong occurrence to be singularised. The fire spark, lost coins, and gained manual cookies events have been updated.
-Fixed percentage based events rolling wildly out of range values due to the random function receiving double arguments instead of integers. The rolled amount is now always cast to integer before calling random, matching the rest of the codebase.
-Fixed percentage based events substituting the wrong value into the event message. The %amount% placeholder now correctly shows the rolled percentage for percentage events, rather than the actual computed stat change. For example a coin jackpot event will now say 7 percent instead of the number of coins gained.
-The sound field in the event file now supports multiple sounds separated by commas. Each sound is resolved and played independently, so random ranges like burn(1,3).ogg work per entry. For example, lose.ogg,burn(1,3).ogg plays both sounds when the event fires.
-Added a sound field to the event file format. Each event can now specify its own sound file to play when it fires, relative to the sounds/misc folder. You can use a random range in the filename by writing the number part as (min,max), for example burn(1,3).ogg will randomly pick burn1, burn2, or burn3. Set the field to none to play no additional sound. The alert sound for positive or negative events still plays automatically regardless of this setting.
-Added ten percentage based events to the event file, one positive and one negative for each of the five stat targets. These events scale with how much of a stat you currently have, meaning the richer and more powerful your baker is, the bigger the swing in either direction.
+Fixed a bug where percentage based events could display a decimal amount instead of a whole number.
+Fixed a bug where negative percentage events could still fire and report losing 0 of a stat when the targeted stat was already below 1.
+Fixed a bug where comma separated sounds with parentheses in their filenames, such as burn(1,3).ogg, were being split incorrectly.
+Fixed event messages not using the correct singular form when the amount is exactly 1.
+Reworded several built in event descriptions that contained the stat word more than once, causing the wrong occurrence to be singularised.
+Fixed percentage based events rolling out of range values, and fixed the %amount% placeholder showing the computed stat change instead of the rolled percentage.
+Added a sound field to the event file format. Each event can now specify one or more sounds to play when it fires, and random ranges like burn(1,3).ogg are now supported.
+Made it so the sound field in the event file now supports multiple comma separated sounds. Each one is resolved and played independently when the event fires.
+Added ten percentage based events to the event file, one positive and one negative for each of the five stat targets. These scale with how much of a stat you currently have.
+Updated the todo list file with the latest bug fixes and feature improvements made to the game.
 New in 3.1.
-The F key now only shows the automated slot breakdown once you have at least one automated slot. With none it simply reports your base auto cookie production. Similarly, the J key only shows the manual slot breakdown once you have bought at least one manual slot.
-Made it so players no longer start with a free produced and automated auto slot. Both the slot count and automation count now begin at zero and must be purchased. This applies to new games and resets.
-Reorganised the slot manager into two submenus, auto slots and manual slots, making it easier to manage each system independently. The auto slots submenu contains the existing add and automate options. Slot counts in all menus now correctly say slot or slots depending on the amount.
-Added a manual slots system. You can now produce manual slots from the slot manager menu, each one multiplying the cookies you receive per click by the number of slots you own. Manual slots use their own independent cost scaling separate from auto slots and can be configured in the game settings menu.
-Fixed the purchase message in the baking upgrades menu replacing underscores in item names with spaces and correctly pluralising the item name based on how many were bought.
-The baking upgrades menu now remembers which item you had selected after every action. Purchasing an item, getting an insufficient coins error, or selecting a locked item will all return you to the same position in the menu instead of resetting to the top. Purchase and error messages are now spoken through the screen reader rather than shown as dialogs, so you stay in the menu without having to dismiss anything.
-Fixed a bug where baking events could affect you by 0 of a stat, such as losing 0 auto-cookies. This happened when a rank-scaled amount evaluated to less than 1 at high ranks. The rolled amount is now always at least 1, so events always have a meaningful effect.
-Added percentage based shop items. Items in baker.store can now set use_percent to true so that the amount is applied as a percentage of the player's current stat rather than a flat value. This allows items to scale naturally with how far the player has progressed.
-Made it so locked shop items now appear in the baking upgrades menu instead of being hidden entirely. Items you have not yet reached the rank for will show their name, the rank required to unlock them, and their full description so you know exactly what you are working toward. Selecting a locked item plays the fail sound and tells you the exact rank needed.
-Added many new shop items spanning ranks 5 through 500, giving players a long progression of upgrades to work toward across all three stat categories. Each tier introduces a new auto cooky, manual cooky, and baking speed item with appropriately scaling costs and amounts.
+Made it so the F key now only shows the automated slot breakdown once you have at least one automated slot, and the J key only shows the manual slot breakdown once you have at least one manual slot.
+Made it so players no longer start with a free auto slot. Both the slot count and automation count now begin at zero and must be purchased.
+Reorganised the slot manager into two submenus for auto slots and manual slots, making it easier to manage each system independently.
+Added a manual slots system. You can now produce manual slots from the slot manager, each one multiplying the cookies you receive per click.
+Fixed purchase messages in the baking upgrades menu displaying item names with underscores instead of spaces, and not pluralising correctly.
+Made it so the baking upgrades menu now remembers your last selected item after every action, and purchase and error messages are now spoken through the screen reader instead of shown as dialogs.
+Fixed a bug where baking events could affect you by 0 of a stat at high ranks. The rolled amount is now always at least 1, so events always have a meaningful effect.
+Added percentage based shop items. Items can now apply their amount as a percentage of your current stat rather than a flat value, allowing them to scale with your progression.
+Made it so locked shop items now appear in the baking upgrades menu with their name, required rank, and description, so you always know what you're working toward.
+Added many new shop items spanning ranks 5 through 500, giving players a long progression of upgrades across all three stat categories.
 New in 3.0.
-Fixed a bug where comment lines in the baker.store file were being parsed as valid shop items, causing broken entries to appear in the baking upgrades menu. Both the shop and event parsers now correctly skip any line beginning with a semicolon, hash, or double slash.
-Added detailed comment headers to both data/events/baker.events and data/shop/baker.store explaining each field and its valid values in plain language, making it easier to customize the game without needing to read the source code. Both files support comments using the semicolon, hash, or double slash style, so you can annotate your own entries however you like.
-Added support for rank scaling operators in event amount fields. You can now append star rank, slash rank, plus rank, or minus rank to any min or max amount value in the event file to control how the effect scales with the player's current rank. This allows events to grow stronger, weaker, or diminish entirely as the player progresses.
-Removed the auto-baking and manual-baking event checkbox lists from the game settings menu. Events are now enabled or disabled by setting their chance value to 0 in the baker.events file, making the checkboxes redundant.
-Added the ability to add your own custom events to the game. You are no longer limited to the events the game already provides. Simply add a new line to data/events/baker.events following the documented format, and the game will pick it up automatically on the next launch.
-Replaced the hardcoded event system with a fully data-driven one. Events are now defined in data/events/baker.events, and each event specifies its name, which baking type it applies to, whether it is positive or negative, what stat it affects, a minimum and maximum effect amount, whether the amount is a percentage of the current stat, a per-event chance from 1 to 100, and a description with a %amount% placeholder that gets substituted with the actual calculated value when the event fires.
-Fixed the automation and slot production cost multiplier sliders in the game settings menu. They now correctly map to a range of 1.01 to 2.0, preventing costs from overflowing at large slot and automation counts.
-Fixed a bug where slot production and automation costs could overflow into infinity or scientific notation at large counts. These now use the geometric series formula and are capped at the maximum double value.
-Fixed the number formatting function so that large numbers correctly display short suffixes like M, B, T instead of spoken words. The short and spoken suffix arrays were previously swapped.
-Fixed a bug where selling the maximum amount of cookies could sometimes fail due to floating point precision issues. Cookie counts are now floored before comparing and selling.
-Fixed a bug where placing a bet in the slot machine could incorrectly trigger a not enough items error due to floating point precision. Bet amounts and resource values are now floored before comparing.
-Moved the automatic and manual baking shop menus into a single baking upgrades menu. The item's target field now determines what variable it affects, making separate menus unnecessary.
-Added rank based unlocking for shop items. Items with a minimum rank requirement will only appear in the shop once the player has reached that rank, giving players new content to look forward to as they progress.
-Removed the hardcoded base cost and cost multiplier settings for auto cookies, auto cookie speed, and manual cookies from the game settings menu. These are now configured directly in the baker.store file on a per item basis.
-Added the ability to add your own items to the cooky store. You are no longer limmited to buying the items that the game already provides. Items are defined in data/shops/baker.store, and each item specifies its name, what it affects, base cost, cost multiplier, amount per purchase, minimum rank required, and a description for that item.
-Changed the way sounds are played in the game. The sounds are no longer encripted from now on.
+Fixed a bug where comment lines in baker.store were being parsed as valid shop items, causing broken entries to appear in the baking upgrades menu.
+Added detailed comment headers to baker.event and baker.store explaining each field and its valid values, making it easier to customise the game without reading the source code.
+Added support for rank scaling operators in event amount fields. You can now make events grow stronger, weaker, or diminish entirely as the player progresses.
+Removed the auto-baking and manual-baking event checkbox lists from the game settings menu. Events are now enabled or disabled via their chance value in baker.event.
+Added the ability to add your own custom events to the game via baker.event. New events are picked up automatically on the next game launch.
+Replaced the hardcoded event system with a fully data-driven one. Events are now defined in baker.event, with each event specifying its name, baking type, polarity, stat target, effect amounts, chance, and description.
+Fixed the automation and slot production cost multiplier sliders to correctly map to a range of 1.01 to 2.0, preventing costs from overflowing at large counts.
+Fixed a bug where slot production and automation costs could overflow into infinity or scientific notation at large counts.
+Fixed the number formatting function so that large numbers correctly display short suffixes like M, B, and T.
+Fixed a bug where selling the maximum amount of cookies or placing a large bet in the slot machine could fail due to floating point precision. Amounts are now floored before comparing.
+Moved the automatic and manual baking shop menus into a single baking upgrades menu.
+Added rank based unlocking for shop items. Items now only appear in the shop once the player has reached the required rank.
+Removed the hardcoded base cost and cost multiplier settings for shop items from the game settings menu. These are now configured directly in baker.store on a per item basis.
+Added the ability to add your own items to the cooky store via baker.store. Each item specifies its name, stat target, base cost, cost multiplier, amount per purchase, minimum rank, and description.
+Changed the way sounds are played in the game. The sounds are no longer encrypted.
 Fixed some critical number formatting issues.
 Made it so you start with 1 manual cooky by default when starting a new game.
 Recoded the purchase logic for buying upgrades in the cooky store to be a lot faster than before.
 Added menu wrapping to the cooky store.
+Updated the todo list file with the latest bug fixes and feature improvements made to the game.
 New in 2.9.
 Updated the readme file with added and modified keyboard shortcuts.
 Fixed some menu navigation issues.
