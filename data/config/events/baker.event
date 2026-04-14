@@ -1,75 +1,4 @@
-;CookyCraze event configuration file.
-;Each line defines one event that can fire during baking. Lines starting with #, //, or ; are ignored.
-
-;Format: event_name:sound:baking_type:polarity:target:min_amount:max_amount:use_percent:chance:description
-
-;event_name
-;  The internal name of this event. Used for identification only. Can be anything you like.
-
-;sound
-;  The sound file or files to play when this event fires, relative to sounds/misc/. Do not include the folder path.
-;  Example: burn1.ogg
-;  You can use a random range by writing the number part as (min,max). Example: burn(1,3).ogg
-;  You can play multiple sounds by separating them with commas. Example: lose.ogg,burn(1,3).ogg
-;  Each sound in the list is resolved and played independently, so random ranges work per entry.
-;  The alert sound (alert_large for positive, alert_small for negative) is always played automatically.
-;  Set to none to play no additional sound.
-
-;baking_type
-;  Controls which baking mode can trigger this event.
-;  1 = auto baking only. The message is spoken non-interruptively in the background.
-;  2 = manual baking only. The message appears as a dialog the player must dismiss.
-;  3 = both modes. Delivery method depends on which mode triggered it.
-
-;polarity
-;  Declares whether this event is good or bad for the player.
-;  1 = positive. The event gives the player something or helps them.
-;  2 = negative. The event takes something away or hurts them.
-
-;target
-;  The stat this event affects when it fires.
-;  cookies    = the player's current cookie count.
-;  coins      = the player's current coin count.
-;  autocooky  = the player's auto cookie production rate.
-;  manulcooky = the player's manual cookie production rate.
-;  cookyspeed = the player's baking speed. Positive events reduce the interval, negative events increase it.
-
-;min_amount and max_amount
-;  The range of values the effect can roll between. A random value between min and max is chosen each time.
-;  If min and max are the same, the effect is always that exact value.
-
-;  Rank operators can be appended to scale the amount with the player's current rank:
-;    *rank  multiplies the amount by rank. Effect grows stronger as the player progresses.
-;    /rank  divides the amount by rank. Effect grows weaker as the player progresses.
-;    +rank  adds rank to the amount. Gentle linear growth as the player progresses.
-;    -rank  subtracts rank from the amount. Effect diminishes as the player progresses.
-
-;  Examples: 40*rank, 10/rank, 5+rank, 100-rank
-
-;use_percent
-;  Controls whether the rolled amount is treated as a flat value or a percentage of the player's current stat.
-;  false = the rolled amount is applied directly. e.g. a roll of 60 gives or takes exactly 60.
-;  true  = the rolled amount is treated as a percentage of what the player currently has.
-;          e.g. a roll of 20 with use_percent true takes 20% of the player's current cookies.
-;          This keeps the effect proportional regardless of how much the player has accumulated.
-
-;chance
-;  The probability of this event firing when it is selected, from 1 to 100.
-;  100 means it always fires when chosen. 50 means it fires roughly half the time.
-;  Set to 0 to effectively disable this event without removing it from the file.
-
-;description
-;  The message spoken to the player when this event fires.
-;  Use %amount% as a placeholder and it will be replaced with the rolled value.
-;  For flat events (use_percent false), %amount% shows the exact flat amount gained or lost.
-;  For percentage events (use_percent true), %amount% shows the rolled percentage, e.g. 10.
-;  Use %actual% as an optional placeholder to show the real computed stat change.
-;  For percentage events, %actual% shows the true amount gained or lost after applying the percentage.
-;  For example, if you have 200 coins and lose 10 percent, %amount% shows 10 and %actual% shows 20.
-;  For flat events, %actual% and %amount% show the same value, so only %amount% is needed.
-;  If neither placeholder is needed, simply leave them out of the description.
-
-; --- Flat based events ---
+; --- Flat events ---
 fire_spark:lose.ogg,burn(1,3).ogg:3:2:cookies:20:20:true:100:Oh no! A fire spark broke out in your bakery! You lost %amount% cookies.
 bonus_cookies:give.ogg:3:1:cookies:40*rank:80*rank:false:100:Lucky bake! You gained an extra %amount% cookies!
 increase_cookyspeed:give.ogg,powerup.ogg:3:1:cookyspeed:10/rank:10/rank:false:100:Amazing! Your baking speed has increased by %amount% ms. Cookies bake faster now.
@@ -81,7 +10,7 @@ lose_autocooky:lose.ogg:3:2:autocooky:10*rank:50*rank:false:100:Dam! You lost %a
 gain_manulcooky:give.ogg:3:1:manulcooky:10*rank:50*rank:false:100:Great! You gained %amount% manual cookies. Your baking rate per click has increased.
 lose_manulcooky:lose.ogg:3:2:manulcooky:10*rank:50*rank:false:100:Shucks! You lost %amount% manual cookies. Your baking rate per click has decreased.
 
-; --- Percentage based events ---
+; --- Percentage events ---
 baking_miracle:give.ogg:3:1:cookies:5:15:true:100:A baking miracle! The stars aligned and %amount% percent of your cookies multiplied into even more, giving you %actual% extra cookies. What a windfall!
 cookie_crumble:lose.ogg,burn(1,3).ogg:3:2:cookies:5:15:true:100:Oh no! A shelf collapsed in your bakery and crumbled %amount% percent of your cookie stockpile, costing you %actual% cookies. What a mess!
 coin_jackpot:give.ogg,coin50.ogg:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current coins, netting you %actual% coins. Your wallet is feeling heavy!

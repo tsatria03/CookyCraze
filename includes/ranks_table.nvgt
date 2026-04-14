@@ -87,6 +87,8 @@ void parse_ranks_table(string filepath, rank_sound_item[]@ sounds_out, rank_rewa
             item.max_amount = parts[3];
             item.unlock     = parts[4];
             item.message    = parts[5];
+            if (item.unlock == "slotmanager")
+                slotManagerUnlockRank = item.rank;
             rewards_out.insert_last(item);
         }
     }
@@ -104,7 +106,10 @@ string apply_rank_reward(rank_reward_item@ item, double current_rank)
     if (item.target == "cookies")
         cookies += amount;
     else if (item.target == "coins")
+    {
         coins += amount;
+        stat_coins_earned += amount;
+    }
     else if (item.target == "autocooky")
         autocooky += amount;
     else if (item.target == "manulcooky")
@@ -150,5 +155,7 @@ void handle_rank_unlock(string unlock)
     else if (unlock == "flipper")
         pool.play_stationary("sounds/misc/alert_large.ogg", false);
     else if (unlock == "slots")
+        pool.play_stationary("sounds/misc/alert_large.ogg", false);
+    else if (unlock == "slotmanager")
         pool.play_stationary("sounds/misc/alert_large.ogg", false);
 }

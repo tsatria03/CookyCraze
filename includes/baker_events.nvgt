@@ -292,6 +292,7 @@ void attempt_autobaker_event(int probability_chance)
     if (random(0, probability_chance) != 0) return;
     string msg = apply_event(item);
     if (msg == "") return;
+    stat_events_fired++;
     play_event_sounds(item);
     speak_buffer(msg, "events");
 }
@@ -316,6 +317,7 @@ void attempt_manebaker_event(int probability_chance)
     if (random(0, probability_chance) != 0) return;
     string msg = apply_event(item);
     if (msg == "") return;
+    stat_events_fired++;
     ambpool.pause_sound(ambslot);
     muspool.pause_sound(mustrackslot);
     play_event_sounds(item);

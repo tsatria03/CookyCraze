@@ -1,5 +1,8 @@
 ##These are the things that are already finished from earlier versions of the game.
 
+**Finished. Add a configurable bet confirmation prompt to the slot machine and blackjack minigames. When a bet reaches or exceeds a set threshold, a yes or no menu appears before the bet is committed. Threshold is set in slots.table and jacks.table, defaulting to 1000. Set to 0 to disable.
+**Finished. Add a baker info screen showing current auto cookies, manual cookies, baking speed, bake interval, slot counts, rank, cookies, and coins all in one place. Accessible as a button from the main game interface.
+**Finished. Add a statistics screen showing total cookies baked, coins earned, events fired, slot spins, blackjack hands, and more. Accessible as a button from the main game interface.
 **Finished. Add a category menu system to the baking upgrades shop so items are grouped into submenus defined in baker.store.
 **Finished. Fix the automation and slot production cost multiplier sliders displaying incorrect values.
 **Finished. Fix shop prices scaling incorrectly based on stat values instead of purchase counts.

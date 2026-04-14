@@ -6,6 +6,8 @@ class jacks_config
     double push_multiplier = 1.0;
     double min_bet = 1.0;
     double max_bet = 0.0;
+    double confirm_threshold = 0.0;
+    bool confirm_use_percent = false;
     string win_sound = "jackwin(1,4).ogg";
     string lose_sound = "lose.ogg";
     string player_draw_sound = "jackplayer.ogg";
@@ -37,6 +39,17 @@ void parse_jacks_table(string filepath, jacks_config@ cfg)
         if (key == "dealer_stand") cfg.dealer_stand = max(1, string_to_int(val));
         else if (key == "min_bet") cfg.min_bet = max(1.0, string_to_number(val));
         else if (key == "max_bet") cfg.max_bet = max(0.0, string_to_number(val));
+        else if (key == "confirm_threshold")
+        {
+            int colon = val.find(":");
+            if (colon != -1)
+            {
+                cfg.confirm_threshold = max(0.0, string_to_number(val.substr(0, colon)));
+                cfg.confirm_use_percent = (val.substr(colon + 1) == "true");
+            }
+            else
+                cfg.confirm_threshold = max(0.0, string_to_number(val));
+        }
         else if (key == "natural_multiplier") cfg.natural_multiplier = string_to_number(val);
         else if (key == "win_multiplier") cfg.win_multiplier = string_to_number(val);
         else if (key == "push_multiplier") cfg.push_multiplier = string_to_number(val);

@@ -1,60 +1,10 @@
-;CookyCraze slot machine configuration file.
-;Lines starting with #, //, or ; are ignored.
-
-;--- Symbols ---
-;Format: symbols=name, name, name, ...
-;A comma separated list of symbol names for the slot machine reels.
-;Spaces after commas are optional. Both "apple,banana" and "apple, banana" are accepted.
-;You must have at least 10 symbols defined for the machine to spin.
-
 symbols=apple, banana, bean, bell, bottel, bronze, car, carot, celery, chain, chime, clover, copper, crate, crown, diamond, flower, gem, glass, gold, grape, heart, iron, leef, metal, nickle, orange, peach, pebble, pepper, pees, potato, rack, rock, rose, silver, spade, star, stone, tomato
-
-;--- Reels ---
-;Format: reels=number
-;The number of reels the slot machine spins. Must be at least 2.
-;Make sure your payout matches values do not exceed this number, otherwise they can never be triggered.
-
-;Example: if you change to reels=3, remove any payout lines where the match value exceeds 3.
-;  reels=3
-;  3:4:slotwin1.ogg:You won 4 times your bet!
-;  2:2:slotwin2.ogg:You won double your bet!
-;  0:0:slotlose.ogg:You lost the bet!
 
 reels=5
 
-;--- Bet Limits ---
-
-;min_bet
-;  The minimum amount of any item a player must bet per spin.
-;  If the player enters less than this amount, the bet is rejected.
-;  Set to 1 to allow any positive bet.
 min_bet=1
-
-;max_bet
-;  The maximum amount of any item a player can bet per spin.
-;  If the player enters more than this amount, the bet is silently clamped to this value.
-;  Set to 0 to allow unlimited bets (only capped by the player's available amount).
 max_bet=0
-
-;--- Payouts ---
-;Format: matches:multiplier:sound:message
-
-;matches
-;  The number of matching symbols across the reels required to trigger this payout.
-;  Use 0 to define the loss outcome when no symbols match.
-;  This value should not exceed the number of reels.
-
-;multiplier
-;  How much of the bet is returned to the player.
-;  4 means the player wins 4 times their bet.
-;  0.5 means the player wins half their bet.
-;  0 means the player loses their bet entirely.
-
-;sound
-;  The sound file to play when this outcome fires, relative to sounds/misc/.
-
-;message
-;  The text spoken to the player when this outcome fires.
+confirm_threshold=1000:false
 
 [payouts]
 5:4:slotwin1.ogg:You won 4 times your bet!

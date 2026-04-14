@@ -98,6 +98,19 @@ else
     baking_slots.resize(0);
     autobakeSlotEnabled.resize(0);
 } 
+if (sd.d.exists("stat_cookies_baked")) stat_cookies_baked = sd.read_double("stat_cookies_baked");
+if (sd.d.exists("stat_coins_earned")) stat_coins_earned = sd.read_double("stat_coins_earned");
+if (sd.d.exists("stat_upgrades_purchased")) stat_upgrades_purchased = sd.read_double("stat_upgrades_purchased");
+if (sd.d.exists("stat_bundles_purchased")) stat_bundles_purchased = sd.read_double("stat_bundles_purchased");
+if (sd.d.exists("stat_events_fired")) stat_events_fired = sd.read_double("stat_events_fired");
+if (sd.d.exists("stat_flipper_flips")) stat_flipper_flips = sd.read_double("stat_flipper_flips");
+if (sd.d.exists("stat_slot_spins")) stat_slot_spins = sd.read_double("stat_slot_spins");
+if (sd.d.exists("stat_slot_wins")) stat_slot_wins = sd.read_double("stat_slot_wins");
+if (sd.d.exists("stat_slot_losses")) stat_slot_losses = sd.read_double("stat_slot_losses");
+if (sd.d.exists("stat_jack_hands")) stat_jack_hands = sd.read_double("stat_jack_hands");
+if (sd.d.exists("stat_jack_wins")) stat_jack_wins = sd.read_double("stat_jack_wins");
+if (sd.d.exists("stat_jack_losses")) stat_jack_losses = sd.read_double("stat_jack_losses");
+if (sd.d.exists("stat_jack_pushes")) stat_jack_pushes = sd.read_double("stat_jack_pushes");
 readpreffs();
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }
@@ -125,6 +138,19 @@ for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
     sd.add("autobakeSlotEnabled_" + string(i), autobakeSlotEnabled[i]);
 }
 sd.add("baking_slot_count", baking_slots.length());
+sd.add("stat_cookies_baked", stat_cookies_baked);
+sd.add("stat_coins_earned", stat_coins_earned);
+sd.add("stat_upgrades_purchased", stat_upgrades_purchased);
+sd.add("stat_bundles_purchased", stat_bundles_purchased);
+sd.add("stat_events_fired", stat_events_fired);
+sd.add("stat_flipper_flips", stat_flipper_flips);
+sd.add("stat_slot_spins", stat_slot_spins);
+sd.add("stat_slot_wins", stat_slot_wins);
+sd.add("stat_slot_losses", stat_slot_losses);
+sd.add("stat_jack_hands", stat_jack_hands);
+sd.add("stat_jack_wins", stat_jack_wins);
+sd.add("stat_jack_losses", stat_jack_losses);
+sd.add("stat_jack_pushes", stat_jack_pushes);
 sd.save();
 }
 void readpreffs()
@@ -186,6 +212,10 @@ if(st.d.exists("slotmode"))
 {
 slotmode=st.read_bool("slotmode");
 }
+if(st.d.exists("jackmode"))
+{
+jackmode=st.read_bool("jackmode");
+}
 if (st.d.exists("automationMultiplier"))
 {
 automationMultiplier = st.read_double("automationMultiplier");
@@ -231,6 +261,7 @@ st.add("playervents",playervents);
 st.add("playervents2",playervents2);
 st.add("orderedSyms",orderedSyms);
 st.add("slotmode",slotmode);
+st.add("jackmode",jackmode);
 st.add("automationMultiplier", automationMultiplier);
 st.add("slotMultiplier", slotMultiplier);
 st.add("manualSlotMultiplier", manualSlotMultiplier);

@@ -1,71 +1,13 @@
-;CookyCraze shop configuration file.
-;Each line defines one item that appears in the baking upgrades shop. Lines starting with #, //, or ; are ignored.
-
-;Menu aliases
-;Format: alias=Full Menu Name
-;        alias=Full Menu Name|min_rank|Description
-;Define short aliases for menu names here. Use the alias as the first field on item lines.
-;Items with the same menu are grouped together in the shop under that category.
-;Optionally append a pipe followed by a minimum rank and another pipe followed by a description.
-;If a minimum rank is set, the menu will appear locked in the shop until the player reaches that rank.
-;If no rank or description is needed, just use alias=Full Menu Name with no pipes.
-
+; --- Menus ---
 autmenu=Automatic Baking Items|0|The original automatic baking menu, a staple of the game since version 1.0. These are the core upgrades that keep your ovens running around the clock.
 mabimenu=Manual Baking Items|0|The original manual baking menu, also a staple since version 1.0. These upgrades reward the hands-on baker who likes to get their fingers doughy.
 usermenu=User Created Items|5|Custom items that were created by the community.
 
-;Format: menu:item_type:target:base_cost:cost_multiplier:amount:min_rank:use_percent:description
-
-;menu
-;  The alias of the menu this item belongs to, as defined above.
-;  Items with the same menu are grouped together in the shop.
-
-;item_type
-;  The display name of this item as it appears in the shop menu.
-;  Can be anything you like.
-
-;target
-;  The stat this item increases when purchased.
-;  1 = auto_cooky. Increases the player's automatic cookie production rate.
-;  2 = manual_cooky. Increases how many cookies the player bakes per manual click.
-;  3 = cooky_speed. Increases the player's baking speed by reducing the auto bake interval.
-
-;base_cost
-;  The starting price of this item in coins before any purchases have been made.
-
-;cost_multiplier
-;  How much the cost increases with each purchase. Uses geometric scaling.
-;  1.25 means each purchase costs 25% more than the last.
-;  1.0 means the price never changes (fixed cost).
-;  Higher values make the item get expensive faster.
-
-;amount
-;  How much of the target stat is gained per purchase.
-;  For flat items this is a fixed number. For percentage items this is the percentage value.
-;  For cooky_speed flat items, this is the number of milliseconds the bake interval is reduced by.
-
-;min_rank
-;  The minimum rank the player must reach before this item can be purchased.
-;  0 means the item is available from the start of the game.
-;  Items that have not yet been unlocked still appear in the shop showing their required rank and description, but cannot be bought until the player reaches that rank.
-
-;use_percent
-;  Controls whether the amount is applied as a flat value or a percentage of the player's current stat.
-;  false = the amount is added directly. e.g. amount of 10 gives exactly 10 auto cookies.
-;  true  = the amount is treated as a percentage of what the player currently has.
-;          e.g. amount of 5 gives 5 percent of the player's current auto cookies per purchase.
-;          This makes the item scale naturally with how far the player has progressed.
-
-;description
-;  The text shown when the player hovers over this item in the shop.
-;  Use %item_count as a placeholder and it will be replaced with the amount value.
-
-; --- Rank 0 (starter items) ---
+; --- Items ---
 autmenu:auto_cooky:1:10:1.2:1:0:false:Each purchase gives you %item_count auto cookie to bake with.
 autmenu:auto_cooky_speed:3:20:1.2:10:0:false:Each purchase increases your baking speed by %item_count ms, helping you bake cookies much faster.
 mabimenu:manual_cooky:2:25:1.2:1:0:false:Each purchase gives you %item_count manual cookie to bake with.
 
-; --- Rank 5 ---
 usermenu:baking_gloves:2:750:1.2:5:5:false:A pair of sturdy baking gloves that give you %item_count extra manual cookies per click. Your hands will thank you.
 usermenu:conveyor_belt:1:1000:1.2:10:5:false:A small conveyor belt that adds %item_count auto cookies to your production line automatically.
 usermenu:speed_boost:3:800:1.2:25:5:false:A quick boost to your baking machinery, reducing your bake interval by %item_count ms per purchase.
@@ -74,7 +16,6 @@ usermenu:yeast_boost:1:1200:1.2:1:5:true:A yeast based boost that increases your
 usermenu:butter_rub:2:1000:1.2:1:5:true:A rich butter rub technique that adds %item_count percent of your current manual cookies to every click.
 usermenu:draft_vent:3:900:1.2:1:5:true:A small draft vent that cuts your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 10 ---
 usermenu:baking_assistant:2:2500:1.2:10:10:false:A helpful assistant who adds %item_count manual cookies to every batch you bake by hand.
 usermenu:industrial_mixer:1:3000:1.2:25:10:false:A powerful industrial mixer that churns out %item_count auto cookies per cycle without breaking a sweat.
 usermenu:precision_timer:3:2000:1.2:50:10:false:A precision baking timer that shaves %item_count ms off your bake interval with every purchase.
@@ -82,7 +23,6 @@ usermenu:dough_catalyst:1:4000:1.2:2:10:true:A powerful dough catalyst that boos
 usermenu:hand_technique:2:3500:1.2:2:10:true:A refined hand technique that adds %item_count percent of your current manual cookies to every click you make.
 usermenu:airflow_valve:3:3000:1.2:2:10:true:A precision airflow valve that reduces your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 20 ---
 usermenu:master_baker:2:8000:1.2:25:20:false:A master baker joins your kitchen, contributing %item_count manual cookies to each click you make.
 usermenu:cookie_factory:1:10000:1.2:50:20:false:A small cookie factory that pumps out %item_count auto cookies around the clock.
 usermenu:turbo_timer:3:7500:1.2:75:20:false:A high speed turbo timer that reduces your baking interval by %item_count ms each time you buy it.
@@ -90,7 +30,6 @@ usermenu:fermentation_vat:1:13000:1.2:2:20:true:A large fermentation vat that mu
 usermenu:wrist_snap:2:11000:1.2:2:20:true:A perfected wrist snap technique that adds %item_count percent of your current manual cookies to every click.
 usermenu:exhaust_damper:3:10000:1.2:2:20:true:An exhaust damper that cuts your bake interval by %item_count percent of its current value each upgrade.
 
-; --- Rank 30 ---
 usermenu:enchanted_rolling_pin:2:25000:1.2:50:30:false:A magically enchanted rolling pin that grants %item_count extra manual cookies per click.
 usermenu:mega_oven:1:30000:1.2:100:30:false:A massive mega oven that produces %item_count auto cookies per batch with incredible efficiency.
 usermenu:hyper_clock:3:20000:1.2:100:30:false:A hyper-speed baking clock that cuts your bake interval by %item_count ms per upgrade.
@@ -98,7 +37,6 @@ usermenu:arcane_yeast:1:40000:1.2:3:30:true:A vial of arcane yeast that increase
 usermenu:enchanted_grip:2:35000:1.2:3:30:true:An enchanted grip technique that adds %item_count percent of your current manual cookies to every click.
 usermenu:rune_vent:3:30000:1.2:3:30:true:A rune engraved vent that reduces your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 50 ---
 usermenu:golden_spatula:2:100000:1.2:100:50:false:A legendary golden spatula said to double the effort of every manual bake, granting %item_count extra cookies per click.
 usermenu:automated_bakery:1:150000:1.2:250:50:false:A fully automated bakery that generates %item_count auto cookies continuously without any input from you.
 usermenu:quantum_timer:3:120000:1.2:150:50:false:A quantum-powered baking timer that reduces your bake interval by %item_count ms per purchase.
@@ -106,7 +44,6 @@ usermenu:golden_culture:1:200000:1.2:3:50:true:A golden culture of baking microb
 usermenu:golden_wrist:2:180000:1.2:3:50:true:A golden baking technique passed down through generations, adding %item_count percent of your manual cookies to every click.
 usermenu:quantum_drift:3:160000:1.2:3:50:true:A quantum drift module that shaves %item_count percent off your current bake interval with each upgrade.
 
-; --- Rank 75 ---
 usermenu:diamond_mixing_bowl:2:500000:1.2:250:75:false:A diamond encrusted mixing bowl that supercharges every manual bake, giving you %item_count extra cookies per click.
 usermenu:cookie_empire:1:750000:1.2:500:75:false:A sprawling cookie empire that produces %item_count auto cookies at an astonishing rate.
 usermenu:warp_drive_oven:3:600000:1.2:200:75:false:A warp-speed oven drive that blasts %item_count ms off your baking interval with each upgrade.
@@ -114,7 +51,6 @@ usermenu:diamond_culture:1:1000000:1.2:4:75:true:A diamond grade baking culture 
 usermenu:diamond_touch:2:900000:1.2:4:75:true:A diamond level touch that adds %item_count percent of your current manual cookies to every click you make.
 usermenu:warp_resonance:3:800000:1.2:4:75:true:A warp resonance tuner that cuts your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 100 ---
 usermenu:legendary_apron:2:5000000:1.2:500:100:false:A legendary apron worn by the greatest bakers in history. Grants %item_count extra manual cookies with every single click.
 usermenu:celestial_bakery:1:8000000:1.2:1000:100:false:A celestial bakery that bakes cookies at a cosmic scale, producing %item_count auto cookies per cycle.
 usermenu:time_warp_mixer:3:6000000:1.2:250:100:false:A time-warping mixer that bends the laws of physics to reduce your bake interval by %item_count ms per upgrade.
@@ -122,7 +58,6 @@ usermenu:celestial_yeast:1:10000000:1.2:4:100:true:A celestial grade yeast that 
 usermenu:legendary_form:2:9000000:1.2:4:100:true:A legendary baking form perfected over lifetimes, adding %item_count percent of your manual cookies to every click.
 usermenu:time_compression:3:8000000:1.2:4:100:true:A time compression field that reduces your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 125 ---
 usermenu:mystic_whisk:2:20000000:1.2:750:125:false:A mystical whisk imbued with ancient baking magic, granting %item_count extra manual cookies per click.
 usermenu:cookie_megaplex:1:35000000:1.2:2000:125:false:A towering cookie megaplex that produces %item_count auto cookies every cycle with relentless efficiency.
 usermenu:chrono_oven:3:25000000:1.2:300:125:false:A chrono-tuned oven that shaves %item_count ms off your baking interval with every upgrade.
@@ -130,7 +65,6 @@ usermenu:mystic_spores:1:45000000:1.2:5:125:true:Mystic baking spores that ampli
 usermenu:ancient_wrist:2:38000000:1.2:5:125:true:An ancient wrist mastery technique that adds %item_count percent of your manual cookies to every click you make.
 usermenu:chrono_resonance:3:32000000:1.2:5:125:true:A chrono resonance field that cuts your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 150 ---
 usermenu:arcane_rolling_pin:2:100000000:1.2:1000:150:false:An arcane rolling pin forged by legendary bakers, adding %item_count manual cookies to every click you make.
 usermenu:hyper_factory:1:150000000:1.2:3500:150:false:A hyper-efficient cookie factory that cranks out %item_count auto cookies per cycle day and night.
 usermenu:temporal_shifter:3:120000000:1.2:350:150:false:A temporal shifting device that warps time in your kitchen, cutting %item_count ms off your bake interval.
@@ -138,7 +72,6 @@ usermenu:arcane_culture:1:200000000:1.2:5:150:true:An arcane culture of enchante
 usermenu:arcane_mastery:2:175000000:1.2:5:150:true:An arcane mastery of baking form that adds %item_count percent of your current manual cookies to every click.
 usermenu:temporal_flux:3:160000000:1.2:5:150:true:A temporal flux coil that reduces your bake interval by %item_count percent of its current value with each upgrade.
 
-; --- Rank 175 ---
 usermenu:enchanted_apron:2:500000000:1.2:1500:175:false:An enchanted apron that fills your hands with baking energy, giving you %item_count extra manual cookies per click.
 usermenu:galactic_oven:1:750000000:1.2:5000:175:false:A galactic-scale oven that bakes cookies across dimensions, producing %item_count auto cookies per cycle.
 usermenu:infinity_clock:3:600000000:1.2:400:175:false:An infinity clock that stretches and compresses time, reducing your bake interval by %item_count ms per upgrade.
@@ -146,7 +79,6 @@ usermenu:galactic_spores:1:1000000000:1.2:6:175:true:Galactic baking spores that
 usermenu:enchanted_flow:2:900000000:1.2:6:175:true:An enchanted flow state that adds %item_count percent of your current manual cookies to every single click you make.
 usermenu:infinity_drift:3:800000000:1.2:6:175:true:An infinity drift field that reduces your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 200 ---
 usermenu:divine_spatula:2:2000000000:1.2:2500:200:false:A spatula blessed by the gods of baking, granting %item_count extra manual cookies with every single click.
 usermenu:universe_bakery:1:3000000000:1.2:8000:200:false:A universe-spanning bakery that produces %item_count auto cookies at an incomprehensible rate.
 usermenu:singularity_timer:3:2500000000:1.2:500:200:false:A singularity-powered timer that collapses baking time, reducing your interval by %item_count ms per upgrade.
@@ -154,7 +86,6 @@ usermenu:divine_culture:1:4000000000:1.2:6:200:true:A divinely blessed baking cu
 usermenu:divine_touch:2:3500000000:1.2:6:200:true:A touch blessed by the gods of baking, adding %item_count percent of your current manual cookies to every click.
 usermenu:singularity_field:3:3000000000:1.2:6:200:true:A singularity field around your oven that cuts your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 250 ---
 usermenu:cosmic_mixing_bowl:2:15000000000:1.2:4000:250:false:A cosmic mixing bowl that harnesses the energy of stars, adding %item_count manual cookies to every click.
 usermenu:dimensional_bakery:1:20000000000:1.2:12000:250:false:A dimensional bakery that pulls cookies from alternate realities, generating %item_count auto cookies per cycle.
 usermenu:reality_warper:3:18000000000:1.2:600:250:false:A reality-warping device that bends the fabric of time in your kitchen, cutting %item_count ms off your bake interval.
@@ -162,7 +93,6 @@ usermenu:cosmic_culture:1:27000000000:1.2:7:250:true:A cosmic baking culture dra
 usermenu:cosmic_form:2:24000000000:1.2:7:250:true:A cosmic baking form channeling stellar energy, adding %item_count percent of your manual cookies to every click.
 usermenu:reality_compression:3:22000000000:1.2:7:250:true:A reality compression ring that reduces your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 300 ---
 usermenu:astral_whisk:2:100000000000:1.2:6000:300:false:An astral whisk that channels the power of the cosmos into every manual bake, granting %item_count extra cookies per click.
 usermenu:omega_factory:1:150000000000:1.2:18000:300:false:An omega-class cookie factory operating at maximum universal efficiency, producing %item_count auto cookies per cycle.
 usermenu:epoch_timer:3:120000000000:1.2:700:300:false:An epoch-spanning timer that manipulates entire eras of time, reducing your bake interval by %item_count ms per upgrade.
@@ -170,7 +100,6 @@ usermenu:astral_culture:1:200000000000:1.2:7:300:true:An astral baking culture t
 usermenu:astral_grip:2:175000000000:1.2:7:300:true:An astral grip technique drawing from the cosmos, adding %item_count percent of your manual cookies to every click.
 usermenu:epoch_drift:3:160000000000:1.2:7:300:true:An epoch drift mechanism that cuts your bake interval by %item_count percent of its current value with every upgrade.
 
-; --- Rank 350 ---
 usermenu:nebula_rolling_pin:2:750000000000:1.2:9000:350:false:A rolling pin forged from the heart of a nebula, adding %item_count manual cookies to every batch you bake.
 usermenu:supernova_bakery:1:1000000000000:1.2:25000:350:false:A supernova-powered bakery that explodes with cookie production, generating %item_count auto cookies per cycle.
 usermenu:void_clock:3:900000000000:1.2:800:350:false:A clock pulled from the void between dimensions, reducing your bake interval by %item_count ms per upgrade.
@@ -178,7 +107,6 @@ usermenu:nebula_spores:1:1300000000000:1.2:8:350:true:Nebula born baking spores 
 usermenu:nebula_form:2:1100000000000:1.2:8:350:true:A nebula forged baking form that adds %item_count percent of your current manual cookies to every click you make.
 usermenu:void_resonance:3:1000000000000:1.2:8:350:true:A void resonance wave that cuts your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 400 ---
 usermenu:eternal_apron:2:5000000000000:1.2:13000:400:false:An eternal apron that exists outside of time itself, granting %item_count extra manual cookies with every single click.
 usermenu:infinite_bakery:1:8000000000000:1.2:40000:400:false:An infinite bakery that spans the entire universe, producing %item_count auto cookies at an eternal rate.
 usermenu:paradox_oven:3:6000000000000:1.2:900:400:false:A paradox oven that exists in two points in time simultaneously, cutting %item_count ms off your bake interval per upgrade.
@@ -186,7 +114,6 @@ usermenu:eternal_culture:1:10000000000000:1.2:8:400:true:An eternal baking cultu
 usermenu:eternal_touch:2:9000000000000:1.2:8:400:true:An eternal baking touch that transcends the physical, adding %item_count percent of your manual cookies to every click.
 usermenu:paradox_field:3:8000000000000:1.2:8:400:true:A paradox field surrounding your oven that cuts your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 450 ---
 usermenu:transcendent_whisk:2:30000000000000:1.2:18000:450:false:A transcendent whisk that exists beyond the physical plane, adding %item_count manual cookies to every click you make.
 usermenu:omniversal_factory:1:50000000000000:1.2:60000:450:false:An omniversal cookie factory operating across every known universe, churning out %item_count auto cookies per cycle.
 usermenu:eternity_shifter:3:40000000000000:1.2:950:450:false:An eternity-shifting device that rewrites the laws of time, reducing your bake interval by %item_count ms per upgrade.
@@ -194,7 +121,6 @@ usermenu:omniversal_spores:1:65000000000000:1.2:9:450:true:Omniversal baking spo
 usermenu:transcendent_form:2:55000000000000:1.2:9:450:true:A transcendent baking form beyond all physical limits, adding %item_count percent of your manual cookies to every click.
 usermenu:eternity_wave:3:50000000000000:1.2:9:450:true:An eternity wave that rewrites the speed of your oven, cutting your bake interval by %item_count percent of its current value per upgrade.
 
-; --- Rank 500 ---
 usermenu:godlike_spatula:2:200000000000000:1.2:25000:500:false:A godlike spatula wielded only by the most legendary bakers in all of existence. Grants %item_count extra manual cookies per click.
 usermenu:creation_bakery:1:350000000000000:1.2:100000:500:false:A bakery that predates the universe itself, generating %item_count auto cookies at the very dawn of creation.
 usermenu:absolute_zero_timer:3:300000000000000:1.2:1000:500:false:A timer that freezes time itself to its absolute zero state, slashing your bake interval by %item_count ms per upgrade.

@@ -48,6 +48,7 @@ void trigger_cook_event(event_item@ item)
     if (random(0, 100) > item.chance) return;
     string msg = apply_event(item);
     if (msg == "") return;
+    stat_events_fired++;
     play_event_sounds(item);
     dlg_buffer(msg, "events");
 }

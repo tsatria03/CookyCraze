@@ -1,3 +1,190 @@
+void clickergame()
+{
+form.reset();
+form.create_window("CookyCraze", false);
+int manulbake=form.create_button("Bake cook&ies");
+int shop=form.create_button("Cooky &store");
+int autobake=form.create_button("Enter baking m&ode");
+int infoBtn=form.create_button("I&nfo");
+    int manageSlots = form.create_button("Manage baking s&lots");
+int minigames=form.create_button("mini &games");
+int preffs=form.create_button("&preferences");
+form.focus(manulbake);
+while(true)
+{
+wait(5);
+form.monitor();
+clicker_game_input();
+autocooky = floor(autocooky);
+if(autocooky<=0)
+{
+bakemode=0;
+autocooky=0;
+}
+coins = floor(coins);
+if(coins<=0)
+{
+coins=0;
+}
+cookies = floor(cookies);
+if(cookies<=0)
+{
+cookies=0;
+}
+cookyspeed = floor(cookyspeed);
+if(cookyspeed<=0)
+{
+cookyspeed=0;
+}
+manulcooky = floor(manulcooky);
+if(manulcooky<=0)
+{
+manulcooky=0;
+}
+if(clicktime<=50)
+{
+clicktime=50;
+}
+if(clicktime>=1000)
+{
+clicktime=1000;
+}
+        if (form.is_pressed(manageSlots))
+        {
+manage_baking_slots();
+        }
+if (form.is_pressed(minigames))
+{
+mingamsmenu();
+}
+if (form.is_pressed(preffs))
+{
+preffsmenu();
+}
+if (form.is_pressed(infoBtn))
+{
+infomenu();
+}
+if(form.is_pressed(autobake))
+{
+if(autocooky<1)
+{
+speak_buffer("You need at least 1 auto cooky to enable baking mode.", "general");
+}
+else if(autocooky>=1)
+{
+if(bakemode==0)
+{
+bakemode=1;
+pool.play_stationary("sounds/misc/toggleon.ogg", false);
+speak_buffer("Baking mode enabled.", "misc");
+}
+else if(bakemode==1)
+{
+bakemode=0;
+pool.play_stationary("sounds/misc/toggleoff.ogg", false);
+speak_buffer("Baking mode disabled.", "misc");
+}
+}
+}
+if(form.is_pressed(manulbake))
+{
+if(manulcooky<1)
+{
+speak_buffer("You need at least 1 manule cooky to start baking cookies.", "general");
+}
+else if(manulcooky>=1)
+{
+    if (manualSlots > 0)
+    {
+        if (manualSlotDistribution)
+            cookies += manulcooky;
+        else
+            cookies += manulcooky * manualSlots;
+    }
+    else
+        cookies += manulcooky;
+stat_cookies_baked++;
+pool.play_stationary("sounds/misc/manulbake.ogg", false);
+if(playervents2==true) attempt_manebaker_event(evchanse2);
+}
+}
+if(form.is_pressed(shop))
+{
+if(coins<1)
+{
+speak_buffer("You need at least 1 coin to enter the cooky store.", "general");
+}
+else if(coins>=1)
+{
+ambpool.destroy_sound(ambslot);
+muspool.destroy_sound(mustrackslot);
+speak_buffer("You're now entering the cooky store.", "critical");
+dlgplay("sounds/misc/store_door_open.ogg");
+alertslot=pool.play_stationary("sounds/misc/store_welcome.ogg",false);
+storambslot=storambpool.play_stationary_extended("sounds/misc/store_amb.ogg",true,0,0,storambvolume,storambpitch,false);
+stortrackslot=stormuspool.play_stationary_extended("sounds/misc/store_music.ogg",true,0,0,stormusvolume,stormuspitch,false);
+shopmenu();
+}
+}
+if(bakemode==1 and autocooky>=1  and autobakeSlots > 0)
+{
+if(clicktimer.elapsed>=clicktime)
+{
+double perSlot = autocooky;
+if (slotDistribution && autobakeSlots > 0)
+{
+    perSlot = autocooky / autobakeSlots;
+}
+        for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
+{       
+            if (autobakeSlotEnabled[i])
+{
+cookies += perSlot;
+}
+}
+stat_cookies_baked++;
+if(bakesfx==true) pool.play_stationary("sounds/misc/autobake.ogg", false);
+if(playervents==true) attempt_autobaker_event(evchanse);
+clicktimer.restart();
+}
+else if(bakemode==1 and autocooky<=0)
+{
+bakemode=0;
+pool.destroy_all();
+}
+}
+if (cookies >= cookiesrequiered)
+{
+    rank += 1;
+    cookiesrequiered = (cookymod * (rank * (rank * difmod)));
+    if (rankDefault.length() > 0)
+    {
+        string defaultMsg = apply_rank_reward(rankDefault[0], rank);
+        play_rank_sound(lastRewardAmount);
+        if (ranksfx == true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
+        handle_rank_unlock(rankDefault[0].unlock);
+        speak_buffer(defaultMsg, "ranks");
+    }
+    rank_reward_item[] matching;
+    for (uint i = 0; i < rankRewards.length(); i++)
+    {
+        if (rankRewards[i].rank == int(rank))
+            matching.insert_last(rankRewards[i]);
+    }
+    if (matching.length() > 0)
+    {
+        rank_reward_item@ milestone = matching[random(0, matching.length() - 1)];
+        string milestoneMsg = apply_rank_reward(milestone, rank);
+        play_rank_sound(lastRewardAmount);
+        if (ranksfx == true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
+        handle_rank_unlock(milestone.unlock);
+        dlg_buffer(milestoneMsg, "ranks");
+    }
+}
+}
+}
+
 void clicker_game_input()
 {
 if(key_repeating(KEY_COMMA))
@@ -68,7 +255,7 @@ if(key_pressed(KEY_L))
 readdata();
 loadedEvents = parse_baker_events("data/config/events/baker.event");
 loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
-parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet);
+parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
 parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
 parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
 ambpool.pause_sound(ambslot);
@@ -242,182 +429,3 @@ clickergame();
 }
 }
 
-void clickergame()
-{
-form.reset();
-form.create_window("CookyCraze", false);
-int manulbake=form.create_button("Bake cook&ies");
-int shop=form.create_button("Cooky &store");
-int autobake=form.create_button("Enter baking m&ode");
-    int manageSlots = form.create_button("Manage baking s&lots");
-int minigames=form.create_button("mini &games");
-int preffs=form.create_button("&preferences");
-form.focus(manulbake);
-while(true)
-{
-wait(5);
-form.monitor();
-clicker_game_input();
-autocooky = floor(autocooky);
-if(autocooky<=0)
-{
-bakemode=0;
-autocooky=0;
-}
-coins = floor(coins);
-if(coins<=0)
-{
-coins=0;
-}
-cookies = floor(cookies);
-if(cookies<=0)
-{
-cookies=0;
-}
-cookyspeed = floor(cookyspeed);
-if(cookyspeed<=0)
-{
-cookyspeed=0;
-}
-manulcooky = floor(manulcooky);
-if(manulcooky<=0)
-{
-manulcooky=0;
-}
-if(clicktime<=50)
-{
-clicktime=50;
-}
-if(clicktime>=1000)
-{
-clicktime=1000;
-}
-        if (form.is_pressed(manageSlots))
-        {
-manage_baking_slots();
-        }
-if (form.is_pressed(minigames))
-{
-mingamsmenu();
-}
-if (form.is_pressed(preffs))
-{
-preffsmenu();
-}
-if(form.is_pressed(autobake))
-{
-if(autocooky<1)
-{
-speak_buffer("You need at least 1 auto cooky to enable baking mode.", "general");
-}
-else if(autocooky>=1)
-{
-if(bakemode==0)
-{
-bakemode=1;
-pool.play_stationary("sounds/misc/toggleon.ogg", false);
-speak_buffer("Baking mode enabled.", "misc");
-}
-else if(bakemode==1)
-{
-bakemode=0;
-pool.play_stationary("sounds/misc/toggleoff.ogg", false);
-speak_buffer("Baking mode disabled.", "misc");
-}
-}
-}
-if(form.is_pressed(manulbake))
-{
-if(manulcooky<1)
-{
-speak_buffer("You need at least 1 manule cooky to start baking cookies.", "general");
-}
-else if(manulcooky>=1)
-{
-    if (manualSlots > 0)
-    {
-        if (manualSlotDistribution)
-            cookies += manulcooky;
-        else
-            cookies += manulcooky * manualSlots;
-    }
-    else
-        cookies += manulcooky;
-pool.play_stationary("sounds/misc/manulbake.ogg", false);
-if(playervents2==true) attempt_manebaker_event(evchanse2);
-}
-}
-if(form.is_pressed(shop))
-{
-if(coins<1)
-{
-speak_buffer("You need at least 1 coin to enter the cooky store.", "general");
-}
-else if(coins>=1)
-{
-ambpool.destroy_sound(ambslot);
-muspool.destroy_sound(mustrackslot);
-speak_buffer("You're now entering the cooky store.", "critical");
-dlgplay("sounds/misc/store_door_open.ogg");
-alertslot=pool.play_stationary("sounds/misc/store_welcome.ogg",false);
-storambslot=storambpool.play_stationary_extended("sounds/misc/store_amb.ogg",true,0,0,storambvolume,storambpitch,false);
-stortrackslot=stormuspool.play_stationary_extended("sounds/misc/store_music.ogg",true,0,0,stormusvolume,stormuspitch,false);
-shopmenu();
-}
-}
-if(bakemode==1 and autocooky>=1  and autobakeSlots > 0)
-{
-if(clicktimer.elapsed>=clicktime)
-{
-double perSlot = autocooky;
-if (slotDistribution && autobakeSlots > 0)
-{
-    perSlot = autocooky / autobakeSlots;
-}
-        for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
-{       
-            if (autobakeSlotEnabled[i])
-{
-cookies += perSlot;
-}
-}
-if(bakesfx==true) pool.play_stationary("sounds/misc/autobake.ogg", false);
-if(playervents==true) attempt_autobaker_event(evchanse);
-clicktimer.restart();
-}
-else if(bakemode==1 and autocooky<=0)
-{
-bakemode=0;
-pool.destroy_all();
-}
-}
-if (cookies >= cookiesrequiered)
-{
-    rank += 1;
-    cookiesrequiered = (cookymod * (rank * (rank * difmod)));
-    if (rankDefault.length() > 0)
-    {
-        string defaultMsg = apply_rank_reward(rankDefault[0], rank);
-        play_rank_sound(lastRewardAmount);
-        if (ranksfx == true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
-        handle_rank_unlock(rankDefault[0].unlock);
-        speak_buffer(defaultMsg, "ranks");
-    }
-    rank_reward_item[] matching;
-    for (uint i = 0; i < rankRewards.length(); i++)
-    {
-        if (rankRewards[i].rank == int(rank))
-            matching.insert_last(rankRewards[i]);
-    }
-    if (matching.length() > 0)
-    {
-        rank_reward_item@ milestone = matching[random(0, matching.length() - 1)];
-        string milestoneMsg = apply_rank_reward(milestone, rank);
-        play_rank_sound(lastRewardAmount);
-        if (ranksfx == true) pool.play_stationary("sounds/misc/achievement" + random(1, 2) + ".ogg", false);
-        handle_rank_unlock(milestone.unlock);
-        dlg_buffer(milestoneMsg, "ranks");
-    }
-}
-}
-}
