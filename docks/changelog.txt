@@ -1,3 +1,5 @@
+New in 4.2.
+Made it so auto baking now works even when no baking slots have been purchased yet. Auto baking falls back to using your full auto cookie value directly when no slots are owned, so new players can benefit from using the baking mode before ever touching the baking slots manager.
 New in 4.1.
 Moved the baking slots manager section to immediately after baking in both the baker statistics screen and the achievement statistics screen, so related information is grouped together rather than appearing at the end.
 Reordered blackjack to appear before slot machine throughout the game, including the achievements menu, both statistics screens, and all related documentation.

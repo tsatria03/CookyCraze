@@ -139,9 +139,11 @@ stortrackslot=stormuspool.play_stationary_extended("sounds/misc/store_music.ogg"
 shopmenu();
 }
 }
-if(bakemode==1 and autocooky>=1  and autobakeSlots > 0)
+if(bakemode==1 and autocooky>=1)
 {
 if(clicktimer.elapsed>=clicktime)
+{
+if (autobakeSlots > 0)
 {
 double perSlot = autocooky;
 if (slotDistribution && autobakeSlots > 0)
@@ -149,11 +151,16 @@ if (slotDistribution && autobakeSlots > 0)
     perSlot = autocooky / autobakeSlots;
 }
         for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
-{       
+{
             if (autobakeSlotEnabled[i])
 {
 cookies += perSlot;
 }
+}
+}
+else
+{
+cookies += autocooky;
 }
 stat_cookies_baked++;
 if(bakesfx==true) pool.play_stationary("sounds/misc/autobake.ogg", false);
