@@ -1,3 +1,14 @@
+New in 4.1.
+Moved the baking slots manager section to immediately after baking in both the baker statistics screen and the achievement statistics screen, so related information is grouped together rather than appearing at the end.
+Reordered blackjack to appear before slot machine throughout the game, including the achievements menu, both statistics screens, and all related documentation.
+Renamed all references to baking slot manager and baking slots to baking slots manager throughout the game interface, configuration files, and documentation for consistency.
+Reorganised the achievements menu into six category submenus: baking, baking slots manager, economy, events, blackjack, and slot machine. Each category label shows how many achievements it contains. Opening a category shows how many you have unlocked out of the total for that category, with unlocked ones listed first.
+Added 43 new achievements across the four new baking slots manager stat categories, bringing the total to 163. Each track has 12 tiers reaching up to 10000. The idle slot track has a humorous tone for owning slots you haven't bothered to enable.
+Added four new stat categories for the baking slots manager: auto slots purchased, manual slots purchased, auto slots enabled, and auto slots idle. All four appear in the baker statistics screen, and idle slots are calculated dynamically as slots owned minus slots enabled. All stats save and load with the rest of your game data.
+Expanded the achievements from 100 to 120 by adding higher tier achievements to all existing stat categories. New tiers cover larger milestones for baking, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack.
+Made it so the baker statistics and achievement statistics screens now return to the statistics menu when dismissed, rather than dropping you back into the main game.
+Added an achievement statistics screen accessible from the new statistics menu. It shows all achievements grouped by category, with complete ones listed first followed by incomplete ones showing your current progress toward them.
+Split the info button in the main game interface into two separate buttons. Info now goes directly to the baker info screen, and the new Statistics button opens a menu with baker statistics and achievement statistics.
 New in 4.0.
 Fixed a bug where starting a new game would cause the achievements menu to open on a stale position from the previous session, making the first achievement invisible. The menu position now resets alongside everything else when starting a new game.
 Added focus memory to the achievements menu so it remembers where you were when you return to it.
@@ -26,7 +37,7 @@ Added a baker info screen showing a read-only snapshot of your current productio
 Added a statistics screen that tracks everything you've done across your playthrough, including bakes performed, coins earned, upgrades purchased, minigame wins and losses, and more. All stats save and load with the rest of your game data.
 Moved all configuration file documentation out of the config files and into the readme. All seven config files are now comment free and contain only data.
 Rewrote the readme file to cover all current game features, including a full keyboard command reference and a configuration file reference for modders.
-Made it so the auto slots and manual slots submenus in the baking slot manager are now locked behind a rank requirement, defaulting to rank 40. The slot manager itself is still accessible, but entering either submenu before reaching the required rank plays a failure sound and shows a message.
+Made it so the auto slots and manual slots submenus in the baking slots manager are now locked behind a rank requirement, defaulting to rank 40. The baking slots manager itself is still accessible, but entering either submenu before reaching the required rank plays a failure sound and shows a message.
 Added a %item% placeholder to blackjack win messages, so they now say things like you won and gained 100 coins instead of just you won and gained 100.
 Made it so blackjack refocuses on the deal button after every round, so you can immediately place a new bet without navigating back to it manually.
 Added an automatic card drawing toggle for blackjack in the game settings menu. When enabled, cards are drawn and spoken automatically with timed delays between each one.
@@ -110,8 +121,8 @@ Updated the todo list file with the latest bug fixes and feature improvements ma
 New in 3.1.
 Made it so the F key now only shows the automated slot breakdown once you have at least one automated slot, and the J key only shows the manual slot breakdown once you have at least one manual slot.
 Made it so players no longer start with a free auto slot. Both the slot count and automation count now begin at zero and must be purchased.
-Reorganised the slot manager into two submenus for auto slots and manual slots, making it easier to manage each system independently.
-Added a manual slots system. You can now produce manual slots from the slot manager, each one multiplying the cookies you receive per click.
+Reorganised the baking slots manager into two submenus for auto slots and manual slots, making it easier to manage each system independently.
+Added a manual slots system. You can now produce manual slots from the baking slots manager, each one multiplying the cookies you receive per click.
 Fixed purchase messages in the baking upgrades menu displaying item names with underscores instead of spaces, and not pluralising correctly.
 Made it so the baking upgrades menu now remembers your last selected item after every action, and purchase and error messages are now spoken through the screen reader instead of shown as dialogs.
 Fixed a bug where baking events could affect you by 0 of a stat at high ranks. The rolled amount is now always at least 1, so events always have a meaningful effect.
@@ -148,14 +159,14 @@ Recoded the entire menu system for the game.
 Renamed the coin flipper minigame to cooky flipper, along with some new sounds to accompany it.
 Increased the amount of level up coins you’re able to earn by 10 percent.
 Reduced the starting cost for producing slots by 50 percent.
-Refactored the slot manager menu to include a single automate a slot item.
+Refactored the baking slots manager menu to include a single automate a slot item.
 Resolved an issue where adding a slot multiple times would cause the slot producer menu to not be updated with the correct information for a given slot.
 New in 2.8.
 Removed the entire hunger system, as it started to become less useful and more pointless to have in the game.
-Made some small slot manager enhancements. It will now tell you how many slots were produced, automated, and unautomated when going into the main menu and adding new slots in the slot producer menu.
+Made some small baking slots manager enhancements. It will now tell you how many slots were produced, automated, and unautomated when going into the main menu and adding new slots in the slot producer menu.
 Made it so the game remembers the last item that was recently selected in the slot producer menu. This is useful for adding a specific set of slots multiple times without having to start over from the top of the menu again.
 Made it so when you start a new game for the first time, you’ll now get 1 auto baking slot enabled by default. You no longer have to automate the first slot every time you start a new game.
-Moved all of the add slot items into a separate slot producer menu in the slot manager menu.
+Moved all of the add slot items into a separate slot producer menu in the baking slots manager menu.
 You can now add packs of multiple baking slots for the auto baking mode.
 Removed the heartbeat sounds tied to pressing the letter H when checking your hunger.
 Fixed some bugs with the game saving system.

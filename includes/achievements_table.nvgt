@@ -77,6 +77,10 @@ double get_stat_value(string stat)
     if (stat == "blackjack_wins") return stat_jack_wins;
     if (stat == "blackjack_losses") return stat_jack_losses;
     if (stat == "blackjack_pushes") return stat_jack_pushes;
+    if (stat == "auto_slots_purchased") return stat_auto_slots_purchased;
+    if (stat == "manual_slots_purchased") return stat_manual_slots_purchased;
+    if (stat == "auto_slots_enabled") return stat_auto_slots_enabled;
+    if (stat == "auto_slots_idle") return double(baking_slots.length()) - double(autobakeSlots);
     if (stat == "rank") return rank;
     return 0;
 }
@@ -110,7 +114,34 @@ void show_achievement(achievement_item@ item)
     speak_buffer("Achievement unlocked! " + item.name + ". " + item.description, "achievements");
 }
 
-void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked)
+int count_category(achievement_item[]@ achievements, string[]@ stats)
+{
+    int count = 0;
+    for (uint i = 0; i < achievements.length(); i++)
+    {
+        for (uint j = 0; j < stats.length(); j++)
+        {
+            if (achievements[i].stat == stats[j]) { count++; break; }
+        }
+    }
+    return count;
+}
+
+int count_category_unlocked(achievement_item[]@ achievements, dictionary@ unlocked, string[]@ stats)
+{
+    int count = 0;
+    for (uint i = 0; i < achievements.length(); i++)
+    {
+        if (!unlocked.exists(achievements[i].id)) continue;
+        for (uint j = 0; j < stats.length(); j++)
+        {
+            if (achievements[i].stat == stats[j]) { count++; break; }
+        }
+    }
+    return count;
+}
+
+void achievements_category_menu(achievement_item[]@ achievements, dictionary@ unlocked, string name, string[]@ stats)
 {
     while (true)
     {
@@ -118,17 +149,74 @@ void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked)
         setupmenu(false);
         for (uint i = 0; i < achievements.length(); i++)
         {
+            bool inCat = false;
+            for (uint j = 0; j < stats.length(); j++) { if (achievements[i].stat == stats[j]) { inCat = true; break; } }
+            if (!inCat) continue;
             if (!unlocked.exists(achievements[i].id)) continue;
             m.add_item(achievements[i].name, achievements[i].id);
         }
         for (uint i = 0; i < achievements.length(); i++)
         {
+            bool inCat = false;
+            for (uint j = 0; j < stats.length(); j++) { if (achievements[i].stat == stats[j]) { inCat = true; break; } }
+            if (!inCat) continue;
             if (unlocked.exists(achievements[i].id)) continue;
             m.add_item(achievements[i].name + ", locked", achievements[i].id);
         }
         m.add_item("Back", "back");
+        int total = count_category(achievements, stats);
+        int unlockedCount = count_category_unlocked(achievements, unlocked, stats);
+        m.intro_text = name + " achievements. " + string(unlockedCount) + " of " + string(total) + " unlocked in total.";
+        int start = 0;
+        if (achievements_cat_last_id != "")
+        {
+            int found = m.find_item_by_id(achievements_cat_last_id);
+            if (found != -1) start = found;
+        }
+        int res = m.run(start, true);
+        if (res == -1)
+            break;
+        string sel = m.get_item_id(res);
+        if (sel == "back")
+        {
+            achievements_cat_last_id = "";
+            break;
+        }
+        achievements_cat_last_id = sel;
+        for (uint i = 0; i < achievements.length(); i++)
+        {
+            if (achievements[i].id != sel) continue;
+            if (unlocked.exists(achievements[i].id))
+                dlgmessage_return(achievements[i].description);
+            else
+                dlgmessage_return("This achievement is locked. Hint: " + achievements[i].hint);
+            break;
+        }
+    }
+}
+
+void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked)
+{
+    string[] baking_stats = {"cookies_baked"};
+    string[] economy_stats = {"coins_earned", "upgrades_purchased", "bundles_purchased"};
+    string[] events_stats = {"events_fired", "flipper_flips"};
+    string[] slots_stats = {"slot_spins", "slot_wins", "slot_losses"};
+    string[] blackjack_stats = {"blackjack_hands", "blackjack_wins", "blackjack_losses", "blackjack_pushes"};
+    string[] baking_slots_stats = {"auto_slots_purchased", "manual_slots_purchased", "auto_slots_enabled", "auto_slots_idle"};
+
+    while (true)
+    {
+        wait(5);
+        setupmenu(false);
+        m.add_item("Baking, contains " + string(count_category(achievements, baking_stats)) + " achievements", "cat_baking");
+        m.add_item("Baking slots manager, contains " + string(count_category(achievements, baking_slots_stats)) + " achievements", "cat_baking_slots");
+        m.add_item("Economy, contains " + string(count_category(achievements, economy_stats)) + " achievements", "cat_economy");
+        m.add_item("Events, contains " + string(count_category(achievements, events_stats)) + " achievements", "cat_events");
+        m.add_item("Blackjack, contains " + string(count_category(achievements, blackjack_stats)) + " achievements", "cat_blackjack");
+        m.add_item("Slot machine, contains " + string(count_category(achievements, slots_stats)) + " achievements", "cat_slots");
+        m.add_item("Back", "back");
         int unlockedCount = unlocked.get_keys().length();
-        m.intro_text = "Achievements menu. " + string(unlockedCount) + " of " + string(achievements.length()) + " achievements unlocked.";
+        m.intro_text = "Achievements menu. " + string(unlockedCount) + " of " + string(achievements.length()) + " unlocked in total.";
         int start = 0;
         if (achievements_last_id != "")
         {
@@ -145,14 +233,12 @@ void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked)
             break;
         }
         achievements_last_id = sel;
-        for (uint i = 0; i < achievements.length(); i++)
-        {
-            if (achievements[i].id != sel) continue;
-            if (unlocked.exists(achievements[i].id))
-                dlgmessage_return(achievements[i].description);
-            else
-                dlgmessage_return("This achievement is locked. Hint: " + achievements[i].hint);
-            break;
-        }
+        achievements_cat_last_id = "";
+        if (sel == "cat_baking") achievements_category_menu(achievements, unlocked, "Baking", baking_stats);
+        else if (sel == "cat_economy") achievements_category_menu(achievements, unlocked, "Economy", economy_stats);
+        else if (sel == "cat_events") achievements_category_menu(achievements, unlocked, "Events", events_stats);
+        else if (sel == "cat_slots") achievements_category_menu(achievements, unlocked, "Slot machine", slots_stats);
+        else if (sel == "cat_blackjack") achievements_category_menu(achievements, unlocked, "Blackjack", blackjack_stats);
+        else if (sel == "cat_baking_slots") achievements_category_menu(achievements, unlocked, "Baking slots manager", baking_slots_stats);
     }
 }

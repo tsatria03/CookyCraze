@@ -10,6 +10,7 @@ double stat_cookies_baked=0, stat_coins_earned=0, stat_upgrades_purchased=0, sta
 double stat_events_fired=0, stat_flipper_flips=0;
 double stat_slot_spins=0, stat_slot_wins=0, stat_slot_losses=0;
 double stat_jack_hands=0, stat_jack_wins=0, stat_jack_losses=0, stat_jack_pushes=0;
+double stat_auto_slots_purchased=0, stat_manual_slots_purchased=0, stat_auto_slots_enabled=0, stat_auto_slots_idle=0;
 double autocooky_purchases=0, manulcooky_purchases=0, cookyspeed_purchases=0;
 double automationBaseCost = 15, slotBaseCost = 30, automationMultiplier = 1.1, slotMultiplier = 1.01;
 int manualSlots = 0;
@@ -43,6 +44,7 @@ string last_menu_id="";
 string shopmenu_last_id="";
 string buymenu_last_id="";
 string achievements_last_id="";
+string achievements_cat_last_id="";
 string baker_last_item_id="";
 string baker_last_cat_id="";
 string bundle_last_item_id="";

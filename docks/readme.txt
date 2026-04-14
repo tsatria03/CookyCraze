@@ -67,16 +67,19 @@ Spin the reels and match symbols to win multiples of your bet.
 
 Like the other minigames, you choose which item to bet and how much. Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples. The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table. A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 
-Baking slot manager. Unlocked at rank 40.
+Baking slots manager. Unlocked at rank 40.
 Manage and configure your baking slots to balance automated and manual cookie production.
 
 There are two types of slots. Auto slots bake cookies passively without any input, scaling with your auto cookie stat. Manual slots multiply the output of each bake press, scaling with your manual cookie stat. You can purchase additional slots of either type, and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual. Both the auto slots and manual slots submenus are locked behind a rank requirement, defaulting to rank 40. The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
 
-Info menu.
-Access the Statistics screen and Baker info screen from a single Info button in the main game interface.
+Baker info.
+View a live snapshot of your current baker state. Press the Info button in the main game interface to open it directly.
 
-Statistics screen.
-View a summary of everything you have done in your current playthrough. Open it from the Info menu.
+Statistics menu.
+Access the baker statistics screen and achievement statistics screen from the Statistics button in the main game interface.
+
+Baker statistics.
+View a summary of everything you have done in your current playthrough. Open it from the Statistics menu.
 
 The statistics screen is divided into five sections.
 
@@ -108,10 +111,17 @@ Wins: counts rounds you won, including naturals, hitting 21, and dealer busts.
 Losses: counts rounds where you busted, or the dealer beat you.
 Pushes: counts rounds that ended in a tie, where your original bet was returned.
 
+Baking slots manager.
+
+Auto slots purchased: counts every auto baking slot you have ever bought, regardless of whether it is enabled or idle.
+Manual slots purchased: counts every manual baking slot you have ever bought.
+Auto slots enabled: counts every time an auto slot has been automated, whether individually or through the automate all option.
+Auto slots idle: shows how many auto slots you currently own but have not enabled. Unlike the other stats, this one is not saved separately because it can go up and down at any time depending on how many slots you own and how many you have enabled. It is always calculated fresh from the current state of your bakery, similar to how a stock price reflects the current value rather than a running total.
+
 All stats are saved with your game data and persist between sessions.
 
-Baker info.
-View a live snapshot of your current baker state. Open it from the Info menu.
+Achievement statistics.
+View your progress toward every achievement grouped by category. Open it from the Statistics menu. Each category lists complete achievements first, followed by incomplete ones showing your current value against the required threshold. This screen is read only and does not require any input to navigate.
 
 The baker info screen is divided into three sections.
 
@@ -137,9 +147,9 @@ Current coins: how many coins you currently have.
 Achievements.
 Track your progress and earn recognition for milestones across every part of the game.
 
-There are 100 achievements spread across all tracked statistics, including baking, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack. Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
+There are over 100 achievements spread across all tracked statistics, including baking, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack. Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
-Achievements are shown in a dedicated menu accessible from the main game interface. Unlocked achievements always appear at the top of the list, followed by locked ones. The menu shows how many you have unlocked out of the total. Pressing enter on an unlocked achievement shows a dialog with its description that you can read at your own pace. Pressing enter on a locked achievement gives you a cryptic hint about what you need to do to earn it. When you earn an achievement during play, the game announces it non-interruptively in the background and stores it in the achievements buffer so you can review it later.
+Achievements are shown in a dedicated menu accessible from the main game interface. The menu is organised into six categories: baking, baking slots manager, economy, events, blackjack, and slot machine. Each category label shows how many achievements it contains. The main menu shows how many you have unlocked out of the total across all categories. Opening a category shows how many you have unlocked out of the total for that category, with unlocked ones listed first followed by locked ones. Pressing enter on an unlocked achievement shows a dialog with its description that you can read at your own pace. Pressing enter on a locked achievement gives you a cryptic hint about what you need to do to earn it. When you earn an achievement during play, the game announces it non-interruptively in the background and stores it in the achievements buffer so you can review it later.
 
 Save slots.
 
@@ -185,7 +195,7 @@ All configuration files are located in the data/config folder and are split into
 Lines starting with a semicolon, hash, or double slash are treated as comments and ignored by the parser.
 
 Two of the files, ranks.table and slots.table, use section headers in square brackets such as [sounds], [default], [rewards], and [payouts]. These are not cosmetic. The parser uses them to know which format to expect, since each section in those files uses a completely different line structure. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
-Four of the remaining files, baker.event, flipper.event, jacks.table, and baker.store, do not use functional section headers. Every line in those files follows the same format throughout. They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely without affecting how the game reads the file. The fifth file, bundle.store, uses one functional section header, [bundles], which marks where the bundle definitions begin. Aliases defined above it are always read regardless of position, but bundle lines are only read after the header appears.
+Five of the remaining files, baker.event, flipper.event, jacks.table, baker.store, and achievements.table, do not use functional section headers. Every line in those files follows the same format throughout. They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely without affecting how the game reads the file. The sixth file, bundle.store, uses one functional section header, [bundles], which marks where the bundle definitions begin. Aliases defined above it are always read regardless of position, but bundle lines are only read after the header appears.
 
 baker.event
 
@@ -300,7 +310,7 @@ An optional feature to unlock at this rank. Use none for no unlock.
 blackjack   = unlocks the blackjack minigame.
 flipper     = unlocks the cooky flipper minigame.
 slots       = unlocks the slot machine minigame.
-slotmanager = unlocks the baking slot manager. Also sets the rank gate for the slot manager menu automatically.
+slotmanager = unlocks the baking slots manager. Also sets the rank gate for the baking slots manager menu automatically.
 
 message
 The text spoken to the player when this reward fires.

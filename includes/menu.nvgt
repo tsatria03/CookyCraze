@@ -302,10 +302,10 @@ slotsgame();
 void infomenu()
 {
     setupmenu(false);
-    m.add_item("Baker info", "bakerinfo");
+    m.add_item("Achievement statistics", "achstats");
     m.add_item("Baker statistics", "statistics");
     m.add_item("Back", "back");
-    m.intro_text = "Info menu. What would you like to view?";
+    m.intro_text = "Statistics menu. What would you like to view?";
     int mres = m.run(0, true);
     string sel = m.get_item_id(mres);
     if (mres == -1 || sel == "back")
@@ -314,10 +314,10 @@ void infomenu()
         clickergame();
         return;
     }
-    if (sel == "bakerinfo")
-        show_baker_info();
-    else if (sel == "statistics")
+    if (sel == "statistics")
         show_baker_statistics();
+    else if (sel == "achstats")
+        show_achievement_statistics(loadedAchievements, achievementsUnlocked);
 }
 void shopmenu()
 {
@@ -1068,6 +1068,7 @@ if (slotprod == "add_slot12")  count = 10000;
                     autobakeSlotEnabled.insert_last(false);
                     slotBaseCost *= slotMultiplier;
                 }
+                stat_auto_slots_purchased += count;
                 pool.destroy_sound(alertslot);
                 alertslot = pool.play_stationary("sounds/misc/prodslot.ogg", false);
 int produced = baking_slots.length();
@@ -1137,6 +1138,7 @@ void add_manual_slots()
         {
             coins -= cost;
             manualSlots += count;
+            stat_manual_slots_purchased += count;
             for (int i = 0; i < count; i++)
                 manualSlotBaseCost *= manualSlotMultiplier;
             pool.destroy_sound(alertslot);
@@ -1191,7 +1193,7 @@ void manage_baking_slots()
     int produced = baking_slots.length();
     int automated = autobakeSlots;
     int nonauto = produced - automated;
-    m.intro_text = "Slot manager menu. What would you like to do?";
+    m.intro_text = "Baking slots manager menu. What would you like to do?";
     int mres = m.run();
     string selected = m.get_item_id(mres);
     if (mres == -1 || selected == "back")
@@ -1277,6 +1279,7 @@ void automate_baking_slots()
                         automationBaseCost *= automationMultiplier;
                     }
                 }
+                stat_auto_slots_enabled += nonAutoCount;
                 pool.destroy_sound(alertslot);
                 alertslot = pool.play_stationary("sounds/misc/autslot.ogg", false);
                 speak("Successfully automated " + string(nonAutoCount) + " slot" + (nonAutoCount == 1 ? "" : "s") + ".");
@@ -1320,6 +1323,7 @@ void automate_baking_slots()
                         coins -= singleCost;
                         autobakeSlotEnabled[index] = true;
                         autobakeSlots++;
+                        stat_auto_slots_enabled++;
                         automationBaseCost *= automationMultiplier;
                         pool.destroy_sound(alertslot);
                         alertslot = pool.play_stationary("sounds/misc/autslot.ogg", false);

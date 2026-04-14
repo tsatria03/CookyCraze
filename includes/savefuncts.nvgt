@@ -111,6 +111,9 @@ if (sd.d.exists("stat_jack_hands")) stat_jack_hands = sd.read_double("stat_jack_
 if (sd.d.exists("stat_jack_wins")) stat_jack_wins = sd.read_double("stat_jack_wins");
 if (sd.d.exists("stat_jack_losses")) stat_jack_losses = sd.read_double("stat_jack_losses");
 if (sd.d.exists("stat_jack_pushes")) stat_jack_pushes = sd.read_double("stat_jack_pushes");
+if (sd.d.exists("stat_auto_slots_purchased")) stat_auto_slots_purchased = sd.read_double("stat_auto_slots_purchased");
+if (sd.d.exists("stat_manual_slots_purchased")) stat_manual_slots_purchased = sd.read_double("stat_manual_slots_purchased");
+if (sd.d.exists("stat_auto_slots_enabled")) stat_auto_slots_enabled = sd.read_double("stat_auto_slots_enabled");
 readpreffs();
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }
@@ -151,6 +154,9 @@ sd.add("stat_jack_hands", stat_jack_hands);
 sd.add("stat_jack_wins", stat_jack_wins);
 sd.add("stat_jack_losses", stat_jack_losses);
 sd.add("stat_jack_pushes", stat_jack_pushes);
+sd.add("stat_auto_slots_purchased", stat_auto_slots_purchased);
+sd.add("stat_manual_slots_purchased", stat_manual_slots_purchased);
+sd.add("stat_auto_slots_enabled", stat_auto_slots_enabled);
 sd.save();
 }
 void readpreffs()

@@ -4,6 +4,8 @@ getting_warmed_up:cookies_baked:100:Getting Warmed Up:Bake %threshold% cookies. 
 on_a_roll:cookies_baked:1000:On a Roll:Bake %threshold% cookies. You're really getting the hang of this.:At a certain point, the cookies stop feeling like work.
 cookie_factory:cookies_baked:10000:Cookie Factory:Bake %threshold% cookies. This is no longer a hobby. This is a business.:When the smell of cookies never leaves your hands, you'll know you've arrived.
 legendary_baker:cookies_baked:100000:Legendary Baker:Bake %threshold% cookies. The baking gods themselves bow before you.:Some bakers are remembered. Others become legend. The difference is volume.
+cookie_empire:cookies_baked:1000000:Cookie Empire:Bake %threshold% cookies. You have built something that cannot be explained in polite conversation.:Numbers this large stopped meaning anything a while ago. You kept going anyway.
+cookie_singularity:cookies_baked:10000000:Cookie Singularity:Bake %threshold% cookies. At this point the universe itself is mostly cookies.:There is a threshold beyond which baking transcends purpose entirely. You found it.
 
 ; Economy
 first_coin:coins_earned:50:First Coin:Earn your first coins through selling. A humble beginning to what will surely be a great fortune.:Cookies don't spend themselves. Try letting someone else have a taste.
@@ -11,6 +13,8 @@ pocket_change:coins_earned:100:Pocket Change:Earn %threshold% coins. Not much, b
 making_bank:coins_earned:10000:Making Bank:Earn %threshold% coins. The coin reserves are looking healthy.:When your pockets feel heavier than usual, you're getting warm.
 filthy_rich:coins_earned:1000000:Filthy Rich:Earn %threshold% coins. You could swim in these if you wanted to.:There's rich, and then there's something else entirely. Aim for the something else.
 coin_god:coins_earned:1000000000:Coin God:Earn %threshold% coins. At this point coins have lost all meaning.:Beyond a certain number, coins stop being currency and start being a philosophy.
+coin_singularity:coins_earned:10000000000:Coin Singularity:Earn %threshold% coins. Economists have been summoned to explain what you have done.:Some fortunes are so large they begin to bend the economy around them.
+coin_multiverse:coins_earned:100000000000:Coin Multiverse:Earn %threshold% coins. You don't own coins anymore. You are coins.:At this point the distinction between you and the economy is purely academic.
 
 ; Upgrades
 first_upgrade:upgrades_purchased:1:First Upgrade:Purchase your first upgrade. Every empire begins with a single investment.:The shop exists for a reason. Perhaps it's time to find out why.
@@ -18,6 +22,8 @@ upgrade_enthusiast:upgrades_purchased:50:Upgrade Enthusiast:Purchase %threshold%
 upgrade_addict:upgrades_purchased:500:Upgrade Addict:Purchase %threshold% upgrades. The shop owner knows you by name at this point.:At a certain number of purchases, the shop starts to feel familiar in a strange way.
 upgrade_maniac:upgrades_purchased:5000:Upgrade Maniac:Purchase %threshold% upgrades. You have spent more time in the shop than in the bakery.:When the upgrades outnumber the cookies, something has gone wonderfully wrong.
 upgrade_legend:upgrades_purchased:50000:Upgrade Legend:Purchase %threshold% upgrades. There is nothing left to buy. You have bought it all.:There is a point where the shop runs out of things to offer. Keep going.
+upgrade_transcendent:upgrades_purchased:100000:Upgrade Transcendent:Purchase %threshold% upgrades. The shop itself has become a part of you.:Beyond a certain count, visiting the shop stops being a choice and becomes a reflex.
+upgrade_infinite:upgrades_purchased:500000:Upgrade Infinite:Purchase %threshold% upgrades. You have purchased things that do not yet exist.:The shop was never the destination. It was just the path.
 
 ; Bundles
 first_bundle:bundles_purchased:1:Bundle of Joy:Purchase your very first bundle. Why buy one thing when you can buy everything at once?:Why settle for one when several come wrapped together so neatly?
@@ -25,6 +31,8 @@ bundle_lover:bundles_purchased:10:Bundle Lover:Purchase %threshold% bundles. You
 bundle_hoarder:bundles_purchased:100:Bundle Hoarder:Purchase %threshold% bundles. The bundle shop is your second home.:There are those who visit the bundle shop, and those who never really leave.
 bundle_fanatic:bundles_purchased:500:Bundle Fanatic:Purchase %threshold% bundles. You don't buy singles anymore. You never did.:Singles are for people who haven't discovered the other option yet.
 bundle_overlord:bundles_purchased:5000:Bundle Overlord:Purchase %threshold% bundles. The singles shop weeps knowing you never visit.:At a certain scale, individual purchases start to feel quaint.
+bundle_ascendant:bundles_purchased:10000:Bundle Ascendant:Purchase %threshold% bundles. The concept of individual items no longer applies to you.:You have moved beyond purchasing. You are now simply acquiring in bulk.
+bundle_eternal:bundles_purchased:50000:Bundle Eternal:Purchase %threshold% bundles. Future generations will speak of this in hushed tones.:Some legacies are built in stone. Yours was built in bundles.
 
 ; Events
 first_event:events_fired:1:Things Happen:Trigger your first random event. Baking is full of surprises.:Not everything in the bakery goes according to plan. Stay alert.
@@ -32,6 +40,8 @@ event_prone:events_fired:50:Event Prone:Trigger %threshold% random events. Life 
 chaos_magnet:events_fired:250:Chaos Magnet:Trigger %threshold% random events. You are a walking disaster and a miracle all at once.:Strange things tend to happen around certain bakers more than others. You might be one of them.
 event_veteran:events_fired:1000:Event Veteran:Trigger %threshold% random events. At this point you have seen everything.:After enough surprises, nothing surprises you anymore. Almost nothing.
 event_legend:events_fired:5000:Event Legend:Trigger %threshold% random events. The universe itself cannot stop throwing things at your bakery.:The bakery has a life of its own. You just work there.
+event_storm:events_fired:10000:Event Storm:Trigger %threshold% random events. Meteorologists have begun tracking your bakery.:At a certain frequency, events stop being random and start feeling inevitable.
+event_force:events_fired:25000:Event Force:Trigger %threshold% random events. You are no longer affected by events. You are an event.:There are forces of nature, and then there are forces of bakery. You became the latter.
 
 ; Cooky flipper
 first_flip:flipper_flips:1:Chocolate or Bisket:Flip the cooky for the first time. Luck is on your side. Probably.:Two outcomes. One flip. What are you waiting for?
@@ -39,6 +49,7 @@ flip_happy:flipper_flips:25:Flip Happy:Flip the cooky %threshold% times. You jus
 flipper_fanatic:flipper_flips:100:Flipper Fanatic:Flip the cooky %threshold% times. This is less about luck and more about obsession at this point.:At some point this stops being about the outcome and starts being about the ritual.
 flipper_addict:flipper_flips:500:Flipper Addict:Flip the cooky %threshold% times. Your thumb is going to fall off.:Your thumb knows what to do before your brain does. That's a sign.
 flipper_legend:flipper_flips:2000:Flipper Legend:Flip the cooky %threshold% times. You have flipped more cookys than you have baked cookies.:When the flipper sees more action than the oven, priorities have shifted somewhat.
+flipper_eternal:flipper_flips:5000:Flipper Eternal:Flip the cooky %threshold% times. The cooky has been flipped so many times it no longer has sides.:At a certain point the flip itself becomes the destination.
 
 ; Slot machine - spins
 first_spin:slot_spins:1:One Armed Baker:Pull the lever for the first time. The reels are calling your name.:There's a lever in the corner. It doesn't pull itself.
@@ -51,6 +62,7 @@ slot_veteran:slot_spins:500:Slot Veteran:Spin the reels %threshold% times. You h
 reel_machine:slot_spins:1000:Reel Machine:Spin the reels %threshold% times. You and the slot machine are practically one at this point.:At a certain number, the line between player and machine starts to blur.
 slot_devotee:slot_spins:2500:Slot Devotee:Spin the reels %threshold% times. Other bakers bake cookies. You spin reels.:Devotion looks different for everyone. Yours just happens to involve reels.
 slot_legend:slot_spins:5000:Slot Legend:Spin the reels %threshold% times. The slot machine has become a way of life.:Legends aren't made overnight. They're made one spin at a time.
+slot_eternal:slot_spins:10000:Slot Eternal:Spin the reels %threshold% times. The machine and you have merged into something new.:There is a point of no return with the reels. You passed it some time ago.
 
 ; Slot machine - wins
 first_slot_win:slot_wins:1:Beginner's Luck:Win on the slot machine for the first time. Don't get used to it.:The reels have been known to smile on newcomers. Just the once.
@@ -63,6 +75,7 @@ slot_charmed:slot_wins:250:Slot Charmed:Win on the slot machine %threshold% time
 slot_champion:slot_wins:500:Slot Champion:Win on the slot machine %threshold% times. You have cracked the code. Probably.:Champions don't just get lucky. They get lucky consistently.
 reel_royalty:slot_wins:1000:Reel Royalty:Win on the slot machine %threshold% times. Other players watch in silent awe.:Royalty doesn't beg the reels. The reels oblige willingly.
 jackpot_king:slot_wins:2000:Jackpot King:Win on the slot machine %threshold% times. At this point the slot machine is just your personal piggy bank.:A king doesn't visit the machine. The machine serves the king.
+reel_deity:slot_wins:5000:Reel Deity:Win on the slot machine %threshold% times. The reels no longer spin for chance. They spin for you.:At a certain altitude, luck and inevitability become the same thing.
 
 ; Slot machine - losses
 first_slot_loss:slot_losses:1:Easy Come Easy Go:Lose on the slot machine for the first time. It happens to everyone.:Not every spin goes your way. You'll find out sooner or later.
@@ -75,6 +88,7 @@ reels_of_doom:slot_losses:250:Reels of Doom:Lose on the slot machine %threshold%
 loss_connoisseur:slot_losses:500:Loss Connoisseur:Lose on the slot machine %threshold% times. You have refined the art of losing to a science.:A connoisseur appreciates the finer details. Even the painful ones.
 professional_loser:slot_losses:1000:Professional Loser:Lose on the slot machine %threshold% times. You could teach a masterclass in this.:Professionals don't quit. They refine their craft, whatever that craft may be.
 born_to_lose:slot_losses:2000:Born to Lose:Lose on the slot machine %threshold% times. The machine has taken everything and you keep feeding it more.:Some callings find you. This one found you at the slot machine.
+loss_incarnate:slot_losses:5000:Loss Incarnate:Lose on the slot machine %threshold% times. You have transcended losing. You have become it.:There are those who lose, and those who embody it completely. The reels made their choice.
 
 ; Blackjack - hands played
 deal_me_in:blackjack_hands:1:Deal Me In:Play your first hand of blackjack. You sit down at the table with confidence and absolutely no plan.:There's a table. There are cards. Someone has to sit down first.
@@ -87,6 +101,7 @@ table_veteran:blackjack_hands:250:Table Veteran:Play %threshold% hands of blackj
 blackjack_veteran:blackjack_hands:500:Blackjack Veteran:Play %threshold% hands of blackjack. You have seen every hand the deck has to offer.:The deck has a finite number of surprises. You may be running out of new ones.
 card_obsessed:blackjack_hands:1000:Card Obsessed:Play %threshold% hands of blackjack. The cards are an extension of your hands at this point.:When the cards feel like a part of you, you've been at this table too long. Keep going.
 blackjack_legend:blackjack_hands:2000:Blackjack Legend:Play %threshold% hands of blackjack. You and the dealer have an understanding at this point.:Legends and dealers have a language all their own. You're learning it.
+blackjack_eternal:blackjack_hands:5000:Blackjack Eternal:Play %threshold% hands of blackjack. The cards no longer shuffle. They arrange themselves for you.:At a certain depth, the table stops being a game and starts being a relationship.
 
 ; Blackjack - wins
 first_blackjack_win:blackjack_wins:1:Winner Winner Cookie Dinner:Win your first hand of blackjack. The table is yours.:The table has a way of rewarding those who sit down ready to play.
@@ -99,6 +114,7 @@ unstoppable:blackjack_wins:250:Unstoppable:Win %threshold% hands of blackjack. N
 blackjack_master:blackjack_wins:500:Blackjack Master:Win %threshold% hands of blackjack. The dealer secretly hates you.:Mastery is quiet. The dealer's expression gives it away though.
 card_legend:blackjack_wins:1000:Card Legend:Win %threshold% hands of blackjack. Other players whisper your name in hushed tones.:Legends don't need to be in the room to be felt at the table.
 blackjack_god:blackjack_wins:2000:Blackjack God:Win %threshold% hands of blackjack. At this point you aren't even playing cards anymore. You are performing.:At a certain height, winning stops being the goal and starts being the expectation.
+blackjack_absolute:blackjack_wins:5000:Blackjack Absolute:Win %threshold% hands of blackjack. The dealer has filed for a career change. You are the reason.:There is winning, and then there is what you have become. The table knows the difference.
 
 ; Blackjack - losses
 first_bust:blackjack_losses:1:Busted:Lose your first hand of blackjack. It happens to the best of us. Really.:The table has a way of humbling newcomers. It's practically tradition.
@@ -111,6 +127,7 @@ the_house_wins:blackjack_losses:250:The House Always Wins:Lose %threshold% hands
 walking_atm:blackjack_losses:500:Walking ATM:Lose %threshold% hands of blackjack. The dealer lights up whenever you sit down.:When someone's face changes the moment they see you, it means something. Probably.
 loss_artist:blackjack_losses:1000:Loss Artist:Lose %threshold% hands of blackjack. You have elevated losing to an art form.:Art requires dedication. You have been nothing if not dedicated.
 walking_donation:blackjack_losses:2000:Walking Donation:Lose %threshold% hands of blackjack. You are not playing blackjack anymore. You are just giving things away.:At a certain point generosity and losing become difficult to tell apart.
+dealer_pension_fund:blackjack_losses:5000:Dealer Pension Fund:Lose %threshold% hands of blackjack. The dealer has named a yacht after you.:Some contributions to the world are financial. Yours happen to flow in one direction.
 
 ; Blackjack - pushes
 first_push:blackjack_pushes:1:Too Close to Call:Push your first hand of blackjack. Nobody wins, nobody loses. How unsatisfying.:Sometimes the cards land exactly where no one wanted them to.
@@ -123,3 +140,57 @@ deadlock:blackjack_pushes:250:Deadlock:Push %threshold% hands of blackjack. Neit
 perpetual_draw:blackjack_pushes:500:Perpetual Draw:Push %threshold% hands of blackjack. You have achieved a perfect balance of winning nothing and losing nothing.:Perfect balance is rare. The table has been watching you achieve it repeatedly.
 tie_machine:blackjack_pushes:1000:Tie Machine:Push %threshold% hands of blackjack. Scientists have been called in to study you.:The odds of this happening this many times are left as an exercise for the reader.
 push_legend:blackjack_pushes:2000:Push Legend:Push %threshold% hands of blackjack. You have achieved something that defies all probability. Congratulations on absolutely nothing.:Whatever this is, no one has a name for it yet. You may have invented a new category.
+push_phenomenon:blackjack_pushes:5000:Push Phenomenon:Push %threshold% hands of blackjack. The laws of probability have submitted a formal complaint.:At this point the universe has simply accepted that you and the dealer are the same person.
+
+; Baking slots - auto slots purchased
+first_auto_slot:auto_slots_purchased:1:Automated:Purchase your first auto baking slot. The bakery is starting to run itself.:Something in the slot manager is waiting for a first purchase. Go find out what.
+slot_investor:auto_slots_purchased:5:Slot Investor:Purchase %threshold% auto baking slots. The investment is paying off.:A few purchases in and the bakery starts to feel different. Busier.
+slot_collector:auto_slots_purchased:10:Slot Collector:Purchase %threshold% auto baking slots. You have developed a habit.:Collectors don't stop at one. Or two. Or anywhere near here.
+slot_enthusiast:auto_slots_purchased:25:Slot Enthusiast:Purchase %threshold% auto baking slots. The automation is taking over.:Enthusiasm is hard to hide when you keep buying the same thing.
+slot_hoarder:auto_slots_purchased:50:Slot Hoarder:Purchase %threshold% auto baking slots. There are more slots than bakers in this bakery.:At a certain count, the word collection stops applying and something else takes over.
+slot_baron:auto_slots_purchased:100:Slot Baron:Purchase %threshold% auto baking slots. You have built an empire of automation.:Barons don't build their empires overnight. Slot by slot is fine.
+slot_magnate:auto_slots_purchased:250:Slot Magnate:Purchase %threshold% auto baking slots. The bakery runs whether you're there or not.:Magnates oversee operations. They don't operate them personally.
+slot_tycoon:auto_slots_purchased:500:Slot Tycoon:Purchase %threshold% auto baking slots. The automation has automation.:Tycoons reach a point where the machine maintains itself.
+slot_overlord:auto_slots_purchased:1000:Slot Overlord:Purchase %threshold% auto baking slots. Other bakeries look at yours and feel ashamed.:An overlord doesn't count slots. Overlords have people for that.
+slot_empire:auto_slots_purchased:5000:Slot Empire:Purchase %threshold% auto baking slots. Historians will write about this.:Empires are not built in a day. But they can be built one slot at a time.
+slot_singularity:auto_slots_purchased:10000:Slot Singularity:Purchase %threshold% auto baking slots. The concept of manual labor no longer exists in your bakery.:There is a number of slots at which the bakery achieves sentience. You may have passed it.
+
+; Baking slots - manual slots purchased
+first_manual_slot:manual_slots_purchased:1:Hands On:Purchase your first manual baking slot. More hands, more cookies.:There is a slot in the manager that responds to a different kind of purchase. Try it.
+manual_investor:manual_slots_purchased:5:Manual Investor:Purchase %threshold% manual baking slots. You believe in the power of hands.:Investment in manual production says something about your philosophy.
+hand_crafter:manual_slots_purchased:10:Hand Crafter:Purchase %threshold% manual baking slots. Every press counts for more now.:Crafters don't shy away from the hands-on approach. Neither do you.
+manual_enthusiast:manual_slots_purchased:25:Manual Enthusiast:Purchase %threshold% manual baking slots. The more you press, the more you earn.:Enthusiasm for manual work is rare. You seem to have plenty of it.
+manual_devotee:manual_slots_purchased:50:Manual Devotee:Purchase %threshold% manual baking slots. You have committed to the craft.:Devotion to manual production is an art form. You are becoming an artist.
+manual_baron:manual_slots_purchased:100:Manual Baron:Purchase %threshold% manual baking slots. Your hands produce more than most bakeries combined.:Barons of the manual arts are a rare breed. You are one of them.
+manual_magnate:manual_slots_purchased:250:Manual Magnate:Purchase %threshold% manual baking slots. Every button press echoes through the bakery.:Magnates of the manual world press buttons other bakers didn't know existed.
+manual_tycoon:manual_slots_purchased:500:Manual Tycoon:Purchase %threshold% manual baking slots. The bake button fears you.:Tycoons of manual production have a relationship with the bake button that others cannot explain.
+manual_overlord:manual_slots_purchased:1000:Manual Overlord:Purchase %threshold% manual baking slots. Other bakers have given up trying to keep pace.:An overlord of manual baking does not rest. The slots see to that.
+manual_empire:manual_slots_purchased:5000:Manual Empire:Purchase %threshold% manual baking slots. Historians will note that one baker pressed more than all others combined.:Empires of the hand are slower to build. But they last longer.
+manual_singularity:manual_slots_purchased:10000:Manual Singularity:Purchase %threshold% manual baking slots. The bake button has filed for early retirement.:At a certain number of manual slots, the button becomes a formality.
+
+; Baking slots - auto slots enabled
+first_slot_enabled:auto_slots_enabled:1:Switched On:Enable your first auto baking slot. The bakery hums to life.:Something in the slot manager can be toggled. See what happens when you do.
+warming_up:auto_slots_enabled:5:Warming Up:Enable %threshold% auto baking slots. The production is starting to flow.:A few slots running and the bakery starts to sound different.
+humming_along:auto_slots_enabled:10:Humming Along:Enable %threshold% auto baking slots. The rhythm of the bakery is steady now.:When the hum becomes constant, you'll know you're on to something.
+well_oiled:auto_slots_enabled:25:Well Oiled:Enable %threshold% auto baking slots. The operation is running smoothly.:A well oiled machine doesn't announce itself. It just runs.
+full_swing:auto_slots_enabled:50:Full Swing:Enable %threshold% auto baking slots. The bakery is operating at full capacity. Almost.:Full swing is a feeling as much as a number. You're getting there.
+power_house:auto_slots_enabled:100:Power House:Enable %threshold% auto baking slots. The energy output of this bakery is measurable.:Power houses don't idle. Every slot has a job and every job gets done.
+roaring:auto_slots_enabled:250:Roaring:Enable %threshold% auto baking slots. The noise from this bakery can be heard from the next town.:When the bakery roars, the neighborhood knows.
+unstoppable_machine:auto_slots_enabled:500:Unstoppable Machine:Enable %threshold% auto baking slots. Nothing can slow this bakery down.:Machines become unstoppable at a certain scale. You have found that scale.
+full_operation:auto_slots_enabled:1000:Full Operation:Enable %threshold% auto baking slots. The bakery operates without pause, without rest, without end.:Full operation means nothing stops. Not ever.
+slot_conductor:auto_slots_enabled:5000:Slot Conductor:Enable %threshold% auto baking slots. You conduct the largest automated bakery in existence.:Conductors don't play the instruments. They make sure every one of them does.
+slot_omnipotence:auto_slots_enabled:10000:Slot Omnipotence:Enable %threshold% auto baking slots. The bakery has transcended the concept of production.:At a certain number of active slots, output stops being a measurement and becomes a constant.
+
+; Baking slots - auto slots idle
+one_sitting_there:auto_slots_idle:1:Doing Nothing:Own an auto baking slot you haven't enabled. It just sits there. Waiting.:You own something you aren't using. The slot knows.
+couple_gathering_dust:auto_slots_idle:3:Dust Collector:Own %threshold% auto baking slots you haven't enabled. The dust is starting to accumulate.:Dust settles on things that don't move. Something in your bakery isn't moving.
+monument_to_waste:auto_slots_idle:5:Monument to Waste:Own %threshold% auto baking slots sitting idle. You have constructed a monument to inaction.:Monuments are usually built to celebrate something. This one celebrates nothing.
+why_did_you:auto_slots_idle:10:Why Did You Buy These:Own %threshold% idle auto baking slots. A reasonable question with no reasonable answer.:There is a number of idle slots past which the question answers itself. You're there.
+slot_graveyard:auto_slots_idle:25:Slot Graveyard:Own %threshold% idle auto baking slots. A quiet place. No one visits. Nothing runs.:Graveyards are peaceful. Your idle slots have achieved that peace.
+professional_hoarder:auto_slots_idle:50:Professional Hoarder:Own %threshold% idle auto baking slots. You buy them and then abandon them. Professionally.:Hoarding is usually accidental. Yours has developed structure and routine.
+idle_empire:auto_slots_idle:100:Idle Empire:Own %threshold% idle auto baking slots. You have built an empire that produces absolutely nothing.:Empires are impressive. Yours is impressive in a very specific and unfortunate way.
+museum_of_inaction:auto_slots_idle:250:Museum of Inaction:Own %threshold% idle auto baking slots. Visitors come to stare in disbelief.:Museums preserve things of historical significance. Your idle slots qualify somehow.
+the_void:auto_slots_idle:500:The Void:Own %threshold% idle auto baking slots. A vast emptiness where production used to be a possibility.:The void doesn't produce. It doesn't intend to. Neither do these slots.
+idle_legend:auto_slots_idle:1000:Idle Legend:Own %threshold% idle auto baking slots. Songs will be written about what you chose not to do.:Legends are made through action. Yours was made through the deliberate absence of it.
+idle_singularity:auto_slots_idle:5000:Idle Singularity:Own %threshold% idle auto baking slots. The universe has accepted that these slots will never run.:At a certain number of idle slots, inaction becomes its own kind of achievement.
+idle_eternity:auto_slots_idle:10000:Idle Eternity:Own %threshold% idle auto baking slots. Time itself has given up waiting for you to enable them.:Eternity is a long time to do nothing. You seem comfortable with that.
