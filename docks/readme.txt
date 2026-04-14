@@ -139,7 +139,7 @@ Track your progress and earn recognition for milestones across every part of the
 
 There are 100 achievements spread across all tracked statistics, including baking, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack. Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
-Achievements are shown in a dedicated menu accessible from the main game interface. Every achievement is always visible in the list, showing its name followed by locked or unlocked. Pressing enter on an unlocked achievement re-speaks its description. Pressing enter on a locked achievement tells you what you need to do to unlock it. When you earn an achievement during play, the game announces it non-interruptively in the background and stores it in the achievements buffer so you can review it later. Pressing enter on an unlocked achievement in the menu shows a dialog you can read at your own pace.
+Achievements are shown in a dedicated menu accessible from the main game interface. Unlocked achievements always appear at the top of the list, followed by locked ones. The menu shows how many you have unlocked out of the total. Pressing enter on an unlocked achievement shows a dialog with its description that you can read at your own pace. Pressing enter on a locked achievement gives you a cryptic hint about what you need to do to earn it. When you earn an achievement during play, the game announces it non-interruptively in the background and stores it in the achievements buffer so you can review it later.
 
 Save slots.
 

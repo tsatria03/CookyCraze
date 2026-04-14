@@ -114,34 +114,44 @@ void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked)
 {
     while (true)
     {
-wait(5);
+        wait(5);
         setupmenu(false);
         for (uint i = 0; i < achievements.length(); i++)
         {
-            bool isUnlocked = unlocked.exists(achievements[i].id);
-            string label = achievements[i].name + ", " + (isUnlocked ? "unlocked" : "locked");
-            m.add_item(label, achievements[i].id);
+            if (!unlocked.exists(achievements[i].id)) continue;
+            m.add_item(achievements[i].name, achievements[i].id);
+        }
+        for (uint i = 0; i < achievements.length(); i++)
+        {
+            if (unlocked.exists(achievements[i].id)) continue;
+            m.add_item(achievements[i].name + ", locked", achievements[i].id);
         }
         m.add_item("Back", "back");
-        m.intro_text = "Achievements menu. " + string(unlocked.get_keys().length()) + " of " + string(achievements.length()) + " unlocked.";
-        int res = m.run();
+        int unlockedCount = unlocked.get_keys().length();
+        m.intro_text = "Achievements menu. " + string(unlockedCount) + " of " + string(achievements.length()) + " achievements unlocked.";
+        int start = 0;
+        if (achievements_last_id != "")
+        {
+            int found = m.find_item_by_id(achievements_last_id);
+            if (found != -1) start = found;
+        }
+        int res = m.run(start, true);
         if (res == -1)
             break;
         string sel = m.get_item_id(res);
         if (sel == "back")
+        {
+            achievements_last_id = "";
             break;
+        }
+        achievements_last_id = sel;
         for (uint i = 0; i < achievements.length(); i++)
         {
             if (achievements[i].id != sel) continue;
             if (unlocked.exists(achievements[i].id))
-            {
-                dlgmessage_return(achievements[i].name + ". " + achievements[i].description);
-            }
+                dlgmessage_return(achievements[i].description);
             else
-            {
-                pool.play_stationary("sounds/misc/gamefail.ogg", false);
-                dlgmessage_return("This achievement is locked. " + achievements[i].hint);
-            }
+                dlgmessage_return("This achievement is locked. Hint: " + achievements[i].hint);
             break;
         }
     }

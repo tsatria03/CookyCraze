@@ -1,4 +1,9 @@
 New in 4.0.
+Fixed a bug where starting a new game would cause the achievements menu to open on a stale position from the previous session, making the first achievement invisible. The menu position now resets alongside everything else when starting a new game.
+Added focus memory to the achievements menu so it remembers where you were when you return to it.
+Rewrote all 100 achievement hints to be cryptic clues rather than direct instructions. Hints now suggest what to do without spelling it out, giving each one more personality and making locked achievements more interesting to read.
+Reorganised the achievements menu so unlocked achievements always appear at the top of the list, followed by locked ones. Unlocked achievements show only their name, while locked ones are labelled accordingly.
+Fixed the achievements menu reading the achievement name twice when pressing enter on an unlocked achievement. The description is now shown on its own.
 Renamed some sounds in the game where appropriate.
 Removed the redundant achievement sound from the achievements menu when reading an already unlocked achievement. The sound now only plays when an achievement is first earned during play.
 Added some new sounds for recieving textual achievements.

@@ -42,6 +42,7 @@ string currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game1.c
 string last_menu_id="";
 string shopmenu_last_id="";
 string buymenu_last_id="";
+string achievements_last_id="";
 string baker_last_item_id="";
 string baker_last_cat_id="";
 string bundle_last_item_id="";

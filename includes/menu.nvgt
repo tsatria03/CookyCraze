@@ -1008,7 +1008,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
     }
 }
 
-void add_baking_slots()
+void add_auto_slots()
 {
     setupmenu(false);
     m.add_item("Add 1 slot for "   + format_number(calc_slot_cost(1))   + " coins", "add_slot");
@@ -1024,7 +1024,7 @@ m.add_item("Add 2500 slots for " + format_number(calc_slot_cost(2500)) + " coins
 m.add_item("Add 5000 slots for " + format_number(calc_slot_cost(5000)) + " coins", "add_slot11");
 m.add_item("Add 10000 slots for " + format_number(calc_slot_cost(10000)) + " coins", "add_slot12");
     m.add_item("Back", "back");
-    m.intro_text = "Slot producer menu.";
+    m.intro_text = "Auto slots menu.";
     int start_pos = 0;
     if (last_menu_id != "")
     {
@@ -1072,14 +1072,14 @@ if (slotprod == "add_slot12")  count = 10000;
                 alertslot = pool.play_stationary("sounds/misc/prodslot.ogg", false);
 int produced = baking_slots.length();
 speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now have " + string(produced) + " produced slot" + (produced == 1 ? "" : "s") + ".");
-            add_baking_slots();
+            add_auto_slots();
             }
             else
             {
                 alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
                 dlg("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
                 pool.destroy_sound(alertslot);
-add_baking_slots();
+add_auto_slots();
 }
 }
 }
@@ -1173,7 +1173,7 @@ void auto_slots_menu()
     if (selected == "add")
     {
         last_menu_id = "";
-        add_baking_slots();
+        add_auto_slots();
         return;
     }
     if (selected == "automate")
