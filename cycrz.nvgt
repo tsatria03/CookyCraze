@@ -29,7 +29,7 @@ if (loadedFlipperEvents.length() == 0)
     alert("Error", "Could not load flipper event data from data/config/events/flipper.event. Please check the file and try again.");
     exit();
 }
-parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet);
+parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
 if (slotSymbols.length() < 10 || slotPayouts.length() == 0)
 {
     alert("Error", "Could not load slot machine data from data/config/tables/slots.table. Please check the file and try again.");

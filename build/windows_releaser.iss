@@ -1,9 +1,9 @@
-#define MyAppId "{{B5718EDD-4F38-45A6-AD84-68BC34D57407}}"
-#define MyAppName "SimpleFighter"
-#define MyAppVersion "8.9"
+#define MyAppId "{{8706944F-4D18-40AE-A7D8-565BAA65E672}}"
+#define MyAppName "CookyCraze"
+#define MyAppVersion "3.9"
 #define MyAppPublisher "tsatria03"
-#define MyAppURL "https://tsatria03.itch.io/SimpleFighter"
-#define MyAppExeName "sf.exe"
+#define MyAppURL "https://tsatria03.github.io/projects/games/CookyCraze"
+#define MyAppExeName "cycrz.exe"
 
 [Setup]
 AppId={#MyAppId}
@@ -13,7 +13,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={autopf}\{#MyAppPublisher}\{#MyAppName}\sf
+DefaultDirName={autopf}\{#MyAppPublisher}\{#MyAppName}\cycrz
 DefaultGroupName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 ArchitecturesAllowed=x64compatible
@@ -22,8 +22,8 @@ PrivilegesRequired=admin
 UninstallDisplayName={#MyAppName} {#MyAppVersion}
 AppMutex={#MyAppName}_Mutex
 OutputDir=.
-OutputBaseFilename=SimpleFighter_windows_installer_password_is_SpfBuilder
-Password=SpfBuilder
+OutputBaseFilename=CookyCraze_windows_installer_password_is_CrazeMastery
+Password=CrazeMastery
 Encryption=yes
 SolidCompression=yes
 WizardStyle=modern
@@ -36,7 +36,7 @@ Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription:
 Name: "startmenuicon"; Description: "Create a Start Menu shortcut"; GroupDescription: "Additional icons:"
 
 [Files]
-Source: "C:\Users\tonys\OneDrive\Documents\GitHub\SimpleFighter\releases\windows\SimpleFighter_windows_portable_password_is_SpfBuilder\sf\*"; \
+Source: "C:\Users\tonys\OneDrive\Documents\GitHub\CookyCraze\releases\windows\CookyCraze_windows_portable_password_is_CrazeMastery\cycrz\*"; \
   DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]

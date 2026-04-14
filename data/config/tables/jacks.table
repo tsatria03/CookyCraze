@@ -1,4 +1,4 @@
-; --- Settings ---
+; Settings
 dealer_stand=17
 natural_multiplier=1.5
 win_multiplier=2
@@ -7,13 +7,13 @@ min_bet=1
 max_bet=0
 confirm_threshold=1000:false
 
-; --- Sounds ---
+; Sounds
 win_sound=jackwin(1,4).ogg
 lose_sound=lose.ogg
 player_draw_sound=jackplayer.ogg
 dealer_draw_sound=jackdealer.ogg
 
-; --- Messages ---
+; Messages
 natural_message=Blackjack! You hit a natural 21 and win %win% %item%!
 win_message=You win! %score% against the dealer's %dealer%. You gained %win% %item%!
 bust_message=Bust! You went over 21 with %score%. You lost your bet.
