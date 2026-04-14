@@ -8,6 +8,10 @@ Bake cookies and sell them to earn coins. The more you bake, the higher your ran
 
 You can bake manually by pressing the bake button, or let auto-baking handle it passively. Every cookie baked counts toward your rank progress. Your earnings per bake scale with your rank, so the further you progress, the faster coins accumulate.
 
+To sell cookies and earn coins, enter the cooky store and choose the sell option. You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in. Press enter to sell everything you have, or type a smaller number to sell only part of your supply. Each cookie sells for a fixed rate, so the more you bake before selling the larger your payout.
+
+Baking mode is a toggle that activates automatic cookie production. To enable it you need at least one auto cookie. Once active, cookies are baked automatically on a timed cycle without any input needed. You can still press the bake button manually while baking mode is running to get an extra boost on top of the automatic output. Baking mode turns off automatically if your auto cookie count drops to zero.
+
 Ranking up.
 Reach new ranks by baking cookies. Every rank rewards you with coins, and milestone ranks unlock new features.
 
@@ -16,7 +20,17 @@ The coin reward scales with your current rank, so higher ranks pay out more. Cer
 The singles shop.
 Buy individual stat upgrades using your coins. Three stats are available: auto cookies, manual cookies, and baking speed.
 
-Auto cookies increases how many cookies are baked automatically per cycle. Manual cookies increases how many cookies you produce per bake press. Baking speed reduces the time between each bake. Upgrades are organized into categories, with higher categories requiring a minimum rank to access. Costs scale up the more you buy, so plan your purchases carefully. You can buy one at a time or bulk buy as many as you can afford in one go.
+Auto cookies increases how many cookies are baked automatically per cycle. Manual cookies increases how many cookies you produce per bake press. Baking speed reduces the time between each bake. Upgrades are organized into categories, with higher categories requiring a minimum rank to access. Costs scale up the more you buy, so plan your purchases carefully.
+
+There are four ways to purchase in the singles shop.
+
+The first is buying a single item at a custom quantity. Select any item in a category and you will be prompted to enter how many you want. Type the exact number you want and confirm to buy precisely that amount at the current price.
+
+The second is buying a single item at the maximum quantity. When the purchase prompt appears the maximum number you can currently afford is already filled in. Simply press enter without typing anything and the game buys as many of that item as your coins allow in one transaction.
+
+The third is buying all affordable items at a custom quantity. At the bottom of each category is a buy all affordable items option, which appears whenever at least one item in the category is within your budget. Selecting it prompts you for a quantity. Type a number and the game buys that many of every affordable item in the category at once, skipping any you cannot afford. This lets you spread a large purchase across multiple stats in a single action instead of visiting each item individually.
+
+The fourth is buying all affordable items at the maximum quantity. The buy all affordable prompt also pre-fills the maximum number you can afford across all eligible items in the category. Pressing enter without changing it floods every affordable item to the maximum your coins allow, making it the fastest way to spend a large coin reserve across an entire category in one go.
 
 The bundle shop.
 Buy packages of multiple stat upgrades at once, often at better value than buying the same items individually.
@@ -24,6 +38,10 @@ Buy packages of multiple stat upgrades at once, often at better value than buyin
 Bundles are organized into categories by rank, spanning the full progression of the game from beginner to godlike tiers. Each bundle lists what stats it contains and how much it costs. Like the singles shop, locked categories show their required rank.
 
 One important thing to understand about bundle pricing: bundles do not have their own fixed prices. Instead, the game uses the singles shop as a backend price engine. When you go to buy a bundle, the game looks up the current price of each item inside it from the singles shop, based on how many of that item you have already bought, and adds them all up to get the bundle's total cost. This means bundle prices scale up naturally as you progress, just like singles do. The more upgrades you have already bought, the more expensive both the singles and the bundles become. The advantage of bundles is that they package multiple items into one convenient purchase, so you get more total stats per transaction than buying the same items one at a time.
+
+Bundles support the same quantity system as the singles shop. When you select a bundle you are prompted for how many you want to buy, with the maximum you can currently afford already filled in. You can type a specific number to buy exactly that many, or press enter to buy as many as your coins allow. The total cost shown in the menu is always per bundle, so the game multiplies that by your chosen quantity at checkout.
+
+The key difference between bundles and the singles shop bulk buy is not price, but convenience. Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats. A bundle packages a curated combination of stats into a single purchase, so you can upgrade auto cookies, manual cookies, and baking speed all at once without any extra navigation. The cost works out the same either way since both use the singles shop prices as the foundation.
 
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
@@ -39,6 +57,8 @@ Cooky flipper. Unlocked at rank 20.
 Flip a coin to trigger a random event that can boost or reduce your stats.
 
 Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list. Some events are positive, others are negative, so there is an element of risk. The event list and their effects are fully customizable in flipper.event.
+
+Before flipping you are shown a checkbox list of all available events loaded from flipper.event. You must have at least one positive event and one negative event checked before you can flip. This lets you curate your own risk pool, opting into only the events you are comfortable with or leaving everything checked to get the full range of outcomes.
 
 Slot machine. Unlocked at rank 30.
 Spin the reels and match symbols to win multiples of your bet.
@@ -114,7 +134,7 @@ Current coins: how many coins you currently have.
 
 Save slots.
 
-The game supports multiple save slots for separate playthroughs, selected from the main menu.
+The game supports multiple save slots for separate playthroughs, selected from the main menu. Each slot is completely independent, with its own rank, cookies, coins, upgrades, and settings. You can start a new game in any slot at any time without affecting your other saves. Save slots are chosen when loading or starting a new game from the main menu.
 
 Keyboard commands
 
@@ -130,6 +150,8 @@ Control L: Reloads all configuration files and your save data without restarting
 Escape: Opens a prompt asking whether you want to quit.
 
 Buffers.
+
+Buffers are categorized message logs that keep track of everything that happens during your game. Instead of important messages disappearing after being spoken, they are stored in a buffer so you can review them at any time. There are four buffer categories. Critical holds important notifications like rank ups and game milestones. Events holds messages from random events and flipper flips. General holds status updates and informational messages. Misc holds things like save confirmations and other game actions. Each buffer can be muted independently so it stops being spoken aloud while still logging messages for later review. You can also export all buffer contents to log files in the logs folder at any time.
 
 Comma: Moves to the previous item in the focused buffer.
 Period: Moves to the next item in the focused buffer.

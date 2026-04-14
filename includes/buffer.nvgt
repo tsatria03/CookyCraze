@@ -73,7 +73,7 @@ if (b.items.length() == 0)
 speak("There's nothing to export in this buffer.");
 return false;
 }
-string bufferdir = "data/logs";
+string bufferdir = DIRECTORY_APPDATA+"tsatria03/CookyCraze/logs";
 if (!directory_exists(bufferdir)) directory_create(bufferdir);
 logfile.open(bufferdir + "/" + b.name + ".log", "ab");
 logfile.write("Exported on " + DATE_MONTH + "/" + DATE_DAY + "/" + DATE_YEAR + "\r\n\r\n");
