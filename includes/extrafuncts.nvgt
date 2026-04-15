@@ -302,6 +302,15 @@ void show_baker_info()
     txt += "Current cookies: " + format_number(cookies) + "\r\n";
     txt += "Cookies needed for next rank: " + format_number(cookiesrequiered) + "\r\n";
     txt += "Current coins: " + format_number(coins) + "\r\n";
+    txt += "Prestige level: " + string(prestigeLevel) + "\r\n";
+    int completedQuests = 0;
+    for (uint i = 0; i < activeQuests.length(); i++)
+    {
+        if (get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold) completedQuests++;
+    }
+    int requiredQuests = (questsConfig.require_all == 3) ? int(activeQuests.length()) : 1;
+    txt += "Quests completed: " + string(completedQuests) + " of " + string(activeQuests.length()) + "\r\n";
+    txt += "Quests required for prestige reward: " + string(requiredQuests) + " of " + string(activeQuests.length()) + "\r\n";
     form.reset();
     form.create_window("Baker info", false);
     int infobox = form.create_input_box("Baker info", txt, read_only:true, multiline:true);

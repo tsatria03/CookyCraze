@@ -1,4 +1,5 @@
 New in 4.5.
+Added the current prestige level, quests completed, and quests required for a prestige reward to the Baker info screen. They now appear in the Progress section alongside rank, cookies, and coins.
 Changed the require_all setting in quests.table from a boolean to a numeric mode. Failing to meet the reward condition shows a nothing was gained message instead.
 The prestige confirmation dialog now dynamically states whether you will receive a reward based on your current quest completion status.
 Added a default_reward section to prestige.table. It fires for any prestige level that does not have a specific milestone reward, so no prestige ever goes unrewarded. The amount scales using the same expression syntax as ranks.table, so values like 50*rank and 100*rank are supported. Milestone rewards still override it completely for their specific level.

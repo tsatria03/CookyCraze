@@ -137,6 +137,9 @@ Current rank: your current rank number.
 Current cookies: how many cookies you have right now.
 Cookies needed for next rank: how many cookies are required to reach the next rank.
 Current coins: how many coins you currently have.
+Prestige level: how many times you have prestiged. Starts at 0 on a fresh save.
+Quests completed: how many of your active quests are currently complete.
+Quests required for prestige reward: how many quests you need to complete to receive a reward on your next prestige. This is 1 unless require_all is set to 3 in quests.table, in which case it shows the total number of active quests.
 
 Statistics menu.
 Access the baker statistics screen and achievement statistics screen from the Statistics button in the main game interface.
