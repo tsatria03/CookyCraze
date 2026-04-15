@@ -75,7 +75,7 @@ if (form.is_pressed(prestigeBtn))
 {
     if (!all_quests_complete())
     {
-        speak_buffer("You must complete all active quests before you can prestige.", "general");
+        speak_buffer(questsConfig.require_all ? "You must complete all active quests before you can prestige." : "You must complete at least one active quest before you can prestige.", "general");
     }
     else if (rank < prestigeConfig.min_rank)
     {

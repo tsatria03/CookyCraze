@@ -194,13 +194,13 @@ If baking mode is off, it shows as a dismissible dialog so you can read it immed
 Quests.
 Complete a set of objectives to unlock the prestige option and start a new run with a permanent bonus.
 
-Quests are automatically assigned at the start of each prestige cycle. Some quests are required and always appear, while others are drawn randomly from the pool to fill the remaining slots.
-The number of active quests at once is configurable in quests.table. Required quests always fill first, and random ones fill the rest.
+Quests are automatically assigned at the start of each prestige cycle using a difficulty based system. Each quest has a difficulty from 1 to 10, and the active slots are spread evenly across the difficulty range so you always get a balanced mix from easy to hard. Required quests occupy their difficulty slot directly, and random quests fill the rest.
+The number of active quests is configurable in quests.table and is capped at 10. The game ships with 60 quests across 12 trackable stats with 5 difficulty tiers each, so the pool has plenty of variety. Rerolling replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
 
-To view your quests, press the Quests button in the main game interface. The quests screen shows a list of all active quests with their name and current status, either complete or incomplete.
-Arrow to any quest and press tab to open a detail box showing the stat being tracked, the required threshold, and your live progress toward it. Once all quests are complete, the prestige button becomes available.
+To view your quests, press the Quests button in the main game interface. The quests screen shows a list of all active quests sorted from easiest to hardest by difficulty.
+Arrow to any quest and the detail box updates automatically, showing the description, current progress toward the threshold, and whether the quest is complete or incomplete. Once the quest completion requirement is met, the prestige button becomes available. Whether that means completing one quest or all of them is configurable in quests.table using the require_all setting.
 
-If you want a different set of random quests, press the reroll button in the quests menu. Rerolling replaces all non-required quests with a new random selection.
+If you want a different quest, arrow to it in the quests menu and press the reroll button. Rerolling replaces only that quest with a new random one of the same difficulty, leaving the rest of your active quests untouched. The reroll button does not appear when a required quest is focused.
 Rerolling deducts a cost from a configurable stat, and the cost increases each time you reroll using compounding scaling. The reroll count resets at the start of each prestige cycle so costs go back to base.
 
 Prestige.
@@ -721,15 +721,15 @@ message
 The message spoken to the player when they prestige. Use %prestige% as a placeholder for the new prestige level.
 
 Rewards section.
-Format: prestige_level:target:amount:use_percent:message
+Format: prestige_level:target:amount|target:amount:use_percent:message
 
-Defines one time bonus rewards given to the player at the start of their new run when they reach a specific prestige level. Multiple reward lines can exist for different prestige levels.
+Defines one time bonus rewards given to the player at the start of their new run when they reach a specific prestige level. Multiple reward lines can exist for different prestige levels. Each reward line can give multiple stats at once by separating them with a pipe character.
 
 prestige_level
 The prestige level that triggers this reward. Each reward only fires once, when the player first reaches that level.
 
-target
-The stat to reward when this reward fires.
+target:amount|target:amount
+One or more stat and amount pairs separated by a pipe. Each pair is a stat name followed by a colon and the amount to give. You can chain as many pairs as you like on one line.
 
 cookies    = the player's current cookie count.
 coins      = the player's current coin count.
@@ -737,17 +737,14 @@ autocooky  = the player's auto cookie production rate.
 manulcooky = the player's manual cookie production rate.
 cookyspeed = the player's baking speed.
 
-amount
-The value to give the player at the start of their new run. Whether this is treated as a flat value or a percentage depends on use_percent.
-
 use_percent
-Controls whether the amount is applied as a flat value or a percentage of what the player had when they prestiged.
+Controls whether the amounts are applied as flat values or percentages of what the player had when they prestiged. This applies to all items in the reward line.
 
-false = the amount is given directly. An amount of 10 gives exactly 10 of the target stat.
-true  = the amount is treated as a percentage of the player's final stat value at the moment they prestiged. An amount of 5 gives 5 percent of whatever they had. Keep percentage values low, as even a small percentage of a late-game stat can be a significant head start.
+false = amounts are given directly. An amount of 10 gives exactly 10 of the target stat.
+true  = amounts are treated as a percentage of the player's final stat value at the moment they prestiged. An amount of 5 gives 5 percent of whatever they had. Keep percentage values low, as even a small percentage of a late-game stat can be a significant head start.
 
 message
-The message spoken when this reward is given. Use %amount% as a placeholder for the reward value.
+The message spoken when this reward is given. Use %amount% as a placeholder and it will be replaced with a summary of all items given.
 
 quests.table
 
@@ -759,6 +756,12 @@ Settings section.
 
 max_active
 The maximum number of quests the player can have active at once. Required quests always fill first, and random ones fill the remaining slots.
+
+require_all
+Controls whether the player must complete all active quests before prestige becomes available, or just one.
+
+true  = all active quests must be completed before the prestige button becomes available.
+false = completing any single active quest is enough to unlock the prestige option.
 
 Reroll settings.
 
@@ -785,7 +788,7 @@ reroll_message
 The message spoken after a successful reroll. Use %cost% as a placeholder for the amount deducted.
 
 Quests section.
-Format: id:name:stat:threshold:use_percent:required:description
+Format: id:name:stat:threshold:use_percent:required:difficulty:description
 
 id
 The internal identifier for this quest. Must be unique across all entries. Use lowercase letters and underscores, no spaces. Example: bake_million
@@ -820,11 +823,19 @@ false = progress is shown as a raw value. For example, 342,500 of 1,000,000.
 true  = progress is shown as a percentage. For example, 3.62%. Useful for quests with very large thresholds where a raw number may be hard to interpret.
 
 required
-true means this quest always appears every prestige cycle. false means it goes into the random pool and may or may not appear depending on the random draw.
+true means this quest always appears every prestige cycle and occupies its difficulty slot, preventing a random quest of the same difficulty from filling that position. false means it goes into the random pool.
+
+difficulty
+A number from 1 to 10 controlling how hard this quest is and which slot it occupies in the active quest list. The game spreads active slots evenly across the difficulty range found in the table, so easier quests always appear alongside harder ones. Required quests occupy their difficulty slot directly. The difficulty range is read dynamically from the table and capped at 10. The max_active setting is also capped at 10.
 
 description
 The message shown in the detail input box when the player focuses this quest. You do not need to include progress information in this field. Below the description the game always appends a line automatically that reads current progress followed by either a raw value out of the threshold or a percentage with a percent sign depending on use_percent, then a period and either complete or incomplete on the same line.
-You can use %threshold% as a placeholder and it will be replaced with the threshold value at display time. Tip: keep the description focused on what the quest is asking, and let the game handle reporting the progress.
+The following placeholders are available and will be replaced at display time.
+%threshold% = the target value the stat must reach.
+%stat%      = the name of the stat being tracked, in readable form.
+%progress%  = the player's current stat value, capped at the threshold.
+%percent%   = the player's current progress as a percentage of the threshold.
+Tip: keep the description focused on what the quest is asking, and let the game handle reporting the progress.
 
 Game conclusion
 

@@ -1,6 +1,7 @@
 class quests_config
 {
     int max_active;
+    bool require_all;
     string reroll_target;
     double reroll_base_cost;
     double reroll_multiplier;
@@ -16,6 +17,7 @@ class quest_item
     double threshold;
     bool use_percent;
     bool required;
+    int difficulty;
     string description;
 }
 
@@ -26,6 +28,7 @@ int questRerollCount = 0;
 
 void parse_quests_table(string filepath, quest_item[]@ quests_out)
 {
+    quests_out.resize(0);
     file f;
     if (!f.open(filepath, "r"))
         return;
@@ -45,12 +48,18 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
             if (eq == -1) continue;
             string key = line.substr(0, eq);
             string val = line.substr(eq + 1);
-            if (key == "max_active")           questsConfig.max_active = string_to_int(val);
-            else if (key == "reroll_target")   questsConfig.reroll_target = val;
-            else if (key == "reroll_base_cost") questsConfig.reroll_base_cost = string_to_number(val);
+            if (key == "max_active")
+            {
+                questsConfig.max_active = string_to_int(val);
+                if (questsConfig.max_active > 10) questsConfig.max_active = 10;
+                if (questsConfig.max_active < 1)  questsConfig.max_active = 1;
+            }
+            else if (key == "require_all")       questsConfig.require_all = (val == "true");
+            else if (key == "reroll_target")     questsConfig.reroll_target = val;
+            else if (key == "reroll_base_cost")  questsConfig.reroll_base_cost = string_to_number(val);
             else if (key == "reroll_multiplier") questsConfig.reroll_multiplier = string_to_number(val);
-            else if (key == "reroll_sound")    questsConfig.reroll_sound = val;
-            else if (key == "reroll_message")  questsConfig.reroll_message = val;
+            else if (key == "reroll_sound")      questsConfig.reroll_sound = val;
+            else if (key == "reroll_message")    questsConfig.reroll_message = val;
         }
         else if (section == "quests")
         {
@@ -59,7 +68,7 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
             int colonCount = 0;
             for (uint i = 0; i < line.length(); i++)
             {
-                if (line.substr(i, 1) == ":" && colonCount < 6)
+                if (line.substr(i, 1) == ":" && colonCount < 7)
                 {
                     parts.insert_last(line.substr(lastPos, i - lastPos));
                     lastPos = i + 1;
@@ -67,7 +76,7 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
                 }
             }
             parts.insert_last(line.substr(lastPos));
-            if (parts.length() < 7) continue;
+            if (parts.length() < 8) continue;
             quest_item item;
             item.id          = parts[0];
             item.name        = parts[1];
@@ -75,7 +84,10 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
             item.threshold   = string_to_number(parts[3]);
             item.use_percent = (parts[4] == "true");
             item.required    = (parts[5] == "true");
-            item.description = parts[6];
+            item.difficulty  = string_to_int(parts[6]);
+            if (item.difficulty < 1)  item.difficulty = 1;
+            if (item.difficulty > 10) item.difficulty = 10;
+            item.description = parts[7];
             quests_out.insert_last(item);
         }
     }
@@ -85,65 +97,124 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
 void assign_quests()
 {
     activeQuests.resize(0);
-    quest_item[] randomPool;
+
+    // Find the max difficulty in the pool, capped at 10
+    int maxDiff = 0;
     for (uint i = 0; i < loadedQuests.length(); i++)
     {
-        if (loadedQuests[i].required)
-            activeQuests.insert_last(loadedQuests[i]);
-        else
-            randomPool.insert_last(loadedQuests[i]);
+        if (loadedQuests[i].difficulty > maxDiff)
+            maxDiff = loadedQuests[i].difficulty;
     }
-    int remaining = questsConfig.max_active - int(activeQuests.length());
-    while (remaining > 0 && randomPool.length() > 0)
+    if (maxDiff > 10) maxDiff = 10;
+    if (maxDiff < 1)  maxDiff = 1;
+
+    // Build one slot per difficulty level, spread across max_active
+    // Each slot maps to a difficulty tier evenly distributed across 1..maxDiff
+    int slots = questsConfig.max_active;
+    int[] slotDifficulties;
+    for (int s = 0; s < slots; s++)
     {
-        int idx = random(0, randomPool.length() - 1);
-        activeQuests.insert_last(randomPool[idx]);
-        randomPool.remove_at(idx);
-        remaining--;
+        // Spread slots evenly: slot 0 = diff 1, last slot = maxDiff
+        int diff = 1 + int(floor(double(s) * double(maxDiff - 1) / double(slots > 1 ? slots - 1 : 1)));
+        slotDifficulties.insert_last(diff);
+    }
+
+    // Fill each slot — required quests occupy their difficulty slot first
+    bool[] slotFilled;
+    for (int s = 0; s < slots; s++) slotFilled.insert_last(false);
+
+    // Place required quests into their matching difficulty slot
+    for (uint i = 0; i < loadedQuests.length(); i++)
+    {
+        if (!loadedQuests[i].required) continue;
+        for (int s = 0; s < slots; s++)
+        {
+            if (!slotFilled[s] && slotDifficulties[s] == loadedQuests[i].difficulty)
+            {
+                activeQuests.insert_last(loadedQuests[i]);
+                slotFilled[s] = true;
+                break;
+            }
+        }
+    }
+
+    // Fill remaining slots with random pool quests matching the slot difficulty
+    for (int s = 0; s < slots; s++)
+    {
+        if (slotFilled[s]) continue;
+        int targetDiff = slotDifficulties[s];
+        quest_item[] candidates;
+        for (uint i = 0; i < loadedQuests.length(); i++)
+        {
+            if (!loadedQuests[i].required && loadedQuests[i].difficulty == targetDiff)
+                candidates.insert_last(loadedQuests[i]);
+        }
+        // Exclude already active quests
+        quest_item[] filtered;
+        for (uint c = 0; c < candidates.length(); c++)
+        {
+            bool alreadyActive = false;
+            for (uint a = 0; a < activeQuests.length(); a++)
+            {
+                if (activeQuests[a].id == candidates[c].id) { alreadyActive = true; break; }
+            }
+            if (!alreadyActive) filtered.insert_last(candidates[c]);
+        }
+        if (filtered.length() > 0)
+        {
+            int idx = random(0, filtered.length() - 1);
+            activeQuests.insert_last(filtered[idx]);
+            slotFilled[s] = true;
+        }
+    }
+
+    // Sort active quests by difficulty ascending
+    for (uint i = 0; i < activeQuests.length(); i++)
+    {
+        for (uint j = i + 1; j < activeQuests.length(); j++)
+        {
+            if (activeQuests[j].difficulty < activeQuests[i].difficulty)
+            {
+                quest_item tmp = activeQuests[i];
+                activeQuests[i] = activeQuests[j];
+                activeQuests[j] = tmp;
+            }
+        }
     }
 }
 
-void reroll_quests()
+void reroll_quest(int questIndex)
 {
+    if (questIndex < 0 || questIndex >= int(activeQuests.length())) return;
+    if (activeQuests[questIndex].required) return;
+
     double cost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
-    double statVal = 0;
-    if (questsConfig.reroll_target == "coins")      statVal = coins;
-    else if (questsConfig.reroll_target == "cookies")     statVal = cookies;
-    else if (questsConfig.reroll_target == "autocooky")   statVal = autocooky;
-    else if (questsConfig.reroll_target == "manulcooky")  statVal = manulcooky;
-    else if (questsConfig.reroll_target == "cookyspeed")  statVal = cookyspeed;
-    if (statVal < cost)
-    {
-        dlgmessage_return("You cannot afford to reroll this quest. The current reroll cost is " + format_number(cost) + " " + questsConfig.reroll_target + ".");
-        return;
-    }
-    if (questsConfig.reroll_target == "coins")      coins -= cost;
-    else if (questsConfig.reroll_target == "cookies")     cookies -= cost;
-    else if (questsConfig.reroll_target == "autocooky")   autocooky -= cost;
-    else if (questsConfig.reroll_target == "manulcooky")  manulcooky -= cost;
-    else if (questsConfig.reroll_target == "cookyspeed")  { cookyspeed -= cost; clicktime += cost; }
+    if (questsConfig.reroll_target == "coins")           coins -= cost;
+    else if (questsConfig.reroll_target == "cookies")    cookies -= cost;
+    else if (questsConfig.reroll_target == "autocooky")  autocooky -= cost;
+    else if (questsConfig.reroll_target == "manulcooky") manulcooky -= cost;
+    else if (questsConfig.reroll_target == "cookyspeed") { cookyspeed -= cost; clicktime += cost; }
     questRerollCount++;
-    quest_item[] randomPool;
+
+    int targetDiff = activeQuests[questIndex].difficulty;
+    quest_item[] candidates;
     for (uint i = 0; i < loadedQuests.length(); i++)
     {
-        if (!loadedQuests[i].required)
-            randomPool.insert_last(loadedQuests[i]);
+        if (loadedQuests[i].required) continue;
+        if (loadedQuests[i].difficulty != targetDiff) continue;
+        bool alreadyActive = false;
+        for (uint a = 0; a < activeQuests.length(); a++)
+        {
+            if (activeQuests[a].id == loadedQuests[i].id) { alreadyActive = true; break; }
+        }
+        if (!alreadyActive) candidates.insert_last(loadedQuests[i]);
     }
-    quest_item[] newActive;
-    for (uint i = 0; i < activeQuests.length(); i++)
+    if (candidates.length() > 0)
     {
-        if (activeQuests[i].required)
-            newActive.insert_last(activeQuests[i]);
+        int idx = random(0, candidates.length() - 1);
+        activeQuests[questIndex] = candidates[idx];
     }
-    int remaining = questsConfig.max_active - int(newActive.length());
-    while (remaining > 0 && randomPool.length() > 0)
-    {
-        int idx = random(0, randomPool.length() - 1);
-        newActive.insert_last(randomPool[idx]);
-        randomPool.remove_at(idx);
-        remaining--;
-    }
-    activeQuests = newActive;
+
     string msg = questsConfig.reroll_message;
     string costStr = format_number(cost);
     int ph = msg.find("%cost%");
@@ -157,10 +228,11 @@ bool all_quests_complete()
 {
     for (uint i = 0; i < activeQuests.length(); i++)
     {
-        if (get_stat_value(activeQuests[i].stat) < activeQuests[i].threshold)
-            return false;
+        bool complete = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
+        if (!questsConfig.require_all && complete) return true;
+        if (questsConfig.require_all && !complete) return false;
     }
-    return true;
+    return questsConfig.require_all;
 }
 
 string get_quest_progress(quest_item@ item)
@@ -176,13 +248,45 @@ string get_quest_progress(quest_item@ item)
     return format_number(current) + " of " + format_number(item.threshold);
 }
 
+string get_stat_display_name(string stat)
+{
+    if (stat == "cookies_baked")          return "cookies baked";
+    else if (stat == "coins_earned")      return "coins earned";
+    else if (stat == "upgrades_purchased") return "upgrades purchased";
+    else if (stat == "bundles_purchased") return "bundles purchased";
+    else if (stat == "events_fired")      return "events fired";
+    else if (stat == "flipper_flips")     return "cooky flipper flips";
+    else if (stat == "slot_spins")        return "slot machine spins";
+    else if (stat == "slot_wins")         return "slot machine wins";
+    else if (stat == "blackjack_hands")   return "blackjack hands played";
+    else if (stat == "blackjack_wins")    return "blackjack wins";
+    else if (stat == "auto_slots_purchased") return "auto slots purchased";
+    else if (stat == "auto_slots_enabled")   return "auto slots enabled";
+    else if (stat == "rank")              return "rank";
+    return stat;
+}
+
 string get_quest_detail(quest_item@ item)
 {
     double current = get_stat_value(item.stat);
     bool complete = current >= item.threshold;
+    double pct = (item.threshold > 0) ? (current / item.threshold) * 100.0 : 100.0;
+    if (pct > 100.0) pct = 100.0;
     string desc = item.description;
-    int ph = desc.find("%threshold%");
+    int ph;
+    ph = desc.find("%threshold%");
     while (ph != -1) { desc = desc.substr(0, ph) + format_number(item.threshold) + desc.substr(ph + 11); ph = desc.find("%threshold%"); }
+    ph = desc.find("%stat%");
+    while (ph != -1) { desc = desc.substr(0, ph) + get_stat_display_name(item.stat) + desc.substr(ph + 6); ph = desc.find("%stat%"); }
+    ph = desc.find("%progress%");
+    while (ph != -1)
+    {
+        double capped = current > item.threshold ? item.threshold : current;
+        desc = desc.substr(0, ph) + format_number(capped) + desc.substr(ph + 10);
+        ph = desc.find("%progress%");
+    }
+    ph = desc.find("%percent%");
+    while (ph != -1) { desc = desc.substr(0, ph) + format_number(pct) + "%" + desc.substr(ph + 9); ph = desc.find("%percent%"); }
     desc += "\r\nCurrent progress: " + get_quest_progress(item) + ". " + (complete ? "Complete" : "Incomplete");
     return desc;
 }

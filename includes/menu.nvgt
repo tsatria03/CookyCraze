@@ -1346,17 +1346,19 @@ void questsmenu()
 {
     form.reset();
     form.create_window("Quests", false);
-    int questList = form.create_list("&Quests", activeQuests.length(), false, false);
+    int questList = form.create_list("&Quests", 0, false, false);
     for (uint i = 0; i < activeQuests.length(); i++)
     {
-        form.add_list_item(questList, activeQuests[i].name, activeQuests[i].id, -1, false);
+        form.add_list_item(questList, activeQuests[i].name, activeQuests[i].id, -1, true);
     }
     int detailBox = form.create_input_box("&Quest details", "", read_only:true, multiline:true);
     double rerollCost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
-    int rerollBtn = form.create_button("&Reroll quest for " + format_number(rerollCost) + " " + questsConfig.reroll_target);
+    int rerollBtn = -1;
     int closeBtn = form.create_button("&Close", false, true);
     form.focus(questList);
+    form.set_list_position(questList, 0);
     int lastPos = -1;
+    bool lastRequired = true;
     while (true)
     {
         wait(5);
@@ -1365,17 +1367,37 @@ void questsmenu()
         if (curPos != lastPos && curPos >= 0 && curPos < int(activeQuests.length()))
         {
             form.set_text(detailBox, get_quest_detail(activeQuests[curPos]));
+            bool isRequired = activeQuests[curPos].required;
+            if (isRequired != lastRequired)
+            {
+                if (rerollBtn != -1) form.delete_control(rerollBtn);
+                form.delete_control(closeBtn);
+                if (!isRequired)
+                    rerollBtn = form.create_button("&Reroll quest for " + format_number(rerollCost) + " " + questsConfig.reroll_target);
+                else
+                    rerollBtn = -1;
+                closeBtn = form.create_button("&Close", false, true);
+                lastRequired = isRequired;
+                form.focus_silently(questList);
+            }
             lastPos = curPos;
         }
-        if (form.is_pressed(rerollBtn))
+        if (rerollBtn != -1 && form.is_pressed(rerollBtn))
         {
+            int rerollPos = form.get_list_position(questList);
+            if (rerollPos < 0 || rerollPos >= int(activeQuests.length()))
+            {
+                form.reset();
+                questsmenu();
+                return;
+            }
             double rerollConfirmCost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
             double rerollStatVal = 0;
-            if (questsConfig.reroll_target == "coins")         rerollStatVal = coins;
-            else if (questsConfig.reroll_target == "cookies")      rerollStatVal = cookies;
-            else if (questsConfig.reroll_target == "autocooky")    rerollStatVal = autocooky;
-            else if (questsConfig.reroll_target == "manulcooky")   rerollStatVal = manulcooky;
-            else if (questsConfig.reroll_target == "cookyspeed")   rerollStatVal = cookyspeed;
+            if (questsConfig.reroll_target == "coins")           rerollStatVal = coins;
+            else if (questsConfig.reroll_target == "cookies")    rerollStatVal = cookies;
+            else if (questsConfig.reroll_target == "autocooky")  rerollStatVal = autocooky;
+            else if (questsConfig.reroll_target == "manulcooky") rerollStatVal = manulcooky;
+            else if (questsConfig.reroll_target == "cookyspeed") rerollStatVal = cookyspeed;
             if (rerollStatVal < rerollConfirmCost)
             {
                 double rerollShortfall = rerollConfirmCost - rerollStatVal;
@@ -1410,7 +1432,7 @@ void questsmenu()
                 questsmenu();
                 return;
             }
-            reroll_quests();
+            reroll_quest(rerollPos);
             form.reset();
             questsmenu();
             return;
