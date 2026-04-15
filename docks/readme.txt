@@ -206,7 +206,7 @@ Rerolling deducts a cost from a configurable stat, and the cost increases each t
 Prestige.
 Reset your progress and earn a permanent bonus that carries into every future run.
 
-Once all active quests are completed and you meet the minimum rank requirement, the prestige option becomes available. Pressing it opens a confirmation dialog explaining what resets and what carries over before you commit.
+Once the quest completion requirement is met and you reach the minimum rank, the prestige option becomes available. Whether you need to complete one quest or all of them depends on the require_all setting in quests.table. Pressing it opens a confirmation dialog explaining what resets and what carries over before you commit.
 Each prestige increases your prestige level by one and applies a permanent additive multiplier bonus to your stats. The multiplier stacks with each prestige, so prestige 1 gives a 10 percent bonus, prestige 2 gives 20 percent, and so on.
 
 When you prestige, the following are reset: cookies, coins, rank, all upgrade purchases, baking slots, and baking and economy stats.
