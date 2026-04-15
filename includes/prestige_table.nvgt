@@ -1,12 +1,15 @@
 class prestige_config
 {
     int min_rank;
-    double multiplier;
-    bool boost_autocooky;
-    bool boost_manulcooky;
-    bool boost_coins;
-    bool boost_cookyspeed;
     string sound;
+    string message;
+}
+
+class prestige_default_reward
+{
+    string target;
+    string min_amount;
+    string max_amount;
     string message;
 }
 
@@ -26,10 +29,13 @@ class prestige_reward_item
 
 prestige_config prestigeConfig;
 prestige_reward_item[] prestigeRewards;
+prestige_default_reward prestigeDefaultReward;
+bool prestigeDefaultRewardSet = false;
 
 void parse_prestige_table(string filepath)
 {
     prestigeRewards.resize(0);
+    prestigeDefaultRewardSet = false;
     file f;
     if (!f.open(filepath, "r"))
         return;
@@ -42,6 +48,7 @@ void parse_prestige_table(string filepath)
         if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
             continue;
         if (line == "[settings]") { section = "settings"; continue; }
+        if (line == "[default_reward]") { section = "default_reward"; continue; }
         if (line == "[rewards]") { section = "rewards"; continue; }
         if (section == "settings")
         {
@@ -49,19 +56,12 @@ void parse_prestige_table(string filepath)
             if (eq == -1) continue;
             string key = line.substr(0, eq);
             string val = line.substr(eq + 1);
-            if (key == "min_rank")          prestigeConfig.min_rank = string_to_int(val);
-            else if (key == "multiplier")   prestigeConfig.multiplier = string_to_number(val);
-            else if (key == "boost_autocooky")  prestigeConfig.boost_autocooky = (val == "true");
-            else if (key == "boost_manulcooky") prestigeConfig.boost_manulcooky = (val == "true");
-            else if (key == "boost_coins")      prestigeConfig.boost_coins = (val == "true");
-            else if (key == "boost_cookyspeed") prestigeConfig.boost_cookyspeed = (val == "true");
-            else if (key == "sound")        prestigeConfig.sound = val;
-            else if (key == "message")      prestigeConfig.message = val;
+            if (key == "min_rank") prestigeConfig.min_rank = string_to_int(val);
+            else if (key == "sound")   prestigeConfig.sound = val;
+            else if (key == "message") prestigeConfig.message = val;
         }
-        else if (section == "rewards")
+        else if (section == "default_reward")
         {
-            // Format: prestige_level:target:amount|target:amount:use_percent:message
-            // Split on colons, max 3 splits (level, items, use_percent, message)
             string[] parts;
             int lastPos = 0;
             int colonCount = 0;
@@ -76,14 +76,35 @@ void parse_prestige_table(string filepath)
             }
             parts.insert_last(line.substr(lastPos));
             if (parts.length() < 4) continue;
+            prestigeDefaultReward.target     = parts[0];
+            prestigeDefaultReward.min_amount = parts[1];
+            prestigeDefaultReward.max_amount = parts[2];
+            prestigeDefaultReward.message    = parts[3];
+            prestigeDefaultRewardSet = true;
+        }
+        else if (section == "rewards")
+        {
+            int firstColon = line.find(":");
+            if (firstColon == -1) continue;
+
+            int lastColon = -1;
+            int secondLastColon = -1;
+            for (int ci = int(line.length()) - 1; ci >= 0; ci--)
+            {
+                if (line.substr(ci, 1) == ":")
+                {
+                    if (lastColon == -1)       lastColon = ci;
+                    else if (secondLastColon == -1) { secondLastColon = ci; break; }
+                }
+            }
+            if (secondLastColon == -1 || secondLastColon <= firstColon) continue;
 
             prestige_reward_item item;
-            item.prestige_level = string_to_int(parts[0]);
-            item.use_percent    = (parts[2] == "true");
-            item.message        = parts[3];
+            item.prestige_level = string_to_int(line.substr(0, firstColon));
+            item.use_percent    = (line.substr(secondLastColon + 1, lastColon - secondLastColon - 1) == "true");
+            item.message        = line.substr(lastColon + 1);
 
-            // Parse items: target:amount|target:amount
-            string itemsStr = parts[1];
+            string itemsStr = line.substr(firstColon + 1, secondLastColon - firstColon - 1);
             string[] itemParts;
             int iLastPos = 0;
             for (uint i = 0; i < itemsStr.length(); i++)
@@ -113,7 +134,7 @@ void parse_prestige_table(string filepath)
     f.close();
 }
 
-void apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocooky, double snapshot_manulcooky, double snapshot_coins, double snapshot_cookyspeed)
+void apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocooky, double snapshot_manulcooky, double snapshot_coins, double snapshot_cookyspeed, int level)
 {
     string allAmounts = "";
     for (uint e = 0; e < item.entries.length(); e++)
@@ -138,7 +159,33 @@ void apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocooky
         allAmounts += format_number(amount) + " " + target;
     }
     string msg = item.message;
-    int ph = msg.find("%amount%");
+    string lvlStr = string(level);
+    int ph = msg.find("%level%");
+    while (ph != -1) { msg = msg.substr(0, ph) + lvlStr + msg.substr(ph + 7); ph = msg.find("%level%"); }
+    ph = msg.find("%amount%");
     while (ph != -1) { msg = msg.substr(0, ph) + allAmounts + msg.substr(ph + 8); ph = msg.find("%amount%"); }
+    dlgmessage_return(msg);
+}
+
+void apply_prestige_default_reward(int level)
+{
+    double minVal = eval_event_amount(prestigeDefaultReward.min_amount, double(level));
+    double maxVal = eval_event_amount(prestigeDefaultReward.max_amount, double(level));
+    if (minVal > maxVal) { double tmp = minVal; minVal = maxVal; maxVal = tmp; }
+    double amount = max(1.0, double(random(int(minVal), int(maxVal))));
+    amount = floor(amount);
+    string target = prestigeDefaultReward.target;
+    if (target == "cookies")          cookies += amount;
+    else if (target == "coins")       { coins += amount; stat_coins_earned += amount; }
+    else if (target == "autocooky")   autocooky += amount;
+    else if (target == "manulcooky")  manulcooky += amount;
+    else if (target == "cookyspeed")  { cookyspeed += amount; clicktime -= amount; }
+    string msg = prestigeDefaultReward.message;
+    string lvlStr = string(level);
+    string amtStr = format_number(amount);
+    int ph = msg.find("%level%");
+    while (ph != -1) { msg = msg.substr(0, ph) + lvlStr + msg.substr(ph + 7); ph = msg.find("%level%"); }
+    ph = msg.find("%amount%");
+    while (ph != -1) { msg = msg.substr(0, ph) + amtStr + msg.substr(ph + 8); ph = msg.find("%amount%"); }
     dlgmessage_return(msg);
 }

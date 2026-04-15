@@ -2,17 +2,17 @@ void clickergame()
 {
 form.reset();
 form.create_window("CookyCraze", false);
-int manulbake=form.create_button("Bake cook&ies");
+int manulbake=form.create_button("&Bake cookies");
 int shop=form.create_button("Cooky &store");
 int autobake=form.create_button("Enter baking m&ode");
 int achievementsBtn = form.create_button("&Achievements");
-    int manageSlots = form.create_button("Baking slots &manager");
-int minigames=form.create_button("mini &games");
+int manageSlots = form.create_button("Baking slots &manager");
+int minigames=form.create_button("Mini &games");
 int questsBtn=form.create_button("&Quests");
-int prestigeBtn=form.create_button("Presti&ge");
-int infoBtn=form.create_button("I&nfo");
+int prestigeBtn=form.create_button("&Prestige");
+int infoBtn=form.create_button("&Info");
 int statsBtn=form.create_button("S&tatistics");
-int preffs=form.create_button("&preferences");
+int preffs=form.create_button("P&references");
 form.focus(manulbake);
 while(true)
 {
@@ -73,11 +73,7 @@ questsmenu();
 }
 if (form.is_pressed(prestigeBtn))
 {
-    if (!all_quests_complete())
-    {
-        speak_buffer(questsConfig.require_all ? "You must complete all active quests before you can prestige." : "You must complete at least one active quest before you can prestige.", "general");
-    }
-    else if (rank < prestigeConfig.min_rank)
+    if (rank < prestigeConfig.min_rank)
     {
         speak_buffer("You must reach rank " + string(prestigeConfig.min_rank) + " before you can prestige.", "general");
     }

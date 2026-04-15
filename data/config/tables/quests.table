@@ -1,6 +1,6 @@
 [settings]
 max_active=5
-require_all=false
+require_all=2
 reroll_target=coins
 reroll_base_cost=20
 reroll_multiplier=1.2

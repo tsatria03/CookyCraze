@@ -1451,7 +1451,13 @@ void start_prestige()
     setupmenu(false);
     m.add_item("Yes", "yes");
     m.add_item("No", "no");
-    m.intro_text = "Are you sure you want to prestige? Your cookies, coins, rank, upgrades, and baking slots will be reset. Your achievements, minigame stats, and prestige bonus will be kept.";
+    string confirmText = "Are you sure you want to prestige? Your cookies, coins, rank, upgrades, and baking slots will be reset. Your achievements, minigame stats, and prestige bonus will be kept.";
+    bool willGetReward = quests_reward_earned();
+    if (!willGetReward)
+        confirmText += " Warning: you have not met the quest requirement, so you will not receive any reward for this prestige.";
+    else
+        confirmText += " You have met the quest requirement and will receive your reward.";
+    m.intro_text = confirmText;
     int mres = m.run();
     if (mres == -1 || m.get_item_id(mres) == "no")
     {

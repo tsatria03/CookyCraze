@@ -1,15 +1,20 @@
 [settings]
 min_rank=5
-multiplier=0.1
-boost_autocooky=true
-boost_manulcooky=true
-boost_coins=true
-boost_cookyspeed=false
 sound=prestige.ogg
 message=Congratulations! You have reached prestige level %prestige%. Your bakery has been reset, but your legacy lives on. Good luck on your next run!
 
+[default_reward]
+coins:50*level:100*level:Prestige %level% complete! You earned %amount% bonus coins to start your next run.
+
 [rewards]
-1:coins:25|cookies:10:false:Prestige 1 reached! You start this run with 25 bonus coins and 10 bonus cookies.
-5:coins:5:true:Welcome back! You carry over 5% of your coins into this run.
-10:autocooky:10:false:Prestige 10 reached! You start this run with 10 bonus auto cookies.
-25:autocooky:3:true:Prestige 25 reached! You carry over 3% of your auto cookies. Keep baking!
+1:coins:25|cookies:10:false:Prestige %level% reached! You start this run with 25 bonus coins and 10 bonus cookies.
+2:coins:3:true:Prestige %level% reached! You carry over 3% of your coins into this run.
+3:cookies:3:true:Prestige %level% reached! You carry over 3% of your cookies into this run.
+4:coins:5|cookies:5:true:Prestige %level% reached! You carry over 5% of your coins and 5% of your cookies into this run.
+5:autocooky:5:true:Prestige %level% reached! You carry over 5% of your auto cookies into this run.
+6:manulcooky:5:true:Prestige %level% reached! You carry over 5% of your manual cookies into this run.
+7:coins:8|autocooky:5:true:Prestige %level% reached! You carry over 8% of your coins and 5% of your auto cookies into this run.
+8:cookies:8|manulcooky:5:true:Prestige %level% reached! You carry over 8% of your cookies and 5% of your manual cookies into this run.
+9:coins:10|cookies:10:true:Prestige %level% reached! You carry over 10% of your coins and cookies into this run.
+10:coins:10|cookies:10|autocooky:10|manulcooky:10:true:Prestige %level% reached! You carry over 10% of your coins, cookies, auto cookies, and manual cookies into this run.
+25:autocooky:3:true:Prestige %level% reached! You carry over 3% of your auto cookies. Keep baking!

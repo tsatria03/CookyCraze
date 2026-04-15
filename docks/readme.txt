@@ -1,6 +1,8 @@
 Welcome to Cooky Craze!
-In this game, you bake and sell cookies to earn coins, climb the ranks, and build the ultimate automated bakery. Start out clicking manually, then invest your coins into upgrades, unlock minigames like blackjack, the cooky flipper, and the slot machine, and automate your production until cookies are practically baking themselves.
-Every rank you reach brings a reward, and milestones along the way unlock powerful new features. Can you reach the highest rank and become the ultimate baker? Let's find out!
+In this game, you bake and sell cookies to earn coins, climb the ranks, and build the ultimate automated bakery.
+Start out clicking manually, then invest your coins into upgrades, unlock minigames like blackjack, the cooky flipper, and the slot machine, and automate your production until cookies are practically baking themselves.
+Every rank you reach brings a reward, and milestones along the way unlock powerful new features.
+Can you reach the highest rank and become the ultimate baker? Let's find out!
 
 Game features
 
@@ -22,7 +24,8 @@ If you have no baking slots yet, auto baking uses your full auto cookie value di
 Ranking up.
 Reach new ranks by baking cookies. Every rank rewards you with coins, and milestone ranks unlock new features.
 
-The coin reward scales with your current rank, so higher ranks pay out more. Certain milestone ranks also award bonus stat boosts on top of the coin reward, such as extra auto cookies or manual cookies.
+The coin reward scales with your current rank, so higher ranks pay out more.
+Certain milestone ranks also award bonus stat boosts on top of the coin reward, such as extra auto cookies or manual cookies.
 All rewards and unlock ranks are fully configurable in ranks.table.
 
 Regular rank rewards are announced non-interruptively in the background and stored in the ranks buffer. Milestone rank rewards go to the critical buffer.
@@ -31,8 +34,10 @@ When baking mode is off, they show as a dismissible dialog so you don't miss the
 The singles shop.
 Buy individual stat upgrades using your coins. Three stats are available: auto cookies, manual cookies, and baking speed.
 
-Auto cookies increases how many cookies are baked automatically per cycle. Manual cookies increases how many cookies you produce per bake press.
-Baking speed reduces the time between each bake. Upgrades are organized into categories, with higher categories requiring a minimum rank to access.
+Auto cookies increases how many cookies are baked automatically per cycle.
+Manual cookies increases how many cookies you produce per bake press.
+Baking speed reduces the time between each bake.
+Upgrades are organized into categories, with higher categories requiring a minimum rank to access.
 Costs scale up the more you buy, so plan your purchases carefully.
 
 There are four ways to purchase in the singles shop.
@@ -44,11 +49,11 @@ The second is buying a single item at the maximum quantity. When the purchase pr
 Simply press enter without typing anything and the game buys as many of that item as your coins allow in one transaction.
 
 The third is buying all affordable items at a custom quantity. At the bottom of each category is a buy all affordable items option, which appears whenever at least one item in the category is within your budget.
-Selecting it prompts you for a quantity. Type a number and the game buys that many of every affordable item in the category at once, skipping any you cannot afford.
+Selecting it prompts you for a quantity, and the game buys that many of every affordable item in the category at once, skipping any you cannot afford.
 This lets you spread a large purchase across multiple stats in a single action instead of visiting each item individually.
 
-The fourth is buying all affordable items at the maximum quantity. The buy all affordable prompt also pre-fills the maximum number you can afford across all eligible items in the category.
-Pressing enter without changing it floods every affordable item to the maximum your coins allow, making it the fastest way to spend a large coin reserve across an entire category in one go.
+The fourth is buying all affordable items at the maximum quantity. The buy all affordable prompt pre-fills the maximum number you can afford across all eligible items in the category.
+Pressing enter without changing it buys every affordable item to the maximum your coins allow, making it the fastest way to spend a large coin reserve across an entire category in one go.
 
 The bundle shop.
 Buy packages of multiple stat upgrades at once, often at better value than buying the same items individually.
@@ -56,16 +61,18 @@ Buy packages of multiple stat upgrades at once, often at better value than buyin
 Bundles are organized into categories by rank, spanning the full progression of the game from beginner to godlike tiers. Each bundle lists what stats it contains and how much it costs.
 Like the singles shop, locked categories show their required rank.
 
-One important thing to understand about bundle pricing: bundles do not have their own fixed prices. Instead, the game uses the singles shop as a backend price engine.
-When you go to buy a bundle, the game looks up the current price of each item inside it from the singles shop, based on how many of that item you have already bought, and adds them all up to get the bundle's total cost.
-This means bundle prices scale up naturally as you progress, just like singles do. The more upgrades you have already bought, the more expensive both the singles and the bundles become.
+One important thing to understand about bundle pricing: bundles do not have their own fixed prices.
+Instead, the game uses the singles shop as a backend price engine, looking up the current price of each item based on how many you have already bought and adding them up.
+This means bundle prices scale up naturally as you progress, just like singles do.
 The advantage of bundles is that they package multiple items into one convenient purchase, so you get more total stats per transaction than buying the same items one at a time.
 
 Bundles support the same quantity system as the singles shop. When you select a bundle, you are prompted for how many you want to buy, with the maximum you can currently afford already filled in.
 You can type a specific number to buy exactly that many, or press enter to buy as many as your coins allow. The total cost shown in the menu is always per bundle, so the game multiplies that by your chosen quantity at checkout.
 
-The key difference between bundles and the singles shop bulk buy is not price, but convenience. Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats.
-A bundle packages a curated combination of stats into a single purchase, so you can upgrade auto cookies, manual cookies, and baking speed all at once without any extra navigation. The cost works out the same either way, since both use the singles shop prices as the foundation.
+The key difference between bundles and the singles shop bulk buy is not price, but convenience.
+Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats.
+A bundle packages a curated combination of stats into a single purchase, so you can upgrade auto cookies, manual cookies, and baking speed all at once without any extra navigation.
+The cost works out the same either way, since both use the singles shop prices as the foundation.
 
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
@@ -85,10 +92,9 @@ Rank ups and achievement unlocks are checked and can fire while you are playing.
 Cooky flipper. Unlocked at rank 20.
 Flip a coin to trigger a random event that can boost or reduce your stats.
 
-Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list. Some events are positive, and others are negative, so there is an element of risk.
-The event list and their effects are fully customizable in flipper.event.
-
-Before flipping, you are shown a checkbox list of all available events loaded from flipper.event. You must have at least one positive event and one negative event checked before you can flip.
+Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list.
+Some events are positive, and others are negative, so there is an element of risk.
+Before flipping, you are shown a checkbox list of all available events. You must have at least one positive and one negative event checked before you can flip.
 This lets you curate your own risk pool, opting into only the events you are comfortable with, or leaving everything checked to get the full range of outcomes.
 Rank ups and achievement unlocks are checked and can fire while you are playing.
 
@@ -96,15 +102,17 @@ Slot machine. Unlocked at rank 30.
 Spin the reels and match symbols to win multiples of your bet.
 
 Like the other minigames, you choose which item to bet and how much. Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples.
-The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table. A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
+The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table.
+A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 Rank ups and achievement unlocks are checked and can fire while you are playing.
 
 Baking slots manager. Unlocked at rank 40.
 Manage and configure your baking slots to balance automated and manual cookie production.
 
 There are two types of slots. Auto slots bake cookies passively without any input, scaling with your auto cookie stat.
-Manual slots multiply the output of each bake press, scaling with your manual cookie stat. You can purchase additional slots of either type, and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual.
-Both the auto slots and manual slots submenus are locked behind a rank requirement, defaulting to rank 40. The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
+Manual slots multiply the output of each bake press, scaling with your manual cookie stat.
+You can purchase additional slots of either type, and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual.
+Both submenus are locked behind a rank requirement, defaulting to rank 40. The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
 
 Baker info.
 View a live snapshot of your current baker state. Press the Info button in the main game interface to open it directly.
@@ -147,7 +155,8 @@ Baking slots manager.
 Auto slots purchased: counts every auto baking slot you have ever bought, regardless of whether it is enabled or idle.
 Manual slots purchased: counts every manual baking slot you have ever bought.
 Auto slots enabled: counts every time an auto slot has been automated, whether individually or through the automate all option.
-Auto slots idle: shows how many auto slots you currently own but have not enabled. Unlike the other stats, this one is not saved separately because it can go up and down at any time depending on how many slots you own and how many you have enabled.
+Auto slots idle: shows how many auto slots you currently own but have not enabled.
+Unlike the other stats, this one is not saved separately because it can go up and down at any time.
 It is always calculated fresh from the current state of your bakery, similar to how a stock price reflects the current value rather than a running total.
 
 Economy.
@@ -183,37 +192,43 @@ Each category lists complete achievements first, followed by incomplete ones sho
 Achievements.
 Track your progress and earn recognition for milestones across every part of the game.
 
-There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack. Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
+There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack.
+Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
 Achievements are shown in a dedicated menu accessible from the main game interface. The menu is organised into six categories: baking, baking slots manager, economy, events, blackjack, and slot machine.
 Each category label shows how many achievements it contains. The main menu shows how many you have unlocked out of the total across all categories.
-Opening a category shows how many you have unlocked out of the total for that category, with unlocked ones listed first followed by locked ones. Pressing enter on an unlocked achievement shows a dialog with its description that you can read at your own pace.
-Pressing enter on a locked achievement gives you a cryptic hint about what you need to do to earn it. When you earn an achievement during play, it is stored in the achievements buffer.
-If baking mode is off, it shows as a dismissible dialog so you can read it immediately. If baking mode is on, it is announced non-interruptively so automated play is not interrupted.
+Opening a category shows how many you have unlocked out of the total for that category, with unlocked ones listed first followed by locked ones.
+Pressing enter on an unlocked achievement shows a dialog with its description that you can read at your own pace.
+Pressing enter on a locked achievement gives you a cryptic hint about what you need to do to earn it.
+When you earn an achievement during play, it is stored in the achievements buffer. If baking mode is off, it shows as a dismissible dialog. If baking mode is on, it is announced non-interruptively so automated play is not interrupted.
 
 Quests.
 Complete a set of objectives to unlock the prestige option and start a new run with a permanent bonus.
 
-Quests are automatically assigned at the start of each prestige cycle using a difficulty based system. Each quest has a difficulty from 1 to 10, and the active slots are spread evenly across the difficulty range so you always get a balanced mix from easy to hard. Required quests occupy their difficulty slot directly, and random quests fill the rest.
-The number of active quests is configurable in quests.table and is capped at 10. The game ships with 60 quests across 12 trackable stats with 5 difficulty tiers each, so the pool has plenty of variety. Rerolling replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
+Quests are automatically assigned at the start of each prestige cycle using a difficulty based system. Each quest has a difficulty from 1 to 10, and the active slots are spread evenly across the difficulty range so you always get a balanced mix from easy to hard.
+Required quests occupy their difficulty slot directly, and random quests fill the rest.
+The number of active quests is configurable in quests.table and is capped at 10. The game ships with 60 quests across 12 trackable stats with 5 difficulty tiers each.
+Rerolling replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
 
 To view your quests, press the Quests button in the main game interface. The quests screen shows a list of all active quests sorted from easiest to hardest by difficulty.
-Arrow to any quest and the detail box updates automatically, showing the description, current progress toward the threshold, and whether the quest is complete or incomplete. Once the quest completion requirement is met, the prestige button becomes available. Whether that means completing one quest or all of them is configurable in quests.table using the require_all setting.
+Arrow to any quest and the detail box updates automatically, showing the description, current progress toward the threshold, and whether the quest is complete or incomplete. The prestige button is always available once you reach the minimum rank, but whether you receive a reward depends on your quest completion status and the require_all setting in quests.table.
 
-If you want a different quest, arrow to it in the quests menu and press the reroll button. Rerolling replaces only that quest with a new random one of the same difficulty, leaving the rest of your active quests untouched. The reroll button does not appear when a required quest is focused.
+If you want a different quest, arrow to it in the quests menu and press the reroll button. Rerolling replaces only that quest with a new random one of the same difficulty.
+The reroll button does not appear when a required quest is focused.
 Rerolling deducts a cost from a configurable stat, and the cost increases each time you reroll using compounding scaling. The reroll count resets at the start of each prestige cycle so costs go back to base.
 
 Prestige.
 Reset your progress and earn a permanent bonus that carries into every future run.
 
-Once the quest completion requirement is met and you reach the minimum rank, the prestige option becomes available. Whether you need to complete one quest or all of them depends on the require_all setting in quests.table. Pressing it opens a confirmation dialog explaining what resets and what carries over before you commit.
-Each prestige increases your prestige level by one and applies a permanent additive multiplier bonus to your stats. The multiplier stacks with each prestige, so prestige 1 gives a 10 percent bonus, prestige 2 gives 20 percent, and so on.
+Once you reach the minimum rank, the prestige option becomes available. Pressing it opens a confirmation dialog explaining what resets and what carries over, and whether you will receive a reward based on your current quest completion status.
 
 When you prestige, the following are reset: cookies, coins, rank, all upgrade purchases, baking slots, and baking and economy stats.
-The following are kept: your prestige level and multiplier bonus, all achievements and achievement progress, minigame unlocks, minigame stats, and preferences.
+The following are kept: your prestige level, all achievements and achievement progress, minigame unlocks, minigame stats, and preferences.
 
-Certain prestige levels also award a one time bonus reward at the start of your new run, such as a flat stat boost or a percentage of what you had when you prestiged. After the prestige message you will always receive a second notification telling you what you gained, or letting you know that nothing was gained if that prestige level has no milestone reward.
-All prestige settings, multipliers, and milestone rewards are fully configurable in prestige.table.
+Whether you receive a reward depends on the require_all setting in quests.table. If you have not met the quest requirement, nothing is gained.
+Certain prestige levels award a milestone reward, and all other levels fall back to a default reward if one is configured.
+After the prestige message you will always receive a second notification telling you what you gained, or letting you know that nothing was gained.
+All prestige settings and milestone rewards are fully configurable in prestige.table.
 
 Save slots.
 
@@ -246,7 +261,8 @@ Shift plus C: Copies the current buffer message to the clipboard.
 Shift plus M: Toggles mute or unmute on the focused buffer.
 Shift plus Backslash: Exports all buffer items to log files in the logs folder.
 
-Buffers are categorized message logs that keep track of everything that happens during your game. Instead of important messages disappearing after being spoken, they are stored in a buffer so you can review them at any time.
+Buffers are categorized message logs that keep track of everything that happens during your game.
+Instead of important messages disappearing after being spoken, they are stored in a buffer so you can review them at any time.
 
 There are six buffer categories.
 
@@ -257,7 +273,8 @@ General holds status updates and informational messages.
 Misc holds things like save confirmations and other game actions.
 Ranks holds regular rank up announcements.
 
-All of the buffers, except for the all buffer, can be muted independently so they stop being spoken aloud while still logging messages for later review. You can also export all of the buffer contents to log files in the logs folder at any time.
+All of the buffers, except for the all buffer, can be muted independently so they stop being spoken aloud while still logging messages for later review.
+You can also export all of the buffer contents to log files in the logs folder at any time.
 
 Forms and menus.
 
@@ -272,12 +289,13 @@ All of the configuration files are located in the data/config folder, and are sp
 Lines starting with a semicolon, hash, or double slash are treated as comments, and ignored by the parser.
 
 Four of the files, ranks.table, slots.table, prestige.table, and quests.table, use section headers in square brackets such as [sounds], [default], [rewards], [settings], and [quests]. These are not cosmetic.
-The parser uses them to know which format to expect, since each section in those files uses a completely different line structure. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
+The parser uses them to know which format to expect. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
 
 Five of the remaining files, baker.event, flipper.event, jacks.table, baker.store, and achievements.table, do not use functional section headers. Every line in those files follows the same format throughout.
-They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely without affecting how the game reads the file.
+They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely.
 
-The sixth file, bundle.store, uses one functional section header, [bundles], which marks where the bundle definitions begin. Aliases defined above it are always read regardless of position, but bundle lines are only read after the header appears.
+The sixth file, bundle.store, uses one functional section header, [bundles], which marks where the bundle definitions begin.
+Aliases defined above it are always read regardless of position, but bundle lines are only read after the header appears.
 
 baker.event
 
@@ -337,7 +355,9 @@ use_percent
 Controls whether the rolled amount is treated as a flat value or a percentage of the player's current stat.
 
 false = the rolled amount is applied directly. A roll of 60 gives or takes exactly 60.
-true  = the rolled amount is treated as a percentage of what the player currently has. A roll of 20 with use_percent true takes 20 percent of the player's current cookies.
+true  = the rolled amount is treated as a percentage of what the player currently has.
+
+A roll of 20 with use_percent true takes 20 percent of the player's current cookies.
 
 chance
 The probability of this event firing when it is selected, from 1 to 100.
@@ -356,6 +376,7 @@ For percentage events, %amount% shows the rolled percentage, for example 10.
 Use %actual% as an optional placeholder to show the real computed stat change.
 
 For percentage events, %actual% shows the true amount gained or lost after applying the percentage.
+
 For example, if you have 200 coins and lose 10 percent, %amount% shows 10 and %actual% shows 20.
 
 For flat events, %actual% and %amount% show the same value, so only %amount% is needed.
@@ -365,10 +386,9 @@ flipper.event
 Location: data/config/events/flipper.event
 
 Defines events triggered by the cooky flipper minigame. Uses the same format as baker.event, except there is no baking_type field since flipper events are always shown as dialogs.
+All fields work exactly the same as baker.event. Refer to the baker.event section above for full field descriptions.
 
 Format: event_name:sound:polarity:target:min_amount:max_amount:use_percent:chance:description
-
-All fields work exactly the same as baker.event. Refer to the baker.event section above for full field descriptions.
 
 baker.store
 
@@ -381,8 +401,8 @@ Menu aliases.
 Format: alias=Full Menu Name
 Format with rank and description: alias=Full Menu Name|min_rank|Description
 
-Define short aliases for menu names at the top of the file. Use the alias as the first field on item lines to assign items to that category. Optionally append a pipe followed by a minimum rank, and another pipe followed by a description.
-Locked categories show their required rank in the shop.
+Define short aliases for menu names at the top of the file. Use the alias as the first field on item lines to assign items to that category.
+Optionally append a pipe followed by a minimum rank, and another pipe followed by a description. Locked categories show their required rank in the shop.
 
 Item format: menu:item_type:target:base_cost:cost_multiplier:amount:min_rank:use_percent:description
 
@@ -403,25 +423,33 @@ base_cost
 The starting price of this item in coins before any purchases have been made.
 
 cost_multiplier
-How much the cost increases with each purchase. Uses compounding geometric scaling, meaning each purchase multiplies the previous price rather than adding a fixed amount to the original. 1.25 means each purchase costs 25 percent more than the last, and 1.0 means the price never changes.
+How much the cost increases with each purchase. Uses compounding geometric scaling, meaning each purchase multiplies the previous price rather than adding a fixed amount to the original.
 
-Unlike a flat multiplier, which is applied once to a fixed base and always produces the same result, a compounding multiplier grows on top of itself every time. The difference between the two becomes dramatic very quickly.
-A flat multiplier of 1.25 on a base cost of 100 always charges 125 coins no matter how many times you buy. A compounding multiplier of 1.25 starts at 100 coins but reaches around 930 coins by purchase 10, nearly 5 billion coins by purchase 100, and numbers so large they become meaningless long before purchase 200.
+1.25 means each purchase costs 25 percent more than the last, and 1.0 means the price never changes.
+
+Unlike a flat multiplier, a compounding multiplier grows on top of itself every time. The difference becomes dramatic very quickly.
+
+A flat multiplier of 1.25 on a base cost of 100 always charges 125 coins no matter how many times you buy.
+A compounding multiplier of 1.25 starts at 100 coins but reaches around 930 coins by purchase 10, and nearly 5 billion coins by purchase 100.
 
 This means even values that look small are dangerous at scale. A multiplier of 1.05 feels gentle at first, but after 300 purchases the price will have grown into the quadrillions.
 A multiplier of 1.1 reaches that point even sooner. Players who progress far into the game will buy certain items hundreds of times, so a multiplier that seems fine at purchase 20 will eventually make the item completely unaffordable.
 
 This also affects bundle prices directly. Bundles calculate their cost by summing the current singles shop prices of all their items.
-If any item in a bundle has an inflated price due to a high multiplier, that inflation carries over into every bundle containing it, and is then multiplied further by the quantity being purchased.
+If any item in a bundle has an inflated price due to a high multiplier, that inflation carries over into every bundle containing it.
 
-It is strongly recommended to keep this value at or below 1.02 for any item players are expected to buy many times. Values above 1.05 should only be used for items with a very low purchase cap or items that are intentionally meant to become unaffordable after a small number of purchases.
+It is strongly recommended to keep this value at or below 1.02 for any item players are expected to buy many times.
+Values above 1.05 should only be used for items with a very low purchase cap or items intentionally meant to become unaffordable after a small number of purchases.
 
 amount
 How much of the target stat is gained per purchase. For flat items this is a fixed number. For percentage items this is the percentage value.
-For cooky_speed flat items, this is the number of milliseconds the bake interval is reduced by. Use %item_count in the description as a placeholder and it will be replaced with this value.
+
+For cooky_speed flat items, this is the number of milliseconds the bake interval is reduced by.
+Use %item_count in the description as a placeholder and it will be replaced with this value.
 
 min_rank
 The minimum rank the player must reach before this item can be purchased. 0 means the item is available from the start.
+
 Locked items still appear in the shop showing their required rank and description.
 
 use_percent
@@ -442,7 +470,8 @@ Defines the bundle shop categories and bundles.
 Category aliases.
 Format: alias=Full Category Name|min_rank|Description
 
-Defined at the top of the file, before the [bundles] section header. Works the same as baker.store menu aliases. The min_rank and description are optional.
+Defined at the top of the file, before the [bundles] section header. Works the same as baker.store menu aliases.
+The min_rank and description are optional.
 
 Bundle format: menu_alias:name:min_rank:item_type:quantity|item_type:quantity|...:description
 
@@ -456,7 +485,9 @@ min_rank
 The minimum rank required to purchase this bundle. Use 0 for no requirement.
 
 items
-A pipe separated list of item_type:quantity pairs. Each item_type must match an item_type from baker.store exactly. The cost of each item in the bundle is calculated dynamically from its current shop price, so the bundle price scales naturally with your progression.
+A pipe separated list of item_type:quantity pairs. Each item_type must match an item_type from baker.store exactly.
+
+The cost of each item in the bundle is calculated dynamically from its current shop price, so the bundle price scales naturally with your progression.
 
 description
 A short description of what this bundle contains, shown to the player in the bundle shop menu.
@@ -470,7 +501,9 @@ Defines all achievements in the game.
 Format: id:stat:threshold:name:description:hint
 
 id
-The internal identifier for this achievement. Used by the parser only. Must be unique across all entries. Use lowercase letters and underscores, no spaces. Example: first_spin
+The internal identifier for this achievement. Used by the parser only. Must be unique across all entries.
+
+Use lowercase letters and underscores, no spaces. Example: first_spin
 
 stat
 The statistic this achievement tracks. Must be one of the following values.
@@ -502,14 +535,19 @@ threshold
 The value the stat must reach to unlock this achievement.
 
 name
-The display name shown to the player in the achievements menu and spoken when unlocked. This can be anything you like and does not need to match the id. Example: One Armed Baker
+The display name shown to the player in the achievements menu and spoken when unlocked. This can be anything you like and does not need to match the id.
+
+Example: One Armed Baker
 
 description
 The message spoken to the player when they press enter on an unlocked achievement. Use %threshold% as a placeholder and it will be replaced with the threshold value at display time.
+
 This means if you change the threshold, the description updates automatically.
 
 hint
-The message spoken to the player when they press enter on a locked achievement. Supports the same %threshold% placeholder as the description field. Use this to tell the player what they need to do to unlock it.
+The message spoken to the player when they press enter on a locked achievement. Supports the same %threshold% placeholder as the description field.
+
+Use this to tell the player what they need to do to unlock it.
 
 jacks.table
 
@@ -522,14 +560,17 @@ The point value at which the dealer stops drawing cards. Standard casino rules u
 
 natural_multiplier
 The payout multiplier for a natural blackjack, which is 21 on the first two cards. Standard casino rules use 1.5, meaning a 100 coin bet returns 250 coins total.
-This is a flat multiplier, meaning it is applied once to the bet amount and always produces the same result regardless of how many hands have been played. Setting this very high, such as 10 or more, will make blackjack an extremely powerful way to multiply stats and can unbalance the game quickly if bets are large.
+
+This is a flat multiplier applied once to the bet amount. Setting this very high will make blackjack an extremely powerful way to multiply stats and can unbalance the game quickly if bets are large.
 
 win_multiplier
 The payout multiplier for a standard win. Standard rules use 2, meaning a 100 coin bet returns 200 coins total.
+
 This is a flat multiplier. Setting it below 1 means the player always loses value even on a win, and setting it very high will make winning hands disproportionately rewarding.
 
 push_multiplier
 The payout multiplier for a push or tie. Standard rules use 1, meaning the player gets their original bet back.
+
 This is a flat multiplier. Setting it above 1 rewards ties, and setting it to 0 means the player loses their bet on a tie.
 
 min_bet
@@ -544,12 +585,16 @@ Format: confirm_threshold=amount:use_percent
 Triggers a yes or no confirmation prompt when the bet meets or exceeds the threshold.
 
 Set use_percent to false to treat the amount as a flat value.
-Set use_percent to true to treat the amount as a percentage of what the player currently holds, so 25:true prompts when the bet is 25 percent or more of their current stat.
+Set use_percent to true to treat the amount as a percentage of what the player currently holds.
+
+For example, 25:true prompts when the bet is 25 percent or more of their current stat.
 
 Set the amount to 0 to disable the prompt entirely.
 
 win_sound
-Sound to play when the player wins. Relative to sounds/misc/. Supports random range syntax, for example jackwin(1,4).ogg picks randomly from jackwin1 to jackwin4.
+Sound to play when the player wins. Relative to sounds/misc/.
+
+Supports random range syntax, for example jackwin(1,4).ogg picks randomly from jackwin1 to jackwin4.
 
 lose_sound
 Sound to play when the player busts or loses to the dealer.
@@ -610,7 +655,8 @@ Defines the reward every rank receives automatically. Only one default line is a
 Rewards section.
 Format: rank:target:min_amount:max_amount:unlock:message
 
-Defines special milestone rewards for specific ranks. Multiple lines with the same rank are all valid, and one is chosen at random when the player reaches that rank. Milestone rewards fire in addition to the default reward.
+Defines special milestone rewards for specific ranks. Multiple lines with the same rank are all valid, and one is chosen at random when the player reaches that rank.
+Milestone rewards fire in addition to the default reward.
 
 target
 The stat this reward affects.
@@ -667,7 +713,9 @@ Format: confirm_threshold=amount:use_percent
 Triggers a yes or no confirmation prompt when the bet meets or exceeds the threshold.
 
 Set use_percent to false to treat the amount as a flat value.
-Set use_percent to true to treat the amount as a percentage of what the player currently holds, so 25:true prompts when the bet is 25 percent or more of their current stat.
+Set use_percent to true to treat the amount as a percentage of what the player currently holds.
+
+For example, 25:true prompts when the bet is 25 percent or more of their current stat.
 
 Set the amount to 0 to disable the prompt entirely.
 
@@ -679,7 +727,8 @@ The number of matching symbols across the reels required to trigger this payout.
 
 multiplier
 How much of the bet is returned to the player. 4 means the player wins 4 times their bet. 0.5 means the player wins half their bet, and 0 means the player loses their bet entirely.
-This is a flat multiplier, meaning it is applied once to the bet amount and does not compound over time. Setting a payout multiplier very high for common match counts, such as 100 for matching 2 symbols on a 5 reel machine, will make the slot machine trivially easy to exploit and can rapidly inflate the player's stats to unmanageable levels.
+
+This is a flat multiplier applied once to the bet amount. Setting a payout multiplier very high for common match counts will make the slot machine trivially easy to exploit and can rapidly inflate the player's stats.
 
 sound
 The sound file to play when this outcome fires, relative to sounds/misc/.
@@ -691,28 +740,12 @@ prestige.table
 
 Location: data/config/tables/prestige.table
 
-Defines the prestige system settings, stat multipliers, and milestone rewards.
+Defines the prestige system settings and milestone rewards.
 
 Settings section.
 
 min_rank
-The minimum rank the player must reach before prestige becomes available. The player must also have all active quests completed before they can prestige.
-
-multiplier
-The additive bonus applied to boosted stats per prestige level. Uses additive stacking, so 0.1 means prestige 1 gives a 10 percent bonus, prestige 2 gives 20 percent, prestige 3 gives 30 percent, and so on.
-Keep this value low. Setting it to 1 would double your stats at prestige 1 and triple them at prestige 2, which will trivialize the game very quickly.
-
-boost_autocooky
-Set to true to apply the prestige multiplier bonus to auto cookies, false to leave it unaffected.
-
-boost_manulcooky
-Set to true to apply the prestige multiplier bonus to manual cookies, false to leave it unaffected.
-
-boost_coins
-Set to true to apply the prestige multiplier bonus to coins, false to leave it unaffected.
-
-boost_cookyspeed
-Set to true to apply the prestige multiplier bonus to baking speed, false to leave it unaffected.
+The minimum rank the player must reach before prestige becomes available.
 
 sound
 The sound file to play when the player prestiges. Relative to sounds/misc/.
@@ -720,16 +753,36 @@ The sound file to play when the player prestiges. Relative to sounds/misc/.
 message
 The message spoken to the player when they prestige. Use %prestige% as a placeholder for the new prestige level.
 
+Default reward section.
+Format: target:min_amount:max_amount:message
+
+Defines a fallback reward that fires for any prestige level that does not have a specific milestone entry in the rewards section. Only one default reward line is allowed.
+If no default reward is defined, levels without a milestone reward show a nothing was gained message instead.
+
+target
+The stat to give. Uses the same stat names as the rewards section.
+
+min_amount and max_amount
+The minimum and maximum amounts to give. A random value between them is chosen each time.
+
+Both support the same expression syntax as ranks.table, so values like 50*level and 100*level are valid and scale with the current prestige level.
+
+message
+The message spoken when the default reward fires. Use %amount% as a placeholder for the amount given and %level% for the current prestige level.
+
 Rewards section.
 Format: prestige_level:target:amount|target:amount:use_percent:message
 
-Defines one time bonus rewards given to the player at the start of their new run when they reach a specific prestige level. Multiple reward lines can exist for different prestige levels. Each reward line can give multiple stats at once by separating them with a pipe character.
+Defines one time bonus rewards given to the player at the start of their new run when they reach a specific prestige level.
+Multiple reward lines can exist for different prestige levels. Each reward line can give multiple stats at once by separating them with a pipe character.
 
 prestige_level
 The prestige level that triggers this reward. Each reward only fires once, when the player first reaches that level.
 
 target:amount|target:amount
-One or more stat and amount pairs separated by a pipe. Each pair is a stat name followed by a colon and the amount to give. You can chain as many pairs as you like on one line.
+One or more stat and amount pairs separated by a pipe. Each pair is a stat name followed by a colon and the amount to give.
+
+You can chain as many pairs as you like on one line.
 
 cookies    = the player's current cookie count.
 coins      = the player's current coin count.
@@ -741,10 +794,14 @@ use_percent
 Controls whether the amounts are applied as flat values or percentages of what the player had when they prestiged. This applies to all items in the reward line.
 
 false = amounts are given directly. An amount of 10 gives exactly 10 of the target stat.
-true  = amounts are treated as a percentage of the player's final stat value at the moment they prestiged. An amount of 5 gives 5 percent of whatever they had. Keep percentage values low, as even a small percentage of a late-game stat can be a significant head start.
+true  = amounts are treated as a percentage of the player's final stat value at the moment they prestiged.
+
+An amount of 5 gives 5 percent of whatever they had. Keep percentage values low, as even a small percentage of a late-game stat can be a significant head start.
 
 message
 The message spoken when this reward is given. Use %amount% as a placeholder and it will be replaced with a summary of all items given.
+
+Use %level% as a placeholder and it will be replaced with the current prestige level number.
 
 quests.table
 
@@ -758,10 +815,11 @@ max_active
 The maximum number of quests the player can have active at once. Required quests always fill first, and random ones fill the remaining slots.
 
 require_all
-Controls whether the player must complete all active quests before prestige becomes available, or just one.
+Controls when the player receives a prestige reward. Prestige is always available once the minimum rank is met regardless of this setting.
 
-true  = all active quests must be completed before the prestige button becomes available.
-false = completing any single active quest is enough to unlock the prestige option.
+1 = rewards fire only if any quest happens to be complete. Prestiging with no quests done shows nothing was gained.
+2 = at least one quest must be complete to receive a reward. Prestiging without completing any quest shows nothing was gained.
+3 = all quests must be complete to receive a reward. Prestiging without completing all quests shows nothing was gained.
 
 Reroll settings.
 
@@ -779,6 +837,7 @@ The base cost of the first reroll per prestige cycle.
 
 reroll_multiplier
 How much the reroll cost increases with each reroll. Uses compounding scaling, the same as the singles shop.
+
 Keep this value low. Setting it too high will make rerolling unaffordable very quickly.
 
 reroll_sound
@@ -801,15 +860,20 @@ The statistic this quest tracks. Uses the same stat names as achievements.table.
 
 cookies_baked          = total cookies baked, both manual and automatic.
 coins_earned           = total coins received from all sources.
+
 auto_slots_purchased   = total auto baking slots ever bought.
 manual_slots_purchased = total manual baking slots ever bought.
 auto_slots_enabled     = total auto slots that have been automated.
+
 upgrades_purchased     = total singles shop transactions.
 bundles_purchased      = total bundle shop transactions.
+
 events_fired           = total baker and flipper events that applied their effect.
 flipper_flips          = total cooky flipper flips.
+
 slot_spins             = total slot machine spins.
 slot_wins              = total slot machine wins.
+
 blackjack_hands        = total blackjack rounds played.
 blackjack_wins         = total blackjack rounds won.
 
@@ -820,25 +884,39 @@ use_percent
 Controls how progress is reported in the detail input box when the player focuses this quest.
 
 false = progress is shown as a raw value. For example, 342,500 of 1,000,000.
-true  = progress is shown as a percentage. For example, 3.62%. Useful for quests with very large thresholds where a raw number may be hard to interpret.
+true  = progress is shown as a percentage. For example, 3.62%.
+
+Useful for quests with very large thresholds where a raw number may be hard to interpret.
 
 required
-true means this quest always appears every prestige cycle and occupies its difficulty slot, preventing a random quest of the same difficulty from filling that position. false means it goes into the random pool.
+
+true means this quest always appears every prestige cycle and occupies its difficulty slot, preventing a random quest of the same difficulty from filling that position.
+false means it goes into the random pool.
 
 difficulty
-A number from 1 to 10 controlling how hard this quest is and which slot it occupies in the active quest list. The game spreads active slots evenly across the difficulty range found in the table, so easier quests always appear alongside harder ones. Required quests occupy their difficulty slot directly. The difficulty range is read dynamically from the table and capped at 10. The max_active setting is also capped at 10.
+A number from 1 to 10 controlling how hard this quest is and which slot it occupies in the active quest list.
+
+The game spreads active slots evenly across the difficulty range found in the table, so easier quests always appear alongside harder ones.
+Required quests occupy their difficulty slot directly. The difficulty range is read dynamically from the table and capped at 10. The max_active setting is also capped at 10.
 
 description
-The message shown in the detail input box when the player focuses this quest. You do not need to include progress information in this field. Below the description the game always appends a line automatically that reads current progress followed by either a raw value out of the threshold or a percentage with a percent sign depending on use_percent, then a period and either complete or incomplete on the same line.
+The message shown in the detail input box when the player focuses this quest. You do not need to include progress information in this field.
+
+Below the description the game always appends a line automatically that reads current progress followed by either a raw value out of the threshold or a percentage, then a period and either complete or incomplete on the same line.
+
 The following placeholders are available and will be replaced at display time.
+
 %threshold% = the target value the stat must reach.
 %stat%      = the name of the stat being tracked, in readable form.
 %progress%  = the player's current stat value, capped at the threshold.
 %percent%   = the player's current progress as a percentage of the threshold.
-Tip: keep the description focused on what the quest is asking, and let the game handle reporting the progress.
+
+Keep the description focused on what the quest is asking, and let the game handle reporting the progress.
 
 Game conclusion
 
-CookyCraze started as a simple cookie clicker, and has grown into a full-featured idle game with automated production, minigames, achievements, a rank progression system, multiple save slots, and deep modding support. Every system in the game, from rank rewards to slot payouts to event effects, can be tuned or extended through the provided configuration files.
+CookyCraze started as a simple cookie clicker, and has grown into a full-featured idle game with automated production, minigames, achievements, a rank progression system, multiple save slots, and deep modding support.
+Every system in the game, from rank rewards to slot payouts to event effects, can be tuned or extended through the provided configuration files.
 
-Whether you are a player looking to understand the game better, or a modder building your own experience on top of it, we hope this document gives you everything you'll need to succeed in the baking industry. Thanks for playing, and happy baking!
+Whether you are a player looking to understand the game better, or a modder building your own experience on top of it, we hope this document gives you everything you'll need to succeed in the baking industry.
+Thanks for playing, and happy baking!
