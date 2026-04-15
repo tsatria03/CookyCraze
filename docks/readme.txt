@@ -80,6 +80,7 @@ You can bet cookies, coins, auto cookies, manual cookies, or baking speed. A nat
 A standard win pays double, and a tie returns your original bet. The dealer stands at 17 by default.
 You can draw cards manually, or enable automatic drawing in the settings. All payouts, sounds, messages, and bet limits are configurable in jacks.table.
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
+Rank ups and achievement unlocks are checked and can fire while you are playing.
 
 Cooky flipper. Unlocked at rank 20.
 Flip a coin to trigger a random event that can boost or reduce your stats.
@@ -89,12 +90,14 @@ The event list and their effects are fully customizable in flipper.event.
 
 Before flipping, you are shown a checkbox list of all available events loaded from flipper.event. You must have at least one positive event and one negative event checked before you can flip.
 This lets you curate your own risk pool, opting into only the events you are comfortable with, or leaving everything checked to get the full range of outcomes.
+Rank ups and achievement unlocks are checked and can fire while you are playing.
 
 Slot machine. Unlocked at rank 30.
 Spin the reels and match symbols to win multiples of your bet.
 
 Like the other minigames, you choose which item to bet and how much. Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples.
 The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table. A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
+Rank ups and achievement unlocks are checked and can fire while you are playing.
 
 Baking slots manager. Unlocked at rank 40.
 Manage and configure your baking slots to balance automated and manual cookie production.
@@ -220,13 +223,14 @@ Shift plus Backslash: Exports all buffer items to log files in the logs folder.
 
 Buffers are categorized message logs that keep track of everything that happens during your game. Instead of important messages disappearing after being spoken, they are stored in a buffer so you can review them at any time.
 
-There are five buffer categories.
+There are six buffer categories.
 
 Achievements holds messages for every achievement you earn during play.
 Critical holds important notifications like rank ups and game milestones.
 Events holds messages from random events and flipper flips.
 General holds status updates and informational messages.
 Misc holds things like save confirmations and other game actions.
+Ranks holds regular rank up announcements.
 
 All of the buffers, except for the all buffer, can be muted independently so they stop being spoken aloud while still logging messages for later review. You can also export all of the buffer contents to log files in the logs folder at any time.
 
@@ -430,7 +434,7 @@ items
 A pipe separated list of item_type:quantity pairs. Each item_type must match an item_type from baker.store exactly. The cost of each item in the bundle is calculated dynamically from its current shop price, so the bundle price scales naturally with your progression.
 
 description
-A short description of what this bundle contains and who it is for.
+A short description of what this bundle contains, shown to the player in the bundle shop menu.
 
 achievements.table
 
@@ -657,3 +661,9 @@ The sound file to play when this outcome fires, relative to sounds/misc/.
 
 message
 The text spoken to the player when this outcome fires.
+
+Game conclusion
+
+CookyCraze started as a simple cookie clicker, and has grown into a full-featured idle game with automated production, minigames, achievements, a progression system, and deep modding support. Every system in the game, from rank rewards to slot payouts to event effects, can be tuned or extended through the provided configuration files.
+
+Whether you are a player looking to understand the game better, or a modder building your own experience on top of it, we hope this document gives you everything you'll need. Thanks for playing, and happy baking!
