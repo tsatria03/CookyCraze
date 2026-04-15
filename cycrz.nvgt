@@ -156,8 +156,9 @@ if (prestige)
     if (prestigeConfig.sound != "")
         pool.play_stationary("sounds/misc/" + prestigeConfig.sound, false);
     dlgmessage_return(pmsg);
+    bool rewardEarned = quests_reward_earned();
     reset_game_state();
-    if (quests_reward_earned())
+    if (rewardEarned)
     {
         bool rewardFound = false;
         for (uint i = 0; i < prestigeRewards.length(); i++)
