@@ -44,6 +44,9 @@ if (rankSounds.length() == 0 || rankDefault.length() == 0)
 }
 parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
 loadedAchievements = parse_achievements("data/config/tables/achievements.table");
+parse_prestige_table("data/config/tables/prestige.table");
+parse_quests_table("data/config/tables/quests.table", loadedQuests);
+assign_quests();
 readdata();
 init_achievements(loadedAchievements, achievementsUnlocked);
 readpreffs();
@@ -135,10 +138,60 @@ dockver.open("docks/version.txt","rb");
 version=dockver.read();
 dockver.close();
 }
-void resetgame()
+void resetgame(bool prestige = false)
 {
-achievementsUnlocked.delete_all();
-achievements_last_id="";
+if (prestige)
+{
+    // Take snapshots before resetting for percentage-based rewards
+    double snap_autocooky = autocooky;
+    double snap_manulcooky = manulcooky;
+    double snap_coins = coins;
+    double snap_cookyspeed = cookyspeed;
+    prestigeLevel++;
+    // Apply multiplier bonus to boosted stats
+    double bonus = prestigeConfig.multiplier * prestigeLevel;
+    if (prestigeConfig.boost_autocooky)  autocooky  += floor(autocooky  * bonus);
+    if (prestigeConfig.boost_manulcooky) manulcooky += floor(manulcooky * bonus);
+    if (prestigeConfig.boost_coins)      coins      += floor(coins      * bonus);
+    if (prestigeConfig.boost_cookyspeed) { double spd = floor(cookyspeed * bonus); cookyspeed += spd; clicktime -= int(spd); }
+    // Speak prestige message
+    string pmsg = prestigeConfig.message;
+    string plvl = string(prestigeLevel);
+    int ph = pmsg.find("%prestige%");
+    while (ph != -1) { pmsg = pmsg.substr(0, ph) + plvl + pmsg.substr(ph + 10); ph = pmsg.find("%prestige%"); }
+    ph = pmsg.find("%name%");
+    while (ph != -1) { pmsg = pmsg.substr(0, ph) + playername + pmsg.substr(ph + 6); ph = pmsg.find("%name%"); }
+    if (prestigeConfig.sound != "")
+        pool.play_stationary("sounds/misc/" + prestigeConfig.sound, false);
+    dlgmessage_return(pmsg);
+    // Apply milestone rewards for this prestige level
+    bool rewardFound = false;
+    for (uint i = 0; i < prestigeRewards.length(); i++)
+    {
+        if (prestigeRewards[i].prestige_level == prestigeLevel)
+        {
+            apply_prestige_reward(prestigeRewards[i], snap_autocooky, snap_manulcooky, snap_coins, snap_cookyspeed);
+            rewardFound = true;
+        }
+    }
+    if (!rewardFound)
+        dlgmessage_return("No milestone reward for this prestige level. Nothing was gained.");
+}
+else
+{
+    // Full new game reset — clear everything including prestige
+    achievementsUnlocked.delete_all();
+    achievements_last_id="";
+    stat_jack_hands=0;
+    stat_jack_wins=0;
+    stat_jack_losses=0;
+    stat_jack_pushes=0;
+    stat_slot_spins=0;
+    stat_slot_wins=0;
+    stat_slot_losses=0;
+    prestigeLevel=0;
+}
+// Always reset on both paths
 stat_cookies_baked=0;
 stat_bakes_performed=0;
 stat_coins_earned=0;
@@ -146,13 +199,6 @@ stat_upgrades_purchased=0;
 stat_bundles_purchased=0;
 stat_events_fired=0;
 stat_flipper_flips=0;
-stat_slot_spins=0;
-stat_slot_wins=0;
-stat_slot_losses=0;
-stat_jack_hands=0;
-stat_jack_wins=0;
-stat_jack_losses=0;
-stat_jack_pushes=0;
 stat_auto_slots_purchased=0;
 stat_manual_slots_purchased=0;
 stat_auto_slots_enabled=0;
@@ -160,13 +206,13 @@ autocooky=0;
 autocooky_purchases=0;
 manulcooky_purchases=0;
 cookyspeed_purchases=0;
-coins=10;
+if (!prestige) coins=10;
 cookies=0;
 cookyspeed=0;
 manulcooky=1;
 rank=1;
 bakemode=0;
-clicktime=1000-cookyspeed;
+clicktime=1000;
 automationBaseCost=15;
 slotBaseCost=30;
 manualSlots=0;
@@ -174,5 +220,8 @@ manualSlotBaseCost=30;
 autobakeSlots=0;
 autobakeSlotEnabled.resize(0);
 baking_slots.resize(0);
+questRerollCount=0;
+activeQuests.resize(0);
+assign_quests();
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }

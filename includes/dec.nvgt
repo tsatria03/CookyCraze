@@ -36,6 +36,7 @@ rank_sound_item[] rankSounds;
 rank_reward_item[] rankDefault;
 rank_reward_item[] rankRewards;
 jacks_config jacksConfig;
+int prestigeLevel = 0;
 string ambtype="room1";
 string mustype="music1";
 string playername, playername2;

@@ -1,0 +1,107 @@
+class prestige_config
+{
+    int min_rank;
+    double multiplier;
+    bool boost_autocooky;
+    bool boost_manulcooky;
+    bool boost_coins;
+    bool boost_cookyspeed;
+    string sound;
+    string message;
+}
+
+class prestige_reward_item
+{
+    int prestige_level;
+    string target;
+    double amount;
+    bool use_percent;
+    string message;
+}
+
+prestige_config prestigeConfig;
+prestige_reward_item[] prestigeRewards;
+
+void parse_prestige_table(string filepath)
+{
+    prestigeRewards.resize(0);
+    file f;
+    if (!f.open(filepath, "r"))
+        return;
+    string section = "";
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        if (line == "[settings]") { section = "settings"; continue; }
+        if (line == "[rewards]") { section = "rewards"; continue; }
+        if (section == "settings")
+        {
+            int eq = line.find("=");
+            if (eq == -1) continue;
+            string key = line.substr(0, eq);
+            string val = line.substr(eq + 1);
+            if (key == "min_rank")          prestigeConfig.min_rank = string_to_int(val);
+            else if (key == "multiplier")   prestigeConfig.multiplier = string_to_number(val);
+            else if (key == "boost_autocooky")  prestigeConfig.boost_autocooky = (val == "true");
+            else if (key == "boost_manulcooky") prestigeConfig.boost_manulcooky = (val == "true");
+            else if (key == "boost_coins")      prestigeConfig.boost_coins = (val == "true");
+            else if (key == "boost_cookyspeed") prestigeConfig.boost_cookyspeed = (val == "true");
+            else if (key == "sound")        prestigeConfig.sound = val;
+            else if (key == "message")      prestigeConfig.message = val;
+        }
+        else if (section == "rewards")
+        {
+            string[] parts;
+            int lastPos = 0;
+            int colonCount = 0;
+            for (uint i = 0; i < line.length(); i++)
+            {
+                if (line.substr(i, 1) == ":" && colonCount < 4)
+                {
+                    parts.insert_last(line.substr(lastPos, i - lastPos));
+                    lastPos = i + 1;
+                    colonCount++;
+                }
+            }
+            parts.insert_last(line.substr(lastPos));
+            if (parts.length() < 5) continue;
+            prestige_reward_item item;
+            item.prestige_level = string_to_int(parts[0]);
+            item.target         = parts[1];
+            item.amount         = string_to_number(parts[2]);
+            item.use_percent    = (parts[3] == "true");
+            item.message        = parts[4];
+            prestigeRewards.insert_last(item);
+        }
+    }
+    f.close();
+}
+
+void apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocooky, double snapshot_manulcooky, double snapshot_coins, double snapshot_cookyspeed)
+{
+    double amount = item.amount;
+    if (item.use_percent)
+    {
+        if (item.target == "autocooky")       amount = floor(snapshot_autocooky * (item.amount / 100.0));
+        else if (item.target == "manulcooky") amount = floor(snapshot_manulcooky * (item.amount / 100.0));
+        else if (item.target == "coins")      amount = floor(snapshot_coins * (item.amount / 100.0));
+        else if (item.target == "cookyspeed") amount = floor(snapshot_cookyspeed * (item.amount / 100.0));
+        else if (item.target == "cookies")    amount = floor(cookies * (item.amount / 100.0));
+    }
+    if (item.target == "cookies")       cookies += amount;
+    else if (item.target == "coins")    { coins += amount; stat_coins_earned += amount; }
+    else if (item.target == "autocooky")  autocooky += amount;
+    else if (item.target == "manulcooky") manulcooky += amount;
+    else if (item.target == "cookyspeed") { cookyspeed += amount; clicktime -= amount; }
+    string msg = item.message;
+    string amt_str = format_number(amount);
+    int ph = msg.find("%amount%");
+    while (ph != -1) { msg = msg.substr(0, ph) + amt_str + msg.substr(ph + 8); ph = msg.find("%amount%"); }
+    ph = msg.find("%name%");
+    while (ph != -1) { msg = msg.substr(0, ph) + playername + msg.substr(ph + 6); ph = msg.find("%name%"); }
+    dlgmessage_return(msg);
+}

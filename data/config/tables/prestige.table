@@ -1,0 +1,15 @@
+[settings]
+min_rank=3
+multiplier=0.1
+boost_autocooky=true
+boost_manulcooky=true
+boost_coins=true
+boost_cookyspeed=false
+sound=prestige.ogg
+message=Congratulations! You have reached prestige level %prestige%. Your bakery has been reset, but your legacy lives on. Good luck on your next run!
+
+[rewards]
+1:coins:100:false:Welcome to your first prestige! Here are 100 bonus coins to get you started.
+5:coins:5:true:Welcome back! You carry over 5% of your coins into this run.
+10:autocooky:10:false:Prestige 10 reached! You start this run with 10 bonus auto cookies.
+25:autocooky:3:true:Prestige 25 reached! You carry over 3% of your auto cookies. Keep baking!

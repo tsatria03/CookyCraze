@@ -1,5 +1,5 @@
 Welcome to Cooky Craze!
-In this game, you bake and sell cookies to earn coins, climb the ranks, and build the ultimate automated bakery. Start out clicking manually, then invest your coins into upgrades, unlock minigames, and automate your production until cookies are practically baking themselves.
+In this game, you bake and sell cookies to earn coins, climb the ranks, and build the ultimate automated bakery. Start out clicking manually, then invest your coins into upgrades, unlock minigames like blackjack, the cooky flipper, and the slot machine, and automate your production until cookies are practically baking themselves.
 Every rank you reach brings a reward, and milestones along the way unlock powerful new features. Can you reach the highest rank and become the ultimate baker? Let's find out!
 
 Game features
@@ -191,6 +191,30 @@ Opening a category shows how many you have unlocked out of the total for that ca
 Pressing enter on a locked achievement gives you a cryptic hint about what you need to do to earn it. When you earn an achievement during play, it is stored in the achievements buffer.
 If baking mode is off, it shows as a dismissible dialog so you can read it immediately. If baking mode is on, it is announced non-interruptively so automated play is not interrupted.
 
+Quests.
+Complete a set of objectives to unlock the prestige option and start a new run with a permanent bonus.
+
+Quests are automatically assigned at the start of each prestige cycle. Some quests are required and always appear, while others are drawn randomly from the pool to fill the remaining slots.
+The number of active quests at once is configurable in quests.table. Required quests always fill first, and random ones fill the rest.
+
+To view your quests, press the Quests button in the main game interface. The quests screen shows a list of all active quests with their name and current status, either complete or incomplete.
+Arrow to any quest and press tab to open a detail box showing the stat being tracked, the required threshold, and your live progress toward it. Once all quests are complete, the prestige button becomes available.
+
+If you want a different set of random quests, press the reroll button in the quests menu. Rerolling replaces all non-required quests with a new random selection.
+Rerolling deducts a cost from a configurable stat, and the cost increases each time you reroll using compounding scaling. The reroll count resets at the start of each prestige cycle so costs go back to base.
+
+Prestige.
+Reset your progress and earn a permanent bonus that carries into every future run.
+
+Once all active quests are completed and you meet the minimum rank requirement, the prestige option becomes available. Pressing it opens a confirmation dialog explaining what resets and what carries over before you commit.
+Each prestige increases your prestige level by one and applies a permanent additive multiplier bonus to your stats. The multiplier stacks with each prestige, so prestige 1 gives a 10 percent bonus, prestige 2 gives 20 percent, and so on.
+
+When you prestige, the following are reset: cookies, coins, rank, all upgrade purchases, baking slots, and baking and economy stats.
+The following are kept: your prestige level and multiplier bonus, all achievements and achievement progress, minigame unlocks, minigame stats, and preferences.
+
+Certain prestige levels also award a one time bonus reward at the start of your new run, such as a flat stat boost or a percentage of what you had when you prestiged. After the prestige message you will always receive a second notification telling you what you gained, or letting you know that nothing was gained if that prestige level has no milestone reward.
+All prestige settings, multipliers, and milestone rewards are fully configurable in prestige.table.
+
 Save slots.
 
 The game supports multiple save slots for separate playthroughs, selected from the main menu. Each slot is completely independent, with its own rank, cookies, coins, upgrades, and settings.
@@ -208,6 +232,7 @@ Letter, M: Announces how many coins you currently have.
 Control S: Saves your game progress.
 Control L: Reloads all configuration files and your save data without restarting the game. Useful when editing config files.
 Escape: Opens a prompt asking whether you want to quit.
+Alt plus F4: Exits the game immediately without saving.
 
 Buffers.
 
@@ -246,7 +271,7 @@ Configuration files for modders
 All of the configuration files are located in the data/config folder, and are split into three subfolders.
 Lines starting with a semicolon, hash, or double slash are treated as comments, and ignored by the parser.
 
-Two of the files, ranks.table and slots.table, use section headers in square brackets such as [sounds], [default], [rewards], and [payouts]. These are not cosmetic.
+Four of the files, ranks.table, slots.table, prestige.table, and quests.table, use section headers in square brackets such as [sounds], [default], [rewards], [settings], and [quests]. These are not cosmetic.
 The parser uses them to know which format to expect, since each section in those files uses a completely different line structure. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
 
 Five of the remaining files, baker.event, flipper.event, jacks.table, baker.store, and achievements.table, do not use functional section headers. Every line in those files follows the same format throughout.
@@ -450,7 +475,7 @@ The internal identifier for this achievement. Used by the parser only. Must be u
 stat
 The statistic this achievement tracks. Must be one of the following values.
 
-cookies_baked        = total number of bakes performed, both manual and automatic.
+cookies_baked        = total number of cookies baked, both manual and automatic.
 coins_earned         = total coins received from all sources.
 
 auto_slots_purchased = total auto baking slots ever bought.
@@ -662,8 +687,147 @@ The sound file to play when this outcome fires, relative to sounds/misc/.
 message
 The text spoken to the player when this outcome fires.
 
+prestige.table
+
+Location: data/config/tables/prestige.table
+
+Defines the prestige system settings, stat multipliers, and milestone rewards.
+
+Settings section.
+
+min_rank
+The minimum rank the player must reach before prestige becomes available. The player must also have all active quests completed before they can prestige.
+
+multiplier
+The additive bonus applied to boosted stats per prestige level. Uses additive stacking, so 0.1 means prestige 1 gives a 10 percent bonus, prestige 2 gives 20 percent, prestige 3 gives 30 percent, and so on.
+Keep this value low. Setting it to 1 would double your stats at prestige 1 and triple them at prestige 2, which will trivialize the game very quickly.
+
+boost_autocooky
+Set to true to apply the prestige multiplier bonus to auto cookies, false to leave it unaffected.
+
+boost_manulcooky
+Set to true to apply the prestige multiplier bonus to manual cookies, false to leave it unaffected.
+
+boost_coins
+Set to true to apply the prestige multiplier bonus to coins, false to leave it unaffected.
+
+boost_cookyspeed
+Set to true to apply the prestige multiplier bonus to baking speed, false to leave it unaffected.
+
+sound
+The sound file to play when the player prestiges. Relative to sounds/misc/.
+
+message
+The message spoken to the player when they prestige. Use %prestige% as a placeholder for the new prestige level.
+
+Rewards section.
+Format: prestige_level:target:amount:use_percent:message
+
+Defines one time bonus rewards given to the player at the start of their new run when they reach a specific prestige level. Multiple reward lines can exist for different prestige levels.
+
+prestige_level
+The prestige level that triggers this reward. Each reward only fires once, when the player first reaches that level.
+
+target
+The stat to reward when this reward fires.
+
+cookies    = the player's current cookie count.
+coins      = the player's current coin count.
+autocooky  = the player's auto cookie production rate.
+manulcooky = the player's manual cookie production rate.
+cookyspeed = the player's baking speed.
+
+amount
+The value to give the player at the start of their new run. Whether this is treated as a flat value or a percentage depends on use_percent.
+
+use_percent
+Controls whether the amount is applied as a flat value or a percentage of what the player had when they prestiged.
+
+false = the amount is given directly. An amount of 10 gives exactly 10 of the target stat.
+true  = the amount is treated as a percentage of the player's final stat value at the moment they prestiged. An amount of 5 gives 5 percent of whatever they had. Keep percentage values low, as even a small percentage of a late-game stat can be a significant head start.
+
+message
+The message spoken when this reward is given. Use %amount% as a placeholder for the reward value.
+
+quests.table
+
+Location: data/config/tables/quests.table
+
+Defines all available quests and the reroll system settings.
+
+Settings section.
+
+max_active
+The maximum number of quests the player can have active at once. Required quests always fill first, and random ones fill the remaining slots.
+
+Reroll settings.
+
+reroll_target
+The stat deducted when the player rerolls their random quests.
+
+cookies    = deducts from the player's current cookie count.
+coins      = deducts from the player's current coin count.
+autocooky  = deducts from the player's auto cookie production rate.
+manulcooky = deducts from the player's manual cookie production rate.
+cookyspeed = deducts from the player's baking speed.
+
+reroll_base_cost
+The base cost of the first reroll per prestige cycle.
+
+reroll_multiplier
+How much the reroll cost increases with each reroll. Uses compounding scaling, the same as the singles shop.
+Keep this value low. Setting it too high will make rerolling unaffordable very quickly.
+
+reroll_sound
+The sound file to play when the player rerolls. Relative to sounds/misc/.
+
+reroll_message
+The message spoken after a successful reroll. Use %cost% as a placeholder for the amount deducted.
+
+Quests section.
+Format: id:name:stat:threshold:use_percent:required:description
+
+id
+The internal identifier for this quest. Must be unique across all entries. Use lowercase letters and underscores, no spaces. Example: bake_million
+
+name
+The display name shown in the quest list in the quests menu.
+
+stat
+The statistic this quest tracks. Uses the same stat names as achievements.table. Must be one of the following values.
+
+cookies_baked          = total cookies baked, both manual and automatic.
+coins_earned           = total coins received from all sources.
+auto_slots_purchased   = total auto baking slots ever bought.
+manual_slots_purchased = total manual baking slots ever bought.
+auto_slots_enabled     = total auto slots that have been automated.
+upgrades_purchased     = total singles shop transactions.
+bundles_purchased      = total bundle shop transactions.
+events_fired           = total baker and flipper events that applied their effect.
+flipper_flips          = total cooky flipper flips.
+slot_spins             = total slot machine spins.
+slot_wins              = total slot machine wins.
+blackjack_hands        = total blackjack rounds played.
+blackjack_wins         = total blackjack rounds won.
+
+threshold
+The value the stat must reach to complete this quest.
+
+use_percent
+Controls how progress is reported in the detail input box when the player focuses this quest.
+
+false = progress is shown as a raw value. For example, 342,500 of 1,000,000.
+true  = progress is shown as a percentage. For example, 3.62%. Useful for quests with very large thresholds where a raw number may be hard to interpret.
+
+required
+true means this quest always appears every prestige cycle. false means it goes into the random pool and may or may not appear depending on the random draw.
+
+description
+The message shown in the detail input box when the player focuses this quest. You do not need to include progress information in this field. Below the description the game always appends a line automatically that reads current progress followed by either a raw value out of the threshold or a percentage with a percent sign depending on use_percent, then a period and either complete or incomplete on the same line.
+You can use %threshold% as a placeholder and it will be replaced with the threshold value at display time. Tip: keep the description focused on what the quest is asking, and let the game handle reporting the progress.
+
 Game conclusion
 
-CookyCraze started as a simple cookie clicker, and has grown into a full-featured idle game with automated production, minigames, achievements, a progression system, and deep modding support. Every system in the game, from rank rewards to slot payouts to event effects, can be tuned or extended through the provided configuration files.
+CookyCraze started as a simple cookie clicker, and has grown into a full-featured idle game with automated production, minigames, achievements, a rank progression system, multiple save slots, and deep modding support. Every system in the game, from rank rewards to slot payouts to event effects, can be tuned or extended through the provided configuration files.
 
-Whether you are a player looking to understand the game better, or a modder building your own experience on top of it, we hope this document gives you everything you'll need. Thanks for playing, and happy baking!
+Whether you are a player looking to understand the game better, or a modder building your own experience on top of it, we hope this document gives you everything you'll need to succeed in the baking industry. Thanks for playing, and happy baking!

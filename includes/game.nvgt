@@ -8,6 +8,8 @@ int autobake=form.create_button("Enter baking m&ode");
 int achievementsBtn = form.create_button("&Achievements");
     int manageSlots = form.create_button("Baking slots &manager");
 int minigames=form.create_button("mini &games");
+int questsBtn=form.create_button("&Quests");
+int prestigeBtn=form.create_button("Presti&ge");
 int infoBtn=form.create_button("I&nfo");
 int statsBtn=form.create_button("S&tatistics");
 int preffs=form.create_button("&preferences");
@@ -64,6 +66,25 @@ manage_baking_slots();
 if (form.is_pressed(minigames))
 {
 mingamsmenu();
+}
+if (form.is_pressed(questsBtn))
+{
+questsmenu();
+}
+if (form.is_pressed(prestigeBtn))
+{
+    if (!all_quests_complete())
+    {
+        speak_buffer("You must complete all active quests before you can prestige.", "general");
+    }
+    else if (rank < prestigeConfig.min_rank)
+    {
+        speak_buffer("You must reach rank " + string(prestigeConfig.min_rank) + " before you can prestige.", "general");
+    }
+    else
+    {
+        start_prestige();
+    }
 }
 if (form.is_pressed(preffs))
 {
@@ -290,6 +311,10 @@ parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
 loadedAchievements = parse_achievements("data/config/tables/achievements.table");
 achievementsUnlocked.delete_all();
 init_achievements(loadedAchievements, achievementsUnlocked);
+parse_prestige_table("data/config/tables/prestige.table");
+loadedQuests.resize(0);
+parse_quests_table("data/config/tables/quests.table", loadedQuests);
+assign_quests();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");

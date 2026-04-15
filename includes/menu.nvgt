@@ -1342,6 +1342,112 @@ void automate_baking_slots()
         }
 }
 
+void questsmenu()
+{
+    form.reset();
+    form.create_window("Quests", false);
+    int questList = form.create_list("&Quests", activeQuests.length(), false, false);
+    for (uint i = 0; i < activeQuests.length(); i++)
+    {
+        form.add_list_item(questList, activeQuests[i].name, activeQuests[i].id, -1, false);
+    }
+    int detailBox = form.create_input_box("&Quest details", "", read_only:true, multiline:true);
+    double rerollCost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
+    int rerollBtn = form.create_button("&Reroll quest for " + format_number(rerollCost) + " " + questsConfig.reroll_target);
+    int closeBtn = form.create_button("&Close", false, true);
+    form.focus(questList);
+    int lastPos = -1;
+    while (true)
+    {
+        wait(5);
+        form.monitor();
+        int curPos = form.get_list_position(questList);
+        if (curPos != lastPos && curPos >= 0 && curPos < int(activeQuests.length()))
+        {
+            form.set_text(detailBox, get_quest_detail(activeQuests[curPos]));
+            lastPos = curPos;
+        }
+        if (form.is_pressed(rerollBtn))
+        {
+            double rerollConfirmCost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
+            double rerollStatVal = 0;
+            if (questsConfig.reroll_target == "coins")         rerollStatVal = coins;
+            else if (questsConfig.reroll_target == "cookies")      rerollStatVal = cookies;
+            else if (questsConfig.reroll_target == "autocooky")    rerollStatVal = autocooky;
+            else if (questsConfig.reroll_target == "manulcooky")   rerollStatVal = manulcooky;
+            else if (questsConfig.reroll_target == "cookyspeed")   rerollStatVal = cookyspeed;
+            if (rerollStatVal < rerollConfirmCost)
+            {
+                double rerollShortfall = rerollConfirmCost - rerollStatVal;
+                string rerollUnit = questsConfig.reroll_target;
+                if (rerollShortfall == 1)
+                {
+                    if (rerollUnit == "coins")           rerollUnit = "coin";
+                    else if (rerollUnit == "cookies")    rerollUnit = "cookie";
+                    else if (rerollUnit == "autocooky")  rerollUnit = "auto cooky";
+                    else if (rerollUnit == "manulcooky") rerollUnit = "manual cooky";
+                    else if (rerollUnit == "cookyspeed") rerollUnit = "cooky speed";
+                }
+                else
+                {
+                    if (rerollUnit == "autocooky")       rerollUnit = "auto cookies";
+                    else if (rerollUnit == "manulcooky") rerollUnit = "manual cookies";
+                    else if (rerollUnit == "cookyspeed") rerollUnit = "cooky speeds";
+                }
+                dlgmessage_return("You cannot afford to reroll this quest. You need " + format_number(rerollShortfall) + " more " + rerollUnit + " to do this.");
+                form.reset();
+                questsmenu();
+                return;
+            }
+            setupmenu(false);
+            m.add_item("Yes", "yes");
+            m.add_item("No", "no");
+            m.intro_text = "Are you sure you want to reroll this quest? This action cannot be undone.";
+            int mres = m.run();
+            if (mres == -1 || m.get_item_id(mres) == "no")
+            {
+                form.reset();
+                questsmenu();
+                return;
+            }
+            reroll_quests();
+            form.reset();
+            questsmenu();
+            return;
+        }
+        if (form.is_pressed(closeBtn) || key_pressed(KEY_ESCAPE))
+        {
+            form.reset();
+            clickergame();
+            return;
+        }
+    }
+}
+
+void start_prestige()
+{
+    setupmenu(false);
+    m.add_item("Yes", "yes");
+    m.add_item("No", "no");
+    m.intro_text = "Are you sure you want to prestige? Your cookies, coins, rank, upgrades, and baking slots will be reset. Your achievements, minigame stats, and prestige bonus will be kept.";
+    int mres = m.run();
+    if (mres == -1 || m.get_item_id(mres) == "no")
+    {
+        form.reset();
+        clickergame();
+        return;
+    }
+    ambpool.pause_sound(ambslot);
+    muspool.pause_sound(mustrackslot);
+    writedata();
+    resetgame(true);
+    writedata();
+    ambpool.resume_sound(ambslot);
+    muspool.resume_sound(mustrackslot);
+    form.reset();
+    clickergame();
+}
+
 void preffsmenu()
 {
 form.reset();
