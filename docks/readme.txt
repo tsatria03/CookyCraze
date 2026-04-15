@@ -765,7 +765,7 @@ The stat to give. Uses the same stat names as the rewards section.
 min_amount and max_amount
 The minimum and maximum amounts to give. A random value between them is chosen each time.
 
-Both support the same expression syntax as ranks.table, so values like 50*level and 100*level are valid and scale with the current prestige level.
+Both support the same expression syntax as ranks.table, so values like 50*rank and 100*rank are valid and scale with the current prestige level.
 
 message
 The message spoken when the default reward fires. Use %amount% as a placeholder for the amount given and %level% for the current prestige level.

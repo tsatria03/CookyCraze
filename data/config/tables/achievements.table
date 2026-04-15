@@ -1,4 +1,5 @@
 ; Baking
+
 first_bite:cookies_baked:1:First Bite:Bake your very first cookie. Every great bakery starts somewhere.:Even the longest journey begins with a single step. Or in this case, a single press.
 getting_warmed_up:cookies_baked:100:Getting Warmed Up:Bake %threshold% cookies. The oven is starting to heat up.:The oven won't warm itself. Keep at it and see what happens.
 on_a_roll:cookies_baked:1000:On a Roll:Bake %threshold% cookies. You're really getting the hang of this.:At a certain point, the cookies stop feeling like work.
@@ -8,6 +9,7 @@ cookie_empire:cookies_baked:1000000:Cookie Empire:Bake %threshold% cookies. You 
 cookie_singularity:cookies_baked:10000000:Cookie Singularity:Bake %threshold% cookies. At this point the universe itself is mostly cookies.:There is a threshold beyond which baking transcends purpose entirely. You found it.
 
 ; Economy
+
 first_coin:coins_earned:50:First Coin:Earn your first coins through selling. A humble beginning to what will surely be a great fortune.:Cookies don't spend themselves. Try letting someone else have a taste.
 pocket_change:coins_earned:100:Pocket Change:Earn %threshold% coins. Not much, but it's a start.:A fortune begins somewhere modest. This might be that somewhere.
 making_bank:coins_earned:10000:Making Bank:Earn %threshold% coins. The coin reserves are looking healthy.:When your pockets feel heavier than usual, you're getting warm.
@@ -17,6 +19,7 @@ coin_singularity:coins_earned:10000000000:Coin Singularity:Earn %threshold% coin
 coin_multiverse:coins_earned:100000000000:Coin Multiverse:Earn %threshold% coins. You don't own coins anymore. You are coins.:At this point the distinction between you and the economy is purely academic.
 
 ; Upgrades
+
 first_upgrade:upgrades_purchased:1:First Upgrade:Purchase your first upgrade. Every empire begins with a single investment.:The shop exists for a reason. Perhaps it's time to find out why.
 upgrade_enthusiast:upgrades_purchased:50:Upgrade Enthusiast:Purchase %threshold% upgrades. You have a problem, and it's a good one.:Some people visit the shop occasionally. Others make it a second home.
 upgrade_addict:upgrades_purchased:500:Upgrade Addict:Purchase %threshold% upgrades. The shop owner knows you by name at this point.:At a certain number of purchases, the shop starts to feel familiar in a strange way.
@@ -26,6 +29,7 @@ upgrade_transcendent:upgrades_purchased:100000:Upgrade Transcendent:Purchase %th
 upgrade_infinite:upgrades_purchased:500000:Upgrade Infinite:Purchase %threshold% upgrades. You have purchased things that do not yet exist.:The shop was never the destination. It was just the path.
 
 ; Bundles
+
 first_bundle:bundles_purchased:1:Bundle of Joy:Purchase your very first bundle. Why buy one thing when you can buy everything at once?:Why settle for one when several come wrapped together so neatly?
 bundle_lover:bundles_purchased:10:Bundle Lover:Purchase %threshold% bundles. You have developed a taste for efficiency.:Efficiency has a flavor. You'll recognize it after a few tries.
 bundle_hoarder:bundles_purchased:100:Bundle Hoarder:Purchase %threshold% bundles. The bundle shop is your second home.:There are those who visit the bundle shop, and those who never really leave.
@@ -35,6 +39,7 @@ bundle_ascendant:bundles_purchased:10000:Bundle Ascendant:Purchase %threshold% b
 bundle_eternal:bundles_purchased:50000:Bundle Eternal:Purchase %threshold% bundles. Future generations will speak of this in hushed tones.:Some legacies are built in stone. Yours was built in bundles.
 
 ; Events
+
 first_event:events_fired:1:Things Happen:Trigger your first random event. Baking is full of surprises.:Not everything in the bakery goes according to plan. Stay alert.
 event_prone:events_fired:50:Event Prone:Trigger %threshold% random events. Life in the bakery is never boring.:Some days the bakery has a mind of its own. You'll see.
 chaos_magnet:events_fired:250:Chaos Magnet:Trigger %threshold% random events. You are a walking disaster and a miracle all at once.:Strange things tend to happen around certain bakers more than others. You might be one of them.
@@ -44,6 +49,7 @@ event_storm:events_fired:10000:Event Storm:Trigger %threshold% random events. Me
 event_force:events_fired:25000:Event Force:Trigger %threshold% random events. You are no longer affected by events. You are an event.:There are forces of nature, and then there are forces of bakery. You became the latter.
 
 ; Cooky flipper
+
 first_flip:flipper_flips:1:Chocolate or Bisket:Flip the cooky for the first time. Luck is on your side. Probably.:Two outcomes. One flip. What are you waiting for?
 flip_happy:flipper_flips:25:Flip Happy:Flip the cooky %threshold% times. You just can't stop.:Once you start flipping, it gets oddly difficult to stop.
 flipper_fanatic:flipper_flips:100:Flipper Fanatic:Flip the cooky %threshold% times. This is less about luck and more about obsession at this point.:At some point this stops being about the outcome and starts being about the ritual.
@@ -52,6 +58,7 @@ flipper_legend:flipper_flips:2000:Flipper Legend:Flip the cooky %threshold% time
 flipper_eternal:flipper_flips:5000:Flipper Eternal:Flip the cooky %threshold% times. The cooky has been flipped so many times it no longer has sides.:At a certain point the flip itself becomes the destination.
 
 ; Slot machine - spins
+
 first_spin:slot_spins:1:One Armed Baker:Pull the lever for the first time. The reels are calling your name.:There's a lever in the corner. It doesn't pull itself.
 spin_novice:slot_spins:10:Spin Novice:Spin the reels %threshold% times. You are just getting started.:The reels reward those who keep coming back. Maybe.
 spin_cycle:slot_spins:25:Spin Cycle:Spin the reels %threshold% times. You are dangerously comfortable with this.:Comfort and danger aren't mutually exclusive. The reels know this.

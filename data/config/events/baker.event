@@ -1,4 +1,5 @@
 ; Flat events
+
 fire_spark:lose.ogg,burn(1,3).ogg:3:2:cookies:20:20:true:100:Oh no! A fire spark broke out in your bakery! You lost %amount% cookies.
 bonus_cookies:give.ogg:3:1:cookies:40*rank:80*rank:false:100:Lucky bake! You gained an extra %amount% cookies!
 increase_cookyspeed:give.ogg,powerup.ogg:3:1:cookyspeed:10/rank:10/rank:false:100:Amazing! Your baking speed has increased by %amount% ms. Cookies bake faster now.
@@ -11,6 +12,7 @@ gain_manulcooky:give.ogg:3:1:manulcooky:10*rank:50*rank:false:100:Great! You gai
 lose_manulcooky:lose.ogg:3:2:manulcooky:10*rank:50*rank:false:100:Shucks! You lost %amount% manual cookies. Your baking rate per click has decreased.
 
 ; Percentage events
+
 baking_miracle:give.ogg:3:1:cookies:5:15:true:100:A baking miracle! The stars aligned and %amount% percent of your cookies multiplied into even more, giving you %actual% extra cookies. What a windfall!
 cookie_crumble:lose.ogg,burn(1,3).ogg:3:2:cookies:5:15:true:100:Oh no! A shelf collapsed in your bakery and crumbled %amount% percent of your cookie stockpile, costing you %actual% cookies. What a mess!
 coin_jackpot:give.ogg,coin50.ogg:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current coins, netting you %actual% coins. Your wallet is feeling heavy!

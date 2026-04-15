@@ -1,7 +1,7 @@
 New in 4.5.
 Changed the require_all setting in quests.table from a boolean to a numeric mode. Failing to meet the reward condition shows a nothing was gained message instead.
 The prestige confirmation dialog now dynamically states whether you will receive a reward based on your current quest completion status.
-Added a default_reward section to prestige.table. It fires for any prestige level that does not have a specific milestone reward, so no prestige ever goes unrewarded. The amount scales using the same expression syntax as ranks.table, so values like 50*level and 100*level are supported. Milestone rewards still override it completely for their specific level.
+Added a default_reward section to prestige.table. It fires for any prestige level that does not have a specific milestone reward, so no prestige ever goes unrewarded. The amount scales using the same expression syntax as ranks.table, so values like 50*rank and 100*rank are supported. Milestone rewards still override it completely for their specific level.
 Added a %level% placeholder to prestige reward messages in prestige.table. It is replaced with the current prestige level number when the reward message is spoken.
 Fixed duplicate Alt+G shortcuts on the Prestige and Mini games buttons in the main game interface. Reassigned all main interface button shortcuts so every button has a unique accelerator. Bake cookies is now Alt+B, Enter baking mode is Alt+O, Prestige is Alt+P, Info is Alt+I, Statistics is Alt+T, and Preferences is Alt+R.
 Fixed a bug where prestige milestone rewards were being applied before the game state was reset, causing the stat gains to be immediately wiped out. Rewards are now applied after the reset so the amounts they grant are always preserved.

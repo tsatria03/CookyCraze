@@ -1,4 +1,5 @@
 ; Events
+
 gain_cookies:gain.ogg,give.ogg:1:cookies:15*rank:30*rank:false:100:Jackpot! You gained %amount% cookies!
 lose_cookies:lose.ogg,bee(1,4).ogg:2:cookies:15*rank:30*rank:false:100:Oh no! You lost %amount% cookies.
 gain_coins:gain.ogg,give.ogg,coin50.ogg:1:coins:15*rank:30*rank:false:100:Lucky flip! You gained %amount% coins.

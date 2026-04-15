@@ -1,9 +1,11 @@
 ; Menus
+
 autmenu=Automatic Baking Items|0|The original automatic baking menu, a staple of the game since version 1.0. These are the core upgrades that keep your ovens running around the clock.
 mabimenu=Manual Baking Items|0|The original manual baking menu, also a staple since version 1.0. These upgrades reward the hands-on baker who likes to get their fingers doughy.
 usermenu=User Created Items|5|Custom items that were created by the community.
 
 ; Items
+
 autmenu:auto_cooky:1:10:1.01:1:0:false:Each purchase gives you %item_count auto cookie to bake with.
 autmenu:auto_cooky_speed:3:20:1.01:10:0:false:Each purchase increases your baking speed by %item_count ms, helping you bake cookies much faster.
 mabimenu:manual_cooky:2:25:1.01:1:0:false:Each purchase gives you %item_count manual cookie to bake with.

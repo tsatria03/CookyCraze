@@ -1,4 +1,5 @@
 ; Menus
+
 startermenu=Beginner Bundles|0|Beginner friendly bundles designed to give new bakers a solid foundation without breaking the bank.
 advancedmenu=Advanced Bundles|5|More powerful bundles for experienced bakers who have already built up a coin income and want to accelerate their progression.
 expertmenu=Expert Bundles|20|High volume bundles for dedicated bakers who are deep into the game and ready to make serious investments.
@@ -8,6 +9,7 @@ legendarymenu=Legendary Bundles|250|The most powerful bundles in the shop. Reser
 godlikemenu=Godlike Bundles|500|Bundles that transcend the art of baking itself. Only the most legendary bakers in all of existence can access these.
 
 [bundles]
+
 startermenu:Starter Bundle:0:auto_cooky:5|manual_cooky:3|auto_cooky_speed:2:A well-rounded bundle for new bakers. Gives you a head start with a little of everything to get your bakery off the ground.
 startermenu:Baker's Dozen:0:auto_cooky:13|manual_cooky:13|auto_cooky_speed:13:Thirteen of everything. A classic bundle for the baker who likes things in thirteens.
 startermenu:Speed Runner Bundle:0:auto_cooky_speed:20|auto_cooky:5:For the baker obsessed with baking faster. Heavily weighted toward baking speed with a few auto cookies thrown in.

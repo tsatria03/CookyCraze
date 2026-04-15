@@ -75,7 +75,7 @@ if (form.is_pressed(prestigeBtn))
 {
     if (rank < prestigeConfig.min_rank)
     {
-        speak_buffer("You must reach rank " + string(prestigeConfig.min_rank) + " before you can prestige.", "general");
+        speak_buffer("You must reach rank " + string(prestigeConfig.min_rank) + " to use this feature.", "general");
     }
     else
     {

@@ -1205,8 +1205,7 @@ void manage_baking_slots()
     {
         if (rank < slotManagerUnlockRank)
         {
-            gameslot = pool.play_stationary("sounds/misc/gamefail.ogg", false);
-            dlg_buffer("Sorry " + playername + ". Manual slots are locked. Please reach rank " + int(slotManagerUnlockRank) + " to use this feature.", "critical");
+            dlgmessage_return("Manual slots are locked. Please reach rank " + int(slotManagerUnlockRank) + " to use this feature.");
             manage_baking_slots();
             return;
         }
@@ -1218,8 +1217,7 @@ void manage_baking_slots()
     {
         if (rank < slotManagerUnlockRank)
         {
-            gameslot = pool.play_stationary("sounds/misc/gamefail.ogg", false);
-            dlg_buffer("Sorry " + playername + ". Auto slots are locked. Please reach rank " + int(slotManagerUnlockRank) + " to use this feature.", "critical");
+            dlgmessage_return("Auto slots are locked. Please reach rank " + int(slotManagerUnlockRank) + " to use this feature.");
             manage_baking_slots();
             return;
         }

@@ -7,7 +7,7 @@ getver();
 show_window("CookyCraze, version "+version);
 if(gamstence.is_already_running)
 {
-alert("error", "You can only have one instence of this game running!");
+alert("error", "You can only have one instance of this game running!");
 exit();
 }
 else
@@ -102,15 +102,15 @@ coins=usercoins;
 dlgplay("sounds/misc/coin1.ogg");
 if (playergender == 0)
 {
-dlgmessage_return("Nice to meat you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
+dlgmessage_return("Nice to meet you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
 }
 else if (playergender == 1)
 {
-dlgmessage_return("Nice to meat you, Ms. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
+dlgmessage_return("Nice to meet you, Ms. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
 }
 else if (playergender == 2)
 {
-dlgmessage_return("Nice to meat you, " + playername + " " + playername2 + "! Now go have fun baking cookies and reaching new ranks!");
+dlgmessage_return("Nice to meet you, " + playername + " " + playername2 + "! Now go have fun baking cookies and reaching new ranks!");
 }
 playerprofed = true;
 writepreffs3();
@@ -142,13 +142,11 @@ void resetgame(bool prestige = false)
 {
 if (prestige)
 {
-    // Take snapshots before resetting for percentage-based rewards
     double snap_autocooky = autocooky;
     double snap_manulcooky = manulcooky;
     double snap_coins = coins;
     double snap_cookyspeed = cookyspeed;
     prestigeLevel++;
-    // Speak prestige message
     string pmsg = prestigeConfig.message;
     string plvl = string(prestigeLevel);
     int ph = pmsg.find("%prestige%");
@@ -158,40 +156,7 @@ if (prestige)
     if (prestigeConfig.sound != "")
         pool.play_stationary("sounds/misc/" + prestigeConfig.sound, false);
     dlgmessage_return(pmsg);
-    // Reset all stats and resources
-    stat_cookies_baked=0;
-    stat_bakes_performed=0;
-    stat_coins_earned=0;
-    stat_upgrades_purchased=0;
-    stat_bundles_purchased=0;
-    stat_events_fired=0;
-    stat_flipper_flips=0;
-    stat_auto_slots_purchased=0;
-    stat_manual_slots_purchased=0;
-    stat_auto_slots_enabled=0;
-    autocooky=0;
-    autocooky_purchases=0;
-    manulcooky_purchases=0;
-    cookyspeed_purchases=0;
-    coins=10;
-    cookies=0;
-    cookyspeed=0;
-    manulcooky=1;
-    rank=1;
-    bakemode=0;
-    clicktime=1000;
-    automationBaseCost=15;
-    slotBaseCost=30;
-    manualSlots=0;
-    manualSlotBaseCost=30;
-    autobakeSlots=0;
-    autobakeSlotEnabled.resize(0);
-    baking_slots.resize(0);
-    questRerollCount=0;
-    activeQuests.resize(0);
-    assign_quests();
-    cookiesrequiered = (cookymod * (rank * (rank * difmod)));
-    // Apply milestone rewards after reset so they aren't wiped
+    reset_game_state();
     if (quests_reward_earned())
     {
         bool rewardFound = false;
@@ -216,7 +181,6 @@ if (prestige)
 }
 else
 {
-    // Full new game reset — clear everything including prestige
     achievementsUnlocked.delete_all();
     achievements_last_id="";
     stat_jack_hands=0;
@@ -227,38 +191,6 @@ else
     stat_slot_wins=0;
     stat_slot_losses=0;
     prestigeLevel=0;
-    // Reset all stats and resources
-    stat_cookies_baked=0;
-    stat_bakes_performed=0;
-    stat_coins_earned=0;
-    stat_upgrades_purchased=0;
-    stat_bundles_purchased=0;
-    stat_events_fired=0;
-    stat_flipper_flips=0;
-    stat_auto_slots_purchased=0;
-    stat_manual_slots_purchased=0;
-    stat_auto_slots_enabled=0;
-    autocooky=0;
-    autocooky_purchases=0;
-    manulcooky_purchases=0;
-    cookyspeed_purchases=0;
-    coins=10;
-    cookies=0;
-    cookyspeed=0;
-    manulcooky=1;
-    rank=1;
-    bakemode=0;
-    clicktime=1000;
-    automationBaseCost=15;
-    slotBaseCost=30;
-    manualSlots=0;
-    manualSlotBaseCost=30;
-    autobakeSlots=0;
-    autobakeSlotEnabled.resize(0);
-    baking_slots.resize(0);
-    questRerollCount=0;
-    activeQuests.resize(0);
-    assign_quests();
-    cookiesrequiered = (cookymod * (rank * (rank * difmod)));
+    reset_game_state();
 }
 }

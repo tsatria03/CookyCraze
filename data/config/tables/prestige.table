@@ -4,7 +4,7 @@ sound=prestige.ogg
 message=Congratulations! You have reached prestige level %prestige%. Your bakery has been reset, but your legacy lives on. Good luck on your next run!
 
 [default_reward]
-coins:50*level:100*level:Prestige %level% complete! You earned %amount% bonus coins to start your next run.
+coins:50*rank:100*rank:Prestige %level% complete! You earned %amount% bonus coins to start your next run.
 
 [rewards]
 1:coins:25|cookies:10:false:Prestige %level% reached! You start this run with 25 bonus coins and 10 bonus cookies.
