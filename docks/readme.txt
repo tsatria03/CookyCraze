@@ -115,7 +115,7 @@ You can purchase additional slots of either type, and toggle individual auto slo
 Both submenus are locked behind a rank requirement, defaulting to rank 40. The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
 
 Baker info.
-View a live snapshot of your current baker state. Press the Info button in the main game interface to open it directly.
+View a live snapshot of your current baker state. Press the Baker Info button in the main game interface to open it directly.
 
 The baker info screen is divided into three sections.
 
@@ -138,8 +138,8 @@ Current cookies: how many cookies you have right now.
 Cookies needed for next rank: how many cookies are required to reach the next rank.
 Current coins: how many coins you currently have.
 Prestige level: how many times you have prestiged. Starts at 0 on a fresh save.
-Quests completed: how many of your active quests are currently complete.
 Prestige reward condition: describes what you need to complete to receive a reward on your next prestige, based on the require_all setting in quests.table. Mode 1 means the reward fires if any quest happens to be complete. Mode 2 means at least one quest must be complete. Mode 3 means all quests must be complete, and shows the total count.
+Quests completed: how many of your active quests are currently complete.
 
 Statistics menu.
 Access the baker statistics screen and achievement statistics screen from the Statistics button in the main game interface.
@@ -147,26 +147,27 @@ Access the baker statistics screen and achievement statistics screen from the St
 Baker statistics.
 View a summary of everything you have done in your current playthrough. Open it from the Statistics menu.
 
-The statistics screen is divided into six sections.
+The statistics screen is divided into seven sections.
 
 Baking.
 
-Bakes performed: counts every time you press the bake button manually, or your auto baking completes a cycle.
+Auto bakes performed: counts every time the auto baker fires a cycle.
+Manual bakes performed: counts every time you press the bake button manually.
 
 Baking slots manager.
 
 Auto slots purchased: counts every auto baking slot you have ever bought, regardless of whether it is enabled or idle.
-Manual slots purchased: counts every manual baking slot you have ever bought.
 Auto slots enabled: counts every time an auto slot has been automated, whether individually or through the automate all option.
 Auto slots idle: shows how many auto slots you currently own but have not enabled.
 Unlike the other stats, this one is not saved separately because it can go up and down at any time.
 It is always calculated fresh from the current state of your bakery, similar to how a stock price reflects the current value rather than a running total.
+Manual slots purchased: counts every manual baking slot you have ever bought.
 
 Economy.
 
 Coins earned: counts the total coins you have received across all sources, including selling cookies and rank rewards.
-Upgrades purchased: counts every singles shop transaction, whether you buy one item or a full bulk purchase.
-Bundles purchased: counts every bundle shop transaction.
+Bundle upgrades purchased: counts every bundle shop transaction.
+Single upgrades purchased: counts every singles shop transaction, whether you buy one item or a full bulk purchase.
 
 Events.
 
@@ -185,6 +186,11 @@ Slot machine.
 Total spins: counts every spin of the reels.
 Wins: counts spins where the payout multiplier was greater than zero, meaning you got at least something back.
 Losses: counts spins where the payout multiplier was zero, meaning you lost your bet entirely.
+
+Quests.
+
+Quests completed: counts the total number of quests you have completed across all prestige cycles.
+Rerolls performed: counts every time you have rerolled a quest.
 
 All stats are saved with your game data and persist between sessions.
 
@@ -214,7 +220,8 @@ The number of active quests is configurable in quests.table and is capped at 10.
 Rerolling replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
 
 To view your quests, press the Quests button in the main game interface. The quests screen shows a list of all active quests sorted from easiest to hardest by difficulty. Completed quests are labelled with complete in the list so you can see your status at a glance without having to open each one.
-Arrow to any quest and the detail box updates automatically, showing the description and current progress toward the threshold. If the quest is complete, a complete label is appended to the progress line. The prestige button is always available once you reach the minimum rank, but whether you receive a reward depends on your quest completion status and the require_all setting in quests.table.
+Arrow to any quest and the detail box updates automatically, showing the description and current progress toward the threshold. If the quest is complete, a complete label is appended to the progress line.
+The prestige button is located in the quests screen and its label updates dynamically to reflect your current status. Before reaching the minimum rank it shows unlocked at rank X. Once unlocked, if the quest requirement has not been met it shows no reward available. When the requirement is met it shows just Prestige. Whether you receive a reward depends on your quest completion status and the require_all setting in quests.table.
 
 If you want a different quest, arrow to it in the quests menu and press the reroll button. Rerolling replaces only that quest with a new random one of the same difficulty.
 The reroll button does not appear when a required quest is focused.
@@ -223,7 +230,7 @@ Rerolling deducts a cost from a configurable stat, and the cost increases each t
 Prestige.
 Reset your progress and earn a permanent bonus that carries into every future run.
 
-Once you reach the minimum rank, the prestige option becomes available. Pressing it opens a confirmation dialog explaining what resets and what carries over, and whether you will receive a reward based on your current quest completion status.
+The prestige option is available from the quests screen. Once you reach the minimum rank, pressing the prestige button opens a confirmation dialog explaining what resets and what carries over, and whether you will receive a reward based on your current quest completion status.
 
 When you prestige, the following are reset: cookies, coins, rank, all upgrade purchases, baking slots, and baking and economy stats.
 The following are kept: your prestige level, all achievements and achievement progress, minigame unlocks, minigame stats, and preferences.

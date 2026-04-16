@@ -7,10 +7,9 @@ int shop=form.create_button("Cooky &store");
 int autobake=form.create_button("Enter baking m&ode");
 int achievementsBtn = form.create_button("&Achievements");
 int manageSlots = form.create_button("Baking slots &manager");
+int infoBtn=form.create_button("Baker &Info");
 int minigames=form.create_button("Mini &games");
 int questsBtn=form.create_button("&Quests");
-int prestigeBtn=form.create_button("&Prestige");
-int infoBtn=form.create_button("&Info");
 int statsBtn=form.create_button("S&tatistics");
 int preffs=form.create_button("P&references");
 form.focus(manulbake);
@@ -71,17 +70,6 @@ if (form.is_pressed(questsBtn))
 {
 questsmenu();
 }
-if (form.is_pressed(prestigeBtn))
-{
-    if (rank < prestigeConfig.min_rank)
-    {
-        speak_buffer("You must reach rank " + string(prestigeConfig.min_rank) + " to use this feature.", "general");
-    }
-    else
-    {
-        start_prestige();
-    }
-}
 if (form.is_pressed(preffs))
 {
 preffsmenu();
@@ -136,7 +124,7 @@ else if(manulcooky>=1)
         manualGain = manulcooky;
     cookies += manualGain;
 stat_cookies_baked += manualGain;
-stat_bakes_performed++;
+stat_manual_bakes_performed++;
 pool.play_stationary("sounds/misc/manulbake.ogg", false);
 if(playervents2==true) attempt_manebaker_event(evchanse2);
 }
@@ -185,7 +173,7 @@ autoGain = autocooky;
 }
 cookies += autoGain;
 stat_cookies_baked += autoGain;
-stat_bakes_performed++;
+stat_auto_bakes_performed++;
 if(bakesfx==true) pool.play_stationary("sounds/misc/autobake.ogg", false);
 if(playervents==true) attempt_autobaker_event(evchanse);
 clicktimer.restart();

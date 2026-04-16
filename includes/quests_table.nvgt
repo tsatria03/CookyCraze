@@ -272,7 +272,7 @@ void mark_completed_quests()
         {
             if (completedQuestIds[c] == activeQuests[i].id) { alreadyMarked = true; break; }
         }
-        if (!alreadyMarked) completedQuestIds.insert_last(activeQuests[i].id);
+        if (!alreadyMarked) { completedQuestIds.insert_last(activeQuests[i].id); stat_quests_completed++; }
     }
 }
 
@@ -288,6 +288,7 @@ void reroll_quest(int questIndex)
     else if (questsConfig.reroll_target == "manulcooky") manulcooky -= cost;
     else if (questsConfig.reroll_target == "cookyspeed") { cookyspeed -= cost; clicktime += cost; }
     questRerollCount++;
+    stat_rerolls_performed++;
 
     int targetDiff = activeQuests[questIndex].difficulty;
     quest_item[] candidates;

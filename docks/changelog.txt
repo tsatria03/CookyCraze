@@ -1,4 +1,13 @@
 New in 4.7.
+Split the bakes performed stat into two independent counters: auto bakes performed and manual bakes performed. Each tracks its own source separately and both are available for future achievements.
+Added quests completed and rerolls performed as fully tracked stats with save and load support, making them available for future achievements.
+Renamed upgrades purchased and bundles purchased in both the baker statistics and achievement statistics screens to single upgrades purchased and bundle upgrades purchased for clarity. Bundle upgrades now appear before single upgrades in both screens.
+Reordered the baking slots manager section in both statistics screens so auto slots purchased, auto slots enabled, and auto slots idle appear together before manual slots purchased.
+Moved the prestige reward condition line in the baker info screen to appear before quests completed.
+Added a Quests section to the baker statistics screen showing lifetime quests completed and total rerolls performed.
+Fixed a bug where reloading the game could cause fewer quests to appear than expected. If any saved quest IDs no longer matched quests in the table after loading, those slots were silently lost. The game now refills any missing slots automatically after load.
+Moved the prestige button from the main game interface into the quests screen. The button label now updates dynamically, showing unlocked at rank X before the minimum rank is reached, no reward available if the quest requirement has not been met, or just Prestige when everything is in order.
+Made it so completed quest IDs are now pruned on load. Any ID saved from a quest that no longer exists in quests.table is silently discarded, so removing quests as a modder will never leave stale data in the save file.
 Made it so completed quests now show a complete label in the quest list so you can see your status at a glance without arrowing into each one. The complete label is also appended to the progress line in the detail box when a quest is finished, and nothing is shown when it is not, replacing the previous incomplete label that appeared on every unfinished quest.
 New in 4.6.
 Replaced the quests required for prestige reward line in the Baker info screen with a prestige reward condition line that describes the requirement in plain English based on the require_all setting in quests.table, rather than showing a number.

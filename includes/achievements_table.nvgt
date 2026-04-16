@@ -65,6 +65,8 @@ achievement_item[] parse_achievements(string filepath)
 double get_stat_value(string stat)
 {
     if (stat == "cookies_baked") return stat_cookies_baked;
+    if (stat == "manual_bakes_performed") return stat_manual_bakes_performed;
+    if (stat == "auto_bakes_performed") return stat_auto_bakes_performed;
     if (stat == "coins_earned") return stat_coins_earned;
     if (stat == "upgrades_purchased") return stat_upgrades_purchased;
     if (stat == "bundles_purchased") return stat_bundles_purchased;
@@ -81,6 +83,8 @@ double get_stat_value(string stat)
     if (stat == "manual_slots_purchased") return stat_manual_slots_purchased;
     if (stat == "auto_slots_enabled") return stat_auto_slots_enabled;
     if (stat == "auto_slots_idle") return double(baking_slots.length()) - double(autobakeSlots);
+    if (stat == "quests_completed") return stat_quests_completed;
+    if (stat == "rerolls_performed") return stat_rerolls_performed;
     if (stat == "rank") return rank;
     return 0;
 }

@@ -1,7 +1,8 @@
 void reset_game_state()
 {
 stat_cookies_baked=0;
-stat_bakes_performed=0;
+stat_manual_bakes_performed=0;
+stat_auto_bakes_performed=0;
 stat_coins_earned=0;
 stat_upgrades_purchased=0;
 stat_bundles_purchased=0;
@@ -308,12 +309,12 @@ void show_baker_info()
     {
         if (get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold) completedQuests++;
     }
-    txt += "Quests completed: " + string(completedQuests) + " of " + string(activeQuests.length()) + "\r\n";
     string questRewardMode = "";
     if (questsConfig.require_all == 1) questRewardMode = "Reward fires if any quest happens to be complete";
     else if (questsConfig.require_all == 2) questRewardMode = "At least one quest must be complete";
     else if (questsConfig.require_all == 3) questRewardMode = "All " + string(activeQuests.length()) + " quests must be complete";
     txt += "Prestige reward condition: " + questRewardMode + "\r\n";
+    txt += "Quests completed: " + string(completedQuests) + " of " + string(activeQuests.length()) + "\r\n";
     form.reset();
     form.create_window("Baker info", false);
     int infobox = form.create_input_box("Baker info", txt, read_only:true, multiline:true);
@@ -336,19 +337,20 @@ void show_baker_statistics()
 {
     string txt = "";
     txt += "Baking\r\n";
-    txt += "Bakes performed: " + format_number(stat_bakes_performed) + "\r\n";
+    txt += "Auto bakes performed: " + format_number(stat_auto_bakes_performed) + "\r\n";
+    txt += "Manual bakes performed: " + format_number(stat_manual_bakes_performed) + "\r\n";
     txt += "\r\n";
     txt += "Baking slots manager\r\n";
     txt += "Auto slots purchased: " + format_number(stat_auto_slots_purchased) + "\r\n";
-    txt += "Manual slots purchased: " + format_number(stat_manual_slots_purchased) + "\r\n";
     txt += "Auto slots enabled: " + format_number(stat_auto_slots_enabled) + "\r\n";
     double idleSlots = double(baking_slots.length()) - double(autobakeSlots);
     txt += "Auto slots idle: " + format_number(idleSlots) + "\r\n";
+    txt += "Manual slots purchased: " + format_number(stat_manual_slots_purchased) + "\r\n";
     txt += "\r\n";
     txt += "Economy\r\n";
     txt += "Coins earned: " + format_number(stat_coins_earned) + "\r\n";
-    txt += "Upgrades purchased: " + format_number(stat_upgrades_purchased) + "\r\n";
-    txt += "Bundles purchased: " + format_number(stat_bundles_purchased) + "\r\n";
+    txt += "Bundle upgrades purchased: " + format_number(stat_bundles_purchased) + "\r\n";
+    txt += "Single upgrades purchased: " + format_number(stat_upgrades_purchased) + "\r\n";
     txt += "\r\n";
     txt += "Events\r\n";
     txt += "Events fired: " + format_number(stat_events_fired) + "\r\n";
@@ -364,6 +366,10 @@ void show_baker_statistics()
     txt += "Total spins: " + format_number(stat_slot_spins) + "\r\n";
     txt += "Wins: " + format_number(stat_slot_wins) + "\r\n";
     txt += "Losses: " + format_number(stat_slot_losses) + "\r\n";
+    txt += "\r\n";
+    txt += "Quests\r\n";
+    txt += "Quests completed: " + format_number(stat_quests_completed) + "\r\n";
+    txt += "Rerolls performed: " + format_number(stat_rerolls_performed) + "\r\n";
     form.reset();
     form.create_window("Baker statistics", false);
     int statsbox = form.create_input_box("Statistics", txt, read_only:true, multiline:true);
@@ -418,12 +424,6 @@ void show_achievement_statistics(achievement_item[]@ achievements, dictionary@ u
     }
     for (uint i = 0; i < achievements.length(); i++)
     {
-        if (achievements[i].stat != "manual_slots_purchased") continue;
-        if (!unlocked.exists(achievements[i].id))
-            txt += achievements[i].name + ", incomplete. " + format_number(stat_manual_slots_purchased) + " of " + format_number(achievements[i].threshold) + " manual slots purchased.\r\n";
-    }
-    for (uint i = 0; i < achievements.length(); i++)
-    {
         if (achievements[i].stat != "auto_slots_enabled") continue;
         if (!unlocked.exists(achievements[i].id))
             txt += achievements[i].name + ", incomplete. " + format_number(stat_auto_slots_enabled) + " of " + format_number(achievements[i].threshold) + " auto slots enabled.\r\n";
@@ -433,6 +433,12 @@ void show_achievement_statistics(achievement_item[]@ achievements, dictionary@ u
         if (achievements[i].stat != "auto_slots_idle") continue;
         if (!unlocked.exists(achievements[i].id))
             txt += achievements[i].name + ", incomplete. " + format_number(idleCount) + " of " + format_number(achievements[i].threshold) + " auto slots idle.\r\n";
+    }
+    for (uint i = 0; i < achievements.length(); i++)
+    {
+        if (achievements[i].stat != "manual_slots_purchased") continue;
+        if (!unlocked.exists(achievements[i].id))
+            txt += achievements[i].name + ", incomplete. " + format_number(stat_manual_slots_purchased) + " of " + format_number(achievements[i].threshold) + " manual slots purchased.\r\n";
     }
     txt += "\r\n";
     txt += "Economy\r\n";
@@ -449,32 +455,32 @@ void show_achievement_statistics(achievement_item[]@ achievements, dictionary@ u
             txt += achievements[i].name + ", incomplete. " + format_number(stat_coins_earned) + " of " + format_number(achievements[i].threshold) + " coins earned.\r\n";
     }
     txt += "\r\n";
-    txt += "Upgrades\r\n";
+    txt += "Bundle upgrades\r\n";
     for (uint i = 0; i < achievements.length(); i++)
     {
-        if (achievements[i].stat != "upgrades_purchased") continue;
+        if (achievements[i].stat != "bundles_purchased") continue;
         if (unlocked.exists(achievements[i].id))
             txt += achievements[i].name + ", complete.\r\n";
     }
     for (uint i = 0; i < achievements.length(); i++)
     {
-        if (achievements[i].stat != "upgrades_purchased") continue;
+        if (achievements[i].stat != "bundles_purchased") continue;
         if (!unlocked.exists(achievements[i].id))
-            txt += achievements[i].name + ", incomplete. " + format_number(stat_upgrades_purchased) + " of " + format_number(achievements[i].threshold) + " upgrades purchased.\r\n";
+            txt += achievements[i].name + ", incomplete. " + format_number(stat_bundles_purchased) + " of " + format_number(achievements[i].threshold) + " bundle upgrades purchased.\r\n";
     }
     txt += "\r\n";
-    txt += "Bundles\r\n";
+    txt += "Single upgrades\r\n";
     for (uint i = 0; i < achievements.length(); i++)
     {
-        if (achievements[i].stat != "bundles_purchased") continue;
+        if (achievements[i].stat != "upgrades_purchased") continue;
         if (unlocked.exists(achievements[i].id))
             txt += achievements[i].name + ", complete.\r\n";
     }
     for (uint i = 0; i < achievements.length(); i++)
     {
-        if (achievements[i].stat != "bundles_purchased") continue;
+        if (achievements[i].stat != "upgrades_purchased") continue;
         if (!unlocked.exists(achievements[i].id))
-            txt += achievements[i].name + ", incomplete. " + format_number(stat_bundles_purchased) + " of " + format_number(achievements[i].threshold) + " bundles purchased.\r\n";
+            txt += achievements[i].name + ", incomplete. " + format_number(stat_upgrades_purchased) + " of " + format_number(achievements[i].threshold) + " single upgrades purchased.\r\n";
     }
     txt += "\r\n";
     txt += "Events\r\n";

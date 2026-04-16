@@ -1354,6 +1354,10 @@ void questsmenu()
     int detailBox = form.create_input_box("&Quest details", "", read_only:true, multiline:true);
     double rerollCost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
     int rerollBtn = -1;
+    bool prestigeAvailable = rank >= prestigeConfig.min_rank;
+    bool lastRewardEarned = quests_reward_earned();
+    string prestigeLabel = !prestigeAvailable ? "&Prestige (unlocked at rank " + string(prestigeConfig.min_rank) : (lastRewardEarned ? "&Prestige" : "&Prestige (no reward available)");
+    int prestigeBtn = form.create_button(prestigeLabel);
     int closeBtn = form.create_button("&Close", false, true);
     form.focus(questList);
     form.set_list_position(questList, 0);
@@ -1364,6 +1368,18 @@ void questsmenu()
         wait(5);
         form.monitor();
         int curPos = form.get_list_position(questList);
+        bool rewardEarned = quests_reward_earned();
+        bool nowAvailable = rank >= prestigeConfig.min_rank;
+        string newPrestigeLabel = !nowAvailable ? "&Prestige (unlocked at rank " + string(prestigeConfig.min_rank) : (rewardEarned ? "&Prestige" : "&Prestige (no reward available)");
+        if (newPrestigeLabel != prestigeLabel)
+        {
+            form.delete_control(prestigeBtn);
+            form.delete_control(closeBtn);
+            prestigeLabel = newPrestigeLabel;
+            prestigeBtn = form.create_button(prestigeLabel);
+            closeBtn = form.create_button("&Close", false, true);
+            form.focus_silently(questList);
+        }
         if (curPos != lastPos && curPos >= 0 && curPos < int(activeQuests.length()))
         {
             form.set_text(detailBox, get_quest_detail(activeQuests[curPos]));
@@ -1371,16 +1387,35 @@ void questsmenu()
             if (isRequired != lastRequired)
             {
                 if (rerollBtn != -1) form.delete_control(rerollBtn);
+                form.delete_control(prestigeBtn);
                 form.delete_control(closeBtn);
                 if (!isRequired)
                     rerollBtn = form.create_button("&Reroll quest for " + format_number(rerollCost) + " " + questsConfig.reroll_target);
                 else
                     rerollBtn = -1;
+                prestigeBtn = form.create_button(prestigeLabel);
                 closeBtn = form.create_button("&Close", false, true);
                 lastRequired = isRequired;
                 form.focus_silently(questList);
             }
             lastPos = curPos;
+        }
+        if (form.is_pressed(prestigeBtn))
+        {
+            if (rank < prestigeConfig.min_rank)
+            {
+                dlgmessage_return("You must reach rank " + string(prestigeConfig.min_rank) + " to use this feature.");
+                form.reset();
+                questsmenu();
+                return;
+            }
+            else
+            {
+                start_prestige();
+                form.reset();
+                questsmenu();
+                return;
+            }
         }
         if (rerollBtn != -1 && form.is_pressed(rerollBtn))
         {
