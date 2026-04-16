@@ -304,7 +304,6 @@ void infomenu()
     setupmenu(false);
     m.add_item("Achievement statistics", "achstats");
     m.add_item("Baker statistics", "statistics");
-    m.add_item("Prestige history", "prestigehistory");
     m.add_item("Back", "back");
     m.intro_text = "Statistics menu. What would you like to view?";
     int mres = m.run(0, true);
@@ -319,8 +318,6 @@ void infomenu()
         show_baker_statistics();
     else if (sel == "achstats")
         show_achievement_statistics(loadedAchievements, achievementsUnlocked, loadedAchievementCategories);
-    else if (sel == "prestigehistory")
-        show_prestige_history();
 }
 void shopmenu()
 {
@@ -609,6 +606,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             double quantity = (bulkQuantity < maxbuy) ? bulkQuantity : maxbuy;
             double totalCost = calc_total_upgrade_cost(level, quantity, items[i].base_cost, items[i].cost_multiplier);
             coins -= totalCost;
+            stat_coins_spent += totalCost;
             totalSpent += totalCost;
             if (items[i].target == 1)
             {
@@ -669,7 +667,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             if (speedGained > 0) logParts.insert_last(format_number(speedGained) + "ms of baking speed");
             if (speedPercentGained > 0) logParts.insert_last(format_number(speedPercentGained) + "% baking speed");
             if (logParts.length() == 1) log = logParts[0];
-            else if (logParts.length() == 2) log = logParts[0] + " and " + logParts[1];
+            else if (logParts.length() == 2) log = logParts[0] + ", and " + logParts[1];
             else { for (uint li = 0; li < logParts.length() - 1; li++) { if (log != "") log += ", "; log += logParts[li]; } log += ", and " + logParts[logParts.length() - 1]; }
             pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
             pool.play_stationary("sounds/misc/store_order.ogg", false);
@@ -716,6 +714,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         if (coins >= totalCost)
         {
             coins -= totalCost;
+            stat_coins_spent += totalCost;
             if (items[i].target == 1)
             {
                 if (items[i].use_percent)
@@ -954,6 +953,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
             return;
         }
         coins -= grandTotal;
+        stat_coins_spent += grandTotal;
         string gainLog = "";
         double autoGained = 0, manulGained = 0, speedGained = 0;
         for (uint j = 0; j < bundles[idx].entries.length(); j++)
@@ -991,7 +991,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         if (manulGained > 0) gainParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"));
         if (speedGained > 0) gainParts.insert_last(format_number(speedGained) + "ms of baking speed");
         if (gainParts.length() == 1) gainLog = gainParts[0];
-        else if (gainParts.length() == 2) gainLog = gainParts[0] + " and " + gainParts[1];
+        else if (gainParts.length() == 2) gainLog = gainParts[0] + ", and " + gainParts[1];
         else { for (uint li = 0; li < gainParts.length() - 1; li++) { if (gainLog != "") gainLog += ", "; gainLog += gainParts[li]; } gainLog += ", and " + gainParts[gainParts.length() - 1]; }
         double nextBundleCost = 0;
         for (uint j = 0; j < bundles[idx].entries.length(); j++)
@@ -1069,6 +1069,7 @@ if (slotprod == "add_slot12")  count = 10000;
             if (coins >= cost)
             {
                 coins -= cost;
+                stat_coins_spent += cost;
                 for (int i = 0; i < count; i++)
                 {
                     baking_slots.insert_last(true);
@@ -1144,6 +1145,7 @@ void add_manual_slots()
         if (coins >= cost)
         {
             coins -= cost;
+            stat_coins_spent += cost;
             manualSlots += count;
             stat_manual_slots_purchased += count;
             for (int i = 0; i < count; i++)
@@ -1275,6 +1277,7 @@ void automate_baking_slots()
             if (coins >= totalCost)
             {
                 coins -= totalCost;
+                stat_coins_spent += totalCost;
                 for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
                 {
                     if (!autobakeSlotEnabled[i])
@@ -1326,6 +1329,7 @@ void automate_baking_slots()
                     if (coins >= singleCost)
                     {
                         coins -= singleCost;
+                        stat_coins_spent += singleCost;
                         autobakeSlotEnabled[index] = true;
                         autobakeSlots++;
                         stat_auto_slots_enabled++;
@@ -1352,12 +1356,14 @@ void questsmenu()
     form.reset();
     form.create_window("Quests", false);
     int questList = form.create_list("&Quests", 0, false, false);
+    quest_item@[] questOrder;
     for (uint i = 0; i < activeQuests.length(); i++)
     {
         if (!activeQuests[i].required) continue;
         bool questDone = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
         string questLabel = activeQuests[i].name + (questDone ? ". Complete" : "");
         form.add_list_item(questList, questLabel, activeQuests[i].id, -1, true);
+        questOrder.insert_last(activeQuests[i]);
     }
     for (uint i = 0; i < activeQuests.length(); i++)
     {
@@ -1365,14 +1371,33 @@ void questsmenu()
         bool questDone = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
         string questLabel = activeQuests[i].name + (questDone ? ". Complete" : "");
         form.add_list_item(questList, questLabel, activeQuests[i].id, -1, true);
+        questOrder.insert_last(activeQuests[i]);
     }
     int detailBox = form.create_input_box("&Quest details", "", read_only:true, multiline:true);
     double rerollCost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
     int rerollBtn = -1;
+    string rerollHistText = "";
+    if (rerollHistory.length() == 0)
+        rerollHistText = "No rerolls recorded yet.";
+    else
+    {
+        for (uint i = 0; i < rerollHistory.length(); i++)
+            rerollHistText += "Reroll " + string(i + 1) + ": " + rerollHistory[i].old_name + " replaced by " + rerollHistory[i].new_name + ". Cost: " + format_number(rerollHistory[i].cost) + " " + rerollHistory[i].target + ".\r\n";
+    }
+    int rerollHistBox = -1;
     bool prestigeAvailable = rank >= prestigeConfig.min_rank;
     bool lastRewardEarned = quests_reward_earned();
-    string prestigeLabel = !prestigeAvailable ? "&Prestige (unlocked at rank " + string(prestigeConfig.min_rank) : (lastRewardEarned ? "&Prestige" : "&Prestige (no reward available)");
+    string prestigeLabel = !prestigeAvailable ? "&Prestige, unlocked at rank " + string(prestigeConfig.min_rank) : (lastRewardEarned ? "&Prestige, reward available" : "&Prestige, no reward available");
     int prestigeBtn = form.create_button(prestigeLabel);
+    string prestigeHistText = "";
+    if (prestigeHistory.length() == 0)
+        prestigeHistText = "No prestige runs recorded yet.";
+    else
+    {
+        for (uint i = 0; i < prestigeHistory.length(); i++)
+            prestigeHistText += "Prestige level " + string(prestigeHistory[i].level) + ". Reached rank " + string(prestigeHistory[i].rank_reached) + ". Reward: " + prestigeHistory[i].reward + ".\r\n";
+    }
+    int historyBox = form.create_input_box("Prestige &History", prestigeHistText, read_only:true, multiline:true);
     int closeBtn = form.create_button("&Close", false, true);
     form.focus(questList);
     form.set_list_position(questList, 0);
@@ -1385,30 +1410,43 @@ void questsmenu()
         int curPos = form.get_list_position(questList);
         bool rewardEarned = quests_reward_earned();
         bool nowAvailable = rank >= prestigeConfig.min_rank;
-        string newPrestigeLabel = !nowAvailable ? "&Prestige (unlocked at rank " + string(prestigeConfig.min_rank) : (rewardEarned ? "&Prestige" : "&Prestige (no reward available)");
+        string newPrestigeLabel = !nowAvailable ? "&Prestige, unlocked at rank " + string(prestigeConfig.min_rank) : (rewardEarned ? "&Prestige, reward available" : "&Prestige, no reward available");
         if (newPrestigeLabel != prestigeLabel)
         {
+            if (rerollHistBox != -1) form.delete_control(rerollHistBox);
             form.delete_control(prestigeBtn);
+            form.delete_control(historyBox);
             form.delete_control(closeBtn);
             prestigeLabel = newPrestigeLabel;
+            if (rerollHistBox != -1) rerollHistBox = form.create_input_box("&Reroll History", rerollHistText, read_only:true, multiline:true);
             prestigeBtn = form.create_button(prestigeLabel);
+            historyBox = form.create_input_box("Prestige &History", prestigeHistText, read_only:true, multiline:true);
             closeBtn = form.create_button("&Close", false, true);
             form.focus_silently(questList);
         }
-        if (curPos != lastPos && curPos >= 0 && curPos < int(activeQuests.length()))
+        if (curPos != lastPos && curPos >= 0 && curPos < int(questOrder.length()))
         {
-            form.set_text(detailBox, get_quest_detail(activeQuests[curPos]));
-            bool isRequired = activeQuests[curPos].required;
+            form.set_text(detailBox, get_quest_detail(questOrder[curPos]));
+            bool isRequired = questOrder[curPos].required;
             if (isRequired != lastRequired)
             {
                 if (rerollBtn != -1) form.delete_control(rerollBtn);
+                if (rerollHistBox != -1) form.delete_control(rerollHistBox);
                 form.delete_control(prestigeBtn);
+                form.delete_control(historyBox);
                 form.delete_control(closeBtn);
                 if (!isRequired)
+                {
                     rerollBtn = form.create_button("&Reroll quest for " + format_number(rerollCost) + " " + questsConfig.reroll_target);
+                    rerollHistBox = form.create_input_box("&Reroll History", rerollHistText, read_only:true, multiline:true);
+                }
                 else
+                {
                     rerollBtn = -1;
+                    rerollHistBox = -1;
+                }
                 prestigeBtn = form.create_button(prestigeLabel);
+                historyBox = form.create_input_box("Prestige &History", prestigeHistText, read_only:true, multiline:true);
                 closeBtn = form.create_button("&Close", false, true);
                 lastRequired = isRequired;
                 form.focus_silently(questList);
@@ -1435,7 +1473,7 @@ void questsmenu()
         if (rerollBtn != -1 && form.is_pressed(rerollBtn))
         {
             int rerollPos = form.get_list_position(questList);
-            if (rerollPos < 0 || rerollPos >= int(activeQuests.length()))
+            if (rerollPos < 0 || rerollPos >= int(questOrder.length()))
             {
                 form.reset();
                 questsmenu();
@@ -1482,7 +1520,13 @@ void questsmenu()
                 questsmenu();
                 return;
             }
-            reroll_quest(rerollPos);
+            string rerollId = questOrder[rerollPos].id;
+            int actualRerollPos = -1;
+            for (uint ri = 0; ri < activeQuests.length(); ri++)
+            {
+                if (activeQuests[ri].id == rerollId) { actualRerollPos = ri; break; }
+            }
+            if (actualRerollPos != -1) reroll_quest(actualRerollPos);
             form.reset();
             questsmenu();
             return;

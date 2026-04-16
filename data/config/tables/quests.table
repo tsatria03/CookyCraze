@@ -16,114 +16,114 @@ reroll_message=Quests rerolled! It cost you %cost% coins. Good luck with your ne
 
 ; Required
 
-reach_rank_5:Reach rank 5:rank:5:false:true:true:1:Reach rank %threshold% to complete this quest.
-reach_rank_10:Reach rank 10:rank:10:false:true:true:2:Reach rank %threshold% to complete this quest.
-reach_rank_20:Reach rank 20:rank:20:false:true:true:3:Reach rank %threshold% to complete this quest.
-reach_rank_30:Reach rank 30:rank:30:false:true:true:4:Reach rank %threshold% to complete this quest.
-reach_rank_40:Reach rank 40:rank:40:false:true:true:5:Reach rank %threshold% to complete this quest.
-reach_rank_50:Reach rank 50:rank:50:false:true:true:5:Reach rank %threshold% to complete this quest.
-reach_rank_75:Reach rank 75:rank:75:false:true:true:6:Reach rank %threshold% to complete this quest.
-reach_rank_100:Reach rank 100:rank:100:false:true:true:6:Reach rank %threshold% to complete this quest.
-reach_rank_150:Reach rank 150:rank:150:false:true:true:7:Reach rank %threshold% to complete this quest.
-reach_rank_200:Reach rank 200:rank:200:false:true:true:7:Reach rank %threshold% to complete this quest.
-reach_rank_250:Reach rank 250:rank:250:false:true:true:8:Reach rank %threshold% to complete this quest.
-reach_rank_300:Reach rank 300:rank:300:false:true:true:9:Reach rank %threshold% to complete this quest.
-reach_rank_400:Reach rank 400:rank:400:false:true:true:9:Reach rank %threshold% to complete this quest.
-reach_rank_500:Reach rank 500:rank:500:false:true:true:10:Reach rank %threshold% to complete this quest.
+reach_rank_5:Reach rank 5:rank:5:true:true:true:1:Reach rank %threshold% to complete this quest.
+reach_rank_10:Reach rank 10:rank:10:true:true:true:2:Reach rank %threshold% to complete this quest.
+reach_rank_20:Reach rank 20:rank:20:true:true:true:3:Reach rank %threshold% to complete this quest.
+reach_rank_30:Reach rank 30:rank:30:true:true:true:4:Reach rank %threshold% to complete this quest.
+reach_rank_40:Reach rank 40:rank:40:true:true:true:5:Reach rank %threshold% to complete this quest.
+reach_rank_50:Reach rank 50:rank:50:true:true:true:5:Reach rank %threshold% to complete this quest.
+reach_rank_75:Reach rank 75:rank:75:true:true:true:6:Reach rank %threshold% to complete this quest.
+reach_rank_100:Reach rank 100:rank:100:true:true:true:6:Reach rank %threshold% to complete this quest.
+reach_rank_150:Reach rank 150:rank:150:true:true:true:7:Reach rank %threshold% to complete this quest.
+reach_rank_200:Reach rank 200:rank:200:true:true:true:7:Reach rank %threshold% to complete this quest.
+reach_rank_250:Reach rank 250:rank:250:true:true:true:8:Reach rank %threshold% to complete this quest.
+reach_rank_300:Reach rank 300:rank:300:true:true:true:9:Reach rank %threshold% to complete this quest.
+reach_rank_400:Reach rank 400:rank:400:true:true:true:9:Reach rank %threshold% to complete this quest.
+reach_rank_500:Reach rank 500:rank:500:true:true:true:10:Reach rank %threshold% to complete this quest.
 
 ; Random pool
 
 ; Cookies baked
-bake_10k:Bake 10K cookies:cookies_baked:10000:false:false:true:1:Bake %threshold% cookies in total.
-bake_million:Bake a million cookies:cookies_baked:1000000:false:false:true:2:Bake %threshold% cookies in total.
+bake_10k:Bake 10K cookies:cookies_baked:10000:true:false:true:1:Bake %threshold% cookies in total.
+bake_million:Bake a million cookies:cookies_baked:1000000:true:false:true:2:Bake %threshold% cookies in total.
 bake_100_million:Bake 100 million cookies:cookies_baked:100000000:true:false:true:3:Bake %threshold% cookies in total.
 bake_billion:Bake a billion cookies:cookies_baked:1000000000:true:false:true:4:Bake %threshold% cookies in total.
 bake_trillion:Bake a trillion cookies:cookies_baked:1000000000000:true:false:true:5:Bake %threshold% cookies in total.
 
 ; Coins earned
 
-earn_coins_1k:Earn 1K coins:coins_earned:1000:false:false:true:1:Earn a total of %threshold% coins.
-earn_coins_10k:Earn 10K coins:coins_earned:10000:false:false:true:2:Earn a total of %threshold% coins.
+earn_coins_1k:Earn 1K coins:coins_earned:1000:true:false:true:1:Earn a total of %threshold% coins.
+earn_coins_10k:Earn 10K coins:coins_earned:10000:true:false:true:2:Earn a total of %threshold% coins.
 earn_coins_100k:Earn 100K coins:coins_earned:100000:true:false:true:3:Earn a total of %threshold% coins.
 earn_coins_1m:Earn 1M coins:coins_earned:1000000:true:false:true:4:Earn a total of %threshold% coins.
 earn_coins_10m:Earn 10M coins:coins_earned:10000000:true:false:true:5:Earn a total of %threshold% coins.
 
 ; Upgrades purchased
 
-buy_upgrades_10:Purchase 10 single upgrades:singles_purchased:10:false:false:true:1:Purchase %threshold% single upgrades from the singles shop.
-buy_upgrades_50:Purchase 50 single upgrades:singles_purchased:50:false:false:true:2:Purchase %threshold% single upgrades from the singles shop.
-buy_upgrades_200:Purchase 200 single upgrades:singles_purchased:200:false:false:true:3:Purchase %threshold% single upgrades from the singles shop.
+buy_upgrades_10:Purchase 10 single upgrades:singles_purchased:10:true:false:true:1:Purchase %threshold% single upgrades from the singles shop.
+buy_upgrades_50:Purchase 50 single upgrades:singles_purchased:50:true:false:true:2:Purchase %threshold% single upgrades from the singles shop.
+buy_upgrades_200:Purchase 200 single upgrades:singles_purchased:200:true:false:true:3:Purchase %threshold% single upgrades from the singles shop.
 buy_upgrades_500:Purchase 500 single upgrades:singles_purchased:500:true:false:true:4:Purchase %threshold% single upgrades from the singles shop.
 buy_upgrades_1000:Purchase 1K single upgrades:singles_purchased:1000:true:false:true:5:Purchase %threshold% single upgrades from the singles shop.
 
 ; Bundles purchased
 
-buy_bundles_5:Purchase 5 bundle upgrades:bundles_purchased:5:false:false:true:1:Purchase %threshold% bundle upgrades from the bundle shop.
-buy_bundles_10:Purchase 10 bundle upgrades:bundles_purchased:10:false:false:true:2:Purchase %threshold% bundle upgrades from the bundle shop.
-buy_bundles_25:Purchase 25 bundle upgrades:bundles_purchased:25:false:false:true:3:Purchase %threshold% bundle upgrades from the bundle shop.
+buy_bundles_5:Purchase 5 bundle upgrades:bundles_purchased:5:true:false:true:1:Purchase %threshold% bundle upgrades from the bundle shop.
+buy_bundles_10:Purchase 10 bundle upgrades:bundles_purchased:10:true:false:true:2:Purchase %threshold% bundle upgrades from the bundle shop.
+buy_bundles_25:Purchase 25 bundle upgrades:bundles_purchased:25:true:false:true:3:Purchase %threshold% bundle upgrades from the bundle shop.
 buy_bundles_75:Purchase 75 bundle upgrades:bundles_purchased:75:true:false:true:4:Purchase %threshold% bundle upgrades from the bundle shop.
 buy_bundles_150:Purchase 150 bundle upgrades:bundles_purchased:150:true:false:true:5:Purchase %threshold% bundle upgrades from the bundle shop.
 
 ; Events fired
 
-fire_events_10:Trigger 10 events:events_fired:10:false:false:true:1:Trigger %threshold% random events during gameplay.
-fire_events_25:Trigger 25 events:events_fired:25:false:false:true:2:Trigger %threshold% random events during gameplay.
-fire_events_100:Trigger 100 events:events_fired:100:false:false:true:3:Trigger %threshold% random events during gameplay.
+fire_events_10:Trigger 10 events:events_fired:10:true:false:true:1:Trigger %threshold% random events during gameplay.
+fire_events_25:Trigger 25 events:events_fired:25:true:false:true:2:Trigger %threshold% random events during gameplay.
+fire_events_100:Trigger 100 events:events_fired:100:true:false:true:3:Trigger %threshold% random events during gameplay.
 fire_events_250:Trigger 250 events:events_fired:250:true:false:true:4:Trigger %threshold% random events during gameplay.
 fire_events_500:Trigger 500 events:events_fired:500:true:false:true:5:Trigger %threshold% random events during gameplay.
 
 ; Cooky flipper
 
-flip_cooky_10:Flip the cooky 10 times:flipper_flips:10:false:false:true:1:Flip the cooky %threshold% times in the cooky flipper.
-flip_cooky_50:Flip the cooky 50 times:flipper_flips:50:false:false:true:2:Flip the cooky %threshold% times in the cooky flipper.
-flip_cooky_200:Flip the cooky 200 times:flipper_flips:200:false:false:true:3:Flip the cooky %threshold% times in the cooky flipper.
+flip_cooky_10:Flip the cooky 10 times:flipper_flips:10:true:false:true:1:Flip the cooky %threshold% times in the cooky flipper.
+flip_cooky_50:Flip the cooky 50 times:flipper_flips:50:true:false:true:2:Flip the cooky %threshold% times in the cooky flipper.
+flip_cooky_200:Flip the cooky 200 times:flipper_flips:200:true:false:true:3:Flip the cooky %threshold% times in the cooky flipper.
 flip_cooky_500:Flip the cooky 500 times:flipper_flips:500:true:false:true:4:Flip the cooky %threshold% times in the cooky flipper.
 flip_cooky_1000:Flip the cooky 1K times:flipper_flips:1000:true:false:true:5:Flip the cooky %threshold% times in the cooky flipper.
 
 ; Slot machine spins
 
-spin_slots_25:Spin the slots 25 times:slot_spins:25:false:false:true:1:Spin the slot machine %threshold% times.
-spin_slots_100:Spin the slots 100 times:slot_spins:100:false:false:true:2:Spin the slot machine %threshold% times.
-spin_slots_250:Spin the slots 250 times:slot_spins:250:false:false:true:3:Spin the slot machine %threshold% times.
+spin_slots_25:Spin the slots 25 times:slot_spins:25:true:false:true:1:Spin the slot machine %threshold% times.
+spin_slots_100:Spin the slots 100 times:slot_spins:100:true:false:true:2:Spin the slot machine %threshold% times.
+spin_slots_250:Spin the slots 250 times:slot_spins:250:true:false:true:3:Spin the slot machine %threshold% times.
 spin_slots_500:Spin the slots 500 times:slot_spins:500:true:false:true:4:Spin the slot machine %threshold% times.
 spin_slots_1000:Spin the slots 1K times:slot_spins:1000:true:false:true:5:Spin the slot machine %threshold% times.
 
 ; Slot machine wins
 
-win_slots_5:Win 5 slot spins:slot_wins:5:false:false:true:1:Win %threshold% slot machine spins.
-win_slots_25:Win 25 slot spins:slot_wins:25:false:false:true:2:Win %threshold% slot machine spins.
-win_slots_75:Win 75 slot spins:slot_wins:75:false:false:true:3:Win %threshold% slot machine spins.
+win_slots_5:Win 5 slot spins:slot_wins:5:true:false:true:1:Win %threshold% slot machine spins.
+win_slots_25:Win 25 slot spins:slot_wins:25:true:false:true:2:Win %threshold% slot machine spins.
+win_slots_75:Win 75 slot spins:slot_wins:75:true:false:true:3:Win %threshold% slot machine spins.
 win_slots_200:Win 200 slot spins:slot_wins:200:true:false:true:4:Win %threshold% slot machine spins.
 win_slots_500:Win 500 slot spins:slot_wins:500:true:false:true:5:Win %threshold% slot machine spins.
 
 ; Blackjack hands played
 
-play_blackjack_10:Play 10 blackjack hands:blackjack_hands:10:false:false:true:1:Play %threshold% rounds of blackjack.
-play_blackjack_50:Play 50 blackjack hands:blackjack_hands:50:false:false:true:2:Play %threshold% rounds of blackjack.
-play_blackjack_150:Play 150 blackjack hands:blackjack_hands:150:false:false:true:3:Play %threshold% rounds of blackjack.
+play_blackjack_10:Play 10 blackjack hands:blackjack_hands:10:true:false:true:1:Play %threshold% rounds of blackjack.
+play_blackjack_50:Play 50 blackjack hands:blackjack_hands:50:true:false:true:2:Play %threshold% rounds of blackjack.
+play_blackjack_150:Play 150 blackjack hands:blackjack_hands:150:true:false:true:3:Play %threshold% rounds of blackjack.
 play_blackjack_300:Play 300 blackjack hands:blackjack_hands:300:true:false:true:4:Play %threshold% rounds of blackjack.
 play_blackjack_500:Play 500 blackjack hands:blackjack_hands:500:true:false:true:5:Play %threshold% rounds of blackjack.
 
 ; Blackjack wins
 
-win_blackjack_5:Win 5 blackjack hands:blackjack_wins:5:false:false:true:1:Win %threshold% rounds of blackjack.
-win_blackjack_25:Win 25 blackjack hands:blackjack_wins:25:false:false:true:2:Win %threshold% rounds of blackjack.
-win_blackjack_75:Win 75 blackjack hands:blackjack_wins:75:false:false:true:3:Win %threshold% rounds of blackjack.
+win_blackjack_5:Win 5 blackjack hands:blackjack_wins:5:true:false:true:1:Win %threshold% rounds of blackjack.
+win_blackjack_25:Win 25 blackjack hands:blackjack_wins:25:true:false:true:2:Win %threshold% rounds of blackjack.
+win_blackjack_75:Win 75 blackjack hands:blackjack_wins:75:true:false:true:3:Win %threshold% rounds of blackjack.
 win_blackjack_150:Win 150 blackjack hands:blackjack_wins:150:true:false:true:4:Win %threshold% rounds of blackjack.
 win_blackjack_300:Win 300 blackjack hands:blackjack_wins:300:true:false:true:5:Win %threshold% rounds of blackjack.
 
 ; Auto slots purchased
 
-buy_auto_slots_5:Purchase 5 auto slots:auto_slots_purchased:5:false:false:true:1:Purchase %threshold% auto baking slots.
-buy_auto_slots_15:Purchase 15 auto slots:auto_slots_purchased:15:false:false:true:2:Purchase %threshold% auto baking slots.
-buy_auto_slots_30:Purchase 30 auto slots:auto_slots_purchased:30:false:false:true:3:Purchase %threshold% auto baking slots.
+buy_auto_slots_5:Purchase 5 auto slots:auto_slots_purchased:5:true:false:true:1:Purchase %threshold% auto baking slots.
+buy_auto_slots_15:Purchase 15 auto slots:auto_slots_purchased:15:true:false:true:2:Purchase %threshold% auto baking slots.
+buy_auto_slots_30:Purchase 30 auto slots:auto_slots_purchased:30:true:false:true:3:Purchase %threshold% auto baking slots.
 buy_auto_slots_50:Purchase 50 auto slots:auto_slots_purchased:50:true:false:true:4:Purchase %threshold% auto baking slots.
 buy_auto_slots_100:Purchase 100 auto slots:auto_slots_purchased:100:true:false:true:5:Purchase %threshold% auto baking slots.
 
 ; Auto slots enabled
 
-enable_auto_slots_5:Enable 5 auto slots:auto_slots_enabled:5:false:false:true:1:Enable %threshold% auto baking slots.
-enable_auto_slots_15:Enable 15 auto slots:auto_slots_enabled:15:false:false:true:2:Enable %threshold% auto baking slots.
-enable_auto_slots_30:Enable 30 auto slots:auto_slots_enabled:30:false:false:true:3:Enable %threshold% auto baking slots.
+enable_auto_slots_5:Enable 5 auto slots:auto_slots_enabled:5:true:false:true:1:Enable %threshold% auto baking slots.
+enable_auto_slots_15:Enable 15 auto slots:auto_slots_enabled:15:true:false:true:2:Enable %threshold% auto baking slots.
+enable_auto_slots_30:Enable 30 auto slots:auto_slots_enabled:30:true:false:true:3:Enable %threshold% auto baking slots.
 enable_auto_slots_50:Enable 50 auto slots:auto_slots_enabled:50:true:false:true:4:Enable %threshold% auto baking slots.
 enable_auto_slots_100:Enable 100 auto slots:auto_slots_enabled:100:true:false:true:5:Enable %threshold% auto baking slots.

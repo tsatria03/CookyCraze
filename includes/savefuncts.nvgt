@@ -142,6 +142,7 @@ if (sd.d.exists("stat_cookies_baked")) stat_cookies_baked = sd.read_double("stat
 if (sd.d.exists("stat_manual_bakes_performed")) stat_manual_bakes_performed = sd.read_double("stat_manual_bakes_performed");
 if (sd.d.exists("stat_auto_bakes_performed")) stat_auto_bakes_performed = sd.read_double("stat_auto_bakes_performed");
 if (sd.d.exists("stat_coins_earned")) stat_coins_earned = sd.read_double("stat_coins_earned");
+if (sd.d.exists("stat_coins_spent")) stat_coins_spent = sd.read_double("stat_coins_spent");
 if (sd.d.exists("stat_singles_purchased")) stat_singles_purchased = sd.read_double("stat_singles_purchased");
 if (sd.d.exists("stat_bundles_purchased")) stat_bundles_purchased = sd.read_double("stat_bundles_purchased");
 if (sd.d.exists("stat_events_fired")) stat_events_fired = sd.read_double("stat_events_fired");
@@ -169,6 +170,33 @@ if (sd.d.exists("prestigeHistoryCount"))
         entry.rank_reached = sd.read_int("prestigeHistory_rank_" + string(i));
         entry.reward = sd.read_string("prestigeHistory_reward_" + string(i));
         prestigeHistory.insert_last(entry);
+    }
+}
+if (sd.d.exists("flipperHistoryCount"))
+{
+    int fhcount = sd.read_int("flipperHistoryCount");
+    flipperHistory.resize(0);
+    for (int i = 0; i < fhcount; i++)
+    {
+        flipper_flip_entry entry;
+        entry.side       = sd.read_string("flipperHistory_side_" + string(i));
+        entry.event_name = sd.read_string("flipperHistory_event_" + string(i));
+        entry.outcome    = sd.read_string("flipperHistory_outcome_" + string(i));
+        flipperHistory.insert_last(entry);
+    }
+}
+if (sd.d.exists("rerollHistoryCount"))
+{
+    int rhcount = sd.read_int("rerollHistoryCount");
+    rerollHistory.resize(0);
+    for (int i = 0; i < rhcount; i++)
+    {
+        reroll_history_entry entry;
+        entry.old_name = sd.read_string("rerollHistory_old_" + string(i));
+        entry.new_name = sd.read_string("rerollHistory_new_" + string(i));
+        entry.cost     = sd.read_double("rerollHistory_cost_" + string(i));
+        entry.target   = sd.read_string("rerollHistory_target_" + string(i));
+        rerollHistory.insert_last(entry);
     }
 }
 readpreffs();
@@ -210,6 +238,7 @@ sd.add("stat_cookies_baked", stat_cookies_baked);
 sd.add("stat_manual_bakes_performed", stat_manual_bakes_performed);
 sd.add("stat_auto_bakes_performed", stat_auto_bakes_performed);
 sd.add("stat_coins_earned", stat_coins_earned);
+sd.add("stat_coins_spent", stat_coins_spent);
 sd.add("stat_singles_purchased", stat_singles_purchased);
 sd.add("stat_bundles_purchased", stat_bundles_purchased);
 sd.add("stat_events_fired", stat_events_fired);
@@ -232,6 +261,21 @@ for (uint i = 0; i < prestigeHistory.length(); i++)
     sd.add("prestigeHistory_level_" + string(i), prestigeHistory[i].level);
     sd.add("prestigeHistory_rank_" + string(i), prestigeHistory[i].rank_reached);
     sd.add("prestigeHistory_reward_" + string(i), prestigeHistory[i].reward);
+}
+sd.add("flipperHistoryCount", int(flipperHistory.length()));
+for (uint i = 0; i < flipperHistory.length(); i++)
+{
+    sd.add("flipperHistory_side_" + string(i), flipperHistory[i].side);
+    sd.add("flipperHistory_event_" + string(i), flipperHistory[i].event_name);
+    sd.add("flipperHistory_outcome_" + string(i), flipperHistory[i].outcome);
+}
+sd.add("rerollHistoryCount", int(rerollHistory.length()));
+for (uint i = 0; i < rerollHistory.length(); i++)
+{
+    sd.add("rerollHistory_old_" + string(i), rerollHistory[i].old_name);
+    sd.add("rerollHistory_new_" + string(i), rerollHistory[i].new_name);
+    sd.add("rerollHistory_cost_" + string(i), rerollHistory[i].cost);
+    sd.add("rerollHistory_target_" + string(i), rerollHistory[i].target);
 }
 sd.save();
 }

@@ -215,6 +215,8 @@ else
     stat_slot_spins=0;
     stat_slot_wins=0;
     stat_slot_losses=0;
+    stat_quests_completed=0;
+    stat_rerolls_performed=0;
     prestigeLevel=0;
     reset_game_state();
 }

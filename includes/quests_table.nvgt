@@ -139,15 +139,23 @@ void assign_quests()
             quest_item@ next = find_next_tier(loadedQuests[i].stat, loadedQuests[i].difficulty, true);
             if (next !is null)
             {
+                int bestSlot = -1;
+                int bestDiff = -1;
                 for (int s = 0; s < slots; s++)
                 {
-                    if (!slotFilled[s] && slotDifficulties[s] == next.difficulty)
+                    if (slotFilled[s]) continue;
+                    int d = slotDifficulties[s];
+                    if (bestSlot == -1 || abs(d - next.difficulty) < abs(bestDiff - next.difficulty))
                     {
-                        activeQuests.insert_last(next);
-                        slotFilled[s] = true;
-                        assignedRequiredStats.insert_last(next.stat);
-                        break;
+                        bestSlot = s;
+                        bestDiff = d;
                     }
+                }
+                if (bestSlot != -1)
+                {
+                    activeQuests.insert_last(next);
+                    slotFilled[bestSlot] = true;
+                    assignedRequiredStats.insert_last(next.stat);
                 }
             }
         }
@@ -282,7 +290,7 @@ void reroll_quest(int questIndex)
     if (activeQuests[questIndex].required) return;
 
     double cost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
-    if (questsConfig.reroll_target == "coins")           coins -= cost;
+    if (questsConfig.reroll_target == "coins")           { coins -= cost; stat_coins_spent += cost; }
     else if (questsConfig.reroll_target == "cookies")    cookies -= cost;
     else if (questsConfig.reroll_target == "autocooky")  autocooky -= cost;
     else if (questsConfig.reroll_target == "manulcooky") manulcooky -= cost;
@@ -290,6 +298,7 @@ void reroll_quest(int questIndex)
     questRerollCount++;
     stat_rerolls_performed++;
 
+    string oldQuestName = activeQuests[questIndex].name;
     int targetDiff = activeQuests[questIndex].difficulty;
     quest_item[] candidates;
     for (uint i = 0; i < loadedQuests.length(); i++)
@@ -308,6 +317,14 @@ void reroll_quest(int questIndex)
         int idx = random(0, candidates.length() - 1);
         activeQuests[questIndex] = candidates[idx];
     }
+    reroll_history_entry rentry;
+    rentry.old_name = oldQuestName;
+    rentry.new_name = (candidates.length() > 0) ? activeQuests[questIndex].name : oldQuestName;
+    rentry.cost = cost;
+    rentry.target = questsConfig.reroll_target;
+    rerollHistory.insert_last(rentry);
+    if (int(rerollHistory.length()) > rerollHistoryMax)
+        rerollHistory.remove_at(0);
 
     string msg = questsConfig.reroll_message;
     string costStr = format_number(cost);

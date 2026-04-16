@@ -8,6 +8,19 @@ void cookgame()
         form.add_list_item(cookEventList, loadedFlipperEvents[i].event_name, loadedFlipperEvents[i].event_name, -1, true);
     }
 int flip = form.create_button("&Flip a cooky", true);
+    int historyBox = form.create_input_box("Flipper &History", "", read_only:true, multiline:true);
+    string historyText = "";
+    if (flipperHistory.length() == 0)
+        historyText = "No flips recorded yet.";
+    else
+    {
+        for (uint hi = 0; hi < flipperHistory.length(); hi++)
+        {
+            string hline = "Flip " + string(hi + 1) + ": " + flipperHistory[hi].side + " - " + flipperHistory[hi].event_name + " (" + flipperHistory[hi].outcome + ")";
+            historyText += hline + "\r\n";
+        }
+    }
+    form.set_text(historyBox, historyText);
     form.focus(cookEventList);
     while (true)
     {
@@ -108,15 +121,35 @@ if (form.is_pressed(flip))
         pool.destroy_sound(eventslot);
         pool.play_stationary("sounds/misc/cookflip.ogg", false);
         dlg_buffer("You flip a cooky. It lands on " + side);
+        event_item@ chosenEvent = null;
         if (side == "chocolate" && chocsEvents.length() > 0)
         {
-            trigger_cook_event(chocsEvents[random(0, chocsEvents.length() - 1)]);
+            @chosenEvent = chocsEvents[random(0, chocsEvents.length() - 1)];
+            trigger_cook_event(chosenEvent);
             form.focus_silently(flip);
         }
         else if (side == "bisket" && bisksEvents.length() > 0)
         {
-            trigger_cook_event(bisksEvents[random(0, bisksEvents.length() - 1)]);
+            @chosenEvent = bisksEvents[random(0, bisksEvents.length() - 1)];
+            trigger_cook_event(chosenEvent);
             form.focus_silently(flip);
+        }
+        if (chosenEvent !is null)
+        {
+            flipper_flip_entry entry;
+            entry.side = side;
+            entry.event_name = chosenEvent.event_name;
+            entry.outcome = (chosenEvent.polarity == 1 ? "positive" : "negative");
+            flipperHistory.insert_last(entry);
+            if (int(flipperHistory.length()) > flipperHistoryMax)
+                flipperHistory.remove_at(0);
+            string newHistText = "";
+            for (uint hi = 0; hi < flipperHistory.length(); hi++)
+            {
+                string hline = "Flip " + string(hi + 1) + ": " + flipperHistory[hi].side + " - " + flipperHistory[hi].event_name + " (" + flipperHistory[hi].outcome + ")";
+                newHistText += hline + "\r\n";
+            }
+            form.set_text(historyBox, newHistText);
         }
     }
     else

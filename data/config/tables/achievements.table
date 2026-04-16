@@ -49,13 +49,13 @@ economy:filthy_rich:coins_earned:1000000:false:false:Filthy Rich:Earn %threshold
 economy:coin_god:coins_earned:1000000000:false:false:Coin God:Earn %threshold% coins. At this point coins have lost all meaning.:Beyond a certain number, coins stop being currency and start being a philosophy.
 economy:coin_singularity:coins_earned:10000000000:false:false:Coin Singularity:Earn %threshold% coins. Economists have been summoned to explain what you have done.:Some fortunes are so large they begin to bend the economy around them.
 economy:coin_multiverse:coins_earned:100000000000:false:false:Coin Multiverse:Earn %threshold% coins. You don't own coins anymore. You are coins.:At this point the distinction between you and the economy is purely academic.
-economy:first_upgrade:singles_purchased:1:false:false:First Upgrade:Purchase your first upgrade. Every empire begins with a single investment.:The shop exists for a reason. Perhaps it's time to find out why.
-economy:upgrade_enthusiast:singles_purchased:50:false:false:Upgrade Enthusiast:Purchase %threshold% upgrades. You have a problem, and it's a good one.:Some people visit the shop occasionally. Others make it a second home.
-economy:upgrade_addict:singles_purchased:500:false:false:Upgrade Addict:Purchase %threshold% upgrades. The shop owner knows you by name at this point.:At a certain number of purchases, the shop starts to feel familiar in a strange way.
-economy:upgrade_maniac:singles_purchased:5000:false:false:Upgrade Maniac:Purchase %threshold% upgrades. You have spent more time in the shop than in the bakery.:When the upgrades outnumber the cookies, something has gone wonderfully wrong.
-economy:upgrade_legend:singles_purchased:50000:false:false:Upgrade Legend:Purchase %threshold% upgrades. There is nothing left to buy. You have bought it all.:There is a point where the shop runs out of things to offer. Keep going.
-economy:upgrade_transcendent:singles_purchased:100000:false:false:Upgrade Transcendent:Purchase %threshold% upgrades. The shop itself has become a part of you.:Beyond a certain count, visiting the shop stops being a choice and becomes a reflex.
-economy:upgrade_infinite:singles_purchased:500000:false:false:Upgrade Infinite:Purchase %threshold% upgrades. You have purchased things that do not yet exist.:The shop was never the destination. It was just the path.
+economy:first_spend:coins_spent:50:false:false:First Splurge:Spend your first coins in the shop. Every great bakery is built on investment.:Coins sitting in your pocket aren't doing anything useful. The shop is right there.
+economy:loose_change:coins_spent:100:false:false:Loose Change:Spend %threshold% coins. The shop is starting to know your face.:A hundred coins out the door and the upgrades are starting to show.
+economy:big_spender:coins_spent:10000:false:false:Big Spender:Spend %threshold% coins. You have committed to this bakery in a financial way.:At ten thousand spent, this stopped being a hobby and started being an investment.
+economy:coin_burner:coins_spent:1000000:false:false:Coin Burner:Spend %threshold% coins. You give and you give and somehow there is always more to give.:A million coins out the door and the bakery has never looked better.
+economy:economic_black_hole:coins_spent:1000000000:false:false:Economic Black Hole:Spend %threshold% coins. Coins enter your wallet and immediately leave again.:At a billion spent, the concept of saving has become purely theoretical.
+economy:coin_annihilator:coins_spent:10000000000:false:false:Coin Annihilator:Spend %threshold% coins. Economists study you as a cautionary tale.:Some people accumulate wealth. You have chosen a different relationship with it.
+economy:the_drain:coins_spent:100000000000:false:false:The Drain:Spend %threshold% coins. You are not a baker. You are a force of economic entropy.:There is a spending threshold beyond which the economy itself takes notice. You found it.
 economy:first_bundle:bundles_purchased:1:false:false:Bundle of Joy:Purchase your very first bundle. Why buy one thing when you can buy everything at once?:Why settle for one when several come wrapped together so neatly?
 economy:bundle_lover:bundles_purchased:10:false:false:Bundle Lover:Purchase %threshold% bundles. You have developed a taste for efficiency.:Efficiency has a flavor. You'll recognize it after a few tries.
 economy:bundle_hoarder:bundles_purchased:100:false:false:Bundle Hoarder:Purchase %threshold% bundles. The bundle shop is your second home.:There are those who visit the bundle shop, and those who never really leave.
@@ -63,6 +63,13 @@ economy:bundle_fanatic:bundles_purchased:500:false:false:Bundle Fanatic:Purchase
 economy:bundle_overlord:bundles_purchased:5000:false:false:Bundle Overlord:Purchase %threshold% bundles. The singles shop weeps knowing you never visit.:At a certain scale, individual purchases start to feel quaint.
 economy:bundle_ascendant:bundles_purchased:10000:false:false:Bundle Ascendant:Purchase %threshold% bundles. The concept of individual items no longer applies to you.:You have moved beyond purchasing. You are now simply acquiring in bulk.
 economy:bundle_eternal:bundles_purchased:50000:false:false:Bundle Eternal:Purchase %threshold% bundles. Future generations will speak of this in hushed tones.:Some legacies are built in stone. Yours was built in bundles.
+economy:first_upgrade:singles_purchased:1:false:false:First Upgrade:Purchase your first upgrade. Every empire begins with a single investment.:The shop exists for a reason. Perhaps it's time to find out why.
+economy:upgrade_enthusiast:singles_purchased:50:false:false:Upgrade Enthusiast:Purchase %threshold% upgrades. You have a problem, and it's a good one.:Some people visit the shop occasionally. Others make it a second home.
+economy:upgrade_addict:singles_purchased:500:false:false:Upgrade Addict:Purchase %threshold% upgrades. The shop owner knows you by name at this point.:At a certain number of purchases, the shop starts to feel familiar in a strange way.
+economy:upgrade_maniac:singles_purchased:5000:false:false:Upgrade Maniac:Purchase %threshold% upgrades. You have spent more time in the shop than in the bakery.:When the upgrades outnumber the cookies, something has gone wonderfully wrong.
+economy:upgrade_legend:singles_purchased:50000:false:false:Upgrade Legend:Purchase %threshold% upgrades. There is nothing left to buy. You have bought it all.:There is a point where the shop runs out of things to offer. Keep going.
+economy:upgrade_transcendent:singles_purchased:100000:false:false:Upgrade Transcendent:Purchase %threshold% upgrades. The shop itself has become a part of you.:Beyond a certain count, visiting the shop stops being a choice and becomes a reflex.
+economy:upgrade_infinite:singles_purchased:500000:false:false:Upgrade Infinite:Purchase %threshold% upgrades. You have purchased things that do not yet exist.:The shop was never the destination. It was just the path.
 
 ; Events
 

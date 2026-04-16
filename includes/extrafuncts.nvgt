@@ -4,6 +4,7 @@ stat_cookies_baked=0;
 stat_manual_bakes_performed=0;
 stat_auto_bakes_performed=0;
 stat_coins_earned=0;
+stat_coins_spent=0;
 stat_singles_purchased=0;
 stat_bundles_purchased=0;
 stat_events_fired=0;
@@ -32,6 +33,8 @@ baking_slots.resize(0);
 questRerollCount=0;
 activeQuests.resize(0);
 assign_quests();
+flipperHistory.resize(0);
+rerollHistory.resize(0);
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }
 
@@ -361,6 +364,7 @@ void show_baker_statistics()
     txt += "\r\n";
     txt += "Economy\r\n";
     txt += "Coins earned: " + format_number(stat_coins_earned) + "\r\n";
+    txt += "Coins spent: " + format_number(stat_coins_spent) + "\r\n";
     txt += "Bundle upgrades purchased: " + format_number(stat_bundles_purchased) + "\r\n";
     txt += "Single upgrades purchased: " + format_number(stat_singles_purchased) + "\r\n";
     txt += "\r\n";
@@ -415,7 +419,7 @@ void show_prestige_history()
         for (uint i = 0; i < prestigeHistory.length(); i++)
         {
             txt += "\r\n";
-            txt += "Run " + string(prestigeHistory[i].level) + ". Reached rank " + string(prestigeHistory[i].rank_reached) + ". Reward: " + prestigeHistory[i].reward + ".\r\n";
+            txt += "Prestige level " + string(prestigeHistory[i].level) + ". Reached rank " + string(prestigeHistory[i].rank_reached) + ". Reward: " + prestigeHistory[i].reward + ".\r\n";
         }
     }
     form.reset();
@@ -466,6 +470,7 @@ string get_stat_progress_label(string stat)
     if (stat == "manual_bakes_performed") return "manual bakes performed";
     if (stat == "auto_bakes_performed") return "auto bakes performed";
     if (stat == "coins_earned") return "coins earned";
+    if (stat == "coins_spent") return "coins spent";
     if (stat == "singles_purchased") return "single upgrades purchased";
     if (stat == "bundles_purchased") return "bundle upgrades purchased";
     if (stat == "events_fired") return "events fired";

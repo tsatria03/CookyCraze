@@ -107,6 +107,7 @@ double get_stat_value(string stat)
     if (stat == "manual_bakes_performed") return stat_manual_bakes_performed;
     if (stat == "auto_bakes_performed") return stat_auto_bakes_performed;
     if (stat == "coins_earned") return stat_coins_earned;
+    if (stat == "coins_spent") return stat_coins_spent;
     if (stat == "singles_purchased") return stat_singles_purchased;
     if (stat == "bundles_purchased") return stat_bundles_purchased;
     if (stat == "events_fired") return stat_events_fired;

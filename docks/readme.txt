@@ -118,6 +118,10 @@ Before flipping, you are shown a checkbox list of all available events.
 You must have at least one positive and one negative event checked before you can flip.
 This lets you curate your own risk pool, opting into only the events you are comfortable with, or leaving everything checked to get the full range of outcomes.
 
+A Flipper History box appears below the flip button and keeps a running log of your last 50 flips.
+Each entry shows the flip number, which side the cooky landed on, the event that was selected, and whether the outcome was positive or negative.
+The history persists across sessions and resets when starting a new game.
+
 Slot machine. Unlocked at rank 30.
 Spin the reels and match symbols to win multiples of your bet.
 
@@ -173,7 +177,7 @@ Mode 3 means all quests must be complete, and shows the total count.
 Quests completed: how many of your active quests are currently complete.
 
 Statistics menu.
-Access the baker statistics screen, achievement statistics screen, and prestige history from the Statistics button in the main game interface.
+Access the baker statistics screen and achievement statistics screen from the Statistics button in the main game interface.
 
 Baker statistics.
 View a summary of everything you have done in your current playthrough. Open it from the Statistics menu.
@@ -234,7 +238,7 @@ Each category lists complete achievements first, followed by incomplete ones sho
 This screen is read only and does not require any input to navigate.
 
 Prestige history.
-View a log of every prestige run you have completed in your current save. Open it from the Statistics menu.
+View a log of every prestige run you have completed in your current save. It appears as a read-only input box in the quests screen, after the prestige button.
 
 Each entry shows the run number, the rank you reached before prestiging, and what reward you received.
 The history is empty on a fresh save and grows by one entry each time you prestige.
@@ -279,9 +283,12 @@ Arrow to any quest and the detail box updates automatically, showing the descrip
 If the quest is complete, a complete label is appended to the progress line.
 
 The prestige button is located in the quests screen and its label updates dynamically to reflect your current status.
+A prestige history box also appears in the quests screen after the prestige button, showing a log of every prestige run.
+When a random quest is focused, a reroll history box appears directly after the reroll button, showing the last 50 rerolls in order and listing which quest was replaced, what replaced it, and how much it cost. It is hidden when a required quest is focused since required quests cannot be rerolled.
+Both boxes show a message when empty and reset when starting a new game.
 Before reaching the minimum rank it shows unlocked at rank X.
 Once unlocked, if the quest requirement has not been met it shows no reward available.
-When the requirement is met it shows just Prestige.
+When the requirement is met it shows reward available.
 Whether you receive a reward depends on your quest completion status and the require_all setting in quests.table.
 
 If you want a different quest, arrow to it in the quests menu and press the reroll button.
@@ -620,6 +627,7 @@ cookies_baked          = total number of cookies baked, both manual and automati
 auto_bakes_performed   = total times the auto baker has completed a cycle.
 manual_bakes_performed = total times the bake button has been pressed manually.
 coins_earned           = total coins received from all sources.
+coins_spent            = total coins spent on shop purchases and quest rerolls.
 
 auto_slots_purchased   = total auto baking slots ever bought.
 auto_slots_enabled     = total auto slots that have been automated, individually or via automate all.
@@ -800,6 +808,8 @@ cookyspeed = the player's baking speed.
 
 min_amount and max_amount
 The range of values the reward can roll between. Supports the same rank operators as baker.event.
+
+Setting both values to negative numbers causes the reward to deduct from the target stat instead of adding to it, making it a penalty. This is useful for difficulty modding where certain ranks should hurt rather than help.
 
 unlock
 An optional feature to unlock at this rank. Use none for no unlock.
@@ -995,6 +1005,7 @@ The statistic this quest tracks. Uses the same stat names as achievements.table.
 
 cookies_baked          = total cookies baked, both manual and automatic.
 coins_earned           = total coins received from all sources.
+coins_spent            = total coins spent on shop purchases and quest rerolls.
 
 auto_slots_purchased   = total auto baking slots ever bought.
 manual_slots_purchased = total manual baking slots ever bought.

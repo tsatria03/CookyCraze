@@ -100,7 +100,8 @@ string apply_rank_reward(rank_reward_item@ item, double current_rank)
     double minVal = eval_event_amount(item.min_amount, current_rank);
     double maxVal = eval_event_amount(item.max_amount, current_rank);
     if (minVal > maxVal) { double tmp = minVal; minVal = maxVal; maxVal = tmp; }
-    double amount = max(1.0, double(random(int(minVal), int(maxVal))));
+    double amount = double(random(int(minVal), int(maxVal)));
+    if (minVal >= 0 && maxVal >= 0 && amount < 1.0) amount = 1.0;
     amount = floor(amount);
     lastRewardAmount = amount;
     if (item.target == "cookies")

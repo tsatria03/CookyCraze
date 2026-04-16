@@ -155,8 +155,18 @@ string apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocoo
         else if (target == "manulcooky")   manulcooky += amount;
         else if (target == "cookyspeed")   { cookyspeed += amount; clicktime -= amount; }
         item.entries[e].amount = amount;
-        if (allAmounts.length() > 0) allAmounts += ", ";
-        allAmounts += format_number(amount) + " " + target;
+        item.entries[e].target = target;
+    }
+    string[] parts;
+    for (uint e = 0; e < item.entries.length(); e++)
+        parts.insert_last(format_number(item.entries[e].amount) + " " + item.entries[e].target);
+    if (parts.length() == 0) allAmounts = "";
+    else if (parts.length() == 1) allAmounts = parts[0];
+    else if (parts.length() == 2) allAmounts = parts[0] + ", and " + parts[1];
+    else
+    {
+        for (uint p = 0; p < parts.length() - 1; p++) allAmounts += parts[p] + ", ";
+        allAmounts += "and " + parts[parts.length() - 1];
     }
     string msg = item.message;
     string lvlStr = string(level);
