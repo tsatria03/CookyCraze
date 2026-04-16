@@ -491,24 +491,38 @@ void show_achievement_statistics(achievement_item[]@ achievements, dictionary@ u
     int unlockedCount = unlocked.get_keys().length();
     double idleCount = double(baking_slots.length()) - double(autobakeSlots);
     string txt = "";
-    txt += "Achievement statistics. " + string(unlockedCount) + " of " + string(achievements.length()) + " complete.\r\n";
+    int visibleTotal = 0;
+    for (uint i = 0; i < achievements.length(); i++)
+    {
+        if (achievements[i].hidden && !unlocked.exists(achievements[i].id)) continue;
+        visibleTotal++;
+    }
+    txt += "Achievement statistics. " + string(unlockedCount) + " of " + string(visibleTotal) + " complete.\r\n";
     for (uint c = 0; c < categories.length(); c++)
     {
         string catName = categories[c].name;
         bool hasAny = false;
-        for (uint i = 0; i < achievements.length(); i++) { if (achievements[i].category == catName) { hasAny = true; break; } }
+        for (uint i = 0; i < achievements.length(); i++)
+        {
+            if (achievements[i].category != catName) continue;
+            if (achievements[i].hidden && !unlocked.exists(achievements[i].id)) continue;
+            hasAny = true;
+            break;
+        }
         if (!hasAny) continue;
         txt += "\r\n";
         txt += catName + "\r\n";
         for (uint i = 0; i < achievements.length(); i++)
         {
             if (achievements[i].category != catName) continue;
+            if (achievements[i].hidden && !unlocked.exists(achievements[i].id)) continue;
             if (unlocked.exists(achievements[i].id))
                 txt += achievements[i].name + ", complete.\r\n";
         }
         for (uint i = 0; i < achievements.length(); i++)
         {
             if (achievements[i].category != catName) continue;
+            if (achievements[i].hidden) continue;
             if (unlocked.exists(achievements[i].id)) continue;
             double curVal = get_stat_value(achievements[i].stat);
             if (achievements[i].stat == "auto_slots_idle") curVal = idleCount;

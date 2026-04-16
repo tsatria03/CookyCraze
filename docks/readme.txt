@@ -472,6 +472,40 @@ All fields work exactly the same as baker.event. Refer to the baker.event sectio
 
 Format: event_name:sound:polarity:target:min_amount:max_amount:use_percent:chance:description
 
+bundles.store
+
+Location: data/config/stores/bundles.store
+
+Defines the bundle shop categories and bundles.
+
+Category aliases.
+Format: alias=Full Category Name|min_rank|hidden|Description
+
+Defined at the top of the file, before the [bundles] section header. Works the same as singles.store menu aliases, including the hidden flag. See the singles.store hidden field description for full details.
+
+Bundle format: menu_alias:name:min_rank:hidden:item_type:quantity|item_type:quantity|...:description
+
+menu_alias
+The alias of the category this bundle belongs to, as defined in the aliases section.
+
+name
+The display name shown in the bundle shop menu. Must be unique across all bundles.
+
+min_rank
+The minimum rank required to purchase this bundle. Use 0 for no requirement.
+
+hidden
+Required. Set to true to completely hide this bundle from the shop until the player reaches the minimum rank. Set to false to show it as locked with the required rank displayed.
+Works the same as the hidden field in singles.store.
+
+items
+A pipe separated list of item_type:quantity pairs. Each item_type must match an item_type from singles.store exactly.
+
+The cost of each item in the bundle is calculated dynamically from its current shop price, so the bundle price scales naturally with your progression.
+
+description
+A short description of what this bundle contains, shown to the player in the bundle shop menu.
+
 singles.store
 
 Location: data/config/stores/singles.store
@@ -555,40 +589,6 @@ This is useful for secret items you do not want players to know exist until they
 description
 The text shown when the player hovers over this item in the shop. Use %item_count as a placeholder for the amount value.
 
-bundles.store
-
-Location: data/config/stores/bundles.store
-
-Defines the bundle shop categories and bundles.
-
-Category aliases.
-Format: alias=Full Category Name|min_rank|hidden|Description
-
-Defined at the top of the file, before the [bundles] section header. Works the same as singles.store menu aliases, including the hidden flag. See the singles.store hidden field description for full details.
-
-Bundle format: menu_alias:name:min_rank:hidden:item_type:quantity|item_type:quantity|...:description
-
-menu_alias
-The alias of the category this bundle belongs to, as defined in the aliases section.
-
-name
-The display name shown in the bundle shop menu. Must be unique across all bundles.
-
-min_rank
-The minimum rank required to purchase this bundle. Use 0 for no requirement.
-
-hidden
-Required. Set to true to completely hide this bundle from the shop until the player reaches the minimum rank. Set to false to show it as locked with the required rank displayed.
-Works the same as the hidden field in singles.store.
-
-items
-A pipe separated list of item_type:quantity pairs. Each item_type must match an item_type from singles.store exactly.
-
-The cost of each item in the bundle is calculated dynamically from its current shop price, so the bundle price scales naturally with your progression.
-
-description
-A short description of what this bundle contains, shown to the player in the bundle shop menu.
-
 achievements.table
 
 Location: data/config/tables/achievements.table
@@ -603,7 +603,7 @@ Define short aliases for category names at the top of the file, before any achie
 The categories appear in the achievements menu and achievement statistics screen in the order they are defined here.
 Removing or renaming a category here removes it from both screens automatically.
 
-Achievement format: category:id:stat:threshold:silent:name:description:hint
+Achievement format: category:id:stat:threshold:silent:hidden:name:description:hint
 
 category
 The alias of the category this achievement belongs to, as defined in the aliases section above.
@@ -668,6 +668,13 @@ Set to false to allow the normal notification behavior.
 This overrides the global achievement sound setting for that specific achievement.
 Recommended for achievements that track stats which closely mirror another achievement, to avoid redundant notifications.
 Silent achievements are still tracked and appear in the achievements menu and achievement statistics screen as normal. Only the notification is suppressed.
+
+hidden
+Required. Set to true to completely hide this achievement from the achievements menu and achievement statistics screen until it is unlocked.
+Set to false to show it as locked with a hint available, which is the default behavior.
+Once unlocked, a hidden achievement appears in both screens like any other achievement.
+Recommended for achievements tied to content that is locked behind a rank, such as minigames, so players are not shown locked entries for systems they have not encountered yet.
+Hidden achievements are also excluded from the total count shown in the achievements menu and achievement statistics screen until unlocked. For example, if there are 207 achievements but 128 are hidden and none have been unlocked yet, the menu will show 0 of 79 rather than 0 of 207, so the player has no indication that hidden achievements exist at all. As hidden achievements are unlocked, they are added to the count and list automatically.
 
 jacks.table
 

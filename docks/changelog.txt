@@ -1,4 +1,6 @@
 New in 4.9.
+Fixed a bug where achievement categories with all entries hidden would still appear in the achievements menu showing zero achievements. Categories are now hidden from the menu entirely when all their entries are hidden and none have been unlocked yet.
+Added a hidden field to achievements in achievements.table. When set to true, the achievement is completely invisible in the achievements menu and achievement statistics screen until it is unlocked, making it suitable for surprise or easter egg achievements. All achievements tied to rank-locked content, including blackjack, cooky flipper, slot machine, and baking slots ship with hidden set to true.
 Added a show locked shop items toggle to the game settings menu. When turned off, locked items and menus in both the bundle and single shops are hidden entirely rather than displayed as locked. This setting is on by default, preserving the existing behavior.
 Renamed baker.store to singles.store and bundle.store to bundles.store for consistency with the singles and bundles shop naming used throughout the game.
 New in 4.8.

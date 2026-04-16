@@ -14,6 +14,7 @@ class achievement_item
     string hint;
     string category;
     bool silent;
+    bool hidden;
 }
 
 void parse_achievements(string filepath, achievement_item[]@ items, achievement_category[]@ categories)
@@ -46,7 +47,7 @@ void parse_achievements(string filepath, achievement_item[]@ items, achievement_
         int colonCount = 0;
         for (uint i = 0; i < line.length(); i++)
         {
-            if (line.substr(i, 1) == ":" && colonCount < 7)
+            if (line.substr(i, 1) == ":" && colonCount < 8)
             {
                 parts.insert_last(line.substr(lastPos, i - lastPos));
                 lastPos = i + 1;
@@ -54,7 +55,7 @@ void parse_achievements(string filepath, achievement_item[]@ items, achievement_
             }
         }
         parts.insert_last(line.substr(lastPos));
-        if (parts.length() < 8)
+        if (parts.length() < 9)
             continue;
         achievement_item item;
         string catAlias = parts[0];
@@ -70,9 +71,10 @@ void parse_achievements(string filepath, achievement_item[]@ items, achievement_
         item.stat = parts[2];
         item.threshold = string_to_number(parts[3]);
         item.silent = (parts[4] == "true");
-        item.name = parts[5];
-        item.description = parts[6];
-        item.hint = parts[7];
+        item.hidden = (parts[5] == "true");
+        item.name = parts[6];
+        item.description = parts[7];
+        item.hint = parts[8];
         string threshStr = format_number(item.threshold);
         int ph = item.description.find("%threshold%");
         while (ph != -1)
@@ -164,7 +166,9 @@ int count_category_by_name(achievement_item[]@ achievements, string catName)
     int count = 0;
     for (uint i = 0; i < achievements.length(); i++)
     {
-        if (achievements[i].category == catName) count++;
+        if (achievements[i].category != catName) continue;
+        if (achievements[i].hidden && !achievementsUnlocked.exists(achievements[i].id)) continue;
+        count++;
     }
     return count;
 }
@@ -175,6 +179,7 @@ int count_category_unlocked_by_name(achievement_item[]@ achievements, dictionary
     for (uint i = 0; i < achievements.length(); i++)
     {
         if (achievements[i].category != catName) continue;
+        if (achievements[i].hidden && !unlocked.exists(achievements[i].id)) continue;
         if (unlocked.exists(achievements[i].id)) count++;
     }
     return count;
@@ -189,12 +194,14 @@ void achievements_category_menu(achievement_item[]@ achievements, dictionary@ un
         for (uint i = 0; i < achievements.length(); i++)
         {
             if (achievements[i].category != catName) continue;
+            if (achievements[i].hidden && !unlocked.exists(achievements[i].id)) continue;
             if (!unlocked.exists(achievements[i].id)) continue;
             m.add_item(achievements[i].name, achievements[i].id);
         }
         for (uint i = 0; i < achievements.length(); i++)
         {
             if (achievements[i].category != catName) continue;
+            if (achievements[i].hidden) continue;
             if (unlocked.exists(achievements[i].id)) continue;
             m.add_item(achievements[i].name + ", locked", achievements[i].id);
         }
@@ -239,11 +246,18 @@ void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked, a
         for (uint c = 0; c < categories.length(); c++)
         {
             int total = count_category_by_name(achievements, categories[c].name);
+            if (total == 0) continue;
             m.add_item(categories[c].name + ", contains " + string(total) + " achievements", "cat_" + categories[c].alias);
         }
         m.add_item("Back", "back");
         int unlockedCount = unlocked.get_keys().length();
-        m.intro_text = "Achievements menu. " + string(unlockedCount) + " of " + string(achievements.length()) + " unlocked in total.";
+        int visibleTotal = 0;
+        for (uint i = 0; i < achievements.length(); i++)
+        {
+            if (achievements[i].hidden && !unlocked.exists(achievements[i].id)) continue;
+            visibleTotal++;
+        }
+        m.intro_text = "Achievements menu. " + string(unlockedCount) + " of " + string(visibleTotal) + " unlocked in total.";
         int start = 0;
         if (achievements_last_id != "")
         {
