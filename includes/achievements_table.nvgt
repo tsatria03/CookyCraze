@@ -1,3 +1,9 @@
+class achievement_category
+{
+    string alias;
+    string name;
+}
+
 class achievement_item
 {
     string id;
@@ -6,14 +12,16 @@ class achievement_item
     string name;
     string description;
     string hint;
+    string category;
+    bool silent;
 }
 
-achievement_item[] parse_achievements(string filepath)
+void parse_achievements(string filepath, achievement_item[]@ items, achievement_category[]@ categories)
 {
-    achievement_item[] items;
+    dictionary categoryAliases;
     file f;
     if (!f.open(filepath, "r"))
-        return items;
+        return;
     while (!f.eof)
     {
         string line = f.read_line();
@@ -21,12 +29,24 @@ achievement_item[] parse_achievements(string filepath)
             line = line.substr(0, line.length() - 1);
         if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
             continue;
+        int eq = line.find("=");
+        if (eq != -1)
+        {
+            string alias = line.substr(0, eq);
+            string catName = line.substr(eq + 1);
+            achievement_category cat;
+            cat.alias = alias;
+            cat.name = catName;
+            categoryAliases.set(alias, catName);
+            categories.insert_last(cat);
+            continue;
+        }
         string[] parts;
         int lastPos = 0;
         int colonCount = 0;
         for (uint i = 0; i < line.length(); i++)
         {
-            if (line.substr(i, 1) == ":" && colonCount < 5)
+            if (line.substr(i, 1) == ":" && colonCount < 7)
             {
                 parts.insert_last(line.substr(lastPos, i - lastPos));
                 lastPos = i + 1;
@@ -34,16 +54,26 @@ achievement_item[] parse_achievements(string filepath)
             }
         }
         parts.insert_last(line.substr(lastPos));
-        if (parts.length() < 6)
+        if (parts.length() < 8)
             continue;
         achievement_item item;
-        item.id = parts[0];
-        item.stat = parts[1];
-        item.threshold = string_to_number(parts[2]);
-        item.name = parts[3];
-        item.description = parts[4];
-        item.hint = parts[5];
-        string threshStr = string(int(item.threshold));
+        string catAlias = parts[0];
+        if (categoryAliases.exists(catAlias))
+        {
+            string resolvedCat;
+            categoryAliases.get(catAlias, resolvedCat);
+            item.category = resolvedCat;
+        }
+        else
+            item.category = catAlias;
+        item.id = parts[1];
+        item.stat = parts[2];
+        item.threshold = string_to_number(parts[3]);
+        item.silent = (parts[4] == "true");
+        item.name = parts[5];
+        item.description = parts[6];
+        item.hint = parts[7];
+        string threshStr = format_number(item.threshold);
         int ph = item.description.find("%threshold%");
         while (ph != -1)
         {
@@ -59,6 +89,13 @@ achievement_item[] parse_achievements(string filepath)
         items.insert_last(item);
     }
     f.close();
+}
+
+achievement_item[] parse_achievements_items(string filepath)
+{
+    achievement_item[] items;
+    achievement_category[] categories;
+    parse_achievements(filepath, items, categories);
     return items;
 }
 
@@ -68,7 +105,7 @@ double get_stat_value(string stat)
     if (stat == "manual_bakes_performed") return stat_manual_bakes_performed;
     if (stat == "auto_bakes_performed") return stat_auto_bakes_performed;
     if (stat == "coins_earned") return stat_coins_earned;
-    if (stat == "upgrades_purchased") return stat_upgrades_purchased;
+    if (stat == "singles_purchased") return stat_singles_purchased;
     if (stat == "bundles_purchased") return stat_bundles_purchased;
     if (stat == "events_fired") return stat_events_fired;
     if (stat == "flipper_flips") return stat_flipper_flips;
@@ -114,6 +151,7 @@ void check_achievements(achievement_item[]@ achievements, dictionary@ unlocked)
 
 void show_achievement(achievement_item@ item)
 {
+    if (item.silent) return;
     if (achsfx == true) pool.play_stationary("sounds/misc/gameach" + random(1, 2) + ".ogg", false);
     if (bakemode == 1)
         speak_buffer("Achievement unlocked! " + item.name + ". " + item.description, "achievements");
@@ -121,34 +159,28 @@ void show_achievement(achievement_item@ item)
         dlg_buffer("Achievement unlocked! " + item.name + ". " + item.description, "achievements");
 }
 
-int count_category(achievement_item[]@ achievements, string[]@ stats)
+int count_category_by_name(achievement_item[]@ achievements, string catName)
 {
     int count = 0;
     for (uint i = 0; i < achievements.length(); i++)
     {
-        for (uint j = 0; j < stats.length(); j++)
-        {
-            if (achievements[i].stat == stats[j]) { count++; break; }
-        }
+        if (achievements[i].category == catName) count++;
     }
     return count;
 }
 
-int count_category_unlocked(achievement_item[]@ achievements, dictionary@ unlocked, string[]@ stats)
+int count_category_unlocked_by_name(achievement_item[]@ achievements, dictionary@ unlocked, string catName)
 {
     int count = 0;
     for (uint i = 0; i < achievements.length(); i++)
     {
-        if (!unlocked.exists(achievements[i].id)) continue;
-        for (uint j = 0; j < stats.length(); j++)
-        {
-            if (achievements[i].stat == stats[j]) { count++; break; }
-        }
+        if (achievements[i].category != catName) continue;
+        if (unlocked.exists(achievements[i].id)) count++;
     }
     return count;
 }
 
-void achievements_category_menu(achievement_item[]@ achievements, dictionary@ unlocked, string name, string[]@ stats)
+void achievements_category_menu(achievement_item[]@ achievements, dictionary@ unlocked, string catName)
 {
     while (true)
     {
@@ -156,24 +188,20 @@ void achievements_category_menu(achievement_item[]@ achievements, dictionary@ un
         setupmenu(false);
         for (uint i = 0; i < achievements.length(); i++)
         {
-            bool inCat = false;
-            for (uint j = 0; j < stats.length(); j++) { if (achievements[i].stat == stats[j]) { inCat = true; break; } }
-            if (!inCat) continue;
+            if (achievements[i].category != catName) continue;
             if (!unlocked.exists(achievements[i].id)) continue;
             m.add_item(achievements[i].name, achievements[i].id);
         }
         for (uint i = 0; i < achievements.length(); i++)
         {
-            bool inCat = false;
-            for (uint j = 0; j < stats.length(); j++) { if (achievements[i].stat == stats[j]) { inCat = true; break; } }
-            if (!inCat) continue;
+            if (achievements[i].category != catName) continue;
             if (unlocked.exists(achievements[i].id)) continue;
             m.add_item(achievements[i].name + ", locked", achievements[i].id);
         }
         m.add_item("Back", "back");
-        int total = count_category(achievements, stats);
-        int unlockedCount = count_category_unlocked(achievements, unlocked, stats);
-        m.intro_text = name + " achievements. " + string(unlockedCount) + " of " + string(total) + " unlocked in total.";
+        int total = count_category_by_name(achievements, catName);
+        int unlockedCount = count_category_unlocked_by_name(achievements, unlocked, catName);
+        m.intro_text = catName + " achievements. " + string(unlockedCount) + " of " + string(total) + " unlocked in total.";
         int start = 0;
         if (achievements_cat_last_id != "")
         {
@@ -202,25 +230,17 @@ void achievements_category_menu(achievement_item[]@ achievements, dictionary@ un
     }
 }
 
-void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked)
+void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked, achievement_category[]@ categories)
 {
-    string[] baking_stats = {"cookies_baked"};
-    string[] economy_stats = {"coins_earned", "upgrades_purchased", "bundles_purchased"};
-    string[] events_stats = {"events_fired", "flipper_flips"};
-    string[] slots_stats = {"slot_spins", "slot_wins", "slot_losses"};
-    string[] blackjack_stats = {"blackjack_hands", "blackjack_wins", "blackjack_losses", "blackjack_pushes"};
-    string[] baking_slots_stats = {"auto_slots_purchased", "manual_slots_purchased", "auto_slots_enabled", "auto_slots_idle"};
-
     while (true)
     {
         wait(5);
         setupmenu(false);
-        m.add_item("Baking, contains " + string(count_category(achievements, baking_stats)) + " achievements", "cat_baking");
-        m.add_item("Baking slots manager, contains " + string(count_category(achievements, baking_slots_stats)) + " achievements", "cat_baking_slots");
-        m.add_item("Economy, contains " + string(count_category(achievements, economy_stats)) + " achievements", "cat_economy");
-        m.add_item("Events, contains " + string(count_category(achievements, events_stats)) + " achievements", "cat_events");
-        m.add_item("Blackjack, contains " + string(count_category(achievements, blackjack_stats)) + " achievements", "cat_blackjack");
-        m.add_item("Slot machine, contains " + string(count_category(achievements, slots_stats)) + " achievements", "cat_slots");
+        for (uint c = 0; c < categories.length(); c++)
+        {
+            int total = count_category_by_name(achievements, categories[c].name);
+            m.add_item(categories[c].name + ", contains " + string(total) + " achievements", "cat_" + categories[c].alias);
+        }
         m.add_item("Back", "back");
         int unlockedCount = unlocked.get_keys().length();
         m.intro_text = "Achievements menu. " + string(unlockedCount) + " of " + string(achievements.length()) + " unlocked in total.";
@@ -241,11 +261,13 @@ void achievements_menu(achievement_item[]@ achievements, dictionary@ unlocked)
         }
         achievements_last_id = sel;
         achievements_cat_last_id = "";
-        if (sel == "cat_baking") achievements_category_menu(achievements, unlocked, "Baking", baking_stats);
-        else if (sel == "cat_economy") achievements_category_menu(achievements, unlocked, "Economy", economy_stats);
-        else if (sel == "cat_events") achievements_category_menu(achievements, unlocked, "Events", events_stats);
-        else if (sel == "cat_slots") achievements_category_menu(achievements, unlocked, "Slot machine", slots_stats);
-        else if (sel == "cat_blackjack") achievements_category_menu(achievements, unlocked, "Blackjack", blackjack_stats);
-        else if (sel == "cat_baking_slots") achievements_category_menu(achievements, unlocked, "Baking slots manager", baking_slots_stats);
+        for (uint c = 0; c < categories.length(); c++)
+        {
+            if (sel == "cat_" + categories[c].alias)
+            {
+                achievements_category_menu(achievements, unlocked, categories[c].name);
+                break;
+            }
+        }
     }
 }

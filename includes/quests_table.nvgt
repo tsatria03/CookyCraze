@@ -361,7 +361,7 @@ string get_stat_display_name(string stat)
 {
     if (stat == "cookies_baked")          return "cookies baked";
     else if (stat == "coins_earned")      return "coins earned";
-    else if (stat == "upgrades_purchased") return "upgrades purchased";
+    else if (stat == "singles_purchased") return "upgrades purchased";
     else if (stat == "bundles_purchased") return "bundles purchased";
     else if (stat == "events_fired")      return "events fired";
     else if (stat == "flipper_flips")     return "cooky flipper flips";

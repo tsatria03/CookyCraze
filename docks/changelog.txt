@@ -1,3 +1,17 @@
+New in 4.9.
+Added a show locked shop items toggle to the game settings menu. When turned off, locked items and menus in both the bundle and single shops are hidden entirely rather than displayed as locked. This setting is on by default, preserving the existing behavior.
+Renamed baker.store to singles.store and bundle.store to bundles.store for consistency with the singles and bundles shop naming used throughout the game.
+New in 4.8.
+Added a hidden field to shop category menus and individual items in baker.store and bundle.store. When set to true, the entry is completely invisible to the player until the rank requirement is met, rather than showing as locked. All existing entries ship with hidden set to false.
+Renamed the upgrades purchased and bundles purchased quest names and descriptions to say single upgrades and bundle upgrades respectively, matching the wording used in the baker statistics screen.
+Added a prestige summary screen that appears automatically after each prestige run. It shows the prestige level reached, the rank you achieved, how many quests you completed out of the total active, and what reward you received.
+Fixed a bug where required quests could appear anywhere in the quest list regardless of position. Required quests now always appear at the top of the list, with random quests below them.
+Fixed an integer overflow bug where large threshold values in achievement descriptions and shop item descriptions would display as a large negative number. Both now use format_number so values of any size display correctly.
+Added a required silent field to achievements.table, positioned before the name field so all typed fields come before free-form text. When set to true, the achievement unlocks normally but produces no buffer message and no sound, overriding the global achievement sound setting. The auto bakes performed and manual bakes performed achievements ship with this set to true since they track stats that closely mirror cookies baked.
+Added a prestige history screen to the Statistics menu. Each time you prestige, a record is saved showing the run number, the rank you reached, and what reward you received. The history persists across sessions and resets only when starting a fresh save.
+Made achievement categories fully configurable via achievements.table. Categories are now defined using an alias system at the top of the file, the same way baker.store defines shop menus. Each achievement line now begins with its category alias. The achievements menu and achievement statistics screen are both driven entirely by the loaded categories, so adding, removing, or renaming a category requires no code changes.
+Added 44 new achievements across three new categories: auto bakes performed and manual bakes performed grouped under Baking, and quests completed and rerolls performed grouped together under Quests. Each stat has 11 tiers.
+Renamed the First Coin achievement to First Coins to better reflect that the threshold is 50 coins, not 1 coin.
 New in 4.7.
 Split the bakes performed stat into two independent counters: auto bakes performed and manual bakes performed. Each tracks its own source separately and both are available for future achievements.
 Added quests completed and rerolls performed as fully tracked stats with save and load support, making them available for future achievements.

@@ -142,7 +142,7 @@ if (sd.d.exists("stat_cookies_baked")) stat_cookies_baked = sd.read_double("stat
 if (sd.d.exists("stat_manual_bakes_performed")) stat_manual_bakes_performed = sd.read_double("stat_manual_bakes_performed");
 if (sd.d.exists("stat_auto_bakes_performed")) stat_auto_bakes_performed = sd.read_double("stat_auto_bakes_performed");
 if (sd.d.exists("stat_coins_earned")) stat_coins_earned = sd.read_double("stat_coins_earned");
-if (sd.d.exists("stat_upgrades_purchased")) stat_upgrades_purchased = sd.read_double("stat_upgrades_purchased");
+if (sd.d.exists("stat_singles_purchased")) stat_singles_purchased = sd.read_double("stat_singles_purchased");
 if (sd.d.exists("stat_bundles_purchased")) stat_bundles_purchased = sd.read_double("stat_bundles_purchased");
 if (sd.d.exists("stat_events_fired")) stat_events_fired = sd.read_double("stat_events_fired");
 if (sd.d.exists("stat_flipper_flips")) stat_flipper_flips = sd.read_double("stat_flipper_flips");
@@ -158,6 +158,19 @@ if (sd.d.exists("stat_manual_slots_purchased")) stat_manual_slots_purchased = sd
 if (sd.d.exists("stat_auto_slots_enabled")) stat_auto_slots_enabled = sd.read_double("stat_auto_slots_enabled");
 if (sd.d.exists("stat_quests_completed")) stat_quests_completed = sd.read_double("stat_quests_completed");
 if (sd.d.exists("stat_rerolls_performed")) stat_rerolls_performed = sd.read_double("stat_rerolls_performed");
+if (sd.d.exists("prestigeHistoryCount"))
+{
+    int hcount = sd.read_int("prestigeHistoryCount");
+    prestigeHistory.resize(0);
+    for (int i = 0; i < hcount; i++)
+    {
+        prestige_run entry;
+        entry.level = sd.read_int("prestigeHistory_level_" + string(i));
+        entry.rank_reached = sd.read_int("prestigeHistory_rank_" + string(i));
+        entry.reward = sd.read_string("prestigeHistory_reward_" + string(i));
+        prestigeHistory.insert_last(entry);
+    }
+}
 readpreffs();
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }
@@ -197,7 +210,7 @@ sd.add("stat_cookies_baked", stat_cookies_baked);
 sd.add("stat_manual_bakes_performed", stat_manual_bakes_performed);
 sd.add("stat_auto_bakes_performed", stat_auto_bakes_performed);
 sd.add("stat_coins_earned", stat_coins_earned);
-sd.add("stat_upgrades_purchased", stat_upgrades_purchased);
+sd.add("stat_singles_purchased", stat_singles_purchased);
 sd.add("stat_bundles_purchased", stat_bundles_purchased);
 sd.add("stat_events_fired", stat_events_fired);
 sd.add("stat_flipper_flips", stat_flipper_flips);
@@ -213,6 +226,13 @@ sd.add("stat_manual_slots_purchased", stat_manual_slots_purchased);
 sd.add("stat_auto_slots_enabled", stat_auto_slots_enabled);
 sd.add("stat_quests_completed", stat_quests_completed);
 sd.add("stat_rerolls_performed", stat_rerolls_performed);
+sd.add("prestigeHistoryCount", int(prestigeHistory.length()));
+for (uint i = 0; i < prestigeHistory.length(); i++)
+{
+    sd.add("prestigeHistory_level_" + string(i), prestigeHistory[i].level);
+    sd.add("prestigeHistory_rank_" + string(i), prestigeHistory[i].rank_reached);
+    sd.add("prestigeHistory_reward_" + string(i), prestigeHistory[i].reward);
+}
 sd.save();
 }
 void readpreffs()
@@ -282,6 +302,10 @@ if(st.d.exists("jackmode"))
 {
 jackmode=st.read_bool("jackmode");
 }
+if (st.d.exists("show_locked_shops"))
+{
+show_locked_shops = st.read_bool("show_locked_shops");
+}
 if (st.d.exists("automationMultiplier"))
 {
 automationMultiplier = st.read_double("automationMultiplier");
@@ -329,6 +353,7 @@ st.add("playervents2",playervents2);
 st.add("orderedSyms",orderedSyms);
 st.add("slotmode",slotmode);
 st.add("jackmode",jackmode);
+st.add("show_locked_shops", show_locked_shops);
 st.add("automationMultiplier", automationMultiplier);
 st.add("slotMultiplier", slotMultiplier);
 st.add("manualSlotMultiplier", manualSlotMultiplier);

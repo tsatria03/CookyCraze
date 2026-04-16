@@ -134,7 +134,7 @@ void parse_prestige_table(string filepath)
     f.close();
 }
 
-void apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocooky, double snapshot_manulcooky, double snapshot_coins, double snapshot_cookyspeed, int level)
+string apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocooky, double snapshot_manulcooky, double snapshot_coins, double snapshot_cookyspeed, int level)
 {
     string allAmounts = "";
     for (uint e = 0; e < item.entries.length(); e++)
@@ -165,9 +165,10 @@ void apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocooky
     ph = msg.find("%amount%");
     while (ph != -1) { msg = msg.substr(0, ph) + allAmounts + msg.substr(ph + 8); ph = msg.find("%amount%"); }
     dlgmessage_return(msg);
+    return allAmounts;
 }
 
-void apply_prestige_default_reward(int level)
+string apply_prestige_default_reward(int level)
 {
     double minVal = eval_event_amount(prestigeDefaultReward.min_amount, double(level));
     double maxVal = eval_event_amount(prestigeDefaultReward.max_amount, double(level));
@@ -188,4 +189,5 @@ void apply_prestige_default_reward(int level)
     ph = msg.find("%amount%");
     while (ph != -1) { msg = msg.substr(0, ph) + amtStr + msg.substr(ph + 8); ph = msg.find("%amount%"); }
     dlgmessage_return(msg);
+    return format_number(amount) + " " + target;
 }

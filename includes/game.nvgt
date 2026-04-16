@@ -58,7 +58,7 @@ manage_baking_slots();
         }
         if (form.is_pressed(achievementsBtn))
         {
-            achievements_menu(loadedAchievements, achievementsUnlocked);
+            achievements_menu(loadedAchievements, achievementsUnlocked, loadedAchievementCategories);
             form.reset();
             clickergame();
         }
@@ -292,7 +292,9 @@ loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
 parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
 parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
 parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
-loadedAchievements = parse_achievements("data/config/tables/achievements.table");
+loadedAchievements.resize(0);
+loadedAchievementCategories.resize(0);
+parse_achievements("data/config/tables/achievements.table", loadedAchievements, loadedAchievementCategories);
 achievementsUnlocked.delete_all();
 init_achievements(loadedAchievements, achievementsUnlocked);
 parse_prestige_table("data/config/tables/prestige.table");
@@ -314,7 +316,7 @@ if(key_pressed(KEY_M))
 {
 pool.destroy_sound(coinslot);
 if(coins>0) coinslot=pool.play_stationary("sounds/misc/cointoss.ogg", false);
-speak_buffer("You have "+format_number(coins)+" coins available to spend", "misc");
+speak_buffer("You have " + convert_to_currency(coins) + " available to spend", "misc");
 }
 if(key_pressed(KEY_R))
 {

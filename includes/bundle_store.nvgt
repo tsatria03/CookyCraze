@@ -8,6 +8,7 @@ class bundle_item
 {
     string name;
     int min_rank;
+    bool hidden;
     string description;
     string menu;
     bundle_entry[] entries;
@@ -18,6 +19,7 @@ class bundle_menu
     string alias;
     string name;
     int min_rank;
+    bool hidden;
     string description;
 }
 
@@ -58,11 +60,23 @@ void parse_bundles(string filepath, bundle_item[]@ bundles_out, bundle_menu[]@ m
                 if (pipe2 != -1)
                 {
                     bm.min_rank = string_to_int(rest2.substr(0, pipe2));
-                    bm.description = rest2.substr(pipe2 + 1);
+                    string rest3 = rest2.substr(pipe2 + 1);
+                    int pipe3 = rest3.find("|");
+                    if (pipe3 != -1)
+                    {
+                        bm.hidden = (rest3.substr(0, pipe3) == "true");
+                        bm.description = rest3.substr(pipe3 + 1);
+                    }
+                    else
+                    {
+                        bm.hidden = (rest3 == "true");
+                        bm.description = "";
+                    }
                 }
                 else
                 {
                     bm.min_rank = string_to_int(rest2);
+                    bm.hidden = false;
                     bm.description = "";
                 }
             }
@@ -90,7 +104,11 @@ void parse_bundles(string filepath, bundle_item[]@ bundles_out, bundle_menu[]@ m
         if (c3 == -1) continue;
         int bminrank = string_to_int(line.substr(c2 + 1, c3 - c2 - 1));
 
-        string remainder = line.substr(c3 + 1);
+        int c4 = line.find(":", c3 + 1);
+        if (c4 == -1) continue;
+        bool bhidden = (line.substr(c3 + 1, c4 - c3 - 1) == "true");
+
+        string remainder = line.substr(c4 + 1);
         int lastPipe = -1;
         for (uint i = 0; i < remainder.length(); i++)
         {
@@ -124,6 +142,7 @@ void parse_bundles(string filepath, bundle_item[]@ bundles_out, bundle_menu[]@ m
         bundle_item b;
         b.name = bname;
         b.min_rank = bminrank;
+        b.hidden = bhidden;
         b.description = bdescription;
         if (menuAliases.exists(bmenu_alias))
         {

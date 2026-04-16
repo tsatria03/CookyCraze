@@ -304,6 +304,7 @@ void infomenu()
     setupmenu(false);
     m.add_item("Achievement statistics", "achstats");
     m.add_item("Baker statistics", "statistics");
+    m.add_item("Prestige history", "prestigehistory");
     m.add_item("Back", "back");
     m.intro_text = "Statistics menu. What would you like to view?";
     int mres = m.run(0, true);
@@ -317,7 +318,9 @@ void infomenu()
     if (sel == "statistics")
         show_baker_statistics();
     else if (sel == "achstats")
-        show_achievement_statistics(loadedAchievements, achievementsUnlocked);
+        show_achievement_statistics(loadedAchievements, achievementsUnlocked, loadedAchievementCategories);
+    else if (sel == "prestigehistory")
+        show_prestige_history();
 }
 void shopmenu()
 {
@@ -454,7 +457,7 @@ void bakermenu()
 {
     store_item[] items;
     store_menu[] menus;
-    parse_store("data/config/stores/baker.store", items, menus);
+    parse_store("data/config/stores/singles.store", items, menus);
     if (items.length() == 0)
     {
         dlgmessage_return("Error! Could not load the baking shop items.");
@@ -466,6 +469,7 @@ void bakermenu()
     {
         if (menus[i].min_rank > 0 && rank < menus[i].min_rank)
         {
+            if (menus[i].hidden || !show_locked_shops) continue;
             string label = menus[i].name + ". Unlocked at rank " + string(menus[i].min_rank) + ".";
             if (menus[i].description != "")
                 label += " Description: " + menus[i].description;
@@ -531,6 +535,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         if (items[i].menu != chosenMenu) continue;
         if (items[i].min_rank > 0 && rank < items[i].min_rank)
         {
+            if (items[i].hidden || !show_locked_shops) continue;
             m.add_item(items[i].item_type + ". Unlocked at rank " + string(items[i].min_rank) + ". Description: " + items[i].description, "locked" + string(i));
             continue;
         }
@@ -668,7 +673,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             else { for (uint li = 0; li < logParts.length() - 1; li++) { if (log != "") log += ", "; log += logParts[li]; } log += ", and " + logParts[logParts.length() - 1]; }
             pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
             pool.play_stationary("sounds/misc/store_order.ogg", false);
-            stat_upgrades_purchased++;
+            stat_singles_purchased++;
             dlgmessage_return("Bulk purchase complete! You gained " + log + " for a total of " + format_number(totalSpent) + " coins.");
         }
         else
@@ -753,7 +758,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
                 itemWord = itemName.substr(0, itemName.length() - 1) + "ies";
             else
                 itemWord = itemName + "s";
-            stat_upgrades_purchased++;
+            stat_singles_purchased++;
             dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " " + itemWord + " for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextCost) + " coins.");
             bakercategorymenu(items, chosenMenu);
         }
@@ -782,13 +787,14 @@ void bundlemenu()
     bundle_menu[] menus;
     store_item[] storeItems;
     store_menu[] storeMenus;
-    parse_bundles("data/config/stores/bundle.store", bundles, menus);
-    parse_store("data/config/stores/baker.store", storeItems, storeMenus);
+    parse_bundles("data/config/stores/bundles.store", bundles, menus);
+    parse_store("data/config/stores/singles.store", storeItems, storeMenus);
     setupmenu2();
     for (uint i = 0; i < menus.length(); i++)
     {
         if (menus[i].min_rank > 0 && rank < menus[i].min_rank)
         {
+            if (menus[i].hidden || !show_locked_shops) continue;
             string label = menus[i].name + ". Unlocked at rank " + string(menus[i].min_rank) + ".";
             if (menus[i].description != "")
                 label += " Description: " + menus[i].description;
@@ -864,6 +870,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         if (bundles[i].menu != chosenMenu) continue;
         if (bundles[i].min_rank > 0 && rank < bundles[i].min_rank)
         {
+            if (bundles[i].hidden || !show_locked_shops) continue;
             m.add_item(bundles[i].name + ". Unlocked at rank " + string(bundles[i].min_rank) + ". Description: " + bundles[i].description, "locked" + string(i));
             continue;
         }
@@ -1347,8 +1354,16 @@ void questsmenu()
     int questList = form.create_list("&Quests", 0, false, false);
     for (uint i = 0; i < activeQuests.length(); i++)
     {
+        if (!activeQuests[i].required) continue;
         bool questDone = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
-        string questLabel = activeQuests[i].name + (questDone ? " (complete)" : "");
+        string questLabel = activeQuests[i].name + (questDone ? ". Complete" : "");
+        form.add_list_item(questList, questLabel, activeQuests[i].id, -1, true);
+    }
+    for (uint i = 0; i < activeQuests.length(); i++)
+    {
+        if (activeQuests[i].required) continue;
+        bool questDone = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
+        string questLabel = activeQuests[i].name + (questDone ? ". Complete" : "");
         form.add_list_item(questList, questLabel, activeQuests[i].id, -1, true);
     }
     int detailBox = form.create_input_box("&Quest details", "", read_only:true, multiline:true);
@@ -1569,6 +1584,7 @@ int reelspin = form.create_checkbox("Enable automatic stopping of reels for the 
 int jackautodraw = form.create_checkbox("Enable automatic card drawing for the blackjack mini game.", jackmode);
 int bakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across automated slots.", slotDistribution);
 int manualBakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across manual slots.", manualSlotDistribution);
+int showLockedToggle = form.create_checkbox("Show locked shop items and menus.", show_locked_shops);
 int automationMultiplierSlider = form.create_slider("Automation slot Cost Multiplier.", round((automationMultiplier - 1.0) * 100, 0), 1, 100, "X", 1);
 int slotMultiplierSlider = form.create_slider("Auto slot production Cost Multiplier.", round((slotMultiplier - 1.0) * 100, 0), 1, 100, "X", 1);
 int manualSlotMultiplierSlider = form.create_slider("Manual slot production Cost Multiplier.", round((manualSlotMultiplier - 1.0) * 100, 0), 1, 100, "X", 1);
@@ -1601,6 +1617,7 @@ achsfx = form.is_checked(achSFX);
 savesfx = form.is_checked(saveSFX);
 slotDistribution = form.is_checked(bakeSplitToggle);
 manualSlotDistribution = form.is_checked(manualBakeSplitToggle);
+show_locked_shops = form.is_checked(showLockedToggle);
         playervents = form.is_checked(playvents);
         playervents2 = form.is_checked(playvents2);
 orderedSyms = form.is_checked(ordsyms);

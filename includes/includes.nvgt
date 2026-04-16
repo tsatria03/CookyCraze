@@ -20,7 +20,7 @@
 #include"menu.nvgt"
 #include"minigames.nvgt"
 #include"savedata.nvgt"
-#include"baker_store.nvgt"
+#include"single_store.nvgt"
 #include"bundle_store.nvgt"
 #include"achievements_table.nvgt"
 #include"slots_table.nvgt"

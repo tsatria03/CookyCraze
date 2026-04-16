@@ -1,0 +1,110 @@
+; Menus
+
+startermenu=Beginner Bundles|0|false|Beginner friendly bundles designed to give new bakers a solid foundation without breaking the bank.
+advancedmenu=Advanced Bundles|5|false|More powerful bundles for experienced bakers who have already built up a coin income and want to accelerate their progression.
+expertmenu=Expert Bundles|20|false|High volume bundles for dedicated bakers who are deep into the game and ready to make serious investments.
+veteranmenu=Veteran Bundles|50|false|Powerful bundles for bakers who have climbed the ranks and are ready to make serious leaps in production.
+mastermenu=Master Bundles|100|false|Elite bundles reserved for bakers who have proven themselves through dedication and rank. Massive gains across all stats.
+legendarymenu=Legendary Bundles|250|false|The most powerful bundles in the shop. Reserved for the greatest bakers of all time who have reached the upper echelons of rank.
+godlikemenu=Godlike Bundles|500|false|Bundles that transcend the art of baking itself. Only the most legendary bakers in all of existence can access these.
+
+[bundles]
+
+; Required header — removing or renaming this will break the file.
+
+; Beginner Bundles (rank 0)
+
+startermenu:Starter Bundle:0:false:auto_cooky:5|manual_cooky:3|auto_cooky_speed:2:A well-rounded bundle for new bakers. Gives you a head start with a little of everything to get your bakery off the ground.
+startermenu:Baker's Dozen:0:false:auto_cooky:13|manual_cooky:13|auto_cooky_speed:13:Thirteen of everything. A classic bundle for the baker who likes things in thirteens.
+startermenu:Speed Runner Bundle:0:false:auto_cooky_speed:20|auto_cooky:5:For the baker obsessed with baking faster. Heavily weighted toward baking speed with a few auto cookies thrown in.
+startermenu:Manual Master Bundle:0:false:manual_cooky:25|auto_cooky:5:For the hands-on baker. Packs in a large dose of manual cookies with a small auto cookie bonus on the side.
+
+; Advanced Bundles (rank 5)
+
+advancedmenu:Auto Empire Bundle:5:false:auto_cooky:50|auto_cooky_speed:10:A bulk auto cookie bundle for bakers who want their ovens running around the clock with minimal effort.
+advancedmenu:Balanced Bundle:5:false:auto_cooky:10|manual_cooky:10|auto_cooky_speed:10:Equal parts auto cookies, manual cookies, and baking speed. A solid all-rounder for any stage of the game.
+
+; Advanced Bundles (rank 10)
+
+advancedmenu:Cookie Rush Bundle:10:false:auto_cooky:100|auto_cooky_speed:25:A high volume auto cookie bundle designed to flood your production line. Best used when you already have a solid coin income.
+advancedmenu:Precision Baker Bundle:10:false:manual_cooky:50|auto_cooky_speed:30:A manual focused bundle with a hefty speed bonus. Great for players who bake by hand and want every click to count.
+
+; Expert Bundles (rank 20)
+
+expertmenu:Grand Bakery Bundle:20:false:auto_cooky:75|manual_cooky:75|auto_cooky_speed:50:A large all-in-one bundle that upgrades all three stats in bulk. Ideal for players looking to make a big leap forward in one purchase.
+expertmenu:Speed Demon Bundle:20:false:auto_cooky_speed:100:Pure baking speed, nothing else. For the baker who wants to reduce their bake interval as aggressively as possible.
+
+; Expert Bundles (rank 30)
+
+expertmenu:Enchanted Baker Bundle:30:false:auto_cooky:150|manual_cooky:100|auto_cooky_speed:75:A magically enhanced bundle that boosts all three stats significantly. Perfect for bakers hitting their stride at rank 30.
+expertmenu:Rolling Pin Rush:30:false:manual_cooky:150|auto_cooky_speed:50:A manual heavy bundle with a solid speed boost. For bakers who love getting their hands doughy.
+
+; Veteran Bundles (rank 50)
+
+veteranmenu:Golden Bundle:50:false:auto_cooky:200|manual_cooky:200|auto_cooky_speed:100:A premium bundle for veteran bakers. Massive boosts across all three stats for players who have built up a serious coin reserve.
+veteranmenu:Automated Dreams:50:false:auto_cooky:300|auto_cooky_speed:150:A bundle focused entirely on automated production. Let the ovens do the work while you count your coins.
+veteranmenu:Golden Hands Bundle:50:false:manual_cooky:300|auto_cooky_speed:100:For the veteran baker who still loves baking by hand. A large manual boost paired with a solid speed upgrade.
+
+; Veteran Bundles (rank 75)
+
+veteranmenu:Diamond Baker Bundle:75:false:auto_cooky:400|manual_cooky:300|auto_cooky_speed:150:A diamond tier bundle that pushes all three stats to new heights. For bakers who have truly mastered their craft.
+veteranmenu:Warp Speed Bundle:75:false:auto_cooky_speed:300|auto_cooky:200:Pure acceleration. Slash your bake interval and flood your line with auto cookies at the same time.
+
+; Master Bundles (rank 100)
+
+mastermenu:Legendary Bundle:100:false:auto_cooky:500|manual_cooky:500|auto_cooky_speed:250:The original legendary bundle. Massive gains across all three stats for bakers who have earned it.
+mastermenu:Celestial Auto Bundle:100:false:auto_cooky:750|auto_cooky_speed:300:A celestial scale auto cookie bundle. Your ovens will never stop producing after this one.
+mastermenu:Legendary Hands Bundle:100:false:manual_cooky:750|auto_cooky_speed:200:For the legendary baker who bakes by hand. An enormous manual boost with a powerful speed upgrade to match.
+
+; Master Bundles (rank 125)
+
+mastermenu:Mystic Baker Bundle:125:false:auto_cooky:1000|manual_cooky:750|auto_cooky_speed:350:A mystical bundle drawn from ancient baking knowledge. Pushes all three stats deep into the thousands.
+mastermenu:Chrono Rush Bundle:125:false:auto_cooky_speed:500|auto_cooky:500:A time-bending bundle focused on speed and auto production. Bake faster and produce more in one go.
+
+; Master Bundles (rank 150)
+
+mastermenu:Arcane Bakery Bundle:150:false:auto_cooky:1500|manual_cooky:1000|auto_cooky_speed:500:An arcane bundle forged by legendary bakers of old. A sweeping upgrade across all three stats for bakers at the top of their game.
+mastermenu:Temporal Hands Bundle:150:false:manual_cooky:1500|auto_cooky_speed:400:A time-warped manual bundle for bakers who refuse to put down the rolling pin. Enormous manual gains with a temporal speed boost.
+
+; Master Bundles (rank 175)
+
+mastermenu:Galactic Baker Bundle:175:false:auto_cooky:2000|manual_cooky:1500|auto_cooky_speed:600:A galactic scale bundle that reaches across dimensions to power your bakery. All three stats receive a massive injection.
+mastermenu:Infinity Speed Bundle:175:false:auto_cooky_speed:750|auto_cooky:1000:An infinity powered speed bundle. Your bake interval will feel the full force of this one.
+
+; Master Bundles (rank 200)
+
+mastermenu:Divine Baker Bundle:200:false:auto_cooky:3000|manual_cooky:2000|auto_cooky_speed:750:A divinely blessed bundle that upgrades all three stats on a godly scale. For bakers who have reached the two hundred milestone.
+mastermenu:Divine Hands Bundle:200:false:manual_cooky:3000|auto_cooky_speed:600:A blessed manual bundle for the most dedicated hands-on bakers. Enormous gains per click with a divine speed bonus.
+
+; Legendary Bundles (rank 250)
+
+legendarymenu:Cosmic Baker Bundle:250:false:auto_cooky:5000|manual_cooky:4000|auto_cooky_speed:1000:A cosmic bundle drawing power from the stars themselves. All three stats receive upgrades on an astronomical scale.
+legendarymenu:Stellar Auto Bundle:250:false:auto_cooky:8000|auto_cooky_speed:1500:A stellar auto cookie bundle that floods your production line with cookies from across the universe.
+legendarymenu:Cosmic Hands Bundle:250:false:manual_cooky:8000|auto_cooky_speed:1000:A cosmic manual bundle for bakers channeling the power of the stars into every single click.
+
+; Legendary Bundles (rank 300)
+
+legendarymenu:Astral Baker Bundle:300:false:auto_cooky:10000|manual_cooky:8000|auto_cooky_speed:1500:An astral bundle that channels the power of the cosmos into your entire bakery operation. A sweeping upgrade for rank three hundred bakers.
+legendarymenu:Omega Speed Bundle:300:false:auto_cooky_speed:2000|auto_cooky:5000:An omega class speed bundle that rewrites the laws of baking time. Paired with a massive auto cookie injection.
+
+; Legendary Bundles (rank 350)
+
+legendarymenu:Nebula Baker Bundle:350:false:auto_cooky:15000|manual_cooky:12000|auto_cooky_speed:2000:A nebula forged bundle born from the heart of a dying star. All three stats are pushed to extraordinary levels.
+legendarymenu:Void Hands Bundle:350:false:manual_cooky:15000|auto_cooky_speed:1500:A void powered manual bundle that adds an incredible amount of manual cookies to every single click.
+
+; Legendary Bundles (rank 400)
+
+legendarymenu:Eternal Baker Bundle:400:false:auto_cooky:20000|manual_cooky:15000|auto_cooky_speed:2500:An eternal bundle that exists outside of time itself. All three stats receive upgrades on an eternal scale fit for a rank four hundred baker.
+legendarymenu:Paradox Speed Bundle:400:false:auto_cooky_speed:3000|auto_cooky:10000:A paradox powered speed bundle that bends the laws of physics to slash your bake interval and supercharge your auto production.
+
+; Legendary Bundles (rank 450)
+
+legendarymenu:Transcendent Baker Bundle:450:false:auto_cooky:30000|manual_cooky:25000|auto_cooky_speed:3000:A transcendent bundle that exists beyond the physical plane. For bakers who have pushed past rank four hundred and fifty and are closing in on the summit.
+legendarymenu:Omniversal Auto Bundle:450:false:auto_cooky:50000|auto_cooky_speed:4000:An omniversal auto cookie bundle spanning every known universe. Your production line will never be the same again.
+
+; Godlike Bundles (rank 500)
+
+godlikemenu:Godlike Baker Bundle:500:false:auto_cooky:75000|manual_cooky:60000|auto_cooky_speed:5000:A godlike bundle wielded only by the most legendary bakers in all of existence. All three stats are upgraded on a scale that defies comprehension.
+godlikemenu:Creation Auto Bundle:500:false:auto_cooky:100000|auto_cooky_speed:7500:A bundle that predates the universe itself. Your auto cookie production will reach levels that the baking gods themselves would envy.
+godlikemenu:Godlike Hands Bundle:500:false:manual_cooky:100000|auto_cooky_speed:5000:A godlike manual bundle for bakers who have transcended the art of baking. Every click produces cookies on a divine and incomprehensible scale.
+godlikemenu:Ultimate Bundle:500:false:auto_cooky:100000|manual_cooky:100000|auto_cooky_speed:10000:The ultimate bundle. The single most powerful purchase in the entire shop. Reserved exclusively for the greatest bakers who have reached rank five hundred and stand at the very pinnacle of the baking world.

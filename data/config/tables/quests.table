@@ -6,7 +6,7 @@ max_active=5
 require_all=2
 reroll_target=coins
 reroll_base_cost=20
-reroll_multiplier=1.2
+reroll_multiplier=1.01
 reroll_sound=questroll.ogg
 reroll_message=Quests rerolled! It cost you %cost% coins. Good luck with your new objectives!
 
@@ -34,7 +34,7 @@ reach_rank_500:Reach rank 500:rank:500:false:true:true:10:Reach rank %threshold%
 ; Random pool
 
 ; Cookies baked
-bake_10k:Bake 10,000 cookies:cookies_baked:10000:false:false:true:1:Bake %threshold% cookies in total.
+bake_10k:Bake 10K cookies:cookies_baked:10000:false:false:true:1:Bake %threshold% cookies in total.
 bake_million:Bake a million cookies:cookies_baked:1000000:false:false:true:2:Bake %threshold% cookies in total.
 bake_100_million:Bake 100 million cookies:cookies_baked:100000000:true:false:true:3:Bake %threshold% cookies in total.
 bake_billion:Bake a billion cookies:cookies_baked:1000000000:true:false:true:4:Bake %threshold% cookies in total.
@@ -42,27 +42,27 @@ bake_trillion:Bake a trillion cookies:cookies_baked:1000000000000:true:false:tru
 
 ; Coins earned
 
-earn_coins_1k:Earn 1,000 coins:coins_earned:1000:false:false:true:1:Earn a total of %threshold% coins.
-earn_coins_10k:Earn 10,000 coins:coins_earned:10000:false:false:true:2:Earn a total of %threshold% coins.
-earn_coins_100k:Earn 100,000 coins:coins_earned:100000:true:false:true:3:Earn a total of %threshold% coins.
-earn_coins_1m:Earn 1,000,000 coins:coins_earned:1000000:true:false:true:4:Earn a total of %threshold% coins.
-earn_coins_10m:Earn 10,000,000 coins:coins_earned:10000000:true:false:true:5:Earn a total of %threshold% coins.
+earn_coins_1k:Earn 1K coins:coins_earned:1000:false:false:true:1:Earn a total of %threshold% coins.
+earn_coins_10k:Earn 10K coins:coins_earned:10000:false:false:true:2:Earn a total of %threshold% coins.
+earn_coins_100k:Earn 100K coins:coins_earned:100000:true:false:true:3:Earn a total of %threshold% coins.
+earn_coins_1m:Earn 1M coins:coins_earned:1000000:true:false:true:4:Earn a total of %threshold% coins.
+earn_coins_10m:Earn 10M coins:coins_earned:10000000:true:false:true:5:Earn a total of %threshold% coins.
 
 ; Upgrades purchased
 
-buy_upgrades_10:Purchase 10 upgrades:upgrades_purchased:10:false:false:true:1:Purchase %threshold% upgrades from the singles shop.
-buy_upgrades_50:Purchase 50 upgrades:upgrades_purchased:50:false:false:true:2:Purchase %threshold% upgrades from the singles shop.
-buy_upgrades_200:Purchase 200 upgrades:upgrades_purchased:200:false:false:true:3:Purchase %threshold% upgrades from the singles shop.
-buy_upgrades_500:Purchase 500 upgrades:upgrades_purchased:500:true:false:true:4:Purchase %threshold% upgrades from the singles shop.
-buy_upgrades_1000:Purchase 1,000 upgrades:upgrades_purchased:1000:true:false:true:5:Purchase %threshold% upgrades from the singles shop.
+buy_upgrades_10:Purchase 10 single upgrades:singles_purchased:10:false:false:true:1:Purchase %threshold% single upgrades from the singles shop.
+buy_upgrades_50:Purchase 50 single upgrades:singles_purchased:50:false:false:true:2:Purchase %threshold% single upgrades from the singles shop.
+buy_upgrades_200:Purchase 200 single upgrades:singles_purchased:200:false:false:true:3:Purchase %threshold% single upgrades from the singles shop.
+buy_upgrades_500:Purchase 500 single upgrades:singles_purchased:500:true:false:true:4:Purchase %threshold% single upgrades from the singles shop.
+buy_upgrades_1000:Purchase 1K single upgrades:singles_purchased:1000:true:false:true:5:Purchase %threshold% single upgrades from the singles shop.
 
 ; Bundles purchased
 
-buy_bundles_5:Purchase 5 bundles:bundles_purchased:5:false:false:true:1:Purchase %threshold% bundles from the bundle shop.
-buy_bundles_10:Purchase 10 bundles:bundles_purchased:10:false:false:true:2:Purchase %threshold% bundles from the bundle shop.
-buy_bundles_25:Purchase 25 bundles:bundles_purchased:25:false:false:true:3:Purchase %threshold% bundles from the bundle shop.
-buy_bundles_75:Purchase 75 bundles:bundles_purchased:75:true:false:true:4:Purchase %threshold% bundles from the bundle shop.
-buy_bundles_150:Purchase 150 bundles:bundles_purchased:150:true:false:true:5:Purchase %threshold% bundles from the bundle shop.
+buy_bundles_5:Purchase 5 bundle upgrades:bundles_purchased:5:false:false:true:1:Purchase %threshold% bundle upgrades from the bundle shop.
+buy_bundles_10:Purchase 10 bundle upgrades:bundles_purchased:10:false:false:true:2:Purchase %threshold% bundle upgrades from the bundle shop.
+buy_bundles_25:Purchase 25 bundle upgrades:bundles_purchased:25:false:false:true:3:Purchase %threshold% bundle upgrades from the bundle shop.
+buy_bundles_75:Purchase 75 bundle upgrades:bundles_purchased:75:true:false:true:4:Purchase %threshold% bundle upgrades from the bundle shop.
+buy_bundles_150:Purchase 150 bundle upgrades:bundles_purchased:150:true:false:true:5:Purchase %threshold% bundle upgrades from the bundle shop.
 
 ; Events fired
 
@@ -78,7 +78,7 @@ flip_cooky_10:Flip the cooky 10 times:flipper_flips:10:false:false:true:1:Flip t
 flip_cooky_50:Flip the cooky 50 times:flipper_flips:50:false:false:true:2:Flip the cooky %threshold% times in the cooky flipper.
 flip_cooky_200:Flip the cooky 200 times:flipper_flips:200:false:false:true:3:Flip the cooky %threshold% times in the cooky flipper.
 flip_cooky_500:Flip the cooky 500 times:flipper_flips:500:true:false:true:4:Flip the cooky %threshold% times in the cooky flipper.
-flip_cooky_1000:Flip the cooky 1,000 times:flipper_flips:1000:true:false:true:5:Flip the cooky %threshold% times in the cooky flipper.
+flip_cooky_1000:Flip the cooky 1K times:flipper_flips:1000:true:false:true:5:Flip the cooky %threshold% times in the cooky flipper.
 
 ; Slot machine spins
 
@@ -86,7 +86,7 @@ spin_slots_25:Spin the slots 25 times:slot_spins:25:false:false:true:1:Spin the 
 spin_slots_100:Spin the slots 100 times:slot_spins:100:false:false:true:2:Spin the slot machine %threshold% times.
 spin_slots_250:Spin the slots 250 times:slot_spins:250:false:false:true:3:Spin the slot machine %threshold% times.
 spin_slots_500:Spin the slots 500 times:slot_spins:500:true:false:true:4:Spin the slot machine %threshold% times.
-spin_slots_1000:Spin the slots 1,000 times:slot_spins:1000:true:false:true:5:Spin the slot machine %threshold% times.
+spin_slots_1000:Spin the slots 1K times:slot_spins:1000:true:false:true:5:Spin the slot machine %threshold% times.
 
 ; Slot machine wins
 

@@ -3,10 +3,10 @@ array<bool> baking_slots;
 bool slotDistribution=false;
 bool manualSlotDistribution=false;
 int autobakeSlots = 0;
-bool achsfx=true, bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=true, jackmode=true;
+bool achsfx=true, bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=true, jackmode=true, show_locked_shops=true;
 double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, manulcooky=1, rank=1, usercoins=0;
 double lastRewardAmount=0;
-double stat_cookies_baked=0, stat_manual_bakes_performed=0, stat_auto_bakes_performed=0, stat_coins_earned=0, stat_upgrades_purchased=0, stat_bundles_purchased=0;
+double stat_cookies_baked=0, stat_manual_bakes_performed=0, stat_auto_bakes_performed=0, stat_coins_earned=0, stat_singles_purchased=0, stat_bundles_purchased=0;
 double stat_events_fired=0, stat_flipper_flips=0;
 double stat_slot_spins=0, stat_slot_wins=0, stat_slot_losses=0;
 double stat_jack_hands=0, stat_jack_wins=0, stat_jack_losses=0, stat_jack_pushes=0;
@@ -24,6 +24,7 @@ int ambienceIndex=0, musicIndex=0;
 event_item[] loadedEvents;
 event_item[] loadedFlipperEvents;
 achievement_item[] loadedAchievements;
+achievement_category[] loadedAchievementCategories;
 dictionary achievementsUnlocked;
 int slotManagerUnlockRank = 50;
 string[] slotSymbols;
@@ -37,6 +38,13 @@ rank_sound_item[] rankSounds;
 rank_reward_item[] rankDefault;
 rank_reward_item[] rankRewards;
 jacks_config jacksConfig;
+class prestige_run
+{
+    int level;
+    int rank_reached;
+    string reward;
+}
+prestige_run[] prestigeHistory;
 int prestigeLevel = 0;
 string ambtype="room1";
 string mustype="music1";

@@ -1,3 +1,7 @@
+####These are the things that need to be finished for future versions of the game.
+
+****Unfinished. Consider replacing raw coins with a realistic currency system using dollar and cent display.
+
 ##These are the things that are already finished from earlier versions of the game.
 
 **Finished. Add a configurable bet confirmation prompt to the slot machine and blackjack minigames. When a bet reaches or exceeds a set threshold, a yes or no menu appears before the bet is committed. Threshold is set in slots.table and jacks.table, defaulting to 1000. Set to 0 to disable.

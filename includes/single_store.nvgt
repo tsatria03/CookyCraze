@@ -3,6 +3,7 @@ class store_menu
     string alias;
     string name;
     int min_rank;
+    bool hidden;
     string description;
 }
 
@@ -15,6 +16,7 @@ class store_item
     double amount;
     int min_rank;
     bool use_percent;
+    bool hidden;
     string menu;
     string description;
 }
@@ -49,11 +51,23 @@ void parse_store(string filepath, store_item[]@ items_out, store_menu[]@ menus_o
                 if (pipe2 != -1)
                 {
                     sm.min_rank = string_to_int(rest2.substr(0, pipe2));
-                    sm.description = rest2.substr(pipe2 + 1);
+                    string rest3 = rest2.substr(pipe2 + 1);
+                    int pipe3 = rest3.find("|");
+                    if (pipe3 != -1)
+                    {
+                        sm.hidden = (rest3.substr(0, pipe3) == "true");
+                        sm.description = rest3.substr(pipe3 + 1);
+                    }
+                    else
+                    {
+                        sm.hidden = (rest3 == "true");
+                        sm.description = "";
+                    }
                 }
                 else
                 {
                     sm.min_rank = string_to_int(rest2);
+                    sm.hidden = false;
                     sm.description = "";
                 }
             }
@@ -72,7 +86,7 @@ void parse_store(string filepath, store_item[]@ items_out, store_menu[]@ menus_o
         int colonCount = 0;
         for (uint i = 0; i < line.length(); i++)
         {
-            if (line.substr(i, 1) == ":" && colonCount < 8)
+            if (line.substr(i, 1) == ":" && colonCount < 9)
             {
                 parts.insert_last(line.substr(lastPos, i - lastPos));
                 lastPos = i + 1;
@@ -80,7 +94,7 @@ void parse_store(string filepath, store_item[]@ items_out, store_menu[]@ menus_o
             }
         }
         parts.insert_last(line.substr(lastPos));
-        if (parts.length() < 9)
+        if (parts.length() < 10)
             continue;
         store_item item;
         string menuAlias = parts[0];
@@ -99,8 +113,9 @@ void parse_store(string filepath, store_item[]@ items_out, store_menu[]@ menus_o
         item.amount = string_to_number(parts[5]);
         item.min_rank = string_to_int(parts[6]);
         item.use_percent = (parts[7] == "true");
-        string desc = parts[8];
-        string amt_str = string(int(item.amount));
+        item.hidden = (parts[8] == "true");
+        string desc = parts[9];
+        string amt_str = format_number(item.amount);
         int ph = desc.find("%item_count");
         while (ph != -1)
         {
