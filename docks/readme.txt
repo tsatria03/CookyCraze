@@ -139,7 +139,7 @@ Cookies needed for next rank: how many cookies are required to reach the next ra
 Current coins: how many coins you currently have.
 Prestige level: how many times you have prestiged. Starts at 0 on a fresh save.
 Quests completed: how many of your active quests are currently complete.
-Quests required for prestige reward: how many quests you need to complete to receive a reward on your next prestige. This is 1 unless require_all is set to 3 in quests.table, in which case it shows the total number of active quests.
+Prestige reward condition: describes what you need to complete to receive a reward on your next prestige, based on the require_all setting in quests.table. Mode 1 means the reward fires if any quest happens to be complete. Mode 2 means at least one quest must be complete. Mode 3 means all quests must be complete, and shows the total count.
 
 Statistics menu.
 Access the baker statistics screen and achievement statistics screen from the Statistics button in the main game interface.
@@ -209,12 +209,12 @@ Quests.
 Complete a set of objectives to unlock the prestige option and start a new run with a permanent bonus.
 
 Quests are automatically assigned at the start of each prestige cycle using a difficulty based system. Each quest has a difficulty from 1 to 10, and the active slots are spread evenly across the difficulty range so you always get a balanced mix from easy to hard.
-Required quests occupy their difficulty slot directly, and random quests fill the rest.
-The number of active quests is configurable in quests.table and is capped at 10. The game ships with 60 quests across 12 trackable stats with 5 difficulty tiers each.
+Required quests occupy their difficulty slot directly, and random quests fill the rest. Only one required quest per stat can be active at a time, so if a stat has multiple required tiers only the current one will appear.
+The number of active quests is configurable in quests.table and is capped at 10. The game ships with 75 quests: 14 tiered required rank quests covering ranks 5 through 500, and 60 random quests across 12 trackable stats with 5 difficulty tiers each.
 Rerolling replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
 
-To view your quests, press the Quests button in the main game interface. The quests screen shows a list of all active quests sorted from easiest to hardest by difficulty.
-Arrow to any quest and the detail box updates automatically, showing the description, current progress toward the threshold, and whether the quest is complete or incomplete. The prestige button is always available once you reach the minimum rank, but whether you receive a reward depends on your quest completion status and the require_all setting in quests.table.
+To view your quests, press the Quests button in the main game interface. The quests screen shows a list of all active quests sorted from easiest to hardest by difficulty. Completed quests are labelled with complete in the list so you can see your status at a glance without having to open each one.
+Arrow to any quest and the detail box updates automatically, showing the description and current progress toward the threshold. If the quest is complete, a complete label is appended to the progress line. The prestige button is always available once you reach the minimum rank, but whether you receive a reward depends on your quest completion status and the require_all setting in quests.table.
 
 If you want a different quest, arrow to it in the quests menu and press the reroll button. Rerolling replaces only that quest with a new random one of the same difficulty.
 The reroll button does not appear when a required quest is focused.
@@ -293,6 +293,7 @@ Lines starting with a semicolon, hash, or double slash are treated as comments, 
 
 Four of the files, ranks.table, slots.table, prestige.table, and quests.table, use section headers in square brackets such as [sounds], [default], [rewards], [settings], and [quests]. These are not cosmetic.
 The parser uses them to know which format to expect. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
+Each functional header has a warning comment placed directly below it inside the file as a reminder. That comment is cosmetic and can be removed, but the header itself must stay exactly as written.
 
 Five of the remaining files, baker.event, flipper.event, jacks.table, baker.store, and achievements.table, do not use functional section headers. Every line in those files follows the same format throughout.
 They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely.
@@ -850,7 +851,7 @@ reroll_message
 The message spoken after a successful reroll. Use %cost% as a placeholder for the amount deducted.
 
 Quests section.
-Format: id:name:stat:threshold:use_percent:required:difficulty:description
+Format: id:name:stat:threshold:use_percent:required:advance:difficulty:description
 
 id
 The internal identifier for this quest. Must be unique across all entries. Use lowercase letters and underscores, no spaces. Example: bake_million
@@ -896,8 +897,15 @@ required
 true means this quest always appears every prestige cycle and occupies its difficulty slot, preventing a random quest of the same difficulty from filling that position.
 false means it goes into the random pool.
 
+advance
+
+true means that once this quest is completed, it is permanently retired and replaced by the next tier of the same stat on the next prestige cycle. The player will never see the same quest again after beating it.
+false means the quest repeats every prestige cycle regardless of whether it was completed before.
+
 difficulty
-A number from 1 to 10 controlling how hard this quest is and which slot it occupies in the active quest list.
+A number from 1 to 10 controlling which slot this quest occupies in the active quest list.
+
+It does not directly affect how hard the quest is to complete in practice — that is determined by the threshold. Two quests can share the same difficulty number, and the one with the larger threshold will naturally take longer to finish.
 
 The game spreads active slots evenly across the difficulty range found in the table, so easier quests always appear alongside harder ones.
 Required quests occupy their difficulty slot directly. The difficulty range is read dynamically from the table and capped at 10. The max_active setting is also capped at 10.
@@ -905,7 +913,7 @@ Required quests occupy their difficulty slot directly. The difficulty range is r
 description
 The message shown in the detail input box when the player focuses this quest. You do not need to include progress information in this field.
 
-Below the description the game always appends a line automatically that reads current progress followed by either a raw value out of the threshold or a percentage, then a period and either complete or incomplete on the same line.
+Below the description the game always appends a line automatically that reads current progress followed by either a raw value out of the threshold or a percentage. If the quest is complete, a period and the word complete are appended on the same line. If it is not complete, nothing extra is added.
 
 The following placeholders are available and will be replaced at display time.
 

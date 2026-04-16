@@ -1,13 +1,27 @@
 [settings]
+
+; Required header — removing or renaming this will break the file.
+
 min_rank=5
 sound=prestige.ogg
 message=Congratulations! You have reached prestige level %prestige%. Your bakery has been reset, but your legacy lives on. Good luck on your next run!
 
 [default_reward]
+
+; Required header — removing or renaming this will break the file.
+
 coins:50*rank:100*rank:Prestige %level% complete! You earned %amount% bonus coins to start your next run.
 
 [rewards]
+
+; Required header — removing or renaming this will break the file.
+
+; Flat rewards
+
 1:coins:25|cookies:10:false:Prestige %level% reached! You start this run with 25 bonus coins and 10 bonus cookies.
+
+; Percentage carry-overs
+
 2:coins:3:true:Prestige %level% reached! You carry over 3% of your coins into this run.
 3:cookies:3:true:Prestige %level% reached! You carry over 3% of your cookies into this run.
 4:coins:5|cookies:5:true:Prestige %level% reached! You carry over 5% of your coins and 5% of your cookies into this run.

@@ -308,9 +308,12 @@ void show_baker_info()
     {
         if (get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold) completedQuests++;
     }
-    int requiredQuests = (questsConfig.require_all == 3) ? int(activeQuests.length()) : 1;
     txt += "Quests completed: " + string(completedQuests) + " of " + string(activeQuests.length()) + "\r\n";
-    txt += "Quests required for prestige reward: " + string(requiredQuests) + " of " + string(activeQuests.length()) + "\r\n";
+    string questRewardMode = "";
+    if (questsConfig.require_all == 1) questRewardMode = "Reward fires if any quest happens to be complete";
+    else if (questsConfig.require_all == 2) questRewardMode = "At least one quest must be complete";
+    else if (questsConfig.require_all == 3) questRewardMode = "All " + string(activeQuests.length()) + " quests must be complete";
+    txt += "Prestige reward condition: " + questRewardMode + "\r\n";
     form.reset();
     form.create_window("Baker info", false);
     int infobox = form.create_input_box("Baker info", txt, read_only:true, multiline:true);

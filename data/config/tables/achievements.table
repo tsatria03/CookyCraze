@@ -72,6 +72,7 @@ slot_legend:slot_spins:5000:Slot Legend:Spin the reels %threshold% times. The sl
 slot_eternal:slot_spins:10000:Slot Eternal:Spin the reels %threshold% times. The machine and you have merged into something new.:There is a point of no return with the reels. You passed it some time ago.
 
 ; Slot machine - wins
+
 first_slot_win:slot_wins:1:Beginner's Luck:Win on the slot machine for the first time. Don't get used to it.:The reels have been known to smile on newcomers. Just the once.
 lucky_once:slot_wins:5:Lucky Once:Win on the slot machine %threshold% times. Lightning has struck twice, and then some.:Lightning doesn't strike twice, they say. Prove them wrong a few more times.
 getting_lucky:slot_wins:10:Getting Lucky:Win on the slot machine %threshold% times. Fortune is starting to take notice of you.:Fortune notices persistence. Keep at it and see if it looks your way.
@@ -85,6 +86,7 @@ jackpot_king:slot_wins:2000:Jackpot King:Win on the slot machine %threshold% tim
 reel_deity:slot_wins:5000:Reel Deity:Win on the slot machine %threshold% times. The reels no longer spin for chance. They spin for you.:At a certain altitude, luck and inevitability become the same thing.
 
 ; Slot machine - losses
+
 first_slot_loss:slot_losses:1:Easy Come Easy Go:Lose on the slot machine for the first time. It happens to everyone.:Not every spin goes your way. You'll find out sooner or later.
 learning_experience:slot_losses:5:Learning Experience:Lose on the slot machine %threshold% times. You are learning a lot. Mostly what not to do.:Every loss teaches something. What you learn is up to you.
 bad_luck_baker:slot_losses:10:Bad Luck Baker:Lose on the slot machine %threshold% times. The reels are not impressed with you.:Some days the reels just aren't in a generous mood.
@@ -98,6 +100,7 @@ born_to_lose:slot_losses:2000:Born to Lose:Lose on the slot machine %threshold% 
 loss_incarnate:slot_losses:5000:Loss Incarnate:Lose on the slot machine %threshold% times. You have transcended losing. You have become it.:There are those who lose, and those who embody it completely. The reels made their choice.
 
 ; Blackjack - hands played
+
 deal_me_in:blackjack_hands:1:Deal Me In:Play your first hand of blackjack. You sit down at the table with confidence and absolutely no plan.:There's a table. There are cards. Someone has to sit down first.
 card_curious:blackjack_hands:5:Card Curious:Play %threshold% hands of blackjack. You are starting to understand the rules. Maybe.:Curiosity is what brings people to the table. The cards do the rest.
 table_regular:blackjack_hands:10:Table Regular:Play %threshold% hands of blackjack. The dealer is starting to recognize your face.:Regulars don't need to announce themselves. The table already knows.
@@ -111,6 +114,7 @@ blackjack_legend:blackjack_hands:2000:Blackjack Legend:Play %threshold% hands of
 blackjack_eternal:blackjack_hands:5000:Blackjack Eternal:Play %threshold% hands of blackjack. The cards no longer shuffle. They arrange themselves for you.:At a certain depth, the table stops being a game and starts being a relationship.
 
 ; Blackjack - wins
+
 first_blackjack_win:blackjack_wins:1:Winner Winner Cookie Dinner:Win your first hand of blackjack. The table is yours.:The table has a way of rewarding those who sit down ready to play.
 double_down:blackjack_wins:5:Double Down:Win %threshold% hands of blackjack. You are building momentum.:Momentum at the table is a quiet thing. You feel it before you see it.
 on_a_winning_streak:blackjack_wins:10:On a Winning Streak:Win %threshold% hands of blackjack. Lady luck has taken a liking to you.:Streaks don't announce themselves. They just keep going until they don't.
@@ -124,6 +128,7 @@ blackjack_god:blackjack_wins:2000:Blackjack God:Win %threshold% hands of blackja
 blackjack_absolute:blackjack_wins:5000:Blackjack Absolute:Win %threshold% hands of blackjack. The dealer has filed for a career change. You are the reason.:There is winning, and then there is what you have become. The table knows the difference.
 
 ; Blackjack - losses
+
 first_bust:blackjack_losses:1:Busted:Lose your first hand of blackjack. It happens to the best of us. Really.:The table has a way of humbling newcomers. It's practically tradition.
 tough_luck:blackjack_losses:5:Tough Luck:Lose %threshold% hands of blackjack. The cards are just not cooperating today.:Some days the cards have somewhere else to be. It's not personal.
 rough_at_the_tables:blackjack_losses:10:Rough at the Tables:Lose %threshold% hands of blackjack. The dealer is starting to feel bad for you. Almost.:Rough patches at the table are how you find out if you really want to be there.
@@ -137,6 +142,7 @@ walking_donation:blackjack_losses:2000:Walking Donation:Lose %threshold% hands o
 dealer_pension_fund:blackjack_losses:5000:Dealer Pension Fund:Lose %threshold% hands of blackjack. The dealer has named a yacht after you.:Some contributions to the world are financial. Yours happen to flow in one direction.
 
 ; Blackjack - pushes
+
 first_push:blackjack_pushes:1:Too Close to Call:Push your first hand of blackjack. Nobody wins, nobody loses. How unsatisfying.:Sometimes the cards land exactly where no one wanted them to.
 push_it:blackjack_pushes:5:Push It:Push %threshold% hands of blackjack. You have a talent for landing exactly where the dealer lands.:Landing in the same place as the dealer takes a certain kind of accidental precision.
 mirror_image:blackjack_pushes:10:Mirror Image:Push %threshold% hands of blackjack. You and the dealer are finishing each other's sentences.:When two hands keep meeting in the middle, something unusual is happening.
@@ -150,6 +156,7 @@ push_legend:blackjack_pushes:2000:Push Legend:Push %threshold% hands of blackjac
 push_phenomenon:blackjack_pushes:5000:Push Phenomenon:Push %threshold% hands of blackjack. The laws of probability have submitted a formal complaint.:At this point the universe has simply accepted that you and the dealer are the same person.
 
 ; Baking slots - auto slots purchased
+
 first_auto_slot:auto_slots_purchased:1:Automated:Purchase your first auto baking slot. The bakery is starting to run itself.:Something in the slot manager is waiting for a first purchase. Go find out what.
 slot_investor:auto_slots_purchased:5:Slot Investor:Purchase %threshold% auto baking slots. The investment is paying off.:A few purchases in and the bakery starts to feel different. Busier.
 slot_collector:auto_slots_purchased:10:Slot Collector:Purchase %threshold% auto baking slots. You have developed a habit.:Collectors don't stop at one. Or two. Or anywhere near here.
@@ -163,6 +170,7 @@ slot_empire:auto_slots_purchased:5000:Slot Empire:Purchase %threshold% auto baki
 slot_singularity:auto_slots_purchased:10000:Slot Singularity:Purchase %threshold% auto baking slots. The concept of manual labor no longer exists in your bakery.:There is a number of slots at which the bakery achieves sentience. You may have passed it.
 
 ; Baking slots - manual slots purchased
+
 first_manual_slot:manual_slots_purchased:1:Hands On:Purchase your first manual baking slot. More hands, more cookies.:There is a slot in the manager that responds to a different kind of purchase. Try it.
 manual_investor:manual_slots_purchased:5:Manual Investor:Purchase %threshold% manual baking slots. You believe in the power of hands.:Investment in manual production says something about your philosophy.
 hand_crafter:manual_slots_purchased:10:Hand Crafter:Purchase %threshold% manual baking slots. Every press counts for more now.:Crafters don't shy away from the hands-on approach. Neither do you.
@@ -176,6 +184,7 @@ manual_empire:manual_slots_purchased:5000:Manual Empire:Purchase %threshold% man
 manual_singularity:manual_slots_purchased:10000:Manual Singularity:Purchase %threshold% manual baking slots. The bake button has filed for early retirement.:At a certain number of manual slots, the button becomes a formality.
 
 ; Baking slots - auto slots enabled
+
 first_slot_enabled:auto_slots_enabled:1:Switched On:Enable your first auto baking slot. The bakery hums to life.:Something in the slot manager can be toggled. See what happens when you do.
 warming_up:auto_slots_enabled:5:Warming Up:Enable %threshold% auto baking slots. The production is starting to flow.:A few slots running and the bakery starts to sound different.
 humming_along:auto_slots_enabled:10:Humming Along:Enable %threshold% auto baking slots. The rhythm of the bakery is steady now.:When the hum becomes constant, you'll know you're on to something.
@@ -189,6 +198,7 @@ slot_conductor:auto_slots_enabled:5000:Slot Conductor:Enable %threshold% auto ba
 slot_omnipotence:auto_slots_enabled:10000:Slot Omnipotence:Enable %threshold% auto baking slots. The bakery has transcended the concept of production.:At a certain number of active slots, output stops being a measurement and becomes a constant.
 
 ; Baking slots - auto slots idle
+
 one_sitting_there:auto_slots_idle:1:Doing Nothing:Own an auto baking slot you haven't enabled. It just sits there. Waiting.:You own something you aren't using. The slot knows.
 couple_gathering_dust:auto_slots_idle:3:Dust Collector:Own %threshold% auto baking slots you haven't enabled. The dust is starting to accumulate.:Dust settles on things that don't move. Something in your bakery isn't moving.
 monument_to_waste:auto_slots_idle:5:Monument to Waste:Own %threshold% auto baking slots sitting idle. You have constructed a monument to inaction.:Monuments are usually built to celebrate something. This one celebrates nothing.

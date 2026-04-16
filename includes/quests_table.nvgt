@@ -17,6 +17,7 @@ class quest_item
     double threshold;
     bool use_percent;
     bool required;
+    bool advance;
     int difficulty;
     string description;
 }
@@ -24,6 +25,7 @@ class quest_item
 quests_config questsConfig;
 quest_item[] loadedQuests;
 quest_item[] activeQuests;
+string[] completedQuestIds;
 int questRerollCount = 0;
 
 void parse_quests_table(string filepath, quest_item[]@ quests_out)
@@ -68,7 +70,7 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
             int colonCount = 0;
             for (uint i = 0; i < line.length(); i++)
             {
-                if (line.substr(i, 1) == ":" && colonCount < 7)
+                if (line.substr(i, 1) == ":" && colonCount < 8)
                 {
                     parts.insert_last(line.substr(lastPos, i - lastPos));
                     lastPos = i + 1;
@@ -76,7 +78,7 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
                 }
             }
             parts.insert_last(line.substr(lastPos));
-            if (parts.length() < 8) continue;
+            if (parts.length() < 9) continue;
             quest_item item;
             item.id          = parts[0];
             item.name        = parts[1];
@@ -84,10 +86,11 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
             item.threshold   = string_to_number(parts[3]);
             item.use_percent = (parts[4] == "true");
             item.required    = (parts[5] == "true");
-            item.difficulty  = string_to_int(parts[6]);
+            item.advance     = (parts[6] == "true");
+            item.difficulty  = string_to_int(parts[7]);
             if (item.difficulty < 1)  item.difficulty = 1;
             if (item.difficulty > 10) item.difficulty = 10;
-            item.description = parts[7];
+            item.description = parts[8];
             quests_out.insert_last(item);
         }
     }
@@ -115,17 +118,50 @@ void assign_quests()
     }
 
     bool[] slotFilled;
+    string[] assignedRequiredStats;
     for (int s = 0; s < slots; s++) slotFilled.insert_last(false);
     for (uint i = 0; i < loadedQuests.length(); i++)
     {
         if (!loadedQuests[i].required) continue;
-        for (int s = 0; s < slots; s++)
+        bool statAlreadyAssigned = false;
+        for (uint a = 0; a < assignedRequiredStats.length(); a++)
         {
-            if (!slotFilled[s] && slotDifficulties[s] == loadedQuests[i].difficulty)
+            if (assignedRequiredStats[a] == loadedQuests[i].stat) { statAlreadyAssigned = true; break; }
+        }
+        if (statAlreadyAssigned) continue;
+        bool completed = false;
+        for (uint c = 0; c < completedQuestIds.length(); c++)
+        {
+            if (completedQuestIds[c] == loadedQuests[i].id) { completed = true; break; }
+        }
+        if (completed && loadedQuests[i].advance)
+        {
+            quest_item@ next = find_next_tier(loadedQuests[i].stat, loadedQuests[i].difficulty, true);
+            if (next !is null)
             {
-                activeQuests.insert_last(loadedQuests[i]);
-                slotFilled[s] = true;
-                break;
+                for (int s = 0; s < slots; s++)
+                {
+                    if (!slotFilled[s] && slotDifficulties[s] == next.difficulty)
+                    {
+                        activeQuests.insert_last(next);
+                        slotFilled[s] = true;
+                        assignedRequiredStats.insert_last(next.stat);
+                        break;
+                    }
+                }
+            }
+        }
+        else if (!completed)
+        {
+            for (int s = 0; s < slots; s++)
+            {
+                if (!slotFilled[s] && slotDifficulties[s] == loadedQuests[i].difficulty)
+                {
+                    activeQuests.insert_last(loadedQuests[i]);
+                    slotFilled[s] = true;
+                    assignedRequiredStats.insert_last(loadedQuests[i].stat);
+                    break;
+                }
             }
         }
     }
@@ -137,23 +173,37 @@ void assign_quests()
         quest_item[] candidates;
         for (uint i = 0; i < loadedQuests.length(); i++)
         {
-            if (!loadedQuests[i].required && loadedQuests[i].difficulty == targetDiff)
-                candidates.insert_last(loadedQuests[i]);
-        }
-        quest_item[] filtered;
-        for (uint c = 0; c < candidates.length(); c++)
-        {
+            if (loadedQuests[i].required) continue;
+            bool completed = false;
+            for (uint c = 0; c < completedQuestIds.length(); c++)
+            {
+                if (completedQuestIds[c] == loadedQuests[i].id) { completed = true; break; }
+            }
+            if (completed && loadedQuests[i].advance) continue;
             bool alreadyActive = false;
             for (uint a = 0; a < activeQuests.length(); a++)
             {
-                if (activeQuests[a].id == candidates[c].id) { alreadyActive = true; break; }
+                if (activeQuests[a].id == loadedQuests[i].id) { alreadyActive = true; break; }
             }
-            if (!alreadyActive) filtered.insert_last(candidates[c]);
+            if (alreadyActive) continue;
+            bool statAlreadyActive = false;
+            for (uint a = 0; a < activeQuests.length(); a++)
+            {
+                if (activeQuests[a].stat == loadedQuests[i].stat) { statAlreadyActive = true; break; }
+            }
+            if (statAlreadyActive) continue;
+            candidates.insert_last(loadedQuests[i]);
         }
-        if (filtered.length() > 0)
+        quest_item[] preferred;
+        for (uint c = 0; c < candidates.length(); c++)
         {
-            int idx = random(0, filtered.length() - 1);
-            activeQuests.insert_last(filtered[idx]);
+            if (candidates[c].difficulty == targetDiff) preferred.insert_last(candidates[c]);
+        }
+        quest_item[]@ pool = preferred.length() > 0 ? preferred : candidates;
+        if (pool.length() > 0)
+        {
+            int idx = random(0, pool.length() - 1);
+            activeQuests.insert_last(pool[idx]);
             slotFilled[s] = true;
         }
     }
@@ -169,6 +219,60 @@ void assign_quests()
                 activeQuests[j] = tmp;
             }
         }
+    }
+}
+
+quest_item@ find_next_tier(string stat, int currentDiff, bool required)
+{
+    quest_item@ best = null;
+    for (uint i = 0; i < loadedQuests.length(); i++)
+    {
+        if (loadedQuests[i].stat != stat) continue;
+        if (loadedQuests[i].required != required) continue;
+        if (loadedQuests[i].difficulty <= currentDiff) continue;
+        bool completed = false;
+        for (uint c = 0; c < completedQuestIds.length(); c++)
+        {
+            if (completedQuestIds[c] == loadedQuests[i].id) { completed = true; break; }
+        }
+        if (completed && loadedQuests[i].advance) continue;
+        if (best is null || loadedQuests[i].difficulty < best.difficulty)
+            @best = loadedQuests[i];
+    }
+    return best;
+}
+
+quest_item@ find_next_tier_any(int currentDiff, bool required)
+{
+    quest_item@ best = null;
+    for (uint i = 0; i < loadedQuests.length(); i++)
+    {
+        if (loadedQuests[i].required != required) continue;
+        if (loadedQuests[i].difficulty <= currentDiff) continue;
+        bool completed = false;
+        for (uint c = 0; c < completedQuestIds.length(); c++)
+        {
+            if (completedQuestIds[c] == loadedQuests[i].id) { completed = true; break; }
+        }
+        if (completed && loadedQuests[i].advance) continue;
+        if (best is null || loadedQuests[i].difficulty < best.difficulty)
+            @best = loadedQuests[i];
+    }
+    return best;
+}
+
+void mark_completed_quests()
+{
+    for (uint i = 0; i < activeQuests.length(); i++)
+    {
+        if (!activeQuests[i].advance) continue;
+        if (get_stat_value(activeQuests[i].stat) < activeQuests[i].threshold) continue;
+        bool alreadyMarked = false;
+        for (uint c = 0; c < completedQuestIds.length(); c++)
+        {
+            if (completedQuestIds[c] == activeQuests[i].id) { alreadyMarked = true; break; }
+        }
+        if (!alreadyMarked) completedQuestIds.insert_last(activeQuests[i].id);
     }
 }
 
@@ -291,6 +395,6 @@ string get_quest_detail(quest_item@ item)
     }
     ph = desc.find("%percent%");
     while (ph != -1) { desc = desc.substr(0, ph) + format_number(pct) + "%" + desc.substr(ph + 9); ph = desc.find("%percent%"); }
-    desc += "\r\nCurrent progress: " + get_quest_progress(item) + ". " + (complete ? "Complete" : "Incomplete");
+    desc += "\r\nCurrent progress: " + get_quest_progress(item) + (complete ? ". Complete" : "");
     return desc;
 }

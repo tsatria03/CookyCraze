@@ -1,3 +1,16 @@
+New in 4.7.
+Made it so completed quests now show a complete label in the quest list so you can see your status at a glance without arrowing into each one. The complete label is also appended to the progress line in the detail box when a quest is finished, and nothing is shown when it is not, replacing the previous incomplete label that appeared on every unfinished quest.
+New in 4.6.
+Replaced the quests required for prestige reward line in the Baker info screen with a prestige reward condition line that describes the requirement in plain English based on the require_all setting in quests.table, rather than showing a number.
+Added required header warnings above every functional section header in all config files. Since section headers like [settings] and [rewards] cannot have inline comments, the warning is placed on the line directly above so modders know not to remove or rename them.
+Added section comments to ranks.table, prestige.table, and slots.table to group related entries and make the files easier to navigate.
+Added rank section comments to baker.store and bundle.store marking each group of items and bundles by the rank required to access them.
+Updated all quest descriptions in quests.table to use the %threshold% placeholder instead of hardcoded numbers. The threshold value is now read dynamically at display time, so descriptions stay accurate if thresholds are ever changed.
+Replaced the single required rank quest with a tiered chain of 14 rank quests covering ranks 5, 10, 20, 30, 40, 50, 75, 100, 150, 200, 250, 300, 400, and 500. Each is marked as required and advance, so the chain progresses automatically as the player climbs the ranks.
+Made it so only one required quest per stat can be active at a time. Previously, all required quests for the same stat would compete for slots simultaneously. Now the current tier for each stat is always the one that appears, regardless of how many tiers exist for it.
+Fixed a bug where random quest slots could remain empty if no quest with the exact target difficulty was available. Slots now fall back to any eligible quest when an exact difficulty match cannot be found, and duplicate stats are prevented so two quests never track the same thing at once.
+Added an advance field to quests in quests.table. When set to true, completing a quest permanently retires it and replaces it with the next tier of the same stat on the next prestige cycle, so you never repeat a quest you have already beaten. When set to false, the quest repeats every cycle as normal. All quests in the default table ship with advance=true except the required rank quest, which always repeats.
+Fixed a bug where the prestige reward dialog would incorrectly say the quest requirement was not met even when it had been. The quest completion check is now evaluated before the game state is reset.
 New in 4.5.
 Added the current prestige level, quests completed, and quests required for a prestige reward to the Baker info screen. They now appear in the Progress section alongside rank, cookies, and coins.
 Changed the require_all setting in quests.table from a boolean to a numeric mode. Failing to meet the reward condition shows a nothing was gained message instead.

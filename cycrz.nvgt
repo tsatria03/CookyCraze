@@ -157,6 +157,7 @@ if (prestige)
         pool.play_stationary("sounds/misc/" + prestigeConfig.sound, false);
     dlgmessage_return(pmsg);
     bool rewardEarned = quests_reward_earned();
+    mark_completed_quests();
     reset_game_state();
     if (rewardEarned)
     {
@@ -184,6 +185,7 @@ else
 {
     achievementsUnlocked.delete_all();
     achievements_last_id="";
+    completedQuestIds.resize(0);
     stat_jack_hands=0;
     stat_jack_wins=0;
     stat_jack_losses=0;

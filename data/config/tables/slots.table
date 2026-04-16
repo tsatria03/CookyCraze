@@ -1,3 +1,5 @@
+; Settings
+
 symbols=apple, banana, bean, bell, bottel, bronze, car, carot, celery, chain, chime, clover, copper, crate, crown, diamond, flower, gem, glass, gold, grape, heart, iron, leef, metal, nickle, orange, peach, pebble, pepper, pees, potato, rack, rock, rose, silver, spade, star, stone, tomato
 
 reels=5
@@ -7,6 +9,9 @@ max_bet=0
 confirm_threshold=1000:false
 
 [payouts]
+
+; Required header — removing or renaming this will break the file.
+
 5:4:slotwin1.ogg:You won 4 times your bet!
 4:3:slotwin1.ogg:You won triple your bet!
 3:2:slotwin2.ogg:You won double your bet!

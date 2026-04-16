@@ -119,6 +119,17 @@ if (sd.d.exists("activeQuestCount"))
         }
     }
 }
+if (sd.d.exists("completedQuestCount"))
+{
+    int ccount = sd.read_int("completedQuestCount");
+    completedQuestIds.resize(0);
+    for (int i = 0; i < ccount; i++)
+    {
+        string ckey = "completedQuest_" + string(i);
+        if (!sd.d.exists(ckey)) continue;
+        completedQuestIds.insert_last(sd.read_string(ckey));
+    }
+}
 if (sd.d.exists("stat_cookies_baked")) stat_cookies_baked = sd.read_double("stat_cookies_baked");
 if (sd.d.exists("stat_bakes_performed")) stat_bakes_performed = sd.read_double("stat_bakes_performed");
 if (sd.d.exists("stat_coins_earned")) stat_coins_earned = sd.read_double("stat_coins_earned");
@@ -168,6 +179,9 @@ sd.add("questRerollCount", questRerollCount);
 sd.add("activeQuestCount", int(activeQuests.length()));
 for (uint i = 0; i < activeQuests.length(); i++)
     sd.add("activeQuest_" + string(i), activeQuests[i].id);
+sd.add("completedQuestCount", int(completedQuestIds.length()));
+for (uint i = 0; i < completedQuestIds.length(); i++)
+    sd.add("completedQuest_" + string(i), completedQuestIds[i]);
 sd.add("stat_cookies_baked", stat_cookies_baked);
 sd.add("stat_bakes_performed", stat_bakes_performed);
 sd.add("stat_coins_earned", stat_coins_earned);
