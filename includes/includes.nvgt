@@ -28,6 +28,8 @@
 #include"jacks_table.nvgt"
 #include"prestige_table.nvgt"
 #include"quests_table.nvgt"
+#include"lottery_table.nvgt"
+#include"ticket_store.nvgt"
 #include"savefuncts.nvgt"
 #include"speech.nvgt"
 #include"virtual_dialogs.nvgt"

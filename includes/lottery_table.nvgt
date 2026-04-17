@@ -1,0 +1,248 @@
+class lottery_prize_item
+{
+    string id;
+    string target;
+    double min_amount;
+    double max_amount;
+    bool use_percent;
+    int weight;
+    string sound;
+    string message;
+}
+
+class lottery_ticket_category
+{
+    string id;
+    string name;
+    int min_rank;
+    bool hidden;
+    string description;
+}
+
+class lottery_ticket_item
+{
+    string category_id;
+    string id;
+    string name;
+    double base_cost;
+    double cost_multiplier;
+    int min_rank;
+    bool hidden;
+    string prize_id;
+    string description;
+    int owned;
+}
+
+int lotteryMaxTickets = 99;
+lottery_ticket_category[] loadedTicketCategories;
+lottery_ticket_item[] loadedTickets;
+dictionary lotteryPrizePools;
+
+void parse_lottery_table(string filepath)
+{
+    file f;
+    if (!f.open(filepath, "r")) return;
+    string currentPool = "";
+    lottery_prize_item[] currentPrizes;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 1) == ";") continue;
+        if (line == "[settings]") { currentPool = ""; continue; }
+        if (line.substr(0, 7) == "[prize:")
+        {
+            if (currentPool != "" && currentPrizes.length() > 0)
+                lotteryPrizePools.set(currentPool, currentPrizes);
+            currentPool = line.substr(7, line.length() - 8);
+            currentPrizes.resize(0);
+            continue;
+        }
+        if (currentPool == "")
+        {
+            int eq = line.find("=");
+            if (eq != -1)
+            {
+                string key = line.substr(0, eq);
+                string val = line.substr(eq + 1);
+                if (key == "max_tickets") lotteryMaxTickets = string_to_int(val);
+            }
+            continue;
+        }
+        string[] parts;
+        int lastPos = 0;
+        int colonCount = 0;
+        for (uint i = 0; i < line.length(); i++)
+        {
+            if (line.substr(i, 1) == ":" && colonCount < 7)
+            {
+                parts.insert_last(line.substr(lastPos, i - lastPos));
+                lastPos = i + 1;
+                colonCount++;
+            }
+        }
+        parts.insert_last(line.substr(lastPos));
+        if (parts.length() < 8) continue;
+        lottery_prize_item prize;
+        prize.id = parts[0];
+        prize.target = parts[1];
+        prize.min_amount = string_to_number(parts[2]);
+        prize.max_amount = string_to_number(parts[3]);
+        prize.use_percent = (parts[4] == "true");
+        prize.weight = string_to_int(parts[5]);
+        prize.sound = parts[6];
+        prize.message = parts[7];
+        currentPrizes.insert_last(prize);
+    }
+    if (currentPool != "" && currentPrizes.length() > 0)
+        lotteryPrizePools.set(currentPool, currentPrizes);
+    f.close();
+}
+
+lottery_prize_item@ pick_lottery_prize(string prize_id)
+{
+    lottery_prize_item[] prizes;
+    if (!lotteryPrizePools.get(prize_id, prizes)) return null;
+    if (prizes.length() == 0) return null;
+    int totalWeight = 0;
+    for (uint i = 0; i < prizes.length(); i++)
+        totalWeight += prizes[i].weight;
+    if (totalWeight <= 0) return null;
+    int roll = random(0, totalWeight - 1);
+    int cumulative = 0;
+    for (uint i = 0; i < prizes.length(); i++)
+    {
+        cumulative += prizes[i].weight;
+        if (roll < cumulative)
+            return prizes[i];
+    }
+    return prizes[prizes.length() - 1];
+}
+
+double get_ticket_current_cost(lottery_ticket_item@ ticket)
+{
+    return floor(ticket.base_cost * pow(ticket.cost_multiplier, ticket.owned));
+}
+
+string apply_lottery_prize(lottery_prize_item@ prize)
+{
+    if (prize.target == "none") return "";
+    double amount = 0;
+    if (prize.use_percent)
+    {
+        double base = 0;
+        if (prize.target == "coins") base = coins;
+        else if (prize.target == "cookies") base = cookies;
+        else if (prize.target == "autocooky") base = autocooky;
+        else if (prize.target == "manulcooky") base = manulcooky;
+        else if (prize.target == "cookyspeed") base = cookyspeed;
+        double pct = double(random(int(prize.min_amount * 100), int(prize.max_amount * 100))) / 100.0;
+        amount = floor(base * (pct / 100.0));
+    }
+    else
+        amount = floor(double(random(int(prize.min_amount), int(prize.max_amount))));
+    if (amount <= 0) return "";
+    if (prize.target == "coins") { coins += amount; coins = floor(coins); stat_coins_earned += amount; }
+    else if (prize.target == "cookies") { cookies += amount; cookies = floor(cookies); }
+    else if (prize.target == "autocooky") { autocooky += amount; autocooky = floor(autocooky); }
+    else if (prize.target == "manulcooky") { manulcooky += amount; manulcooky = floor(manulcooky); }
+    else if (prize.target == "cookyspeed") { cookyspeed += amount; clicktime -= amount; if (cookyspeed < 0) cookyspeed = 0; if (clicktime < 50) clicktime = 50; cookyspeed = floor(cookyspeed); }
+    string amtStr = "";
+    if (prize.target == "coins") amtStr = convert_to_currency(amount);
+    else amtStr = format_number(amount);
+    string msg = prize.message;
+    int ph = msg.find("%amount%");
+    while (ph != -1) { msg = msg.substr(0, ph) + amtStr + msg.substr(ph + 8); ph = msg.find("%amount%"); }
+    return msg;
+}
+
+void lottery_scratch_one(lottery_ticket_item@ ticket, int ticketIdx)
+{
+    loadedTickets[ticketIdx].owned--;
+    stat_lottery_tickets_scratched++;
+    pool.play_stationary("sounds/misc/tickscratch.ogg", false);
+    wait(500);
+    lottery_prize_item@ prize = pick_lottery_prize(ticket.prize_id);
+    if (prize is null)
+    {
+        dlg_buffer("Something went wrong reading the prize pool for this ticket.");
+        return;
+    }
+    if (prize.target == "none")
+    {
+        stat_lottery_losses++;
+        if (prize.sound != "" && prize.sound != "none")
+            pool.play_stationary("sounds/misc/" + resolve_sound(prize.sound), false);
+        dlg_buffer(prize.message);
+    }
+    else
+    {
+        stat_lottery_wins++;
+        if (prize.sound != "" && prize.sound != "none")
+            pool.play_stationary("sounds/misc/" + resolve_sound(prize.sound), false);
+        string result = apply_lottery_prize(@prize);
+        dlg_buffer(result);
+    }
+}
+
+void lottery_scratch_all(lottery_ticket_item@ ticket, int ticketIdx)
+{
+    int count = loadedTickets[ticketIdx].owned;
+    loadedTickets[ticketIdx].owned = 0;
+    stat_lottery_tickets_scratched += count;
+    double totalCoins = 0;
+    double totalCookies = 0;
+    double totalAutocooky = 0;
+    double totalManulcooky = 0;
+    double totalCookyspeed = 0;
+    int wins = 0;
+    int losses = 0;
+    pool.play_stationary("sounds/misc/tickscratch.ogg", false);
+    wait(500);
+    for (int i = 0; i < count; i++)
+    {
+        lottery_prize_item@ prize = pick_lottery_prize(ticket.prize_id);
+        if (prize is null) continue;
+        if (prize.target == "none") { losses++; continue; }
+        wins++;
+        double amount = 0;
+        if (prize.use_percent)
+        {
+            double base = 0;
+            if (prize.target == "coins") base = coins;
+            else if (prize.target == "cookies") base = cookies;
+            else if (prize.target == "autocooky") base = autocooky;
+            else if (prize.target == "manulcooky") base = manulcooky;
+            else if (prize.target == "cookyspeed") base = cookyspeed;
+            double pct = double(random(int(prize.min_amount * 100), int(prize.max_amount * 100))) / 100.0;
+            amount = floor(base * (pct / 100.0));
+        }
+        else
+            amount = floor(double(random(int(prize.min_amount), int(prize.max_amount))));
+        if (prize.target == "coins") totalCoins += amount;
+        else if (prize.target == "cookies") totalCookies += amount;
+        else if (prize.target == "autocooky") totalAutocooky += amount;
+        else if (prize.target == "manulcooky") totalManulcooky += amount;
+        else if (prize.target == "cookyspeed") totalCookyspeed += amount;
+    }
+    if (totalCoins > 0) { coins += totalCoins; coins = floor(coins); stat_coins_earned += totalCoins; }
+    if (totalCookies > 0) { cookies += totalCookies; cookies = floor(cookies); }
+    if (totalAutocooky > 0) { autocooky += totalAutocooky; autocooky = floor(autocooky); }
+    if (totalManulcooky > 0) { manulcooky += totalManulcooky; manulcooky = floor(manulcooky); }
+    if (totalCookyspeed > 0) { cookyspeed += totalCookyspeed; clicktime -= totalCookyspeed; if (cookyspeed < 0) cookyspeed = 0; if (clicktime < 50) clicktime = 50; cookyspeed = floor(cookyspeed); }
+    stat_lottery_wins += wins;
+    stat_lottery_losses += losses;
+    string endSound = (wins > 0) ? "tickwin.ogg" : "ticklose" + string(random(1, 3)) + ".ogg";
+    pool.play_stationary("sounds/misc/" + endSound, false);
+    string summary = "You scratched " + string(count) + " " + ticket.name + (count == 1 ? "" : "s") + ". ";
+    summary += string(wins) + " win" + (wins == 1 ? "" : "s") + ", " + string(losses) + " loss" + (losses == 1 ? "" : "es") + ". ";
+    bool anygain = false;
+    if (totalCoins > 0) { summary += "Money: +" + convert_to_currency(totalCoins) + ". "; anygain = true; }
+    if (totalCookies > 0) { summary += "Cookies: +" + format_number(totalCookies) + ". "; anygain = true; }
+    if (totalAutocooky > 0) { summary += "Auto cookies: +" + format_number(totalAutocooky) + ". "; anygain = true; }
+    if (totalManulcooky > 0) { summary += "Manual cookies: +" + format_number(totalManulcooky) + ". "; anygain = true; }
+    if (totalCookyspeed > 0) { summary += "Baking speed: +" + format_number(totalCookyspeed) + "ms. "; anygain = true; }
+    if (!anygain) summary += "Nothing won this time.";
+    dlg_buffer(summary);
+}

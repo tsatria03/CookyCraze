@@ -1,7 +1,7 @@
 Welcome to Cooky Craze!
-In this game, you bake and sell cookies to earn coins, climb the ranks, and build the ultimate automated bakery.
+In this game, you bake and sell cookies to earn money, climb the ranks, and build the ultimate automated bakery.
 
-Start out clicking manually, then invest your coins into upgrades and unlock minigames like blackjack, the cooky flipper, and the slot machine.
+Start out clicking manually, then invest your money into upgrades and unlock minigames like blackjack, the cooky flipper, the slot machine, and the cooky lottery.
 Automate your production until cookies are practically baking themselves.
 Every rank you reach brings a reward, and milestones along the way unlock powerful new features.
 
@@ -10,13 +10,13 @@ Can you reach the highest rank and become the ultimate baker? Let's find out!
 Game features
 
 Baking and selling cookies.
-Bake cookies and sell them to earn coins. The more you bake, the higher your rank, and the more you earn.
+Bake cookies and sell them to earn money. The more you bake, the higher your rank, and the more you earn.
 
 You can bake manually by pressing the bake button, or let auto-baking handle it passively.
 Every cookie baked counts toward your rank progress.
-Your earnings per bake scale with your rank, so the further you progress, the faster coins accumulate.
+Your earnings per bake scale with your rank, so the further you progress, the faster money accumulates.
 
-To sell cookies and earn coins, enter the cooky store and choose the sell option.
+To sell cookies and earn money, enter the cooky store and choose the sell option.
 You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in.
 Press enter to sell everything you have, or type a smaller number to sell only part of your supply.
 Each cookie sells for a fixed rate, so the more you bake before selling, the larger your payout.
@@ -30,10 +30,10 @@ If you have no baking slots yet, auto baking uses your full auto cookie value di
 Once you purchase and enable slots through the baking slots manager, production is routed through them instead, giving you finer control over how cookies are distributed.
 
 Ranking up.
-Reach new ranks by baking cookies. Every rank rewards you with coins, and milestone ranks unlock new features.
+Reach new ranks by baking cookies. Every rank rewards you with money, and milestone ranks unlock new features.
 
-The coin reward scales with your current rank, so higher ranks pay out more.
-Certain milestone ranks also award bonus stat boosts on top of the coin reward, such as extra auto cookies or manual cookies.
+The money reward scales with your current rank, so higher ranks pay out more.
+Certain milestone ranks also award bonus stat boosts on top of the money reward, such as extra auto cookies or manual cookies.
 
 All rewards and unlock ranks are fully configurable in ranks.table.
 
@@ -43,7 +43,7 @@ When baking mode is off, they show as a dismissible dialog so you don't miss the
 When baking mode is on, they are delivered non-interruptively so they don't interrupt automated play.
 
 The singles shop.
-Buy individual stat upgrades using your coins. Three stats are available: auto cookies, manual cookies, and baking speed.
+Buy individual stat upgrades using your money. Three stats are available: auto cookies, manual cookies, and baking speed.
 
 Auto cookies increases how many cookies are baked automatically per cycle.
 Manual cookies increases how many cookies you produce per bake press.
@@ -58,14 +58,14 @@ The first is buying a single item at a custom quantity. Select any item in a cat
 Type the exact number you want and confirm to buy precisely that amount at the current price.
 
 The second is buying a single item at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in.
-Simply press enter without typing anything and the game buys as many of that item as your coins allow in one transaction.
+Simply press enter without typing anything and the game buys as many of that item as your budget allows in one transaction.
 
 The third is buying all affordable items at a custom quantity. At the bottom of each category is a buy all affordable items option, which appears whenever at least one item in the category is within your budget.
 Selecting it prompts you for a quantity, and the game buys that many of every affordable item in the category at once, skipping any you cannot afford.
 This lets you spread a large purchase across multiple stats in a single action instead of visiting each item individually.
 
 The fourth is buying all affordable items at the maximum quantity. The buy all affordable prompt pre-fills the maximum number you can afford across all eligible items in the category.
-Pressing enter without changing it buys every affordable item to the maximum your coins allow, making it the fastest way to spend a large coin reserve across an entire category in one go.
+Pressing enter without changing it buys every affordable item to the maximum your budget allows, making it the fastest way to spend across an entire category in one go.
 
 The bundle shop.
 Buy packages of multiple stat upgrades at once, often at better value than buying the same items individually.
@@ -80,9 +80,18 @@ This means bundle prices scale up naturally as you progress, just like singles d
 
 The advantage of bundles is that they package multiple items into one convenient purchase, so you get more total stats per transaction than buying the same items one at a time.
 
-Bundles support the same quantity system as the singles shop. When you select a bundle, you are prompted for how many you want to buy, with the maximum you can currently afford already filled in.
-You can type a specific number to buy exactly that many, or press enter to buy as many as your coins allow.
+There are three ways to purchase in the bundle shop.
+
+The first is buying a bundle at a custom quantity. Select any bundle and you will be prompted for how many you want to buy.
+Type the exact number you want and confirm to buy precisely that many at the current price.
+
+The second is buying a bundle at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in.
+Simply press enter without typing anything and the game buys as many as your budget allows in one transaction.
 The total cost shown in the menu is always per bundle, so the game multiplies that by your chosen quantity at checkout.
+
+The third is buying one of every affordable bundle. At the bottom of each category is a buy one of every affordable bundle option, which appears whenever at least one bundle in the category is within your budget.
+Selecting it buys exactly one of every bundle you can currently afford in that category in a single transaction, skipping any you cannot afford.
+It reports which bundles were purchased, what stats you gained, and the total amount spent.
 
 The key difference between bundles and the singles shop bulk buy is not price, but convenience.
 Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats.
@@ -99,7 +108,7 @@ Events fire automatically during gameplay and are fully configurable in baker.ev
 Blackjack. Unlocked at rank 10.
 A card game where you bet an item of your choice and try to reach 21 without going over.
 
-You can bet cookies, coins, auto cookies, manual cookies, or baking speed.
+You can bet money, cookies, auto cookies, manual cookies, or baking speed.
 A natural 21 on your opening two cards pays out at 1.5 times your bet.
 A standard win pays double, and a tie returns your original bet.
 The dealer stands at 17 by default.
@@ -130,6 +139,13 @@ Payouts depend on how many reels match and which symbols line up, with higher ma
 The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table.
 
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
+
+Cooky lottery. Unlocked at rank 30.
+Buy scratch tickets and reveal prizes ranging from coins and cookies to stat boosts.
+
+Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end.
+Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
+You can hold up to 99 tickets of each tier at once, and scratch them one at a time or all at once from the lottery screen.
 
 Rank ups and achievement unlocks are checked and can fire while you are playing any of the 3 minigames mentioned abuv.
 
@@ -165,8 +181,9 @@ Progress.
 
 Current rank: your current rank number.
 Current cookies: how many cookies you have right now.
+Coins per sell: how much money you would earn if you sold your entire current cookie stockpile right now. Updates live as your cookie count changes.
 Cookies needed for next rank: how many cookies are required to reach the next rank.
-Current coins: how many coins you currently have.
+Current coins: how much money you currently have.
 Prestige level: how many times you have prestiged. Starts at 0 on a fresh save.
 Prestige reward condition: describes what you need to complete to receive a reward on your next prestige, based on the require_all setting in quests.table.
 
@@ -181,6 +198,8 @@ Access the baker statistics screen and achievement statistics screen from the St
 
 Baker statistics.
 View a summary of everything you have done in your current playthrough. Open it from the Statistics menu.
+
+Most stats shown here are tracked stats, meaning they are running totals that only ever go up and are saved with your game. A few are live stats, meaning they are calculated fresh from the current game state each time you open the screen and can go up or down. Live stats are noted individually where they appear.
 
 The statistics screen is divided into seven sections.
 
@@ -202,7 +221,7 @@ Manual slots purchased: counts every manual baking slot you have ever bought.
 
 Economy.
 
-Coins earned: counts the total coins you have received across all sources, including selling cookies and rank rewards.
+Coins earned: counts the total amount of money you have received across all sources, including selling cookies and rank rewards.
 Bundle upgrades purchased: counts every bundle shop transaction.
 Single upgrades purchased: counts every singles shop transaction, whether you buy one item or a full bulk purchase.
 
@@ -223,6 +242,12 @@ Slot machine.
 Total spins: counts every spin of the reels.
 Wins: counts spins where the payout multiplier was greater than zero, meaning you got at least something back.
 Losses: counts spins where the payout multiplier was zero, meaning you lost your bet entirely.
+
+Lottery.
+
+Tickets scratched: counts every ticket you have scratched, regardless of outcome.
+Wins: counts scratches where a prize was awarded.
+Losses: counts scratches that returned nothing.
 
 Quests.
 
@@ -277,6 +302,7 @@ The game ships with 75 quests: 14 tiered required rank quests covering ranks 5 t
 Rerolling a quest replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
 
 To view your quests, press the Quests button in the main game interface.
+A Quest Category list at the top of the quests screen lets you narrow down the quest list by category. The options are All, Required, and Random. All is the default and shows every active quest. Required shows only required quests. Random shows only random quests. Arrow through the Quest Category list to switch and the quest list updates immediately.
 The quests screen shows required quests at the top of the list, followed by random quests sorted from easiest to hardest by difficulty.
 Completed quests are labelled with complete in the list so you can see your status at a glance without having to open each one.
 Arrow to any quest and the detail box updates automatically, showing the description and current progress toward the threshold.
@@ -284,7 +310,7 @@ If the quest is complete, a complete label is appended to the progress line.
 
 The prestige button is located in the quests screen and its label updates dynamically to reflect your current status.
 A prestige history box also appears in the quests screen after the prestige button, showing a log of every prestige run.
-When a random quest is focused, a reroll history box appears directly after the reroll button, showing the last 50 rerolls in order and listing which quest was replaced, what replaced it, and how much it cost. It is hidden when a required quest is focused since required quests cannot be rerolled.
+A reroll history box appears directly after the reroll button, showing the last 50 rerolls in order and listing which quest was replaced, what replaced it, and how much it cost. It is hidden when a required quest is focused since required quests cannot be rerolled. When the Quest Category is set to Random the reroll button and reroll history are always visible since every quest shown is rerollable. When set to Required they are always hidden. When set to All visibility toggles as you move between required and random quests.
 Both boxes show a message when empty and reset when starting a new game.
 Before reaching the minimum rank it shows unlocked at rank X.
 Once unlocked, if the quest requirement has not been met it shows no reward available.
@@ -303,7 +329,7 @@ Reset your progress and earn a permanent bonus that carries into every future ru
 The prestige option is available from the quests screen.
 Once you reach the minimum rank, pressing the prestige button opens a confirmation dialog explaining what resets and what carries over, and whether you will receive a reward based on your current quest completion status.
 
-When you prestige, the following are reset: cookies, coins, rank, all upgrade purchases, baking slots, and baking and economy stats.
+When you prestige, the following are reset: your money, cookies, rank, all upgrade purchases, baking slots, and baking and economy stats.
 The following are kept: your prestige level, all achievements and achievement progress, minigame unlocks, minigame stats, and preferences.
 
 Whether you receive a reward depends on the require_all setting in quests.table.
@@ -316,7 +342,7 @@ All prestige settings and milestone rewards are fully configurable in prestige.t
 Save slots.
 
 The game supports multiple save slots for separate playthroughs, selected from the main menu.
-Each slot is completely independent, with its own rank, cookies, coins, upgrades, and settings.
+Each slot is completely independent, with its own rank, cookies, money, upgrades, and settings.
 You can start a new game in any slot at any time without affecting your other saves.
 Save slots are chosen when loading or starting a new game from the main menu.
 
@@ -328,7 +354,7 @@ Letter, F: Announces how many cookies you produce per bake when baking mode is a
 Letter, J: Announces how many cookies you produce per bake when baking mode is inactive.
 Letter, C: Announces your current cookie count.
 Letter, R: Announces your current rank and how many cookies are needed to reach the next rank.
-Letter, M: Announces how many coins you currently have.
+Letter, M: Announces how much money you currently have.
 Control S: Saves your game progress.
 Control L: Reloads all configuration files and your save data without restarting the game. Useful when editing config files.
 Escape: Opens a prompt asking whether you want to quit.
@@ -372,11 +398,11 @@ Configuration files for modders
 All of the configuration files are located in the data/config folder, and are split into three subfolders.
 Lines starting with a semicolon, hash, or double slash are treated as comments and ignored by the parser.
 
-Four of the files, ranks.table, slots.table, prestige.table, and quests.table, use section headers in square brackets such as [sounds], [default], [rewards], [settings], and [quests]. These are not cosmetic.
+Five of the files, ranks.table, slots.table, prestige.table, quests.table, and lottery.table, use section headers in square brackets such as [sounds], [default], [rewards], [settings], [quests], and [prize:id]. These are not cosmetic.
 The parser uses them to know which format to expect. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
 Each functional header has a warning comment placed directly below it inside the file as a reminder. That comment is cosmetic and can be removed, but the header itself must stay exactly as written.
 
-Four of the remaining files, baker.event, flipper.event, jacks.table, and singles.store, do not use functional section headers. Every line in those files follows the same format throughout.
+Five of the remaining files, baker.event, flipper.event, jacks.table, singles.store, and tickets.store, do not use functional section headers. Every line in those files follows the same format throughout.
 They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely.
 
 achievements.table uses a category alias system at the top of the file, the same way singles.store defines shop menus.
@@ -384,7 +410,7 @@ Category aliases are defined as alias=Full Category Name lines before any achiev
 Each achievement line then begins with its category alias as the first field.
 The categories drive the achievements menu and achievement statistics screen dynamically, so the order and names are entirely up to you.
 
-The sixth file, bundles.store, uses one functional section header, [bundles], which marks where the bundle definitions begin.
+bundles.store uses one functional section header, [bundles], which marks where the bundle definitions begin.
 Aliases defined above it are always read regardless of position, but bundle lines are only read after the header appears.
 
 baker.event
@@ -467,7 +493,7 @@ Use %actual% as an optional placeholder to show the real computed stat change.
 
 For percentage events, %actual% shows the true amount gained or lost after applying the percentage.
 
-For example, if you have 200 coins and lose 10 percent, %amount% shows 10 and %actual% shows 20.
+For example, if you have $2.00 and lose 10 percent, %amount% shows 10 and %actual% shows 20 cents.
 For flat events, %actual% and %amount% show the same value, so only %amount% is needed.
 
 flipper.event
@@ -548,7 +574,7 @@ The stat this item increases when purchased.
 3 = cooky_speed. Increases the player's baking speed by reducing the auto bake interval.
 
 base_cost
-The starting price of this item in coins before any purchases have been made.
+The starting price of this item before any purchases have been made. Displayed as currency in game.
 
 cost_multiplier
 How much the cost increases with each purchase. Uses compounding geometric scaling, meaning each purchase multiplies the previous price rather than adding a fixed amount to the original.
@@ -557,8 +583,8 @@ How much the cost increases with each purchase. Uses compounding geometric scali
 
 Unlike a flat multiplier, a compounding multiplier grows on top of itself every time. The difference becomes dramatic very quickly.
 
-A flat multiplier of 1.25 on a base cost of 100 always charges 125 coins no matter how many times you buy.
-A compounding multiplier of 1.25 starts at 100 coins but reaches around 930 coins by purchase 10, and nearly 5 billion coins by purchase 100.
+A flat multiplier of 1.25 on a base cost of 100 always charges $1.25 no matter how many times you buy.
+A compounding multiplier of 1.25 starts at $1.00 but reaches around $9.30 by purchase 10, and nearly $50,000,000 by purchase 100.
 
 This means even values that look small are dangerous at a higher scale.
 A multiplier of 1.05 feels gentle at first, but after 300 purchases the price will have grown into the quadrillions.
@@ -626,8 +652,8 @@ The statistic this achievement tracks. Must be one of the following values.
 cookies_baked          = total number of cookies baked, both manual and automatic.
 auto_bakes_performed   = total times the auto baker has completed a cycle.
 manual_bakes_performed = total times the bake button has been pressed manually.
-coins_earned           = total coins received from all sources.
-coins_spent            = total coins spent on shop purchases and quest rerolls.
+coins_earned           = total money received from all sources.
+coins_spent            = total money spent on shop purchases and quest rerolls.
 
 auto_slots_purchased   = total auto baking slots ever bought.
 auto_slots_enabled     = total auto slots that have been automated, individually or via automate all.
@@ -694,13 +720,13 @@ dealer_stand
 The point value at which the dealer stops drawing cards. Standard casino rules use 17.
 
 natural_multiplier
-The payout multiplier for a natural blackjack, which is 21 on the first two cards. Standard casino rules use 1.5, meaning a 100 coin bet returns 250 coins total.
+The payout multiplier for a natural blackjack, which is 21 on the first two cards. Standard casino rules use 1.5, meaning a $1.00 bet returns $2.50 total.
 
 This is a flat multiplier applied once to the bet amount.
 Setting this very high will make blackjack an extremely powerful way to multiply stats and can unbalance the game quickly if bets are large.
 
 win_multiplier
-The payout multiplier for a standard win. Standard rules use 2, meaning a 100 coin bet returns 200 coins total.
+The payout multiplier for a standard win. Standard rules use 2, meaning a $1.00 bet returns $2.00 total.
 
 This is a flat multiplier.
 Setting it below 1 means the player always loses value even on a win, and setting it very high will make winning hands disproportionately rewarding.
@@ -818,6 +844,7 @@ blackjack   = unlocks the blackjack minigame.
 flipper     = unlocks the cooky flipper minigame.
 slots       = unlocks the slot machine minigame.
 slotmanager = unlocks the baking slots manager. Also sets the rank gate for the baking slots manager menu automatically.
+lottery     = unlocks the cooky lottery and the ticket shop.
 
 message
 The text spoken to the player when this reward fires.
@@ -1004,8 +1031,8 @@ stat
 The statistic this quest tracks. Uses the same stat names as achievements.table. Must be one of the following values.
 
 cookies_baked          = total cookies baked, both manual and automatic.
-coins_earned           = total coins received from all sources.
-coins_spent            = total coins spent on shop purchases and quest rerolls.
+coins_earned           = total money received from all sources.
+coins_spent            = total money spent on shop purchases and quest rerolls.
 
 auto_slots_purchased   = total auto baking slots ever bought.
 manual_slots_purchased = total manual baking slots ever bought.
@@ -1069,6 +1096,108 @@ The following placeholders are available and will be replaced at display time.
 %percent%   = the player's current progress as a percentage of the threshold.
 
 Keep the description focused on what the quest is asking, and let the game handle reporting the progress.
+
+lottery.table
+
+Location: data/config/tables/lottery.table
+
+Defines the global lottery settings and all prize pools used when a ticket is scratched.
+
+Settings section.
+
+max_tickets
+The maximum number of tickets of each tier the player can hold at once. Set to 0 for no limit.
+
+Prize pools.
+Format: id:target:min_amount:max_amount:use_percent:weight:sound:message
+
+Each prize pool is declared with a section header in the format [prize:id], where id matches the prize_id field on a ticket in tickets.store.
+Every line under a pool header defines one possible prize the player can scratch.
+
+id
+The internal identifier for this prize. Must be unique across all entries. Used internally only.
+
+target
+The stat this prize affects when it is scratched.
+
+cookies    = the player's current cookie count.
+coins      = the player's current coin count.
+autocooky  = the player's auto cookie production rate.
+manulcooky = the player's manual cookie production rate.
+cookyspeed = the player's baking speed.
+none       = a losing ticket. No stat is changed.
+
+At least one losing prize per pool is required.
+
+min_amount and max_amount
+The range of values the prize can award. A random value between them is chosen at scratch time.
+
+use_percent
+Controls whether the amount is treated as a flat value or a percentage of the player's current stat.
+
+false = the rolled amount is applied directly.
+true  = the rolled amount is treated as a percentage of what the player currently has.
+
+weight
+The relative chance of this prize being selected within its pool. Higher values are more common.
+Weights are relative to each other within the pool only. A weight of 200 is twice as likely as 100.
+
+sound
+The sound file to play when this prize is revealed, relative to sounds/misc/.
+Supports random range syntax, for example ticklose(1,3).ogg picks randomly from ticklose1 to ticklose3.
+Set to none to play no sound.
+
+message
+The message shown to the player when this prize is revealed. Use %amount% as a placeholder for the awarded value.
+
+tickets.store
+
+Location: data/config/stores/tickets.store
+
+Defines the ticket categories and individual ticket tiers available in the lottery shop.
+
+Category format: id=Display Name|rank|hidden|description
+
+id
+The internal identifier for this category, referenced by ticket entries below.
+
+Display Name
+Shown as the category heading in the buy tickets menu.
+
+rank
+The minimum rank required to see this category. Set to 0 for no requirement.
+
+hidden
+Set to true to hide the category entirely until the rank is reached. Set to false to show it as locked with the required rank displayed.
+
+description
+Shown when the player highlights the category in the shop.
+
+Ticket format: category:id:cost:multiplier:rank:hidden:prize_id:description
+
+category
+The id of the category this ticket belongs to, as defined in the category section above.
+
+id
+The internal identifier for this ticket tier. Must be unique across all ticket entries.
+
+cost
+The base coin cost for the first ticket purchased.
+
+multiplier
+How much the cost scales with each ticket purchased. Uses the same compounding scaling as the singles shop. Set to 1.0 for a flat price.
+
+rank
+The minimum rank required to buy this ticket. Set to 0 for no requirement.
+
+hidden
+Set to true to hide this ticket until the rank is reached. Set to false to show it as locked.
+
+prize_id
+The prize pool id from lottery.table that is used when a ticket of this tier is scratched. Must match a [prize:id] section header in lottery.table exactly.
+
+description
+Shown when the player highlights this ticket in the buy menu.
 
 Game conclusion
 

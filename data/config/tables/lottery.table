@@ -1,0 +1,60 @@
+[settings]
+
+; Required header — removing or renaming this will break the file.
+
+max_tickets=99
+
+[prize:bronze]
+
+; Required header — removing or renaming this will break the file.
+
+bronze_loss:none:0:0:false:500:ticklose(1,3).ogg:No luck this time. Better scratch another one.
+bronze_small_coins:coins:25:75:false:250:tickwin.ogg:Small win! You scratched up %amount%!
+bronze_medium_coins:coins:100:200:false:100:tickwin.ogg:Not bad! You found %amount% under the coating!
+bronze_cookies:cookies:5:20:false:120:tickwin.ogg:Lucky crumble! You uncovered %amount% cookies!
+bronze_autocooky:autocooky:1:2:false:50:tickwin.ogg:Scratch surprise! You gained %amount% auto-cookies!
+bronze_manulcooky:manulcooky:1:2:false:50:tickwin.ogg:Handy find! You gained %amount% manual cookies!
+
+[prize:silver]
+
+; Required header — removing or renaming this will break the file.
+
+silver_loss:none:0:0:false:400:ticklose(1,3).ogg:Nothing this time. The silver lining was just the coating.
+silver_small_coins:coins:150:400:false:220:tickwin.ogg:A little something! You scratched up %amount%!
+silver_medium_coins:coins:500:1000:false:100:tickwin.ogg:Nice scratch! You uncovered %amount%!
+silver_large_coins:coins:1200:2000:false:40:tickwin.ogg:Big find! You scratched out %amount%!
+silver_cookies:cookies:20:60:false:100:tickwin.ogg:Cookie stash! You found %amount% cookies hiding under the coating!
+silver_autocooky:autocooky:1:3:false:60:tickwin.ogg:Auto bonus! You gained %amount% auto-cookies from this ticket!
+silver_manulcooky:manulcooky:1:3:false:60:tickwin.ogg:Manual boost! You gained %amount% manual cookies!
+silver_speed:cookyspeed:5:15:false:40:tickwin.ogg:Speed scratch! Your baking speed increased by %amount%ms!
+
+[prize:gold]
+
+; Required header — removing or renaming this will break the file.
+
+gold_loss:none:0:0:false:300:ticklose(1,3).ogg:Not your lucky ticket. The gold was only on the outside.
+gold_small_coins:coins:400:900:false:200:tickwin.ogg:A decent scratch! You pulled out %amount%!
+gold_medium_coins:coins:1000:2500:false:120:tickwin.ogg:Good ticket! You uncovered %amount%!
+gold_large_coins:coins:3000:6000:false:50:tickwin.ogg:Great scratch! You found %amount% waiting for you!
+gold_jackpot_coins:coins:8000:15000:false:15:tickwin.ogg:Jackpot! You struck gold with %amount%!
+gold_cookies:cookies:50:150:false:80:tickwin.ogg:Cookie windfall! You uncovered %amount% cookies!
+gold_autocooky:autocooky:2:5:false:60:tickwin.ogg:Auto surge! This ticket gave you %amount% auto-cookies!
+gold_manulcooky:manulcooky:2:5:false:60:tickwin.ogg:Manual surge! This ticket gave you %amount% manual cookies!
+gold_speed:cookyspeed:10:25:false:40:tickwin.ogg:Speed bonus! Your baking interval dropped by %amount%ms!
+gold_percent_coins:coins:3:8:true:20:tickwin.ogg:Fortune favors you! You keep %amount%% of your current balance as a bonus!
+
+[prize:diamond]
+
+; Required header — removing or renaming this will break the file.
+
+diamond_loss:none:0:0:false:200:ticklose(1,3).ogg:Even diamonds can disappoint. Better luck on the next one.
+diamond_small_coins:coins:1500:3000:false:180:tickwin.ogg:A solid scratch! You pulled out %amount%!
+diamond_medium_coins:coins:4000:8000:false:100:tickwin.ogg:Nice ticket! You uncovered %amount%!
+diamond_large_coins:coins:10000:20000:false:50:tickwin.ogg:Big scratch! You found %amount% glittering under the coating!
+diamond_jackpot_coins:coins:25000:50000:false:15:tickwin.ogg:Diamond jackpot! You hit it big with %amount%!
+diamond_cookies:cookies:200:500:false:70:tickwin.ogg:Cookie treasure! You uncovered %amount% cookies from this ticket!
+diamond_autocooky:autocooky:5:15:false:60:tickwin.ogg:Auto explosion! This ticket handed you %amount% auto-cookies!
+diamond_manulcooky:manulcooky:5:15:false:60:tickwin.ogg:Manual explosion! This ticket handed you %amount% manual cookies!
+diamond_speed:cookyspeed:20:50:false:40:tickwin.ogg:Blazing scratch! Your baking speed surged by %amount%ms!
+diamond_percent_coins:coins:5:15:true:20:tickwin.ogg:Incredible find! You walk away with %amount%% of your current balance as a bonus!
+diamond_percent_cookies:cookies:5:10:true:15:tickwin.ogg:Cookie multiplier! You gain %amount%% of your current cookie supply from this ticket!

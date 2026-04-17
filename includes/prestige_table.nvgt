@@ -159,7 +159,7 @@ string apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocoo
     }
     string[] parts;
     for (uint e = 0; e < item.entries.length(); e++)
-        parts.insert_last(format_number(item.entries[e].amount) + " " + item.entries[e].target);
+        parts.insert_last((item.entries[e].target == "coins" ? convert_to_currency(item.entries[e].amount) : format_number(item.entries[e].amount) + " " + item.entries[e].target));
     if (parts.length() == 0) allAmounts = "";
     else if (parts.length() == 1) allAmounts = parts[0];
     else if (parts.length() == 2) allAmounts = parts[0] + ", and " + parts[1];
@@ -193,11 +193,11 @@ string apply_prestige_default_reward(int level)
     else if (target == "cookyspeed")  { cookyspeed += amount; clicktime -= amount; }
     string msg = prestigeDefaultReward.message;
     string lvlStr = string(level);
-    string amtStr = format_number(amount);
+    string amtStr = (target == "coins") ? convert_to_currency(amount) : format_number(amount);
     int ph = msg.find("%level%");
     while (ph != -1) { msg = msg.substr(0, ph) + lvlStr + msg.substr(ph + 7); ph = msg.find("%level%"); }
     ph = msg.find("%amount%");
     while (ph != -1) { msg = msg.substr(0, ph) + amtStr + msg.substr(ph + 8); ph = msg.find("%amount%"); }
     dlgmessage_return(msg);
-    return format_number(amount) + " " + target;
+    return (target == "coins") ? convert_to_currency(amount) : format_number(amount) + " " + target;
 }

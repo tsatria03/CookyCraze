@@ -241,6 +241,7 @@ form.reset();
 form.create_window("Mini games", false);
 int jack=form.create_button("Play &blackjack");
 int flip=form.create_button("Play &cooky flipper");
+int lottery=form.create_button("Play cooky &lottery");
 int slots=form.create_button("play &slot machine");
 form.focus(jack);
 while(true)
@@ -282,12 +283,27 @@ gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
 cookgame();
 }
 }
-if(form.is_pressed(slots))
+if(form.is_pressed(lottery))
 {
 if(rank<30)
 {
 gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
 dlg_buffer("Sorry "+playername+". This mini game is locked. Please be at rank 30 or higher to play this.", "critical");
+form.reset();
+mingamsmenu();
+}
+else
+{
+gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
+lotterygame();
+}
+}
+if(form.is_pressed(slots))
+{
+if(rank<40)
+{
+gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
+dlg_buffer("Sorry "+playername+". This mini game is locked. Please be at rank 40 or higher to play this.", "critical");
 form.reset();
 mingamsmenu();
 }
@@ -319,11 +335,73 @@ void infomenu()
     else if (sel == "achstats")
         show_achievement_statistics(loadedAchievements, achievementsUnlocked, loadedAchievementCategories);
 }
+void lottery_scratch_menu()
+{
+    lottery_ticket_item[] ownedTickets;
+    for (uint i = 0; i < loadedTickets.length(); i++)
+    {
+        if (loadedTickets[i].owned > 0)
+            ownedTickets.insert_last(loadedTickets[i]);
+    }
+    if (ownedTickets.length() == 0)
+    {
+        dlg_buffer("You don't have any tickets to scratch. Buy some first!");
+        return;
+    }
+    setupmenu(false);
+    for (uint i = 0; i < ownedTickets.length(); i++)
+        m.add_item(ownedTickets[i].name + " — " + string(ownedTickets[i].owned) + " owned", ownedTickets[i].id);
+    m.add_item("Back", "back");
+    m.intro_text = "Select a ticket tier to scratch.";
+    while (true)
+    {
+        int res = m.run(0, true);
+        if (res == -1) return;
+        string sel = m.get_item_id(res);
+        if (sel == "back") return;
+        lottery_ticket_item@ ticket = null;
+        int ticketIdx = -1;
+        for (uint i = 0; i < loadedTickets.length(); i++)
+        {
+            if (loadedTickets[i].id == sel) { @ticket = loadedTickets[i]; ticketIdx = int(i); break; }
+        }
+        if (ticket is null || ticket.owned <= 0) continue;
+        setupmenu(false);
+        m.add_item("Scratch one", "one");
+        m.add_item("Scratch all (" + string(ticket.owned) + ")", "all");
+        m.add_item("Back", "back2");
+        m.intro_text = ticket.name + ". You have " + string(ticket.owned) + ". Choose how many to scratch.";
+        int sres = m.run(0, true);
+        if (sres == -1) continue;
+        string ssel = m.get_item_id(sres);
+        if (ssel == "back2") continue;
+        if (ssel == "one")
+        {
+            lottery_scratch_one(@ticket, ticketIdx);
+        }
+        else if (ssel == "all")
+        {
+            lottery_scratch_all(@ticket, ticketIdx);
+        }
+        if (loadedTickets[ticketIdx].owned <= 0)
+        {
+            bool anyOwned = false;
+            for (uint i = 0; i < loadedTickets.length(); i++)
+            {
+                if (loadedTickets[i].owned > 0) { anyOwned = true; break; }
+            }
+            if (!anyOwned) return;
+        }
+    }
+}
+
+
 void shopmenu()
 {
 setupmenu2();
 m.add_item("buy upgrades", "bmu");
-m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky is sold for 100 coins.", "slm");
+m.add_item("buy tickets", "bmt");
+m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky is sold for 100 coins. You would earn " + convert_to_currency(floor(cookies) * 100.0) + " if you sold everything.", "slm");
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
 int shop_start = 0;
@@ -356,6 +434,20 @@ clickergame();
 if(stm=="bmu")
 {
 buymenu();
+}
+if(stm=="bmt")
+{
+if (rank < 30)
+{
+pool.play_stationary("sounds/misc/storefail.ogg", false);
+dlgmessage_return("This shop is locked. Please reach rank 30 to access it.");
+shopmenu();
+}
+else
+{
+lottery_buy_menu();
+shopmenu();
+}
 }
 if(stm=="slm")
 {
@@ -404,7 +496,7 @@ else if (totalCoinsEarned >= 10000000)
 {
 pool.play_stationary("sounds/misc/coin100000.ogg", false);
 }
-dlgmessage_return("Successfully sold " + format_number(cookiesToSell) + " cookies for " + format_number(totalCoinsEarned) + " coins!");
+dlgmessage_return("Successfully sold " + format_number(cookiesToSell) + " cookies for " + convert_to_currency(totalCoinsEarned) + "!");
 shopmenu();
 }
 if(stm=="back")
@@ -423,6 +515,191 @@ form.reset();
 clickergame();
 }
 }
+void lottery_buy_menu()
+{
+    lottery_ticket_category[] visibleCats;
+    for (uint i = 0; i < loadedTicketCategories.length(); i++)
+    {
+        lottery_ticket_category@ cat = loadedTicketCategories[i];
+        if (cat.hidden && int(rank) < cat.min_rank) continue;
+        bool hasTickets = false;
+        for (uint j = 0; j < loadedTickets.length(); j++)
+        {
+            if (loadedTickets[j].category_id != cat.id) continue;
+            if (loadedTickets[j].hidden && int(rank) < loadedTickets[j].min_rank) continue;
+            hasTickets = true;
+            break;
+        }
+        if (!hasTickets) continue;
+        visibleCats.insert_last(cat);
+    }
+    if (visibleCats.length() == 0)
+    {
+        dlg_buffer("No ticket categories are available yet.");
+        return;
+    }
+    string lottery_last_cat_id = "";
+    string lottery_last_ticket_id = "";
+    while (true)
+    {
+        setupmenu(false);
+        for (uint i = 0; i < visibleCats.length(); i++)
+        {
+            bool locked = (int(rank) < visibleCats[i].min_rank);
+            if (locked)
+            {
+                if (visibleCats[i].hidden) continue;
+                string label = visibleCats[i].name + ". Unlocked at rank " + string(visibleCats[i].min_rank) + ".";
+                if (visibleCats[i].description != "") label += " Description: " + visibleCats[i].description;
+                m.add_item(label, "locked" + string(i));
+            }
+            else
+            {
+                int totalTickets = 0;
+                int affordableTickets = 0;
+                for (uint j = 0; j < loadedTickets.length(); j++)
+                {
+                    if (loadedTickets[j].category_id != visibleCats[i].id) continue;
+                    if (loadedTickets[j].hidden && int(rank) < loadedTickets[j].min_rank) continue;
+                    totalTickets++;
+                    if (int(rank) < loadedTickets[j].min_rank) continue;
+                    if (lotteryMaxTickets > 0 && loadedTickets[j].owned >= lotteryMaxTickets) continue;
+                    double cost = get_ticket_current_cost(loadedTickets[j]);
+                    if (coins >= cost) affordableTickets++;
+                }
+                string itemWord = (totalTickets == 1) ? "ticket" : "tickets";
+                string label = visibleCats[i].name + ". Contains " + string(affordableTickets) + " out of " + string(totalTickets) + " purchasable " + itemWord + ".";
+                if (visibleCats[i].description != "") label += " Description: " + visibleCats[i].description;
+                m.add_item(label, "cat" + string(i));
+            }
+        }
+        m.add_item("Back", "back");
+        m.intro_text = "Ticket shop. Please choose a category to browse.";
+        int start = 0;
+        if (lottery_last_cat_id != "")
+        {
+            int found = m.find_item_by_id(lottery_last_cat_id);
+            if (found != -1) start = found;
+        }
+        int res = m.run(start, true);
+        if (res == -1) return;
+        string sel = m.get_item_id(res);
+        lottery_last_cat_id = sel;
+        if (sel == "back") return;
+        if (sel.substr(0, 6) == "locked")
+        {
+            int idx = string_to_int(sel.substr(6));
+            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            dlgmessage_return("This category is locked. You need to reach rank " + string(visibleCats[idx].min_rank) + " to access it.");
+            continue;
+        }
+        int catIndex = string_to_int(sel.substr(3));
+        lottery_ticket_category@ cat = visibleCats[catIndex];
+        int[] catTicketIndices;
+        for (uint i = 0; i < loadedTickets.length(); i++)
+        {
+            if (loadedTickets[i].category_id != cat.id) continue;
+            if (loadedTickets[i].hidden && int(rank) < loadedTickets[i].min_rank) continue;
+            catTicketIndices.insert_last(int(i));
+        }
+        while (true)
+        {
+            setupmenu(false);
+            for (uint i = 0; i < catTicketIndices.length(); i++)
+            {
+                lottery_ticket_item@ t = loadedTickets[catTicketIndices[i]];
+                bool locked = (int(rank) < t.min_rank);
+                double cost = get_ticket_current_cost(@t);
+                string label = t.name + ", costs " + convert_to_currency(cost) + ".";
+                if (locked)
+                {
+                    label += " Unlocked at rank " + string(t.min_rank) + ".";
+                }
+                else if (lotteryMaxTickets > 0 && t.owned >= lotteryMaxTickets)
+                {
+                    label += " Inventory full.";
+                }
+                else
+                {
+                    int canBuy = 0;
+                    if (lotteryMaxTickets > 0)
+                        canBuy = int(min(double(lotteryMaxTickets - t.owned), floor(coins / cost)));
+                    else
+                        canBuy = int(floor(coins / cost));
+                    label += " You can buy " + string(canBuy) + ".";
+                }
+                if (t.description != "") label += " Description: " + t.description;
+                m.add_item(label, "ticket" + string(i));
+            }
+            m.add_item("Back", "back2");
+            m.intro_text = cat.name + ".";
+            int tstart = 0;
+            if (lottery_last_ticket_id != "")
+            {
+                int found = m.find_item_by_id(lottery_last_ticket_id);
+                if (found != -1) tstart = found;
+            }
+            int tres = m.run(tstart, true);
+            if (tres == -1) break;
+            string tsel = m.get_item_id(tres);
+            lottery_last_ticket_id = tsel;
+            if (tsel == "back2") break;
+            int ticketCatIdx = string_to_int(tsel.substr(6));
+            int ticketIdx = catTicketIndices[ticketCatIdx];
+            if (ticketIdx == -1) continue;
+            lottery_ticket_item@ ticket = loadedTickets[ticketIdx];
+            if (int(rank) < ticket.min_rank)
+            {
+                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                dlgmessage_return("This ticket is locked. You need to reach rank " + string(ticket.min_rank) + " to buy it.");
+                continue;
+            }
+            if (lotteryMaxTickets > 0 && ticket.owned >= lotteryMaxTickets)
+            {
+                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                dlgmessage_return("Your inventory is full. You can hold a maximum of " + string(lotteryMaxTickets) + ". Scratch some first!");
+                continue;
+            }
+            double cost = get_ticket_current_cost(@ticket);
+            int maxCanBuy = 0;
+            if (lotteryMaxTickets > 0)
+                maxCanBuy = int(min(double(lotteryMaxTickets - ticket.owned), floor(coins / cost)));
+            else
+                maxCanBuy = int(floor(coins / cost));
+            vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+            string qInput = vd.input_box("", "How many " + ticket.name + "s would you like to buy? Press enter to buy the maximum amount.", string(maxCanBuy > 0 ? maxCanBuy : 1));
+            int qty = string_to_int(qInput);
+            if (qty <= 0)
+            {
+                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                dlgmessage_return("Please enter a valid number to buy.");
+                continue;
+            }
+            double totalCost = cost * qty;
+            if (coins < totalCost)
+            {
+                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                dlgmessage_return("You can't afford that many. It would cost " + convert_to_currency(totalCost) + " but you only have " + convert_to_currency(coins) + ".");
+                continue;
+            }
+            if (lotteryMaxTickets > 0 && ticket.owned + qty > lotteryMaxTickets)
+            {
+                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                dlgmessage_return("You can only hold " + string(lotteryMaxTickets) + " tickets of this type. You currently have " + string(ticket.owned) + ".");
+                continue;
+            }
+            coins -= totalCost;
+            coins = floor(coins);
+            stat_coins_spent += totalCost;
+            loadedTickets[ticketIdx].owned += qty;
+            stat_lottery_tickets_bought += qty;
+            pool.play_stationary("sounds/misc/coin1.ogg", false);
+            string plural = (qty == 1) ? "" : "s";
+            dlg_buffer("You bought " + string(qty) + " " + ticket.name + plural + " for " + convert_to_currency(totalCost) + ". You now have " + string(loadedTickets[ticketIdx].owned) + " in your inventory.");
+        }
+    }
+}
+
 void buymenu()
 {
     setupmenu2();
@@ -539,7 +816,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         double level = (items[i].target == 2) ? manulcooky_purchases : (items[i].target == 3) ? cookyspeed_purchases : autocooky_purchases;
         double cost = buy_item(level, items[i].base_cost, items[i].cost_multiplier);
         double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
-        m.add_item(items[i].item_type + ", costs " + format_number(cost) + " coins. You can buy " + format_number(maxbuy) + ". Description: " + items[i].description, "item" + string(i));
+        m.add_item(items[i].item_type + ", costs " + convert_to_currency(cost) + ". You can buy " + format_number(maxbuy) + ". Description: " + items[i].description, "item" + string(i));
     }
     bool anyAffordable = false;
     for (uint i = 0; i < items.length(); i++)
@@ -672,7 +949,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
             pool.play_stationary("sounds/misc/store_order.ogg", false);
             stat_singles_purchased++;
-            dlgmessage_return("Bulk purchase complete! You gained " + log + " for a total of " + format_number(totalSpent) + " coins.");
+            dlgmessage_return("Bulk purchase complete! You gained " + log + " for a total of " + convert_to_currency(totalSpent) + ".");
         }
         else
             speak("Nothing affordable to buy.");
@@ -758,7 +1035,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             else
                 itemWord = itemName + "s";
             stat_singles_purchased++;
-            dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " " + itemWord + " for " + format_number(totalCost) + " coins. Next upgrade will cost " + format_number(nextCost) + " coins.");
+            dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " " + itemWord + " for " + convert_to_currency(totalCost) + ". Next upgrade will cost " + convert_to_currency(nextCost) + ".");
             bakercategorymenu(items, chosenMenu);
         }
         else
@@ -887,8 +1164,30 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
             }
         }
         double canAfford = (totalCost > 0) ? floor(coins / totalCost) : 0;
-        m.add_item(bundles[i].name + ". Costs " + format_number(totalCost) + " coins. You can buy " + format_number(canAfford) + ". Description: " + bundles[i].description, "bundle" + string(i));
+        m.add_item(bundles[i].name + ". Costs " + convert_to_currency(totalCost) + ". You can buy " + format_number(canAfford) + ". Description: " + bundles[i].description, "bundle" + string(i));
     }
+    bool anyBundleAffordable = false;
+    for (uint i = 0; i < bundles.length(); i++)
+    {
+        if (bundles[i].menu != chosenMenu) continue;
+        if (bundles[i].min_rank > 0 && rank < bundles[i].min_rank) continue;
+        double totalCost = 0;
+        for (uint j = 0; j < bundles[i].entries.length(); j++)
+        {
+            for (uint k = 0; k < storeItems.length(); k++)
+            {
+                if (storeItems[k].item_type == bundles[i].entries[j].item_type)
+                {
+                    double level = (storeItems[k].target == 2) ? manulcooky_purchases : (storeItems[k].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+                    totalCost += calc_total_upgrade_cost(level, bundles[i].entries[j].quantity, storeItems[k].base_cost, storeItems[k].cost_multiplier);
+                    break;
+                }
+            }
+        }
+        if (coins >= totalCost) { anyBundleAffordable = true; break; }
+    }
+    if (anyBundleAffordable)
+        m.add_item("Buy one of every affordable bundle", "buyallbundles");
     m.add_item("back", "back");
     m.intro_text = chosenMenu + ".";
     int start_pos = 0;
@@ -906,6 +1205,72 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
     {
         bundle_last_item_id = "";
         bundlemenu();
+        return;
+    }
+    if (sel == "buyallbundles")
+    {
+        double totalSpent = 0;
+        double autoGained = 0, manulGained = 0, speedGained = 0;
+        string[] boughtNames;
+        for (uint i = 0; i < bundles.length(); i++)
+        {
+            if (bundles[i].menu != chosenMenu) continue;
+            if (bundles[i].min_rank > 0 && rank < bundles[i].min_rank) continue;
+            double totalCost = 0;
+            for (uint j = 0; j < bundles[i].entries.length(); j++)
+            {
+                for (uint k = 0; k < storeItems.length(); k++)
+                {
+                    if (storeItems[k].item_type == bundles[i].entries[j].item_type)
+                    {
+                        double level = (storeItems[k].target == 2) ? manulcooky_purchases : (storeItems[k].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+                        totalCost += calc_total_upgrade_cost(level, bundles[i].entries[j].quantity, storeItems[k].base_cost, storeItems[k].cost_multiplier);
+                        break;
+                    }
+                }
+            }
+            if (coins < totalCost) continue;
+            coins -= totalCost;
+            stat_coins_spent += totalCost;
+            totalSpent += totalCost;
+            boughtNames.insert_last(bundles[i].name);
+            for (uint j = 0; j < bundles[i].entries.length(); j++)
+            {
+                for (uint k = 0; k < storeItems.length(); k++)
+                {
+                    if (storeItems[k].item_type == bundles[i].entries[j].item_type)
+                    {
+                        double amount = bundles[i].entries[j].quantity;
+                        if (storeItems[k].target == 1) { autocooky += amount * storeItems[k].amount; autocooky_purchases += amount; autoGained += amount * storeItems[k].amount; }
+                        else if (storeItems[k].target == 2) { manulcooky += amount * storeItems[k].amount; manulcooky_purchases += amount; manulGained += amount * storeItems[k].amount; }
+                        else if (storeItems[k].target == 3) { cookyspeed += amount * storeItems[k].amount; clicktime -= amount * storeItems[k].amount; cookyspeed_purchases += amount; speedGained += amount * storeItems[k].amount; }
+                        break;
+                    }
+                }
+            }
+            stat_bundles_purchased++;
+        }
+        if (totalSpent > 0)
+        {
+            string gainLog = "";
+            string[] gainParts;
+            if (autoGained > 0) gainParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"));
+            if (manulGained > 0) gainParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"));
+            if (speedGained > 0) gainParts.insert_last(format_number(speedGained) + "ms of baking speed");
+            if (gainParts.length() == 1) gainLog = gainParts[0];
+            else if (gainParts.length() == 2) gainLog = gainParts[0] + ", and " + gainParts[1];
+            else { for (uint li = 0; li < gainParts.length() - 1; li++) { if (gainLog != "") gainLog += ", "; gainLog += gainParts[li]; } gainLog += ", and " + gainParts[gainParts.length() - 1]; }
+            string boughtLog = "";
+            if (boughtNames.length() == 1) boughtLog = boughtNames[0];
+            else if (boughtNames.length() == 2) boughtLog = boughtNames[0] + ", and " + boughtNames[1];
+            else { for (uint li = 0; li < boughtNames.length() - 1; li++) { if (boughtLog != "") boughtLog += ", "; boughtLog += boughtNames[li]; } boughtLog += ", and " + boughtNames[boughtNames.length() - 1]; }
+            pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
+            pool.play_stationary("sounds/misc/store_order.ogg", false);
+            dlgmessage_return("Bulk purchase complete! You bought one of each: " + boughtLog + ". You gained " + gainLog + " for a total of " + convert_to_currency(totalSpent) + ".");
+        }
+        else
+            speak("Nothing affordable to buy.");
+        bundlecategorymenu(bundles, chosenMenu, storeItems);
         return;
     }
     if (sel.substr(0, 6) == "locked")
@@ -1009,7 +1374,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         stat_bundles_purchased++;
         pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
         pool.play_stationary("sounds/misc/store_order.ogg", false);
-        dlgmessage_return("Purchase successful! You bought " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + " for " + format_number(grandTotal) + " coins. You gained " + gainLog + ". Next bundle will cost " + format_number(nextBundleCost) + " coins.");
+        dlgmessage_return("Purchase successful! You bought " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + " for " + convert_to_currency(grandTotal) + ". You gained " + gainLog + ". Next bundle will cost " + convert_to_currency(nextBundleCost) + ".");
         bundlecategorymenu(bundles, chosenMenu, storeItems);
         return;
     }
@@ -1018,18 +1383,18 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
 void add_auto_slots()
 {
     setupmenu(false);
-    m.add_item("Add 1 slot for "   + format_number(calc_slot_cost(1))   + " coins", "add_slot");
-    m.add_item("Add 5 slots for "   + format_number(calc_slot_cost(5))   + " coins", "add_slot2");
-    m.add_item("Add 10 slots for "  + format_number(calc_slot_cost(10))  + " coins", "add_slot3");
-    m.add_item("Add 25 slots for "  + format_number(calc_slot_cost(25))  + " coins", "add_slot4");
-    m.add_item("Add 50 slots for "  + format_number(calc_slot_cost(50))  + " coins", "add_slot5");
-    m.add_item("Add 100 slots for " + format_number(calc_slot_cost(100)) + " coins", "add_slot6");
-    m.add_item("Add 250 slots for " + format_number(calc_slot_cost(250)) + " coins", "add_slot7");
-    m.add_item("Add 500 slots for " + format_number(calc_slot_cost(500)) + " coins", "add_slot8");
-m.add_item("Add 1000 slots for " + format_number(calc_slot_cost(1000)) + " coins", "add_slot9");
-m.add_item("Add 2500 slots for " + format_number(calc_slot_cost(2500)) + " coins", "add_slot10");
-m.add_item("Add 5000 slots for " + format_number(calc_slot_cost(5000)) + " coins", "add_slot11");
-m.add_item("Add 10000 slots for " + format_number(calc_slot_cost(10000)) + " coins", "add_slot12");
+    m.add_item("Add 1 slot for "   + convert_to_currency(calc_slot_cost(1)),   "add_slot");
+    m.add_item("Add 5 slots for "   + convert_to_currency(calc_slot_cost(5)),   "add_slot2");
+    m.add_item("Add 10 slots for "  + convert_to_currency(calc_slot_cost(10)),  "add_slot3");
+    m.add_item("Add 25 slots for "  + convert_to_currency(calc_slot_cost(25)),  "add_slot4");
+    m.add_item("Add 50 slots for "  + convert_to_currency(calc_slot_cost(50)),  "add_slot5");
+    m.add_item("Add 100 slots for " + convert_to_currency(calc_slot_cost(100)), "add_slot6");
+    m.add_item("Add 250 slots for " + convert_to_currency(calc_slot_cost(250)), "add_slot7");
+    m.add_item("Add 500 slots for " + convert_to_currency(calc_slot_cost(500)), "add_slot8");
+m.add_item("Add 1000 slots for " + convert_to_currency(calc_slot_cost(1000)), "add_slot9");
+m.add_item("Add 2500 slots for " + convert_to_currency(calc_slot_cost(2500)), "add_slot10");
+m.add_item("Add 5000 slots for " + convert_to_currency(calc_slot_cost(5000)), "add_slot11");
+m.add_item("Add 10000 slots for " + convert_to_currency(calc_slot_cost(10000)), "add_slot12");
     m.add_item("Back", "back");
     m.intro_text = "Auto slots menu.";
     int start_pos = 0;
@@ -1095,18 +1460,18 @@ add_auto_slots();
 void add_manual_slots()
 {
     setupmenu(false);
-    m.add_item("Add 1 manual slot for "     + format_number(calc_slot_cost(1,    manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot1");
-    m.add_item("Add 5 manual slots for "    + format_number(calc_slot_cost(5,    manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot2");
-    m.add_item("Add 10 manual slots for "   + format_number(calc_slot_cost(10,   manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot3");
-    m.add_item("Add 25 manual slots for "   + format_number(calc_slot_cost(25,   manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot4");
-    m.add_item("Add 50 manual slots for "   + format_number(calc_slot_cost(50,   manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot5");
-    m.add_item("Add 100 manual slots for "  + format_number(calc_slot_cost(100,  manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot6");
-    m.add_item("Add 250 manual slots for "  + format_number(calc_slot_cost(250,  manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot7");
-    m.add_item("Add 500 manual slots for "  + format_number(calc_slot_cost(500,  manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot8");
-    m.add_item("Add 1000 manual slots for " + format_number(calc_slot_cost(1000, manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot9");
-    m.add_item("Add 2500 manual slots for " + format_number(calc_slot_cost(2500, manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot10");
-    m.add_item("Add 5000 manual slots for " + format_number(calc_slot_cost(5000, manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot11");
-    m.add_item("Add 10000 manual slots for "+ format_number(calc_slot_cost(10000,manualSlotBaseCost, manualSlotMultiplier)) + " coins", "add_mslot12");
+    m.add_item("Add 1 manual slot for "     + convert_to_currency(calc_slot_cost(1,    manualSlotBaseCost, manualSlotMultiplier)), "add_mslot1");
+    m.add_item("Add 5 manual slots for "    + convert_to_currency(calc_slot_cost(5,    manualSlotBaseCost, manualSlotMultiplier)), "add_mslot2");
+    m.add_item("Add 10 manual slots for "   + convert_to_currency(calc_slot_cost(10,   manualSlotBaseCost, manualSlotMultiplier)), "add_mslot3");
+    m.add_item("Add 25 manual slots for "   + convert_to_currency(calc_slot_cost(25,   manualSlotBaseCost, manualSlotMultiplier)), "add_mslot4");
+    m.add_item("Add 50 manual slots for "   + convert_to_currency(calc_slot_cost(50,   manualSlotBaseCost, manualSlotMultiplier)), "add_mslot5");
+    m.add_item("Add 100 manual slots for "  + convert_to_currency(calc_slot_cost(100,  manualSlotBaseCost, manualSlotMultiplier)), "add_mslot6");
+    m.add_item("Add 250 manual slots for "  + convert_to_currency(calc_slot_cost(250,  manualSlotBaseCost, manualSlotMultiplier)), "add_mslot7");
+    m.add_item("Add 500 manual slots for "  + convert_to_currency(calc_slot_cost(500,  manualSlotBaseCost, manualSlotMultiplier)), "add_mslot8");
+    m.add_item("Add 1000 manual slots for " + convert_to_currency(calc_slot_cost(1000, manualSlotBaseCost, manualSlotMultiplier)), "add_mslot9");
+    m.add_item("Add 2500 manual slots for " + convert_to_currency(calc_slot_cost(2500, manualSlotBaseCost, manualSlotMultiplier)), "add_mslot10");
+    m.add_item("Add 5000 manual slots for " + convert_to_currency(calc_slot_cost(5000, manualSlotBaseCost, manualSlotMultiplier)), "add_mslot11");
+    m.add_item("Add 10000 manual slots for "+ convert_to_currency(calc_slot_cost(10000,manualSlotBaseCost, manualSlotMultiplier)), "add_mslot12");
     m.add_item("Back", "back");
     m.intro_text = "Manual slots menu. You have " + string(manualSlots) + " manual " + (manualSlots == 1 ? "slot" : "slots") + ".";
     int start_pos = 0;
@@ -1260,7 +1625,7 @@ void automate_baking_slots()
         if (nonAutoCount > 1)
         {
             double totalCost = calc_automation_cost(nonAutoCount, automationBaseCost, automationMultiplier);
-            m.add_item("Automate ALL slots for " + format_number(totalCost) + " coins", "automate_all");
+            m.add_item("Automate ALL slots for " + convert_to_currency(totalCost), "automate_all");
         }
         m.add_item("Back", "back");
         m.intro_text = "Slot automation menu.";
@@ -1308,7 +1673,7 @@ void automate_baking_slots()
             {
                 setupmenu(false);
                 double singleCost = calc_automation_cost(1, automationBaseCost, automationMultiplier);
-                m.add_item("Automate this slot for " + format_number(singleCost) + " coins", "automate");
+                m.add_item("Automate this slot for " + convert_to_currency(singleCost), "automate");
                 m.add_item("Preview slot sound", "preview");
                 m.add_item("Back", "back");
                 m.intro_text = "Slot " + string(index + 1) + " menu.";
@@ -1355,10 +1720,19 @@ void questsmenu()
 {
     form.reset();
     form.create_window("Quests", false);
+    int filterList = form.create_list("Quest &Category", 3, false, false);
+    form.add_list_item(filterList, "All", "all", -1, true);
+    form.add_list_item(filterList, "Required", "required", -1, true);
+    form.add_list_item(filterList, "Random", "random", -1, true);
+    form.set_list_position(filterList, 0);
     int questList = form.create_list("&Quests", 0, false, false);
     quest_item@[] questOrder;
+    int lastFilter = 0;
+    // populate quest list according to current filter (0=All, 1=Required, 2=Random)
     for (uint i = 0; i < activeQuests.length(); i++)
     {
+        if (lastFilter == 2 && activeQuests[i].required) continue;
+        if (lastFilter == 1 && !activeQuests[i].required) continue;
         if (!activeQuests[i].required) continue;
         bool questDone = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
         string questLabel = activeQuests[i].name + (questDone ? ". Complete" : "");
@@ -1367,6 +1741,8 @@ void questsmenu()
     }
     for (uint i = 0; i < activeQuests.length(); i++)
     {
+        if (lastFilter == 1 && !activeQuests[i].required) continue;
+        if (lastFilter == 2 && activeQuests[i].required) continue;
         if (activeQuests[i].required) continue;
         bool questDone = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
         string questLabel = activeQuests[i].name + (questDone ? ". Complete" : "");
@@ -1399,7 +1775,7 @@ void questsmenu()
     }
     int historyBox = form.create_input_box("Prestige &History", prestigeHistText, read_only:true, multiline:true);
     int closeBtn = form.create_button("&Close", false, true);
-    form.focus(questList);
+    form.focus(filterList);
     form.set_list_position(questList, 0);
     int lastPos = -1;
     bool lastRequired = true;
@@ -1407,10 +1783,66 @@ void questsmenu()
     {
         wait(5);
         form.monitor();
+        int curFilter = form.get_list_position(filterList);
         int curPos = form.get_list_position(questList);
         bool rewardEarned = quests_reward_earned();
         bool nowAvailable = rank >= prestigeConfig.min_rank;
         string newPrestigeLabel = !nowAvailable ? "&Prestige, unlocked at rank " + string(prestigeConfig.min_rank) : (rewardEarned ? "&Prestige, reward available" : "&Prestige, no reward available");
+        if (curFilter != lastFilter)
+        {
+            lastFilter = curFilter;
+            // rebuild quest list
+            form.clear_list(questList);
+            questOrder.resize(0);
+            for (uint i = 0; i < activeQuests.length(); i++)
+            {
+                if (lastFilter == 2 && activeQuests[i].required) continue;
+                if (lastFilter == 1 && !activeQuests[i].required) continue;
+                if (!activeQuests[i].required) continue;
+                bool questDone = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
+                string questLabel = activeQuests[i].name + (questDone ? ". Complete" : "");
+                form.add_list_item(questList, questLabel, activeQuests[i].id, -1, true);
+                questOrder.insert_last(activeQuests[i]);
+            }
+            for (uint i = 0; i < activeQuests.length(); i++)
+            {
+                if (lastFilter == 1 && !activeQuests[i].required) continue;
+                if (lastFilter == 2 && activeQuests[i].required) continue;
+                if (activeQuests[i].required) continue;
+                bool questDone = get_stat_value(activeQuests[i].stat) >= activeQuests[i].threshold;
+                string questLabel = activeQuests[i].name + (questDone ? ". Complete" : "");
+                form.add_list_item(questList, questLabel, activeQuests[i].id, -1, true);
+                questOrder.insert_last(activeQuests[i]);
+            }
+            form.set_list_position(questList, 0);
+            form.set_text(detailBox, questOrder.length() > 0 ? get_quest_detail(questOrder[0]) : "");
+            // determine reroll visibility based on filter
+            bool showReroll = false;
+            if (lastFilter == 2) showReroll = true; // Random only — always show reroll
+            else if (lastFilter == 0 && questOrder.length() > 0 && !questOrder[0].required) showReroll = true;
+            if (rerollBtn != -1) form.delete_control(rerollBtn);
+            if (rerollHistBox != -1) form.delete_control(rerollHistBox);
+            form.delete_control(prestigeBtn);
+            form.delete_control(historyBox);
+            form.delete_control(closeBtn);
+            if (showReroll)
+            {
+                rerollBtn = form.create_button("&Reroll quest for " + format_number(rerollCost) + " " + questsConfig.reroll_target);
+                rerollHistBox = form.create_input_box("&Reroll History", rerollHistText, read_only:true, multiline:true);
+            }
+            else
+            {
+                rerollBtn = -1;
+                rerollHistBox = -1;
+            }
+            prestigeBtn = form.create_button(prestigeLabel);
+            historyBox = form.create_input_box("Prestige &History", prestigeHistText, read_only:true, multiline:true);
+            closeBtn = form.create_button("&Close", false, true);
+            lastRequired = (questOrder.length() > 0) ? questOrder[0].required : true;
+            lastPos = 0;
+            form.focus_silently(filterList);
+            continue;
+        }
         if (newPrestigeLabel != prestigeLabel)
         {
             if (rerollHistBox != -1) form.delete_control(rerollHistBox);
@@ -1428,7 +1860,8 @@ void questsmenu()
         {
             form.set_text(detailBox, get_quest_detail(questOrder[curPos]));
             bool isRequired = questOrder[curPos].required;
-            if (isRequired != lastRequired)
+            // When filter is Required or Random, reroll visibility is fixed; only recalc for All
+            if (lastFilter == 0 && isRequired != lastRequired)
             {
                 if (rerollBtn != -1) form.delete_control(rerollBtn);
                 if (rerollHistBox != -1) form.delete_control(rerollHistBox);

@@ -1,0 +1,101 @@
+void parse_tickets_store(string filepath)
+{
+    file f;
+    if (!f.open(filepath, "r")) return;
+    dictionary categoryNames;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 1) == ";") continue;
+        int eq = line.find("=");
+        if (eq != -1)
+        {
+            string alias = line.substr(0, eq);
+            string rest = line.substr(eq + 1);
+            lottery_ticket_category cat;
+            cat.id = alias;
+            int pipe1 = rest.find("|");
+            if (pipe1 != -1)
+            {
+                cat.name = rest.substr(0, pipe1);
+                string rest2 = rest.substr(pipe1 + 1);
+                int pipe2 = rest2.find("|");
+                if (pipe2 != -1)
+                {
+                    cat.min_rank = string_to_int(rest2.substr(0, pipe2));
+                    string rest3 = rest2.substr(pipe2 + 1);
+                    int pipe3 = rest3.find("|");
+                    if (pipe3 != -1)
+                    {
+                        cat.hidden = (rest3.substr(0, pipe3) == "true");
+                        cat.description = rest3.substr(pipe3 + 1);
+                    }
+                    else
+                    {
+                        cat.hidden = (rest3 == "true");
+                        cat.description = "";
+                    }
+                }
+                else
+                {
+                    cat.min_rank = string_to_int(rest2);
+                    cat.hidden = false;
+                    cat.description = "";
+                }
+            }
+            else
+            {
+                cat.name = rest;
+                cat.min_rank = 0;
+                cat.hidden = false;
+                cat.description = "";
+            }
+            categoryNames.set(alias, cat.name);
+            loadedTicketCategories.insert_last(cat);
+            continue;
+        }
+        string[] parts;
+        int lastPos = 0;
+        int colonCount = 0;
+        for (uint i = 0; i < line.length(); i++)
+        {
+            if (line.substr(i, 1) == ":" && colonCount < 7)
+            {
+                parts.insert_last(line.substr(lastPos, i - lastPos));
+                lastPos = i + 1;
+                colonCount++;
+            }
+        }
+        parts.insert_last(line.substr(lastPos));
+        if (parts.length() < 8) continue;
+        lottery_ticket_item ticket;
+        ticket.category_id = parts[0];
+        ticket.id = parts[1];
+        string resolvedName = "";
+        if (categoryNames.exists(ticket.category_id))
+            categoryNames.get(ticket.category_id, resolvedName);
+        ticket.base_cost = string_to_number(parts[2]);
+        ticket.cost_multiplier = string_to_number(parts[3]);
+        ticket.min_rank = string_to_int(parts[4]);
+        ticket.hidden = (parts[5] == "true");
+        ticket.prize_id = parts[6];
+        ticket.description = parts[7];
+        ticket.owned = 0;
+        string[] nameParts = ticket.id.split("_");
+        string displayName = "";
+        for (uint i = 0; i < nameParts.length(); i++)
+        {
+            if (nameParts[i].length() > 0)
+            {
+                string word = nameParts[i].substr(0, 1).upper() + nameParts[i].substr(1);
+                if (displayName.length() > 0) displayName += " ";
+                displayName += word;
+            }
+        }
+        ticket.name = displayName + " Ticket";
+        loadedTickets.insert_last(ticket);
+    }
+    f.close();
+}

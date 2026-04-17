@@ -183,7 +183,7 @@ class input_form {
 	bool setup() {
 		this.main_form.reset();
 		this.main_form.create_window(this.title, false, this.is_dialog);
-		if (!this.description.empty()) dlg(this.description);
+		if (!this.description.empty()) dlgmessage(this.description);
 		if (!this.configure()) return false;
 		this.ok_btn = this.main_form.create_button(this.ok_button_label, true);
 		this.cancel_btn = this.main_form.create_button(this.cancel_button_label, false, true);

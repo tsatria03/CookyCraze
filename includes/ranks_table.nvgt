@@ -121,7 +121,7 @@ string apply_rank_reward(rank_reward_item@ item, double current_rank)
         clicktime -= amount;
     }
     string msg = item.message;
-    string amt_str = format_number(amount);
+    string amt_str = (item.target == "coins") ? convert_to_currency(amount) : format_number(amount);
     string rank_str = format_number(current_rank);
     int ph = msg.find("%amount%");
     while (ph != -1) { msg = msg.substr(0, ph) + amt_str + msg.substr(ph + 8); ph = msg.find("%amount%"); }
@@ -156,6 +156,8 @@ void handle_rank_unlock(string unlock)
     else if (unlock == "flipper")
         pool.play_stationary("sounds/misc/alert_big.ogg", false);
     else if (unlock == "slots")
+        pool.play_stationary("sounds/misc/alert_big.ogg", false);
+    else if (unlock == "lottery")
         pool.play_stationary("sounds/misc/alert_big.ogg", false);
     else if (unlock == "slotmanager")
         pool.play_stationary("sounds/misc/alert_big.ogg", false);

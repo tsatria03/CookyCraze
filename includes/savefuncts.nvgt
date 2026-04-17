@@ -159,6 +159,23 @@ if (sd.d.exists("stat_manual_slots_purchased")) stat_manual_slots_purchased = sd
 if (sd.d.exists("stat_auto_slots_enabled")) stat_auto_slots_enabled = sd.read_double("stat_auto_slots_enabled");
 if (sd.d.exists("stat_quests_completed")) stat_quests_completed = sd.read_double("stat_quests_completed");
 if (sd.d.exists("stat_rerolls_performed")) stat_rerolls_performed = sd.read_double("stat_rerolls_performed");
+if (sd.d.exists("stat_lottery_tickets_bought")) stat_lottery_tickets_bought = sd.read_double("stat_lottery_tickets_bought");
+if (sd.d.exists("stat_lottery_tickets_scratched")) stat_lottery_tickets_scratched = sd.read_double("stat_lottery_tickets_scratched");
+if (sd.d.exists("stat_lottery_wins")) stat_lottery_wins = sd.read_double("stat_lottery_wins");
+if (sd.d.exists("stat_lottery_losses")) stat_lottery_losses = sd.read_double("stat_lottery_losses");
+if (sd.d.exists("lotteryTicketCount"))
+{
+    int ltcount = sd.read_int("lotteryTicketCount");
+    for (int i = 0; i < ltcount; i++)
+    {
+        string ltid = sd.read_string("lotteryTicket_id_" + string(i));
+        int ltowned = sd.read_int("lotteryTicket_owned_" + string(i));
+        for (uint j = 0; j < loadedTickets.length(); j++)
+        {
+            if (loadedTickets[j].id == ltid) { loadedTickets[j].owned = ltowned; break; }
+        }
+    }
+}
 if (sd.d.exists("prestigeHistoryCount"))
 {
     int hcount = sd.read_int("prestigeHistoryCount");
@@ -255,6 +272,16 @@ sd.add("stat_manual_slots_purchased", stat_manual_slots_purchased);
 sd.add("stat_auto_slots_enabled", stat_auto_slots_enabled);
 sd.add("stat_quests_completed", stat_quests_completed);
 sd.add("stat_rerolls_performed", stat_rerolls_performed);
+sd.add("stat_lottery_tickets_bought", stat_lottery_tickets_bought);
+sd.add("stat_lottery_tickets_scratched", stat_lottery_tickets_scratched);
+sd.add("stat_lottery_wins", stat_lottery_wins);
+sd.add("stat_lottery_losses", stat_lottery_losses);
+sd.add("lotteryTicketCount", int(loadedTickets.length()));
+for (uint i = 0; i < loadedTickets.length(); i++)
+{
+    sd.add("lotteryTicket_id_" + string(i), loadedTickets[i].id);
+    sd.add("lotteryTicket_owned_" + string(i), loadedTickets[i].owned);
+}
 sd.add("prestigeHistoryCount", int(prestigeHistory.length()));
 for (uint i = 0; i < prestigeHistory.length(); i++)
 {

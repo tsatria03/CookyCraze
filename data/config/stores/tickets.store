@@ -1,0 +1,17 @@
+; Categories
+
+standard=Standard Tickets|0|false|The standard range of scratch tickets. Available to all bakers from the very start.
+premium=Premium Tickets|15|false|Higher stakes tickets with bigger prizes. Requires some experience before they become available.
+user=User Created Tickets|5|false|Custom ticket tiers created by the community.
+
+; Tickets
+
+; Standard tickets
+
+standard:bronze:50:1.01:0:false:bronze:A cheap scratch ticket. Prizes are small but every now and then you get lucky.
+standard:silver:200:1.01:5:false:silver:A silver scratch ticket with better odds and bigger prizes than the bronze tier.
+
+; Premium tickets — hidden until rank 15
+
+premium:gold:500:1.01:15:true:gold:A gold scratch ticket with significantly larger prizes and a real shot at something special.
+premium:diamond:2000:1.01:40:true:diamond:The rarest scratch ticket available. Prizes are massive but so is the cost. Only for serious players.

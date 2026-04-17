@@ -1,4 +1,33 @@
+New in 5.2.
+Updated the config file header counts in the readme to reflect the addition of lottery.table and tickets.store.
+New in 5.1.
+Added a lottery subsection to the statistics section in the readme.
+Added lottery to the ranks.table unlock values list in the readme.
+Added full documentation for lottery.table and tickets.store to the configuration file reference in the readme.
+Added a cooky lottery game feature section to the readme covering ticket tiers, prize pools, and how scratching works.
+Added the cooky lottery to the game introduction and minigame list in the readme.
+Added a check tickets button to the lottery screen that reports how many tickets you currently hold across all tiers.
+Added four ticket tiers to the lottery: bronze, silver, gold, and diamond. Higher tiers cost more but offer larger prizes and better odds at the top end.
+Added ticket categories to the buy tickets menu, mirroring the layout of the singles shop. Each category shows how many tickets you can currently afford out of the total available. Items display their required rank when locked and show how many you can buy when accessible.
+Added lottery.table to data/config/tables. It defines the global max tickets setting and all prize pools used when a ticket is scratched. Prize entries support weighted random selection, flat and percentage amounts, random range sounds, and a %amount% placeholder in messages.
+Added tickets.store to data/config/stores. It defines ticket categories and individual ticket tiers using the same alias system as singles.store, with fields for cost, compounding multiplier, rank requirement, hidden flag, and prize pool reference.
 New in 5.0.
+Added a buy tickets option to the shop menu, always visible but locked below rank 30 with a message, matching the same pattern as the baking slots manager.
+Added the cooky lottery minigame, unlocked at rank 30. Buy scratch tickets from the shop, then visit the lottery screen to scratch them one at a time or all at once.
+Fixed the First Coins achievement description to no longer say through selling, since the starting balance also counts toward the stat.
+Fixed a bug where stat_coins_earned was not initialized to match the starting balance, causing coin-based achievements to show 0 cents earned even though the player started with $1.00. The stat now starts at 100 to reflect the opening balance.
+Fixed a bug where coin-based achievement progress would show the unit label coins earned or coins spent after an already currency-formatted value, resulting in redundant output like 0 cents of 50 cents coins earned. The label now reads simply earned or spent.
+Scaled the base prices of the three starter shop items to match the new starting amount so the opening balance still buys exactly one auto cookie.
+Raised the starting coin amount from 10 to 100, which displays as $1.00, so new players start with a more meaningful amount.
+Updated blackjack bet and win messages to display coin amounts as currency.
+Updated baker statistics, achievement descriptions, and achievement progress to display coin amounts as currency.
+Updated rank rewards, prestige rewards, and random event outcomes to display coin amounts as currency.
+Updated shop prices, purchase confirmations, bulk buy totals, and slot and automation costs to display as currency.
+Converted all coin displays throughout the game to use a currency format. Coin amounts are now shown as dollars and cents, for example $1.00 or 25 cents, instead of raw numbers.
+Fixed a bug where arrowing through the Quest Category list would immediately steal focus to the quest list after each selection, making it impossible to navigate the category list with arrow keys.
+Added a Quest Category list to the top of the quests screen with three options: All, Required, and Random. Arrowing through it rebuilds the quest list instantly to show only the selected category. All is the default and preserves the existing behavior. When Random is active the reroll button and reroll history are always visible since every displayed quest is rerollable.
+Added a buy one of every affordable bundle option to each bundle category, appearing at the bottom of the list when at least one bundle is within your budget. It buys exactly one of every affordable bundle in the category in a single transaction and reports what was purchased and what was gained.
+Added a coins per sell line to the baker info screen showing exactly how much you would earn if you sold your current cookie stockpile right now.
 Added a reroll history box to the quests screen. It sits directly after the reroll button and shows the last 50 rerolls in order, listing which quest was replaced, what replaced it, and how much it cost. Shows a no rerolls recorded yet message when empty. The history persists across sessions and resets when starting a new game.
 Moved prestige history out of the Statistics menu and into the quests screen as a read-only input box, sitting between the prestige button and the close button. It shows the same run-by-run log as before, now without needing to leave the quests screen to view it.
 Added support for negative rank rewards in ranks.table. Setting min_amount and max_amount to negative values causes that rank to deduct from the target stat instead of adding to it, allowing difficulty modders to create penalty ranks.

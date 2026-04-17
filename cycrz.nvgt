@@ -46,6 +46,8 @@ parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
 parse_achievements("data/config/tables/achievements.table", loadedAchievements, loadedAchievementCategories);
 parse_prestige_table("data/config/tables/prestige.table");
 parse_quests_table("data/config/tables/quests.table", loadedQuests);
+parse_lottery_table("data/config/tables/lottery.table");
+parse_tickets_store("data/config/stores/tickets.store");
 assign_quests();
 readdata();
 init_achievements(loadedAchievements, achievementsUnlocked);
@@ -96,8 +98,8 @@ exit();
 }
 if (mres==1)
 {
-dlgmessage_return("Congratulations! You've successfully completed your profile setup. I'll give you " + convert_to_currency(10) + " to get you started on your way.");
-usercoins=10;
+dlgmessage_return("Congratulations! You've successfully completed your profile setup. I'll give you " + convert_to_currency(100) + " to get you started on your way.");
+usercoins=100;
 coins=usercoins;
 dlgplay("sounds/misc/coin1.ogg");
 if (playergender == 0)
@@ -217,7 +219,51 @@ else
     stat_slot_losses=0;
     stat_quests_completed=0;
     stat_rerolls_performed=0;
+    stat_lottery_tickets_bought=0;
+    stat_lottery_tickets_scratched=0;
+    stat_lottery_wins=0;
+    stat_lottery_losses=0;
+    for (uint i = 0; i < loadedTickets.length(); i++) loadedTickets[i].owned = 0;
     prestigeLevel=0;
     reset_game_state();
 }
+}
+void reset_game_state()
+{
+stat_cookies_baked=0;
+stat_manual_bakes_performed=0;
+stat_auto_bakes_performed=0;
+stat_coins_earned=100;
+stat_coins_spent=0;
+stat_singles_purchased=0;
+stat_bundles_purchased=0;
+stat_events_fired=0;
+stat_flipper_flips=0;
+stat_auto_slots_purchased=0;
+stat_manual_slots_purchased=0;
+stat_auto_slots_enabled=0;
+autocooky=0;
+autocooky_purchases=0;
+manulcooky_purchases=0;
+cookyspeed_purchases=0;
+coins=100;
+cookies=0;
+cookyspeed=0;
+manulcooky=1;
+rank=1;
+bakemode=0;
+clicktime=1000;
+automationBaseCost=15;
+slotBaseCost=30;
+manualSlots=0;
+manualSlotBaseCost=30;
+autobakeSlots=0;
+autobakeSlotEnabled.resize(0);
+baking_slots.resize(0);
+questRerollCount=0;
+activeQuests.resize(0);
+assign_quests();
+flipperHistory.resize(0);
+rerollHistory.resize(0);
+cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 }

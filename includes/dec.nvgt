@@ -12,6 +12,7 @@ double stat_slot_spins=0, stat_slot_wins=0, stat_slot_losses=0;
 double stat_jack_hands=0, stat_jack_wins=0, stat_jack_losses=0, stat_jack_pushes=0;
 double stat_auto_slots_purchased=0, stat_manual_slots_purchased=0, stat_auto_slots_enabled=0, stat_auto_slots_idle=0;
 double stat_quests_completed=0, stat_rerolls_performed=0;
+double stat_lottery_tickets_bought=0, stat_lottery_tickets_scratched=0, stat_lottery_wins=0, stat_lottery_losses=0;
 double autocooky_purchases=0, manulcooky_purchases=0, cookyspeed_purchases=0;
 double automationBaseCost = 15, slotBaseCost = 30, automationMultiplier = 1.01, slotMultiplier = 1.01;
 int manualSlots = 0;

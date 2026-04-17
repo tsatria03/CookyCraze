@@ -75,7 +75,8 @@ void parse_achievements(string filepath, achievement_item[]@ items, achievement_
         item.name = parts[6];
         item.description = parts[7];
         item.hint = parts[8];
-        string threshStr = format_number(item.threshold);
+        bool isCoinAch = (item.stat == "coins_earned" || item.stat == "coins_spent");
+        string threshStr = isCoinAch ? convert_to_currency(item.threshold) : format_number(item.threshold);
         int ph = item.description.find("%threshold%");
         while (ph != -1)
         {

@@ -12,53 +12,6 @@ class event_item
     string description;
 }
 
-double eval_event_amount(string raw, double rank_val)
-{
-    if (raw.find("*rank") != -1)
-    {
-        string numPart = raw.substr(0, raw.find("*rank"));
-        return string_to_number(numPart) * rank_val;
-    }
-    else if (raw.find("/rank") != -1)
-    {
-        string numPart = raw.substr(0, raw.find("/rank"));
-        double divisor = rank_val;
-        if (divisor == 0) divisor = 1;
-        return string_to_number(numPart) / divisor;
-    }
-    else if (raw.find("+rank") != -1)
-    {
-        string numPart = raw.substr(0, raw.find("+rank"));
-        return string_to_number(numPart) + rank_val;
-    }
-    else if (raw.find("-rank") != -1)
-    {
-        string numPart = raw.substr(0, raw.find("-rank"));
-        return string_to_number(numPart) - rank_val;
-    }
-    return string_to_number(raw);
-}
-
-string resolve_sound(string raw)
-{
-    int open = raw.find("(");
-    int close = raw.find(")");
-    if (open != -1 && close != -1 && close > open)
-    {
-        string before = raw.substr(0, open);
-        string after = raw.substr(close + 1);
-        string range = raw.substr(open + 1, close - open - 1);
-        int comma = range.find(",");
-        if (comma != -1)
-        {
-            int minVal = string_to_int(range.substr(0, comma));
-            int maxVal = string_to_int(range.substr(comma + 1));
-            return before + string(random(minVal, maxVal)) + after;
-        }
-    }
-    return raw;
-}
-
 event_item[]@ parse_baker_events(string filepath)
 {
     event_item[] items;
@@ -203,7 +156,8 @@ string apply_event(event_item@ item)
         }
     }
     string msg = item.description;
-    string amt_str = item.use_percent ? format_number(amount) : format_number(actualAmount);
+    bool isCoinEvent = (item.target == "coins" && !item.use_percent);
+    string amt_str = item.use_percent ? format_number(amount) : (isCoinEvent ? convert_to_currency(actualAmount) : format_number(actualAmount));
     int ph = msg.find("%amount%");
     while (ph != -1)
     {
@@ -213,7 +167,7 @@ string apply_event(event_item@ item)
     int ph2 = msg.find("%actual%");
     while (ph2 != -1)
     {
-        msg = msg.substr(0, ph2) + format_number(actualAmount) + msg.substr(ph2 + 8);
+        msg = msg.substr(0, ph2) + (isCoinEvent ? convert_to_currency(actualAmount) : format_number(actualAmount)) + msg.substr(ph2 + 8);
         ph2 = msg.find("%actual%");
     }
     if (!item.use_percent && actualAmount == 1)

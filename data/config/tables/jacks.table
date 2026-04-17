@@ -10,8 +10,8 @@ confirm_threshold=1000:false
 
 ; Sounds
 
-win_sound=jackwin(1,4).ogg
-lose_sound=lose.ogg
+win_sound=jackwin.ogg
+lose_sound=jacklose.ogg
 player_draw_sound=jackplayer.ogg
 dealer_draw_sound=jackdealer.ogg
 
