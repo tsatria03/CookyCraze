@@ -117,19 +117,19 @@ A Flipper History box appears below the flip button and keeps a running log of y
 Each entry shows the flip number, which side the cooky landed on, the event that was selected, and whether the outcome was positive or negative.
 The history persists across sessions and resets when starting a new game.
 
-Slot machine. Unlocked at rank 30.
+Cooky lottery. Unlocked at rank 30.
+Buy scratch tickets and reveal prizes ranging from money and cookies to stat boosts.
+
+Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end. Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
+You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
+
+Slot machine. Unlocked at rank 40.
 Spin the reels and match symbols to win multiples of your bet.
 
 Like the other minigames, you choose which item to bet and how much. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
 Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples. The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table.
 
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
-
-Cooky lottery. Unlocked at rank 30.
-Buy scratch tickets and reveal prizes ranging from money and cookies to stat boosts.
-
-Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end. Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
-You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
 Rank ups and achievement unlocks are checked and can fire while you are playing any of the 4 minigames mentioned above.
 
