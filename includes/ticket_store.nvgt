@@ -14,6 +14,7 @@ void parse_tickets_store(string filepath)
         {
             string alias = line.substr(0, eq);
             string rest = line.substr(eq + 1);
+            if (alias == "max_tickets") { lotteryMaxTickets = string_to_int(rest); continue; }
             lottery_ticket_category cat;
             cat.id = alias;
             int pipe1 = rest.find("|");

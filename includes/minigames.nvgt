@@ -155,8 +155,7 @@ if (form.is_pressed(flip))
     else
     {
         dlg_buffer("You don't have a cooky to flip!", "general");
-        form.reset();
-        cookgame();
+        form.focus(flip);
     }
 }
 }
@@ -230,11 +229,7 @@ cookgame();
 if(key_pressed(KEY_L))
 {
 readdata();
-loadedEvents = parse_baker_events("data/config/events/baker.event");
-loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
-parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
-parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
-parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+reload_config();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");
@@ -276,7 +271,7 @@ void slotsgame()
     form.create_window("Slot Machine", false);
     int betChoice = form.create_list("Choose an &item to bet:", 5);
     form.add_list_item(betChoice, "Cookies");
-    form.add_list_item(betChoice, "Money");
+    form.add_list_item(betChoice, "Currency");
     form.add_list_item(betChoice, "Auto Cookies");
     form.add_list_item(betChoice, "Auto Cookie Speeds");
     form.add_list_item(betChoice, "Manual Cookies");
@@ -383,14 +378,14 @@ betAmount = floor(selectedBet == 1 ? string_to_number(betStr) * 100.0 : string_t
     if (betAmount <= 0)
     {
         dlg_buffer("Invalid bet amount. Please enter a valid number!");
-form.reset();
-slotsgame();
+        form.focus(spinButton);
+        continue;
     }
             if (betAmount < slotMinBet)
             {
                 dlg_buffer("Error! The minimum bet is " + format_number(slotMinBet) + ".");
-form.reset();
-slotsgame();
+                form.focus(spinButton);
+                continue;
             }
             if (slotMaxBet > 0 && betAmount > slotMaxBet)
                 betAmount = slotMaxBet;
@@ -402,8 +397,8 @@ slotsgame();
             if (betAmount <= 0)
             {
                 dlg_buffer("You don't have enough of that item to bet!");
-form.reset();
-slotsgame();
+                form.focus(spinButton);
+                continue;
             }
             string[] activeSymbols;
             for (uint i = 0; i < symbols.length(); i++)
@@ -416,8 +411,8 @@ slotsgame();
             if (activeSymbols.length()<10)
 {
                 dlg_buffer("You must select at least 10 symbols in order to spin!");
-form.reset();
-slotsgame();
+                form.focus(spinButton);
+                continue;
             }
 if (slotConfirmThreshold > 0)
 {
@@ -425,18 +420,17 @@ if (slotConfirmThreshold > 0)
     double effectiveThreshold = slotConfirmUsePercent ? (statTotal * (slotConfirmThreshold / 100.0)) : slotConfirmThreshold;
     if (betAmount >= effectiveThreshold)
     {
-        string betItemName2 = (selectedBet == 0 ? "cookies" : (selectedBet == 1 ? "money" : (selectedBet == 2 ? "auto cookies" : (selectedBet == 3 ? "auto cookie speeds" : "manual cookies"))));
+        string betItemName2 = (selectedBet == 0 ? "cookies" : (selectedBet == 1 ? "currency" : (selectedBet == 2 ? "auto cookies" : (selectedBet == 3 ? "auto cookie speeds" : "manual cookies"))));
         setupmenu(false);
         m.add_item("Yes", "yes");
         m.add_item("No", "no");
-        m.intro_text = "Are you sure you want to bet " + format_number(betAmount) + " " + betItemName2 + "?";
+        m.intro_text = "Are you sure you want to bet " + (selectedBet == 1 ? convert_to_currency(betAmount) : format_number(betAmount) + " " + betItemName2) + "?";
         int cres = m.run(0, true);
         string csel = m.get_item_id(cres);
         if (cres == -1 || csel == "no")
         {
-            form.reset();
-            slotsgame();
-            return;
+            form.focus(spinButton);
+            continue;
         }
     }
 }
@@ -447,11 +441,11 @@ if(selectedBet==1) speak_buffer("You placed a bet of " + convert_to_currency(bet
 if(selectedBet==2) speak_buffer("You placed a bet of " + format_number(betAmount) + " auto cookies.");
 if(selectedBet==3) speak_buffer("You placed a bet of " + format_number(betAmount) + " auto cooky speeds.");
 if(selectedBet==4) speak_buffer("You placed a bet of " + format_number(betAmount) + " manual cookies.");
-slot_wait_async(1000);
+mini_wait_async(1000, "slots");
 pool.play_stationary("sounds/misc/slotbet2.ogg", false);
-slot_wait_async(random(600, 800));
+mini_wait_async(random(600, 800), "slots");
 pool.play_stationary("sounds/misc/slotbet3.ogg", false);
-slot_wait_async(1000);
+mini_wait_async(1000, "slots");
 stat_slot_spins++;
 pool.play_stationary("sounds/misc/slotlever.ogg", false);
 machineslot=pool.play_stationary("sounds/misc/slotspin.ogg", true);
@@ -463,7 +457,7 @@ if(slotmode==true) wait(random(1000,2000));
             for (int i = 0; i < slotReels; i++)
             {
                 reelResults[i] = activeSymbols[random(0, activeSymbols.length() - 1)];
-                if (slotmode == true) slot_wait_async(random(1000, 2000));
+                if (slotmode == true) mini_wait_async(random(1000, 2000), "slots");
                 if (i == 0) pool.destroy_sound(machineslot);
                 pool.play_stationary("sounds/misc/" + stopSounds[i % stopSounds.length()], false);
                 if (slotmode == true) speak_buffer(reelResults[i]);
@@ -500,7 +494,7 @@ for (uint i = 0; i < slotPayouts.length(); i++)
 }
 if (payout !is null)
 {
-    if (slotmode == true) slot_wait_async(random(1000, 2000));
+    if (slotmode == true) mini_wait_async(random(1000, 2000), "slots");
     pool.destroy_sound(machineslot);
     if (payout.sound != "" && payout.sound != "none")
         pool.play_stationary("sounds/misc/" + payout.sound, false);
@@ -603,11 +597,7 @@ slotsgame();
 if(key_pressed(KEY_L))
 {
 readdata();
-loadedEvents = parse_baker_events("data/config/events/baker.event");
-loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
-parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
-parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
-parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+reload_config();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");
@@ -649,7 +639,7 @@ void jackgame()
     form.create_window("Blackjack", false);
     int betChoice = form.create_list("Choose an &item to bet:", 5);
     form.add_list_item(betChoice, "Cookies");
-    form.add_list_item(betChoice, "Money");
+    form.add_list_item(betChoice, "Currency");
     form.add_list_item(betChoice, "Auto Cookies");
     form.add_list_item(betChoice, "Auto Cookie Speeds");
     form.add_list_item(betChoice, "Manual Cookies");
@@ -713,7 +703,7 @@ if (cookies >= cookiesrequiered)
 }
 check_achievements(loadedAchievements, achievementsUnlocked);
         if (key_pressed(KEY_B))
-            speak_buffer("Your current bet is " + format_number(betAmount) + ".");
+            speak_buffer("Your current bet is " + (selectedBet == 1 ? convert_to_currency(betAmount) : format_number(betAmount) + (betItemName != "" ? " " + betItemName : "")) + ".");
         if (form.is_pressed(dealButton))
         {
             if (in_round)
@@ -755,11 +745,11 @@ check_achievements(loadedAchievements, achievementsUnlocked);
                 double effectiveThreshold2 = jacksConfig.confirm_use_percent ? (statTotal2 * (jacksConfig.confirm_threshold / 100.0)) : jacksConfig.confirm_threshold;
                 if (betNum >= effectiveThreshold2)
                 {
-                    string betItemName2 = (selectedBet == 0 ? "cookies" : (selectedBet == 1 ? "money" : (selectedBet == 2 ? "auto cookies" : (selectedBet == 3 ? "auto cookie speeds" : "manual cookies"))));
+                    string betItemName2 = (selectedBet == 0 ? "cookies" : (selectedBet == 1 ? "currency" : (selectedBet == 2 ? "auto cookies" : (selectedBet == 3 ? "auto cookie speeds" : "manual cookies"))));
                     setupmenu(false);
                     m.add_item("Yes", "yes");
                     m.add_item("No", "no");
-                    m.intro_text = "Are you sure you want to bet " + format_number(betNum) + " " + betItemName2 + "?";
+                    m.intro_text = "Are you sure you want to bet " + (selectedBet == 1 ? convert_to_currency(betNum) : format_number(betNum) + " " + betItemName2) + "?";
                     int cres = m.run(0, true);
                     string csel = m.get_item_id(cres);
                     if (cres == -1 || csel == "no")
@@ -772,7 +762,7 @@ check_achievements(loadedAchievements, achievementsUnlocked);
             else if (selectedBet == 2) { autocooky -= betAmount; autocooky = floor(autocooky); }
             else if (selectedBet == 3) { cookyspeed -= betAmount; clicktime += betAmount; cookyspeed = floor(cookyspeed); }
             else if (selectedBet == 4) { manulcooky -= betAmount; manulcooky = floor(manulcooky); }
-            betItemName = (selectedBet == 0 ? "cookies" : (selectedBet == 1 ? "money" : (selectedBet == 2 ? "auto cookies" : (selectedBet == 3 ? "auto cookie speeds" : "manual cookies"))));
+            betItemName = (selectedBet == 0 ? "cookies" : (selectedBet == 1 ? "currency" : (selectedBet == 2 ? "auto cookies" : (selectedBet == 3 ? "auto cookie speeds" : "manual cookies"))));
             p_points = 0; d_points = 0;
             p_aces = 0; d_aces = 0;
             in_round = true;
@@ -780,11 +770,11 @@ check_achievements(loadedAchievements, achievementsUnlocked);
             string betDisplay = (selectedBet == 1) ? convert_to_currency(betAmount) : (format_number(betAmount) + " " + betItemName);
             if (jackmode) speak_buffer("You bet " + betDisplay + ". Dealing.");
             else dlg_buffer("You bet " + betDisplay + ". Dealing. Press enter or space after each card.");
-            jack_wait_async(random(800, 1200));
+            mini_wait_async(random(1000, 2000), "blackjack");
             jack_deal_card(true, p_points, p_aces, d_points, d_aces);
-            jack_wait_async(random(800, 1200));
+            mini_wait_async(random(1000, 2000), "blackjack");
             jack_deal_card(false, p_points, p_aces, d_points, d_aces);
-            jack_wait_async(random(800, 1200));
+            mini_wait_async(random(1000, 2000), "blackjack");
             jack_deal_card(true, p_points, p_aces, d_points, d_aces);
             if (p_points == 21)
             {
@@ -860,11 +850,11 @@ check_achievements(loadedAchievements, achievementsUnlocked);
             }
             if (jackmode) speak_buffer("You stand with " + p_points + ". Dealer's turn.");
             else dlg_buffer("You stand with " + p_points + ". Dealer's turn. Press enter or space after each card.");
-            jack_wait_async(random(800, 1200));
+            mini_wait_async(random(1000, 2000), "blackjack");
             while (d_points < jacksConfig.dealer_stand)
             {
                 jack_deal_card(false, p_points, p_aces, d_points, d_aces);
-                jack_wait_async(random(800, 1200));
+                mini_wait_async(random(1000, 2000), "blackjack");
             }
             int outcome = 0;
             if (d_points > 21) outcome = 1;
@@ -996,8 +986,7 @@ void lotterygame()
                 dlg_buffer("You don't have any tickets. Buy some from the shop!");
             else
                 dlg_buffer("You have a total of " + string(total) + " " + (total == 1 ? "ticket" : "tickets") + " across all tiers.");
-            form.reset();
-            lotterygame();
+            form.focus(inventoryBtn);
         }
     }
 }
@@ -1044,11 +1033,7 @@ lotterygame();
 if(key_pressed(KEY_L))
 {
 readdata();
-loadedEvents = parse_baker_events("data/config/events/baker.event");
-loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
-parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
-parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
-parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+reload_config();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");
@@ -1140,11 +1125,7 @@ jackgame();
 if(key_pressed(KEY_L))
 {
 readdata();
-loadedEvents = parse_baker_events("data/config/events/baker.event");
-loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
-parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
-parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
-parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+reload_config();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");

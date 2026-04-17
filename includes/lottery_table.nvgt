@@ -33,13 +33,14 @@ class lottery_ticket_item
     int owned;
 }
 
-int lotteryMaxTickets = 99;
+int lotteryMaxTickets = 0;
 lottery_ticket_category[] loadedTicketCategories;
 lottery_ticket_item[] loadedTickets;
 dictionary lotteryPrizePools;
 
 void parse_lottery_table(string filepath)
 {
+    lotteryPrizePools.delete_all();
     file f;
     if (!f.open(filepath, "r")) return;
     string currentPool = "";
@@ -59,17 +60,7 @@ void parse_lottery_table(string filepath)
             currentPrizes.resize(0);
             continue;
         }
-        if (currentPool == "")
-        {
-            int eq = line.find("=");
-            if (eq != -1)
-            {
-                string key = line.substr(0, eq);
-                string val = line.substr(eq + 1);
-                if (key == "max_tickets") lotteryMaxTickets = string_to_int(val);
-            }
-            continue;
-        }
+        if (currentPool == "") continue;
         string[] parts;
         int lastPos = 0;
         int colonCount = 0;
@@ -151,9 +142,16 @@ string apply_lottery_prize(lottery_prize_item@ prize)
     string amtStr = "";
     if (prize.target == "coins") amtStr = convert_to_currency(amount);
     else amtStr = format_number(amount);
+    string itemStr = "";
+    if (prize.target == "cookies") itemStr = (amount == 1 ? "cooky" : "cookies");
+    else if (prize.target == "autocooky") itemStr = (amount == 1 ? "auto cooky" : "auto cookies");
+    else if (prize.target == "manulcooky") itemStr = (amount == 1 ? "manual cooky" : "manual cookies");
+    else if (prize.target == "cookyspeed") itemStr = "ms";
     string msg = prize.message;
     int ph = msg.find("%amount%");
     while (ph != -1) { msg = msg.substr(0, ph) + amtStr + msg.substr(ph + 8); ph = msg.find("%amount%"); }
+    int ph2 = msg.find("%item%");
+    while (ph2 != -1) { msg = msg.substr(0, ph2) + itemStr + msg.substr(ph2 + 6); ph2 = msg.find("%item%"); }
     return msg;
 }
 
@@ -163,7 +161,7 @@ void lottery_scratch_one(lottery_ticket_item@ ticket, int ticketIdx)
     stat_lottery_tickets_scratched++;
     pool.play_stationary("sounds/misc/tickscratch.ogg", false);
     if (lotterymode)
-        wait(random(500, 1500));
+        mini_wait_async(random(1000, 2000), "lottery");
     else
         dlg_buffer("Scratching. Press enter or space to reveal.");
     lottery_prize_item@ prize = pick_lottery_prize(ticket.prize_id);

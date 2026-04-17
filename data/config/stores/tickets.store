@@ -1,3 +1,7 @@
+; Settings
+
+max_tickets=0
+
 ; Categories
 
 standard=Standard Tickets|0|false|The standard range of scratch tickets. Available to all bakers from the very start.

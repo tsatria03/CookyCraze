@@ -348,13 +348,20 @@ void lottery_scratch_menu()
         dlg_buffer("You don't have any tickets to scratch. Buy some first!");
         return;
     }
-    setupmenu(false);
-    for (uint i = 0; i < ownedTickets.length(); i++)
-        m.add_item(ownedTickets[i].name + " — " + string(ownedTickets[i].owned) + " owned", ownedTickets[i].id);
-    m.add_item("Back", "back");
-    m.intro_text = "Select a ticket tier to scratch.";
     while (true)
     {
+        ownedTickets.resize(0);
+        for (uint i = 0; i < loadedTickets.length(); i++)
+        {
+            if (loadedTickets[i].owned > 0)
+                ownedTickets.insert_last(loadedTickets[i]);
+        }
+        if (ownedTickets.length() == 0) return;
+        setupmenu(false);
+        for (uint i = 0; i < ownedTickets.length(); i++)
+            m.add_item(ownedTickets[i].name + " — " + string(ownedTickets[i].owned) + " owned", ownedTickets[i].id);
+        m.add_item("Back", "back");
+        m.intro_text = "Select a ticket tier to scratch.";
         int res = m.run(0, true);
         if (res == -1) return;
         string sel = m.get_item_id(res);
@@ -366,31 +373,21 @@ void lottery_scratch_menu()
             if (loadedTickets[i].id == sel) { @ticket = loadedTickets[i]; ticketIdx = int(i); break; }
         }
         if (ticket is null || ticket.owned <= 0) continue;
-        setupmenu(false);
-        m.add_item("Scratch one", "one");
-        m.add_item("Scratch all (" + string(ticket.owned) + ")", "all");
-        m.add_item("Back", "back2");
-        m.intro_text = ticket.name + ". You have " + string(ticket.owned) + ". Choose how many to scratch.";
-        int sres = m.run(0, true);
-        if (sres == -1) continue;
-        string ssel = m.get_item_id(sres);
-        if (ssel == "back2") continue;
-        if (ssel == "one")
+        while (loadedTickets[ticketIdx].owned > 0)
         {
-            lottery_scratch_one(@ticket, ticketIdx);
-        }
-        else if (ssel == "all")
-        {
-            lottery_scratch_all(@ticket, ticketIdx);
-        }
-        if (loadedTickets[ticketIdx].owned <= 0)
-        {
-            bool anyOwned = false;
-            for (uint i = 0; i < loadedTickets.length(); i++)
-            {
-                if (loadedTickets[i].owned > 0) { anyOwned = true; break; }
-            }
-            if (!anyOwned) return;
+            setupmenu(false);
+            m.add_item("Scratch one", "one");
+            m.add_item("Scratch all (" + string(loadedTickets[ticketIdx].owned) + ")", "all");
+            m.add_item("Back", "back2");
+            m.intro_text = ticket.name + ". Choose how many to scratch.";
+            int sres = m.run(0, true);
+            if (sres == -1) break;
+            string ssel = m.get_item_id(sres);
+            if (ssel == "back2") break;
+            if (ssel == "one")
+                lottery_scratch_one(@ticket, ticketIdx);
+            else if (ssel == "all")
+                lottery_scratch_all(@ticket, ticketIdx);
         }
     }
 }
@@ -468,34 +465,7 @@ double totalCoinsEarned = cookiesToSell * 100;
 cookies -= cookiesToSell;
 coins += totalCoinsEarned;
 stat_coins_earned += totalCoinsEarned;
-if (totalCoinsEarned >= 10 && totalCoinsEarned <= 490)
-{
-pool.play_stationary("sounds/misc/coin1.ogg", false);
-}
-else if (totalCoinsEarned >= 500 && totalCoinsEarned <= 9990)
-{
-pool.play_stationary("sounds/misc/coin50.ogg", false);
-}
-else if (totalCoinsEarned >= 10000 && totalCoinsEarned <= 99990)
-{
-pool.play_stationary("sounds/misc/coin1000.ogg", false);
-}
-else if (totalCoinsEarned >= 100000 && totalCoinsEarned <= 499990)
-{
-pool.play_stationary("sounds/misc/coin10000.ogg", false);
-}
-else if (totalCoinsEarned >= 500000 && totalCoinsEarned <= 999990)
-{
-pool.play_stationary("sounds/misc/coin50000.ogg", false);
-}
-else if (totalCoinsEarned >= 1000000 && totalCoinsEarned <= 9999990)
-{
-pool.play_stationary("sounds/misc/coin100000.ogg", false);
-}
-else if (totalCoinsEarned >= 10000000)
-{
-pool.play_stationary("sounds/misc/coin100000.ogg", false);
-}
+play_coin_sound(totalCoinsEarned);
 dlgmessage_return("Successfully sold " + format_number(cookiesToSell) + " cookies for " + convert_to_currency(totalCoinsEarned) + "!");
 shopmenu();
 }
@@ -548,7 +518,7 @@ void lottery_buy_menu()
             bool locked = (int(rank) < visibleCats[i].min_rank);
             if (locked)
             {
-                if (visibleCats[i].hidden) continue;
+                if (visibleCats[i].hidden || !show_locked_shops) continue;
                 string label = visibleCats[i].name + ". Unlocked at rank " + string(visibleCats[i].min_rank) + ".";
                 if (visibleCats[i].description != "") label += " Description: " + visibleCats[i].description;
                 m.add_item(label, "locked" + string(i));
@@ -574,7 +544,7 @@ void lottery_buy_menu()
             }
         }
         m.add_item("Back", "back");
-        m.intro_text = "Ticket shop. Please choose a category to browse.";
+        m.intro_text = "Tickets menu. Please choose a category to browse.";
         int start = 0;
         if (lottery_last_cat_id != "")
         {
@@ -584,8 +554,8 @@ void lottery_buy_menu()
         int res = m.run(start, true);
         if (res == -1) return;
         string sel = m.get_item_id(res);
-        lottery_last_cat_id = sel;
         if (sel == "back") return;
+        lottery_last_cat_id = sel;
         if (sel.substr(0, 6) == "locked")
         {
             int idx = string_to_int(sel.substr(6));
@@ -609,6 +579,7 @@ void lottery_buy_menu()
             {
                 lottery_ticket_item@ t = loadedTickets[catTicketIndices[i]];
                 bool locked = (int(rank) < t.min_rank);
+                if (locked && !show_locked_shops) continue;
                 double cost = get_ticket_current_cost(@t);
                 string label = t.name + ", costs " + convert_to_currency(cost) + ".";
                 if (locked)
@@ -679,7 +650,7 @@ void lottery_buy_menu()
             if (coins < totalCost)
             {
                 pool.play_stationary("sounds/misc/storefail.ogg", false);
-                dlgmessage_return("You can't afford that many. It would cost " + convert_to_currency(totalCost) + " but you only have " + convert_to_currency(coins) + ".");
+                dlgmessage_return("Error! You can't afford " + format_number(qty) + " " + ticket.name + (qty != 1 ? "s" : "") + "!");
                 continue;
             }
             if (lotteryMaxTickets > 0 && ticket.owned + qty > lotteryMaxTickets)
@@ -693,9 +664,11 @@ void lottery_buy_menu()
             stat_coins_spent += totalCost;
             loadedTickets[ticketIdx].owned += qty;
             stat_lottery_tickets_bought += qty;
-            pool.play_stationary("sounds/misc/coin1.ogg", false);
+            pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
+            pool.play_stationary("sounds/misc/store_order.ogg", false);
             string plural = (qty == 1) ? "" : "s";
-            dlg_buffer("You bought " + string(qty) + " " + ticket.name + plural + " for " + convert_to_currency(totalCost) + ". You now have " + string(loadedTickets[ticketIdx].owned) + " in your inventory.");
+            string ownedPlural = (loadedTickets[ticketIdx].owned == 1) ? "" : "s";
+            dlgmessage_return("You bought " + string(qty) + " " + ticket.name + plural + " for " + convert_to_currency(totalCost) + ". You now have " + string(loadedTickets[ticketIdx].owned) + " " + ticket.name + ownedPlural + " in your inventory.");
         }
     }
 }

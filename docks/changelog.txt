@@ -1,3 +1,14 @@
+New in 5.3.
+Moved the cooky flipper achievements into their own category in the achievements menu, separate from the events category. Flipper flips also now appears as its own section in the baker statistics screen.
+Fixed a bug where the lottery achievement category was never registered, causing all 40 lottery achievements to be silently ignored. They now appear correctly in the achievements menu.
+Updated the ticket shop purchase messages to match the style of the bundle and single shops. The error message now says Error! You can't afford 5 Bronze Tickets, and the success message now names the ticket tier instead of saying tickets generically.
+Extended the show locked shop items setting to also apply to the ticket shop. Locked ticket categories and individual tickets are now hidden when the setting is off, matching the behavior of the bundle and single shops.
+Removed the 99 ticket inventory cap for the cooky lottery. You can now buy and hold as many tickets of each tier as you can afford.
+Fixed plurality bugs in cooky lottery prize messages where winning a single item would say 1 auto cookies or 1 manual cookies. Amounts of 1 now correctly say auto cooky or manual cooky, and cookie prizes say cooky instead of cookies when only one is won.
+Fixed a bug in the cooky lottery where scratching one ticket would return you to the tier selection menu instead of staying on the current tier, and where attempting to scratch the same tier again would fail to open the scratch menu.
+Updated the ticket shop to use the same purchase sounds as the bundle and single shops.
+Fixed a bug where pressing B to announce your current bet in blackjack would display currency bets as a raw internal value instead of a formatted dollar amount. For example, betting $5.20 now correctly announces as $5.20 instead of 520.
+Fixed a bug where pressing Control L to reload config files would stack duplicate data on top of the existing data instead of replacing it, causing edits to ranks.table, slots.table, and other config files to not take effect correctly.
 New in 5.2.
 Fixed a bug where percentage-based coin events such as coin jackpot and coin drain would display the actual payout as a raw number instead of a currency value. For example, netting you 875 now correctly shows as netting you $8.75.
 Added an automatic scratch reveal setting to the game preferences for the cooky lottery mini game. When enabled, scratching a ticket plays a sound and reveals the result after a random delay, matching the behavior of the slot machine and blackjack auto modes. When disabled, the result is held until you press enter or space.

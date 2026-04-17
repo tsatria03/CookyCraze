@@ -13,7 +13,7 @@ confirm_threshold=1000:false
 win_sound=jackwin.ogg
 lose_sound=jacklose.ogg
 player_draw_sound=jackplayer.ogg
-dealer_draw_sound=jackdealer.ogg
+dealer_draw_sound=jackdeal.ogg
 
 ; Messages
 

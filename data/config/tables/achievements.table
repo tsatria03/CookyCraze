@@ -6,6 +6,8 @@ economy=Economy
 events=Events
 blackjack=Blackjack
 slots=Slot machine
+flipper=Cooky flipper
+lottery=Cooky lottery
 quests=Quests
 
 ; Baking
@@ -80,11 +82,11 @@ events:event_veteran:events_fired:1000:false:false:Event Veteran:Trigger %thresh
 events:event_legend:events_fired:5000:false:false:Event Legend:Trigger %threshold% random events. The universe itself cannot stop throwing things at your bakery.:The bakery has a life of its own. You just work there.
 events:event_storm:events_fired:10000:false:false:Event Storm:Trigger %threshold% random events. Meteorologists have begun tracking your bakery.:At a certain frequency, events stop being random and start feeling inevitable.
 events:event_force:events_fired:25000:false:false:Event Force:Trigger %threshold% random events. You are no longer affected by events. You are an event.:There are forces of nature, and then there are forces of bakery. You became the latter.
-events:first_flip:flipper_flips:1:false:true:Chocolate or Bisket:Flip the cooky for the first time. Luck is on your side. Probably.:Two outcomes. One flip. What are you waiting for?
-events:flip_happy:flipper_flips:25:false:true:Flip Happy:Flip the cooky %threshold% times. You just can't stop.:Once you start flipping, it gets oddly difficult to stop.
-events:flipper_fanatic:flipper_flips:100:false:true:Flipper Fanatic:Flip the cooky %threshold% times. This is less about luck and more about obsession at this point.:At some point this stops being about the outcome and starts being about the ritual.
-events:flipper_addict:flipper_flips:500:false:true:Flipper Addict:Flip the cooky %threshold% times. Your thumb is going to fall off.:Your thumb knows what to do before your brain does. That's a sign.
-events:flipper_legend:flipper_flips:2000:false:true:Flipper Legend:Flip the cooky %threshold% times. You have flipped more cookys than you have baked cookies.:When the flipper sees more action than the oven, priorities have shifted somewhat.
+flipper:first_flip:flipper_flips:1:false:true:Chocolate or Bisket:Flip the cooky for the first time. Luck is on your side. Probably.:Two outcomes. One flip. What are you waiting for?
+flipper:flip_happy:flipper_flips:25:false:true:Flip Happy:Flip the cooky %threshold% times. You just can't stop.:Once you start flipping, it gets oddly difficult to stop.
+flipper:flipper_fanatic:flipper_flips:100:false:true:Flipper Fanatic:Flip the cooky %threshold% times. This is less about luck and more about obsession at this point.:At some point this stops being about the outcome and starts being about the ritual.
+flipper:flipper_addict:flipper_flips:500:false:true:Flipper Addict:Flip the cooky %threshold% times. Your thumb is going to fall off.:Your thumb knows what to do before your brain does. That's a sign.
+flipper:flipper_legend:flipper_flips:2000:false:true:Flipper Legend:Flip the cooky %threshold% times. You have flipped more cookys than you have baked cookies.:When the flipper sees more action than the oven, priorities have shifted somewhat.
 events:flipper_eternal:flipper_flips:5000:false:true:Flipper Eternal:Flip the cooky %threshold% times. The cooky has been flipped so many times it no longer has sides.:At a certain point the flip itself becomes the destination.
 
 ; Blackjack
@@ -232,6 +234,7 @@ lottery:ticket_hoarder:lottery_tickets_bought:1000:false:true:Ticket Hoarder:Buy
 lottery:ticket_addict:lottery_tickets_bought:2500:false:true:Ticket Addict:Buy %threshold% scratch tickets. The ticket shop sees you coming and starts printing.:Some habits announce themselves. Yours announces itself at the counter.
 lottery:ticket_mogul:lottery_tickets_bought:5000:false:true:Ticket Mogul:Buy %threshold% scratch tickets. You have singlehandedly funded the lottery's operating costs.:Moguls don't buy tickets. They buy the supply chain.
 lottery:ticket_legend:lottery_tickets_bought:10000:false:true:Ticket Legend:Buy %threshold% scratch tickets. Economists are studying your spending patterns as a case study.:At ten thousand tickets, the purchase history becomes a document of historical significance.
+lottery:ticket_transcendent:lottery_tickets_bought:25000:false:true:Ticket Transcendent:Buy %threshold% scratch tickets. The ticket shop has named a stool after you.:At twenty five thousand tickets, you are no longer a customer. You are part of the decor.
 
 lottery:first_scratch:lottery_tickets_scratched:1:false:true:First Scratch:Scratch your first ticket. The coating comes off. Something is underneath.:A ticket unscratched is just a mystery. Time to solve one.
 lottery:scratch_curious:lottery_tickets_scratched:5:false:true:Scratch Curious:Scratch %threshold% tickets. You are starting to understand the ritual.:A few scratches in and the motion starts to feel familiar.

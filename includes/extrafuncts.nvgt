@@ -307,6 +307,42 @@ docksmenu();
 }
 }
 }
+
+void play_coin_sound(double amount)
+{
+    if (coinsfx == false) return;
+    string snd = "";
+    if (amount >= 10 && amount <= 490) snd = "coin1.ogg";
+    else if (amount >= 500 && amount <= 9990) snd = "coin50.ogg";
+    else if (amount >= 10000 && amount <= 99990) snd = "coin1000.ogg";
+    else if (amount >= 100000 && amount <= 499990) snd = "coin10000.ogg";
+    else if (amount >= 500000 && amount <= 999990) snd = "coin50000.ogg";
+    else if (amount >= 1000000) snd = "coin100000.ogg";
+    if (snd != "") pool.play_stationary("sounds/misc/" + snd, false);
+}
+
+void reload_config()
+{
+    loadedEvents = parse_baker_events("data/config/events/baker.event");
+    loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
+    slotSymbols.resize(0); slotPayouts.resize(0);
+    parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
+    rankSounds.resize(0); rankDefault.resize(0); rankRewards.resize(0);
+    parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
+    parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+    parse_lottery_table("data/config/tables/lottery.table");
+    loadedAchievements.resize(0);
+    loadedAchievementCategories.resize(0);
+    parse_achievements("data/config/tables/achievements.table", loadedAchievements, loadedAchievementCategories);
+    achievementsUnlocked.delete_all();
+    init_achievements(loadedAchievements, achievementsUnlocked);
+    parse_prestige_table("data/config/tables/prestige.table");
+    loadedQuests.resize(0);
+    parse_quests_table("data/config/tables/quests.table", loadedQuests);
+    assign_quests();
+}
+
+
 void show_baker_info()
 {
     string txt = "";
@@ -378,6 +414,8 @@ void show_baker_statistics()
     txt += "\r\n";
     txt += "Events\r\n";
     txt += "Events fired: " + format_number(stat_events_fired) + "\r\n";
+    txt += "\r\n";
+    txt += "Cooky flipper\r\n";
     txt += "Flipper flips: " + format_number(stat_flipper_flips) + "\r\n";
     txt += "\r\n";
     txt += "Blackjack\r\n";
@@ -576,7 +614,7 @@ void set_save_slot(int slot)
     sd = savedata(currentSaveSlot, "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
 }
 
-void slot_wait_async(int milliseconds)
+void mini_wait_async(int milliseconds, string minigame)
 {
     timer WaitTimer;
     WaitTimer.restart();
@@ -584,31 +622,10 @@ void slot_wait_async(int milliseconds)
     {
         wait(5);
         form.monitor();
-int betChoice, betInput, symbolChoices;
-if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput and form.get_current_focus()!=symbolChoices) slots_game_input();
-        key_code[] keys = keys_pressed();
-        for (uint i = 0; i < keys.length(); i++)
-        {
-            key_code key = keys[i];
-        }
-    }
-}
-
-void jack_wait_async(int milliseconds)
-{
-    timer WaitTimer;
-    WaitTimer.restart();
-    while (WaitTimer.elapsed < milliseconds)
-    {
-        wait(5);
-        form.monitor();
-        int betChoice, betInput;
-        if (form.get_current_focus() != betChoice && form.get_current_focus() != betInput) jack_game_input();
-        key_code[] keys = keys_pressed();
-        for (uint i = 0; i < keys.length(); i++)
-        {
-            key_code key = keys[i];
-        }
+        if (minigame == "slots") slots_game_input();
+        else if (minigame == "blackjack") jack_game_input();
+        else if (minigame == "lottery") lottery_game_input();
+        else if (minigame == "flipper") cook_game_input();
     }
 }
 

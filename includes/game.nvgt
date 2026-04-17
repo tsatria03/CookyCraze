@@ -287,20 +287,7 @@ clickergame();
 if(key_pressed(KEY_L))
 {
 readdata();
-loadedEvents = parse_baker_events("data/config/events/baker.event");
-loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
-parse_slots_table("data/config/tables/slots.table", slotSymbols, slotPayouts, slotReels, slotMinBet, slotMaxBet, slotConfirmThreshold, slotConfirmUsePercent);
-parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
-parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
-loadedAchievements.resize(0);
-loadedAchievementCategories.resize(0);
-parse_achievements("data/config/tables/achievements.table", loadedAchievements, loadedAchievementCategories);
-achievementsUnlocked.delete_all();
-init_achievements(loadedAchievements, achievementsUnlocked);
-parse_prestige_table("data/config/tables/prestige.table");
-loadedQuests.resize(0);
-parse_quests_table("data/config/tables/quests.table", loadedQuests);
-assign_quests();
+reload_config();
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");

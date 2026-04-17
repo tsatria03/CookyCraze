@@ -150,7 +150,7 @@ Buy scratch tickets and reveal prizes ranging from coins and cookies to stat boo
 
 Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end.
 Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
-You can hold up to 99 tickets of each tier at once, and scratch them one at a time or all at once from the lottery screen.
+You can scratch tickets one at a time or all at once from the lottery screen.
 When scratching one ticket at a time, you can enable automatic reveal in the game settings. When enabled, the result appears after a short random delay. When disabled, the result is held until you press enter or space, matching the manual mode available in the slot machine and blackjack.
 
 Rank ups and achievement unlocks are checked and can fire while you are playing any of the 4 minigames mentioned above.
@@ -207,7 +207,7 @@ View a summary of everything you have done in your current playthrough. Open it 
 
 Most stats shown here are tracked stats, meaning they are running totals that only ever go up and are saved with your game. A few are live stats, meaning they are calculated fresh from the current game state each time you open the screen and can go up or down. Live stats are noted individually where they appear.
 
-The statistics screen is divided into seven sections.
+The statistics screen is divided into nine sections.
 
 Baking.
 
@@ -234,6 +234,9 @@ Single upgrades purchased: counts every singles shop transaction, whether you bu
 Events.
 
 Events fired: counts every baker event and flipper event that successfully triggered and applied its effect.
+
+Cooky flipper.
+
 Flipper flips: counts every time you flip a cooky in the cooky flipper minigame.
 
 Blackjack.
@@ -251,6 +254,7 @@ Losses: counts spins where the payout multiplier was zero, meaning you lost your
 
 Lottery.
 
+Tickets bought: counts every ticket purchased across all tiers.
 Tickets scratched: counts every ticket you have scratched, regardless of outcome.
 Wins: counts scratches where a prize was awarded.
 Losses: counts scratches that returned nothing.
@@ -278,11 +282,11 @@ It resets only when starting a new game in the same slot.
 Achievements.
 Track your progress and earn recognition for milestones across every part of the game.
 
-There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack.
+There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, the cooky flipper, the slot machine, blackjack, and the cooky lottery.
 Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
 Achievements are shown in a dedicated menu accessible from the main game interface.
-The menu is organised into eight categories: baking, baking slots manager, economy, events, blackjack, slot machine, lottery, and quests.
+The menu is organised into nine categories: baking, baking slots manager, economy, events, blackjack, slot machine, cooky flipper, cooky lottery, and quests.
 Each category label shows how many achievements it contains.
 The main menu shows how many you have unlocked out of the total across all categories.
 
@@ -632,7 +636,12 @@ tickets.store
 
 Location: data/config/stores/tickets.store
 
-Defines the ticket categories and individual ticket tiers available in the lottery shop.
+Defines the global lottery settings, ticket categories, and individual ticket tiers available in the lottery shop.
+
+Settings.
+
+max_tickets
+The maximum number of tickets of each tier the player can hold at once. Set to 0 for no limit.
 
 Category format: id=Display Name|rank|hidden|description
 
@@ -1156,12 +1165,7 @@ lottery.table
 
 Location: data/config/tables/lottery.table
 
-Defines the global lottery settings and all prize pools used when a ticket is scratched.
-
-Settings section.
-
-max_tickets
-The maximum number of tickets of each tier the player can hold at once. Set to 0 for no limit.
+Defines all prize pools used when a ticket is scratched.
 
 Prize pools.
 Format: id:target:min_amount:max_amount:use_percent:weight:sound:message
@@ -1203,7 +1207,10 @@ Supports random range syntax, for example ticklose(1,3).ogg picks randomly from 
 Set to none to play no sound.
 
 message
-The message shown to the player when this prize is revealed. Use %amount% as a placeholder for the awarded value.
+The message shown to the player when this prize is revealed.
+
+Use %amount% as a placeholder for the awarded value. For coin prizes this is formatted as currency. For all others it is a plain number.
+Use %item% as a placeholder for the correctly pluralized item name. For example, 1 auto cooky or 5 auto cookies. Not applicable to coin prizes.
 
 Game conclusion
 
