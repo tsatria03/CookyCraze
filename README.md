@@ -54,3 +54,9 @@ Money is always displayed in dollars and cents throughout the game, for example 
 - **Tab:** Cycles forward through the available form controls.
 - **Shift plus Tab:** Cycles backward through the available form controls.
 - **Spacebar or Enter:** Activates a button or opens a menu.
+
+## Conclusion
+
+CookyCraze started as a simple cookie clicker and has grown into a full-featured idle game with automated production, minigames, achievements, a rank progression system, multiple save slots, and deep mod support. Every system in the game can be tuned or extended through the provided configuration files.
+
+Thanks for playing, and happy baking!
