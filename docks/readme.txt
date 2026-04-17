@@ -151,10 +151,11 @@ Buy scratch tickets and reveal prizes ranging from coins and cookies to stat boo
 Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end.
 Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
 You can hold up to 99 tickets of each tier at once, and scratch them one at a time or all at once from the lottery screen.
+When scratching one ticket at a time, you can enable automatic reveal in the game settings. When enabled, the result appears after a short random delay. When disabled, the result is held until you press enter or space, matching the manual mode available in the slot machine and blackjack.
 
-Rank ups and achievement unlocks are checked and can fire while you are playing any of the 3 minigames mentioned abuv.
+Rank ups and achievement unlocks are checked and can fire while you are playing any of the 4 minigames mentioned above.
 
-Baking slots manager. Unlocked at rank 40.
+Baking slots manager. Unlocked at rank 50.
 Manage and configure your baking slots to balance automated and manual cookie production.
 
 There are two types of slots.
@@ -162,7 +163,7 @@ Auto slots bake cookies passively without any input, scaling with your auto cook
 Manual slots multiply the output of each bake press, scaling with your manual cookie stat.
 
 You can purchase additional slots of either type, and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual.
-Both submenus are locked behind a rank requirement, defaulting to rank 40.
+Both submenus are locked behind a rank requirement, defaulting to rank 50.
 The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
 
 Baker info.
@@ -281,7 +282,7 @@ There are many achievements spread across all tracked statistics, including baki
 Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
 Achievements are shown in a dedicated menu accessible from the main game interface.
-The menu is organised into seven categories: baking, baking slots manager, economy, events, blackjack, slot machine, and quests.
+The menu is organised into eight categories: baking, baking slots manager, economy, events, blackjack, slot machine, lottery, and quests.
 Each category label shows how many achievements it contains.
 The main menu shows how many you have unlocked out of the total across all categories.
 
@@ -626,6 +627,55 @@ This is useful for secret items you do not want players to know exist until they
 
 description
 The text shown when the player hovers over this item in the shop. Use %item_count as a placeholder for the amount value.
+
+tickets.store
+
+Location: data/config/stores/tickets.store
+
+Defines the ticket categories and individual ticket tiers available in the lottery shop.
+
+Category format: id=Display Name|rank|hidden|description
+
+id
+The internal identifier for this category, referenced by ticket entries below.
+
+Display Name
+Shown as the category heading in the buy tickets menu.
+
+rank
+The minimum rank required to see this category. Set to 0 for no requirement.
+
+hidden
+Set to true to hide the category entirely until the rank is reached. Set to false to show it as locked with the required rank displayed.
+
+description
+Shown when the player highlights the category in the shop.
+
+Ticket format: category:id:cost:multiplier:rank:hidden:prize_id:description
+
+category
+The id of the category this ticket belongs to, as defined in the category section above.
+
+id
+The internal identifier for this ticket tier. Must be unique across all ticket entries.
+
+cost
+The base coin cost for the first ticket purchased.
+
+multiplier
+How much the cost scales with each ticket purchased. Uses the same compounding scaling as the singles shop. Set to 1.0 for a flat price.
+
+rank
+The minimum rank required to buy this ticket. Set to 0 for no requirement.
+
+hidden
+Set to true to hide this ticket until the rank is reached. Set to false to show it as locked.
+
+prize_id
+The prize pool id from lottery.table that is used when a ticket of this tier is scratched. Must match a [prize:id] section header in lottery.table exactly.
+
+description
+Shown when the player highlights this ticket in the buy menu.
 
 achievements.table
 
@@ -1154,55 +1204,6 @@ Set to none to play no sound.
 
 message
 The message shown to the player when this prize is revealed. Use %amount% as a placeholder for the awarded value.
-
-tickets.store
-
-Location: data/config/stores/tickets.store
-
-Defines the ticket categories and individual ticket tiers available in the lottery shop.
-
-Category format: id=Display Name|rank|hidden|description
-
-id
-The internal identifier for this category, referenced by ticket entries below.
-
-Display Name
-Shown as the category heading in the buy tickets menu.
-
-rank
-The minimum rank required to see this category. Set to 0 for no requirement.
-
-hidden
-Set to true to hide the category entirely until the rank is reached. Set to false to show it as locked with the required rank displayed.
-
-description
-Shown when the player highlights the category in the shop.
-
-Ticket format: category:id:cost:multiplier:rank:hidden:prize_id:description
-
-category
-The id of the category this ticket belongs to, as defined in the category section above.
-
-id
-The internal identifier for this ticket tier. Must be unique across all ticket entries.
-
-cost
-The base coin cost for the first ticket purchased.
-
-multiplier
-How much the cost scales with each ticket purchased. Uses the same compounding scaling as the singles shop. Set to 1.0 for a flat price.
-
-rank
-The minimum rank required to buy this ticket. Set to 0 for no requirement.
-
-hidden
-Set to true to hide this ticket until the rank is reached. Set to false to show it as locked.
-
-prize_id
-The prize pool id from lottery.table that is used when a ticket of this tier is scratched. Must match a [prize:id] section header in lottery.table exactly.
-
-description
-Shown when the player highlights this ticket in the buy menu.
 
 Game conclusion
 
