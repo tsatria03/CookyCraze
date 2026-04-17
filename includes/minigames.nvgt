@@ -383,7 +383,7 @@ betAmount = floor(selectedBet == 1 ? string_to_number(betStr) * 100.0 : string_t
     }
             if (betAmount < slotMinBet)
             {
-                dlg_buffer("Error! The minimum bet is " + format_number(slotMinBet) + ".");
+                dlg_buffer("Error! The minimum bet is " + (selectedBet == 1 ? convert_to_currency(slotMinBet) : format_number(slotMinBet)) + ".");
                 form.focus(spinButton);
                 continue;
             }
@@ -723,7 +723,7 @@ check_achievements(loadedAchievements, achievementsUnlocked);
             if (betNum < jacksConfig.min_bet)
             {
                 pool.play_stationary("sounds/misc/gamefail.ogg", false);
-                dlg_buffer("Error! The minimum bet is " + format_number(jacksConfig.min_bet) + ".");
+                dlg_buffer("Error! The minimum bet is " + (selectedBet == 1 ? convert_to_currency(jacksConfig.min_bet) : format_number(jacksConfig.min_bet)) + ".");
                 continue;
             }
             if (jacksConfig.max_bet > 0 && betNum > jacksConfig.max_bet)

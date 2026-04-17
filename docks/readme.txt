@@ -7,24 +7,25 @@ Every rank you reach brings a reward, and milestones along the way unlock powerf
 
 Can you reach the highest rank and become the ultimate baker? Let's find out!
 
+A note on currency.
+Throughout the game, money is always displayed in dollars and cents. For example, 50 cents or $1.50.
+You will never see the word coins in any player-facing message. However, coins is the internal name used inside the configuration files to refer to the player's money.
+If you are editing config files, you must use the word coins exactly as written when the documentation says so. This does not affect how money appears in the game itself.
+
 Game features
 
 Baking and selling cookies.
 Bake cookies and sell them to earn money. The more you bake, the higher your rank, and the more you earn.
 
-You can bake manually by pressing the bake button, or let auto-baking handle it passively.
-Every cookie baked counts toward your rank progress.
-Your earnings per bake scale with your rank, so the further you progress, the faster money accumulates.
+You can bake manually by pressing the bake button, or let auto-baking handle it passively. Every cookie baked counts toward your rank progress. Your earnings per bake scale with your rank, so the further you progress, the faster money accumulates.
 
-To sell cookies and earn money, enter the cooky store and choose the sell option.
-You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in.
-Press enter to sell everything you have, or type a smaller number to sell only part of your supply.
+To sell cookies and earn money, enter the cooky store and choose the sell option. You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in. Press enter to sell everything you have, or type a smaller number to sell only part of your supply.
+
 Each cookie sells for a configurable rate set in the game settings, defaulting to 50 cents. The more you bake before selling, the larger your payout.
 
-Baking mode is a toggle that activates automatic cookie production. To enable it, you need at least one auto cookie.
-Once active, cookies are baked automatically on a timed cycle without any input needed.
-You can still press the bake button manually while baking mode is running to get an extra boost on top of the automatic output.
-Baking mode turns off automatically if your auto cookie count drops to zero.
+Baking mode is a toggle that activates automatic cookie production. To enable it, you need at least one auto cookie. Once active, cookies are baked automatically on a timed cycle without any input needed.
+
+You can still press the bake button manually while baking mode is running to get an extra boost on top of the automatic output. Baking mode turns off automatically if your auto cookie count drops to zero.
 
 If you have no baking slots yet, auto baking uses your full auto cookie value directly.
 Once you purchase and enable slots through the baking slots manager, production is routed through them instead, giving you finer control over how cookies are distributed.
@@ -37,10 +38,8 @@ Certain milestone ranks also award bonus stat boosts on top of the money reward,
 
 All rewards and unlock ranks are fully configurable in ranks.table.
 
-Regular rank rewards are announced non-interruptively in the background and stored in the ranks buffer.
-Milestone rank rewards go to the critical buffer.
-When baking mode is off, they show as a dismissible dialog so you don't miss them.
-When baking mode is on, they are delivered non-interruptively so they don't interrupt automated play.
+Regular rank rewards are announced non-interruptively in the background and stored in the ranks buffer. Milestone rank rewards go to the critical buffer.
+When baking mode is off, they show as a dismissible dialog so you don't miss them. When baking mode is on, they are delivered non-interruptively so they don't interrupt automated play.
 
 The bundle shop.
 Buy packages of multiple stat upgrades at once, often at better value than buying the same items individually.
@@ -57,24 +56,15 @@ The advantage of bundles is that they package multiple items into one convenient
 
 There are four ways to purchase in the bundle shop.
 
-The first is buying a bundle at a custom quantity. Select any bundle and you will be prompted for how many you want to buy.
-Type the exact number you want and confirm to buy precisely that many at the current price.
+The first is buying a bundle at a custom quantity. Select any bundle and you will be prompted for how many you want to buy. Type the exact number you want and confirm to buy precisely that many at the current price.
 
-The second is buying a bundle at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in.
-Simply press enter without typing anything and the game buys as many as your budget allows in one transaction.
-The total cost shown in the menu is always per bundle, so the game multiplies that by your chosen quantity at checkout.
+The second is buying a bundle at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in. Simply press enter without typing anything and the game buys as many as your budget allows in one transaction.
 
-The third is buying one of every affordable bundle at a custom quantity. At the bottom of each category is a buy one of every affordable bundle option, which appears whenever at least one bundle in the category is within your budget.
-Selecting it prompts you for how many of each you want to buy, and the game purchases that many of every affordable bundle in the category at once, skipping any you cannot afford.
-It reports which bundles were purchased, what stats you gained, and the total amount spent.
+The third is buying one of every affordable bundle at a custom quantity. At the bottom of each category is a buy one of every affordable bundle option, which appears whenever at least one bundle in the category is within your budget. Selecting it prompts you for how many of each you want to buy, and the game purchases that many of every affordable bundle in the category at once, skipping any you cannot afford.
 
-The fourth is buying one of every affordable bundle at the maximum quantity. When the prompt appears, the maximum number of full passes through all affordable bundles you can currently afford is already filled in.
-Simply press enter without typing anything and the game buys as many of each affordable bundle as your budget allows in one transaction.
+The fourth is buying one of every affordable bundle at the maximum quantity. When the prompt appears, the maximum number of full passes you can afford is already filled in. Simply press enter and the game buys as many of each affordable bundle as your budget allows.
 
-The key difference between bundles and the singles shop bulk buy is not price, but convenience.
-Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats.
-A bundle packages a curated combination of stats into a single purchase, so you can upgrade auto cookies, manual cookies, and baking speed all at once without any extra navigation.
-The cost works out the same either way, since both use the singles shop prices as the foundation.
+The key difference between bundles and the singles shop bulk buy is not price, but convenience. A bundle packages a curated combination of stats into a single purchase, so you can upgrade multiple stats at once without extra navigation. The cost works out the same either way, since both use the singles shop prices as the foundation.
 
 The singles shop.
 Buy individual stat upgrades using your money. Three stats are available: auto cookies, manual cookies, and baking speed.
@@ -88,18 +78,13 @@ Costs scale up the more you buy, so plan your purchases carefully.
 
 There are four ways to purchase in the singles shop.
 
-The first is buying a single item at a custom quantity. Select any item in a category and you will be prompted to enter how many you want.
-Type the exact number you want and confirm to buy precisely that amount at the current price.
+The first is buying a single item at a custom quantity. Select any item in a category and you will be prompted to enter how many you want. Type the exact number you want and confirm to buy precisely that amount at the current price.
 
-The second is buying a single item at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in.
-Simply press enter without typing anything and the game buys as many of that item as your budget allows in one transaction.
+The second is buying a single item at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in. Simply press enter without typing anything and the game buys as many of that item as your budget allows in one transaction.
 
-The third is buying all affordable items at a custom quantity. At the bottom of each category is a buy all affordable items option, which appears whenever at least one item in the category is within your budget.
-Selecting it prompts you for a quantity, and the game buys that many of every affordable item in the category at once, skipping any you cannot afford.
-This lets you spread a large purchase across multiple stats in a single action instead of visiting each item individually.
+The third is buying all affordable items at a custom quantity. At the bottom of each category is a buy all affordable items option, which appears whenever at least one item in the category is within your budget. Selecting it prompts you for a quantity, and the game buys that many of every affordable item in the category at once, skipping any you cannot afford.
 
-The fourth is buying all affordable items at the maximum quantity. The buy all affordable prompt pre-fills the maximum number you can afford across all eligible items in the category.
-Pressing enter without changing it buys every affordable item to the maximum your budget allows, making it the fastest way to spend across an entire category in one go.
+The fourth is buying all affordable items at the maximum quantity. The prompt pre-fills the maximum number you can afford across all eligible items in the category. Pressing enter buys every affordable item to the maximum your budget allows, making it the fastest way to spend across an entire category in one go.
 
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
@@ -111,18 +96,15 @@ Events fire automatically during gameplay and are fully configurable in baker.ev
 Blackjack. Unlocked at rank 10.
 A card game where you bet an item of your choice and try to reach 21 without going over.
 
-You can bet money, cookies, auto cookies, manual cookies, or baking speed.
-When betting money, you enter the amount as a dollar value. Type 1 to bet $1.00, 0.50 to bet 50 cents, and so on. All other items are entered as whole numbers.
-A natural 21 on your opening two cards pays out at 1.5 times your bet.
-A standard win pays double, and a tie returns your original bet.
-The dealer stands at 17 by default.
+You can bet money, cookies, auto cookies, manual cookies, or baking speed. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
+A natural 21 on your opening two cards pays out at 1.5 times your bet. A standard win pays double, and a tie returns your original bet. The dealer stands at 17 by default.
 
 You can draw cards manually, or enable automatic drawing in the settings.
 All payouts, sounds, messages, and bet limits are configurable in jacks.table.
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 
 Cooky flipper. Unlocked at rank 20.
-Flip a coin to trigger a random event that can boost or reduce your stats.
+Flip a cooky to trigger a random event that can boost or reduce your stats.
 
 Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list.
 Some events are positive, and others are negative, so there is an element of risk.
@@ -138,20 +120,16 @@ The history persists across sessions and resets when starting a new game.
 Slot machine. Unlocked at rank 30.
 Spin the reels and match symbols to win multiples of your bet.
 
-Like the other minigames, you choose which item to bet and how much.
-When betting money, you enter the amount as a dollar value. Type 1 to bet $1.00, 0.50 to bet 50 cents, and so on. All other items are entered as whole numbers.
-Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples.
-The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table.
+Like the other minigames, you choose which item to bet and how much. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
+Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples. The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table.
 
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 
 Cooky lottery. Unlocked at rank 30.
-Buy scratch tickets and reveal prizes ranging from coins and cookies to stat boosts.
+Buy scratch tickets and reveal prizes ranging from money and cookies to stat boosts.
 
-Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end.
-Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
-You can scratch tickets one at a time or all at once from the lottery screen.
-When scratching one ticket at a time, you can enable automatic reveal in the game settings. When enabled, the result appears after a short random delay. When disabled, the result is held until you press enter or space, matching the manual mode available in the slot machine and blackjack.
+Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end. Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
+You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
 Rank ups and achievement unlocks are checked and can fire while you are playing any of the 4 minigames mentioned above.
 
@@ -232,9 +210,13 @@ Money earned: counts the total amount of money you have received across all sour
 Bundle upgrades purchased: counts every bundle shop transaction.
 Single upgrades purchased: counts every singles shop transaction, whether you buy one item or a full bulk purchase.
 
-Events.
+Baker events.
 
-Events fired: counts every baker event and flipper event that successfully triggered and applied its effect.
+Baker events fired: counts every baker event that successfully triggered and applied its effect during baking.
+
+Flipper events.
+
+Flipper events fired: counts every flipper event that successfully triggered and applied its effect during a cooky flip.
 
 Cooky flipper.
 
@@ -286,10 +268,8 @@ Track your progress and earn recognition for milestones across every part of the
 There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, the cooky flipper, the slot machine, blackjack, and the cooky lottery.
 Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
-Achievements are shown in a dedicated menu accessible from the main game interface.
-The menu is organised into nine categories: baking, baking slots manager, economy, events, blackjack, slot machine, cooky flipper, cooky lottery, and quests.
-Each category label shows how many achievements it contains.
-The main menu shows how many you have unlocked out of the total across all categories.
+Achievements are shown in a dedicated menu accessible from the main game interface. The menu is organised into ten categories: baking, baking slots manager, economy, baker events, flipper events, blackjack, slot machine, cooky flipper, cooky lottery, and quests.
+Each category label shows how many achievements it contains. The main menu shows how many you have unlocked out of the total across all categories.
 
 Opening a category shows how many you have unlocked out of the total for that category, with unlocked ones listed first followed by locked ones.
 
@@ -303,36 +283,26 @@ If baking mode is on, it is announced non-interruptively so automated play is no
 Quests.
 Complete a set of objectives to unlock the prestige option and start a new run with a permanent bonus.
 
-Quests are automatically assigned at the start of each prestige cycle using a difficulty based system.
-Each quest has a difficulty from 1 to 10, and the active slots are spread evenly across the difficulty range so you always get a balanced mix from easy to hard.
-Required quests occupy their difficulty slot directly, and random quests fill the rest.
-Only one required quest per stat can be active at a time, so if a stat has multiple required tiers only the current one will appear.
+Quests are automatically assigned at the start of each prestige cycle using a difficulty based system. Each quest has a difficulty from 1 to 10, and active slots are spread evenly across the range so you always get a balanced mix.
+Required quests occupy their difficulty slot directly, and random quests fill the rest. Only one required quest per stat can be active at a time, so if a stat has multiple required tiers only the current one will appear.
 
 The number of active quests is configurable in quests.table and is capped at 10.
 The game ships with 75 quests: 14 tiered required rank quests covering ranks 5 through 500, and 60 random quests across 12 trackable stats with 5 difficulty tiers each.
 Rerolling a quest replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
 
 To view your quests, press the Quests button in the main game interface.
-A Quest Category list at the top of the quests screen lets you narrow down the quest list by category. The options are All, Required, and Random. All is the default and shows every active quest. Required shows only required quests. Random shows only random quests. Arrow through the Quest Category list to switch and the quest list updates immediately.
-The quests screen shows required quests at the top of the list, followed by random quests sorted from easiest to hardest by difficulty.
-Completed quests are labelled with complete in the list so you can see your status at a glance without having to open each one.
-Arrow to any quest and the detail box updates automatically, showing the description and current progress toward the threshold.
-If the quest is complete, a complete label is appended to the progress line.
+A Quest Category list at the top of the quests screen lets you narrow down the list. The options are All, Required, and Random, and the list updates immediately as you switch between them.
+The quests screen shows required quests at the top, followed by random quests sorted from easiest to hardest. Completed quests are labelled with complete so you can see your status at a glance.
+Arrow to any quest and the detail box updates automatically, showing the description and current progress. A complete label is appended to the progress line when the quest is done.
 
 The prestige button is located in the quests screen and its label updates dynamically to reflect your current status.
 A prestige history box also appears in the quests screen after the prestige button, showing a log of every prestige run.
-A reroll history box appears directly after the reroll button, showing the last 50 rerolls in order and listing which quest was replaced, what replaced it, and how much it cost. It is hidden when a required quest is focused since required quests cannot be rerolled. When the Quest Category is set to Random the reroll button and reroll history are always visible since every quest shown is rerollable. When set to Required they are always hidden. When set to All visibility toggles as you move between required and random quests.
+A reroll history box appears directly after the reroll button, showing the last 50 rerolls and listing which quest was replaced, what replaced it, and how much it cost. It is hidden when a required quest is focused, always visible when the category is set to Random, and toggles as you move between quests when set to All.
 Both boxes show a message when empty and reset when starting a new game.
-Before reaching the minimum rank it shows unlocked at rank X.
-Once unlocked, if the quest requirement has not been met it shows no reward available.
-When the requirement is met it shows reward available.
-Whether you receive a reward depends on your quest completion status and the require_all setting in quests.table.
+Before reaching the minimum rank the prestige button shows unlocked at rank X. Once unlocked, it shows no reward available or reward available depending on your quest completion status.
 
-If you want a different quest, arrow to it in the quests menu and press the reroll button.
-Rerolling replaces only that quest with a new random one of the same difficulty.
-The reroll button does not appear when a required quest is focused.
-Rerolling deducts a cost from a configurable stat, and the cost increases each time you reroll using compounding scaling.
-The reroll count resets at the start of each prestige cycle so costs go back to base.
+If you want a different quest, arrow to it and press the reroll button. Rerolling replaces only that quest with a new random one of the same difficulty. The reroll button does not appear when a required quest is focused.
+Rerolling deducts a cost from a configurable stat, and the cost increases each time using compounding scaling. The reroll count resets at the start of each prestige cycle so costs go back to base.
 
 Prestige.
 Reset your progress and earn a permanent bonus that carries into every future run.
@@ -343,19 +313,14 @@ Once you reach the minimum rank, pressing the prestige button opens a confirmati
 When you prestige, the following are reset: your money, cookies, rank, all upgrade purchases, baking slots, and baking and economy stats.
 The following are kept: your prestige level, all achievements and achievement progress, minigame unlocks, minigame stats, and preferences.
 
-Whether you receive a reward depends on the require_all setting in quests.table.
-If you have not met the quest requirement, nothing is gained.
-Certain prestige levels award a milestone reward, and all other levels fall back to a default reward if one is configured.
-After the prestige message you will always receive a second notification telling you what you gained, or letting you know that nothing was gained.
-Once all prestige dialogs are dismissed, a summary screen appears showing the prestige level reached, the rank you achieved, how many quests you completed out of the total active, and what reward you received.
-All prestige settings and milestone rewards are fully configurable in prestige.table.
+Whether you receive a reward depends on the require_all setting in quests.table. If you have not met the quest requirement, nothing is gained.
+Certain prestige levels award a milestone reward, and all other levels fall back to a default reward if one is configured. After the prestige message you will always receive a second notification telling you what you gained.
+Once all prestige dialogs are dismissed, a summary screen appears showing the prestige level, the rank you achieved, quests completed, and what reward you received. All prestige settings and milestone rewards are fully configurable in prestige.table.
 
 Save slots.
 
-The game supports multiple save slots for separate playthroughs, selected from the main menu.
-Each slot is completely independent, with its own rank, cookies, money, upgrades, and settings.
+The game supports multiple save slots for separate playthroughs, selected from the main menu. Each slot is completely independent, with its own rank, cookies, money, upgrades, and settings.
 You can start a new game in any slot at any time without affecting your other saves.
-Save slots are chosen when loading or starting a new game from the main menu.
 
 Keyboard commands
 
@@ -406,6 +371,11 @@ Spacebar or Enter: Activates the focused button or opens a menu.
 
 Configuration files for modders
 
+A note on the word coins in config files.
+Inside the configuration files, the word coins is the internal identifier for the player's money. When a field says coins, that is the exact value you must type.
+It does not mean the game will display the word coins to the player. All money values are shown in dollars and cents in-game, such as 50 cents or $1.50.
+The word coins only appears in the config files themselves as a technical label, never in any message the player reads or hears.
+
 All of the configuration files are located in the data/config folder, and are split into three subfolders.
 Lines starting with a semicolon, hash, or double slash are treated as comments and ignored by the parser.
 
@@ -416,10 +386,8 @@ Each functional header has a warning comment placed directly below it inside the
 Five of the remaining files, baker.event, flipper.event, jacks.table, singles.store, and tickets.store, do not use functional section headers. Every line in those files follows the same format throughout.
 They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely.
 
-achievements.table uses a category alias system at the top of the file, the same way singles.store defines shop menus.
-Category aliases are defined as alias=Full Category Name lines before any achievement entries.
-Each achievement line then begins with its category alias as the first field.
-The categories drive the achievements menu and achievement statistics screen dynamically, so the order and names are entirely up to you.
+achievements.table uses a category alias system at the top of the file, the same way singles.store defines shop menus. Category aliases are defined as alias=Full Category Name lines before any achievement entries.
+Each achievement line then begins with its category alias as the first field. The categories drive the achievements menu and achievement statistics screen dynamically, so the order and names are entirely up to you.
 
 bundles.store uses one functional section header, [bundles], which marks where the bundle definitions begin.
 Aliases defined above it are always read regardless of position, but bundle lines are only read after the header appears.
@@ -597,9 +565,7 @@ Unlike a flat multiplier, a compounding multiplier grows on top of itself every 
 A flat multiplier of 1.25 on a base cost of 100 always charges $1.25 no matter how many times you buy.
 A compounding multiplier of 1.25 starts at $1.00 but reaches around $9.30 by purchase 10, and nearly $50,000,000 by purchase 100.
 
-This means even values that look small are dangerous at a higher scale.
-A multiplier of 1.05 feels gentle at first, but after 300 purchases the price will have grown into the quadrillions.
-A multiplier of 1.1 reaches that point even sooner.
+This means even values that look small are dangerous at a higher scale. A multiplier of 1.05 feels gentle at first, but after 300 purchases the price will have grown into the quadrillions.
 Players who progress far into the game will buy certain items hundreds of times, so a multiplier that seems fine at purchase 20 will eventually make the item completely unaffordable.
 
 This also affects bundle prices directly. Bundles calculate their cost by summing the current singles shop prices of all their items.
@@ -670,7 +636,7 @@ id
 The internal identifier for this ticket tier. Must be unique across all ticket entries.
 
 cost
-The base coin cost for the first ticket purchased.
+The base cost in currency for the first ticket purchased.
 
 multiplier
 How much the cost scales with each ticket purchased. Uses the same compounding scaling as the singles shop. Set to 1.0 for a flat price.
@@ -728,7 +694,8 @@ manual_slots_purchased = total manual baking slots ever bought.
 bundles_purchased      = total bundle shop transactions.
 singles_purchased     = total singles shop transactions.
 
-events_fired           = total baker and flipper events that successfully applied their effect.
+baker_events_fired     = total baker events that successfully applied their effect during baking.
+flipper_events_fired   = total flipper events that successfully applied their effect during a cooky flip.
 flipper_flips          = total cooky flipper flips.
 
 slot_spins             = total slot machine spins.
@@ -762,18 +729,14 @@ The message spoken to the player when they press enter on a locked achievement. 
 Use this to tell the player what they need to do to unlock it.
 
 silent
-Required. Set to true to suppress the buffer message and sound when this achievement is triggered.
-Set to false to allow the normal notification behavior.
-This overrides the global achievement sound setting for that specific achievement.
-Recommended for achievements that track stats which closely mirror another achievement, to avoid redundant notifications.
+Required. Set to true to suppress the buffer message and sound when this achievement is triggered. Set to false to allow the normal notification behavior.
+This overrides the global achievement sound setting for that specific achievement. Recommended for achievements that track stats which closely mirror another, to avoid redundant notifications.
 Silent achievements are still tracked and appear in the achievements menu and achievement statistics screen as normal. Only the notification is suppressed.
 
 hidden
-Required. Set to true to completely hide this achievement from the achievements menu and achievement statistics screen until it is unlocked.
-Set to false to show it as locked with a hint available, which is the default behavior.
-Once unlocked, a hidden achievement appears in both screens like any other achievement.
-Recommended for achievements tied to content that is locked behind a rank, such as minigames, so players are not shown locked entries for systems they have not encountered yet.
-Hidden achievements are also excluded from the total count shown in the achievements menu and achievement statistics screen until unlocked. For example, if there are 207 achievements but 128 are hidden and none have been unlocked yet, the menu will show 0 of 79 rather than 0 of 207, so the player has no indication that hidden achievements exist at all. As hidden achievements are unlocked, they are added to the count and list automatically.
+Required. Set to true to completely hide this achievement from the achievements menu and achievement statistics screen until it is unlocked. Set to false to show it as locked with a hint available, which is the default behavior.
+Recommended for achievements tied to content locked behind a rank, such as minigames, so players are not shown entries for systems they have not encountered yet. Once unlocked, a hidden achievement appears in both screens like any other achievement.
+Hidden achievements are also excluded from the total count until unlocked. For example, if there are 207 achievements but 128 are hidden and none unlocked, the menu will show 0 of 79, giving no indication that hidden achievements exist at all.
 
 jacks.table
 
@@ -840,7 +803,7 @@ Message placeholders.
 %win%    is replaced with the amount won.
 %score%  is replaced with the player's final score.
 %dealer% is replaced with the dealer's final score.
-%item%   is replaced with the name of the item being bet, for example coins or auto cookies.
+%item%   is replaced with the name of the item being bet, for example currency or auto cookies.
 
 natural_message
 Message spoken when the player hits a natural blackjack.
@@ -1106,7 +1069,8 @@ auto_slots_enabled     = total auto slots that have been automated.
 bundles_purchased      = total bundle shop transactions.
 singles_purchased     = total singles shop transactions.
 
-events_fired           = total baker and flipper events that applied their effect.
+baker_events_fired     = total baker events that applied their effect during baking.
+flipper_events_fired   = total flipper events that applied their effect during a cooky flip.
 flipper_flips          = total cooky flipper flips.
 
 slot_spins             = total slot machine spins.

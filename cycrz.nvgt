@@ -98,8 +98,8 @@ exit();
 }
 if (mres==1)
 {
-dlgmessage_return("Congratulations! You've successfully completed your profile setup. I'll give you " + convert_to_currency(100) + " to get you started on your way.");
-usercoins=100;
+dlgmessage_return("Congratulations! You've successfully completed your profile setup. I'll give you " + convert_to_currency(10) + " to get you started on your way.");
+usercoins=10;
 coins=usercoins;
 dlgplay("sounds/misc/coin1.ogg");
 if (playergender == 0)
@@ -233,7 +233,7 @@ void reset_game_state()
 stat_cookies_baked=0;
 stat_manual_bakes_performed=0;
 stat_auto_bakes_performed=0;
-stat_coins_earned=100;
+stat_coins_earned=0;
 stat_coins_spent=0;
 stat_singles_purchased=0;
 stat_bundles_purchased=0;
@@ -247,7 +247,7 @@ autocooky=0;
 autocooky_purchases=0;
 manulcooky_purchases=0;
 cookyspeed_purchases=0;
-coins=100;
+coins=10;
 cookies=0;
 cookyspeed=0;
 manulcooky=1;

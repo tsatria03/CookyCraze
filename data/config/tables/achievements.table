@@ -45,8 +45,8 @@ baking:press_transcendent:manual_bakes_performed:50000000:true:false:Press Trans
 
 ; Economy
 
-economy:first_coin:coins_earned:50:true:false:First Earnings:Earn your first bit of money. A humble beginning to what will surely be a great fortune.:Every fortune starts somewhere. Yours has begun.
-economy:pocket_change:coins_earned:100:true:false:Pocket Change:Earn %threshold%. Not much, but it's a start.:A fortune begins somewhere modest. This might be that somewhere.
+economy:first_coin:coins_earned:50:false:false:First Earnings:Earn your first bit of money. A humble beginning to what will surely be a great fortune.:Every fortune starts somewhere. Yours has begun.
+economy:pocket_change:coins_earned:100:false:false:Pocket Change:Earn %threshold%. Not much, but it's a start.:A fortune begins somewhere modest. This might be that somewhere.
 economy:making_bank:coins_earned:10000:false:false:Making Bank:Earn %threshold%. The reserves are looking healthy.:When your pockets feel heavier than usual, you're getting warm.
 economy:filthy_rich:coins_earned:1000000:false:false:Filthy Rich:Earn %threshold%. You could swim in it if you wanted to.:There's rich, and then there's something else entirely. Aim for the something else.
 economy:coin_god:coins_earned:1000000000:false:false:Money God:Earn %threshold%. At this point money has lost all meaning.:Beyond a certain amount, money stops being currency and starts being a philosophy.
