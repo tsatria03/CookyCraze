@@ -157,6 +157,7 @@ string apply_event(event_item@ item)
     }
     string msg = item.description;
     bool isCoinEvent = (item.target == "coins" && !item.use_percent);
+    bool isCoinTarget = (item.target == "coins");
     string amt_str = item.use_percent ? format_number(amount) : (isCoinEvent ? convert_to_currency(actualAmount) : format_number(actualAmount));
     int ph = msg.find("%amount%");
     while (ph != -1)
@@ -167,7 +168,7 @@ string apply_event(event_item@ item)
     int ph2 = msg.find("%actual%");
     while (ph2 != -1)
     {
-        msg = msg.substr(0, ph2) + (isCoinEvent ? convert_to_currency(actualAmount) : format_number(actualAmount)) + msg.substr(ph2 + 8);
+        msg = msg.substr(0, ph2) + (isCoinTarget ? convert_to_currency(actualAmount) : format_number(actualAmount)) + msg.substr(ph2 + 8);
         ph2 = msg.find("%actual%");
     }
     if (!item.use_percent && actualAmount == 1)

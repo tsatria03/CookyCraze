@@ -1,7 +1,7 @@
 ; Menus
 
 startermenu=Beginner Bundles|0|false|Beginner friendly bundles designed to give new bakers a solid foundation without breaking the bank.
-advancedmenu=Advanced Bundles|5|false|More powerful bundles for experienced bakers who have already built up a coin income and want to accelerate their progression.
+advancedmenu=Advanced Bundles|5|false|More powerful bundles for experienced bakers who have already built up a steady income and want to accelerate their progression.
 expertmenu=Expert Bundles|20|false|High volume bundles for dedicated bakers who are deep into the game and ready to make serious investments.
 veteranmenu=Veteran Bundles|50|false|Powerful bundles for bakers who have climbed the ranks and are ready to make serious leaps in production.
 mastermenu=Master Bundles|100|false|Elite bundles reserved for bakers who have proven themselves through dedication and rank. Massive gains across all stats.
@@ -26,7 +26,7 @@ advancedmenu:Balanced Bundle:5:false:auto_cooky:10|manual_cooky:10|auto_cooky_sp
 
 ; Advanced Bundles (rank 10)
 
-advancedmenu:Cookie Rush Bundle:10:false:auto_cooky:100|auto_cooky_speed:25:A high volume auto cookie bundle designed to flood your production line. Best used when you already have a solid coin income.
+advancedmenu:Cookie Rush Bundle:10:false:auto_cooky:100|auto_cooky_speed:25:A high volume auto cookie bundle designed to flood your production line. Best used when you already have a solid income.
 advancedmenu:Precision Baker Bundle:10:false:manual_cooky:50|auto_cooky_speed:30:A manual focused bundle with a hefty speed bonus. Great for players who bake by hand and want every click to count.
 
 ; Expert Bundles (rank 20)
@@ -41,8 +41,8 @@ expertmenu:Rolling Pin Rush:30:false:manual_cooky:150|auto_cooky_speed:50:A manu
 
 ; Veteran Bundles (rank 50)
 
-veteranmenu:Golden Bundle:50:false:auto_cooky:200|manual_cooky:200|auto_cooky_speed:100:A premium bundle for veteran bakers. Massive boosts across all three stats for players who have built up a serious coin reserve.
-veteranmenu:Automated Dreams:50:false:auto_cooky:300|auto_cooky_speed:150:A bundle focused entirely on automated production. Let the ovens do the work while you count your coins.
+veteranmenu:Golden Bundle:50:false:auto_cooky:200|manual_cooky:200|auto_cooky_speed:100:A premium bundle for veteran bakers. Massive boosts across all three stats for players who have built up a serious reserve.
+veteranmenu:Automated Dreams:50:false:auto_cooky:300|auto_cooky_speed:150:A bundle focused entirely on automated production. Let the ovens do the work while the money rolls in.
 veteranmenu:Golden Hands Bundle:50:false:manual_cooky:300|auto_cooky_speed:100:For the veteran baker who still loves baking by hand. A large manual boost paired with a solid speed upgrade.
 
 ; Veteran Bundles (rank 75)

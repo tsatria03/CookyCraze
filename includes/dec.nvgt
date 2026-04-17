@@ -3,7 +3,7 @@ array<bool> baking_slots;
 bool slotDistribution=false;
 bool manualSlotDistribution=false;
 int autobakeSlots = 0;
-bool achsfx=true, bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=true, jackmode=true, show_locked_shops=true;
+bool achsfx=true, bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=true, jackmode=true, lotterymode=true, show_locked_shops=true;
 double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, manulcooky=1, rank=1, usercoins=0;
 double lastRewardAmount=0;
 double stat_cookies_baked=0, stat_manual_bakes_performed=0, stat_auto_bakes_performed=0, stat_coins_earned=0, stat_coins_spent=0, stat_singles_purchased=0, stat_bundles_purchased=0;

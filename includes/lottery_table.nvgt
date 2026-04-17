@@ -162,7 +162,10 @@ void lottery_scratch_one(lottery_ticket_item@ ticket, int ticketIdx)
     loadedTickets[ticketIdx].owned--;
     stat_lottery_tickets_scratched++;
     pool.play_stationary("sounds/misc/tickscratch.ogg", false);
-    wait(500);
+    if (lotterymode)
+        wait(random(500, 1500));
+    else
+        dlg_buffer("Scratching. Press enter or space to reveal.");
     lottery_prize_item@ prize = pick_lottery_prize(ticket.prize_id);
     if (prize is null)
     {

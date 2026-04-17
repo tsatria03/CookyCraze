@@ -42,19 +42,19 @@ baking:press_transcendent:manual_bakes_performed:50000000:true:false:Press Trans
 
 ; Economy
 
-economy:first_coin:coins_earned:50:true:false:First Coins:Earn your first coins. A humble beginning to what will surely be a great fortune.:Every fortune starts somewhere. Yours has begun.
+economy:first_coin:coins_earned:50:true:false:First Earnings:Earn your first money. A humble beginning to what will surely be a great fortune.:Every fortune starts somewhere. Yours has begun.
 economy:pocket_change:coins_earned:100:true:false:Pocket Change:Earn %threshold%. Not much, but it's a start.:A fortune begins somewhere modest. This might be that somewhere.
-economy:making_bank:coins_earned:10000:false:false:Making Bank:Earn %threshold%. The coin reserves are looking healthy.:When your pockets feel heavier than usual, you're getting warm.
-economy:filthy_rich:coins_earned:1000000:false:false:Filthy Rich:Earn %threshold%. You could swim in these if you wanted to.:There's rich, and then there's something else entirely. Aim for the something else.
-economy:coin_god:coins_earned:1000000000:false:false:Coin God:Earn %threshold%. At this point coins have lost all meaning.:Beyond a certain number, coins stop being currency and start being a philosophy.
-economy:coin_singularity:coins_earned:10000000000:false:false:Coin Singularity:Earn %threshold%. Economists have been summoned to explain what you have done.:Some fortunes are so large they begin to bend the economy around them.
-economy:coin_multiverse:coins_earned:100000000000:false:false:Coin Multiverse:Earn %threshold%. You don't own coins anymore. You are coins.:At this point the distinction between you and the economy is purely academic.
-economy:first_spend:coins_spent:50:false:false:First Splurge:Spend your first coins in the shop. Every great bakery is built on investment.:Coins sitting in your pocket aren't doing anything useful. The shop is right there.
-economy:loose_change:coins_spent:100:false:false:Loose Change:Spend %threshold%. The shop is starting to know your face.:A hundred coins out the door and the upgrades are starting to show.
-economy:big_spender:coins_spent:10000:false:false:Big Spender:Spend %threshold%. You have committed to this bakery in a financial way.:At ten thousand spent, this stopped being a hobby and started being an investment.
-economy:coin_burner:coins_spent:1000000:false:false:Coin Burner:Spend %threshold%. You give and you give and somehow there is always more to give.:A million coins out the door and the bakery has never looked better.
-economy:economic_black_hole:coins_spent:1000000000:false:false:Economic Black Hole:Spend %threshold%. Coins enter your wallet and immediately leave again.:At a billion spent, the concept of saving has become purely theoretical.
-economy:coin_annihilator:coins_spent:10000000000:false:false:Coin Annihilator:Spend %threshold%. Economists study you as a cautionary tale.:Some people accumulate wealth. You have chosen a different relationship with it.
+economy:making_bank:coins_earned:10000:false:false:Making Bank:Earn %threshold%. The reserves are looking healthy.:When your pockets feel heavier than usual, you're getting warm.
+economy:filthy_rich:coins_earned:1000000:false:false:Filthy Rich:Earn %threshold%. You could swim in it if you wanted to.:There's rich, and then there's something else entirely. Aim for the something else.
+economy:coin_god:coins_earned:1000000000:false:false:Money God:Earn %threshold%. At this point money has lost all meaning.:Beyond a certain amount, money stops being currency and starts being a philosophy.
+economy:coin_singularity:coins_earned:10000000000:false:false:Money Singularity:Earn %threshold%. Economists have been summoned to explain what you have done.:Some fortunes are so large they begin to bend the economy around them.
+economy:coin_multiverse:coins_earned:100000000000:false:false:Money Multiverse:Earn %threshold%. You don't own money anymore. You are money.:At this point the distinction between you and the economy is purely academic.
+economy:first_spend:coins_spent:50:false:false:First Splurge:Spend your first money in the shop. Every great bakery is built on investment.:Money sitting in your pocket isn't doing anything useful. The shop is right there.
+economy:loose_change:coins_spent:100:false:false:Loose Change:Spend %threshold%. The shop is starting to know your face.:A hundred cents out the door and the upgrades are starting to show.
+economy:big_spender:coins_spent:10000:false:false:Big Spender:Spend %threshold%. You have committed to this bakery in a financial way.:At a hundred dollars spent, this stopped being a hobby and started being an investment.
+economy:coin_burner:coins_spent:1000000:false:false:Money Burner:Spend %threshold%. You give and you give and somehow there is always more to give.:Ten thousand dollars out the door and the bakery has never looked better.
+economy:economic_black_hole:coins_spent:1000000000:false:false:Economic Black Hole:Spend %threshold%. Money enters your wallet and immediately leaves again.:At ten million dollars spent, the concept of saving has become purely theoretical.
+economy:coin_annihilator:coins_spent:10000000000:false:false:Money Annihilator:Spend %threshold%. Economists study you as a cautionary tale.:Some people accumulate wealth. You have chosen a different relationship with it.
 economy:the_drain:coins_spent:100000000000:false:false:The Drain:Spend %threshold%. You are not a baker. You are a force of economic entropy.:There is a spending threshold beyond which the economy itself takes notice. You found it.
 economy:first_bundle:bundles_purchased:1:false:false:Bundle of Joy:Purchase your very first bundle. Why buy one thing when you can buy everything at once?:Why settle for one when several come wrapped together so neatly?
 economy:bundle_lover:bundles_purchased:10:false:false:Bundle Lover:Purchase %threshold% bundles. You have developed a taste for efficiency.:Efficiency has a flavor. You'll recognize it after a few tries.
@@ -225,7 +225,7 @@ lottery=Lottery
 lottery:first_ticket:lottery_tickets_bought:1:false:true:First Ticket:Buy your very first scratch ticket. The coating hides something. Probably.:There is a ticket somewhere with your name on it. Figuratively.
 lottery:ticket_curious:lottery_tickets_bought:5:false:true:Ticket Curious:Buy %threshold% scratch tickets. You are warming up to this whole lottery thing.:Curiosity is what gets people to the counter. The tickets do the rest.
 lottery:ticket_collector:lottery_tickets_bought:25:false:true:Ticket Collector:Buy %threshold% scratch tickets. You have developed a small habit.:Collectors rarely stop at a few. The pile grows without much notice.
-lottery:ticket_investor:lottery_tickets_bought:100:false:true:Ticket Investor:Buy %threshold% scratch tickets. You have committed real coins to this endeavor.:Investment implies expectation. Whether that expectation is met is another matter.
+lottery:ticket_investor:lottery_tickets_bought:100:false:true:Ticket Investor:Buy %threshold% scratch tickets. You have committed real money to this endeavor.:Investment implies expectation. Whether that expectation is met is another matter.
 lottery:ticket_regular:lottery_tickets_bought:250:false:true:Ticket Regular:Buy %threshold% scratch tickets. The ticket shop knows you by now.:Regulars don't need to introduce themselves. The shop just hands them a stack.
 lottery:ticket_enthusiast:lottery_tickets_bought:500:false:true:Ticket Enthusiast:Buy %threshold% scratch tickets. You have spent more on tickets than most bakers spend on flour.:Enthusiasm for scratch tickets is a specific kind of optimism. You have it in abundance.
 lottery:ticket_hoarder:lottery_tickets_bought:1000:false:true:Ticket Hoarder:Buy %threshold% scratch tickets. The inventory is getting a little out of hand.:There is a point where the buying outpaces the scratching. You may be approaching it.

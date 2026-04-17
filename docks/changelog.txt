@@ -1,5 +1,10 @@
 New in 5.2.
-Updated the bet input in the blackjack and slot machine minigames to accept decimal coin values. Typing 1 bets $1.00, 0.50 bets 50 cents, and so on. All other bet items are still entered as whole numbers.
+Fixed a bug where percentage-based coin events such as coin jackpot and coin drain would display the actual payout as a raw number instead of a currency value. For example, netting you 875 now correctly shows as netting you $8.75.
+Added an automatic scratch reveal setting to the game preferences for the cooky lottery mini game. When enabled, scratching a ticket plays a sound and reveals the result after a random delay, matching the behavior of the slot machine and blackjack auto modes. When disabled, the result is held until you press enter or space.
+Updated all player-facing text throughout the game to use money and currency language instead of coins. This includes shop descriptions, achievement names and descriptions, quest names and descriptions, event messages, blackjack messages, and bundle descriptions.
+Updated coin-based quest progress and threshold values to display as currency. For example, a quest to earn 1000 coins now shows $10.00 of $100.00 instead of raw numbers.
+Updated cookie baking quest names to use short suffixes. For example, Bake a million cookies is now Bake 1M cookies.
+Updated the bet input in the blackjack and slot machine mini games to accept decimal coin values. Typing 1 bets $1.00, 0.50 bets 50 cents, and so on. All other bet items are still entered as whole numbers.
 Updated the buy one of every affordable bundle option in the bundle shop to prompt for a quantity instead of buying immediately. The maximum number of full passes you can afford is pre-filled, so pressing enter buys the maximum just like the singles shop.
 Added 40 lottery achievements across four tracks: tickets bought, tickets scratched, wins, and losses. Each track has 10 tiers. All lottery achievements are hidden until the lottery is unlocked.
 Silenced the first_bite, first_coin, and pocket_change achievements so they no longer announce at the very start of every game.
@@ -9,7 +14,7 @@ Added a lottery subsection to the statistics section in the readme.
 Added lottery to the ranks.table unlock values list in the readme.
 Added full documentation for lottery.table and tickets.store to the configuration file reference in the readme.
 Added a cooky lottery game feature section to the readme covering ticket tiers, prize pools, and how scratching works.
-Added the cooky lottery to the game introduction and minigame list in the readme.
+Added the cooky lottery to the game introduction and mini game list in the readme.
 Added a check tickets button to the lottery screen that reports how many tickets you currently hold across all tiers.
 Added four ticket tiers to the lottery: bronze, silver, gold, and diamond. Higher tiers cost more but offer larger prizes and better odds at the top end.
 Added ticket categories to the buy tickets menu, mirroring the layout of the singles shop. Each category shows how many tickets you can currently afford out of the total available. Items display their required rank when locked and show how many you can buy when accessible.
@@ -17,7 +22,7 @@ Added lottery.table to data/config/tables. It defines the global max tickets set
 Added tickets.store to data/config/stores. It defines ticket categories and individual ticket tiers using the same alias system as singles.store, with fields for cost, compounding multiplier, rank requirement, hidden flag, and prize pool reference.
 New in 5.0.
 Added a buy tickets option to the shop menu, always visible but locked below rank 30 with a message, matching the same pattern as the baking slots manager.
-Added the cooky lottery minigame, unlocked at rank 30. Buy scratch tickets from the shop, then visit the lottery screen to scratch them one at a time or all at once.
+Added the cooky lottery mini game, unlocked at rank 30. Buy scratch tickets from the shop, then visit the lottery screen to scratch them one at a time or all at once.
 Fixed the First Coins achievement description to no longer say through selling, since the starting balance also counts toward the stat.
 Fixed a bug where stat_coins_earned was not initialized to match the starting balance, causing coin-based achievements to show 0 cents earned even though the player started with $1.00. The stat now starts at 100 to reflect the opening balance.
 Fixed a bug where coin-based achievement progress would show the unit label coins earned or coins spent after an already currency-formatted value, resulting in redundant output like 0 cents of 50 cents coins earned. The label now reads simply earned or spent.
@@ -117,8 +122,8 @@ New in 4.2.
 Added a quests system that gates the prestige option behind a set of objectives. Quests are automatically assigned at the start of each prestige cycle, with required quests always appearing and random ones filling the remaining slots from the pool. All active quests must be completed before prestige becomes available.
 Added milestone prestige rewards that fire once when you reach a specific prestige level. Rewards can give a flat amount of any stat or a percentage of what you held at the moment you prestiged, making later runs start with a meaningful head start.
 Added prestige.table to the data/config/tables folder. It configures the minimum rank, prestige sound and message, and milestone rewards.
-Added a prestige system accessible from the main game interface. Once the minimum rank requirement is met, you can prestige to reset your cookies, coins, rank, upgrades, and baking slots. Achievements, minigame stats, minigame unlocks, and preferences are never reset after a successful prestige.
-Made it so rank ups and achievements are now checked and can fire while playing the cooky flipper, slot machine, and blackjack minigames. Previously they were only tracked in the main game screen.
+Added a prestige system accessible from the main game interface. Once the minimum rank requirement is met, you can prestige to reset your cookies, coins, rank, upgrades, and baking slots. Achievements, mini game stats, mini game unlocks, and preferences are never reset after a successful prestige.
+Made it so rank ups and achievements are now checked and can fire while playing the cooky flipper, slot machine, and blackjack mini games. Previously they were only tracked in the main game screen.
 Made it so milestone rank rewards and achievement unlocks now show as dismissible dialogs when baking mode is off, and are delivered non-interruptively through the buffer when baking mode is on. This prevents interruptions during automated play while still making sure you don't miss anything when baking manually.
 Made it so milestone rank rewards now go to the critical buffer instead of the ranks buffer, so they are harder to miss. Regular rank announcements still go to the ranks buffer as before.
 Fixed a bug where the cookies baked stat was counting bake cycles instead of actual cookies produced, causing baking achievements to never fire and progress to show incorrect values. The stat now tracks real cookie output so achievements unlock at the right thresholds. A separate bakes performed counter has been added to the baker statistics screen to preserve that information.
@@ -160,7 +165,7 @@ New in 3.9.
 Added a bet confirmation prompt to the slot machine and blackjack. When your bet reaches a set amount or percentage, the game asks you to confirm before placing it.
 Grouped the baker info and statistics screens under a single Info button in the main game interface. Pressing it opens a small submenu where you can choose which screen to view.
 Added a baker info screen showing a read-only snapshot of your current production values, slot counts, rank progress, cookies, and coins.
-Added a statistics screen that tracks everything you've done across your playthrough, including bakes performed, coins earned, upgrades purchased, minigame wins and losses, and more. All stats save and load with the rest of your game data.
+Added a statistics screen that tracks everything you've done across your playthrough, including bakes performed, coins earned, upgrades purchased, mini game wins and losses, and more. All stats save and load with the rest of your game data.
 Moved all configuration file documentation out of the config files and into the readme. All seven config files are now comment free and contain only data.
 Rewrote the readme file to cover all current game features, including a full keyboard command reference and a configuration file reference for modders.
 Made it so the auto slots and manual slots submenus in the baking slots manager are now locked behind a rank requirement, defaulting to rank 40. The baking slots manager itself is still accessible, but entering either submenu before reaching the required rank plays a failure sound and shows a message.
@@ -184,7 +189,7 @@ Made it so the dealer stands at 17 by default, matching standard casino rules in
 Made it so a natural blackjack pays out at 1.5 times your bet, standard wins pay 2 times, and ties return the original bet.
 Added hit and stand actions to blackjack. Hitting draws another card, and standing triggers the dealer to draw until reaching the stand threshold.
 Moved the cooky flipper unlock to rank 20 and the slot machine unlock to rank 30 to make room for blackjack at rank 10.
-Added blackjack as a new minigame, unlocked at rank 10. You can bet an item of your choice and receive two cards to start.
+Added blackjack as a new mini game, unlocked at rank 10. You can bet an item of your choice and receive two cards to start.
 Made it so the entire shop system will now have full position memory. Every level, including the store menu, upgrades menu, category menus, and bundle menus, restores focus to where you left off.
 Added an optional %actual% placeholder to event descriptions in baker.event and flipper.event. For percentage based events, it shows the real computed stat change alongside the percentage value.
 Updated the flipper event descriptions to report exact values gained or lost instead of vague wording.
@@ -282,7 +287,7 @@ Fixed some menu navigation issues.
 Added the ability to navigate to the first letter of any item in a menu.
 Added the ability to search for specific items of interest in the new find dialog. You can press F3 in any menu to activate it.
 Recoded the entire menu system for the game.
-Renamed the coin flipper minigame to cooky flipper, along with some new sounds to accompany it.
+Renamed the coin flipper mini game to cooky flipper, along with some new sounds to accompany it.
 Increased the amount of level up coins you’re able to earn by 10 percent.
 Reduced the starting cost for producing slots by 50 percent.
 Refactored the baking slots manager menu to include a single automate a slot item.

@@ -373,6 +373,10 @@ if(st.d.exists("jackmode"))
 {
 jackmode=st.read_bool("jackmode");
 }
+if(st.d.exists("lotterymode"))
+{
+lotterymode=st.read_bool("lotterymode");
+}
 if (st.d.exists("show_locked_shops"))
 {
 show_locked_shops = st.read_bool("show_locked_shops");
@@ -424,6 +428,7 @@ st.add("playervents2",playervents2);
 st.add("orderedSyms",orderedSyms);
 st.add("slotmode",slotmode);
 st.add("jackmode",jackmode);
+st.add("lotterymode",lotterymode);
 st.add("show_locked_shops", show_locked_shops);
 st.add("automationMultiplier", automationMultiplier);
 st.add("slotMultiplier", slotMultiplier);

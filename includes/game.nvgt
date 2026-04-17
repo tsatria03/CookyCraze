@@ -133,7 +133,7 @@ if(form.is_pressed(shop))
 {
 if(coins<1)
 {
-speak_buffer("You need at least 1 coin to enter the cooky store.", "general");
+speak_buffer("You need at least 1 cent to enter the cooky store.", "general");
 }
 else if(coins>=1)
 {

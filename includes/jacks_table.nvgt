@@ -12,10 +12,10 @@ class jacks_config
     string lose_sound = "lose.ogg";
     string player_draw_sound = "jackplayer.ogg";
     string dealer_draw_sound = "jackdealer.ogg";
-    string natural_message = "Blackjack! You hit a natural 21 and win %win% coins!";
-    string win_message = "You win! %score% against the dealer's %dealer%. You gained %win% coins!";
+    string natural_message = "Blackjack! You hit a natural 21 and win %win%!";
+    string win_message = "You win! %score% against the dealer's %dealer%. You gained %win%!";
     string bust_message = "Bust! You went over 21 with %score%. You lost your bet.";
-    string dealer_bust_message = "Dealer busts with %dealer%! You win and gained %win% coins!";
+    string dealer_bust_message = "Dealer busts with %dealer%! You win and gained %win%!";
     string lose_message = "You lose. %score% against the dealer's %dealer%. You lost your bet.";
     string push_message = "Push. You and the dealer both have %score%. Your bet has been returned.";
 }

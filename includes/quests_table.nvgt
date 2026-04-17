@@ -327,7 +327,7 @@ void reroll_quest(int questIndex)
         rerollHistory.remove_at(0);
 
     string msg = questsConfig.reroll_message;
-    string costStr = format_number(cost);
+    string costStr = (questsConfig.reroll_target == "coins") ? convert_to_currency(cost) : format_number(cost);
     int ph = msg.find("%cost%");
     while (ph != -1) { msg = msg.substr(0, ph) + costStr + msg.substr(ph + 6); ph = msg.find("%cost%"); }
     if (questsConfig.reroll_sound != "")
@@ -361,6 +361,17 @@ bool quests_reward_earned()
     return false;
 }
 
+bool is_coin_stat(string stat)
+{
+    return stat == "coins_earned" || stat == "coins_spent";
+}
+
+string format_quest_value(string stat, double val)
+{
+    if (is_coin_stat(stat)) return convert_to_currency(val);
+    return format_number(val);
+}
+
 string get_quest_progress(quest_item@ item)
 {
     double current = get_stat_value(item.stat);
@@ -371,13 +382,13 @@ string get_quest_progress(quest_item@ item)
         return format_number(pct) + "%";
     }
     if (current > item.threshold) current = item.threshold;
-    return format_number(current) + " of " + format_number(item.threshold);
+    return format_quest_value(item.stat, current) + " of " + format_quest_value(item.stat, item.threshold);
 }
 
 string get_stat_display_name(string stat)
 {
     if (stat == "cookies_baked")          return "cookies baked";
-    else if (stat == "coins_earned")      return "coins earned";
+    else if (stat == "coins_earned")      return "money earned";
     else if (stat == "singles_purchased") return "upgrades purchased";
     else if (stat == "bundles_purchased") return "bundles purchased";
     else if (stat == "events_fired")      return "events fired";
@@ -401,14 +412,14 @@ string get_quest_detail(quest_item@ item)
     string desc = item.description;
     int ph;
     ph = desc.find("%threshold%");
-    while (ph != -1) { desc = desc.substr(0, ph) + format_number(item.threshold) + desc.substr(ph + 11); ph = desc.find("%threshold%"); }
+    while (ph != -1) { desc = desc.substr(0, ph) + format_quest_value(item.stat, item.threshold) + desc.substr(ph + 11); ph = desc.find("%threshold%"); }
     ph = desc.find("%stat%");
     while (ph != -1) { desc = desc.substr(0, ph) + get_stat_display_name(item.stat) + desc.substr(ph + 6); ph = desc.find("%stat%"); }
     ph = desc.find("%progress%");
     while (ph != -1)
     {
         double capped = current > item.threshold ? item.threshold : current;
-        desc = desc.substr(0, ph) + format_number(capped) + desc.substr(ph + 10);
+        desc = desc.substr(0, ph) + format_quest_value(item.stat, capped) + desc.substr(ph + 10);
         ph = desc.find("%progress%");
     }
     ph = desc.find("%percent%");

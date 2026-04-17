@@ -401,7 +401,7 @@ void shopmenu()
 setupmenu2();
 m.add_item("buy upgrades", "bmu");
 m.add_item("buy tickets", "bmt");
-m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky is sold for 100 coins. You would earn " + convert_to_currency(floor(cookies) * 100.0) + " if you sold everything.", "slm");
+m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky sells for $1.00. You would earn " + convert_to_currency(floor(cookies) * 100.0) + " if you sold everything.", "slm");
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
 int shop_start = 0;
@@ -451,7 +451,7 @@ shopmenu();
 }
 if(stm=="slm")
 {
-vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~_", false, "This character is not allowed.");
 double sellableCookies = floor(cookies);
 string sailam=vd.input_box("","How many cookies would you like to sell? Press enter to sell the maximum amount.", string(sellableCookies));
 double cookiesToSell = floor(string_to_number(sailam));
@@ -666,7 +666,7 @@ void lottery_buy_menu()
                 maxCanBuy = int(min(double(lotteryMaxTickets - ticket.owned), floor(coins / cost)));
             else
                 maxCanBuy = int(floor(coins / cost));
-            vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+            vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~_", false, "This character is not allowed.");
             string qInput = vd.input_box("", "How many " + ticket.name + "s would you like to buy? Press enter to buy the maximum amount.", string(maxCanBuy > 0 ? maxCanBuy : 1));
             int qty = string_to_int(qInput);
             if (qty <= 0)
@@ -859,7 +859,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
             if (maxbuy > overallMax) overallMax = maxbuy;
         }
-        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~_", false, "This character is not allowed.");
         string bulkInput = vd.input_box("", "How many of each item would you like to buy? Press enter to buy the maximum amount.", string(round(overallMax, 0)));
         double bulkQuantity = string_to_number(bulkInput);
         if (bulkQuantity <= 0)
@@ -968,7 +968,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         if (sel != "item" + string(i)) continue;
         double level = (items[i].target == 2) ? manulcooky_purchases : (items[i].target == 3) ? cookyspeed_purchases : autocooky_purchases;
         double maxbuy = calc_max_buyable(coins, level, items[i].base_cost, items[i].cost_multiplier);
-        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~_", false, "This character is not allowed.");
         string promptName = string_replace(items[i].item_type, "_", " ", true);
         string promptPlural;
         if (promptName.length() > 0 && promptName.substr(promptName.length() - 1) == "y")
@@ -1051,7 +1051,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
                 errWord = errName;
             else
                 errWord = errName + "s";
-            dlgmessage_return("Error! You don't have enough coins to buy " + format_number(quantity) + " " + errWord + "!");
+            dlgmessage_return("Error! You can't afford " + format_number(quantity) + " " + errWord + "!");
             bakercategorymenu(items, chosenMenu);
         }
         return;
@@ -1328,7 +1328,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
                 }
             }
         }
-        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+        vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~_", false, "This character is not allowed.");
         double maxBundles = (totalCost > 0) ? floor(coins / totalCost) : 0;
         string input = vd.input_box("", "How many " + bundles[idx].name + " would you like to buy? Press enter to buy the maximum amount.", string(maxBundles));
         double qty = string_to_number(input);
@@ -1344,7 +1344,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         if (coins < grandTotal)
         {
             pool.play_stationary("sounds/misc/storefail.ogg", false);
-            dlgmessage_return("Error! You don't have enough coins to buy " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + "!");
+            dlgmessage_return("Error! You can't afford " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + "!");
             bundlecategorymenu(bundles, chosenMenu, storeItems);
             return;
         }
@@ -1482,7 +1482,7 @@ speak("Added " + string(count) + " slot" + (count == 1 ? "" : "s") + ". You now 
             else
             {
                 alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-                dlg("Error! You don't have enough coins to add " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
+                dlg("Error! You can't afford " + string(count) + " new slot" + (count == 1 ? "" : "s") + "!");
                 pool.destroy_sound(alertslot);
 add_auto_slots();
 }
@@ -1554,7 +1554,7 @@ void add_manual_slots()
         else
         {
             alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-            dlg("Error! You don't have enough coins to add " + string(count) + " manual " + (count == 1 ? "slot" : "slots") + "!");
+            dlg("Error! You can't afford " + string(count) + " manual " + (count == 1 ? "slot" : "slots") + "!");
             pool.destroy_sound(alertslot);
             add_manual_slots();
         }
@@ -1691,7 +1691,7 @@ void automate_baking_slots()
             else
             {
                 alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-                dlg("Error! You don't have enough coins to automate all slots!");
+                dlg("Error! You can't afford to automate all slots!");
                 pool.destroy_sound(alertslot);
             }
             auto_slots_menu();
@@ -1737,7 +1737,7 @@ void automate_baking_slots()
                     else
                     {
                         alertslot = pool.play_stationary("sounds/dlg/error.ogg", false);
-                        dlg("Error! You don't have enough coins to automate this slot!");
+                        dlg("Error! You can't afford to automate this slot!");
                         pool.destroy_sound(alertslot);
                     }
                     auto_slots_menu();
@@ -2009,7 +2009,7 @@ void start_prestige()
     setupmenu(false);
     m.add_item("Yes", "yes");
     m.add_item("No", "no");
-    string confirmText = "Are you sure you want to prestige? Your cookies, coins, rank, upgrades, and baking slots will be reset. Your achievements, minigame stats, and prestige bonus will be kept.";
+    string confirmText = "Are you sure you want to prestige? Your cookies, money, rank, upgrades, and baking slots will be reset. Your achievements, minigame stats, and prestige bonus will be kept.";
     bool willGetReward = quests_reward_earned();
     if (!willGetReward)
         confirmText += " Warning: you have not met the quest requirement, so you will not receive any reward for this prestige.";
@@ -2090,6 +2090,7 @@ int playvents2 = form.create_checkbox("Enable player events during manual baking
 int ordsyms = form.create_checkbox("Enable alphabetical symbol listing for the slot machine mini game.", orderedSyms);
 int reelspin = form.create_checkbox("Enable automatic stopping of reels for the slot machine mini game.", slotmode);
 int jackautodraw = form.create_checkbox("Enable automatic card drawing for the blackjack mini game.", jackmode);
+int lotteryautoscratch = form.create_checkbox("Enable automatic scratch reveal for the cooky lottery mini game.", lotterymode);
 int bakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across automated slots.", slotDistribution);
 int manualBakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across manual slots.", manualSlotDistribution);
 int showLockedToggle = form.create_checkbox("Enable showing locked items and menus in the shop list.", show_locked_shops);
@@ -2131,6 +2132,7 @@ show_locked_shops = form.is_checked(showLockedToggle);
 orderedSyms = form.is_checked(ordsyms);
 slotmode = form.is_checked(reelspin);
 jackmode = form.is_checked(jackautodraw);
+lotterymode = form.is_checked(lotteryautoscratch);
         if (form.is_pressed(savesets))
         {
 writepreffs();
@@ -2264,7 +2266,7 @@ form.focus(charname);
 playergender = form.get_list_position(chargender);
         if (form.is_pressed(charname))
         {
-vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~_", false, "This character is not allowed.");
 string fn=vd.input_box("","Enter the first name of this character.");
 if(fn.is_empty())
 {
@@ -2284,7 +2286,7 @@ playername=fn;
 }
         if (form.is_pressed(charname2))
         {
-vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+vd.set_disallowed_chars(" !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~_", false, "This character is not allowed.");
 string fn2=vd.input_box("","Enter the last name of this character.");
 if(fn2.is_empty())
 {
