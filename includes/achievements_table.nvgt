@@ -124,6 +124,10 @@ double get_stat_value(string stat)
     if (stat == "manual_slots_purchased") return stat_manual_slots_purchased;
     if (stat == "auto_slots_enabled") return stat_auto_slots_enabled;
     if (stat == "auto_slots_idle") return double(baking_slots.length()) - double(autobakeSlots);
+    if (stat == "lottery_tickets_bought") return stat_lottery_tickets_bought;
+    if (stat == "lottery_tickets_scratched") return stat_lottery_tickets_scratched;
+    if (stat == "lottery_wins") return stat_lottery_wins;
+    if (stat == "lottery_losses") return stat_lottery_losses;
     if (stat == "quests_completed") return stat_quests_completed;
     if (stat == "rerolls_performed") return stat_rerolls_performed;
     if (stat == "rank") return rank;

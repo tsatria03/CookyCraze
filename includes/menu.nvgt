@@ -1209,9 +1209,8 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
     }
     if (sel == "buyallbundles")
     {
-        double totalSpent = 0;
-        double autoGained = 0, manulGained = 0, speedGained = 0;
-        string[] boughtNames;
+        // Calculate the cost of one pass through all affordable bundles
+        double onePassCost = 0;
         for (uint i = 0; i < bundles.length(); i++)
         {
             if (bundles[i].menu != chosenMenu) continue;
@@ -1229,26 +1228,58 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
                     }
                 }
             }
-            if (coins < totalCost) continue;
-            coins -= totalCost;
-            stat_coins_spent += totalCost;
-            totalSpent += totalCost;
-            boughtNames.insert_last(bundles[i].name);
-            for (uint j = 0; j < bundles[i].entries.length(); j++)
+            if (coins >= totalCost)
+                onePassCost += totalCost;
+        }
+        int maxPasses = (onePassCost > 0) ? int(floor(coins / onePassCost)) : 1;
+        if (maxPasses < 1) maxPasses = 1;
+        string qInput = vd.input_box("", "How many of each affordable bundle would you like to buy? Press enter to buy the maximum amount.", string(maxPasses));
+        if (qInput == "") { bundlecategorymenu(bundles, chosenMenu, storeItems); return; }
+        int passes = string_to_int(qInput);
+        if (passes < 1) { pool.play_stationary("sounds/misc/storefail.ogg", false); dlgmessage_return("Please enter a number greater than zero. Press enter or space to continue."); bundlecategorymenu(bundles, chosenMenu, storeItems); return; }
+        double totalSpent = 0;
+        double autoGained = 0, manulGained = 0, speedGained = 0;
+        string[] boughtNames;
+        for (int pass = 0; pass < passes; pass++)
+        {
+            for (uint i = 0; i < bundles.length(); i++)
             {
-                for (uint k = 0; k < storeItems.length(); k++)
+                if (bundles[i].menu != chosenMenu) continue;
+                if (bundles[i].min_rank > 0 && rank < bundles[i].min_rank) continue;
+                double totalCost = 0;
+                for (uint j = 0; j < bundles[i].entries.length(); j++)
                 {
-                    if (storeItems[k].item_type == bundles[i].entries[j].item_type)
+                    for (uint k = 0; k < storeItems.length(); k++)
                     {
-                        double amount = bundles[i].entries[j].quantity;
-                        if (storeItems[k].target == 1) { autocooky += amount * storeItems[k].amount; autocooky_purchases += amount; autoGained += amount * storeItems[k].amount; }
-                        else if (storeItems[k].target == 2) { manulcooky += amount * storeItems[k].amount; manulcooky_purchases += amount; manulGained += amount * storeItems[k].amount; }
-                        else if (storeItems[k].target == 3) { cookyspeed += amount * storeItems[k].amount; clicktime -= amount * storeItems[k].amount; cookyspeed_purchases += amount; speedGained += amount * storeItems[k].amount; }
-                        break;
+                        if (storeItems[k].item_type == bundles[i].entries[j].item_type)
+                        {
+                            double level = (storeItems[k].target == 2) ? manulcooky_purchases : (storeItems[k].target == 3) ? cookyspeed_purchases : autocooky_purchases;
+                            totalCost += calc_total_upgrade_cost(level, bundles[i].entries[j].quantity, storeItems[k].base_cost, storeItems[k].cost_multiplier);
+                            break;
+                        }
                     }
                 }
+                if (coins < totalCost) continue;
+                coins -= totalCost;
+                stat_coins_spent += totalCost;
+                totalSpent += totalCost;
+                if (pass == 0) boughtNames.insert_last(bundles[i].name);
+                for (uint j = 0; j < bundles[i].entries.length(); j++)
+                {
+                    for (uint k = 0; k < storeItems.length(); k++)
+                    {
+                        if (storeItems[k].item_type == bundles[i].entries[j].item_type)
+                        {
+                            double amount = bundles[i].entries[j].quantity;
+                            if (storeItems[k].target == 1) { autocooky += amount * storeItems[k].amount; autocooky_purchases += amount; autoGained += amount * storeItems[k].amount; }
+                            else if (storeItems[k].target == 2) { manulcooky += amount * storeItems[k].amount; manulcooky_purchases += amount; manulGained += amount * storeItems[k].amount; }
+                            else if (storeItems[k].target == 3) { cookyspeed += amount * storeItems[k].amount; clicktime -= amount * storeItems[k].amount; cookyspeed_purchases += amount; speedGained += amount * storeItems[k].amount; }
+                            break;
+                        }
+                    }
+                }
+                stat_bundles_purchased++;
             }
-            stat_bundles_purchased++;
         }
         if (totalSpent > 0)
         {
@@ -1266,7 +1297,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
             else { for (uint li = 0; li < boughtNames.length() - 1; li++) { if (boughtLog != "") boughtLog += ", "; boughtLog += boughtNames[li]; } boughtLog += ", and " + boughtNames[boughtNames.length() - 1]; }
             pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
             pool.play_stationary("sounds/misc/store_order.ogg", false);
-            dlgmessage_return("Bulk purchase complete! You bought one of each: " + boughtLog + ". You gained " + gainLog + " for a total of " + convert_to_currency(totalSpent) + ".");
+            dlgmessage_return("Bulk purchase complete! You bought " + string(passes) + " of each: " + boughtLog + ". You gained " + gainLog + " for a total of " + convert_to_currency(totalSpent) + ".");
         }
         else
             speak("Nothing affordable to buy.");

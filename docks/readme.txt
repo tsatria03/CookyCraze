@@ -42,6 +42,40 @@ Milestone rank rewards go to the critical buffer.
 When baking mode is off, they show as a dismissible dialog so you don't miss them.
 When baking mode is on, they are delivered non-interruptively so they don't interrupt automated play.
 
+The bundle shop.
+Buy packages of multiple stat upgrades at once, often at better value than buying the same items individually.
+
+Bundles are organized into categories by rank, spanning the full progression of the game from beginner to godlike tiers.
+Each bundle lists what stats it contains and how much it costs.
+Like the singles shop, locked categories show their required rank.
+
+One important thing to understand about bundle pricing: bundles do not have their own fixed prices.
+Instead, the game uses the singles shop as a backend price engine, looking up the current price of each item based on how many you have already bought and adding them up.
+This means bundle prices scale up naturally as you progress, just like singles do.
+
+The advantage of bundles is that they package multiple items into one convenient purchase, so you get more total stats per transaction than buying the same items one at a time.
+
+There are four ways to purchase in the bundle shop.
+
+The first is buying a bundle at a custom quantity. Select any bundle and you will be prompted for how many you want to buy.
+Type the exact number you want and confirm to buy precisely that many at the current price.
+
+The second is buying a bundle at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in.
+Simply press enter without typing anything and the game buys as many as your budget allows in one transaction.
+The total cost shown in the menu is always per bundle, so the game multiplies that by your chosen quantity at checkout.
+
+The third is buying one of every affordable bundle at a custom quantity. At the bottom of each category is a buy one of every affordable bundle option, which appears whenever at least one bundle in the category is within your budget.
+Selecting it prompts you for how many of each you want to buy, and the game purchases that many of every affordable bundle in the category at once, skipping any you cannot afford.
+It reports which bundles were purchased, what stats you gained, and the total amount spent.
+
+The fourth is buying one of every affordable bundle at the maximum quantity. When the prompt appears, the maximum number of full passes through all affordable bundles you can currently afford is already filled in.
+Simply press enter without typing anything and the game buys as many of each affordable bundle as your budget allows in one transaction.
+
+The key difference between bundles and the singles shop bulk buy is not price, but convenience.
+Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats.
+A bundle packages a curated combination of stats into a single purchase, so you can upgrade auto cookies, manual cookies, and baking speed all at once without any extra navigation.
+The cost works out the same either way, since both use the singles shop prices as the foundation.
+
 The singles shop.
 Buy individual stat upgrades using your money. Three stats are available: auto cookies, manual cookies, and baking speed.
 
@@ -67,37 +101,6 @@ This lets you spread a large purchase across multiple stats in a single action i
 The fourth is buying all affordable items at the maximum quantity. The buy all affordable prompt pre-fills the maximum number you can afford across all eligible items in the category.
 Pressing enter without changing it buys every affordable item to the maximum your budget allows, making it the fastest way to spend across an entire category in one go.
 
-The bundle shop.
-Buy packages of multiple stat upgrades at once, often at better value than buying the same items individually.
-
-Bundles are organized into categories by rank, spanning the full progression of the game from beginner to godlike tiers.
-Each bundle lists what stats it contains and how much it costs.
-Like the singles shop, locked categories show their required rank.
-
-One important thing to understand about bundle pricing: bundles do not have their own fixed prices.
-Instead, the game uses the singles shop as a backend price engine, looking up the current price of each item based on how many you have already bought and adding them up.
-This means bundle prices scale up naturally as you progress, just like singles do.
-
-The advantage of bundles is that they package multiple items into one convenient purchase, so you get more total stats per transaction than buying the same items one at a time.
-
-There are three ways to purchase in the bundle shop.
-
-The first is buying a bundle at a custom quantity. Select any bundle and you will be prompted for how many you want to buy.
-Type the exact number you want and confirm to buy precisely that many at the current price.
-
-The second is buying a bundle at the maximum quantity. When the purchase prompt appears, the maximum number you can currently afford is already filled in.
-Simply press enter without typing anything and the game buys as many as your budget allows in one transaction.
-The total cost shown in the menu is always per bundle, so the game multiplies that by your chosen quantity at checkout.
-
-The third is buying one of every affordable bundle. At the bottom of each category is a buy one of every affordable bundle option, which appears whenever at least one bundle in the category is within your budget.
-Selecting it buys exactly one of every bundle you can currently afford in that category in a single transaction, skipping any you cannot afford.
-It reports which bundles were purchased, what stats you gained, and the total amount spent.
-
-The key difference between bundles and the singles shop bulk buy is not price, but convenience.
-Bulk buying in the singles shop lets you buy large quantities of one specific item at a time, requiring you to navigate to each item separately if you want to upgrade multiple stats.
-A bundle packages a curated combination of stats into a single purchase, so you can upgrade auto cookies, manual cookies, and baking speed all at once without any extra navigation.
-The cost works out the same either way, since both use the singles shop prices as the foundation.
-
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
 
@@ -109,6 +112,7 @@ Blackjack. Unlocked at rank 10.
 A card game where you bet an item of your choice and try to reach 21 without going over.
 
 You can bet money, cookies, auto cookies, manual cookies, or baking speed.
+When betting money, you enter the amount as a dollar value. Type 1 to bet $1.00, 0.50 to bet 50 cents, and so on. All other items are entered as whole numbers.
 A natural 21 on your opening two cards pays out at 1.5 times your bet.
 A standard win pays double, and a tie returns your original bet.
 The dealer stands at 17 by default.
@@ -135,6 +139,7 @@ Slot machine. Unlocked at rank 30.
 Spin the reels and match symbols to win multiples of your bet.
 
 Like the other minigames, you choose which item to bet and how much.
+When betting money, you enter the amount as a dollar value. Type 1 to bet $1.00, 0.50 to bet 50 cents, and so on. All other items are entered as whole numbers.
 Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples.
 The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table.
 

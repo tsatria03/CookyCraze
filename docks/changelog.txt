@@ -1,4 +1,8 @@
 New in 5.2.
+Updated the bet input in the blackjack and slot machine minigames to accept decimal coin values. Typing 1 bets $1.00, 0.50 bets 50 cents, and so on. All other bet items are still entered as whole numbers.
+Updated the buy one of every affordable bundle option in the bundle shop to prompt for a quantity instead of buying immediately. The maximum number of full passes you can afford is pre-filled, so pressing enter buys the maximum just like the singles shop.
+Added 40 lottery achievements across four tracks: tickets bought, tickets scratched, wins, and losses. Each track has 10 tiers. All lottery achievements are hidden until the lottery is unlocked.
+Silenced the first_bite, first_coin, and pocket_change achievements so they no longer announce at the very start of every game.
 Updated the config file header counts in the readme to reflect the addition of lottery.table and tickets.store.
 New in 5.1.
 Added a lottery subsection to the statistics section in the readme.

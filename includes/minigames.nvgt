@@ -300,7 +300,7 @@ if (orderedSyms == false)
 int betInput = form.create_input_box("Enter your b&et amount:", "", "", 0, false, false, false);
     int spinButton = form.create_button("Spin the &reels", true);
 form.focus(betChoice);
-form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~", false, "This character is not allowed.");
 string[] reelResults(slotReels, "");
     int selectedBet = 0;
     double betAmount = 0;
@@ -379,7 +379,7 @@ check_achievements(loadedAchievements, achievementsUnlocked);
         {
             selectedBet = form.get_list_position(betChoice);
 string betStr = form.get_text(betInput);
-betAmount = floor(string_to_number(betStr));
+betAmount = floor(selectedBet == 1 ? string_to_number(betStr) * 100.0 : string_to_number(betStr));
     if (betAmount <= 0)
     {
         dlg_buffer("Invalid bet amount. Please enter a valid number!");
@@ -657,7 +657,7 @@ void jackgame()
     int hitButton = form.create_button("&Hit");
     int standButton = form.create_button("&Stand");
     int dealButton = form.create_button("&Deal", true);
-    form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~", false, "This character is not allowed.");
+    form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~", false, "This character is not allowed.");
     form.focus(betChoice);
     int p_points = 0, d_points = 0;
     int p_aces = 0, d_aces = 0;
@@ -723,7 +723,7 @@ check_achievements(loadedAchievements, achievementsUnlocked);
             }
             selectedBet = form.get_list_position(betChoice);
             string betStr = form.get_text(betInput);
-            double betNum = floor(string_to_number(betStr));
+            double betNum = floor(selectedBet == 1 ? string_to_number(betStr) * 100.0 : string_to_number(betStr));
             if (betNum <= 0)
             {
                 pool.play_stationary("sounds/misc/gamefail.ogg", false);

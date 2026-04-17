@@ -10,7 +10,7 @@ quests=Quests
 
 ; Baking
 
-baking:first_bite:cookies_baked:1:false:false:First Bite:Bake your very first cookie. Every great bakery starts somewhere.:Even the longest journey begins with a single step. Or in this case, a single press.
+baking:first_bite:cookies_baked:1:true:false:First Bite:Bake your very first cookie. Every great bakery starts somewhere.:Even the longest journey begins with a single step. Or in this case, a single press.
 baking:getting_warmed_up:cookies_baked:100:false:false:Getting Warmed Up:Bake %threshold% cookies. The oven is starting to heat up.:The oven won't warm itself. Keep at it and see what happens.
 baking:on_a_roll:cookies_baked:1000:false:false:On a Roll:Bake %threshold% cookies. You're really getting the hang of this.:At a certain point, the cookies stop feeling like work.
 baking:cookie_factory:cookies_baked:10000:false:false:Cookie Factory:Bake %threshold% cookies. This is no longer a hobby. This is a business.:When the smell of cookies never leaves your hands, you'll know you've arrived.
@@ -42,8 +42,8 @@ baking:press_transcendent:manual_bakes_performed:50000000:true:false:Press Trans
 
 ; Economy
 
-economy:first_coin:coins_earned:50:false:false:First Coins:Earn your first coins. A humble beginning to what will surely be a great fortune.:Every fortune starts somewhere. Yours has begun.
-economy:pocket_change:coins_earned:100:false:false:Pocket Change:Earn %threshold%. Not much, but it's a start.:A fortune begins somewhere modest. This might be that somewhere.
+economy:first_coin:coins_earned:50:true:false:First Coins:Earn your first coins. A humble beginning to what will surely be a great fortune.:Every fortune starts somewhere. Yours has begun.
+economy:pocket_change:coins_earned:100:true:false:Pocket Change:Earn %threshold%. Not much, but it's a start.:A fortune begins somewhere modest. This might be that somewhere.
 economy:making_bank:coins_earned:10000:false:false:Making Bank:Earn %threshold%. The coin reserves are looking healthy.:When your pockets feel heavier than usual, you're getting warm.
 economy:filthy_rich:coins_earned:1000000:false:false:Filthy Rich:Earn %threshold%. You could swim in these if you wanted to.:There's rich, and then there's something else entirely. Aim for the something else.
 economy:coin_god:coins_earned:1000000000:false:false:Coin God:Earn %threshold%. At this point coins have lost all meaning.:Beyond a certain number, coins stop being currency and start being a philosophy.
@@ -217,6 +217,54 @@ slots:loss_connoisseur:slot_losses:500:false:true:Loss Connoisseur:Lose on the s
 slots:professional_loser:slot_losses:1000:false:true:Professional Loser:Lose on the slot machine %threshold% times. You could teach a masterclass in this.:Professionals don't quit. They refine their craft, whatever that craft may be.
 slots:born_to_lose:slot_losses:2000:false:true:Born to Lose:Lose on the slot machine %threshold% times. The machine has taken everything and you keep feeding it more.:Some callings find you. This one found you at the slot machine.
 slots:loss_incarnate:slot_losses:5000:false:true:Loss Incarnate:Lose on the slot machine %threshold% times. You have transcended losing. You have become it.:There are those who lose, and those who embody it completely. The reels made their choice.
+
+; Lottery
+
+lottery=Lottery
+
+lottery:first_ticket:lottery_tickets_bought:1:false:true:First Ticket:Buy your very first scratch ticket. The coating hides something. Probably.:There is a ticket somewhere with your name on it. Figuratively.
+lottery:ticket_curious:lottery_tickets_bought:5:false:true:Ticket Curious:Buy %threshold% scratch tickets. You are warming up to this whole lottery thing.:Curiosity is what gets people to the counter. The tickets do the rest.
+lottery:ticket_collector:lottery_tickets_bought:25:false:true:Ticket Collector:Buy %threshold% scratch tickets. You have developed a small habit.:Collectors rarely stop at a few. The pile grows without much notice.
+lottery:ticket_investor:lottery_tickets_bought:100:false:true:Ticket Investor:Buy %threshold% scratch tickets. You have committed real coins to this endeavor.:Investment implies expectation. Whether that expectation is met is another matter.
+lottery:ticket_regular:lottery_tickets_bought:250:false:true:Ticket Regular:Buy %threshold% scratch tickets. The ticket shop knows you by now.:Regulars don't need to introduce themselves. The shop just hands them a stack.
+lottery:ticket_enthusiast:lottery_tickets_bought:500:false:true:Ticket Enthusiast:Buy %threshold% scratch tickets. You have spent more on tickets than most bakers spend on flour.:Enthusiasm for scratch tickets is a specific kind of optimism. You have it in abundance.
+lottery:ticket_hoarder:lottery_tickets_bought:1000:false:true:Ticket Hoarder:Buy %threshold% scratch tickets. The inventory is getting a little out of hand.:There is a point where the buying outpaces the scratching. You may be approaching it.
+lottery:ticket_addict:lottery_tickets_bought:2500:false:true:Ticket Addict:Buy %threshold% scratch tickets. The ticket shop sees you coming and starts printing.:Some habits announce themselves. Yours announces itself at the counter.
+lottery:ticket_mogul:lottery_tickets_bought:5000:false:true:Ticket Mogul:Buy %threshold% scratch tickets. You have singlehandedly funded the lottery's operating costs.:Moguls don't buy tickets. They buy the supply chain.
+lottery:ticket_legend:lottery_tickets_bought:10000:false:true:Ticket Legend:Buy %threshold% scratch tickets. Economists are studying your spending patterns as a case study.:At ten thousand tickets, the purchase history becomes a document of historical significance.
+
+lottery:first_scratch:lottery_tickets_scratched:1:false:true:First Scratch:Scratch your first ticket. The coating comes off. Something is underneath.:A ticket unscratched is just a mystery. Time to solve one.
+lottery:scratch_curious:lottery_tickets_scratched:5:false:true:Scratch Curious:Scratch %threshold% tickets. You are starting to understand the ritual.:A few scratches in and the motion starts to feel familiar.
+lottery:scratch_regular:lottery_tickets_scratched:25:false:true:Scratch Regular:Scratch %threshold% tickets. Your nails have accepted their new role in life.:At twenty five scratches, the fingernail has opinions about technique.
+lottery:scratch_dedicated:lottery_tickets_scratched:100:false:true:Scratch Dedicated:Scratch %threshold% tickets. You are committed to finding out what is under the coating.:Dedication to scratching is not something most people plan. It just happens.
+lottery:scratch_veteran:lottery_tickets_scratched:250:false:true:Scratch Veteran:Scratch %threshold% tickets. You have seen enough outcomes to know what to expect. Mostly.:Veterans know the range of possibilities. They scratch anyway.
+lottery:scratch_enthusiast:lottery_tickets_scratched:500:false:true:Scratch Enthusiast:Scratch %threshold% tickets. The coating never stood a chance against you.:Some bakers bake. You scratch. With great vigor.
+lottery:scratch_machine:lottery_tickets_scratched:1000:false:true:Scratch Machine:Scratch %threshold% tickets. The process has become automatic at this point.:Machines don't hesitate. Neither do you when a ticket is in front of you.
+lottery:scratch_legend:lottery_tickets_scratched:2500:false:true:Scratch Legend:Scratch %threshold% tickets. Your scratching technique has become the stuff of local legend.:Legends develop around those who do something long enough and well enough.
+lottery:scratch_eternal:lottery_tickets_scratched:5000:false:true:Scratch Eternal:Scratch %threshold% tickets. The coating fears you.:Some things endure. The relationship between you and scratch tickets is one of them.
+lottery:scratch_infinite:lottery_tickets_scratched:10000:false:true:Scratch Infinite:Scratch %threshold% tickets. At this point scratching is less a hobby and more a calling.:A calling doesn't ask permission. It just keeps presenting you with tickets.
+
+lottery:first_lottery_win:lottery_wins:1:false:true:Lucky Coating:Win your first scratch ticket prize. Something was hiding under there after all.:Not every ticket hides something worthwhile. This one decided to cooperate.
+lottery:scratch_lucky:lottery_wins:5:false:true:Scratch Lucky:Win on %threshold% scratch tickets. The odds are looking favorable.:Luck at the scratch table is the kind that compounds quietly.
+lottery:winning_habit:lottery_wins:25:false:true:Winning Habit:Win on %threshold% scratch tickets. Fortune is starting to take you seriously.:Habits form in two directions. This one happens to be going the right way.
+lottery:scratch_fortunate:lottery_wins:100:false:true:Scratch Fortunate:Win on %threshold% scratch tickets. Something about your technique clearly works.:Fortune favors the persistent scratcher. You are becoming evidence of that.
+lottery:golden_nails:lottery_wins:250:false:true:Golden Nails:Win on %threshold% scratch tickets. Your scratching technique is practically an investment strategy.:At two hundred and fifty wins, the technique starts to feel like a competitive advantage.
+lottery:scratch_champion:lottery_wins:500:false:true:Scratch Champion:Win on %threshold% scratch tickets. Champions find a way to win regardless of the odds.:Champions at the scratch table are rarer than you'd expect. You are one of them.
+lottery:prize_machine:lottery_wins:1000:false:true:Prize Machine:Win on %threshold% scratch tickets. At this point the prizes come to you.:Machines produce consistently. So do you, apparently.
+lottery:lottery_royalty:lottery_wins:2500:false:true:Lottery Royalty:Win on %threshold% scratch tickets. The ticket shop has dedicated a shelf to your victories.:Royalty doesn't lose at the lottery. The lottery loses to royalty.
+lottery:scratch_deity:lottery_wins:5000:false:true:Scratch Deity:Win on %threshold% scratch tickets. The coating no longer dares hide a losing ticket from you.:At a certain altitude, luck and expectation become the same thing.
+lottery:win_incarnate:lottery_wins:10000:false:true:Win Incarnate:Win on %threshold% scratch tickets. You have transcended the lottery. The lottery now works for you.:There are those who play the lottery, and those who become it. You became it.
+
+lottery:first_lottery_loss:lottery_losses:1:false:true:Better Luck Next Time:Lose your first scratch ticket. The coating was hiding nothing of value. This time.:Not every ticket delivers. You will find that out immediately.
+lottery:scratch_unlucky:lottery_losses:5:false:true:Scratch Unlucky:Lose on %threshold% scratch tickets. The odds have not been cooperating.:Luck runs in streaks, they say. Yours is running in a particular direction.
+lottery:coating_of_nothing:lottery_losses:25:false:true:Coating of Nothing:Lose on %threshold% scratch tickets. The coating hid nothing. Again. And again.:At a certain point the coating starts to feel like a personal insult.
+lottery:persistent_scratcher:lottery_losses:100:false:true:Persistent Scratcher:Lose on %threshold% scratch tickets. You keep scratching despite what the tickets keep telling you.:Persistence is admirable. The tickets have not acknowledged this yet.
+lottery:losing_streak:lottery_losses:250:false:true:Losing Streak:Lose on %threshold% scratch tickets. The streak is alive and well and not working in your favor.:Some streaks are exciting. This one is more of a quiet statement.
+lottery:ticket_pessimist:lottery_losses:500:false:true:Ticket Pessimist:Lose on %threshold% scratch tickets. You expect nothing and the tickets are happy to oblige.:Pessimists are rarely surprised. You have achieved a kind of peace with the outcome.
+lottery:chronic_scratcher:lottery_losses:1000:false:true:Chronic Scratcher:Lose on %threshold% scratch tickets. A chronic condition with no known cure.:Chronic things persist regardless of outcomes. So does your scratching.
+lottery:coating_connoisseur:lottery_losses:2500:false:true:Coating Connoisseur:Lose on %threshold% scratch tickets. You have developed a deep appreciation for the coating itself.:When the prize stops being the point, the coating becomes the experience.
+lottery:loss_devotee:lottery_losses:5000:false:true:Loss Devotee:Lose on %threshold% scratch tickets. The empty tickets fill a box somewhere. A very large box.:Devotion takes many forms. Yours is measured in empty tickets.
+lottery:lottery_tragedy:lottery_losses:10000:false:true:Lottery Tragedy:Lose on %threshold% scratch tickets. Economists cite you as a cautionary tale. You scratch another one.:There is a loss count at which the scratching transcends logic entirely. You found it.
 
 ; Quests
 
