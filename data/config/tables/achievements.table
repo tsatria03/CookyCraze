@@ -3,7 +3,8 @@
 baking=Baking
 baking_slots=Baking slots manager
 economy=Economy
-events=Events
+baker_events=Baker events
+flipper_events=Flipper events
 blackjack=Blackjack
 slots=Slot machine
 flipper=Cooky flipper
@@ -44,14 +45,14 @@ baking:press_transcendent:manual_bakes_performed:50000000:true:false:Press Trans
 
 ; Economy
 
-economy:first_coin:coins_earned:50:true:false:First Earnings:Earn your first money. A humble beginning to what will surely be a great fortune.:Every fortune starts somewhere. Yours has begun.
+economy:first_coin:coins_earned:50:true:false:First Earnings:Earn your first bit of money. A humble beginning to what will surely be a great fortune.:Every fortune starts somewhere. Yours has begun.
 economy:pocket_change:coins_earned:100:true:false:Pocket Change:Earn %threshold%. Not much, but it's a start.:A fortune begins somewhere modest. This might be that somewhere.
 economy:making_bank:coins_earned:10000:false:false:Making Bank:Earn %threshold%. The reserves are looking healthy.:When your pockets feel heavier than usual, you're getting warm.
 economy:filthy_rich:coins_earned:1000000:false:false:Filthy Rich:Earn %threshold%. You could swim in it if you wanted to.:There's rich, and then there's something else entirely. Aim for the something else.
 economy:coin_god:coins_earned:1000000000:false:false:Money God:Earn %threshold%. At this point money has lost all meaning.:Beyond a certain amount, money stops being currency and starts being a philosophy.
 economy:coin_singularity:coins_earned:10000000000:false:false:Money Singularity:Earn %threshold%. Economists have been summoned to explain what you have done.:Some fortunes are so large they begin to bend the economy around them.
 economy:coin_multiverse:coins_earned:100000000000:false:false:Money Multiverse:Earn %threshold%. You don't own money anymore. You are money.:At this point the distinction between you and the economy is purely academic.
-economy:first_spend:coins_spent:50:false:false:First Splurge:Spend your first money in the shop. Every great bakery is built on investment.:Money sitting in your pocket isn't doing anything useful. The shop is right there.
+economy:first_spend:coins_spent:50:false:false:First Splurge:Spend your first bit of money in the shop. Every great bakery is built on investment.:Money sitting in your pocket isn't doing anything useful. The shop is right there.
 economy:loose_change:coins_spent:100:false:false:Loose Change:Spend %threshold%. The shop is starting to know your face.:A hundred cents out the door and the upgrades are starting to show.
 economy:big_spender:coins_spent:10000:false:false:Big Spender:Spend %threshold%. You have committed to this bakery in a financial way.:At a hundred dollars spent, this stopped being a hobby and started being an investment.
 economy:coin_burner:coins_spent:1000000:false:false:Money Burner:Spend %threshold%. You give and you give and somehow there is always more to give.:Ten thousand dollars out the door and the bakery has never looked better.
@@ -75,19 +76,24 @@ economy:upgrade_infinite:singles_purchased:500000:false:false:Upgrade Infinite:P
 
 ; Events
 
-events:first_event:events_fired:1:false:false:Things Happen:Trigger your first random event. Baking is full of surprises.:Not everything in the bakery goes according to plan. Stay alert.
-events:event_prone:events_fired:50:false:false:Event Prone:Trigger %threshold% random events. Life in the bakery is never boring.:Some days the bakery has a mind of its own. You'll see.
-events:chaos_magnet:events_fired:250:false:false:Chaos Magnet:Trigger %threshold% random events. You are a walking disaster and a miracle all at once.:Strange things tend to happen around certain bakers more than others. You might be one of them.
-events:event_veteran:events_fired:1000:false:false:Event Veteran:Trigger %threshold% random events. At this point you have seen everything.:After enough surprises, nothing surprises you anymore. Almost nothing.
-events:event_legend:events_fired:5000:false:false:Event Legend:Trigger %threshold% random events. The universe itself cannot stop throwing things at your bakery.:The bakery has a life of its own. You just work there.
-events:event_storm:events_fired:10000:false:false:Event Storm:Trigger %threshold% random events. Meteorologists have begun tracking your bakery.:At a certain frequency, events stop being random and start feeling inevitable.
-events:event_force:events_fired:25000:false:false:Event Force:Trigger %threshold% random events. You are no longer affected by events. You are an event.:There are forces of nature, and then there are forces of bakery. You became the latter.
+baker_events:first_baker_event:baker_events_fired:1:false:false:Things Happen:Trigger your first baker event. Baking is full of surprises.:Not everything in the bakery goes according to plan. Stay alert.
+baker_events:event_prone:baker_events_fired:50:false:false:Event Prone:Trigger %threshold% baker events. Life in the bakery is never boring.:Some days the bakery has a mind of its own. You'll see.
+baker_events:chaos_magnet:baker_events_fired:250:false:false:Chaos Magnet:Trigger %threshold% baker events. You are a walking disaster and a miracle all at once.:Strange things tend to happen around certain bakers more than others. You might be one of them.
+baker_events:event_veteran:baker_events_fired:1000:false:false:Event Veteran:Trigger %threshold% baker events. At this point you have seen everything.:After enough surprises, nothing surprises you anymore. Almost nothing.
+baker_events:event_legend:baker_events_fired:5000:false:false:Event Legend:Trigger %threshold% baker events. The universe itself cannot stop throwing things at your bakery.:The bakery has a life of its own. You just work there.
+baker_events:event_storm:baker_events_fired:10000:false:false:Event Storm:Trigger %threshold% baker events. Meteorologists have begun tracking your bakery.:At a certain frequency, events stop being random and start feeling inevitable.
+baker_events:event_force:baker_events_fired:25000:false:false:Event Force:Trigger %threshold% baker events. You are no longer affected by events. You are an event.:There are forces of nature, and then there are forces of bakery. You became the latter.
+flipper_events:first_flipper_event:flipper_events_fired:1:false:true:Chance and Chaos:Trigger your first flipper event. Flipping cookys has consequences.:Every flip tells a story. This one is just the beginning.
+flipper_events:flipper_event_prone:flipper_events_fired:25:false:true:Rolling the Dough:Trigger %threshold% flipper events. You are starting to see patterns in the chaos.:Patterns in randomness are just superstition. But keep watching anyway.
+flipper_events:flipper_event_chaos:flipper_events_fired:100:false:true:Cookie Chaos:Trigger %threshold% flipper events. The flipper has become a force of its own.:At this point the flipper is less a game and more a lifestyle.
+flipper_events:flipper_event_veteran:flipper_events_fired:500:false:true:Flipper Event Veteran:Trigger %threshold% flipper events. Nothing the flipper throws at you surprises you anymore.:You have seen enough outcomes to stop calling them surprises.
+flipper_events:flipper_event_legend:flipper_events_fired:2000:false:true:Flipper Event Legend:Trigger %threshold% flipper events. The cooky itself has started to fear you.:Some flippers flip cookys. You flip fate.
 flipper:first_flip:flipper_flips:1:false:true:Chocolate or Bisket:Flip the cooky for the first time. Luck is on your side. Probably.:Two outcomes. One flip. What are you waiting for?
 flipper:flip_happy:flipper_flips:25:false:true:Flip Happy:Flip the cooky %threshold% times. You just can't stop.:Once you start flipping, it gets oddly difficult to stop.
 flipper:flipper_fanatic:flipper_flips:100:false:true:Flipper Fanatic:Flip the cooky %threshold% times. This is less about luck and more about obsession at this point.:At some point this stops being about the outcome and starts being about the ritual.
 flipper:flipper_addict:flipper_flips:500:false:true:Flipper Addict:Flip the cooky %threshold% times. Your thumb is going to fall off.:Your thumb knows what to do before your brain does. That's a sign.
 flipper:flipper_legend:flipper_flips:2000:false:true:Flipper Legend:Flip the cooky %threshold% times. You have flipped more cookys than you have baked cookies.:When the flipper sees more action than the oven, priorities have shifted somewhat.
-events:flipper_eternal:flipper_flips:5000:false:true:Flipper Eternal:Flip the cooky %threshold% times. The cooky has been flipped so many times it no longer has sides.:At a certain point the flip itself becomes the destination.
+flipper:flipper_eternal:flipper_flips:5000:false:true:Flipper Eternal:Flip the cooky %threshold% times. The cooky has been flipped so many times it no longer has sides.:At a certain point the flip itself becomes the destination.
 
 ; Blackjack
 

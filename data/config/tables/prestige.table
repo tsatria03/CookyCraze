@@ -18,7 +18,7 @@ coins:50*rank:100*rank:Prestige %level% complete! You earned %amount% bonus to s
 
 ; Flat rewards
 
-1:coins:100|cookies:10:false:Prestige %level% reached! You start this run with %amount% bonus and 10 bonus cookies.
+1:coins:100|cookies:10:false:Prestige %level% reached! You start this run with %amount% as a bonus.
 
 ; Percentage carry-overs
 

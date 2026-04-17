@@ -19,7 +19,7 @@ Your earnings per bake scale with your rank, so the further you progress, the fa
 To sell cookies and earn money, enter the cooky store and choose the sell option.
 You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in.
 Press enter to sell everything you have, or type a smaller number to sell only part of your supply.
-Each cookie sells for a fixed rate, so the more you bake before selling, the larger your payout.
+Each cookie sells for a configurable rate set in the game settings, defaulting to 50 cents. The more you bake before selling, the larger your payout.
 
 Baking mode is a toggle that activates automatic cookie production. To enable it, you need at least one auto cookie.
 Once active, cookies are baked automatically on a timed cycle without any input needed.
@@ -187,9 +187,10 @@ Progress.
 
 Current rank: your current rank number.
 Current cookies: how many cookies you have right now.
-Coins per sell: how much money you would earn if you sold your entire current cookie stockpile right now. Updates live as your cookie count changes.
 Cookies needed for next rank: how many cookies are required to reach the next rank.
-Current coins: how much money you currently have.
+Current balance: how much money you currently have.
+Cookie sell price: the current price per cookie as set in the game settings.
+Earnings per sell: how much money you would earn if you sold your entire current cookie stockpile right now. Updates live as your cookie count changes.
 Prestige level: how many times you have prestiged. Starts at 0 on a fresh save.
 Prestige reward condition: describes what you need to complete to receive a reward on your next prestige, based on the require_all setting in quests.table.
 
@@ -227,7 +228,7 @@ Manual slots purchased: counts every manual baking slot you have ever bought.
 
 Economy.
 
-Coins earned: counts the total amount of money you have received across all sources, including selling cookies and rank rewards.
+Money earned: counts the total amount of money you have received across all sources, including selling cookies and rank rewards.
 Bundle upgrades purchased: counts every bundle shop transaction.
 Single upgrades purchased: counts every singles shop transaction, whether you buy one item or a full bulk purchase.
 

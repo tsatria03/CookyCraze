@@ -111,7 +111,8 @@ double get_stat_value(string stat)
     if (stat == "coins_spent") return stat_coins_spent;
     if (stat == "singles_purchased") return stat_singles_purchased;
     if (stat == "bundles_purchased") return stat_bundles_purchased;
-    if (stat == "events_fired") return stat_events_fired;
+    if (stat == "baker_events_fired") return stat_baker_events_fired;
+    if (stat == "flipper_events_fired") return stat_flipper_events_fired;
     if (stat == "flipper_flips") return stat_flipper_flips;
     if (stat == "slot_spins") return stat_slot_spins;
     if (stat == "slot_wins") return stat_slot_wins;

@@ -398,7 +398,8 @@ void shopmenu()
 setupmenu2();
 m.add_item("buy upgrades", "bmu");
 m.add_item("buy tickets", "bmt");
-m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky sells for " + convert_to_currency(cookieSellPrice) + ". You would earn " + convert_to_currency(floor(cookies) * cookieSellPrice) + " if you sold everything.", "slm");
+string cookieWord = (floor(cookies) == 1) ? "cooky" : "cookies";
+m.add_item("sell cookies. You currently have " + format_number(cookies) + " " + cookieWord + ". Description: Each cooky sells for " + convert_to_currency(cookieSellPrice) + ".", "slm");
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
 int shop_start = 0;
@@ -1762,7 +1763,7 @@ void questsmenu()
     else
     {
         for (uint i = 0; i < rerollHistory.length(); i++)
-            rerollHistText += "Reroll " + string(i + 1) + ": " + rerollHistory[i].old_name + " replaced by " + rerollHistory[i].new_name + ". Cost: " + format_number(rerollHistory[i].cost) + " " + rerollHistory[i].target + ".\r\n";
+            rerollHistText += "Reroll " + string(i + 1) + ": " + rerollHistory[i].old_name + " replaced by " + rerollHistory[i].new_name + ". Cost: " + (rerollHistory[i].target == "coins" ? convert_to_currency(rerollHistory[i].cost) : format_number(rerollHistory[i].cost) + " " + rerollHistory[i].target) + ".\r\n";
     }
     int rerollHistBox = -1;
     bool prestigeAvailable = rank >= prestigeConfig.min_rank;
@@ -1831,7 +1832,7 @@ void questsmenu()
             form.delete_control(closeBtn);
             if (showReroll)
             {
-                rerollBtn = form.create_button("&Reroll quest for " + format_number(rerollCost) + " " + questsConfig.reroll_target);
+                rerollBtn = form.create_button("&Reroll quest for " + (questsConfig.reroll_target == "coins" ? convert_to_currency(rerollCost) : format_number(rerollCost) + " " + questsConfig.reroll_target));
                 rerollHistBox = form.create_input_box("&Reroll History", rerollHistText, read_only:true, multiline:true);
             }
             else
@@ -1874,7 +1875,7 @@ void questsmenu()
                 form.delete_control(closeBtn);
                 if (!isRequired)
                 {
-                    rerollBtn = form.create_button("&Reroll quest for " + format_number(rerollCost) + " " + questsConfig.reroll_target);
+                    rerollBtn = form.create_button("&Reroll quest for " + (questsConfig.reroll_target == "coins" ? convert_to_currency(rerollCost) : format_number(rerollCost) + " " + questsConfig.reroll_target));
                     rerollHistBox = form.create_input_box("&Reroll History", rerollHistText, read_only:true, multiline:true);
                 }
                 else
@@ -2053,7 +2054,7 @@ int logoSFX = form.create_checkbox("Enable playing the logo sound upon launching
 int introSFX = form.create_checkbox("Enable playing the intro sound upon starting the game.", introsfx);
 int exitSFX = form.create_checkbox("Enable playing the exit sound upon exiting the game.", exitsfx);
 int bakeSFX = form.create_checkbox("Enable auto bake sound effects when baking cookies.", bakesfx);
-int coinSFX = form.create_checkbox("Enable coin sound effects when earning money.", coinsfx);
+int coinSFX = form.create_checkbox("Enable currency sound effects when earning money.", coinsfx);
 int eventSFX = form.create_checkbox("Enable event sound effects when events trigger.", eventsfx);
 int achSFX = form.create_checkbox("Enable achievement sound effects when unlocking achievements.", achsfx);
 int rankSFX = form.create_checkbox("Enable rank sound effects when leveling up.", ranksfx);

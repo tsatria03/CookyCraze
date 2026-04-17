@@ -359,10 +359,10 @@ void show_baker_info()
     txt += "Progress\r\n";
     txt += "Current rank: " + format_number(rank) + "\r\n";
     txt += "Current cookies: " + format_number(cookies) + "\r\n";
+    txt += "Cookies needed for next rank: " + format_number(max(0.0, cookiesrequiered - cookies)) + "\r\n";
+    txt += "Current balance: " + convert_to_currency(coins) + "\r\n";
     txt += "Cookie sell price: " + convert_to_currency(cookieSellPrice) + " each\r\n";
-    txt += "Coins per sell: " + convert_to_currency(floor(cookies) * cookieSellPrice) + "\r\n";
-    txt += "Cookies needed for next rank: " + format_number(cookiesrequiered) + "\r\n";
-    txt += "Current coins: " + convert_to_currency(coins) + "\r\n";
+    txt += "Earnings per sell: " + convert_to_currency(floor(cookies) * cookieSellPrice) + "\r\n";
     txt += "Prestige level: " + string(prestigeLevel) + "\r\n";
     int completedQuests = 0;
     for (uint i = 0; i < activeQuests.length(); i++)
@@ -408,13 +408,16 @@ void show_baker_statistics()
     txt += "Manual slots purchased: " + format_number(stat_manual_slots_purchased) + "\r\n";
     txt += "\r\n";
     txt += "Economy\r\n";
-    txt += "Coins earned: " + convert_to_currency(stat_coins_earned) + "\r\n";
-    txt += "Coins spent: " + convert_to_currency(stat_coins_spent) + "\r\n";
+    txt += "Money earned: " + convert_to_currency(stat_coins_earned) + "\r\n";
+    txt += "Money spent: " + convert_to_currency(stat_coins_spent) + "\r\n";
     txt += "Bundle upgrades purchased: " + format_number(stat_bundles_purchased) + "\r\n";
     txt += "Single upgrades purchased: " + format_number(stat_singles_purchased) + "\r\n";
     txt += "\r\n";
-    txt += "Events\r\n";
-    txt += "Events fired: " + format_number(stat_events_fired) + "\r\n";
+    txt += "Baker events\r\n";
+    txt += "Baker events fired: " + format_number(stat_baker_events_fired) + "\r\n";
+    txt += "\r\n";
+    txt += "Flipper events\r\n";
+    txt += "Flipper events fired: " + format_number(stat_flipper_events_fired) + "\r\n";
     txt += "\r\n";
     txt += "Cooky flipper\r\n";
     txt += "Flipper flips: " + format_number(stat_flipper_flips) + "\r\n";
@@ -526,7 +529,8 @@ string get_stat_progress_label(string stat)
     if (stat == "coins_spent") return "spent";
     if (stat == "singles_purchased") return "single upgrades purchased";
     if (stat == "bundles_purchased") return "bundle upgrades purchased";
-    if (stat == "events_fired") return "events fired";
+    if (stat == "baker_events_fired") return "baker events fired";
+    if (stat == "flipper_events_fired") return "flipper events fired";
     if (stat == "flipper_flips") return "flips";
     if (stat == "slot_spins") return "spins";
     if (stat == "slot_wins") return "wins";

@@ -8,9 +8,9 @@ usermenu=User Created Items|5|false|Custom items that were created by the commun
 
 ; Rank 0
 
-autmenu:auto_cooky:1:100:1.01:1:0:false:false:Each purchase gives you %item_count auto cookie to bake with.
-autmenu:auto_cooky_speed:3:200:1.01:10:0:false:false:Each purchase increases your baking speed by %item_count ms, helping you bake cookies much faster.
-mabimenu:manual_cooky:2:250:1.01:1:0:false:false:Each purchase gives you %item_count manual cookie to bake with.
+autmenu:auto_cooky:1:10:1.01:1:0:false:false:Each purchase gives you %item_count auto cookie to bake with.
+autmenu:auto_cooky_speed:3:20:1.01:10:0:false:false:Each purchase increases your baking speed by %item_count ms, helping you bake cookies much faster.
+mabimenu:manual_cooky:2:25:1.01:1:0:false:false:Each purchase gives you %item_count manual cookie to bake with.
 
 ; Rank 5
 

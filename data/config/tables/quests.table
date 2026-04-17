@@ -8,7 +8,7 @@ reroll_target=coins
 reroll_base_cost=20
 reroll_multiplier=1.01
 reroll_sound=questroll.ogg
-reroll_message=Quest rerolled! It cost you %cost%. Good luck with your new objective!
+reroll_message=Quest rerolled! Good luck with your new objective!
 
 [quests]
 
@@ -64,13 +64,21 @@ buy_bundles_25:Purchase 25 bundle upgrades:bundles_purchased:25:true:false:true:
 buy_bundles_75:Purchase 75 bundle upgrades:bundles_purchased:75:true:false:true:4:Purchase %threshold% bundle upgrades from the bundle shop.
 buy_bundles_150:Purchase 150 bundle upgrades:bundles_purchased:150:true:false:true:5:Purchase %threshold% bundle upgrades from the bundle shop.
 
-; Events fired
+; Baker events fired
 
-fire_events_10:Trigger 10 events:events_fired:10:true:false:true:1:Trigger %threshold% random events during gameplay.
-fire_events_25:Trigger 25 events:events_fired:25:true:false:true:2:Trigger %threshold% random events during gameplay.
-fire_events_100:Trigger 100 events:events_fired:100:true:false:true:3:Trigger %threshold% random events during gameplay.
-fire_events_250:Trigger 250 events:events_fired:250:true:false:true:4:Trigger %threshold% random events during gameplay.
-fire_events_500:Trigger 500 events:events_fired:500:true:false:true:5:Trigger %threshold% random events during gameplay.
+fire_baker_events_10:Trigger 10 baker events:baker_events_fired:10:true:false:true:1:Trigger %threshold% random baker events during gameplay.
+fire_baker_events_25:Trigger 25 baker events:baker_events_fired:25:true:false:true:2:Trigger %threshold% random baker events during gameplay.
+fire_baker_events_100:Trigger 100 baker events:baker_events_fired:100:true:false:true:3:Trigger %threshold% random baker events during gameplay.
+fire_baker_events_250:Trigger 250 baker events:baker_events_fired:250:true:false:true:4:Trigger %threshold% random baker events during gameplay.
+fire_baker_events_500:Trigger 500 baker events:baker_events_fired:500:true:false:true:5:Trigger %threshold% random baker events during gameplay.
+
+; Flipper events fired
+
+fire_flipper_events_10:Trigger 10 flipper events:flipper_events_fired:10:true:false:true:1:Trigger %threshold% random flipper events during gameplay.
+fire_flipper_events_25:Trigger 25 flipper events:flipper_events_fired:25:true:false:true:2:Trigger %threshold% random flipper events during gameplay.
+fire_flipper_events_100:Trigger 100 flipper events:flipper_events_fired:100:true:false:true:3:Trigger %threshold% random flipper events during gameplay.
+fire_flipper_events_250:Trigger 250 flipper events:flipper_events_fired:250:true:false:true:4:Trigger %threshold% random flipper events during gameplay.
+fire_flipper_events_500:Trigger 500 flipper events:flipper_events_fired:500:true:false:true:5:Trigger %threshold% random flipper events during gameplay.
 
 ; Cooky flipper
 

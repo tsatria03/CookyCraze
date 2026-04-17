@@ -1,6 +1,14 @@
 New in 5.4.
+Split the events quest track into two separate tracks, baker events and flipper events. Baker events are triggered during baking, and flipper events are triggered by the cooky flipper. Each track has five tiers.
+Split the events achievement category into two separate categories, baker events and flipper events, each tracking their respective stat independently. Five new flipper event achievements have also been added.
+Removed the quest reroll confirmation message cost line. The button already shows the cost, so repeating it in the message was redundant.
+Fixed a bug where the reroll quest button and reroll history log displayed the reroll cost as a raw coin value instead of a currency amount. The cost now correctly reads as cents or dollars, matching the rest of the game.
+Fixed a bug where the prestige level 1 reward message duplicated the cookie bonus, saying both the amount via the placeholder and the hardcoded text. The message now reads naturally using a single placeholder.
+Fixed a bug where the cookies needed for next rank field in the baker info screen showed the total rank threshold instead of the remaining amount. For example, if you needed 50 cookies to rank up and had 30, it now correctly shows 20 instead of 50.
+Renamed the coin sound effects checkbox in the game settings menu to currency sound effects.
+Renamed several labels in the baker info screen and baker statistics screen to use money and currency language instead of coins. Current coins is now Current balance, Coins earned is now Money earned, and Coins spent is now Money spent.
 Made it so the baker info screen now shows the current sell price alongside the total payout for your cookie stockpile.
-Added a configurable cookie sell price slider to the game settings. You can set the price per cookie from 1 cent up to $1.00. The default is set to 50 cents.
+Added a configurable cookie sell price slider to the game settings menu. You can set the price per cookie from 1 cent up to $1.00. The default is set to 50 cents.
 New in 5.3.
 Moved the cooky flipper achievements into their own category in the achievements menu, separate from the events category. Flipper flips also now appears as its own section in the baker statistics screen.
 Fixed a bug where the lottery achievement category was never registered, causing all 40 lottery achievements to be silently ignored. They now appear correctly in the achievements menu.

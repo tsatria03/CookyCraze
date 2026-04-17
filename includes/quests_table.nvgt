@@ -391,7 +391,8 @@ string get_stat_display_name(string stat)
     else if (stat == "coins_earned")      return "money earned";
     else if (stat == "singles_purchased") return "upgrades purchased";
     else if (stat == "bundles_purchased") return "bundles purchased";
-    else if (stat == "events_fired")      return "events fired";
+    else if (stat == "baker_events_fired")   return "baker events fired";
+    else if (stat == "flipper_events_fired") return "flipper events fired";
     else if (stat == "flipper_flips")     return "cooky flipper flips";
     else if (stat == "slot_spins")        return "slot machine spins";
     else if (stat == "slot_wins")         return "slot machine wins";
