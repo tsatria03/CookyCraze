@@ -401,6 +401,10 @@ if(st.d.exists("cookymod"))
 {
 cookymod=st.read_double("cookymod");
 }
+if(st.d.exists("cookieSellPrice"))
+{
+cookieSellPrice=st.read_double("cookieSellPrice");
+}
 if(st.d.exists("evchanse"))
 {
 evchanse=st.read_int("evchanse");
@@ -435,6 +439,7 @@ st.add("slotMultiplier", slotMultiplier);
 st.add("manualSlotMultiplier", manualSlotMultiplier);
 st.add("difmod",difmod);
 st.add("cookymod",cookymod);
+st.add("cookieSellPrice",cookieSellPrice);
 st.add("evchanse",evchanse);
 st.add("evchanse2",evchanse2);
 st.save();

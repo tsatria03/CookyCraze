@@ -359,7 +359,8 @@ void show_baker_info()
     txt += "Progress\r\n";
     txt += "Current rank: " + format_number(rank) + "\r\n";
     txt += "Current cookies: " + format_number(cookies) + "\r\n";
-    txt += "Coins per sell: " + convert_to_currency(floor(cookies) * 100.0) + "\r\n";
+    txt += "Cookie sell price: " + convert_to_currency(cookieSellPrice) + " each\r\n";
+    txt += "Coins per sell: " + convert_to_currency(floor(cookies) * cookieSellPrice) + "\r\n";
     txt += "Cookies needed for next rank: " + format_number(cookiesrequiered) + "\r\n";
     txt += "Current coins: " + convert_to_currency(coins) + "\r\n";
     txt += "Prestige level: " + string(prestigeLevel) + "\r\n";

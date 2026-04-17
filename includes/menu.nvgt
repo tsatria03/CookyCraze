@@ -398,7 +398,7 @@ void shopmenu()
 setupmenu2();
 m.add_item("buy upgrades", "bmu");
 m.add_item("buy tickets", "bmt");
-m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky sells for $1.00. You would earn " + convert_to_currency(floor(cookies) * 100.0) + " if you sold everything.", "slm");
+m.add_item("sell cookies. You currently have"+format_number(cookies)+" cookies. Description: Each cooky sells for " + convert_to_currency(cookieSellPrice) + ". You would earn " + convert_to_currency(floor(cookies) * cookieSellPrice) + " if you sold everything.", "slm");
 m.add_item("back", "back");
 m.intro_text="Welcome to the cooky store. What would you like to do?";
 int shop_start = 0;
@@ -461,7 +461,7 @@ double cookiesToSell = floor(string_to_number(sailam));
     }
     if (cookiesToSell > sellableCookies)
         cookiesToSell = sellableCookies;
-double totalCoinsEarned = cookiesToSell * 100;
+double totalCoinsEarned = cookiesToSell * cookieSellPrice;
 cookies -= cookiesToSell;
 coins += totalCoinsEarned;
 stat_coins_earned += totalCoinsEarned;
@@ -2063,7 +2063,7 @@ int playvents2 = form.create_checkbox("Enable player events during manual baking
 int ordsyms = form.create_checkbox("Enable alphabetical symbol listing for the slot machine mini game.", orderedSyms);
 int reelspin = form.create_checkbox("Enable automatic stopping of reels for the slot machine mini game.", slotmode);
 int jackautodraw = form.create_checkbox("Enable automatic card drawing for the blackjack mini game.", jackmode);
-int lotteryautoscratch = form.create_checkbox("Enable automatic scratch reveal for the cooky lottery mini game.", lotterymode);
+int lotteryautoscratch = form.create_checkbox("Enable automatic scratch revealing for the cooky lottery mini game.", lotterymode);
 int bakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across automated slots.", slotDistribution);
 int manualBakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across manual slots.", manualSlotDistribution);
 int showLockedToggle = form.create_checkbox("Enable showing locked items and menus in the shop list.", show_locked_shops);
@@ -2074,6 +2074,7 @@ int cookieRankModifierSlider = form.create_slider("Cookie Rank Modifier.", cooky
 int difficultyRankModifierSlider = form.create_slider("Difficulty rank Modifier.", difmod, 1, 100, "x", 1);
 int autoChanceSlider = form.create_slider("Auto-Baking Event chance.", 100 - evchanse, 0, 100, "percent", 1);
 int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 - evchanse2, 0, 100, "percent", 1);
+int sellPriceSlider = form.create_slider("Cookie sell price.", cookieSellPrice, 1, 100, "cents", 1);
 int savesets = form.create_button("&save settings", true);
 int cansets = form.create_button("&cancel");
 form.focus(introSFX);
@@ -2088,6 +2089,7 @@ cookymod = form.get_slider(cookieRankModifierSlider);
 difmod = form.get_slider(difficultyRankModifierSlider);
 evchanse = 100 - form.get_slider(autoChanceSlider);
 evchanse2 = 100 - form.get_slider(manualChanceSlider);
+cookieSellPrice = form.get_slider(sellPriceSlider);
 introsfx = form.is_checked(introSFX);
 logosfx = form.is_checked(logoSFX);
 exitsfx = form.is_checked(exitSFX);
