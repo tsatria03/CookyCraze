@@ -2,28 +2,19 @@
 set GAME=CookyCraze
 set PASSWORD=CrazeMastery
 
-set WIN_SOURCE=..\releases\windows\CookyCraze_windows_portable_password_is_CrazeMastery\cycrz
+for /f "delims=" %%v in (..\docks\version.txt) do set VERSION=%%v
+
+set TITLE=%GAME% V%VERSION%
+set TAG=V%VERSION%0
+set ARCHIVE=..\releases\archives\%GAME%_windows_portable_password_is_%PASSWORD%.7z
+set INSTALLER=..\releases\archives\%GAME%_windows_installer_password_is_%PASSWORD%.exe
 
 echo.
-echo Building Windows portable 7z archive...
+echo Creating GitHub release %TITLE% with tag %TAG%...
 echo.
 
-"C:\Program Files\7-Zip\7z.exe" a -t7z "%GAME%_windows_portable_password_is_%PASSWORD%.7z" "%WIN_SOURCE%" -mx=9 -m0=LZMA2 -md=64m -mfb=64 -ms=on -mmt=12 -p%PASSWORD% -mhe=on
+"C:\Program Files\GitHub CLI\gh.exe" release create "%TAG%" "%ARCHIVE%" "%INSTALLER%" --title "%TITLE%" --notes ""
 
 echo.
-echo Moving archive to releases\archives...
-if not exist "..\releases\archives" mkdir "..\releases\archives"
-move "%GAME%_windows_portable_password_is_%PASSWORD%.7z" "..\releases\archives\%GAME%_windows_portable_password_is_%PASSWORD%.7z"
-
-echo.
-echo Building Windows installer...
-echo.
-"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "windows_releaser.iss"
-
-echo.
-echo Moving installer to releases\archives...
-move "%GAME%_windows_installer_password_is_%PASSWORD%.exe" "..\releases\archives\%GAME%_windows_installer_password_is_%PASSWORD%.exe"
-
-echo.
-echo All builds complete.
+echo Release complete.
 pause
