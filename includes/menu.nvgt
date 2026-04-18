@@ -911,9 +911,9 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         {
             string log = "";
             string[] logParts;
-            if (autoGained > 0) logParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"));
+            if (autoGained > 0) logParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cooky" : "cookies"));
             if (autoPercentGained > 0) logParts.insert_last(format_number(autoPercentGained) + "% auto cookies");
-            if (manulGained > 0) logParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"));
+            if (manulGained > 0) logParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cooky" : "cookies"));
             if (manulPercentGained > 0) logParts.insert_last(format_number(manulPercentGained) + "% manual cookies");
             if (speedGained > 0) logParts.insert_last(format_number(speedGained) + "ms of baking speed");
             if (speedPercentGained > 0) logParts.insert_last(format_number(speedPercentGained) + "% baking speed");
@@ -1259,8 +1259,8 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         {
             string gainLog = "";
             string[] gainParts;
-            if (autoGained > 0) gainParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"));
-            if (manulGained > 0) gainParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"));
+            if (autoGained > 0) gainParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cooky" : "cookies"));
+            if (manulGained > 0) gainParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cooky" : "cookies"));
             if (speedGained > 0) gainParts.insert_last(format_number(speedGained) + "ms of baking speed");
             if (gainParts.length() == 1) gainLog = gainParts[0];
             else if (gainParts.length() == 2) gainLog = gainParts[0] + ", and " + gainParts[1];
@@ -1357,8 +1357,8 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
             }
         }
         string[] gainParts;
-        if (autoGained > 0) gainParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cookie" : "cookies"));
-        if (manulGained > 0) gainParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cookie" : "cookies"));
+        if (autoGained > 0) gainParts.insert_last(format_number(autoGained) + " auto " + (autoGained == 1 ? "cooky" : "cookies"));
+        if (manulGained > 0) gainParts.insert_last(format_number(manulGained) + " manual " + (manulGained == 1 ? "cooky" : "cookies"));
         if (speedGained > 0) gainParts.insert_last(format_number(speedGained) + "ms of baking speed");
         if (gainParts.length() == 1) gainLog = gainParts[0];
         else if (gainParts.length() == 2) gainLog = gainParts[0] + ", and " + gainParts[1];

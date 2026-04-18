@@ -1,4 +1,5 @@
 New in 5.6.
+Fixed a plurality bug in the singles and bundle shop purchase success messages where buying a single auto or manual upgrade would say 1 auto cookie or 1 manual cookie instead of 1 auto cooky or 1 manual cooky.
 Corrected the unlock order of the cooky lottery and slot machine in the readme. The cooky lottery unlocks at rank 30 and the slot machine unlocks at rank 40, and the order now reflects this throughout.
 Moved the ticket shop description from the cooky lottery minigame section to its own section under the general game features, reflecting that ticket purchasing is part of the main shop menu.
 Added a note to the bundle shop, singles shop, and ticket shop sections clarifying that the show locked items setting in game settings controls whether locked items and categories are visible.
