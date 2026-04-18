@@ -2119,7 +2119,7 @@ void questsmenu()
                     else if (rerollUnit == "manulcooky") rerollUnit = "manual cookies";
                     else if (rerollUnit == "cookyspeed") rerollUnit = "cooky speeds";
                 }
-                dlgmessage_return("You cannot afford to reroll this quest. You need " + (questsConfig.reroll_target == "coins" ? "at least " + convert_to_currency(rerollShortfall) : format_number(rerollShortfall) + " at least " + rerollUnit) + " to do this.");
+                dlgmessage_return("You cannot afford to reroll this quest. You need " + (questsConfig.reroll_target == "coins" ? " " + convert_to_currency(rerollShortfall) : format_number(rerollShortfall) + " " + rerollUnit) + " more to do this.");
                 form.reset();
                 questsmenu();
                 return;
