@@ -1349,7 +1349,6 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
     }
     if (sel == "buyallbundles")
     {
-        // Calculate the cost of one pass through all affordable bundles
         double onePassCost = 0;
         for (uint i = 0; i < bundles.length(); i++)
         {
@@ -1899,7 +1898,6 @@ void questsmenu()
     int questList = form.create_list("&Quests", 0, false, false);
     quest_item@[] questOrder;
     int lastFilter = 0;
-    // populate quest list according to current filter (0=All, 1=Required, 2=Random)
     for (uint i = 0; i < activeQuests.length(); i++)
     {
         if (lastFilter == 2 && activeQuests[i].required) continue;
@@ -1965,7 +1963,6 @@ void questsmenu()
         if (curFilter != lastFilter)
         {
             lastFilter = curFilter;
-            // rebuild quest list
             form.clear_list(questList);
             questOrder.resize(0);
             for (uint i = 0; i < activeQuests.length(); i++)
@@ -1990,9 +1987,8 @@ void questsmenu()
             }
             form.set_list_position(questList, 0);
             form.set_text(detailBox, questOrder.length() > 0 ? get_quest_detail(questOrder[0]) : "");
-            // determine reroll visibility based on filter
             bool showReroll = false;
-            if (lastFilter == 2) showReroll = true; // Random only — always show reroll
+            if (lastFilter == 2) showReroll = true;
             else if (lastFilter == 0 && questOrder.length() > 0 && !questOrder[0].required) showReroll = true;
             if (rerollBtn != -1) form.delete_control(rerollBtn);
             if (rerollHistBox != -1) form.delete_control(rerollHistBox);
@@ -2034,7 +2030,6 @@ void questsmenu()
         {
             form.set_text(detailBox, get_quest_detail(questOrder[curPos]));
             bool isRequired = questOrder[curPos].required;
-            // When filter is Required or Random, reroll visibility is fixed; only recalc for All
             if (lastFilter == 0 && isRequired != lastRequired)
             {
                 if (rerollBtn != -1) form.delete_control(rerollBtn);
