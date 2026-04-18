@@ -187,11 +187,11 @@ next_buffer_item();
 }
 if(key_repeating(KEY_LBRACKET))
 {
-previous_buffer();
+if (shift_is_down()) { top_buffer(); } else { previous_buffer(); }
 }
 if(key_repeating(KEY_RBRACKET))
 {
-next_buffer();
+if (shift_is_down()) { bottom_buffer(); } else { next_buffer(); }
 }
 if (shift_is_down())
 {
@@ -555,11 +555,11 @@ next_buffer_item();
 }
 if(key_repeating(KEY_LBRACKET))
 {
-previous_buffer();
+if (shift_is_down()) { top_buffer(); } else { previous_buffer(); }
 }
 if(key_repeating(KEY_RBRACKET))
 {
-next_buffer();
+if (shift_is_down()) { bottom_buffer(); } else { next_buffer(); }
 }
 if (shift_is_down())
 {
@@ -1008,8 +1008,8 @@ bottom_buffer_item();
 else
 next_buffer_item();
 }
-if(key_repeating(KEY_LBRACKET)) previous_buffer();
-if(key_repeating(KEY_RBRACKET)) next_buffer();
+if(key_repeating(KEY_LBRACKET)) { if (shift_is_down()) { top_buffer(); } else { previous_buffer(); } }
+if(key_repeating(KEY_RBRACKET)) { if (shift_is_down()) { bottom_buffer(); } else { next_buffer(); } }
 if (shift_is_down())
 {
 if (key_repeating(KEY_M)) toggle_buffer();
@@ -1084,11 +1084,11 @@ next_buffer_item();
 }
 if(key_repeating(KEY_LBRACKET))
 {
-previous_buffer();
+if (shift_is_down()) { top_buffer(); } else { previous_buffer(); }
 }
 if(key_repeating(KEY_RBRACKET))
 {
-next_buffer();
+if (shift_is_down()) { bottom_buffer(); } else { next_buffer(); }
 }
 if (shift_is_down())
 {

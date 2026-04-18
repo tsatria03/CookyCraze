@@ -245,11 +245,25 @@ next_buffer_item();
 }
 if(key_repeating(KEY_LBRACKET))
 {
+if (shift_is_down())
+{
+top_buffer();
+}
+else
+{
 previous_buffer();
+}
 }
 if(key_repeating(KEY_RBRACKET))
 {
+if (shift_is_down())
+{
+bottom_buffer();
+}
+else
+{
 next_buffer();
+}
 }
 if (shift_is_down())
 {

@@ -363,6 +363,8 @@ Shift plus Comma: Jumps to the top of the focused buffer.
 Shift plus Period: Jumps to the bottom of the focused buffer.
 Left Bracket: Navigates to the previous buffer category.
 Right Bracket: Navigates to the next buffer category.
+Shift plus Left Bracket: Jumps to the first buffer category.
+Shift plus Right Bracket: Jumps to the last buffer category.
 Shift plus C: Copies the current buffer message to the clipboard.
 Shift plus M: Toggles mute or unmute on the focused buffer.
 Shift plus Backslash: Exports all buffer items to log files in the logs folder.

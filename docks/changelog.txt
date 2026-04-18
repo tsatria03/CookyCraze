@@ -1,4 +1,7 @@
 New in 5.7.
+Fixed a bug where buffer navigation sounds could play at a pitch below 5, which is the engine's minimum value. The pitch is now clamped to prevent this.
+Updated buffer navigation sounds to pan left and right based on position in addition to pitching up and down, giving a clearer sense of where you are in the list.
+Added shift plus left bracket and shift plus right bracket shortcuts to jump directly to the first and last buffer categories respectively.
 Added a push_sound field to jacks.table. A sound now plays when a blackjack round ends in a tie, configurable in jacks.table and defaulting to jackpush.ogg.
 New in 5.6.
 Fixed a plurality bug in the singles and bundle shop purchase success messages where buying a single auto or manual upgrade would say 1 auto cookie or 1 manual cookie instead of 1 auto cooky or 1 manual cooky.
