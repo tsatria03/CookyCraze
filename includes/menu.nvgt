@@ -117,7 +117,7 @@ void loadgamemenu()
 setupmenu();
 for (uint i = 1; i <= 20; i++) 
 {
-        string saveFile = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game" + string(i) + ".crz";
+        string saveFile = APPDATA_DIR + "saves/game" + string(i) + ".crz";
         double rank = get_save_rank(saveFile);
         if (rank == -1)
         {
@@ -172,7 +172,7 @@ void newgamemenu()
 setupmenu();
 for (uint i = 1; i <= 20; i++) 
 {
-        string saveFile = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game" + string(i) + ".crz";
+        string saveFile = APPDATA_DIR + "saves/game" + string(i) + ".crz";
         double rank = get_save_rank(saveFile);
         if (rank == -1)
         {

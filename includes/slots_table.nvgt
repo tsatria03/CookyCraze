@@ -74,19 +74,7 @@ void parse_slots_table(string filepath, string[]@ symbols_out, payout_item[]@ pa
         }
         else
         {
-            string[] parts;
-            int lastPos = 0;
-            int colonCount = 0;
-            for (uint i = 0; i < line.length(); i++)
-            {
-                if (line.substr(i, 1) == ":" && colonCount < 3)
-                {
-                    parts.insert_last(line.substr(lastPos, i - lastPos));
-                    lastPos = i + 1;
-                    colonCount++;
-                }
-            }
-            parts.insert_last(line.substr(lastPos));
+            string[] parts = parse_delimited_line(line, 3);
             if (parts.length() < 4) continue;
             payout_item item;
             item.matches    = string_to_int(parts[0]);

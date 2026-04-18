@@ -57,19 +57,7 @@ void parse_tickets_store(string filepath)
             loadedTicketCategories.insert_last(cat);
             continue;
         }
-        string[] parts;
-        int lastPos = 0;
-        int colonCount = 0;
-        for (uint i = 0; i < line.length(); i++)
-        {
-            if (line.substr(i, 1) == ":" && colonCount < 7)
-            {
-                parts.insert_last(line.substr(lastPos, i - lastPos));
-                lastPos = i + 1;
-                colonCount++;
-            }
-        }
-        parts.insert_last(line.substr(lastPos));
+        string[] parts = parse_delimited_line(line, 7);
         if (parts.length() < 8) continue;
         lottery_ticket_item ticket;
         ticket.category_id = parts[0];

@@ -1,3 +1,21 @@
+string[] parse_delimited_line(string line, int max_parts, string delimiter = ":")
+{
+    string[] parts;
+    int lastPos = 0;
+    int count = 0;
+    for (uint i = 0; i < line.length(); i++)
+    {
+        if (line.substr(i, 1) == delimiter && count < max_parts)
+        {
+            parts.insert_last(line.substr(lastPos, int(i) - lastPos));
+            lastPos = int(i) + 1;
+            count++;
+        }
+    }
+    parts.insert_last(line.substr(lastPos));
+    return parts;
+}
+
 bool alt_is_down()
 {
 if(key_down(KEY_LMENU) or key_down(KEY_RMENU))
@@ -365,8 +383,9 @@ void play_coin_sound(double amount)
     if (snd != "") pool.play_stationary("sounds/misc/" + snd, false);
 }
 
-void reload_config()
+void reload_config(bool force = false)
 {
+    if (config_loaded && !force) return;
     loadedEvents = parse_baker_events("data/config/events/baker.event");
     loadedFlipperEvents = parse_flipper_items("data/config/events/flipper.event");
     slotSymbols.resize(0); slotPayouts.resize(0);
@@ -385,6 +404,7 @@ void reload_config()
     parse_quests_table("data/config/tables/quests.table", loadedQuests);
     assign_quests();
     apply_all_prestige_store_upgrades();
+    config_loaded = true;
 }
 
 
@@ -726,10 +746,60 @@ void show_achievement_statistics(achievement_item[]@ achievements, dictionary@ u
 
 void set_save_slot(int slot)
 {
-    currentSaveSlot = DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/game" + string(slot) + ".crz";
+    currentSaveSlot = APPDATA_DIR + "saves/game" + string(slot) + ".crz";
     sd = savedata(currentSaveSlot, "rQP8u9I5iWYwcmwPkJ5EzU3ri4r6IQFP77dvgYedgyGQPxzHEi1eKGdBEENLRbYEWBr3hAmmQLgyevhYJJ7Q3sUQt5n6BKjzYVZMWQb2LyYx");
 }
 
+void minigame_input(string game)
+{
+    buffer_check_keys();
+    if (control_is_down())
+    {
+        if (key_pressed(KEY_S))
+        {
+            writedata();
+            ambpool.pause_sound(ambslot);
+            muspool.pause_sound(mustrackslot);
+            speak_buffer("game saved", "misc");
+            if (savesfx == false) wait(500);
+            if (savesfx == true) dlgplay("sounds/misc/savegame.ogg");
+            ambpool.resume_sound(ambslot);
+            muspool.resume_sound(mustrackslot);
+            form.reset();
+            if (game == "flipper")        cookgame();
+            else if (game == "slots")     slotsgame();
+            else if (game == "blackjack") jackgame();
+            else if (game == "lottery")   lotterygame();
+        }
+        if (key_pressed(KEY_L))
+        {
+            readdata();
+            reload_config(true);
+            ambpool.pause_sound(ambslot);
+            muspool.pause_sound(mustrackslot);
+            speak_buffer("game reloaded", "misc");
+            if (savesfx == false) wait(500);
+            if (savesfx == true) dlgplay("sounds/misc/savegame.ogg");
+            ambpool.resume_sound(ambslot);
+            muspool.resume_sound(mustrackslot);
+            form.reset();
+            if (game == "flipper")        cookgame();
+            else if (game == "slots")     slotsgame();
+            else if (game == "blackjack") jackgame();
+            else if (game == "lottery")   lotterygame();
+        }
+    }
+    if (key_pressed(KEY_C)) speak_buffer("You have " + format_number(cookies) + " cookies.");
+    if (key_pressed(KEY_A)) speak_buffer("You have " + format_number(autocooky) + " auto cookies.");
+    if (key_pressed(KEY_S)) speak_buffer("You have " + format_number(cookyspeed) + " auto cookie speeds.");
+    if (key_pressed(KEY_M)) speak_buffer("You have " + format_number(manulcooky) + " manual cookies.");
+    if (key_pressed(KEY_O))
+    {
+        pool.destroy_sound(coinslot);
+        if (coins > 0) coinslot = pool.play_stationary("sounds/misc/cointoss.ogg", false);
+        speak_buffer("You have " + convert_to_currency(coins) + ".");
+    }
+}
 void mini_wait_async(int milliseconds, string minigame)
 {
     timer WaitTimer;
@@ -738,10 +808,7 @@ void mini_wait_async(int milliseconds, string minigame)
     {
         wait(5);
         form.monitor();
-        if (minigame == "slots") slots_game_input();
-        else if (minigame == "blackjack") jack_game_input();
-        else if (minigame == "lottery") lottery_game_input();
-        else if (minigame == "flipper") cook_game_input();
+        minigame_input(minigame);
     }
 }
 

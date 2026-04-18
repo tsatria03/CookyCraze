@@ -73,7 +73,7 @@ if (b.items.length() == 0)
 speak("There's nothing to export in this buffer.");
 return false;
 }
-string bufferdir = DIRECTORY_APPDATA+"tsatria03/CookyCraze/logs";
+string bufferdir = APPDATA_DIR + "logs";
 if (!directory_exists(bufferdir)) directory_create(bufferdir);
 logfile.open(bufferdir + "/" + b.name + ".log", "ab");
 logfile.write("Exported on " + DATE_MONTH + "/" + DATE_DAY + "/" + DATE_YEAR + "\r\n\r\n");
@@ -159,6 +159,7 @@ speak(buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") 
 }
 void next_buffer_item()
 {
+if(bufferpos < 0 || bufferpos >= int(buffers.length())) return;
 if(buffers[bufferpos].items.length()<=0)
 {
 speak("Empty.");
@@ -178,6 +179,7 @@ speak(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
 }
 void previous_buffer_item()
 {
+if(bufferpos < 0 || bufferpos >= int(buffers.length())) return;
 if(buffers[bufferpos].items.length()<=0)
 {
 speak("Empty.");
@@ -197,6 +199,7 @@ speak(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
 }
 void top_buffer_item()
 {
+if(bufferpos < 0 || bufferpos >= int(buffers.length())) return;
 if(buffers[bufferpos].items.length()==0)
 {
 speak("Empty.");
@@ -209,6 +212,7 @@ speak(buffers[bufferpos].items[buffers[bufferpos].bpos].name);
 }
 void bottom_buffer_item()
 {
+if(bufferpos < 0 || bufferpos >= int(buffers.length())) return;
 if(buffers[bufferpos].items.length()==0)
 {
 speak("Empty.");
@@ -242,5 +246,34 @@ for (uint i = 0; i < buffers.length(); i++)
 {
 buffers[i].items.resize(0);
 buffers[i].bpos = 0;
+}
+}
+void buffer_check_keys()
+{
+if (key_repeating(KEY_COMMA))
+{
+if (shift_is_down()) top_buffer_item();
+else previous_buffer_item();
+}
+if (key_repeating(KEY_PERIOD))
+{
+if (shift_is_down()) bottom_buffer_item();
+else next_buffer_item();
+}
+if (key_repeating(KEY_LBRACKET))
+{
+if (shift_is_down()) top_buffer();
+else previous_buffer();
+}
+if (key_repeating(KEY_RBRACKET))
+{
+if (shift_is_down()) bottom_buffer();
+else next_buffer();
+}
+if (shift_is_down())
+{
+if (key_repeating(KEY_M)) toggle_buffer();
+if (key_repeating(KEY_C)) copy_buffer_item();
+if (key_repeating(KEY_BACKSLASH)) { if (export_current_buffer()) clear_current_buffer(); }
 }
 }
