@@ -15,6 +15,10 @@ git tag -f "%TAG%"
 git push origin -f "%TAG%"
 
 echo.
+echo Deleting existing release if it exists...
+"C:\Program Files\GitHub CLI\gh.exe" release delete "%TAG%" --yes 2>nul
+
+echo.
 echo Creating GitHub release %TITLE% with tag %TAG%...
 echo.
 
