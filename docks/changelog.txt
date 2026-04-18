@@ -1,4 +1,5 @@
 New in 5.7.
+Added a coin multiplier upgrade type to the prestige store. Purchasing coin multiplier upgrades permanently increases all money earned from selling cookies by a percentage, stacking across every run.
 Made it so each upgrade in the prestige store can only be purchased once. If all available upgrades in a category are purchased, entering that category shows a message instead of an empty menu. If all upgrades available at your current prestige level are purchased, opening the store returns you to the quests screen with a message.
 Added a prestige points display to the prestige store. When you open the store, the intro text announces how many prestige points you have available to spend.
 Added a points_per_prestige field to prestige.table. Prestige points are awarded per completed quest at the time of prestige, calculated as points_per_prestige multiplied by the number of quests completed that run.

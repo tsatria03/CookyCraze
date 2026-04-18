@@ -1060,6 +1060,7 @@ The internal identifier for this upgrade. Must be unique across all entries. Als
 The item_id also determines what effect the upgrade has. The game recognises the following prefixes.
 
 cookie_multiplier  = permanently increases all cookie production by a percentage each bake.
+coin_multiplier    = permanently increases all money earned from selling cookies by a percentage.
 rank_discount      = permanently reduces the cookies required to rank up by a percentage.
 starting_coins     = gives bonus coins at the start of each new run after prestige.
 starting_autocooky = gives bonus auto cookies at the start of each new run after prestige.

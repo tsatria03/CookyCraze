@@ -463,6 +463,7 @@ double cookiesToSell = floor(string_to_number(sailam));
     if (cookiesToSell > sellableCookies)
         cookiesToSell = sellableCookies;
 double totalCoinsEarned = cookiesToSell * cookieSellPrice;
+if (prestige_coin_multiplier > 0) totalCoinsEarned *= 1.0 + (prestige_coin_multiplier / 100.0);
 cookies -= cookiesToSell;
 coins += totalCoinsEarned;
 stat_coins_earned += totalCoinsEarned;

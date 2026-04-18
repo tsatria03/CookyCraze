@@ -553,6 +553,8 @@ void apply_prestige_store_upgrade(string item_id)
         double amt = items[i].amount;
         if (id.substr(0, 17) == "cookie_multiplier")
             prestige_cookie_multiplier += amt;
+        else if (id.substr(0, 15) == "coin_multiplier")
+            prestige_coin_multiplier += amt;
         else if (id.substr(0, 13) == "rank_discount")
             prestige_rank_discount += amt;
         else if (id.substr(0, 14) == "starting_coins")
@@ -567,6 +569,7 @@ void apply_prestige_store_upgrade(string item_id)
 void apply_all_prestige_store_upgrades()
 {
     prestige_cookie_multiplier = 0;
+    prestige_coin_multiplier = 0;
     prestige_rank_discount = 0;
     prestige_starting_coins = 0;
     prestige_starting_autocooky = 0;
