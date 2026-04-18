@@ -1,3 +1,13 @@
+New in 5.6.
+Corrected the unlock order of the cooky lottery and slot machine in the readme. The cooky lottery unlocks at rank 30 and the slot machine unlocks at rank 40, and the order now reflects this throughout.
+Moved the ticket shop description from the cooky lottery minigame section to its own section under the general game features, reflecting that ticket purchasing is part of the main shop menu.
+Added a note to the bundle shop, singles shop, and ticket shop sections clarifying that the show locked items setting in game settings controls whether locked items and categories are visible.
+Added a note to the baker.event chance field clarifying that the per-event chance works alongside the global event enable checkboxes and chance sliders in game settings, and that all checks must pass for an event to fire.
+Added a note to the achievements.table category alias section clarifying that categories cannot be hidden directly, and that the game hides a category automatically when all of its achievements are hidden and none have been unlocked.
+Clarified the bundle shop bulk buy description to accurately reflect that both the singles shop and bundle shop support bulk buying, and explained the difference between the two approaches.
+Rephrased the compounding multiplier warning in singles.store to express the price ceiling in dollars rather than as a raw coin count.
+Rephrased the full passes wording in the bundle shop section to be clearer about what the maximum quantity represents.
+Moved the buffer description from the keyboard commands section to the general game features section, where it better fits as feature documentation rather than key reference material.
 New in 5.5.
 Fixed a bug where the First Earnings and Pocket Change achievements would fire immediately on a new game due to stat_coins_earned being incorrectly reset to 100 instead of 0. They now trigger at the correct thresholds of 50 cents and $1.00.
 Fixed a bug where the First Earnings and Pocket Change achievements were silent and would never announce when unlocked. They now correctly play a sound and announce like other achievements.

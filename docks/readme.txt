@@ -46,7 +46,7 @@ Buy packages of multiple stat upgrades at once, often at better value than buyin
 
 Bundles are organized into categories by rank, spanning the full progression of the game from beginner to godlike tiers.
 Each bundle lists what stats it contains and how much it costs.
-Like the singles shop, locked categories show their required rank.
+Like the singles shop, locked categories and bundles show their required rank by default. You can hide them entirely by disabling the show locked items option in the game settings.
 
 One important thing to understand about bundle pricing: bundles do not have their own fixed prices.
 Instead, the game uses the singles shop as a backend price engine, looking up the current price of each item based on how many you have already bought and adding them up.
@@ -62,9 +62,9 @@ The second is buying a bundle at the maximum quantity. When the purchase prompt 
 
 The third is buying one of every affordable bundle at a custom quantity. At the bottom of each category is a buy one of every affordable bundle option, which appears whenever at least one bundle in the category is within your budget. Selecting it prompts you for how many of each you want to buy, and the game purchases that many of every affordable bundle in the category at once, skipping any you cannot afford.
 
-The fourth is buying one of every affordable bundle at the maximum quantity. When the prompt appears, the maximum number of full passes you can afford is already filled in. Simply press enter and the game buys as many of each affordable bundle as your budget allows.
+The fourth is buying one of every affordable bundle at the maximum quantity. When the prompt appears, the maximum number of times you can afford to buy the full set is already filled in. Simply press enter and the game buys as many of each affordable bundle as your budget allows.
 
-The key difference between bundles and the singles shop bulk buy is not price, but convenience. A bundle packages a curated combination of stats into a single purchase, so you can upgrade multiple stats at once without extra navigation. The cost works out the same either way, since both use the singles shop prices as the foundation.
+Both shops support bulk buying, but they work differently. The singles shop lets you buy as many of each individual stat as you can afford, one stat at a time. Bundles package a curated mix of stats into a single purchase, so you can upgrade multiple stats at once in one transaction. The cost works out the same either way, since both use the singles shop prices as the foundation.
 
 The singles shop.
 Buy individual stat upgrades using your money. Three stats are available: auto cookies, manual cookies, and baking speed.
@@ -75,6 +75,7 @@ Baking speed reduces the time between each bake.
 
 Upgrades are organized into categories, with higher categories requiring a minimum rank to access.
 Costs scale up the more you buy, so plan your purchases carefully.
+By default, locked items and categories are shown in the shop with their required rank displayed. You can hide them entirely by disabling the show locked items option in the game settings.
 
 There are four ways to purchase in the singles shop.
 
@@ -85,6 +86,10 @@ The second is buying a single item at the maximum quantity. When the purchase pr
 The third is buying all affordable items at a custom quantity. At the bottom of each category is a buy all affordable items option, which appears whenever at least one item in the category is within your budget. Selecting it prompts you for a quantity, and the game buys that many of every affordable item in the category at once, skipping any you cannot afford.
 
 The fourth is buying all affordable items at the maximum quantity. The prompt pre-fills the maximum number you can afford across all eligible items in the category. Pressing enter buys every affordable item to the maximum your budget allows, making it the fastest way to spend across an entire category in one go.
+
+The ticket shop.
+Buy scratch tickets using your money. Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end. Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
+By default, locked ticket tiers are shown with their required rank displayed. You can hide them entirely by disabling the show locked items option in the game settings.
 
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
@@ -118,10 +123,7 @@ Each entry shows the flip number, which side the cooky landed on, the event that
 The history persists across sessions and resets when starting a new game.
 
 Cooky lottery. Unlocked at rank 30.
-Buy scratch tickets and reveal prizes ranging from money and cookies to stat boosts.
-
-Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end. Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
-You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
+Scratch your tickets and reveal prizes ranging from money and cookies to stat boosts. You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
 Slot machine. Unlocked at rank 40.
 Spin the reels and match symbols to win multiples of your bet.
@@ -322,6 +324,23 @@ Save slots.
 The game supports multiple save slots for separate playthroughs, selected from the main menu. Each slot is completely independent, with its own rank, cookies, money, upgrades, and settings.
 You can start a new game in any slot at any time without affecting your other saves.
 
+Buffers.
+
+Buffers are categorized message logs that keep track of everything that happens during your game.
+Instead of important messages disappearing after being spoken, they are stored in a buffer so you can review them at any time.
+
+There are six buffer categories.
+
+Achievements holds messages for every achievement you earn during play.
+Critical holds important notifications like rank ups and game milestones.
+Events holds messages from random events and flipper flips.
+General holds status updates and informational messages.
+Misc holds things like save confirmations and other game actions.
+Ranks holds regular rank up announcements.
+
+All of the buffers, except for the all buffer, can be muted independently so they stop being spoken aloud while still logging messages for later review.
+You can also export all of the buffer contents to log files in the logs folder at any time.
+
 Keyboard commands
 
 In game.
@@ -347,21 +366,6 @@ Right Bracket: Navigates to the next buffer category.
 Shift plus C: Copies the current buffer message to the clipboard.
 Shift plus M: Toggles mute or unmute on the focused buffer.
 Shift plus Backslash: Exports all buffer items to log files in the logs folder.
-
-Buffers are categorized message logs that keep track of everything that happens during your game.
-Instead of important messages disappearing after being spoken, they are stored in a buffer so you can review them at any time.
-
-There are six buffer categories.
-
-Achievements holds messages for every achievement you earn during play.
-Critical holds important notifications like rank ups and game milestones.
-Events holds messages from random events and flipper flips.
-General holds status updates and informational messages.
-Misc holds things like save confirmations and other game actions.
-Ranks holds regular rank up announcements.
-
-All of the buffers, except for the all buffer, can be muted independently so they stop being spoken aloud while still logging messages for later review.
-You can also export all of the buffer contents to log files in the logs folder at any time.
 
 Forms and menus.
 
@@ -459,6 +463,8 @@ The probability of this event firing when it is selected, from 1 to 100.
 
 100 means it always fires when chosen, and 50 means it fires roughly half the time.
 Set to 0 to effectively disable this event without removing it from the file.
+
+Note that this value works alongside the global event settings in the game settings, not instead of them. There are two master enable checkboxes, one for auto baking events and one for manual baking events. If either is disabled, no events fire for that baking mode at all regardless of this value. There are also two global chance sliders that apply on top of the per-event chance, so setting this to 100 does not guarantee the event fires if the global slider reduces the overall frequency.
 
 description
 The message spoken to the player when this event fires.
@@ -565,7 +571,7 @@ Unlike a flat multiplier, a compounding multiplier grows on top of itself every 
 A flat multiplier of 1.25 on a base cost of 100 always charges $1.25 no matter how many times you buy.
 A compounding multiplier of 1.25 starts at $1.00 but reaches around $9.30 by purchase 10, and nearly $50,000,000 by purchase 100.
 
-This means even values that look small are dangerous at a higher scale. A multiplier of 1.05 feels gentle at first, but after 300 purchases the price will have grown into the quadrillions.
+This means even values that look small are dangerous at a higher scale. A multiplier of 1.05 feels gentle at first, but after 300 purchases the price will have grown into the trillions of dollars.
 Players who progress far into the game will buy certain items hundreds of times, so a multiplier that seems fine at purchase 20 will eventually make the item completely unaffordable.
 
 This also affects bundle prices directly. Bundles calculate their cost by summing the current singles shop prices of all their items.
@@ -666,6 +672,7 @@ Format: alias=Full Category Name
 Define short aliases for category names at the top of the file, before any achievement lines. Use the alias as the first field on achievement lines to assign them to that category.
 The categories appear in the achievements menu and achievement statistics screen in the order they are defined here.
 Removing or renaming a category here removes it from both screens automatically.
+You cannot hide a category directly. Instead, the game hides a category automatically when every achievement inside it has its hidden flag set to true and none of them have been unlocked yet. Once any achievement in the category is unlocked, the category becomes visible.
 
 Achievement format: category:id:stat:threshold:silent:hidden:name:description:hint
 
