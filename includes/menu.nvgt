@@ -4,6 +4,7 @@ setupmenu();
 m.add_item("documentation menu", "dm");
 m.add_item("game menu", "gm");
 m.add_item("settings menu", "sm");
+m.add_item("restart game", "rt");
 m.add_item("exit game", "ex");
 m.intro_text = "Main menu. Please choose an option with your arrow keys, then press enter to activate one.";
 int mres=m.run();
@@ -27,6 +28,12 @@ if (main == "sm")
 speak("loading");
 m.fade_music();
 preffsmenu();
+}
+if (main == "rt")
+{
+speak("restarting");
+m.fade_music();
+restart("cycrz.exe");
 }
 if (main == "ex")
 {
@@ -2112,7 +2119,7 @@ void questsmenu()
                     else if (rerollUnit == "manulcooky") rerollUnit = "manual cookies";
                     else if (rerollUnit == "cookyspeed") rerollUnit = "cooky speeds";
                 }
-                dlgmessage_return("You cannot afford to reroll this quest. You need " + (questsConfig.reroll_target == "coins" ? "more " + convert_to_currency(rerollShortfall) : format_number(rerollShortfall) + " more " + rerollUnit) + " to do this.");
+                dlgmessage_return("You cannot afford to reroll this quest. You need " + (questsConfig.reroll_target == "coins" ? "at least " + convert_to_currency(rerollShortfall) : format_number(rerollShortfall) + " at least " + rerollUnit) + " to do this.");
                 form.reset();
                 questsmenu();
                 return;

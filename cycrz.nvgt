@@ -275,3 +275,24 @@ if (prestige_starting_manualcooky > 0) manulcooky += prestige_starting_manualcoo
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
 if (prestige_rank_discount > 0) cookiesrequiered *= max(0.01, 1.0 - (prestige_rank_discount / 100.0));
 }
+
+void restart(string appid, string scriptid="cycrz.nvgt")
+{
+if(SCRIPT_COMPILED)
+{
+bool success=run(appid,"",false,false);
+if(!success)
+{
+alert("errorr", "Unable to restart "+appid+"!");
+}
+}
+else
+{
+bool success=run("c:\\nvgt\\nvgtw.exe", scriptid,false,false);
+if(!success)
+{
+alert("errorr", "Unable to restart "+scriptid+"!");
+}
+}
+exit();
+}
