@@ -156,6 +156,11 @@ if (sd.d.exists("stat_bundles_purchased")) stat_bundles_purchased = sd.read_doub
 if (sd.d.exists("stat_baker_events_fired")) stat_baker_events_fired = sd.read_double("stat_baker_events_fired");
 if (sd.d.exists("stat_flipper_events_fired")) stat_flipper_events_fired = sd.read_double("stat_flipper_events_fired");
 if (sd.d.exists("stat_flipper_flips")) stat_flipper_flips = sd.read_double("stat_flipper_flips");
+if (sd.d.exists("stat_cooky_flips")) stat_cooky_flips = sd.read_double("stat_cooky_flips");
+if (sd.d.exists("stat_penny_flips")) stat_penny_flips = sd.read_double("stat_penny_flips");
+if (sd.d.exists("stat_dice_rolls")) stat_dice_rolls = sd.read_double("stat_dice_rolls");
+if (sd.d.exists("stat_dice_wins")) stat_dice_wins = sd.read_double("stat_dice_wins");
+if (sd.d.exists("stat_dice_losses")) stat_dice_losses = sd.read_double("stat_dice_losses");
 if (sd.d.exists("stat_slot_spins")) stat_slot_spins = sd.read_double("stat_slot_spins");
 if (sd.d.exists("stat_slot_wins")) stat_slot_wins = sd.read_double("stat_slot_wins");
 if (sd.d.exists("stat_slot_losses")) stat_slot_losses = sd.read_double("stat_slot_losses");
@@ -275,6 +280,11 @@ sd.add("stat_bundles_purchased", stat_bundles_purchased);
 sd.add("stat_baker_events_fired", stat_baker_events_fired);
 sd.add("stat_flipper_events_fired", stat_flipper_events_fired);
 sd.add("stat_flipper_flips", stat_flipper_flips);
+sd.add("stat_cooky_flips", stat_cooky_flips);
+sd.add("stat_penny_flips", stat_penny_flips);
+sd.add("stat_dice_rolls", stat_dice_rolls);
+sd.add("stat_dice_wins", stat_dice_wins);
+sd.add("stat_dice_losses", stat_dice_losses);
 sd.add("stat_slot_spins", stat_slot_spins);
 sd.add("stat_slot_wins", stat_slot_wins);
 sd.add("stat_slot_losses", stat_slot_losses);
@@ -392,6 +402,14 @@ if(st.d.exists("lotterymode"))
 {
 lotterymode=st.read_bool("lotterymode");
 }
+if(st.d.exists("flipmode"))
+{
+flipmode=st.read_bool("flipmode");
+}
+if(st.d.exists("dicemode"))
+{
+dicemode=st.read_bool("dicemode");
+}
 if (st.d.exists("show_locked_shops"))
 {
 show_locked_shops = st.read_bool("show_locked_shops");
@@ -448,6 +466,8 @@ st.add("orderedSyms",orderedSyms);
 st.add("slotmode",slotmode);
 st.add("jackmode",jackmode);
 st.add("lotterymode",lotterymode);
+st.add("flipmode",flipmode);
+st.add("dicemode",dicemode);
 st.add("show_locked_shops", show_locked_shops);
 st.add("automationMultiplier", automationMultiplier);
 st.add("slotMultiplier", slotMultiplier);

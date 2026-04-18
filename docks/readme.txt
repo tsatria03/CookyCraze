@@ -104,28 +104,33 @@ A card game where you bet an item of your choice and try to reach 21 without goi
 You can bet money, cookies, auto cookies, manual cookies, or baking speed. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
 A natural 21 on your opening two cards pays out at 1.5 times your bet. A standard win pays double, and a tie returns your original bet. The dealer stands at 17 by default.
 
+The deal button appears first in the tab order, followed by hit and stand.
 You can draw cards manually, or enable automatic drawing in the settings.
 All payouts, sounds, messages, and bet limits are configurable in jacks.table.
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 
 Cooky flipper. Unlocked at rank 20.
-Flip a cooky to trigger a random event that can boost or reduce your stats.
+Flip a cooky or a penny to trigger a random event that can boost or reduce your stats.
+
+When you open the flipper, the first thing you see is a type selector. Choose cooky to flip a cooky, or penny to flip a penny. Flipping is free either way — you get your cooky or penny back since it lands. The flip button updates its label to match whichever type is currently selected.
 
 Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list.
 Some events are positive, and others are negative, so there is an element of risk.
 
-Before flipping, you are shown a checkbox list of all available events.
+Alongside the type selector is a checkbox list of all available events.
 You must have at least one positive and one negative event checked before you can flip.
 This lets you curate your own risk pool, opting into only the events you are comfortable with, or leaving everything checked to get the full range of outcomes.
 
+You can flip manually, or enable automatic flipping in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
+
 A Flipper History box appears below the flip button and keeps a running log of your last 50 flips.
-Each entry shows the flip number, which side the cooky landed on, the event that was selected, and whether the outcome was positive or negative.
+Each entry shows the flip number, which side it landed on, the event that was selected, and whether the outcome was positive or negative.
 The history persists across sessions and resets when starting a new game.
 
 Cooky lottery. Unlocked at rank 30.
 Scratch your tickets and reveal prizes ranging from money and cookies to stat boosts. You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
-Slot machine. Unlocked at rank 40.
+Slot machine. Unlocked at rank 50.
 Spin the reels and match symbols to win multiples of your bet.
 
 Like the other minigames, you choose which item to bet and how much. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
@@ -133,9 +138,18 @@ Payouts depend on how many reels match and which symbols line up, with higher ma
 
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 
-Rank ups and achievement unlocks are checked and can fire while you are playing any of the 4 minigames mentioned above.
+Dice roller. Unlocked at rank 40.
+Roll a set of dice against a target score you set yourself and bet an item of your choice on the outcome.
 
-Baking slots manager. Unlocked at rank 50.
+Before rolling, choose your dice type from a list of available sided dice, how many dice to roll, and a modifier to add or subtract from the total. Then enter a target score in the target input and place your bet. Hitting or beating the target wins a payout scaled to how far you exceeded it. Falling short loses the bet.
+
+The higher you set the target relative to what your dice can realistically roll, the greater the potential payout. A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold. The dice types, modifier options, payout tiers, sounds, and bet limits are all configurable in dice.table.
+
+You can roll manually, or enable automatic rolling in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
+
+Rank ups and achievement unlocks are checked and can fire while you are playing any of the 5 minigames mentioned above.
+
+Baking slots manager. Unlocked at rank 60.
 Manage and configure your baking slots to balance automated and manual cookie production.
 
 There are two types of slots.
@@ -143,7 +157,7 @@ Auto slots bake cookies passively without any input, scaling with your auto cook
 Manual slots multiply the output of each bake press, scaling with your manual cookie stat.
 
 You can purchase additional slots of either type, and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual.
-Both submenus are locked behind a rank requirement, defaulting to rank 50.
+Both submenus are locked behind a rank requirement, defaulting to rank 60.
 The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
 
 Baker info.
@@ -222,7 +236,9 @@ Flipper events fired: counts every flipper event that successfully triggered and
 
 Cooky flipper.
 
-Flipper flips: counts every time you flip a cooky in the cooky flipper minigame.
+Flipper flips: counts the total number of flips across both types.
+Cooky flips: counts how many times you have flipped a cooky specifically.
+Penny flips: counts how many times you have flipped a penny specifically.
 
 Blackjack.
 
@@ -735,7 +751,13 @@ singles_purchased     = total singles shop transactions.
 
 baker_events_fired     = total baker events that successfully applied their effect during baking.
 flipper_events_fired   = total flipper events that successfully applied their effect during a cooky flip.
-flipper_flips          = total cooky flipper flips.
+flipper_flips          = total cooky flipper flips across both types.
+cooky_flips            = total cooky flips only.
+penny_flips            = total penny flips only.
+
+dice_rolls             = total dice roller rolls.
+dice_wins              = total dice rolls that met or exceeded the target.
+dice_losses            = total dice rolls that fell short of the target.
 
 slot_spins             = total slot machine spins.
 slot_wins              = total slot machine spins that returned a payout.
@@ -776,6 +798,73 @@ hidden
 Required. Set to true to completely hide this achievement from the achievements menu and achievement statistics screen until it is unlocked. Set to false to show it as locked with a hint available, which is the default behavior.
 Recommended for achievements tied to content locked behind a rank, such as minigames, so players are not shown entries for systems they have not encountered yet. Once unlocked, a hidden achievement appears in both screens like any other achievement.
 Hidden achievements are also excluded from the total count until unlocked. For example, if there are 207 achievements but 128 are hidden and none unlocked, the menu will show 0 of 79, giving no indication that hidden achievements exist at all.
+
+dice.table
+
+Location: data/config/tables/dice.table
+
+Defines all dice roller settings including dice types, modifier options, payout tiers, bet limits, sounds, and outcome messages.
+
+dice_types
+A comma separated list of die sizes available in the dice type list, for example 2,4,6,8,12,20. Each value is the number of sides on that die. You can add or remove values freely.
+
+max_dice_count
+The maximum number of dice the player can roll at once. Controls how high the number of dice list goes. Set to 20 to allow up to 20 dice.
+
+modifiers
+A comma separated list of modifier values available in the modifier list, for example -10,-5,-3,-1,0,1,3,5,10. Negative values subtract from the total. Zero means no modifier.
+
+min_bet
+The minimum amount of any item a player must bet per roll. Set to 1 to allow any positive bet.
+
+max_bet
+The maximum amount of any item a player can bet per roll. Set to 0 to allow unlimited bets.
+
+confirm_threshold
+Format: confirm_threshold=amount:use_percent
+
+Triggers a yes or no confirmation prompt when the bet meets or exceeds the threshold. Works the same way as in jacks.table and slots.table.
+
+min_target
+The lowest target score the player is allowed to enter. Prevents trivially easy targets.
+
+max_target
+The highest target score the player is allowed to enter. Set to 0 for no upper limit.
+
+shake_sound
+Sound to play when the dice are rolled. Relative to sounds/minigames/. Supports random range syntax.
+
+land_sound
+Sound to play when the dice land. Relative to sounds/minigames/. Supports random range syntax.
+
+win_sound
+Sound to play when the player wins.
+
+lose_sound
+Sound to play when the player loses.
+
+Payouts section.
+Format: margin:multiplier:sound:message
+
+Defines payout tiers based on how much the roll total exceeds the target.
+
+margin
+How much the roll total must exceed the target for this tier to apply. The highest matching tier is always used. Use -1 for the loss entry, which fires when the total falls short of the target.
+
+multiplier
+The payout multiplier applied to the bet. The bet amount is deducted before rolling, and the winnings replace it. Set to 0 for a loss with no return.
+
+sound
+The sound to play for this payout tier. Relative to sounds/minigames/.
+
+message
+The text spoken after the roll. Supports the following placeholders.
+
+%roll%    is replaced with the total rolled including the modifier.
+%target%  is replaced with the target score the player set.
+%margin%  is replaced with how much the roll exceeded or fell short of the target.
+%amount%  is replaced with the amount won.
+%item%    is replaced with the name of the item bet, for example cookies or auto cookies.
 
 jacks.table
 
@@ -912,9 +1001,10 @@ An optional feature to unlock at this rank. Use none for no unlock.
 
 blackjack   = unlocks the blackjack minigame.
 flipper     = unlocks the cooky flipper minigame.
+lottery     = unlocks the cooky lottery and the ticket shop.
+dice        = unlocks the dice roller minigame.
 slots       = unlocks the slot machine minigame.
 slotmanager = unlocks the baking slots manager. Also sets the rank gate for the baking slots manager menu automatically.
-lottery     = unlocks the cooky lottery and the ticket shop.
 
 message
 The text spoken to the player when this reward fires.
@@ -1160,7 +1250,13 @@ singles_purchased     = total singles shop transactions.
 
 baker_events_fired     = total baker events that applied their effect during baking.
 flipper_events_fired   = total flipper events that applied their effect during a cooky flip.
-flipper_flips          = total cooky flipper flips.
+flipper_flips          = total cooky flipper flips across both types.
+cooky_flips            = total cooky flips only.
+penny_flips            = total penny flips only.
+
+dice_rolls             = total dice roller rolls.
+dice_wins              = total dice rolls that met or exceeded the target.
+dice_losses            = total dice rolls that fell short of the target.
 
 slot_spins             = total slot machine spins.
 slot_wins              = total slot machine wins.

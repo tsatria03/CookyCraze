@@ -43,6 +43,7 @@ if (rankSounds.length() == 0 || rankDefault.length() == 0)
     exit();
 }
 parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+parse_dice_table("data/config/tables/dice.table");
 parse_achievements("data/config/tables/achievements.table", loadedAchievements, loadedAchievementCategories);
 parse_prestige_table("data/config/tables/prestige.table");
 parse_quests_table("data/config/tables/quests.table", loadedQuests);
@@ -243,6 +244,11 @@ stat_bundles_purchased=0;
 stat_baker_events_fired=0;
 stat_flipper_events_fired=0;
 stat_flipper_flips=0;
+stat_cooky_flips=0;
+stat_penny_flips=0;
+stat_dice_rolls=0;
+stat_dice_wins=0;
+stat_dice_losses=0;
 stat_auto_slots_purchased=0;
 stat_manual_slots_purchased=0;
 stat_auto_slots_enabled=0;

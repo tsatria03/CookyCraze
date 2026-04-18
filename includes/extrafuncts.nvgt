@@ -1,21 +1,3 @@
-string[] parse_delimited_line(string line, int max_parts, string delimiter = ":")
-{
-    string[] parts;
-    int lastPos = 0;
-    int count = 0;
-    for (uint i = 0; i < line.length(); i++)
-    {
-        if (line.substr(i, 1) == delimiter && count < max_parts)
-        {
-            parts.insert_last(line.substr(lastPos, int(i) - lastPos));
-            lastPos = int(i) + 1;
-            count++;
-        }
-    }
-    parts.insert_last(line.substr(lastPos));
-    return parts;
-}
-
 bool alt_is_down()
 {
 if(key_down(KEY_LMENU) or key_down(KEY_RMENU))
@@ -232,6 +214,28 @@ string format_number(double num, bool basic=false, bool scientific=false, bool s
         return round(value,2) + suffix_speech[tier];
 }
 
+string[] parse_delimited_line(string line, int max_parts, string delimiter = ":")
+{
+    string[] parts;
+    int lastPos = 0;
+    int count = 0;
+    for (uint i = 0; i < line.length(); i++)
+    {
+        if (line.substr(i, 1) == delimiter && count < max_parts)
+        {
+            parts.insert_last(line.substr(lastPos, int(i) - lastPos));
+            lastPos = int(i) + 1;
+            count++;
+        }
+    }
+    parts.insert_last(line.substr(lastPos));
+    return parts;
+}
+
+string to_string(int value)
+{
+    return "" + value;
+}
 double convert_to_pan(double length, double index, double range1, double range2)
 {
 try
@@ -393,6 +397,7 @@ void reload_config(bool force = false)
     rankSounds.resize(0); rankDefault.resize(0); rankRewards.resize(0);
     parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
     parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
+    parse_dice_table("data/config/tables/dice.table");
     parse_lottery_table("data/config/tables/lottery.table");
     loadedAchievements.resize(0);
     loadedAchievementCategories.resize(0);
@@ -486,6 +491,13 @@ void show_baker_statistics()
     txt += "\r\n";
     txt += "Cooky flipper\r\n";
     txt += "Flipper flips: " + format_number(stat_flipper_flips) + "\r\n";
+    txt += "Cooky flips: " + format_number(stat_cooky_flips) + "\r\n";
+    txt += "Penny flips: " + format_number(stat_penny_flips) + "\r\n";
+    txt += "\r\n";
+    txt += "Dice roller\r\n";
+    txt += "Rolls: " + format_number(stat_dice_rolls) + "\r\n";
+    txt += "Wins: " + format_number(stat_dice_wins) + "\r\n";
+    txt += "Losses: " + format_number(stat_dice_losses) + "\r\n";
     txt += "\r\n";
     txt += "Blackjack\r\n";
     txt += "Hands played: " + format_number(stat_jack_hands) + "\r\n";
@@ -663,6 +675,11 @@ string get_stat_progress_label(string stat)
     if (stat == "baker_events_fired") return "baker events fired";
     if (stat == "flipper_events_fired") return "flipper events fired";
     if (stat == "flipper_flips") return "flips";
+    if (stat == "cooky_flips") return "cooky flips";
+    if (stat == "penny_flips") return "penny flips";
+    if (stat == "dice_rolls") return "dice rolls";
+    if (stat == "dice_wins") return "dice wins";
+    if (stat == "dice_losses") return "dice losses";
     if (stat == "slot_spins") return "spins";
     if (stat == "slot_wins") return "wins";
     if (stat == "slot_losses") return "losses";
@@ -766,10 +783,11 @@ void minigame_input(string game)
             ambpool.resume_sound(ambslot);
             muspool.resume_sound(mustrackslot);
             form.reset();
-            if (game == "flipper")        cookgame();
+            if (game == "flipper")        flipgame();
             else if (game == "slots")     slotsgame();
             else if (game == "blackjack") jackgame();
             else if (game == "lottery")   lotterygame();
+            else if (game == "dice")      dicegame();
         }
         if (key_pressed(KEY_L))
         {
@@ -783,10 +801,11 @@ void minigame_input(string game)
             ambpool.resume_sound(ambslot);
             muspool.resume_sound(mustrackslot);
             form.reset();
-            if (game == "flipper")        cookgame();
+            if (game == "flipper")        flipgame();
             else if (game == "slots")     slotsgame();
             else if (game == "blackjack") jackgame();
             else if (game == "lottery")   lotterygame();
+            else if (game == "dice")      dicegame();
         }
     }
     if (key_pressed(KEY_C)) speak_buffer("You have " + format_number(cookies) + " cookies.");

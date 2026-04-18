@@ -83,17 +83,23 @@ baker_events:event_veteran:baker_events_fired:1000:false:false:Event Veteran:Tri
 baker_events:event_legend:baker_events_fired:5000:false:false:Event Legend:Trigger %threshold% baker events. The universe itself cannot stop throwing things at your bakery.:The bakery has a life of its own. You just work there.
 baker_events:event_storm:baker_events_fired:10000:false:false:Event Storm:Trigger %threshold% baker events. Meteorologists have begun tracking your bakery.:At a certain frequency, events stop being random and start feeling inevitable.
 baker_events:event_force:baker_events_fired:25000:false:false:Event Force:Trigger %threshold% baker events. You are no longer affected by events. You are an event.:There are forces of nature, and then there are forces of bakery. You became the latter.
-flipper_events:first_flipper_event:flipper_events_fired:1:false:true:Chance and Chaos:Trigger your first flipper event. Flipping cookys has consequences.:Every flip tells a story. This one is just the beginning.
+flipper_events:first_flipper_event:flipper_events_fired:1:false:true:Chance and Chaos:Trigger your first flipper event. Flipping has consequences.:Every flip tells a story. This one is just the beginning.
 flipper_events:flipper_event_prone:flipper_events_fired:25:false:true:Rolling the Dough:Trigger %threshold% flipper events. You are starting to see patterns in the chaos.:Patterns in randomness are just superstition. But keep watching anyway.
 flipper_events:flipper_event_chaos:flipper_events_fired:100:false:true:Cookie Chaos:Trigger %threshold% flipper events. The flipper has become a force of its own.:At this point the flipper is less a game and more a lifestyle.
 flipper_events:flipper_event_veteran:flipper_events_fired:500:false:true:Flipper Event Veteran:Trigger %threshold% flipper events. Nothing the flipper throws at you surprises you anymore.:You have seen enough outcomes to stop calling them surprises.
-flipper_events:flipper_event_legend:flipper_events_fired:2000:false:true:Flipper Event Legend:Trigger %threshold% flipper events. The cooky itself has started to fear you.:Some flippers flip cookys. You flip fate.
-flipper:first_flip:flipper_flips:1:false:true:Chocolate or Bisket:Flip the cooky for the first time. Luck is on your side. Probably.:Two outcomes. One flip. What are you waiting for?
-flipper:flip_happy:flipper_flips:25:false:true:Flip Happy:Flip the cooky %threshold% times. You just can't stop.:Once you start flipping, it gets oddly difficult to stop.
-flipper:flipper_fanatic:flipper_flips:100:false:true:Flipper Fanatic:Flip the cooky %threshold% times. This is less about luck and more about obsession at this point.:At some point this stops being about the outcome and starts being about the ritual.
-flipper:flipper_addict:flipper_flips:500:false:true:Flipper Addict:Flip the cooky %threshold% times. Your thumb is going to fall off.:Your thumb knows what to do before your brain does. That's a sign.
-flipper:flipper_legend:flipper_flips:2000:false:true:Flipper Legend:Flip the cooky %threshold% times. You have flipped more cookys than you have baked cookies.:When the flipper sees more action than the oven, priorities have shifted somewhat.
-flipper:flipper_eternal:flipper_flips:5000:false:true:Flipper Eternal:Flip the cooky %threshold% times. The cooky has been flipped so many times it no longer has sides.:At a certain point the flip itself becomes the destination.
+flipper_events:flipper_event_legend:flipper_events_fired:2000:false:true:Flipper Event Legend:Trigger %threshold% flipper events. Whatever you are flipping has started to fear you.:Some flippers flip. You flip fate.
+flipper:first_flip:flipper_flips:1:false:true:Chocolate or Bisket:Flip a cooky or penny for the first time. Luck is on your side. Probably.:Two outcomes. One flip. What are you waiting for?
+flipper:flip_happy:flipper_flips:25:false:true:Flip Happy:Flip a cooky or penny %threshold% times. You just can't stop.:Once you start flipping, it gets oddly difficult to stop.
+flipper:flipper_fanatic:flipper_flips:100:false:true:Flipper Fanatic:Flip a cooky or penny %threshold% times. This is less about luck and more about obsession at this point.:At some point this stops being about the outcome and starts being about the ritual.
+flipper:flipper_addict:flipper_flips:500:false:true:Flipper Addict:Flip a cooky or penny %threshold% times. Your thumb is going to fall off.:Your thumb knows what to do before your brain does. That's a sign.
+flipper:flipper_legend:flipper_flips:2000:false:true:Flipper Legend:Flip a cooky or penny %threshold% times. You have flipped more than you have baked cookies.:When the flipper sees more action than the oven, priorities have shifted somewhat.
+flipper:flipper_eternal:flipper_flips:5000:false:true:Flipper Eternal:Flip a cooky or penny %threshold% times. Whatever you are flipping no longer has sides.:At a certain point the flip itself becomes the destination.
+flipper:first_cooky_flip:cooky_flips:1:false:true:The Cooky Side:Flip a cooky for the first time. It lands on something. Good enough.:The cooky does not care which side is up. But you do.
+flipper:cooky_flipper_regular:cooky_flips:50:false:true:Regular Rotator:Flip a cooky %threshold% times. You have a type and it is baked.:Consistency is underrated. Especially in a game about cookies.
+flipper:cooky_flipper_devoted:cooky_flips:250:false:true:Devoted to Dough:Flip a cooky %threshold% times. The cooky knows your rhythm by now.:At this point the cooky expects you.
+flipper:first_penny_flip:penny_flips:1:false:true:Heads or Tails:Flip a penny for the first time. Classic.:A coin has two sides. So does every decision. This one is just louder.
+flipper:penny_flipper_regular:penny_flips:50:false:true:Spare Change:Flip a penny %threshold% times. You are getting your money's worth.:It is only a penny. But it lands exactly where it wants to.
+flipper:penny_flipper_devoted:penny_flips:250:false:true:Coin Enthusiast:Flip a penny %threshold% times. The penny has earned its keep.:Most people ignore pennies. You have made yours do something.
 
 ; Blackjack
 

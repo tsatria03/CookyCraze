@@ -1,14 +1,21 @@
-void cookgame()
+void flipgame()
 {
+    string[] flipperTypeIds = { "cooky", "penny" };
+    string[] flipperTypeNames = { "Cooky", "Penny" };
+
     form.reset();
     form.create_window("cooky flipper", false);
+    int typeList = form.create_list("Choose &what to flip:", flipperTypeIds.length(), false, false);
+    for (uint i = 0; i < flipperTypeNames.length(); i++)
+        form.add_list_item(typeList, flipperTypeNames[i], flipperTypeIds[i], -1, false);
     int cookEventList = form.create_list("Choose the &cooky events to use:", loadedFlipperEvents.length(), true, false);
     for (uint i = 0; i < loadedFlipperEvents.length(); i++)
     {
         form.add_list_item(cookEventList, loadedFlipperEvents[i].event_name, loadedFlipperEvents[i].event_name, -1, true);
     }
-int flip = form.create_button("&Flip a cooky", true);
+    int flip = form.create_button("&Flip a " + flipperTypeNames[0], true);
     int historyBox = form.create_input_box("Flipper &History", "", read_only:true, multiline:true);
+    int lastTypeIdx = 0;
     string historyText = "";
     if (flipperHistory.length() == 0)
         historyText = "No flips recorded yet.";
@@ -21,7 +28,7 @@ int flip = form.create_button("&Flip a cooky", true);
         }
     }
     form.set_text(historyBox, historyText);
-    form.focus(cookEventList);
+    form.focus(typeList);
     while (true)
     {
         wait(5);
@@ -55,10 +62,27 @@ if(clicktime>=1000)
 {
 clicktime=1000;
 }
-if(form.get_current_focus()!=cookEventList)
-{
-cook_game_input();
-}
+flipgame_input();
+        int curTypeIdx = form.get_list_position(typeList);
+        if (curTypeIdx < 0) curTypeIdx = 0;
+        if (curTypeIdx != lastTypeIdx)
+        {
+            lastTypeIdx = curTypeIdx;
+            bool[] savedChecks;
+            for (uint i = 0; i < loadedFlipperEvents.length(); i++)
+                savedChecks.insert_last(form.is_list_item_checked(cookEventList, i));
+            string savedHistText = form.get_text(historyBox);
+            string eventLabel = "Choose the &" + flipperTypeNames[curTypeIdx] + " events to use:";
+            form.delete_control(historyBox);
+            form.delete_control(flip);
+            form.delete_control(cookEventList);
+            cookEventList = form.create_list(eventLabel, loadedFlipperEvents.length(), true, false);
+            for (uint i = 0; i < loadedFlipperEvents.length(); i++)
+                form.add_list_item(cookEventList, loadedFlipperEvents[i].event_name, loadedFlipperEvents[i].event_name, -1, savedChecks[i]);
+            flip = form.create_button("&Flip a " + flipperTypeNames[curTypeIdx], true);
+            historyBox = form.create_input_box("Flipper &History", savedHistText, read_only:true, multiline:true);
+            form.focus_silently(typeList);
+        }
         if (key_pressed(KEY_ESCAPE))
         {
 pool.destroy_sound(gameslot);
@@ -96,7 +120,8 @@ if (cookies >= cookiesrequiered)
 check_achievements(loadedAchievements, achievementsUnlocked);
 if (form.is_pressed(flip))
 {
-    if (cookies >= 1)
+        int selectedTypeIdx = form.get_list_position(typeList);
+        if (selectedTypeIdx < 0) selectedTypeIdx = 0;
     {
         event_item[] chocsEvents;
         event_item[] bisksEvents;
@@ -112,16 +137,29 @@ if (form.is_pressed(flip))
         }
         if (chocsEvents.length() == 0 || bisksEvents.length() == 0)
         {
-            dlg_buffer("You must select at least one positive and one negative event before flipping the cooky!");
+            dlg_buffer("You must select at least one positive and one negative event before flipping!");
             form.reset();
-            cookgame();
+            flipgame();
         }
+        string flipperType = flipperTypeIds[selectedTypeIdx];
+        string flipItemName = flipperTypeNames[selectedTypeIdx];
+        string flipSoundPath = "sounds/minigames/cooky_flipper/" + flipperType + "/flip.ogg";
+        string landSoundPath = "sounds/minigames/cooky_flipper/" + flipperType + "/land.ogg";
+        bool hasLandSound = (flipperType == "penny");
         string[] cooksides = { "chocolate", "bisket" };
         string side = cooksides[random(0, cooksides.length() - 1)];
         stat_flipper_flips++;
+        if (flipperType == "penny") stat_penny_flips++;
+        else stat_cooky_flips++;
         pool.destroy_sound(eventslot);
-        pool.play_stationary("sounds/minigames/cooky_flipper/cooky/flip.ogg", false);
-        dlg_buffer("You flip a cooky. It lands on " + side);
+        pool.play_stationary(flipSoundPath, false);
+        if (flipmode)
+            mini_wait_async(random(500, 1000), "flipper");
+        else
+            dlg_buffer("Flipping. Press enter or space to reveal.");
+        if (hasLandSound)
+            pool.play_stationary(landSoundPath, false);
+        dlg_buffer("You flip a " + flipItemName + ". It lands on " + side);
         event_item@ chosenEvent = null;
         if (side == "chocolate" && chocsEvents.length() > 0)
         {
@@ -153,16 +191,11 @@ if (form.is_pressed(flip))
             form.set_text(historyBox, newHistText);
         }
     }
-    else
-    {
-        dlg_buffer("You don't have a cooky to flip!", "general");
-        form.focus(flip);
-    }
 }
 }
 }
 
-void cook_game_input() { minigame_input("flipper"); }
+void flipgame_input() { minigame_input("flipper"); }
 
 void slotsgame()
 {
@@ -445,9 +478,9 @@ void jackgame()
     form.add_list_item(betChoice, "Auto Cookie Speeds");
     form.add_list_item(betChoice, "Manual Cookies");
     int betInput = form.create_input_box("Enter your &bet amount:", "", "", 0, false, false, false);
+    int dealButton = form.create_button("&Deal", true);
     int hitButton = form.create_button("&Hit");
     int standButton = form.create_button("&Stand");
-    int dealButton = form.create_button("&Deal", true);
     form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~_", false, "This character is not allowed.");
     form.focus(betChoice);
     int p_points = 0, d_points = 0;
@@ -804,3 +837,257 @@ void lotterygame()
 void lottery_game_input() { minigame_input("lottery"); }
 
 void jack_game_input() { minigame_input("blackjack"); }
+
+void dicegame()
+{
+    form.reset();
+    form.create_window("Dice Roller", false);
+    uint typeCount = diceConfig.dice_types.length();
+    int diceTypeList = form.create_list("Dice &Type:", typeCount, false, false);
+    for (uint i = 0; i < typeCount; i++)
+        form.add_list_item(diceTypeList, "D" + string(diceConfig.dice_types[typeCount - 1 - i]), "", -1, false);
+    int defaultTypeIdx = 0;
+    for (uint i = 0; i < typeCount; i++)
+        if (diceConfig.dice_types[typeCount - 1 - i] == 6) { defaultTypeIdx = i; break; }
+    form.set_list_position(diceTypeList, defaultTypeIdx);
+    int diceCountList = form.create_list("&Number of Dice:", diceConfig.max_dice_count, false, false);
+    for (int i = diceConfig.max_dice_count; i >= 1; i--)
+        form.add_list_item(diceCountList, string(i) + (i == 1 ? " die" : " dice"), "", -1, false);
+    form.set_list_position(diceCountList, diceConfig.max_dice_count - 6);
+    int modifierList = form.create_list("&Modifier:", diceConfig.modifiers.length(), false, false);
+    uint modCount = diceConfig.modifiers.length();
+    for (uint i = 0; i < modCount; i++)
+    {
+        int m = diceConfig.modifiers[modCount - 1 - i];
+        string label = (m > 0 ? "+" : "") + string(m);
+        form.add_list_item(modifierList, label, "", -1, false);
+    }
+    int defaultModIdx = 0;
+    for (uint i = 0; i < modCount; i++)
+        if (diceConfig.modifiers[modCount - 1 - i] == 0) { defaultModIdx = i; break; }
+    form.set_list_position(modifierList, defaultModIdx);
+    int betChoice = form.create_list("Choose an item to &bet:", 5, false, false);
+    form.add_list_item(betChoice, "Cookies");
+    form.add_list_item(betChoice, "Currency");
+    form.add_list_item(betChoice, "Auto Cookies");
+    form.add_list_item(betChoice, "Auto Cookie Speeds");
+    form.add_list_item(betChoice, "Manual Cookies");
+    int betInput = form.create_input_box("Enter your b&et amount:", "", "", 0, false, false, false);
+    int targetInput = form.create_input_box("Enter your &target score:", "", "", 0, false, false, false);
+    int rollButton = form.create_button("&Roll", true);
+    form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~_", false, "This character is not allowed.");
+    form.set_disallowed_chars(targetInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~_", false, "This character is not allowed.");
+    form.focus(diceTypeList);
+    int selectedBet = 0;
+    double betAmount = 0;
+    string betItemName = "";
+    while (true)
+    {
+        wait(5);
+        form.monitor();
+        if (autocooky <= 0) { bakemode = 0; autocooky = 0; }
+        if (coins <= 0) coins = 0;
+        if (cookies <= 0) cookies = 0;
+        if (cookyspeed <= 0) cookyspeed = 0;
+        if (manulcooky <= 0) manulcooky = 0;
+        if (clicktime <= 50) clicktime = 50;
+        if (clicktime >= 1000) clicktime = 1000;
+        dice_game_input();
+        if (key_pressed(KEY_ESCAPE))
+        {
+            pool.destroy_sound(gameslot);
+            mingamsmenu();
+        }
+        if (cookies >= cookiesrequiered)
+        {
+            rank += 1;
+            cookiesrequiered = (cookymod * (rank * (rank * difmod)));
+            if (prestige_rank_discount > 0) cookiesrequiered *= max(0.01, 1.0 - (prestige_rank_discount / 100.0));
+            if (rankDefault.length() > 0)
+            {
+                string defaultMsg = apply_rank_reward(rankDefault[0], rank);
+                play_rank_sound(lastRewardAmount);
+                if (ranksfx == true) pool.play_stationary("sounds/misc/rankach" + random(1, 2) + ".ogg", false);
+                handle_rank_unlock(rankDefault[0].unlock);
+                speak_buffer(defaultMsg, "ranks");
+            }
+            rank_reward_item[] matching;
+            for (uint i = 0; i < rankRewards.length(); i++)
+            {
+                if (rankRewards[i].rank == int(rank))
+                    matching.insert_last(rankRewards[i]);
+            }
+            if (matching.length() > 0)
+            {
+                rank_reward_item@ milestone = matching[random(0, matching.length() - 1)];
+                string milestoneMsg = apply_rank_reward(milestone, rank);
+                play_rank_sound(lastRewardAmount);
+                if (ranksfx == true) pool.play_stationary("sounds/misc/rankach" + random(1, 2) + ".ogg", false);
+                handle_rank_unlock(milestone.unlock);
+                speak_buffer(milestoneMsg, "critical");
+            }
+        }
+        check_achievements(loadedAchievements, achievementsUnlocked);
+        if (form.is_pressed(rollButton))
+        {
+            selectedBet = form.get_list_position(betChoice);
+            string betStr = form.get_text(betInput);
+            double betNum = floor(selectedBet == 1 ? string_to_number(betStr) * 100.0 : string_to_number(betStr));
+            if (betNum <= 0)
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlg_buffer("Error! Please enter a valid bet amount.");
+                continue;
+            }
+            if (betNum < diceConfig.min_bet)
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlg_buffer("Error! The minimum bet is " + (selectedBet == 1 ? convert_to_currency(diceConfig.min_bet) : format_number(diceConfig.min_bet)) + ".");
+                continue;
+            }
+            if (diceConfig.max_bet > 0 && betNum > diceConfig.max_bet)
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlg_buffer("Your bet has been capped at the maximum of " + (selectedBet == 1 ? convert_to_currency(diceConfig.max_bet) : format_number(diceConfig.max_bet)) + ".");
+                betNum = diceConfig.max_bet;
+            }
+            if (selectedBet == 0) betNum = min(betNum, floor(cookies));
+            else if (selectedBet == 1) betNum = min(betNum, floor(coins));
+            else if (selectedBet == 2) betNum = min(betNum, floor(autocooky));
+            else if (selectedBet == 3) betNum = min(betNum, floor(cookyspeed));
+            else if (selectedBet == 4) betNum = min(betNum, floor(manulcooky));
+            if (betNum <= 0)
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlg_buffer("Error! You don't have enough of that item to bet!");
+                continue;
+            }
+            string targetStr = form.get_text(targetInput);
+            int target = string_to_int(targetStr);
+            if (target < diceConfig.min_target)
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlg_buffer("Error! The minimum target is " + string(diceConfig.min_target) + ".");
+                continue;
+            }
+            int diceTypeIdx = form.get_list_position(diceTypeList);
+            if (diceTypeIdx < 0) diceTypeIdx = 0;
+            int sides = diceConfig.dice_types[typeCount - 1 - diceTypeIdx];
+            int diceCountIdx = form.get_list_position(diceCountList);
+            if (diceCountIdx < 0) diceCountIdx = 0;
+            int diceCount = diceConfig.max_dice_count - diceCountIdx;
+            int modifierIdx = form.get_list_position(modifierList);
+            if (modifierIdx < 0) modifierIdx = defaultModIdx;
+            int modifier = diceConfig.modifiers[modCount - 1 - modifierIdx];
+            int maxPossible = (sides * diceCount) + modifier;
+            if (diceConfig.max_target > 0 && target > diceConfig.max_target)
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlg_buffer("Error! The maximum target is " + string(diceConfig.max_target) + ".");
+                continue;
+            }
+            if (target > maxPossible)
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlg_buffer("Warning! Your target of " + string(target) + " is impossible to reach with " + string(diceCount) + " D" + string(sides) + " and a modifier of " + string(modifier) + ". The maximum possible roll is " + string(maxPossible) + ".");
+                continue;
+            }
+            if (diceConfig.confirm_threshold > 0)
+            {
+                double statTotal = (selectedBet == 0 ? floor(cookies) : (selectedBet == 1 ? floor(coins) : (selectedBet == 2 ? floor(autocooky) : (selectedBet == 3 ? floor(cookyspeed) : floor(manulcooky)))));
+                double effectiveThreshold = diceConfig.confirm_use_percent ? (statTotal * (diceConfig.confirm_threshold / 100.0)) : diceConfig.confirm_threshold;
+                if (betNum >= effectiveThreshold)
+                {
+                    string betItemName2 = (selectedBet == 0 ? "cookies" : (selectedBet == 1 ? "currency" : (selectedBet == 2 ? "auto cookies" : (selectedBet == 3 ? "auto cookie speeds" : "manual cookies"))));
+                    setupmenu(false);
+                    m.add_item("Yes", "yes");
+                    m.add_item("No", "no");
+                    m.intro_text = "Are you sure you want to bet " + (selectedBet == 1 ? convert_to_currency(betNum) : format_number(betNum) + " " + betItemName2) + "?";
+                    int cres = m.run(0, true);
+                    string csel = m.get_item_id(cres);
+                    if (cres == -1 || csel == "no")
+                        continue;
+                }
+            }
+            betAmount = betNum;
+            betItemName = (selectedBet == 0 ? "cookies" : (selectedBet == 1 ? "" : (selectedBet == 2 ? "auto cookies" : (selectedBet == 3 ? "auto cookie speeds" : "manual cookies"))));
+            if (selectedBet == 0) { cookies -= betAmount; cookies = floor(cookies); }
+            else if (selectedBet == 1) { coins -= betAmount; coins = floor(coins); }
+            else if (selectedBet == 2) { autocooky -= betAmount; autocooky = floor(autocooky); }
+            else if (selectedBet == 3) { cookyspeed -= betAmount; clicktime += betAmount; cookyspeed = floor(cookyspeed); }
+            else if (selectedBet == 4) { manulcooky -= betAmount; manulcooky = floor(manulcooky); }
+            pool.play_stationary("sounds/minigames/" + resolve_sound(diceConfig.shake_sound), false);
+            if (dicemode)
+                mini_wait_async(random(1000, 2000), "dice");
+            else
+                dlg_buffer("Rolling. Press enter or space to reveal.");
+            pool.play_stationary("sounds/minigames/" + resolve_sound(diceConfig.land_sound), false);
+            int total = 0;
+            string rollDetails = "";
+            for (int i = 0; i < diceCount; i++)
+            {
+                int roll = random(1, sides);
+                total += roll;
+                rollDetails += string(roll) + (i < diceCount - 1 ? ", " : "");
+            }
+            total += modifier;
+            stat_dice_rolls++;
+            int margin = total - target;
+            dice_payout@ payout = pick_dice_payout(margin);
+            if (payout is null)
+            {
+                dlg_buffer("Something went wrong reading the payout table.");
+                continue;
+            }
+            string modStr = (modifier > 0 ? "+" : "") + string(modifier);
+            string modifierText = "";
+            if (modifier > 0) modifierText = "plus " + string(modifier);
+            else if (modifier < 0) modifierText = "minus " + string(abs(modifier));
+            string rollSummary = "The dice show: " + rollDetails + (modifier != 0 ? ", with a modifier of " + modifierText : "") + ", for a total score of " + string(total) + ", with a target score of " + string(target) + ".";
+            pool.play_stationary("sounds/minigames/" + resolve_sound(payout.sound), false);
+            if (payout.multiplier <= 0)
+            {
+                stat_dice_losses++;
+                string msg = payout.message;
+                int ph = msg.find("%roll%");
+                while (ph != -1) { msg = msg.substr(0, ph) + string(total) + msg.substr(ph + 6); ph = msg.find("%roll%"); }
+                ph = msg.find("%target%");
+                while (ph != -1) { msg = msg.substr(0, ph) + string(target) + msg.substr(ph + 8); ph = msg.find("%target%"); }
+                ph = msg.find("%margin%");
+                while (ph != -1) { msg = msg.substr(0, ph) + string(abs(margin)) + msg.substr(ph + 8); ph = msg.find("%margin%"); }
+                dlg_buffer(rollSummary + " " + msg);
+            }
+            else
+            {
+                stat_dice_wins++;
+                double winAmount = floor(betAmount * payout.multiplier);
+                string amtStr = (selectedBet == 1 ? convert_to_currency(winAmount) : format_number(winAmount));
+                if (selectedBet == 0) { cookies += winAmount; cookies = floor(cookies); }
+                else if (selectedBet == 1) { coins += winAmount; coins = floor(coins); stat_coins_earned += winAmount; }
+                else if (selectedBet == 2) { autocooky += winAmount; autocooky = floor(autocooky); }
+                else if (selectedBet == 3) { cookyspeed += winAmount; clicktime -= winAmount; if (cookyspeed < 0) cookyspeed = 0; if (clicktime < 50) clicktime = 50; cookyspeed = floor(cookyspeed); }
+                else if (selectedBet == 4) { manulcooky += winAmount; manulcooky = floor(manulcooky); }
+                string msg = payout.message;
+                int ph = msg.find("%roll%");
+                while (ph != -1) { msg = msg.substr(0, ph) + string(total) + msg.substr(ph + 6); ph = msg.find("%roll%"); }
+                ph = msg.find("%target%");
+                while (ph != -1) { msg = msg.substr(0, ph) + string(target) + msg.substr(ph + 8); ph = msg.find("%target%"); }
+                ph = msg.find("%margin%");
+                while (ph != -1) { msg = msg.substr(0, ph) + string(margin) + msg.substr(ph + 8); ph = msg.find("%margin%"); }
+                ph = msg.find("%amount%");
+                while (ph != -1) { msg = msg.substr(0, ph) + amtStr + msg.substr(ph + 8); ph = msg.find("%amount%"); }
+                ph = msg.find("%item%");
+                while (ph != -1)
+                {
+                    string itemStr = betItemName;
+                    int start = (itemStr == "" && ph > 0 && msg.substr(ph - 1, 1) == " ") ? ph - 1 : ph;
+                    msg = msg.substr(0, start) + itemStr + msg.substr(ph + 6);
+                    ph = msg.find("%item%");
+                }
+                dlg_buffer(rollSummary + " " + msg);
+            }
+        }
+    }
+}
+
+void dice_game_input() { minigame_input("dice"); }

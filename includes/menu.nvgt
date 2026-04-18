@@ -249,6 +249,7 @@ form.create_window("Mini games", false);
 int jack=form.create_button("Play &blackjack");
 int flip=form.create_button("Play &cooky flipper");
 int lottery=form.create_button("Play cooky &lottery");
+int dice=form.create_button("Play &dice roller");
 int slots=form.create_button("play &slot machine");
 form.focus(jack);
 while(true)
@@ -287,7 +288,7 @@ mingamsmenu();
 else
 {
 gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
-cookgame();
+flipgame();
 }
 }
 if(form.is_pressed(lottery))
@@ -305,12 +306,27 @@ gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
 lotterygame();
 }
 }
-if(form.is_pressed(slots))
+if(form.is_pressed(dice))
 {
 if(rank<40)
 {
 gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
 dlg_buffer("Sorry "+playername+". This mini game is locked. Please be at rank 40 or higher to play this.", "critical");
+form.reset();
+mingamsmenu();
+}
+else
+{
+gameslot=pool.play_stationary("sounds/misc/gamelaunch.ogg", false);
+dicegame();
+}
+}
+if(form.is_pressed(slots))
+{
+if(rank<50)
+{
+gameslot=pool.play_stationary("sounds/misc/gamefail.ogg", false);
+dlg_buffer("Sorry "+playername+". This mini game is locked. Please be at rank 50 or higher to play this.", "critical");
 form.reset();
 mingamsmenu();
 }
@@ -2254,6 +2270,8 @@ int ordsyms = form.create_checkbox("Enable alphabetical symbol listing for the s
 int reelspin = form.create_checkbox("Enable automatic stopping of reels for the slot machine mini game.", slotmode);
 int jackautodraw = form.create_checkbox("Enable automatic card drawing for the blackjack mini game.", jackmode);
 int lotteryautoscratch = form.create_checkbox("Enable automatic scratch revealing for the cooky lottery mini game.", lotterymode);
+int flipautoflip = form.create_checkbox("Enable automatic flipping for the cooky flipper mini game.", flipmode);
+int diceautoroll = form.create_checkbox("Enable automatic rolling for the dice roller mini game.", dicemode);
 int bakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across automated slots.", slotDistribution);
 int manualBakeSplitToggle = form.create_checkbox("Enable evenly distributing cookie production across manual slots.", manualSlotDistribution);
 int showLockedToggle = form.create_checkbox("Enable showing locked items and menus in the shop list.", show_locked_shops);
@@ -2267,7 +2285,7 @@ int manualChanceSlider = form.create_slider("Manual-Baking Event chance.", 100 -
 int sellPriceSlider = form.create_slider("Cookie sell price.", cookieSellPrice, 1, 100, "cents", 1);
 int savesets = form.create_button("&save settings", true);
 int cansets = form.create_button("&cancel");
-form.focus(introSFX);
+form.focus(logoSFX);
     while (true)
     {
         wait(5);
@@ -2298,6 +2316,8 @@ orderedSyms = form.is_checked(ordsyms);
 slotmode = form.is_checked(reelspin);
 jackmode = form.is_checked(jackautodraw);
 lotterymode = form.is_checked(lotteryautoscratch);
+flipmode = form.is_checked(flipautoflip);
+dicemode = form.is_checked(diceautoroll);
         if (form.is_pressed(savesets))
         {
 writepreffs();

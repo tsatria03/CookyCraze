@@ -82,11 +82,16 @@ fire_flipper_events_500:Trigger 500 flipper events:flipper_events_fired:500:true
 
 ; Cooky flipper
 
-flip_cooky_10:Flip the cooky 10 times:flipper_flips:10:true:false:true:1:Flip the cooky %threshold% times in the cooky flipper.
-flip_cooky_50:Flip the cooky 50 times:flipper_flips:50:true:false:true:2:Flip the cooky %threshold% times in the cooky flipper.
-flip_cooky_200:Flip the cooky 200 times:flipper_flips:200:true:false:true:3:Flip the cooky %threshold% times in the cooky flipper.
-flip_cooky_500:Flip the cooky 500 times:flipper_flips:500:true:false:true:4:Flip the cooky %threshold% times in the cooky flipper.
-flip_cooky_1000:Flip the cooky 1K times:flipper_flips:1000:true:false:true:5:Flip the cooky %threshold% times in the cooky flipper.
+flip_cooky_10:Flip a cooky 10 times:cooky_flips:10:true:false:true:1:Flip a cooky %threshold% times in the cooky flipper.
+flip_cooky_50:Flip a cooky 50 times:cooky_flips:50:true:false:true:2:Flip a cooky %threshold% times in the cooky flipper.
+flip_cooky_200:Flip a cooky 200 times:cooky_flips:200:true:false:true:3:Flip a cooky %threshold% times in the cooky flipper.
+flip_cooky_500:Flip a cooky 500 times:cooky_flips:500:true:false:true:4:Flip a cooky %threshold% times in the cooky flipper.
+flip_cooky_1000:Flip a cooky 1K times:cooky_flips:1000:true:false:true:5:Flip a cooky %threshold% times in the cooky flipper.
+flip_penny_10:Flip a penny 10 times:penny_flips:10:true:false:true:1:Flip a penny %threshold% times in the cooky flipper.
+flip_penny_50:Flip a penny 50 times:penny_flips:50:true:false:true:2:Flip a penny %threshold% times in the cooky flipper.
+flip_penny_200:Flip a penny 200 times:penny_flips:200:true:false:true:3:Flip a penny %threshold% times in the cooky flipper.
+flip_penny_500:Flip a penny 500 times:penny_flips:500:true:false:true:4:Flip a penny %threshold% times in the cooky flipper.
+flip_penny_1000:Flip a penny 1K times:penny_flips:1000:true:false:true:5:Flip a penny %threshold% times in the cooky flipper.
 
 ; Slot machine spins
 

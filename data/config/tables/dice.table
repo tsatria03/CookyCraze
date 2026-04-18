@@ -1,0 +1,19 @@
+dice_types=2,3,4,6,8,12,16,20,30,100
+max_dice_count=20
+modifiers=-10,-5,-3,-1,0,1,3,5,10
+min_bet=1
+max_bet=0
+confirm_threshold=1000:false
+min_target=2
+max_target=0
+
+shake_sound=dice_roller/shake.ogg
+land_sound=dice_roller/land(1,2).ogg
+win_sound=dice_roller/win.ogg
+lose_sound=dice_roller/lose.ogg
+
+-1:0:dice_roller/lose.ogg:You rolled %roll% but needed %target%. You lost your bet.
+0:1.5:dice_roller/win.ogg:You hit exactly %target%! You gained %amount% %item%!
+1:2:dice_roller/win.ogg:You beat the target by %margin%! You gained %amount% %item%!
+6:3:dice_roller/win.ogg:You beat the target by %margin%! Great roll! You gained %amount% %item%!
+11:4:dice_roller/win.ogg:You crushed the target by %margin%! Amazing! You gained %amount% %item%!

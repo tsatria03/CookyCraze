@@ -1,3 +1,14 @@
+New in 5.9.
+Fixed the dice roller so the dice type and count lists now default to D6 and 6 dice respectively when the game opens instead of always starting at the top of each list.
+Fixed all three dice roller lists so pressing up arrow moves toward higher values and pressing down arrow moves toward lower values. Dice type now goes from D100 down to D2, dice count from 20 down to 1, and the modifier from plus 10 down to minus 10.
+Fixed the dice roller roll result message to say the dice show followed by each individual die value, matching the format of the reference implementation. The result now reads naturally as the dice show X, Y, Z, with a modifier of plus N, for a total score of T, with a target score of G.
+Added the dice roller minigame, unlocked at rank 40. Roll a custom set of dice against a target score you set yourself. Choose your dice type, how many to roll, and a modifier, then place a bet and see if you can hit or beat the target. Higher targets are harder to reach but pay out more. All dice types, modifiers, payouts, sounds, and bet limits are configurable in dice.table.
+Moved the slot machine unlock from rank 40 to rank 50 and the baking slots manager from rank 50 to rank 60 to make room for the dice roller minigame at rank 40.
+Split the cooky flipper flip stat into three separate tracked values: total flips, cooky flips, and penny flips. Cooky and penny quests and achievements are now tracked separately, and the baker statistics screen shows all three counts.
+Fixed a bug where the flip button in the cooky flipper would not update its label when switching between cooky and penny. It now correctly reads flip a cooky or flip a penny based on the current selection.
+Fixed a bug where flipping a cooky or penny in the cooky flipper would consume the item being flipped. Flipping is now free since you get the item back when it lands, just like in real life.
+Changed the cooky flipper type selector from a separate menu into a form list that appears alongside the event list, so everything is on one screen. The type list is focused automatically when the game opens.
+Added a flipper type selector to the cooky flipper, letting you choose between a cooky or a penny before playing. Each type plays its own set of sounds, and the penny also plays a landing sound when it comes down. Also added an auto flip mode matching the same behavior as the other minigames, which can be toggled in settings.
 New in 5.8.
 Reorganized all minigame sounds into dedicated subfolders under sounds/minigames, covering the slot machine, blackjack, cooky lottery, and cooky flipper. Config table files now use short relative paths like blackjack/win.ogg instead of pointing directly into sounds/misc.
 Fixed a bug where blackjack in manual mode would force you to wait 1 to 2 seconds between each card even though you were controlling the pace yourself. Cards now deal instantly in manual mode, matching the same behavior as the slot machine.

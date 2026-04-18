@@ -114,6 +114,11 @@ double get_stat_value(string stat)
     if (stat == "baker_events_fired") return stat_baker_events_fired;
     if (stat == "flipper_events_fired") return stat_flipper_events_fired;
     if (stat == "flipper_flips") return stat_flipper_flips;
+    if (stat == "cooky_flips") return stat_cooky_flips;
+    if (stat == "penny_flips") return stat_penny_flips;
+    if (stat == "dice_rolls") return stat_dice_rolls;
+    if (stat == "dice_wins") return stat_dice_wins;
+    if (stat == "dice_losses") return stat_dice_losses;
     if (stat == "slot_spins") return stat_slot_spins;
     if (stat == "slot_wins") return stat_slot_wins;
     if (stat == "slot_losses") return stat_slot_losses;

@@ -360,6 +360,11 @@ string get_stat_display_name(string stat)
     else if (stat == "baker_events_fired")   return "baker events fired";
     else if (stat == "flipper_events_fired") return "flipper events fired";
     else if (stat == "flipper_flips")     return "cooky flipper flips";
+    else if (stat == "cooky_flips")       return "cooky flips";
+    else if (stat == "penny_flips")       return "penny flips";
+    else if (stat == "dice_rolls")        return "dice rolls";
+    else if (stat == "dice_wins")         return "dice wins";
+    else if (stat == "dice_losses")       return "dice losses";
     else if (stat == "slot_spins")        return "slot machine spins";
     else if (stat == "slot_wins")         return "slot machine wins";
     else if (stat == "blackjack_hands")   return "blackjack hands played";
