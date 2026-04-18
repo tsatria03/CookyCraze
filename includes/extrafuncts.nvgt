@@ -544,7 +544,7 @@ void show_prestige_history()
 void apply_prestige_store_upgrade(string item_id)
 {
     prestige_store_item[] items;
-    prestige_store_menu[] menus;
+    prestige_menu_def[] menus;
     parse_prestige_store("data/config/stores/prestige.store", items, menus);
     for (uint i = 0; i < items.length(); i++)
     {
@@ -572,7 +572,7 @@ void apply_all_prestige_store_upgrades()
     prestige_starting_autocooky = 0;
     prestige_starting_manualcooky = 0;
     prestige_store_item[] items;
-    prestige_store_menu[] menus;
+    prestige_menu_def[] menus;
     parse_prestige_store("data/config/stores/prestige.store", items, menus);
     for (uint i = 0; i < prestigePurchased.length(); i++)
     {

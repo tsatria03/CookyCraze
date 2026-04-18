@@ -326,7 +326,7 @@ The prestige store becomes available after your first prestige. A prestige store
 
 Prestige points are earned each time you prestige. The number of points awarded is equal to the points_per_prestige setting in prestige.table multiplied by the number of quests you completed before prestiging. If you prestige without completing any quests, you earn no points for that run.
 
-To check how many prestige points you have at any time, press P in the main game. The game announces how many points you have available to spend.
+To check how many prestige points you have, open the prestige store. The store announces your current balance when it opens.
 
 The prestige store is divided into two categories.
 

@@ -677,7 +677,7 @@ void lottery_buy_menu()
 void prestige_store_menu()
 {
     prestige_store_item[] items;
-    prestige_store_menu[] menus;
+    prestige_menu_def[] menus;
     parse_prestige_store("data/config/stores/prestige.store", items, menus);
     if (items.length() == 0)
     {
@@ -723,7 +723,8 @@ void prestige_store_menu()
         }
     }
     m.add_item("back", "back");
-    m.intro_text = "Prestige store. Please choose a category.";
+    string pointWord = (prestige_points == 1) ? "point" : "points";
+    m.intro_text = "Prestige store. You have " + string(prestige_points) + " prestige " + pointWord + " available to spend. Please choose a category.";
     int mres = m.run(0, true);
     string sel = m.get_item_id(mres);
     if (mres == -1 || sel == "back")

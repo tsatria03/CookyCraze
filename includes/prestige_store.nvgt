@@ -1,4 +1,4 @@
-class prestige_store_menu
+class prestige_menu_def
 {
     string alias;
     string name;
@@ -19,12 +19,12 @@ class prestige_store_item
     string description;
 }
 
-void parse_prestige_store(string filepath, prestige_store_item[]@ items_out, prestige_store_menu[]@ menus_out)
+void parse_prestige_store(string filepath, prestige_store_item[]@ items_out, prestige_menu_def[]@ menus_out)
 {
     file f;
     if (!f.open(filepath, "r"))
         return;
-    prestige_store_menu[] menuDefs;
+    prestige_menu_def[] menuDefs;
     dictionary menuAliases;
     while (!f.eof)
     {
@@ -38,7 +38,7 @@ void parse_prestige_store(string filepath, prestige_store_item[]@ items_out, pre
         {
             string alias = line.substr(0, eq);
             string rest = line.substr(eq + 1);
-            prestige_store_menu sm;
+            prestige_menu_def sm;
             sm.alias = alias;
             int pipe1 = rest.find("|");
             if (pipe1 != -1)

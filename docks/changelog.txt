@@ -1,5 +1,5 @@
 New in 5.7.
-Added a P key shortcut in the main game to announce how many prestige points you have available to spend.
+Added a prestige points display to the prestige store. When you open the store, the intro text announces how many prestige points you have available to spend.
 Added a points_per_prestige field to prestige.table. Prestige points are awarded per completed quest at the time of prestige, calculated as points_per_prestige multiplied by the number of quests completed that run.
 Updated the prestige summary screen to show how many prestige points were earned for that run, and to inform the player if no points were earned due to completing no quests.
 Added the prestige store, a new shop accessible from the quests screen after your first prestige. Spend prestige points earned by completing quests before prestiging on permanent upgrades that carry into every future run.

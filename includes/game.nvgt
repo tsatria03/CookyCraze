@@ -322,11 +322,6 @@ pool.destroy_sound(coinslot);
 if(coins>0) coinslot=pool.play_stationary("sounds/misc/cointoss.ogg", false);
 speak_buffer("You have " + convert_to_currency(coins) + " available to spend", "misc");
 }
-if(key_pressed(KEY_P))
-{
-string pointWord = (prestige_points == 1) ? "point" : "points";
-speak_buffer("You have " + string(prestige_points) + " prestige " + pointWord + " available to spend.", "misc");
-}
 if(key_pressed(KEY_R))
 {
 string rCookyWord = (cookies == 1) ? "cooky" : "cookies";
