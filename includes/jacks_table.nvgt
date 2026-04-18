@@ -10,6 +10,7 @@ class jacks_config
     bool confirm_use_percent = false;
     string win_sound = "jackwin(1,4).ogg";
     string lose_sound = "lose.ogg";
+    string push_sound = "jackpush.ogg";
     string player_draw_sound = "jackplayer.ogg";
     string dealer_draw_sound = "jackdealer.ogg";
     string natural_message = "Blackjack! You hit a natural 21 and win %win%!";
@@ -55,6 +56,7 @@ void parse_jacks_table(string filepath, jacks_config@ cfg)
         else if (key == "push_multiplier") cfg.push_multiplier = string_to_number(val);
         else if (key == "win_sound") cfg.win_sound = val;
         else if (key == "lose_sound") cfg.lose_sound = val;
+        else if (key == "push_sound") cfg.push_sound = val;
         else if (key == "player_draw_sound") cfg.player_draw_sound = val;
         else if (key == "dealer_draw_sound") cfg.dealer_draw_sound = val;
         else if (key == "natural_message") cfg.natural_message = val;

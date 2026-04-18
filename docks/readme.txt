@@ -798,6 +798,9 @@ Supports random range syntax, for example jackwin(1,4).ogg picks randomly from j
 lose_sound
 Sound to play when the player busts or loses to the dealer.
 
+push_sound
+Sound to play when the round ends in a tie.
+
 player_draw_sound
 Sound to play when the player draws a card.
 

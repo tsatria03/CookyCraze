@@ -902,6 +902,7 @@ check_achievements(loadedAchievements, achievementsUnlocked);
                 else if (selectedBet == 2) { autocooky += returned; autocooky = floor(autocooky); }
                 else if (selectedBet == 3) { cookyspeed += returned; clicktime -= returned; cookyspeed = floor(cookyspeed); }
                 else if (selectedBet == 4) { manulcooky += returned; manulcooky = floor(manulcooky); }
+                pool.play_stationary("sounds/misc/" + resolve_sound(jacksConfig.push_sound), false);
                 string msg = jacksConfig.push_message;
                 int ph = msg.find("%score%");
                 while (ph != -1) { msg = msg.substr(0, ph) + string(p_points) + msg.substr(ph + 7); ph = msg.find("%score%"); }
