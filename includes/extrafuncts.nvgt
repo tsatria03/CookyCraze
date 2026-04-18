@@ -770,6 +770,16 @@ void set_save_slot(int slot)
 void minigame_input(string game)
 {
     buffer_check_keys();
+    if (key_pressed(KEY_C)) speak_buffer("You have " + format_number(cookies) + " cookies.");
+    if (key_pressed(KEY_A)) speak_buffer("You have " + format_number(autocooky) + " auto cookies.");
+    if (key_pressed(KEY_S)) speak_buffer("You have " + format_number(cookyspeed) + " auto cookie speeds.");
+    if (key_pressed(KEY_M)) speak_buffer("You have " + format_number(manulcooky) + " manual cookies.");
+    if (key_pressed(KEY_O))
+    {
+        pool.destroy_sound(coinslot);
+        if (coins > 0) coinslot = pool.play_stationary("sounds/misc/cointoss.ogg", false);
+        speak_buffer("You have " + convert_to_currency(coins) + ".");
+    }
     if (control_is_down())
     {
         if (key_pressed(KEY_S))
@@ -807,16 +817,6 @@ void minigame_input(string game)
             else if (game == "lottery")   lotterygame();
             else if (game == "dice")      dicegame();
         }
-    }
-    if (key_pressed(KEY_C)) speak_buffer("You have " + format_number(cookies) + " cookies.");
-    if (key_pressed(KEY_A)) speak_buffer("You have " + format_number(autocooky) + " auto cookies.");
-    if (key_pressed(KEY_S)) speak_buffer("You have " + format_number(cookyspeed) + " auto cookie speeds.");
-    if (key_pressed(KEY_M)) speak_buffer("You have " + format_number(manulcooky) + " manual cookies.");
-    if (key_pressed(KEY_O))
-    {
-        pool.destroy_sound(coinslot);
-        if (coins > 0) coinslot = pool.play_stationary("sounds/misc/cointoss.ogg", false);
-        speak_buffer("You have " + convert_to_currency(coins) + ".");
     }
 }
 void mini_wait_async(int milliseconds, string minigame)

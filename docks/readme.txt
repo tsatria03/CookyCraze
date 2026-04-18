@@ -141,9 +141,9 @@ A configurable confirmation prompt can be set to appear when your bet reaches a 
 Dice roller. Unlocked at rank 40.
 Roll a set of dice against a target score you set yourself and bet an item of your choice on the outcome.
 
-Before rolling, choose your dice type from a list of available sided dice, how many dice to roll, and a modifier to add or subtract from the total. Then enter a target score in the target input and place your bet. Hitting or beating the target wins a payout scaled to how far you exceeded it. Falling short loses the bet.
+Before rolling, choose an item to bet, then select your dice type, how many dice to roll, and a modifier to add or subtract from the total. Next, enter your bet amount and a target score. When betting money, you can enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers. Hitting or beating the target wins a payout scaled to how far you exceeded it. Falling short loses the bet.
 
-The higher you set the target relative to what your dice can realistically roll, the greater the potential payout. A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold. The dice types, modifier options, payout tiers, sounds, and bet limits are all configurable in dice.table.
+The higher you set the target relative to what your dice can realistically roll, the greater the potential payout. If the target you enter is mathematically impossible to reach with your current dice type, count, and modifier, the game will block the roll and tell you the maximum possible score so you can adjust your settings. Keep in mind that negative modifiers can push the maximum possible roll below zero, making most targets unreachable, so use large negative modifiers with care. A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold. The dice types, modifier options, payout tiers, sounds, and bet limits are all configurable in dice.table.
 
 You can roll manually, or enable automatic rolling in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
@@ -836,12 +836,6 @@ Sound to play when the dice are rolled. Relative to sounds/minigames/. Supports 
 
 land_sound
 Sound to play when the dice land. Relative to sounds/minigames/. Supports random range syntax.
-
-win_sound
-Sound to play when the player wins.
-
-lose_sound
-Sound to play when the player loses.
 
 Payouts section.
 Format: margin:multiplier:sound:message

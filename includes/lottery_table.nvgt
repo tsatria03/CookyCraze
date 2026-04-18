@@ -30,7 +30,7 @@ class lottery_ticket_item
     bool hidden;
     string prize_id;
     string description;
-    int owned;
+    double owned;
 }
 
 int lotteryMaxTickets = 0;
@@ -113,7 +113,7 @@ lottery_prize_item@ pick_lottery_prize(string prize_id)
 
 double get_ticket_current_cost(lottery_ticket_item@ ticket)
 {
-    return floor(ticket.base_cost * pow(ticket.cost_multiplier, ticket.owned));
+    return floor(safe_cap(ticket.base_cost * pow(ticket.cost_multiplier, ticket.owned)));
 }
 
 string apply_lottery_prize(lottery_prize_item@ prize)
@@ -189,7 +189,7 @@ void lottery_scratch_one(lottery_ticket_item@ ticket, int ticketIdx)
 
 void lottery_scratch_all(lottery_ticket_item@ ticket, int ticketIdx)
 {
-    int count = loadedTickets[ticketIdx].owned;
+    double count = loadedTickets[ticketIdx].owned;
     loadedTickets[ticketIdx].owned = 0;
     stat_lottery_tickets_scratched += count;
     double totalCoins = 0;

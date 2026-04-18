@@ -264,7 +264,7 @@ if(clicktime>=1000)
 {
 clicktime=1000;
 }
-if(form.get_current_focus()!=betChoice and form.get_current_focus()!=betInput and form.get_current_focus()!=symbolChoices)
+if(form.get_current_focus()!=betInput)
 {
 slots_game_input();
 }
@@ -500,7 +500,7 @@ void jackgame()
         if(manulcooky<=0) manulcooky=0;
         if(clicktime<=50) clicktime=50;
         if(clicktime>=1000) clicktime=1000;
-        if (form.get_current_focus() != betChoice && form.get_current_focus() != betInput)
+        if (form.get_current_focus() != betInput)
             jack_game_input();
         if (key_pressed(KEY_ESCAPE))
         {
@@ -842,6 +842,12 @@ void dicegame()
 {
     form.reset();
     form.create_window("Dice Roller", false);
+    int betChoice = form.create_list("Choose an item to &bet:", 5, false, false);
+    form.add_list_item(betChoice, "Cookies");
+    form.add_list_item(betChoice, "Currency");
+    form.add_list_item(betChoice, "Auto Cookies");
+    form.add_list_item(betChoice, "Auto Cookie Speeds");
+    form.add_list_item(betChoice, "Manual Cookies");
     uint typeCount = diceConfig.dice_types.length();
     int diceTypeList = form.create_list("Dice &Type:", typeCount, false, false);
     for (uint i = 0; i < typeCount; i++)
@@ -850,11 +856,11 @@ void dicegame()
     for (uint i = 0; i < typeCount; i++)
         if (diceConfig.dice_types[typeCount - 1 - i] == 6) { defaultTypeIdx = i; break; }
     form.set_list_position(diceTypeList, defaultTypeIdx);
-    int diceCountList = form.create_list("&Number of Dice:", diceConfig.max_dice_count, false, false);
+    int diceCountList = form.create_list("Dice &Number:", diceConfig.max_dice_count, false, false);
     for (int i = diceConfig.max_dice_count; i >= 1; i--)
         form.add_list_item(diceCountList, string(i) + (i == 1 ? " die" : " dice"), "", -1, false);
     form.set_list_position(diceCountList, diceConfig.max_dice_count - 6);
-    int modifierList = form.create_list("&Modifier:", diceConfig.modifiers.length(), false, false);
+    int modifierList = form.create_list("Dice &Modifier:", diceConfig.modifiers.length(), false, false);
     uint modCount = diceConfig.modifiers.length();
     for (uint i = 0; i < modCount; i++)
     {
@@ -866,18 +872,12 @@ void dicegame()
     for (uint i = 0; i < modCount; i++)
         if (diceConfig.modifiers[modCount - 1 - i] == 0) { defaultModIdx = i; break; }
     form.set_list_position(modifierList, defaultModIdx);
-    int betChoice = form.create_list("Choose an item to &bet:", 5, false, false);
-    form.add_list_item(betChoice, "Cookies");
-    form.add_list_item(betChoice, "Currency");
-    form.add_list_item(betChoice, "Auto Cookies");
-    form.add_list_item(betChoice, "Auto Cookie Speeds");
-    form.add_list_item(betChoice, "Manual Cookies");
     int betInput = form.create_input_box("Enter your b&et amount:", "", "", 0, false, false, false);
     int targetInput = form.create_input_box("Enter your &target score:", "", "", 0, false, false, false);
     int rollButton = form.create_button("&Roll", true);
     form.set_disallowed_chars(betInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~_", false, "This character is not allowed.");
-    form.set_disallowed_chars(targetInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~_", false, "This character is not allowed.");
-    form.focus(diceTypeList);
+    form.set_disallowed_chars(targetInput, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,<>?/+-=`~_.", false, "This character is not allowed.");
+    form.focus(betChoice);
     int selectedBet = 0;
     double betAmount = 0;
     string betItemName = "";
@@ -892,7 +892,8 @@ void dicegame()
         if (manulcooky <= 0) manulcooky = 0;
         if (clicktime <= 50) clicktime = 50;
         if (clicktime >= 1000) clicktime = 1000;
-        dice_game_input();
+        if (form.get_current_focus() != betInput && form.get_current_focus() != targetInput)
+            dice_game_input();
         if (key_pressed(KEY_ESCAPE))
         {
             pool.destroy_sound(gameslot);
@@ -967,7 +968,7 @@ void dicegame()
             if (target < diceConfig.min_target)
             {
                 pool.play_stationary("sounds/misc/gamefail.ogg", false);
-                dlg_buffer("Error! The minimum target is " + string(diceConfig.min_target) + ".");
+                dlg_buffer("Error! Please enter a minimum target score of at least " + string(diceConfig.min_target) + "to roll the dice.");
                 continue;
             }
             int diceTypeIdx = form.get_list_position(diceTypeList);

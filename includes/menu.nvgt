@@ -617,11 +617,11 @@ void lottery_buy_menu()
                 }
                 else
                 {
-                    int canBuy = 0;
+                    double canBuy = 0;
                     if (lotteryMaxTickets > 0)
-                        canBuy = int(min(double(lotteryMaxTickets - t.owned), floor(coins / cost)));
+                        canBuy = min(double(lotteryMaxTickets) - t.owned, floor(coins / cost));
                     else
-                        canBuy = int(floor(coins / cost));
+                        canBuy = floor(coins / cost);
                     label += " You can buy " + string(canBuy) + ".";
                 }
                 if (t.description != "") label += " Description: " + t.description;
@@ -657,14 +657,14 @@ void lottery_buy_menu()
                 continue;
             }
             double cost = get_ticket_current_cost(@ticket);
-            int maxCanBuy = 0;
+            double maxCanBuy = 0;
             if (lotteryMaxTickets > 0)
-                maxCanBuy = int(min(double(lotteryMaxTickets - ticket.owned), floor(coins / cost)));
+                maxCanBuy = min(double(lotteryMaxTickets) - ticket.owned, floor(coins / cost));
             else
-                maxCanBuy = int(floor(coins / cost));
+                maxCanBuy = floor(coins / cost);
             vd.set_disallowed_chars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ !@#$%^&*()[]{};:'\"\\|,.<>?/+-=`~_", false, "This character is not allowed.");
             string qInput = vd.input_box("", "How many " + ticket.name + "s would you like to buy? Press enter to buy the maximum amount.", string(maxCanBuy > 0 ? maxCanBuy : 1));
-            int qty = string_to_int(qInput);
+            double qty = string_to_number(qInput);
             if (qty <= 0)
             {
                 pool.play_stationary("sounds/misc/storefail.ogg", false);
@@ -678,10 +678,10 @@ void lottery_buy_menu()
                 dlgmessage_return("Error! You can't afford " + format_number(qty) + " " + ticket.name + (qty != 1 ? "s" : "") + "!");
                 continue;
             }
-            if (lotteryMaxTickets > 0 && ticket.owned + qty > lotteryMaxTickets)
+            if (lotteryMaxTickets > 0 && ticket.owned + qty > double(lotteryMaxTickets))
             {
                 pool.play_stationary("sounds/misc/storefail.ogg", false);
-                dlgmessage_return("You can only hold " + string(lotteryMaxTickets) + " tickets of this type. You currently have " + string(ticket.owned) + ".");
+                dlgmessage_return("You can only hold " + string(lotteryMaxTickets) + " tickets of this type. You currently have " + format_number(ticket.owned) + ".");
                 continue;
             }
             coins -= totalCost;
@@ -693,7 +693,7 @@ void lottery_buy_menu()
             pool.play_stationary("sounds/misc/store_order.ogg", false);
             string plural = (qty == 1) ? "" : "s";
             string ownedPlural = (loadedTickets[ticketIdx].owned == 1) ? "" : "s";
-            dlgmessage_return("You bought " + string(qty) + " " + ticket.name + plural + " for " + convert_to_currency(totalCost) + ". You now have " + string(loadedTickets[ticketIdx].owned) + " " + ticket.name + ownedPlural + " in your inventory.");
+            dlgmessage_return("You bought " + format_number(qty) + " " + ticket.name + plural + " for " + convert_to_currency(totalCost) + ". You now have " + format_number(loadedTickets[ticketIdx].owned) + " " + ticket.name + ownedPlural + " in your inventory.");
         }
     }
 }
@@ -966,6 +966,8 @@ void bakermenu()
 }
 void bakercategorymenu(store_item[]@ items, string chosenMenu)
 {
+    while (true)
+    {
     setupmenu2();
     for (uint i = 0; i < items.length(); i++)
     {
@@ -1030,8 +1032,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             pool.destroy_sound(alertslot);
             pool.play_stationary("sounds/misc/storefail.ogg", false);
             dlgmessage_return("Error! Please enter a valid number to buy!");
-            bakercategorymenu(items, chosenMenu);
-            return;
+            continue;
         }
         double totalSpent = 0;
         double autoGained = 0, manulGained = 0, speedGained = 0;
@@ -1116,8 +1117,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         }
         else
             speak("Nothing affordable to buy.");
-        bakercategorymenu(items, chosenMenu);
-        return;
+        continue;
     }
     for (uint i = 0; i < items.length(); i++)
     {
@@ -1125,8 +1125,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         {
             pool.play_stationary("sounds/misc/storefail.ogg", false);
             dlgmessage_return("This item is locked. You need to reach rank " + string(items[i].min_rank) + " to purchase it.");
-            bakercategorymenu(items, chosenMenu);
-            return;
+            break;
         }
         if (sel != "item" + string(i)) continue;
         double level = (items[i].target == 2) ? manulcooky_purchases : (items[i].target == 3) ? cookyspeed_purchases : autocooky_purchases;
@@ -1147,8 +1146,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             pool.destroy_sound(alertslot);
             pool.play_stationary("sounds/misc/storefail.ogg", false);
             dlgmessage_return("Error! Please enter a valid number to buy!");
-            bakercategorymenu(items, chosenMenu);
-            return;
+            break;
         }
         double totalCost = calc_total_upgrade_cost(level, quantity, items[i].base_cost, items[i].cost_multiplier);
         if (coins >= totalCost)
@@ -1199,7 +1197,6 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
                 itemWord = itemName + "s";
             stat_singles_purchased++;
             dlgmessage_return("Purchase successful! You bought " + format_number(quantity) + " " + itemWord + " for " + convert_to_currency(totalCost) + ". Next upgrade will cost " + convert_to_currency(nextCost) + ".");
-            bakercategorymenu(items, chosenMenu);
         }
         else
         {
@@ -1215,10 +1212,10 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             else
                 errWord = errName + "s";
             dlgmessage_return("Error! You can't afford " + format_number(quantity) + " " + errWord + "!");
-            bakercategorymenu(items, chosenMenu);
         }
-        return;
+        break;
     }
+    } // end while
 }
 void bundlemenu()
 {
@@ -1303,6 +1300,8 @@ void bundlemenu()
 }
 void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@ storeItems)
 {
+    while (true)
+    {
     setupmenu2();
     for (uint i = 0; i < bundles.length(); i++)
     {
@@ -1396,9 +1395,9 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         int maxPasses = (onePassCost > 0) ? int(floor(coins / onePassCost)) : 1;
         if (maxPasses < 1) maxPasses = 1;
         string qInput = vd.input_box("", "How many of each affordable bundle would you like to buy? Press enter to buy the maximum amount.", string(maxPasses));
-        if (qInput == "") { bundlecategorymenu(bundles, chosenMenu, storeItems); return; }
+        if (qInput == "") { continue; }
         int passes = string_to_int(qInput);
-        if (passes < 1) { pool.play_stationary("sounds/misc/storefail.ogg", false); dlgmessage_return("Please enter a number greater than zero. Press enter or space to continue."); bundlecategorymenu(bundles, chosenMenu, storeItems); return; }
+        if (passes < 1) { pool.play_stationary("sounds/misc/storefail.ogg", false); dlgmessage_return("Please enter a number greater than zero. Press enter or space to continue."); continue; }
         double totalSpent = 0;
         double autoGained = 0, manulGained = 0, speedGained = 0;
         string[] boughtNames;
@@ -1463,16 +1462,14 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         }
         else
             speak("Nothing affordable to buy.");
-        bundlecategorymenu(bundles, chosenMenu, storeItems);
-        return;
+        continue;
     }
     if (sel.substr(0, 6) == "locked")
     {
         int idx = string_to_int(sel.substr(6));
         pool.play_stationary("sounds/misc/storefail.ogg", false);
         dlgmessage_return("This bundle is locked. You need to reach rank " + string(bundles[idx].min_rank) + " to purchase it.");
-        bundlecategorymenu(bundles, chosenMenu, storeItems);
-        return;
+        continue;
     }
     if (sel.substr(0, 6) == "bundle")
     {
@@ -1499,16 +1496,14 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
             pool.destroy_sound(alertslot);
             pool.play_stationary("sounds/misc/storefail.ogg", false);
             dlgmessage_return("Error! Please enter a valid number to buy!");
-            bundlecategorymenu(bundles, chosenMenu, storeItems);
-            return;
+            continue;
         }
         double grandTotal = totalCost * qty;
         if (coins < grandTotal)
         {
             pool.play_stationary("sounds/misc/storefail.ogg", false);
             dlgmessage_return("Error! You can't afford " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + "!");
-            bundlecategorymenu(bundles, chosenMenu, storeItems);
-            return;
+            continue;
         }
         coins -= grandTotal;
         stat_coins_spent += grandTotal;
@@ -1568,9 +1563,9 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
         pool.play_stationary("sounds/misc/store_order.ogg", false);
         dlgmessage_return("Purchase successful! You bought " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + " for " + convert_to_currency(grandTotal) + ". You gained " + gainLog + ". Next bundle will cost " + convert_to_currency(nextBundleCost) + ".");
-        bundlecategorymenu(bundles, chosenMenu, storeItems);
-        return;
+        continue;
     }
+    } // end while
 }
 
 void add_auto_slots()

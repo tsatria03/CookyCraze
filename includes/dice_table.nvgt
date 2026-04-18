@@ -19,8 +19,6 @@ class dice_config
     int max_target = 0;
     string shake_sound = "dice_roller/shake.ogg";
     string land_sound = "dice_roller/land(1,2).ogg";
-    string win_sound = "dice_roller/win.ogg";
-    string lose_sound = "dice_roller/lose.ogg";
     dice_payout[] payouts;
 }
 
@@ -51,8 +49,6 @@ void parse_dice_table(string filepath)
             else if (key == "max_dice_count") diceConfig.max_dice_count = max(1, string_to_int(val));
             else if (key == "shake_sound") diceConfig.shake_sound = val;
             else if (key == "land_sound") diceConfig.land_sound = val;
-            else if (key == "win_sound") diceConfig.win_sound = val;
-            else if (key == "lose_sound") diceConfig.lose_sound = val;
             else if (key == "confirm_threshold")
             {
                 int colon = val.find(":");
