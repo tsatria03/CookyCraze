@@ -685,6 +685,23 @@ void prestige_store_menu()
         questsmenu();
         return;
     }
+    bool anyLeft = false;
+    for (uint i = 0; i < items.length(); i++)
+    {
+        if (prestigeLevel < items[i].min_level) continue;
+        bool alreadyBought = false;
+        for (uint k = 0; k < prestigePurchased.length(); k++)
+        {
+            if (prestigePurchased[k] == items[i].item_id) { alreadyBought = true; break; }
+        }
+        if (!alreadyBought) { anyLeft = true; break; }
+    }
+    if (!anyLeft)
+    {
+        dlgmessage_return("You have purchased every available upgrade in the prestige store. Keep prestiging to unlock more.");
+        questsmenu();
+        return;
+    }
     setupmenu2();
     for (uint i = 0; i < menus.length(); i++)
     {
@@ -746,6 +763,24 @@ void prestige_store_menu()
 }
 void prestige_store_category_menu(prestige_store_item[]@ items, string chosenMenu)
 {
+    bool anyAvailable = false;
+    for (uint i = 0; i < items.length(); i++)
+    {
+        if (items[i].menu != chosenMenu) continue;
+        bool alreadyBought = false;
+        for (uint k = 0; k < prestigePurchased.length(); k++)
+        {
+            if (prestigePurchased[k] == items[i].item_id) { alreadyBought = true; break; }
+        }
+        if (!alreadyBought) { anyAvailable = true; break; }
+    }
+    if (!anyAvailable)
+    {
+        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        dlgmessage_return("You have purchased all available upgrades in this category.");
+        prestige_store_menu();
+        return;
+    }
     setupmenu2();
     for (uint i = 0; i < items.length(); i++)
     {

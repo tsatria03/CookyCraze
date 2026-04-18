@@ -334,7 +334,7 @@ Passive Bonuses contains upgrades that permanently boost your cookie production 
 
 Head Start contains upgrades that give you bonus resources at the beginning of each new run, such as starting coins, auto cookies, or manual cookies.
 
-Each upgrade in the prestige store can only be purchased once. Locked items and categories follow the same show locked items setting as the other shops. Items locked behind a higher prestige level show the required level when show locked items is enabled, or are hidden entirely when it is disabled.
+Each upgrade in the prestige store can only be purchased once. Once bought, it is removed from the shop permanently. If all upgrades in a category are purchased, entering that category shows a message instead of an empty menu. If all upgrades available at your current prestige level are purchased, opening the store returns you to the quests screen with a message reminding you that more upgrades unlock at higher prestige levels. Locked items and categories follow the same show locked items setting as the other shops. Items locked behind a higher prestige level show the required level when show locked items is enabled, or are hidden entirely when it is disabled.
 
 All prestige store upgrades, costs, point requirements, and effects are fully configurable in prestige.store.
 
