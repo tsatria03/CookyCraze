@@ -169,7 +169,7 @@ if (prestige)
             questsDoneThisRun++;
     }
     mark_completed_quests();
-    prestige_points += prestigeConfig.points_per_prestige * int(completedQuestIds.length());
+    prestige_points += prestigeConfig.points_per_prestige * int(completedQuestIds.get_size());
     reset_game_state();
     string rewardSummary = "";
     if (rewardEarned)
@@ -204,14 +204,14 @@ if (prestige)
     historyEntry.rank_reached = rankReached;
     historyEntry.reward = rewardSummary;
     prestigeHistory.insert_last(historyEntry);
-    int pointsEarned = prestigeConfig.points_per_prestige * int(completedQuestIds.length());
+    int pointsEarned = prestigeConfig.points_per_prestige * int(completedQuestIds.get_size());
     show_prestige_summary(prestigeLevel, rankReached, questsDoneThisRun, questsTotalThisRun, rewardSummary, pointsEarned);
 }
 else
 {
     achievementsUnlocked.delete_all();
     achievements_last_id="";
-    completedQuestIds.resize(0);
+    completedQuestIds.delete_all();
     prestigeHistory.resize(0);
     stat_jack_hands=0;
     stat_jack_wins=0;
