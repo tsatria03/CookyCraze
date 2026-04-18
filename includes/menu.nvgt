@@ -742,7 +742,7 @@ void prestige_store_menu()
     }
     m.add_item("back", "back");
     string pointWord = (prestige_points == 1) ? "point" : "points";
-    m.intro_text = "Prestige store. Please choose a category. You have " + string(prestige_points) + " prestige " + pointWord + " available to spend.";
+    m.intro_text = "Prestige store. Please choose a category to brows. You have " + string(prestige_points) + " prestige " + pointWord + " available to spend.";
     int mres = m.run(0, true);
     string sel = m.get_item_id(mres);
     if (mres == -1 || sel == "back")

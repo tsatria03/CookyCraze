@@ -23,6 +23,15 @@ headstartmenu:starting_coins_2:10:1:false:100:Begin each run with $1.00 already 
 headstartmenu:starting_autocooky_2:10:1:false:5:Begin each run with 5 auto cookies already baked in.
 headstartmenu:starting_manualcooky_2:15:1:false:5:Begin each run with 5 manual cookies ready to go.
 
+; Prestige level 2
+
+passivemenu:cookie_multiplier_6:15:2:false:3:A permanent 3% boost to all cookie production. Stacks with every purchase.
+passivemenu:coin_multiplier_6:15:2:false:3:A permanent 3% boost to all money earned from selling cookies. Stacks with every purchase.
+passivemenu:rank_discount_6:20:2:false:2:Reduces the cookies needed to rank up by 2%. Stacks with every purchase.
+headstartmenu:starting_coins_6:15:2:false:200:Begin each run with $2.00 already in your pocket.
+headstartmenu:starting_autocooky_6:15:2:false:8:Begin each run with 8 auto cookies already baked in.
+headstartmenu:starting_manualcooky_6:15:2:false:8:Begin each run with 8 manual cookies ready to go.
+
 ; Prestige level 3
 
 passivemenu:cookie_multiplier_3:25:3:false:5:A permanent 5% boost to all cookie production. Stacks with every purchase.
@@ -32,6 +41,15 @@ headstartmenu:starting_coins_3:25:3:false:500:Begin each run with $5.00 already 
 headstartmenu:starting_autocooky_3:25:3:false:15:Begin each run with 15 auto cookies already baked in.
 headstartmenu:starting_manualcooky_3:25:3:false:15:Begin each run with 15 manual cookies ready to go.
 
+; Prestige level 4
+
+passivemenu:cookie_multiplier_7:35:4:false:6:A permanent 6% boost to all cookie production. Stacks with every purchase.
+passivemenu:coin_multiplier_7:35:4:false:6:A permanent 6% boost to all money earned from selling cookies. Stacks with every purchase.
+passivemenu:rank_discount_7:40:4:false:4:Reduces the cookies needed to rank up by 4%. Stacks with every purchase.
+headstartmenu:starting_coins_7:35:4:false:1000:Begin each run with $10.00 already in your pocket.
+headstartmenu:starting_autocooky_7:35:4:false:25:Begin each run with 25 auto cookies already baked in.
+headstartmenu:starting_manualcooky_7:35:4:false:25:Begin each run with 25 manual cookies ready to go.
+
 ; Prestige level 5
 
 passivemenu:cookie_multiplier_4:50:5:false:10:A permanent 10% boost to all cookie production. Stacks with every purchase.
@@ -40,6 +58,42 @@ passivemenu:rank_discount_4:100:5:false:5:Reduces the cookies needed to rank up 
 headstartmenu:starting_coins_4:50:5:false:2000:Begin each run with $20.00 already in your pocket.
 headstartmenu:starting_autocooky_4:50:5:false:50:Begin each run with 50 auto cookies already baked in.
 headstartmenu:starting_manualcooky_4:50:5:false:50:Begin each run with 50 manual cookies ready to go.
+
+; Prestige level 6
+
+passivemenu:cookie_multiplier_8:60:6:false:12:A permanent 12% boost to all cookie production. Stacks with every purchase.
+passivemenu:coin_multiplier_8:60:6:false:12:A permanent 12% boost to all money earned from selling cookies. Stacks with every purchase.
+passivemenu:rank_discount_8:75:6:false:6:Reduces the cookies needed to rank up by 6%. Stacks with every purchase.
+headstartmenu:starting_coins_8:60:6:false:3000:Begin each run with $30.00 already in your pocket.
+headstartmenu:starting_autocooky_8:60:6:false:75:Begin each run with 75 auto cookies already baked in.
+headstartmenu:starting_manualcooky_8:60:6:false:75:Begin each run with 75 manual cookies ready to go.
+
+; Prestige level 7
+
+passivemenu:cookie_multiplier_9:70:7:false:15:A permanent 15% boost to all cookie production. Stacks with every purchase.
+passivemenu:coin_multiplier_9:70:7:false:15:A permanent 15% boost to all money earned from selling cookies. Stacks with every purchase.
+passivemenu:rank_discount_9:80:7:false:7:Reduces the cookies needed to rank up by 7%. Stacks with every purchase.
+headstartmenu:starting_coins_9:70:7:false:5000:Begin each run with $50.00 already in your pocket.
+headstartmenu:starting_autocooky_9:70:7:false:100:Begin each run with 100 auto cookies already baked in.
+headstartmenu:starting_manualcooky_9:70:7:false:100:Begin each run with 100 manual cookies ready to go.
+
+; Prestige level 8
+
+passivemenu:cookie_multiplier_10:80:8:false:18:A permanent 18% boost to all cookie production. Stacks with every purchase.
+passivemenu:coin_multiplier_10:80:8:false:18:A permanent 18% boost to all money earned from selling cookies. Stacks with every purchase.
+passivemenu:rank_discount_10:90:8:false:8:Reduces the cookies needed to rank up by 8%. Stacks with every purchase.
+headstartmenu:starting_coins_10:80:8:false:7500:Begin each run with $75.00 already in your pocket.
+headstartmenu:starting_autocooky_10:80:8:false:125:Begin each run with 125 auto cookies already baked in.
+headstartmenu:starting_manualcooky_10:80:8:false:125:Begin each run with 125 manual cookies ready to go.
+
+; Prestige level 9
+
+passivemenu:cookie_multiplier_11:90:9:false:20:A permanent 20% boost to all cookie production. Stacks with every purchase.
+passivemenu:coin_multiplier_11:90:9:false:20:A permanent 20% boost to all money earned from selling cookies. Stacks with every purchase.
+passivemenu:rank_discount_11:95:9:false:9:Reduces the cookies needed to rank up by 9%. Stacks with every purchase.
+headstartmenu:starting_coins_11:90:9:false:9000:Begin each run with $90.00 already in your pocket.
+headstartmenu:starting_autocooky_11:90:9:false:135:Begin each run with 135 auto cookies already baked in.
+headstartmenu:starting_manualcooky_11:90:9:false:135:Begin each run with 135 manual cookies ready to go.
 
 ; Prestige level 10
 
