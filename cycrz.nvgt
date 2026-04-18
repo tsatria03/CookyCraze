@@ -169,6 +169,7 @@ if (prestige)
             questsDoneThisRun++;
     }
     mark_completed_quests();
+    prestige_points += prestigeConfig.points_per_prestige * int(completedQuestIds.length());
     reset_game_state();
     string rewardSummary = "";
     if (rewardEarned)

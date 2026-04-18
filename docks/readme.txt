@@ -334,6 +334,17 @@ Passive Bonuses contains upgrades that permanently boost your cookie production 
 
 Head Start contains upgrades that give you bonus resources at the beginning of each new run, such as starting coins, auto cookies, or manual cookies.
 
+How upgrades work.
+Unlike the normal shop and bundle shop, the prestige store uses a one-time purchase system. Every upgrade in the store can only be bought once, ever. Once purchased, the upgrade is immediately active and stays active permanently across every future run, including after further prestiges. You will never need to buy it again, and you cannot buy it a second time even if you wanted to.
+
+Passive bonus upgrades work as multipliers layered on top of your existing stats. For example, buying a cookie multiplier upgrade does not add to your auto cookie or manual cookie counts directly. Instead, every time a bake fires, the output is multiplied by the bonus percentage. So if you normally produce 100 cookies per bake and you have a 5% cookie multiplier, you produce 105 instead. The higher your stats grow through the normal shop, the more noticeable the multiplier becomes. Similarly, a coin multiplier does not change your cookie sell price. It multiplies the total payout after the price is applied, so larger sell batches benefit more.
+
+Head start upgrades work differently. They add a flat amount directly to your stats at the very start of each new run, before you have bought anything from the normal shop. For example, starting with 5 auto cookies means your run begins as if you had already purchased 5 auto cookies, giving you a head start on production without having to earn them from scratch.
+
+Both types take effect immediately after purchase. You do not need to prestige again for them to apply.
+
+Since each upgrade can only be bought once, the store shrinks over time as you work through it. Once you have purchased everything available at your current prestige level, the store has nothing left to offer until you reach a higher prestige level that unlocks new items. If you have bought every item across all prestige levels, the store is permanently empty and points accumulate with nowhere to go. This makes the prestige store most valuable in the early and middle stages of your prestige journey, where the bonuses meaningfully reduce the grind of each new run.
+
 Each upgrade in the prestige store can only be purchased once. Once bought, it is removed from the shop permanently. If all upgrades in a category are purchased, entering that category shows a message instead of an empty menu. If all upgrades available at your current prestige level are purchased, opening the store returns you to the quests screen with a message reminding you that more upgrades unlock at higher prestige levels. Locked items and categories follow the same show locked items setting as the other shops. Items locked behind a higher prestige level show the required level when show locked items is enabled, or are hidden entirely when it is disabled.
 
 All prestige store upgrades, costs, point requirements, and effects are fully configurable in prestige.store.

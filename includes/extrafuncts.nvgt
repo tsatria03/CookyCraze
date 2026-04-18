@@ -586,6 +586,8 @@ void apply_all_prestige_store_upgrades()
             double amt = items[j].amount;
             if (id.substr(0, 17) == "cookie_multiplier")
                 prestige_cookie_multiplier += amt;
+            else if (id.substr(0, 15) == "coin_multiplier")
+                prestige_coin_multiplier += amt;
             else if (id.substr(0, 13) == "rank_discount")
                 prestige_rank_discount += amt;
             else if (id.substr(0, 14) == "starting_coins")
@@ -608,7 +610,7 @@ void show_prestige_summary(int level, int rankReached, int questsDone, int quest
     if (pointsEarned > 0)
     {
         string pointWord = (pointsEarned == 1) ? "point" : "points";
-        txt += "Your dedication paid off! You banked " + string(pointsEarned) + " prestige " + pointWord + " to spend in the prestige store.\r\n";
+        txt += "Your dedication paid off! You earned " + string(pointsEarned) + " prestige " + pointWord + " to spend in the prestige store.\r\n";
     }
     else
         txt += "No prestige points were earned this run. Complete quests before prestiging to earn points.\r\n";

@@ -1,4 +1,6 @@
 New in 5.7.
+Fixed a bug where the prestige store purchase confirmation message would append the item description after the success message. It now says only the item name and cost.
+Fixed a bug where the prestige store always showed 0 prestige points even after earning them. Points were being calculated before quests were marked as completed, so the count was always empty. Points are now calculated after quest completion is recorded, so the correct amount is always shown.
 Added a coin multiplier upgrade type to the prestige store. Purchasing coin multiplier upgrades permanently increases all money earned from selling cookies by a percentage, stacking across every run.
 Made it so each upgrade in the prestige store can only be purchased once. If all available upgrades in a category are purchased, entering that category shows a message instead of an empty menu. If all upgrades available at your current prestige level are purchased, opening the store returns you to the quests screen with a message.
 Added a prestige points display to the prestige store. When you open the store, the intro text announces how many prestige points you have available to spend.

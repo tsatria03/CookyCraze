@@ -4,7 +4,6 @@ passivemenu=Passive Bonuses|0|false|Permanent upgrades that boost your baking pr
 headstartmenu=Head Start|0|false|Upgrades that give you a resource boost at the start of each new run.
 
 ; Items
-; Format: menu:item_id:cost:min_level:hidden:amount:description
 
 ; Prestige level 0
 

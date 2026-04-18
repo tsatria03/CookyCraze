@@ -742,7 +742,7 @@ void prestige_store_menu()
     }
     m.add_item("back", "back");
     string pointWord = (prestige_points == 1) ? "point" : "points";
-    m.intro_text = "Prestige store. You have " + string(prestige_points) + " prestige " + pointWord + " available to spend. Please choose a category.";
+    m.intro_text = "Prestige store. Please choose a category. You have " + string(prestige_points) + " prestige " + pointWord + " available to spend.";
     int mres = m.run(0, true);
     string sel = m.get_item_id(mres);
     if (mres == -1 || sel == "back")
@@ -835,7 +835,7 @@ void prestige_store_category_menu(prestige_store_item[]@ items, string chosenMen
         pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
         pool.play_stationary("sounds/misc/store_order.ogg", false);
         string pointWord = (items[i].cost == 1) ? "point" : "points";
-        dlgmessage_return("Purchase successful! You bought " + string_replace(items[i].item_id, "_", " ", true) + " for " + string(items[i].cost) + " prestige " + pointWord + ". " + items[i].description);
+        dlgmessage_return("Purchase successful! You bought " + string_replace(items[i].item_id, "_", " ", true) + " for " + string(items[i].cost) + " prestige " + pointWord + ".");
         prestige_store_category_menu(items, chosenMenu);
         return;
     }
@@ -2174,7 +2174,6 @@ void start_prestige()
     }
     ambpool.pause_sound(ambslot);
     muspool.pause_sound(mustrackslot);
-    prestige_points += prestigeConfig.points_per_prestige * int(completedQuestIds.length());
     writedata();
     resetgame(true);
     writedata();
