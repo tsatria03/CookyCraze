@@ -321,7 +321,7 @@ bool all_quests_complete()
 
 bool quests_reward_earned()
 {
-    if (questsConfig.require_all == 1) return any_quest_complete();
+    if (questsConfig.require_all == 1) return false;
     if (questsConfig.require_all == 2) return any_quest_complete();
     if (questsConfig.require_all == 3) return all_quests_complete();
     return false;

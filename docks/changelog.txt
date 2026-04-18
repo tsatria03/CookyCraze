@@ -1,3 +1,9 @@
+New in 5.8.
+Fixed a bug where the quest reroll cannot afford message would say 10 cents more instead of 10 more cents when the shortfall was less than a dollar. Dollar amounts and non-currency stats now also follow the same natural word order.
+Fixed a bug where blackjack win messages would append the word currency after a formatted dollar amount when betting currency, resulting in output like you gained $5.20 currency. The item label is now omitted when the bet type is currency, since the dollar format already makes the unit clear.
+Fixed a bug where the require_all quest setting modes 1 and 2 were swapped, causing mode 1 to behave like mode 2 and vice versa. Mode 1 now correctly gives no reward regardless of quest completion, and mode 2 now correctly requires at least one quest to be complete before a reward is given.
+Made it so the blackjack and slot machine minigames now tell you when your bet has been capped at the maximum, instead of silently adjusting it without any feedback.
+Fixed typos in the save slot error message and the manual baking message where associated and manual cooky were spelled incorrectly.
 New in 5.7.
 Expanded the prestige store with 6 upgrades per prestige level across all 11 levels, from level 0 through level 10, for a total of 66 one-time purchases. New levels 2, 4, 6, 7, 8, and 9 now have their own upgrade tiers, filling in the gaps in the original progression.
 Fixed a bug where the prestige store always showed 0 prestige points even after earning them. Points were being calculated before quests were marked as completed, so the count was always empty. Points are now calculated after quest completion is recorded, so the correct amount is always shown.

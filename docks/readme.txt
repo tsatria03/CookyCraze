@@ -174,9 +174,9 @@ Earnings per sell: how much money you would earn if you sold your entire current
 Prestige level: how many times you have prestiged. Starts at 0 on a fresh save.
 Prestige reward condition: describes what you need to complete to receive a reward on your next prestige, based on the require_all setting in quests.table.
 
-Mode 1 means the reward fires if any quest happens to be complete.
-Mode 2 means at least one quest must be complete.
-Mode 3 means all quests must be complete, and shows the total count.
+Mode 1 means no reward is given, regardless of how many quests are complete.
+Mode 2 means at least one quest must be complete to receive a reward.
+Mode 3 means all quests must be complete to receive a reward, and shows the total count.
 
 Quests completed: how many of your active quests are currently complete.
 
@@ -1106,7 +1106,7 @@ The maximum number of quests the player can have active at once. Required quests
 require_all
 Controls when the player receives a prestige reward. Prestige is always available once the minimum rank is met regardless of this setting.
 
-1 = rewards fire only if any quest happens to be complete. Prestiging with no quests done shows nothing was gained.
+1 = no reward is given, regardless of quest completion. Prestiging always shows nothing was gained.
 2 = at least one quest must be complete to receive a reward. Prestiging without completing any quest shows nothing was gained.
 3 = all quests must be complete to receive a reward. Prestiging without completing all quests shows nothing was gained.
 

@@ -108,7 +108,7 @@ if(form.is_pressed(manulbake))
 {
 if(manulcooky<1)
 {
-speak_buffer("You need at least 1 manule cooky to start baking cookies.", "general");
+speak_buffer("You need at least 1 manual cooky to start baking cookies.", "general");
 }
 else if(manulcooky>=1)
 {

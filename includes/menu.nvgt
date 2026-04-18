@@ -161,7 +161,7 @@ else
 {
 m.fade_music();
 alertslot=pool.play_stationary("sounds/dlg/error.ogg",false);
-dlg("Error! The data assosiated with this save slot does not exist!");
+dlg("Error! The data associated with this save slot does not exist!");
 pool.destroy_sound(alertslot);
 ingame=false;
 gamemenu();
@@ -2119,7 +2119,19 @@ void questsmenu()
                     else if (rerollUnit == "manulcooky") rerollUnit = "manual cookies";
                     else if (rerollUnit == "cookyspeed") rerollUnit = "cooky speeds";
                 }
-                dlgmessage_return("You cannot afford to reroll this quest. You need " + (questsConfig.reroll_target == "coins" ? " " + convert_to_currency(rerollShortfall) : format_number(rerollShortfall) + " " + rerollUnit) + " more to do this.");
+                string rerollCostStr;
+                if (questsConfig.reroll_target == "coins")
+                {
+                    string cs = convert_to_currency(rerollShortfall);
+                    int spacePos = cs.find(" ");
+                    if (spacePos != -1)
+                        rerollCostStr = cs.substr(0, spacePos) + " more " + cs.substr(spacePos + 1);
+                    else
+                        rerollCostStr = cs + " more";
+                }
+                else
+                    rerollCostStr = format_number(rerollShortfall) + " more " + rerollUnit;
+                dlgmessage_return("You cannot afford to reroll this quest. You need " + rerollCostStr + " to do this.");
                 form.reset();
                 questsmenu();
                 return;

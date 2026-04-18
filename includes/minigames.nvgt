@@ -286,7 +286,10 @@ betAmount = floor(selectedBet == 1 ? string_to_number(betStr) * 100.0 : string_t
                 continue;
             }
             if (slotMaxBet > 0 && betAmount > slotMaxBet)
+            {
+                dlg_buffer("Your bet has been capped at the maximum of " + (selectedBet == 1 ? convert_to_currency(slotMaxBet) : format_number(slotMaxBet)) + ".");
                 betAmount = slotMaxBet;
+            }
             if (selectedBet == 0) betAmount = min(betAmount, floor(cookies));
             else if (selectedBet == 1) betAmount = min(betAmount, floor(coins));
             else if (selectedBet == 2) betAmount = min(betAmount, floor(autocooky));
@@ -523,7 +526,11 @@ check_achievements(loadedAchievements, achievementsUnlocked);
                 continue;
             }
             if (jacksConfig.max_bet > 0 && betNum > jacksConfig.max_bet)
+            {
+                pool.play_stationary("sounds/misc/gamefail.ogg", false);
+                dlg_buffer("Your bet has been capped at the maximum of " + (selectedBet == 1 ? convert_to_currency(jacksConfig.max_bet) : format_number(jacksConfig.max_bet)) + ".");
                 betNum = jacksConfig.max_bet;
+            }
             if (selectedBet == 0) betNum = min(betNum, floor(cookies));
             else if (selectedBet == 1) betNum = min(betNum, floor(coins));
             else if (selectedBet == 2) betNum = min(betNum, floor(autocooky));
@@ -589,8 +596,9 @@ check_achievements(loadedAchievements, achievementsUnlocked);
                 while (ph != -1) { msg = msg.substr(0, ph) + winStr + msg.substr(ph + 5); ph = msg.find("%win%"); }
                 ph = msg.find("%bet%");
                 while (ph != -1) { msg = msg.substr(0, ph) + betStr + msg.substr(ph + 5); ph = msg.find("%bet%"); }
+                string itemStr = (selectedBet == 1) ? "" : betItemName;
                 ph = msg.find("%item%");
-                while (ph != -1) { msg = msg.substr(0, ph) + betItemName + msg.substr(ph + 6); ph = msg.find("%item%"); }
+                while (ph != -1) { int start = (itemStr == "" && ph > 0 && msg.substr(ph - 1, 1) == " ") ? ph - 1 : ph; msg = msg.substr(0, start) + itemStr + msg.substr(ph + 6); ph = msg.find("%item%"); }
                 dlg_buffer(msg);
                 in_round = false;
                 betAmount = 0;
@@ -674,8 +682,9 @@ check_achievements(loadedAchievements, achievementsUnlocked);
                 while (ph != -1) { msg = msg.substr(0, ph) + string(d_points) + msg.substr(ph + 8); ph = msg.find("%dealer%"); }
                 ph = msg.find("%win%");
                 while (ph != -1) { msg = msg.substr(0, ph) + winStr2 + msg.substr(ph + 5); ph = msg.find("%win%"); }
+                string itemStr2 = (selectedBet == 1) ? "" : betItemName;
                 ph = msg.find("%item%");
-                while (ph != -1) { msg = msg.substr(0, ph) + betItemName + msg.substr(ph + 6); ph = msg.find("%item%"); }
+                while (ph != -1) { int start = (itemStr2 == "" && ph > 0 && msg.substr(ph - 1, 1) == " ") ? ph - 1 : ph; msg = msg.substr(0, start) + itemStr2 + msg.substr(ph + 6); ph = msg.find("%item%"); }
                 dlg_buffer(msg);
             }
             else if (outcome == -1)
