@@ -2,25 +2,26 @@ New in 5.7.
 Added a prestige points display to the prestige store. When you open the store, the intro text announces how many prestige points you have available to spend.
 Added a points_per_prestige field to prestige.table. Prestige points are awarded per completed quest at the time of prestige, calculated as points_per_prestige multiplied by the number of quests completed that run.
 Updated the prestige summary screen to show how many prestige points were earned for that run, and to inform the player if no points were earned due to completing no quests.
+Added prestige.store, a new configuration file in data/config/stores that defines the prestige store categories and upgrades. Each upgrade has a cost in prestige points, a minimum prestige level requirement, a hidden flag, an amount, and a description.
 Added the prestige store, a new shop accessible from the quests screen after your first prestige. Spend prestige points earned by completing quests before prestiging on permanent upgrades that carry into every future run.
 Fixed a bug where buffer navigation sounds would continue playing when navigating past the first or last position in both buffer categories and buffer items. Sounds now only play when the position actually changes.
+New in 5.6.
 Fixed a bug where buffer navigation sounds were not panning correctly due to arguments being passed in the wrong order. Pan and volume now work as expected.
 Added panning to buffer navigation sounds. Both category and item navigation sounds now pan left to right based on position.
 Fixed a bug where buffer navigation sounds could play at a pitch below 5, causing them to be barely audible. The pitch is now clamped to a minimum of 20.
 Added shift plus left bracket and shift plus right bracket shortcuts to jump directly to the first and last buffer categories respectively.
 Added a push_sound field to jacks.table. A sound now plays when a blackjack round ends in a tie, configurable in jacks.table and defaulting to jackpush.ogg.
-New in 5.6.
 Fixed a plurality bug in the singles and bundle shop purchase success messages where buying a single auto or manual upgrade would say 1 auto cookie or 1 manual cookie instead of 1 auto cooky or 1 manual cooky.
 Corrected the unlock order of the cooky lottery and slot machine in the readme. The cooky lottery unlocks at rank 30 and the slot machine unlocks at rank 40, and the order now reflects this throughout.
 Moved the ticket shop description from the cooky lottery minigame section to its own section under the general game features, reflecting that ticket purchasing is part of the main shop menu.
 Added a note to the bundle shop, singles shop, and ticket shop sections clarifying that the show locked items setting in game settings controls whether locked items and categories are visible.
 Added a note to the baker.event chance field clarifying that the per-event chance works alongside the global event enable checkboxes and chance sliders in game settings, and that all checks must pass for an event to fire.
+New in 5.5.
 Added a note to the achievements.table category alias section clarifying that categories cannot be hidden directly, and that the game hides a category automatically when all of its achievements are hidden and none have been unlocked.
 Clarified the bundle shop bulk buy description to accurately reflect that both the singles shop and bundle shop support bulk buying, and explained the difference between the two approaches.
 Rephrased the compounding multiplier warning in singles.store to express the price ceiling in dollars rather than as a raw coin count.
 Rephrased the full passes wording in the bundle shop section to be clearer about what the maximum quantity represents.
 Moved the buffer description from the keyboard commands section to the general game features section, where it better fits as feature documentation rather than key reference material.
-New in 5.5.
 Fixed a bug where the First Earnings and Pocket Change achievements would fire immediately on a new game due to stat_coins_earned being incorrectly reset to 100 instead of 0. They now trigger at the correct thresholds of 50 cents and $1.00.
 Fixed a bug where the First Earnings and Pocket Change achievements were silent and would never announce when unlocked. They now correctly play a sound and announce like other achievements.
 Fixed a bug where the slot machine minimum bet error message displayed the raw coin value instead of a currency amount when betting currency. It now correctly reads as cents or dollars.
