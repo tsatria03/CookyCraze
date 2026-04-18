@@ -12,8 +12,8 @@ confirm_threshold=1000:false
 
 ; Required header — removing or renaming this will break the file.
 
-5:4:slotwin1.ogg:You won 4 times your bet!
-4:3:slotwin1.ogg:You won triple your bet!
-3:2:slotwin2.ogg:You won double your bet!
-2:0.5:slotwin3.ogg:You won half your bet!
-0:0:slotlose.ogg:You lost the bet!
+5:4:slot_machine/win1.ogg:You won 4 times your bet!
+4:3:slot_machine/win2.ogg:You won triple your bet!
+3:2:slot_machine/win3.ogg:You won double your bet!
+2:0.5:slot_machine/win1.ogg:You won half your bet!
+0:0:slot_machine/lose.ogg:You lost the bet!

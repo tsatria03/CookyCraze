@@ -1,4 +1,9 @@
 New in 5.8.
+Reorganized all minigame sounds into dedicated subfolders under sounds/minigames, covering the slot machine, blackjack, cooky lottery, and cooky flipper. Config table files now use short relative paths like blackjack/win.ogg instead of pointing directly into sounds/misc.
+Fixed a bug where blackjack in manual mode would force you to wait 1 to 2 seconds between each card even though you were controlling the pace yourself. Cards now deal instantly in manual mode, matching the same behavior as the slot machine.
+Fixed an inconsistency in the readme where the prestige store section incorrectly stated that both upgrade types take effect immediately after purchase. Head start upgrades do not apply to your current run and only take effect at the start of your next run after prestiging.
+Fixed a bug where the prestige rank discount upgrade had no effect when ranking up inside any of the four minigames. The discount now applies correctly regardless of which screen you are playing on.
+Fixed a bug where the coin sound would not play after selling cookies.
 Fixed a bug where the quest reroll cannot afford message would say 10 cents more instead of 10 more cents when the shortfall was less than a dollar. Dollar amounts and non-currency stats now also follow the same natural word order.
 Fixed a bug where blackjack win messages would append the word currency after a formatted dollar amount when betting currency, resulting in output like you gained $5.20 currency. The item label is now omitted when the bet type is currency, since the dollar format already makes the unit clear.
 Fixed a bug where the require_all quest setting modes 1 and 2 were swapped, causing mode 1 to behave like mode 2 and vice versa. Mode 1 now correctly gives no reward regardless of quest completion, and mode 2 now correctly requires at least one quest to be complete before a reward is given.

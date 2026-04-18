@@ -821,7 +821,7 @@ void jack_deal_card(bool to_player, int&inout p_points, int&inout p_aces, int&in
     string sname = (s == 1 ? "Hearts" : (s == 2 ? "Diamonds" : (s == 3 ? "Clubs" : "Spades")));
     if (to_player)
     {
-        pool.play_stationary("sounds/misc/" + resolve_sound(jacksConfig.player_draw_sound), false);
+        pool.play_stationary("sounds/minigames/" + resolve_sound(jacksConfig.player_draw_sound), false);
         p_points += v;
         if (v == 11) p_aces++;
         while (p_points > 21 && p_aces > 0)
@@ -834,7 +834,7 @@ void jack_deal_card(bool to_player, int&inout p_points, int&inout p_aces, int&in
     }
     else
     {
-        pool.play_stationary("sounds/misc/" + resolve_sound(jacksConfig.dealer_draw_sound), false);
+        pool.play_stationary("sounds/minigames/" + resolve_sound(jacksConfig.dealer_draw_sound), false);
         d_points += v;
         if (v == 11) d_aces++;
         while (d_points > 21 && d_aces > 0)

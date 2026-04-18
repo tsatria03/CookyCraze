@@ -159,7 +159,7 @@ void lottery_scratch_one(lottery_ticket_item@ ticket, int ticketIdx)
 {
     loadedTickets[ticketIdx].owned--;
     stat_lottery_tickets_scratched++;
-    pool.play_stationary("sounds/misc/tickscratch.ogg", false);
+    pool.play_stationary("sounds/minigames/cooky_lottery/scratch.ogg", false);
     if (lotterymode)
         mini_wait_async(random(1000, 2000), "lottery");
     else
@@ -174,14 +174,14 @@ void lottery_scratch_one(lottery_ticket_item@ ticket, int ticketIdx)
     {
         stat_lottery_losses++;
         if (prize.sound != "" && prize.sound != "none")
-            pool.play_stationary("sounds/misc/" + resolve_sound(prize.sound), false);
+            pool.play_stationary("sounds/minigames/" + resolve_sound(prize.sound), false);
         dlg_buffer(prize.message);
     }
     else
     {
         stat_lottery_wins++;
         if (prize.sound != "" && prize.sound != "none")
-            pool.play_stationary("sounds/misc/" + resolve_sound(prize.sound), false);
+            pool.play_stationary("sounds/minigames/" + resolve_sound(prize.sound), false);
         string result = apply_lottery_prize(@prize);
         dlg_buffer(result);
     }
@@ -199,7 +199,7 @@ void lottery_scratch_all(lottery_ticket_item@ ticket, int ticketIdx)
     double totalCookyspeed = 0;
     int wins = 0;
     int losses = 0;
-    pool.play_stationary("sounds/misc/tickscratch.ogg", false);
+    pool.play_stationary("sounds/minigames/cooky_lottery/scratch.ogg", false);
     wait(500);
     for (int i = 0; i < count; i++)
     {
@@ -234,8 +234,9 @@ void lottery_scratch_all(lottery_ticket_item@ ticket, int ticketIdx)
     if (totalCookyspeed > 0) { cookyspeed += totalCookyspeed; clicktime -= totalCookyspeed; if (cookyspeed < 0) cookyspeed = 0; if (clicktime < 50) clicktime = 50; cookyspeed = floor(cookyspeed); }
     stat_lottery_wins += wins;
     stat_lottery_losses += losses;
-    string endSound = (wins > 0) ? "tickwin.ogg" : "ticklose" + string(random(1, 3)) + ".ogg";
-    pool.play_stationary("sounds/misc/" + endSound, false);
+    string endSound = (wins > 0) ? "sounds/minigames/cooky_lottery/win.ogg" : "sounds/minigames/cooky_lottery/lose" + string(random(1, 3)) + ".ogg";
+    pool.play_stationary(endSound, false);
+
     string summary = "You scratched " + string(count) + " " + ticket.name + (count == 1 ? "" : "s") + ". ";
     summary += string(wins) + " win" + (wins == 1 ? "" : "s") + ", " + string(losses) + " loss" + (losses == 1 ? "" : "es") + ". ";
     bool anygain = false;

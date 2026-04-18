@@ -10,11 +10,11 @@ confirm_threshold=1000:false
 
 ; Sounds
 
-win_sound=jackwin.ogg
-lose_sound=jacklose.ogg
-push_sound=jackpush.ogg
-player_draw_sound=jackplayer.ogg
-dealer_draw_sound=jackdeal.ogg
+win_sound=blackjack/win.ogg
+lose_sound=blackjack/lose.ogg
+push_sound=blackjack/push.ogg
+player_draw_sound=blackjack/player_draw.ogg
+dealer_draw_sound=blackjack/dealer_draw.ogg
 
 ; Messages
 
