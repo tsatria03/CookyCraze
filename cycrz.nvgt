@@ -50,6 +50,7 @@ parse_lottery_table("data/config/tables/lottery.table");
 parse_tickets_store("data/config/stores/tickets.store");
 assign_quests();
 readdata();
+apply_all_prestige_store_upgrades();
 init_achievements(loadedAchievements, achievementsUnlocked);
 readpreffs();
 readpreffs2();
@@ -202,7 +203,8 @@ if (prestige)
     historyEntry.rank_reached = rankReached;
     historyEntry.reward = rewardSummary;
     prestigeHistory.insert_last(historyEntry);
-    show_prestige_summary(prestigeLevel, rankReached, questsDoneThisRun, questsTotalThisRun, rewardSummary);
+    int pointsEarned = prestigeConfig.points_per_prestige * int(completedQuestIds.length());
+    show_prestige_summary(prestigeLevel, rankReached, questsDoneThisRun, questsTotalThisRun, rewardSummary, pointsEarned);
 }
 else
 {
@@ -266,5 +268,9 @@ activeQuests.resize(0);
 assign_quests();
 flipperHistory.resize(0);
 rerollHistory.resize(0);
+if (prestige_starting_coins > 0) { coins += prestige_starting_coins; stat_coins_earned += prestige_starting_coins; }
+if (prestige_starting_autocooky > 0) autocooky += prestige_starting_autocooky;
+if (prestige_starting_manualcooky > 0) manulcooky += prestige_starting_manualcooky;
 cookiesrequiered = (cookymod * (rank * (rank * difmod)));
+if (prestige_rank_discount > 0) cookiesrequiered *= max(0.01, 1.0 - (prestige_rank_discount / 100.0));
 }

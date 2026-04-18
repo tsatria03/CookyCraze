@@ -384,6 +384,7 @@ void reload_config()
     loadedQuests.resize(0);
     parse_quests_table("data/config/tables/quests.table", loadedQuests);
     assign_quests();
+    apply_all_prestige_store_upgrades();
 }
 
 
@@ -540,13 +541,74 @@ void show_prestige_history()
     }
 }
 
-void show_prestige_summary(int level, int rankReached, int questsDone, int questsTotal, string reward)
+void apply_prestige_store_upgrade(string item_id)
+{
+    prestige_store_item[] items;
+    prestige_store_menu[] menus;
+    parse_prestige_store("data/config/stores/prestige.store", items, menus);
+    for (uint i = 0; i < items.length(); i++)
+    {
+        if (items[i].item_id != item_id) continue;
+        string id = items[i].item_id;
+        double amt = items[i].amount;
+        if (id.substr(0, 17) == "cookie_multiplier")
+            prestige_cookie_multiplier += amt;
+        else if (id.substr(0, 13) == "rank_discount")
+            prestige_rank_discount += amt;
+        else if (id.substr(0, 14) == "starting_coins")
+            prestige_starting_coins += amt;
+        else if (id.substr(0, 17) == "starting_autocooky")
+            prestige_starting_autocooky += amt;
+        else if (id.substr(0, 19) == "starting_manualcooky")
+            prestige_starting_manualcooky += amt;
+        break;
+    }
+}
+void apply_all_prestige_store_upgrades()
+{
+    prestige_cookie_multiplier = 0;
+    prestige_rank_discount = 0;
+    prestige_starting_coins = 0;
+    prestige_starting_autocooky = 0;
+    prestige_starting_manualcooky = 0;
+    prestige_store_item[] items;
+    prestige_store_menu[] menus;
+    parse_prestige_store("data/config/stores/prestige.store", items, menus);
+    for (uint i = 0; i < prestigePurchased.length(); i++)
+    {
+        for (uint j = 0; j < items.length(); j++)
+        {
+            if (items[j].item_id != prestigePurchased[i]) continue;
+            string id = items[j].item_id;
+            double amt = items[j].amount;
+            if (id.substr(0, 17) == "cookie_multiplier")
+                prestige_cookie_multiplier += amt;
+            else if (id.substr(0, 13) == "rank_discount")
+                prestige_rank_discount += amt;
+            else if (id.substr(0, 14) == "starting_coins")
+                prestige_starting_coins += amt;
+            else if (id.substr(0, 17) == "starting_autocooky")
+                prestige_starting_autocooky += amt;
+            else if (id.substr(0, 19) == "starting_manualcooky")
+                prestige_starting_manualcooky += amt;
+            break;
+        }
+    }
+}
+void show_prestige_summary(int level, int rankReached, int questsDone, int questsTotal, string reward, int pointsEarned = 0)
 {
     string txt = "Prestige level " + string(level) + " summary.\r\n";
     txt += "\r\n";
     txt += "Rank reached: " + string(rankReached) + "\r\n";
     txt += "Quests completed: " + string(questsDone) + " of " + string(questsTotal) + "\r\n";
     txt += "Reward: " + reward + "\r\n";
+    if (pointsEarned > 0)
+    {
+        string pointWord = (pointsEarned == 1) ? "point" : "points";
+        txt += "Your dedication paid off! You banked " + string(pointsEarned) + " prestige " + pointWord + " to spend in the prestige store.\r\n";
+    }
+    else
+        txt += "No prestige points were earned this run. Complete quests before prestiging to earn points.\r\n";
     form.reset();
     form.create_window("Prestige summary", false);
     int summaryBox = form.create_input_box("Prestige summary", txt, read_only:true, multiline:true);

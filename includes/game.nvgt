@@ -122,6 +122,7 @@ else if(manulcooky>=1)
     }
     else
         manualGain = manulcooky;
+    if (prestige_cookie_multiplier > 0) manualGain *= 1.0 + (prestige_cookie_multiplier / 100.0);
     cookies += manualGain;
 stat_cookies_baked += manualGain;
 stat_manual_bakes_performed++;
@@ -171,6 +172,7 @@ else
 {
 autoGain = autocooky;
 }
+if (prestige_cookie_multiplier > 0) autoGain *= 1.0 + (prestige_cookie_multiplier / 100.0);
 cookies += autoGain;
 stat_cookies_baked += autoGain;
 stat_auto_bakes_performed++;
@@ -188,6 +190,7 @@ if (cookies >= cookiesrequiered)
 {
     rank += 1;
     cookiesrequiered = (cookymod * (rank * (rank * difmod)));
+    if (prestige_rank_discount > 0) cookiesrequiered *= max(0.01, 1.0 - (prestige_rank_discount / 100.0));
     if (rankDefault.length() > 0)
     {
         string defaultMsg = apply_rank_reward(rankDefault[0], rank);
@@ -318,6 +321,11 @@ if(key_pressed(KEY_M))
 pool.destroy_sound(coinslot);
 if(coins>0) coinslot=pool.play_stationary("sounds/misc/cointoss.ogg", false);
 speak_buffer("You have " + convert_to_currency(coins) + " available to spend", "misc");
+}
+if(key_pressed(KEY_P))
+{
+string pointWord = (prestige_points == 1) ? "point" : "points";
+speak_buffer("You have " + string(prestige_points) + " prestige " + pointWord + " available to spend.", "misc");
 }
 if(key_pressed(KEY_R))
 {

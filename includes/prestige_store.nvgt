@@ -1,0 +1,120 @@
+class prestige_store_menu
+{
+    string alias;
+    string name;
+    int min_level;
+    bool hidden;
+    string description;
+}
+
+class prestige_store_item
+{
+    string item_id;
+    int cost;
+    int min_level;
+    bool hidden;
+    bool purchased;
+    double amount;
+    string menu;
+    string description;
+}
+
+void parse_prestige_store(string filepath, prestige_store_item[]@ items_out, prestige_store_menu[]@ menus_out)
+{
+    file f;
+    if (!f.open(filepath, "r"))
+        return;
+    prestige_store_menu[] menuDefs;
+    dictionary menuAliases;
+    while (!f.eof)
+    {
+        string line = f.read_line();
+        while (line.length() > 0 && (line.substr(line.length() - 1) == "\n" || line.substr(line.length() - 1) == "\r"))
+            line = line.substr(0, line.length() - 1);
+        if (line.length() == 0 || line.substr(0, 2) == "//" || line.substr(0, 1) == "#" || line.substr(0, 1) == ";")
+            continue;
+        int eq = line.find("=");
+        if (eq != -1)
+        {
+            string alias = line.substr(0, eq);
+            string rest = line.substr(eq + 1);
+            prestige_store_menu sm;
+            sm.alias = alias;
+            int pipe1 = rest.find("|");
+            if (pipe1 != -1)
+            {
+                sm.name = rest.substr(0, pipe1);
+                string rest2 = rest.substr(pipe1 + 1);
+                int pipe2 = rest2.find("|");
+                if (pipe2 != -1)
+                {
+                    sm.min_level = string_to_int(rest2.substr(0, pipe2));
+                    string rest3 = rest2.substr(pipe2 + 1);
+                    int pipe3 = rest3.find("|");
+                    if (pipe3 != -1)
+                    {
+                        sm.hidden = (rest3.substr(0, pipe3) == "true");
+                        sm.description = rest3.substr(pipe3 + 1);
+                    }
+                    else
+                    {
+                        sm.hidden = (rest3 == "true");
+                        sm.description = "";
+                    }
+                }
+                else
+                {
+                    sm.min_level = string_to_int(rest2);
+                    sm.hidden = false;
+                    sm.description = "";
+                }
+            }
+            else
+            {
+                sm.name = rest;
+                sm.min_level = 0;
+                sm.hidden = false;
+                sm.description = "";
+            }
+            menuAliases.set(alias, sm.name);
+            menuDefs.insert_last(sm);
+            continue;
+        }
+        string[] parts;
+        int lastPos = 0;
+        int colonCount = 0;
+        for (uint i = 0; i < line.length(); i++)
+        {
+            if (line.substr(i, 1) == ":" && colonCount < 6)
+            {
+                parts.insert_last(line.substr(lastPos, i - lastPos));
+                lastPos = i + 1;
+                colonCount++;
+            }
+        }
+        parts.insert_last(line.substr(lastPos));
+        if (parts.length() < 7)
+            continue;
+        prestige_store_item item;
+        string menuAlias = parts[0];
+        if (menuAliases.exists(menuAlias))
+        {
+            string resolvedMenu;
+            menuAliases.get(menuAlias, resolvedMenu);
+            item.menu = resolvedMenu;
+        }
+        else
+            item.menu = menuAlias;
+        item.item_id = parts[1];
+        item.cost = string_to_int(parts[2]);
+        item.min_level = string_to_int(parts[3]);
+        item.hidden = (parts[4] == "true");
+        item.amount = string_to_number(parts[5]);
+        item.purchased = false;
+        item.description = parts[6];
+        items_out.insert_last(item);
+    }
+    for (uint i = 0; i < menuDefs.length(); i++)
+        menus_out.insert_last(menuDefs[i]);
+    f.close();
+}

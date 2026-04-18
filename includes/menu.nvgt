@@ -674,6 +674,135 @@ void lottery_buy_menu()
     }
 }
 
+void prestige_store_menu()
+{
+    prestige_store_item[] items;
+    prestige_store_menu[] menus;
+    parse_prestige_store("data/config/stores/prestige.store", items, menus);
+    if (items.length() == 0)
+    {
+        dlgmessage_return("Error! Could not load the prestige store items.");
+        questsmenu();
+        return;
+    }
+    setupmenu2();
+    for (uint i = 0; i < menus.length(); i++)
+    {
+        if (menus[i].min_level > 0 && prestigeLevel < menus[i].min_level)
+        {
+            if (menus[i].hidden || !show_locked_shops) continue;
+            string label = menus[i].name + ". Unlocked at prestige level " + string(menus[i].min_level) + ".";
+            if (menus[i].description != "")
+                label += " Description: " + menus[i].description;
+            m.add_item(label, "locked" + string(i));
+        }
+        else
+        {
+            int totalItems = 0;
+            int affordableItems = 0;
+            for (uint j = 0; j < items.length(); j++)
+            {
+                if (items[j].menu != menus[i].name) continue;
+                if (items[j].hidden && prestigeLevel < items[j].min_level) continue;
+                bool alreadyBought = false;
+                for (uint k = 0; k < prestigePurchased.length(); k++)
+                {
+                    if (prestigePurchased[k] == items[j].item_id) { alreadyBought = true; break; }
+                }
+                if (alreadyBought) continue;
+                totalItems++;
+                if (prestigeLevel < items[j].min_level) continue;
+                if (prestige_points >= items[j].cost)
+                    affordableItems++;
+            }
+            string itemWord = (totalItems == 1) ? "item" : "items";
+            string label = menus[i].name + ". Contains " + string(affordableItems) + " out of " + string(totalItems) + " purchasable " + itemWord + ".";
+            if (menus[i].description != "")
+                label += " Description: " + menus[i].description;
+            m.add_item(label, "cat" + string(i));
+        }
+    }
+    m.add_item("back", "back");
+    m.intro_text = "Prestige store. Please choose a category.";
+    int mres = m.run(0, true);
+    string sel = m.get_item_id(mres);
+    if (mres == -1 || sel == "back")
+    {
+        questsmenu();
+        return;
+    }
+    if (sel.substr(0, 6) == "locked")
+    {
+        int idx = string_to_int(sel.substr(6));
+        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        dlgmessage_return("This category is locked. You need to reach prestige level " + string(menus[idx].min_level) + " to access it.");
+        prestige_store_menu();
+        return;
+    }
+    int catIndex = string_to_int(sel.substr(3));
+    string chosenMenu = menus[catIndex].name;
+    prestige_store_category_menu(items, chosenMenu);
+}
+void prestige_store_category_menu(prestige_store_item[]@ items, string chosenMenu)
+{
+    setupmenu2();
+    for (uint i = 0; i < items.length(); i++)
+    {
+        if (items[i].menu != chosenMenu) continue;
+        bool alreadyBought = false;
+        for (uint k = 0; k < prestigePurchased.length(); k++)
+        {
+            if (prestigePurchased[k] == items[i].item_id) { alreadyBought = true; break; }
+        }
+        if (alreadyBought) continue;
+        if (prestigeLevel < items[i].min_level)
+        {
+            if (items[i].hidden || !show_locked_shops) continue;
+            m.add_item(items[i].item_id + ". Unlocked at prestige level " + string(items[i].min_level) + ". Description: " + items[i].description, "locked" + string(i));
+            continue;
+        }
+        string pointWord = (items[i].cost == 1) ? "point" : "points";
+        m.add_item(string_replace(items[i].item_id, "_", " ", true) + ", costs " + string(items[i].cost) + " prestige " + pointWord + ". Description: " + items[i].description, "item" + string(i));
+    }
+    m.add_item("back", "back");
+    m.intro_text = chosenMenu + ".";
+    int mres = m.run(0, true);
+    string sel = m.get_item_id(mres);
+    if (mres == -1 || sel == "back")
+    {
+        prestige_store_menu();
+        return;
+    }
+    for (uint i = 0; i < items.length(); i++)
+    {
+        if (sel == "locked" + string(i))
+        {
+            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            dlgmessage_return("This item is locked. You need to reach prestige level " + string(items[i].min_level) + " to purchase it.");
+            prestige_store_category_menu(items, chosenMenu);
+            return;
+        }
+        if (sel != "item" + string(i)) continue;
+        if (prestige_points < items[i].cost)
+        {
+            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            int shortage = items[i].cost - prestige_points;
+            string shortWord = (shortage == 1) ? "point" : "points";
+            dlgmessage_return("Error! You can't afford this upgrade. You need " + string(shortage) + " more prestige " + shortWord + ".");
+            prestige_store_category_menu(items, chosenMenu);
+            return;
+        }
+        prestige_points -= items[i].cost;
+        prestigePurchased.insert_last(items[i].item_id);
+        apply_prestige_store_upgrade(items[i].item_id);
+        pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
+        pool.play_stationary("sounds/misc/store_order.ogg", false);
+        string pointWord = (items[i].cost == 1) ? "point" : "points";
+        dlgmessage_return("Purchase successful! You bought " + string_replace(items[i].item_id, "_", " ", true) + " for " + string(items[i].cost) + " prestige " + pointWord + ". " + items[i].description);
+        prestige_store_category_menu(items, chosenMenu);
+        return;
+    }
+}
 void buymenu()
 {
     setupmenu2();
@@ -1770,6 +1899,9 @@ void questsmenu()
     bool lastRewardEarned = quests_reward_earned();
     string prestigeLabel = !prestigeAvailable ? "&Prestige, unlocked at rank " + string(prestigeConfig.min_rank) : (lastRewardEarned ? "&Prestige, reward available" : "&Prestige, no reward available");
     int prestigeBtn = form.create_button(prestigeLabel);
+    int prestigeStoreBtn = -1;
+    if (prestigeHistory.length() > 0)
+        prestigeStoreBtn = form.create_button("Prestige &store");
     string prestigeHistText = "";
     if (prestigeHistory.length() == 0)
         prestigeHistText = "No prestige runs recorded yet.";
@@ -1908,6 +2040,12 @@ void questsmenu()
                 return;
             }
         }
+        if (prestigeStoreBtn != -1 && form.is_pressed(prestigeStoreBtn))
+        {
+            form.reset();
+            prestige_store_menu();
+            return;
+        }
         if (rerollBtn != -1 && form.is_pressed(rerollBtn))
         {
             int rerollPos = form.get_list_position(questList);
@@ -1999,6 +2137,7 @@ void start_prestige()
     }
     ambpool.pause_sound(ambslot);
     muspool.pause_sound(mustrackslot);
+    prestige_points += prestigeConfig.points_per_prestige * int(completedQuestIds.length());
     writedata();
     resetgame(true);
     writedata();

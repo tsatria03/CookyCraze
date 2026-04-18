@@ -317,7 +317,26 @@ The following are kept: your prestige level, all achievements and achievement pr
 
 Whether you receive a reward depends on the require_all setting in quests.table. If you have not met the quest requirement, nothing is gained.
 Certain prestige levels award a milestone reward, and all other levels fall back to a default reward if one is configured. After the prestige message you will always receive a second notification telling you what you gained.
-Once all prestige dialogs are dismissed, a summary screen appears showing the prestige level, the rank you achieved, quests completed, and what reward you received. All prestige settings and milestone rewards are fully configurable in prestige.table.
+Once all prestige dialogs are dismissed, a summary screen appears showing the prestige level, the rank you achieved, quests completed, what reward you received, and how many prestige points you earned. All prestige settings and milestone rewards are fully configurable in prestige.table.
+
+Prestige store.
+Spend prestige points on permanent upgrades that carry into every future run.
+
+The prestige store becomes available after your first prestige. A prestige store button appears in the quests screen directly below the prestige button once you have at least one completed prestige run.
+
+Prestige points are earned each time you prestige. The number of points awarded is equal to the points_per_prestige setting in prestige.table multiplied by the number of quests you completed before prestiging. If you prestige without completing any quests, you earn no points for that run.
+
+To check how many prestige points you have at any time, press P in the main game. The game announces how many points you have available to spend.
+
+The prestige store is divided into two categories.
+
+Passive Bonuses contains upgrades that permanently boost your cookie production or reduce the cookies needed to rank up, applied across every run from the moment you buy them.
+
+Head Start contains upgrades that give you bonus resources at the beginning of each new run, such as starting coins, auto cookies, or manual cookies.
+
+Each upgrade in the prestige store can only be purchased once. Locked items and categories follow the same show locked items setting as the other shops. Items locked behind a higher prestige level show the required level when show locked items is enabled, or are hidden entirely when it is disabled.
+
+All prestige store upgrades, costs, point requirements, and effects are fully configurable in prestige.store.
 
 Save slots.
 
@@ -389,7 +408,7 @@ Five of the files, ranks.table, slots.table, prestige.table, quests.table, and l
 The parser uses them to know which format to expect. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
 Each functional header has a warning comment placed directly below it inside the file as a reminder. That comment is cosmetic and can be removed, but the header itself must stay exactly as written.
 
-Five of the remaining files, baker.event, flipper.event, jacks.table, singles.store, and tickets.store, do not use functional section headers. Every line in those files follows the same format throughout.
+Six of the remaining files, baker.event, flipper.event, jacks.table, singles.store, tickets.store, and prestige.store, do not use functional section headers. Every line in those files follows the same format throughout.
 They do have commented section headers starting with a semicolon for readability, but those are purely cosmetic and can be removed or changed freely.
 
 achievements.table uses a category alias system at the top of the file, the same way singles.store defines shop menus. Category aliases are defined as alias=Full Category Name lines before any achievement entries.
@@ -957,6 +976,9 @@ Settings section.
 min_rank
 The minimum rank the player must reach before prestige becomes available.
 
+points_per_prestige
+The base number of prestige points awarded per quest completed when the player prestiges. The total points earned for a run is this value multiplied by the number of quests completed before prestiging. If the player completes no quests, they earn no points for that run.
+
 sound
 The sound file to play when the player prestiges. Relative to sounds/misc/.
 
@@ -1014,6 +1036,49 @@ message
 The message spoken when this reward is given. Use %amount% as a placeholder and it will be replaced with a summary of all items given.
 
 Use %level% as a placeholder and it will be replaced with the current prestige level number.
+
+prestige.store
+
+Location: data/config/stores/prestige.store
+
+Defines the prestige store categories and upgrades purchasable with prestige points.
+
+Menu aliases.
+
+Format: alias=Full Menu Name|min_level|hidden|Description
+
+Works the same as singles.store menu aliases, except min_level refers to the player's prestige level rather than their rank. Set min_level to 0 for a category available from the first prestige. Set hidden to true to hide the category entirely until the prestige level is reached, or false to show it as locked with the required level displayed.
+
+Item format: menu:item_id:cost:min_level:hidden:amount:description
+
+menu
+The alias of the category this item belongs to.
+
+item_id
+The internal identifier for this upgrade. Must be unique across all entries. Also used as the display name in the shop, with underscores replaced by spaces.
+
+The item_id also determines what effect the upgrade has. The game recognises the following prefixes.
+
+cookie_multiplier  = permanently increases all cookie production by a percentage each bake.
+rank_discount      = permanently reduces the cookies required to rank up by a percentage.
+starting_coins     = gives bonus coins at the start of each new run after prestige.
+starting_autocooky = gives bonus auto cookies at the start of each new run after prestige.
+starting_manualcooky = gives bonus manual cookies at the start of each new run after prestige.
+
+cost
+The number of prestige points required to purchase this upgrade.
+
+min_level
+The minimum prestige level required to see and purchase this item. Set to 0 for no requirement.
+
+hidden
+Set to true to hide this item until the prestige level is reached. Set to false to show it as locked with the required level displayed.
+
+amount
+The value applied when this upgrade is purchased. For cookie_multiplier and rank_discount this is a percentage. For starting stat upgrades this is a flat amount added at the start of each run.
+
+description
+The text shown when the player highlights this item in the prestige store.
 
 quests.table
 

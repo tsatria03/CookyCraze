@@ -99,6 +99,14 @@ else
     autobakeSlotEnabled.resize(0);
 } 
 if (sd.d.exists("prestigeLevel")) prestigeLevel = sd.read_int("prestigeLevel");
+if (sd.d.exists("prestige_points")) prestige_points = sd.read_int("prestige_points");
+if (sd.d.exists("prestigePurchasedCount"))
+{
+    int pcount = sd.read_int("prestigePurchasedCount");
+    prestigePurchased.resize(0);
+    for (int i = 0; i < pcount; i++)
+        prestigePurchased.insert_last(sd.read_string("prestigePurchased_" + string(i)));
+}
 if (sd.d.exists("questRerollCount")) questRerollCount = sd.read_int("questRerollCount");
 if (sd.d.exists("activeQuestCount"))
 {
@@ -245,6 +253,10 @@ for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
 }
 sd.add("baking_slot_count", baking_slots.length());
 sd.add("prestigeLevel", prestigeLevel);
+sd.add("prestige_points", prestige_points);
+sd.add("prestigePurchasedCount", int(prestigePurchased.length()));
+for (uint i = 0; i < prestigePurchased.length(); i++)
+    sd.add("prestigePurchased_" + string(i), prestigePurchased[i]);
 sd.add("questRerollCount", questRerollCount);
 sd.add("activeQuestCount", int(activeQuests.length()));
 for (uint i = 0; i < activeQuests.length(); i++)
