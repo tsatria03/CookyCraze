@@ -1,7 +1,8 @@
 New in 5.7.
+Fixed a bug where buffer navigation sounds would continue playing when navigating past the first or last position in both buffer categories and buffer items. Sounds now only play when the position actually changes.
 Fixed a bug where buffer navigation sounds were not panning correctly due to arguments being passed in the wrong order. Pan and volume now work as expected.
 Added panning to buffer navigation sounds. Both category and item navigation sounds now pan left to right based on position.
-Fixed a bug where buffer navigation sounds could play at a pitch below 5, causing them to be barely audible. The pitch is now clamped to a minimum of 50.
+Fixed a bug where buffer navigation sounds could play at a pitch below 5, causing them to be barely audible. The pitch is now clamped to a minimum of 20.
 Added shift plus left bracket and shift plus right bracket shortcuts to jump directly to the first and last buffer categories respectively.
 Added a push_sound field to jacks.table. A sound now plays when a blackjack round ends in a tie, configurable in jacks.table and defaulting to jackpush.ogg.
 New in 5.6.
