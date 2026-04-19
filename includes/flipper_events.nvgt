@@ -40,3 +40,10 @@ void trigger_cook_event(event_item@ item)
     play_event_sounds(item);
     dlg_buffer(msg, "events");
 }
+
+class flipper_flip_entry
+{
+    string side;
+    string event_name;
+    string outcome;
+}

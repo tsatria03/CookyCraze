@@ -22,6 +22,14 @@ class quest_item
     string description;
 }
 
+class reroll_history_entry
+{
+    string old_name;
+    string new_name;
+    double cost;
+    string target;
+}
+
 quests_config questsConfig;
 quest_item[] loadedQuests;
 quest_item[] activeQuests;

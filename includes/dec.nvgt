@@ -143,36 +143,6 @@ achievement_item[] loadedAchievements;
 achievement_category[] loadedAchievementCategories;
 dictionary achievementsUnlocked;
 
-class prestige_run
-{
-    int level;
-    int rank_reached;
-    string reward;
-}
-double prestige_coin_multiplier = 0;
-double prestige_cookie_multiplier = 0;
-double prestige_rank_discount = 0;
-double prestige_starting_autocooky = 0;
-double prestige_starting_coins = 0;
-double prestige_starting_manualcooky = 0;
-int prestige_points = 0;
-int prestigeLevel = 0;
-string[] prestigePurchased;
-prestige_run[] prestigeHistory;
-
-class flipper_flip_entry
-{
-    string side;
-    string event_name;
-    string outcome;
-}
-class reroll_history_entry
-{
-    string old_name;
-    string new_name;
-    double cost;
-    string target;
-}
 int flipperHistoryMax = 50;
 int rerollHistoryMax = 50;
 flipper_flip_entry[] flipperHistory;
@@ -212,7 +182,6 @@ string bundle_last_cat_id = "";
 string bundle_last_item_id = "";
 string last_menu_id = "";
 string shopmenu_last_id = "";
-
 int playergender = 0;
 string currentSaveSlot = APPDATA_DIR + "saves/game1.crz";
 string playername;

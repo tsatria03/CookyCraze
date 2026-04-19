@@ -14,6 +14,23 @@ class prestige_default_reward
     string message;
 }
 
+class prestige_run
+{
+    int level;
+    int rank_reached;
+    string reward;
+}
+double prestige_coin_multiplier = 0;
+double prestige_cookie_multiplier = 0;
+double prestige_rank_discount = 0;
+double prestige_starting_autocooky = 0;
+double prestige_starting_coins = 0;
+double prestige_starting_manualcooky = 0;
+int prestige_points = 0;
+int prestigeLevel = 0;
+string[] prestigePurchased;
+prestige_run[] prestigeHistory;
+
 class prestige_reward_entry
 {
     string target;
