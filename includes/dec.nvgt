@@ -1,7 +1,5 @@
-// ─── App constants ───────────────────────────────────────────────────────────
 const string APPDATA_DIR = DIRECTORY_APPDATA + "tsatria03/CookyCraze/";
 
-// ─── Feature flags / SFX toggles ─────────────────────────────────────────────
 bool achsfx = true;
 bool bakesfx = true;
 bool coinsfx = true;
@@ -22,7 +20,6 @@ bool savesfx = true;
 bool show_locked_shops = true;
 bool slotmode = true;
 
-// ─── Game state ───────────────────────────────────────────────────────────────
 double autocooky = 0;
 double cookies = 0;
 double cookiesrequiered = 10;
@@ -38,7 +35,6 @@ double usercoins = 0;
 int bakemode = 0;
 int clicktime = 1000;
 
-// ─── Purchases / economy ──────────────────────────────────────────────────────
 double autocooky_purchases = 0;
 double automationBaseCost = 15;
 double automationMultiplier = 1.01;
@@ -49,7 +45,6 @@ double manulcooky_purchases = 0;
 double slotBaseCost = 30;
 double slotMultiplier = 1.01;
 
-// ─── Baking slots ─────────────────────────────────────────────────────────────
 bool manualSlotDistribution = false;
 bool slotDistribution = false;
 int autobakeSlots = 0;
@@ -57,7 +52,6 @@ int manualSlots = 0;
 array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
 
-// ─── Stats ────────────────────────────────────────────────────────────────────
 const string STAT_AUTO_BAKES_PERFORMED    = "auto_bakes_performed";
 const string STAT_AUTO_SLOTS_ENABLED      = "auto_slots_enabled";
 const string STAT_AUTO_SLOTS_IDLE         = "auto_slots_idle";
@@ -124,13 +118,11 @@ double stat_slot_losses = 0;
 double stat_slot_spins = 0;
 double stat_slot_wins = 0;
 
-// ─── Events ───────────────────────────────────────────────────────────────────
 int evchanse = 50;
 int evchanse2 = 50;
 event_item[] loadedEvents;
 event_item[] loadedFlipperEvents;
 
-// ─── Slot machine config ──────────────────────────────────────────────────────
 bool orderedSyms = true;
 bool slotConfirmUsePercent = false;
 double slotConfirmThreshold = 0.0;
@@ -141,20 +133,16 @@ int slotReels = 5;
 string[] slotSymbols;
 payout_item[] slotPayouts;
 
-// ─── Rank config ──────────────────────────────────────────────────────────────
 rank_sound_item[] rankSounds;
 rank_reward_item[] rankDefault;
 rank_reward_item[] rankRewards;
 
-// ─── Blackjack config ─────────────────────────────────────────────────────────
 jacks_config jacksConfig;
 
-// ─── Achievements ─────────────────────────────────────────────────────────────
 achievement_item[] loadedAchievements;
 achievement_category[] loadedAchievementCategories;
 dictionary achievementsUnlocked;
 
-// ─── Prestige ─────────────────────────────────────────────────────────────────
 class prestige_run
 {
     int level;
@@ -172,7 +160,6 @@ int prestigeLevel = 0;
 string[] prestigePurchased;
 prestige_run[] prestigeHistory;
 
-// ─── History / buffers ────────────────────────────────────────────────────────
 class flipper_flip_entry
 {
     string side;
@@ -191,7 +178,6 @@ int rerollHistoryMax = 50;
 flipper_flip_entry[] flipperHistory;
 reroll_history_entry[] rerollHistory;
 
-// ─── Audio state ──────────────────────────────────────────────────────────────
 double ambpitch = 100;
 double ambvolume = 0;
 double muspitch = 100;
@@ -217,7 +203,6 @@ int stortrackslot;
 string ambtype = "room1";
 string mustype = "music1";
 
-// ─── UI / menu state ─────────────────────────────────────────────────────────
 string achievements_cat_last_id = "";
 string achievements_last_id = "";
 string baker_last_cat_id = "";
@@ -228,7 +213,6 @@ string bundle_last_item_id = "";
 string last_menu_id = "";
 string shopmenu_last_id = "";
 
-// ─── Player / session ─────────────────────────────────────────────────────────
 int playergender = 0;
 string currentSaveSlot = APPDATA_DIR + "saves/game1.crz";
 string playername;
@@ -236,7 +220,6 @@ string playername2;
 string version;
 bool config_loaded = false;
 
-// ─── Core resources ───────────────────────────────────────────────────────────
 timer clicktimer;
 file dockfile, dockver, logfile;
 audio_form form;

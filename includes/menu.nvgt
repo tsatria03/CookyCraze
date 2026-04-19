@@ -1215,7 +1215,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         }
         break;
     }
-    } // end while
+    }
 }
 void bundlemenu()
 {
@@ -1565,7 +1565,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         dlgmessage_return("Purchase successful! You bought " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + " for " + convert_to_currency(grandTotal) + ". You gained " + gainLog + ". Next bundle will cost " + convert_to_currency(nextBundleCost) + ".");
         continue;
     }
-    } // end while
+    }
 }
 
 void add_auto_slots()

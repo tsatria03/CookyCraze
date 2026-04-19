@@ -214,8 +214,6 @@ string format_number(double num, bool basic=false, bool scientific=false, bool s
         return round(value,2) + suffix_speech[tier];
 }
 
-// polarity: 1 = gain, 2 = loss. Handles coins/cookies/autocooky/manulcooky.
-// Returns actual amount applied (0 if skipped). Does not handle cookyspeed.
 double apply_amount_effect(string target, double amount, int polarity, bool use_percent)
 {
     double base = 0;
@@ -365,8 +363,6 @@ string resolve_sound(string raw)
     return raw;
 }
 
-// Resolves a sound filename to a full path. If the name contains a slash it is
-// treated as folder-qualified (e.g. "store/coin50.ogg") and default_folder is ignored.
 string resolve_sound_path(string raw, string default_folder)
 {
     string resolved = resolve_sound(raw);
