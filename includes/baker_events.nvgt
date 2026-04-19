@@ -210,7 +210,7 @@ void play_event_sounds(event_item@ item)
         {
             string s = sounds[i];
             if (s != "" && s != "none")
-                pool.play_stationary("sounds/misc/" + resolve_sound(s), false);
+                pool.play_stationary(resolve_sound_path(s, "events"), false);
         }
     }
 }

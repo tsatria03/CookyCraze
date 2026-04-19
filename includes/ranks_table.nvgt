@@ -145,7 +145,7 @@ void play_rank_sound(double amount)
         }
     }
     if (soundfile != "")
-        pool.play_stationary("sounds/misc/" + soundfile, false);
+        pool.play_stationary(resolve_sound_path(soundfile, "misc"), false);
 }
 
 void handle_rank_unlock(string unlock)

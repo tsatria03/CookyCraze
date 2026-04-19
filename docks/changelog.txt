@@ -1,4 +1,5 @@
 New in 6.0.
+Moved some of the sounds out of the sounds/misc folder into dedicated subfolders. Store sounds such as door open, door close, purchase, error, and background music now live under sounds/store. Random events such as gains, losses, speed changes, and fire now live under sounds/events. Ambience and music tracks now live under sounds/ambience. Event table files can now specify a folder prefix on individual sounds, for example store/coin50.ogg, to pull from a different folder than the default.
 Fixed a bug where the singles shop and bundle shop would become increasingly laggy the more purchases you made in a single session. The menus now stay responsive no matter how many times you buy.
 Fixed a bug where prices in the singles shop, bundle shop, and lottery shop could display as $inf after buying a large number of items. Prices now cap out at a very large but valid number instead of reaching infinity.
 Fixed a bug where buying an extremely large number of tickets could cause the owned count to flip to a large negative number. Ticket counts now support much larger values without overflowing.

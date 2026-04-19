@@ -149,8 +149,8 @@ m.fade_music();
 if(introsfx==true) pool.play_stationary("sounds/misc/welcome" + random(1, 3) + ".ogg", false);        
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/ambience/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/ambience/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 readdata();
 achievementsUnlocked.delete_all();
@@ -216,8 +216,8 @@ m.fade_music();
 if(introsfx==true) pool.play_stationary("sounds/misc/welcome" + random(1, 3) + ".ogg", false);        
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/ambience/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/ambience/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 resetgame();
 clickergame();
@@ -235,8 +235,8 @@ m.fade_music();
 if(introsfx==true) pool.play_stationary("sounds/misc/welcome" + random(1, 3) + ".ogg", false);
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/ambience/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/ambience/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 ingame=true;
 resetgame();
 clickergame();
@@ -444,11 +444,11 @@ pool.destroy_sound(storslot);
 storambpool.destroy_sound(storambslot);
 stormuspool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
-dlgplay("sounds/misc/store_door_close.ogg");
+dlgplay("sounds/store/door_close.ogg");
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/ambience/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/ambience/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clickergame();
 }
@@ -460,7 +460,7 @@ if(stm=="bmt")
 {
 if (rank < 30)
 {
-pool.play_stationary("sounds/misc/storefail.ogg", false);
+pool.play_stationary("sounds/store/error.ogg", false);
 dlgmessage_return("This shop is locked. Please reach rank 30 to access it.");
 shopmenu();
 }
@@ -479,7 +479,7 @@ double cookiesToSell = floor(string_to_number(sailam));
     if (cookiesToSell <= 0)
     {
         pool.destroy_sound(alertslot);
-        pool.play_stationary("sounds/misc/sellfail.ogg", false);
+        pool.play_stationary("sounds/store/fail.ogg", false);
         dlgmessage_return("Error! Please enter a valid number of cookies to sell!");
         shopmenu();
     }
@@ -501,11 +501,11 @@ pool.destroy_sound(storslot);
 storambpool.destroy_sound(storambslot);
 stormuspool.destroy_sound(stortrackslot);
 speak("You're now exiting the cooky store.");
-dlgplay("sounds/misc/store_door_close.ogg");
+dlgplay("sounds/store/door_close.ogg");
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-ambslot=ambpool.play_stationary_extended("sounds/misc/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
-mustrackslot=muspool.play_stationary_extended("sounds/misc/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
+ambslot=ambpool.play_stationary_extended("sounds/ambience/"+ambtype+".ogg", true,0,0,ambvolume,ambpitch,false);
+mustrackslot=muspool.play_stationary_extended("sounds/ambience/"+mustype+".ogg", true,0,0,musvolume,muspitch,false);
 form.reset();
 clickergame();
 }
@@ -584,7 +584,7 @@ void lottery_buy_menu()
         if (sel.substr(0, 6) == "locked")
         {
             int idx = string_to_int(sel.substr(6));
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             dlgmessage_return("This category is locked. You need to reach rank " + string(visibleCats[idx].min_rank) + " to access it.");
             continue;
         }
@@ -646,13 +646,13 @@ void lottery_buy_menu()
             lottery_ticket_item@ ticket = loadedTickets[ticketIdx];
             if (int(rank) < ticket.min_rank)
             {
-                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                pool.play_stationary("sounds/store/error.ogg", false);
                 dlgmessage_return("This ticket is locked. You need to reach rank " + string(ticket.min_rank) + " to buy it.");
                 continue;
             }
             if (lotteryMaxTickets > 0 && ticket.owned >= lotteryMaxTickets)
             {
-                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                pool.play_stationary("sounds/store/error.ogg", false);
                 dlgmessage_return("Your inventory is full. You can hold a maximum of " + string(lotteryMaxTickets) + ". Scratch some first!");
                 continue;
             }
@@ -667,20 +667,20 @@ void lottery_buy_menu()
             double qty = string_to_number(qInput);
             if (qty <= 0)
             {
-                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                pool.play_stationary("sounds/store/error.ogg", false);
                 dlgmessage_return("Please enter a valid number to buy.");
                 continue;
             }
             double totalCost = cost * qty;
             if (coins < totalCost)
             {
-                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                pool.play_stationary("sounds/store/error.ogg", false);
                 dlgmessage_return("Error! You can't afford " + format_number(qty) + " " + ticket.name + (qty != 1 ? "s" : "") + "!");
                 continue;
             }
             if (lotteryMaxTickets > 0 && ticket.owned + qty > double(lotteryMaxTickets))
             {
-                pool.play_stationary("sounds/misc/storefail.ogg", false);
+                pool.play_stationary("sounds/store/error.ogg", false);
                 dlgmessage_return("You can only hold " + string(lotteryMaxTickets) + " tickets of this type. You currently have " + format_number(ticket.owned) + ".");
                 continue;
             }
@@ -689,8 +689,8 @@ void lottery_buy_menu()
             stat_coins_spent += totalCost;
             loadedTickets[ticketIdx].owned += qty;
             stat_lottery_tickets_bought += qty;
-            pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
-            pool.play_stationary("sounds/misc/store_order.ogg", false);
+            pool.play_stationary("sounds/store/buy" + random(1, 4) + ".ogg", false);
+            pool.play_stationary("sounds/store/order.ogg", false);
             string plural = (qty == 1) ? "" : "s";
             string ownedPlural = (loadedTickets[ticketIdx].owned == 1) ? "" : "s";
             dlgmessage_return("You bought " + format_number(qty) + " " + ticket.name + plural + " for " + convert_to_currency(totalCost) + ". You now have " + format_number(loadedTickets[ticketIdx].owned) + " " + ticket.name + ownedPlural + " in your inventory.");
@@ -776,7 +776,7 @@ void prestige_store_menu()
     if (sel.substr(0, 6) == "locked")
     {
         int idx = string_to_int(sel.substr(6));
-        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        pool.play_stationary("sounds/store/error.ogg", false);
         dlgmessage_return("This category is locked. You need to reach prestige level " + string(menus[idx].min_level) + " to access it.");
         prestige_store_menu();
         return;
@@ -800,7 +800,7 @@ void prestige_store_category_menu(prestige_store_item[]@ items, string chosenMen
     }
     if (!anyAvailable)
     {
-        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        pool.play_stationary("sounds/store/error.ogg", false);
         dlgmessage_return("You have purchased all available upgrades in this category.");
         prestige_store_menu();
         return;
@@ -837,7 +837,7 @@ void prestige_store_category_menu(prestige_store_item[]@ items, string chosenMen
     {
         if (sel == "locked" + string(i))
         {
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             dlgmessage_return("This item is locked. You need to reach prestige level " + string(items[i].min_level) + " to purchase it.");
             prestige_store_category_menu(items, chosenMenu);
             return;
@@ -845,7 +845,7 @@ void prestige_store_category_menu(prestige_store_item[]@ items, string chosenMen
         if (sel != "item" + string(i)) continue;
         if (prestige_points < items[i].cost)
         {
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             int shortage = items[i].cost - prestige_points;
             string shortWord = (shortage == 1) ? "point" : "points";
             dlgmessage_return("Error! You can't afford this upgrade. You need " + string(shortage) + " more prestige " + shortWord + ".");
@@ -855,8 +855,8 @@ void prestige_store_category_menu(prestige_store_item[]@ items, string chosenMen
         prestige_points -= items[i].cost;
         prestigePurchased.insert_last(items[i].item_id);
         apply_prestige_store_upgrade(items[i].item_id);
-        pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
-        pool.play_stationary("sounds/misc/store_order.ogg", false);
+        pool.play_stationary("sounds/store/buy" + random(1, 4) + ".ogg", false);
+        pool.play_stationary("sounds/store/order.ogg", false);
         string pointWord = (items[i].cost == 1) ? "point" : "points";
         dlgmessage_return("Purchase successful! You bought " + string_replace(items[i].item_id, "_", " ", true) + " for " + string(items[i].cost) + " prestige " + pointWord + ".");
         prestige_store_category_menu(items, chosenMenu);
@@ -955,7 +955,7 @@ void bakermenu()
     if (sel.substr(0, 6) == "locked")
     {
         int idx = string_to_int(sel.substr(6));
-        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        pool.play_stationary("sounds/store/error.ogg", false);
         dlgmessage_return("This category is locked. You need to reach rank " + string(menus[idx].min_rank) + " to access it.");
         bakermenu();
         return;
@@ -1030,7 +1030,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         if (bulkQuantity <= 0)
         {
             pool.destroy_sound(alertslot);
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             dlgmessage_return("Error! Please enter a valid number to buy!");
             continue;
         }
@@ -1110,8 +1110,8 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
             if (logParts.length() == 1) log = logParts[0];
             else if (logParts.length() == 2) log = logParts[0] + ", and " + logParts[1];
             else { for (uint li = 0; li < logParts.length() - 1; li++) { if (log != "") log += ", "; log += logParts[li]; } log += ", and " + logParts[logParts.length() - 1]; }
-            pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
-            pool.play_stationary("sounds/misc/store_order.ogg", false);
+            pool.play_stationary("sounds/store/buy" + random(1, 4) + ".ogg", false);
+            pool.play_stationary("sounds/store/order.ogg", false);
             stat_singles_purchased++;
             dlgmessage_return("Bulk purchase complete! You gained " + log + " for a total of " + convert_to_currency(totalSpent) + ".");
         }
@@ -1123,7 +1123,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
     {
         if (sel == "locked" + string(i))
         {
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             dlgmessage_return("This item is locked. You need to reach rank " + string(items[i].min_rank) + " to purchase it.");
             break;
         }
@@ -1144,7 +1144,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         if (quantity <= 0)
         {
             pool.destroy_sound(alertslot);
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             dlgmessage_return("Error! Please enter a valid number to buy!");
             break;
         }
@@ -1185,8 +1185,8 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
                 cookyspeed_purchases += quantity;
             }
             double nextCost = buy_item(level + quantity, items[i].base_cost, items[i].cost_multiplier);
-            pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
-            pool.play_stationary("sounds/misc/store_order.ogg", false);
+            pool.play_stationary("sounds/store/buy" + random(1, 4) + ".ogg", false);
+            pool.play_stationary("sounds/store/order.ogg", false);
             string itemName = string_replace(items[i].item_type, "_", " ", true);
             string itemWord;
             if (quantity == 1)
@@ -1200,7 +1200,7 @@ void bakercategorymenu(store_item[]@ items, string chosenMenu)
         }
         else
         {
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             string errName = string_replace(items[i].item_type, "_", " ", true);
             string errWord;
             if (quantity == 1)
@@ -1290,7 +1290,7 @@ void bundlemenu()
     if (sel.substr(0, 6) == "locked")
     {
         int idx = string_to_int(sel.substr(6));
-        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        pool.play_stationary("sounds/store/error.ogg", false);
         dlgmessage_return("This category is locked. You need to reach rank " + string(menus[idx].min_rank) + " to access it.");
         bundlemenu();
         return;
@@ -1397,7 +1397,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         string qInput = vd.input_box("", "How many of each affordable bundle would you like to buy? Press enter to buy the maximum amount.", string(maxPasses));
         if (qInput == "") { continue; }
         int passes = string_to_int(qInput);
-        if (passes < 1) { pool.play_stationary("sounds/misc/storefail.ogg", false); dlgmessage_return("Please enter a number greater than zero. Press enter or space to continue."); continue; }
+        if (passes < 1) { pool.play_stationary("sounds/store/error.ogg", false); dlgmessage_return("Please enter a number greater than zero. Press enter or space to continue."); continue; }
         double totalSpent = 0;
         double autoGained = 0, manulGained = 0, speedGained = 0;
         string[] boughtNames;
@@ -1456,8 +1456,8 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
             if (boughtNames.length() == 1) boughtLog = boughtNames[0];
             else if (boughtNames.length() == 2) boughtLog = boughtNames[0] + ", and " + boughtNames[1];
             else { for (uint li = 0; li < boughtNames.length() - 1; li++) { if (boughtLog != "") boughtLog += ", "; boughtLog += boughtNames[li]; } boughtLog += ", and " + boughtNames[boughtNames.length() - 1]; }
-            pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
-            pool.play_stationary("sounds/misc/store_order.ogg", false);
+            pool.play_stationary("sounds/store/buy" + random(1, 4) + ".ogg", false);
+            pool.play_stationary("sounds/store/order.ogg", false);
             dlgmessage_return("Bulk purchase complete! You bought " + string(passes) + " of each: " + boughtLog + ". You gained " + gainLog + " for a total of " + convert_to_currency(totalSpent) + ".");
         }
         else
@@ -1467,7 +1467,7 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
     if (sel.substr(0, 6) == "locked")
     {
         int idx = string_to_int(sel.substr(6));
-        pool.play_stationary("sounds/misc/storefail.ogg", false);
+        pool.play_stationary("sounds/store/error.ogg", false);
         dlgmessage_return("This bundle is locked. You need to reach rank " + string(bundles[idx].min_rank) + " to purchase it.");
         continue;
     }
@@ -1494,14 +1494,14 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
         if (qty <= 0)
         {
             pool.destroy_sound(alertslot);
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             dlgmessage_return("Error! Please enter a valid number to buy!");
             continue;
         }
         double grandTotal = totalCost * qty;
         if (coins < grandTotal)
         {
-            pool.play_stationary("sounds/misc/storefail.ogg", false);
+            pool.play_stationary("sounds/store/error.ogg", false);
             dlgmessage_return("Error! You can't afford " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + "!");
             continue;
         }
@@ -1560,8 +1560,8 @@ void bundlecategorymenu(bundle_item[]@ bundles, string chosenMenu, store_item[]@
             }
         }
         stat_bundles_purchased++;
-        pool.play_stationary("sounds/misc/buy" + random(1, 4) + ".ogg", false);
-        pool.play_stationary("sounds/misc/store_order.ogg", false);
+        pool.play_stationary("sounds/store/buy" + random(1, 4) + ".ogg", false);
+        pool.play_stationary("sounds/store/order.ogg", false);
         dlgmessage_return("Purchase successful! You bought " + format_number(qty) + " " + bundles[idx].name + (qty != 1 ? "s" : "") + " for " + convert_to_currency(grandTotal) + ". You gained " + gainLog + ". Next bundle will cost " + convert_to_currency(nextBundleCost) + ".");
         continue;
     }
@@ -2380,14 +2380,14 @@ if(ingame==true) ambienceIndex = form.get_list_position(amblist);
         {
             ambtype = ambOptions[ambienceIndex];
             ambpool.destroy_sound(ambslot);
-            ambslot = ambpool.play_stationary_extended("sounds/misc/"+ambtype + ".ogg", true, 0, 0, ambvolume, ambpitch, false);
+            ambslot = ambpool.play_stationary_extended("sounds/ambience/"+ambtype + ".ogg", true, 0, 0, ambvolume, ambpitch, false);
         }
 if(ingame==true) musicIndex = form.get_list_position(musslist);
         if (musicIndex != -1 && musOptions[musicIndex] != mustype)
         {
             mustype = musOptions[musicIndex];
             muspool.destroy_sound(mustrackslot);
-            mustrackslot = muspool.play_stationary_extended("sounds/misc/"+mustype + ".ogg", true, 0, 0, musvolume, muspitch, false);
+            mustrackslot = muspool.play_stationary_extended("sounds/ambience/"+mustype + ".ogg", true, 0, 0, musvolume, muspitch, false);
         }
         if (form.is_pressed(savesets))
         {

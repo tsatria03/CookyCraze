@@ -315,6 +315,16 @@ string resolve_sound(string raw)
     return raw;
 }
 
+// Resolves a sound filename to a full path. If the name contains a slash it is
+// treated as folder-qualified (e.g. "store/coin50.ogg") and default_folder is ignored.
+string resolve_sound_path(string raw, string default_folder)
+{
+    string resolved = resolve_sound(raw);
+    if (resolved.find("/") != -1)
+        return "sounds/" + resolved;
+    return "sounds/" + default_folder + "/" + resolved;
+}
+
 double eval_event_amount(string raw, double rank_val)
 {
     if (raw.find("*rank") != -1)
@@ -384,7 +394,7 @@ void play_coin_sound(double amount)
     else if (amount >= 100000 && amount <= 499990) snd = "coin10000.ogg";
     else if (amount >= 500000 && amount <= 999990) snd = "coin50000.ogg";
     else if (amount >= 1000000) snd = "coin100000.ogg";
-    if (snd != "") pool.play_stationary("sounds/misc/" + snd, false);
+    if (snd != "") pool.play_stationary("sounds/store/" + snd, false);
 }
 
 void reload_config(bool force = false)

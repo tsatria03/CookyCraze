@@ -2,12 +2,12 @@
 
 ; Required header — removing or renaming this will break the file.
 
-1:coin1.ogg
-50:coin50.ogg
-1000:coin1000.ogg
-10000:coin10000.ogg
-50000:coin50000.ogg
-100000:coin100000.ogg
+1:store/coin1.ogg
+50:store/coin50.ogg
+1000:store/coin1000.ogg
+10000:store/coin10000.ogg
+50000:store/coin50000.ogg
+100000:store/coin100000.ogg
 
 [default]
 

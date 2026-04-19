@@ -4,8 +4,8 @@ fire_spark:lose.ogg,burn(1,3).ogg:3:2:cookies:20:20:true:100:Oh no! A fire spark
 bonus_cookies:give.ogg:3:1:cookies:40*rank:80*rank:false:100:Lucky bake! You gained an extra %amount% cookies!
 increase_cookyspeed:give.ogg,powerup.ogg:3:1:cookyspeed:10/rank:10/rank:false:100:Amazing! Your baking speed has increased by %amount% ms. Cookies bake faster now.
 decrease_cookyspeed:lose.ogg,powerdown.ogg:3:2:cookyspeed:10*rank:10*rank:false:100:Oh no! Something has slowed down your baking speed by %amount% ms.
-gain_coins:give.ogg,coin50.ogg:3:1:coins:40*rank:80*rank:false:100:Wonderful! You found a hidden stash! You gained %amount%.
-lose_coins:lose.ogg,cointoss.ogg:3:2:coins:40*rank:80*rank:false:100:Oh crap! Your pocket had a hole in it! You lost %amount%.
+gain_coins:give.ogg,store/coin50.ogg:3:1:coins:40*rank:80*rank:false:100:Wonderful! You found a hidden stash! You gained %amount%.
+lose_coins:lose.ogg,misc/cointoss.ogg:3:2:coins:40*rank:80*rank:false:100:Oh crap! Your pocket had a hole in it! You lost %amount%.
 gain_autocooky:give.ogg:3:1:autocooky:10*rank:50*rank:false:100:Nice! You gained %amount% auto-cookies. Your auto baking rate has increased.
 lose_autocooky:lose.ogg:3:2:autocooky:10*rank:50*rank:false:100:Dam! You lost %amount% auto-cookies. Your auto-baking rate has been decreased.
 gain_manulcooky:give.ogg:3:1:manulcooky:10*rank:50*rank:false:100:Great! You gained %amount% manual cookies. Your baking rate per click has increased.
@@ -15,8 +15,8 @@ lose_manulcooky:lose.ogg:3:2:manulcooky:10*rank:50*rank:false:100:Shucks! You lo
 
 baking_miracle:give.ogg:3:1:cookies:5:15:true:100:A baking miracle! The stars aligned and %amount% percent of your cookies multiplied into even more, giving you %actual% extra cookies. What a windfall!
 cookie_crumble:lose.ogg,burn(1,3).ogg:3:2:cookies:5:15:true:100:Oh no! A shelf collapsed in your bakery and crumbled %amount% percent of your cookie stockpile, costing you %actual% cookies. What a mess!
-coin_jackpot:give.ogg,coin50.ogg:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current balance, netting you %actual%. Your wallet is feeling heavy!
-coin_drain:lose.ogg,cointoss.ogg:3:2:coins:5:10:true:100:Oh no! A billing error drained %amount% percent of your balance, costing you %actual%. Better keep a closer eye on your finances!
+coin_jackpot:give.ogg,store/coin50.ogg:3:1:coins:5:10:true:100:Jackpot! You stumbled upon a hidden stash worth %amount% percent of your current balance, netting you %actual%. Your wallet is feeling heavy!
+coin_drain:lose.ogg,misc/cointoss.ogg:3:2:coins:5:10:true:100:Oh no! A billing error drained %amount% percent of your balance, costing you %actual%. Better keep a closer eye on your finances!
 autocooky_surge:give.ogg:3:1:autocooky:3:8:true:100:Incredible! A surge of baking energy boosted your auto cookie production by %amount% percent, adding %actual% auto cookies. Your ovens are roaring!
 autocooky_slump:lose.ogg:3:2:autocooky:3:8:true:100:Uh oh! A baking slump hit your kitchen hard, reducing your auto cookie production by %amount% percent, losing %actual% auto cookies.
 manulcooky_inspiration:give.ogg:3:1:manulcooky:3:8:true:100:Inspiration struck! Your hands found a new rhythm, boosting your manual cookie output by %amount% percent per click, adding %actual% manual cookies.
