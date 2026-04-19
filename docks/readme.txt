@@ -95,7 +95,7 @@ Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
 
 Events can give or take auto cookies, manual cookies, baking speed, and more.
-Some are percentage based, and others are flat amounts.
+Some are percentage-based, and others are flat amounts.
 Events fire automatically during gameplay and are fully configurable in baker.event.
 
 Blackjack. Unlocked at rank 10.
@@ -112,7 +112,7 @@ A configurable confirmation prompt can be set to appear when your bet reaches a 
 Cooky flipper. Unlocked at rank 20.
 Flip a cooky or a penny to trigger a random event that can boost or reduce your stats.
 
-When you open the flipper, the first thing you see is a type selector. Choose cooky to flip a cooky, or penny to flip a penny. Flipping is free either way — you get your cooky or penny back since it lands. The flip button updates its label to match whichever type is currently selected.
+When you open the flipper, the first thing you see is a type selector. Choose cooky to flip a cooky, or penny to flip a penny. Flipping is free either way — you get your cooky or penny back once it lands. The flip button updates its label to match whichever type is currently selected.
 
 Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list.
 Some events are positive, and others are negative, so there is an element of risk.
@@ -301,11 +301,11 @@ If baking mode is on, it is announced non-interruptively so automated play is no
 Quests.
 Complete a set of objectives to unlock the prestige option and start a new run with a permanent bonus.
 
-Quests are automatically assigned at the start of each prestige cycle using a difficulty based system. Each quest has a difficulty from 1 to 10, and active slots are spread evenly across the range so you always get a balanced mix.
+Quests are automatically assigned at the start of each prestige cycle using a difficulty-based system. Each quest has a difficulty from 1 to 10, and active slots are spread evenly across the range so you always get a balanced mix.
 Required quests occupy their difficulty slot directly, and random quests fill the rest. Only one required quest per stat can be active at a time, so if a stat has multiple required tiers only the current one will appear.
 
 The number of active quests is configurable in quests.table and is capped at 10.
-The game ships with 75 quests: 14 tiered required rank quests covering ranks 5 through 500, and 60 random quests across 12 trackable stats with 5 difficulty tiers each.
+The game ships with 84 quests: 14 tiered required rank quests covering ranks 5 through 500, and 70 random quests across 14 trackable stats with 5 difficulty tiers each.
 Rerolling a quest replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
 
 To view your quests, press the Quests button in the main game interface.
@@ -350,7 +350,7 @@ Passive Bonuses contains upgrades that permanently boost your cookie production 
 
 Head Start contains upgrades that give you bonus resources at the beginning of each new run, such as starting coins, auto cookies, or manual cookies.
 
-How prestige  upgrades work.
+How prestige upgrades work.
 Unlike the normal shop and bundle shop, the prestige store uses a one-time purchase system. Every upgrade in the store can only be bought once, ever. Once purchased, the upgrade is immediately active and stays active permanently across every future run, including after further prestiges. You will never need to buy it again, and you cannot buy it a second time even if you wanted to.
 
 Passive bonus upgrades work as multipliers layered on top of your existing stats. For example, buying a cookie multiplier upgrade does not add to your auto cookie or manual cookie counts directly. Instead, every time a bake fires, the output is multiplied by the bonus percentage. So if you normally produce 100 cookies per bake and you have a 5% cookie multiplier, you produce 105 instead. The higher your stats grow through the normal shop, the more noticeable the multiplier becomes. Similarly, a coin multiplier does not change your cookie sell price. It multiplies the total payout after the price is applied, so larger sell batches benefit more.
@@ -375,8 +375,9 @@ Buffers.
 Buffers are categorized message logs that keep track of everything that happens during your game.
 Instead of important messages disappearing after being spoken, they are stored in a buffer so you can review them at any time.
 
-There are six buffer categories.
+There are seven buffer categories.
 
+All is a special aggregate buffer that receives a copy of every message from every other buffer. It gives you a single place to review all game activity in the order it occurred. It cannot be muted.
 Achievements holds messages for every achievement you earn during play.
 Critical holds important notifications like rank ups and game milestones.
 Events holds messages from random events and flipper flips.
@@ -384,7 +385,7 @@ General holds status updates and informational messages.
 Misc holds things like save confirmations and other game actions.
 Ranks holds regular rank up announcements.
 
-All of the buffers, except for the all buffer, can be muted independently so they stop being spoken aloud while still logging messages for later review.
+All of the named buffers, except for All, can be muted independently so they stop being spoken aloud while still logging messages for later review.
 You can also export all of the buffer contents to log files in the logs folder at any time.
 
 Keyboard commands
@@ -906,21 +907,21 @@ For example, 25:true prompts when the bet is 25 percent or more of their current
 Set the amount to 0 to disable the prompt entirely.
 
 win_sound
-Sound to play when the player wins. Relative to sounds/misc/.
+Sound to play when the player wins. Relative to sounds/misc/. You can include a subfolder prefix to use a different folder, for example blackjack/win.ogg.
 
 Supports random range syntax, for example jackwin(1,4).ogg picks randomly from jackwin1 to jackwin4.
 
 lose_sound
-Sound to play when the player busts or loses to the dealer.
+Sound to play when the player busts or loses to the dealer. Relative to sounds/misc/. Subfolder prefix syntax is supported.
 
 push_sound
-Sound to play when the round ends in a tie.
+Sound to play when the round ends in a tie. Relative to sounds/misc/. Subfolder prefix syntax is supported.
 
 player_draw_sound
-Sound to play when the player draws a card.
+Sound to play when the player draws a card. Relative to sounds/misc/. Subfolder prefix syntax is supported.
 
 dealer_draw_sound
-Sound to play when the dealer draws a card.
+Sound to play when the dealer draws a card. Relative to sounds/misc/. Subfolder prefix syntax is supported.
 
 Message placeholders.
 
@@ -959,10 +960,9 @@ Format: min_amount:sound
 
 Defines which sound plays based on the reward amount when a rank up occurs.
 
-The first entry whose min_amount is less than or equal to the reward amount is used.
-Order entries from lowest to highest. The last entry covers everything above its minimum.
+Order entries from lowest to highest. The entry with the highest min_amount that is still less than or equal to the reward amount is used. The last entry covers everything above its minimum.
 
-sound is relative to sounds/misc/.
+sound is relative to sounds/misc/. You can include a subfolder prefix to use a different folder, for example store/coin1.ogg.
 
 Default section.
 Format: target:min_amount:max_amount:unlock:message
@@ -1055,7 +1055,7 @@ This is a flat multiplier applied once to the bet amount.
 Setting a payout multiplier very high for common match counts will make the slot machine trivially easy to exploit and can rapidly inflate the player's stats.
 
 sound
-The sound file to play when this outcome fires, relative to sounds/misc/.
+The sound file to play when this outcome fires, relative to sounds/misc/. You can include a subfolder prefix to use a different folder, for example store/coin1.ogg.
 
 message
 The text spoken to the player when this outcome fires.

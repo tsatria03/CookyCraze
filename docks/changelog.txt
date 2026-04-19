@@ -1,4 +1,8 @@
 New in 6.0.
+Corrected the quest count in the readme. The game ships with 84 quests: 14 tiered required rank quests and 70 random quests across 14 trackable stats with 5 difficulty tiers each. The readme previously stated 75 quests across 12 stats.
+Added the all buffer to the buffers section of the readme. It is a special aggregate buffer that receives a copy of every message from every other buffer and cannot be muted. The readme previously referenced it by name without ever describing it.
+Corrected the readme documentation for the ranks.table sounds section. The entry with the highest min_amount that is still less than or equal to the reward amount is used, not the first matching entry as previously stated.
+Updated the readme documentation for the jacks.table sound fields, ranks.table sound field, and slots.table sound field to note that subfolder prefix syntax is supported, matching how the actual config files use paths like blackjack/win.ogg and store/coin1.ogg.
 Moved some of the sounds out of the sounds/misc folder into dedicated subfolders. Store sounds such as door open, door close, purchase, error, and background music now live under sounds/store. Random events such as gains, losses, speed changes, and fire now live under sounds/events. Ambience and music tracks now live under sounds/ambience. Event table files can now specify a folder prefix on individual sounds, for example store/coin50.ogg, to pull from a different folder than the default.
 Fixed a bug where the singles shop and bundle shop would become increasingly laggy the more purchases you made in a single session. The menus now stay responsive no matter how many times you buy.
 Fixed a bug where prices in the singles shop, bundle shop, and lottery shop could display as $inf after buying a large number of items. Prices now cap out at a very large but valid number instead of reaching infinity.
@@ -131,7 +135,7 @@ Fixed a bug where the prestige summary reward line would show multiple items joi
 Fixed a bug where required tiered quests could skip tiers after a prestige run. When a required quest advanced to its next tier, the game required an exact slot difficulty match to place it, which often failed since slot difficulties are spaced unevenly. The next tier now fills the nearest available slot instead.
 Fixed a bug where the quest details box would show the wrong quest's details after a prestige run. The list now maintains its own ordered reference so details always correspond to the correct quest.
 Updated the prestige button label to say reward available when the quest requirement has been met, instead of showing just Prestige with no status indication.
-Fixed a bug where starting a new game after a previous playthrough would immediately trigger quest and reroll achievements, do to the quests being complete, and rerolls performed stats were not being reset on new game. Both stats are now reset alongside the other stats when starting fresh.
+Fixed a bug where starting a new game after a previous playthrough would immediately trigger quest and reroll achievements, due to the quests being complete, and rerolls performed stats were not being reset on new game. Both stats are now reset alongside the other stats when starting fresh.
 Added a coins spent stat that tracks the total coins spent on shop purchases and quest rerolls. It appears in the baker statistics screen alongside coins earned and has 7 matching achievements in the Economy category.
 Fixed a bug where achievement categories with all entries hidden would still appear in the achievements menu showing zero achievements. Categories are now hidden from the menu entirely when all their entries are hidden and none have been unlocked yet.
 Added a hidden field to achievements in achievements.table. When set to true, the achievement is completely invisible in the achievements menu and achievement statistics screen until it is unlocked, making it suitable for surprise or easter egg achievements. All achievements tied to rank-locked content, including blackjack, cooky flipper, slot machine, and baking slots ship with hidden set to true.
@@ -233,7 +237,7 @@ Reorganised the achievements menu so unlocked achievements always appear at the 
 Fixed the achievements menu reading the achievement name twice when pressing enter on an unlocked achievement. The description is now shown on its own.
 Renamed some sounds in the game where appropriate.
 Removed the redundant achievement sound from the achievements menu when reading an already unlocked achievement. The sound now only plays when an achievement is first earned during play.
-Added some new sounds for recieving textual achievements.
+Added some new sounds for receiving textual achievements.
 Fixed a bug where all of the statistics were not being reset when starting a new game, causing achievements to fire incorrectly on a fresh save.
 Fixed a bug where starting a new game without closing the application would block achievements from firing on the new save. The unlocked achievement state is now cleared as part of the game reset.
 Fixed a bug where all of the achievements would fire at once on game load. Already earned achievements are now silently pre-populated on startup and after reloading, so only newly earned ones announce during play.
@@ -296,7 +300,7 @@ Reorganised the buy upgrades menu into two sub-menus, bundles and singles. Both 
 Updated the menu text for the buy upgrades menu, the bundles menu, and the singles menu to be consistent with the rest of the shop.
 Added a bundle shop to the cooky store. Bundles are preset upgrade packages with dynamic pricing that scales naturally with your progression. You can buy multiple at once, and the game reports exactly what stats you gained.
 Added a bulk buy option to each shop category menu. Select Buy all affordable items, type how many you want, and each item is individually capped to what you can actually afford.
-Added milestone rank rewards for reaching ranks 50, 100, 250, and 500. Rewards scale with your current rank, so the higher you are when you hit them, the bigger the bonus you'll recieve from those rewards.
+Added milestone rank rewards for reaching ranks 50, 100, 250, and 500. Rewards scale with your current rank, so the higher you are when you hit them, the bigger the bonus you'll receive from those rewards.
 Made it so the baking upgrades category menu now remembers which category you had selected when you return to it.
 Made it so the baking upgrades category menu now shows how many items you can currently afford out of the total unlocked items in each category.
 Shop category menus can now be locked behind a minimum rank and given a description. Locked menus show their required rank, and selecting one plays the fail sound and tells you what rank is needed.
@@ -598,11 +602,11 @@ Changed the way the game starts up. It will now guide you through setting up you
 Added the ability to save your game's progress.
 Fixed a bug where your baking speed wouldn't increase no matter how many auto cookies you've bought for the baking mode.
 Fixed a bug with affordable prices in various shop menus being miscalculated, therefore causing inaccurate information to be displayed in the menus. The calculation logic has been updated to ensure that the correct number of items can be purchased based on how many coins you have available to spend.
-Added the ability to see how many of a particular item you can aford when hovering over one of them.
+Added the ability to see how many of a particular item you can afford when hovering over one of them.
 Fixed various bugs with eating cookies.
 Added the ability to eat the cookies that you produce. Don't eat too much though, or else something unexpected may happen as a result.
 Fixed a bug where numbers related to coins and other cost values were being read out in Decimal points even though they weren't supposed to.
 Introduced a new scaling system to the cooky store. When you buy some baking items, the price of them will now graduely increase the more you buy that particular item. It will no longer be set to a fixed price every time you go into the various shopping menus.
-Added error handeling to the shop menu. You can no longer buy outrageous amounts of items if you don't have enough coins for it.
+Added error handling to the shop menu. You can no longer buy outrageous amounts of items if you don't have enough coins for it.
 Improved the shop menu quite a bit. The sell menu finally works this time.
-Made lots of code Optimizations.
+Made lots of code optimizations.
