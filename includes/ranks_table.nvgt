@@ -41,19 +41,7 @@ void parse_ranks_table(string filepath, rank_sound_item[]@ sounds_out, rank_rewa
         }
         else if (section == "default")
         {
-            string[] parts;
-            int lastPos = 0;
-            int colonCount = 0;
-            for (uint i = 0; i < line.length(); i++)
-            {
-                if (line.substr(i, 1) == ":" && colonCount < 4)
-                {
-                    parts.insert_last(line.substr(lastPos, i - lastPos));
-                    lastPos = i + 1;
-                    colonCount++;
-                }
-            }
-            parts.insert_last(line.substr(lastPos));
+            string[] parts = parse_delimited_line(line, 4);
             if (parts.length() < 5) continue;
             rank_reward_item item;
             item.rank       = 0;
@@ -66,19 +54,7 @@ void parse_ranks_table(string filepath, rank_sound_item[]@ sounds_out, rank_rewa
         }
         else if (section == "rewards")
         {
-            string[] parts;
-            int lastPos = 0;
-            int colonCount = 0;
-            for (uint i = 0; i < line.length(); i++)
-            {
-                if (line.substr(i, 1) == ":" && colonCount < 5)
-                {
-                    parts.insert_last(line.substr(lastPos, i - lastPos));
-                    lastPos = i + 1;
-                    colonCount++;
-                }
-            }
-            parts.insert_last(line.substr(lastPos));
+            string[] parts = parse_delimited_line(line, 5);
             if (parts.length() < 6) continue;
             rank_reward_item item;
             item.rank       = string_to_int(parts[0]);
@@ -104,32 +80,18 @@ string apply_rank_reward(rank_reward_item@ item, double current_rank)
     if (minVal >= 0 && maxVal >= 0 && amount < 1.0) amount = 1.0;
     amount = floor(amount);
     lastRewardAmount = amount;
-    if (item.target == "cookies")
-        cookies += amount;
-    else if (item.target == "coins")
-    {
-        coins += amount;
-        stat_coins_earned += amount;
-    }
-    else if (item.target == "autocooky")
-        autocooky += amount;
-    else if (item.target == "manulcooky")
-        manulcooky += amount;
-    else if (item.target == "cookyspeed")
+    if (item.target == "cookyspeed")
     {
         cookyspeed += amount;
         clicktime -= amount;
     }
-    string msg = item.message;
-    string amt_str = (item.target == "coins") ? convert_to_currency(amount) : format_number(amount);
-    string rank_str = format_number(current_rank);
-    int ph = msg.find("%amount%");
-    while (ph != -1) { msg = msg.substr(0, ph) + amt_str + msg.substr(ph + 8); ph = msg.find("%amount%"); }
-    ph = msg.find("%rank%");
-    while (ph != -1) { msg = msg.substr(0, ph) + rank_str + msg.substr(ph + 6); ph = msg.find("%rank%"); }
-    ph = msg.find("%name%");
-    while (ph != -1) { msg = msg.substr(0, ph) + playername + msg.substr(ph + 6); ph = msg.find("%name%"); }
-    return msg;
+    else
+        apply_amount_effect(item.target, amount, 1, false);
+    dictionary@ tokens = dictionary();
+    tokens.set("amount", (item.target == "coins") ? convert_to_currency(amount) : format_number(amount));
+    tokens.set("rank", format_number(current_rank));
+    tokens.set("name", playername);
+    return format_template(item.message, tokens);
 }
 
 void play_rank_sound(double amount)

@@ -292,10 +292,10 @@ void reroll_quest(int questIndex)
     if (int(rerollHistory.length()) > rerollHistoryMax)
         rerollHistory.remove_at(0);
 
-    string msg = questsConfig.reroll_message;
     string costStr = (questsConfig.reroll_target == "coins") ? convert_to_currency(cost) : format_number(cost);
-    int ph = msg.find("%cost%");
-    while (ph != -1) { msg = msg.substr(0, ph) + costStr + msg.substr(ph + 6); ph = msg.find("%cost%"); }
+    dictionary@ tokens = dictionary();
+    tokens.set("cost", costStr);
+    string msg = format_template(questsConfig.reroll_message, tokens);
     if (questsConfig.reroll_sound != "")
         spool.play_stationary("sounds/misc/" + questsConfig.reroll_sound, false);
     dlgmessage_return(msg);
@@ -329,7 +329,7 @@ bool quests_reward_earned()
 
 bool is_coin_stat(string stat)
 {
-    return stat == "coins_earned" || stat == "coins_spent";
+    return stat == STAT_COINS_EARNED || stat == STAT_COINS_SPENT;
 }
 
 string format_quest_value(string stat, double val)
@@ -353,25 +353,25 @@ string get_quest_progress(quest_item@ item)
 
 string get_stat_display_name(string stat)
 {
-    if (stat == "cookies_baked")          return "cookies baked";
-    else if (stat == "coins_earned")      return "money earned";
-    else if (stat == "singles_purchased") return "upgrades purchased";
-    else if (stat == "bundles_purchased") return "bundles purchased";
-    else if (stat == "baker_events_fired")   return "baker events fired";
-    else if (stat == "flipper_events_fired") return "flipper events fired";
-    else if (stat == "flipper_flips")     return "cooky flipper flips";
-    else if (stat == "cooky_flips")       return "cooky flips";
-    else if (stat == "penny_flips")       return "penny flips";
-    else if (stat == "dice_rolls")        return "dice rolls";
-    else if (stat == "dice_wins")         return "dice wins";
-    else if (stat == "dice_losses")       return "dice losses";
-    else if (stat == "slot_spins")        return "slot machine spins";
-    else if (stat == "slot_wins")         return "slot machine wins";
-    else if (stat == "blackjack_hands")   return "blackjack hands played";
-    else if (stat == "blackjack_wins")    return "blackjack wins";
-    else if (stat == "auto_slots_purchased") return "auto slots purchased";
-    else if (stat == "auto_slots_enabled")   return "auto slots enabled";
-    else if (stat == "rank")              return "rank";
+    if (stat == STAT_COOKIES_BAKED)          return "cookies baked";
+    else if (stat == STAT_COINS_EARNED)      return "money earned";
+    else if (stat == STAT_SINGLES_PURCHASED) return "upgrades purchased";
+    else if (stat == STAT_BUNDLES_PURCHASED) return "bundles purchased";
+    else if (stat == STAT_BAKER_EVENTS_FIRED)   return "baker events fired";
+    else if (stat == STAT_FLIPPER_EVENTS_FIRED) return "flipper events fired";
+    else if (stat == STAT_FLIPPER_FLIPS)     return "cooky flipper flips";
+    else if (stat == STAT_COOKY_FLIPS)       return "cooky flips";
+    else if (stat == STAT_PENNY_FLIPS)       return "penny flips";
+    else if (stat == STAT_DICE_ROLLS)        return "dice rolls";
+    else if (stat == STAT_DICE_WINS)         return "dice wins";
+    else if (stat == STAT_DICE_LOSSES)       return "dice losses";
+    else if (stat == STAT_SLOT_SPINS)        return "slot machine spins";
+    else if (stat == STAT_SLOT_WINS)         return "slot machine wins";
+    else if (stat == STAT_BLACKJACK_HANDS)   return "blackjack hands played";
+    else if (stat == STAT_BLACKJACK_WINS)    return "blackjack wins";
+    else if (stat == STAT_AUTO_SLOTS_PURCHASED) return "auto slots purchased";
+    else if (stat == STAT_AUTO_SLOTS_ENABLED)   return "auto slots enabled";
+    else if (stat == STAT_RANK)              return "rank";
     return stat;
 }
 
@@ -381,21 +381,13 @@ string get_quest_detail(quest_item@ item)
     bool complete = current >= item.threshold;
     double pct = (item.threshold > 0) ? (current / item.threshold) * 100.0 : 100.0;
     if (pct > 100.0) pct = 100.0;
-    string desc = item.description;
-    int ph;
-    ph = desc.find("%threshold%");
-    while (ph != -1) { desc = desc.substr(0, ph) + format_quest_value(item.stat, item.threshold) + desc.substr(ph + 11); ph = desc.find("%threshold%"); }
-    ph = desc.find("%stat%");
-    while (ph != -1) { desc = desc.substr(0, ph) + get_stat_display_name(item.stat) + desc.substr(ph + 6); ph = desc.find("%stat%"); }
-    ph = desc.find("%progress%");
-    while (ph != -1)
-    {
-        double capped = current > item.threshold ? item.threshold : current;
-        desc = desc.substr(0, ph) + format_quest_value(item.stat, capped) + desc.substr(ph + 10);
-        ph = desc.find("%progress%");
-    }
-    ph = desc.find("%percent%");
-    while (ph != -1) { desc = desc.substr(0, ph) + format_number(pct) + "%" + desc.substr(ph + 9); ph = desc.find("%percent%"); }
+    double capped = current > item.threshold ? item.threshold : current;
+    dictionary@ tokens = dictionary();
+    tokens.set("threshold", format_quest_value(item.stat, item.threshold));
+    tokens.set("stat", get_stat_display_name(item.stat));
+    tokens.set("progress", format_quest_value(item.stat, capped));
+    tokens.set("percent", format_number(pct) + "%");
+    string desc = format_template(item.description, tokens);
     desc += "\r\nCurrent progress: " + get_quest_progress(item) + (complete ? ". Complete" : "");
     return desc;
 }

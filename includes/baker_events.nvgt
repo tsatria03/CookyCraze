@@ -57,81 +57,10 @@ string apply_event(event_item@ item)
     }
     double amount = max(1.0, double(random(int(minVal), int(maxVal))));
     double actualAmount = 0;
-    if (item.target == "cookies")
-    {
-        if (item.use_percent && cookies <= 0) return "";
-        if (item.polarity == 2 && cookies < 1) return "";
-        if (item.use_percent)
-            actualAmount = cookies * (amount / 100.0);
-        else
-            actualAmount = amount;
-        actualAmount = max(1.0, floor(actualAmount));
-        if (item.polarity == 1)
-            cookies += actualAmount;
-        else
-        {
-            actualAmount = min(actualAmount, cookies);
-            cookies -= actualAmount;
-        }
-    }
-    else if (item.target == "coins")
-    {
-        if (item.use_percent && coins <= 0) return "";
-        if (item.polarity == 2 && coins < 1) return "";
-        if (item.use_percent)
-            actualAmount = coins * (amount / 100.0);
-        else
-            actualAmount = amount;
-        actualAmount = max(1.0, floor(actualAmount));
-        if (item.polarity == 1)
-            coins += actualAmount;
-        else
-        {
-            actualAmount = min(actualAmount, coins);
-            coins -= actualAmount;
-        }
-    }
-    else if (item.target == "autocooky")
-    {
-        if (item.use_percent && autocooky <= 0) return "";
-        if (item.polarity == 2 && autocooky < 1) return "";
-        if (item.use_percent)
-            actualAmount = autocooky * (amount / 100.0);
-        else
-            actualAmount = amount;
-        actualAmount = max(1.0, floor(actualAmount));
-        if (item.polarity == 1)
-            autocooky += actualAmount;
-        else
-        {
-            actualAmount = min(actualAmount, autocooky);
-            autocooky = max(0, autocooky - actualAmount);
-        }
-    }
-    else if (item.target == "manulcooky")
-    {
-        if (item.use_percent && manulcooky <= 0) return "";
-        if (item.polarity == 2 && manulcooky < 1) return "";
-        if (item.use_percent)
-            actualAmount = manulcooky * (amount / 100.0);
-        else
-            actualAmount = amount;
-        actualAmount = max(1.0, floor(actualAmount));
-        if (item.polarity == 1)
-            manulcooky += actualAmount;
-        else
-        {
-            actualAmount = min(actualAmount, manulcooky);
-            manulcooky = max(0, manulcooky - actualAmount);
-        }
-    }
-    else if (item.target == "cookyspeed")
+    if (item.target == "cookyspeed")
     {
         if (item.use_percent && cookyspeed <= 0) return "";
-        if (item.use_percent)
-            actualAmount = cookyspeed * (amount / 100.0);
-        else
-            actualAmount = amount;
+        actualAmount = item.use_percent ? cookyspeed * (amount / 100.0) : amount;
         if (item.polarity == 1)
         {
             cookyspeed = max(50, cookyspeed - actualAmount);
@@ -143,22 +72,18 @@ string apply_event(event_item@ item)
             clicktime += actualAmount;
         }
     }
-    string msg = item.description;
+    else
+    {
+        actualAmount = apply_amount_effect(item.target, amount, item.polarity, item.use_percent);
+        if (actualAmount == 0) return "";
+    }
     bool isCoinEvent = (item.target == "coins" && !item.use_percent);
     bool isCoinTarget = (item.target == "coins");
     string amt_str = item.use_percent ? format_number(amount) : (isCoinEvent ? convert_to_currency(actualAmount) : format_number(actualAmount));
-    int ph = msg.find("%amount%");
-    while (ph != -1)
-    {
-        msg = msg.substr(0, ph) + amt_str + msg.substr(ph + 8);
-        ph = msg.find("%amount%");
-    }
-    int ph2 = msg.find("%actual%");
-    while (ph2 != -1)
-    {
-        msg = msg.substr(0, ph2) + (isCoinTarget ? convert_to_currency(actualAmount) : format_number(actualAmount)) + msg.substr(ph2 + 8);
-        ph2 = msg.find("%actual%");
-    }
+    dictionary@ tokens = dictionary();
+    tokens.set("amount", amt_str);
+    tokens.set("actual", isCoinTarget ? convert_to_currency(actualAmount) : format_number(actualAmount));
+    string msg = format_template(item.description, tokens);
     if (!item.use_percent && actualAmount == 1)
     {
         string[] plurals = {"cookies", "coins", "auto-cookies", "manual cookies"};

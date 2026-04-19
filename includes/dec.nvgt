@@ -1,71 +1,184 @@
+// ─── App constants ───────────────────────────────────────────────────────────
 const string APPDATA_DIR = DIRECTORY_APPDATA + "tsatria03/CookyCraze/";
+
+// ─── Feature flags / SFX toggles ─────────────────────────────────────────────
+bool achsfx = true;
+bool bakesfx = true;
+bool coinsfx = true;
+bool eventsfx = true;
+bool exitsfx = true;
+bool flipmode = true;
+bool ingame = false;
+bool introsfx = true;
+bool jackmode = true;
+bool logosfx = true;
+bool lotterymode = true;
+bool dicemode = true;
+bool playervents = true;
+bool playervents2 = true;
+bool playerprofed = false;
+bool ranksfx = true;
+bool savesfx = true;
+bool show_locked_shops = true;
+bool slotmode = true;
+
+// ─── Game state ───────────────────────────────────────────────────────────────
+double autocooky = 0;
+double cookies = 0;
+double cookiesrequiered = 10;
+double cookieSellPrice = 50;
+double cookymod = 5;
+double cookyspeed = 0;
+double coins = 10;
+double difmod = 10;
+double lastRewardAmount = 0;
+double manulcooky = 1;
+double rank = 1;
+double usercoins = 0;
+int bakemode = 0;
+int clicktime = 1000;
+
+// ─── Purchases / economy ──────────────────────────────────────────────────────
+double autocooky_purchases = 0;
+double automationBaseCost = 15;
+double automationMultiplier = 1.01;
+double cookyspeed_purchases = 0;
+double manualSlotBaseCost = 30;
+double manualSlotMultiplier = 1.01;
+double manulcooky_purchases = 0;
+double slotBaseCost = 30;
+double slotMultiplier = 1.01;
+
+// ─── Baking slots ─────────────────────────────────────────────────────────────
+bool manualSlotDistribution = false;
+bool slotDistribution = false;
+int autobakeSlots = 0;
+int manualSlots = 0;
 array<bool> autobakeSlotEnabled;
 array<bool> baking_slots;
-bool slotDistribution=false;
-bool manualSlotDistribution=false;
-int autobakeSlots = 0;
-bool achsfx=true, bakesfx=true, coinsfx=true, ingame=false, eventsfx=true, exitsfx=true, introsfx=true, logosfx=true, savesfx=true, ranksfx=true, playervents=true, playervents2=true, playerprofed=false, orderedSyms=true, slotmode=true, jackmode=true, lotterymode=true, flipmode=true, dicemode=true, show_locked_shops=true;
-double autocooky=0, cookymod=5, difmod=10, coins=10, cookies=0, cookiesrequiered=10, cookyspeed=0, manulcooky=1, rank=1, usercoins=0;
-double cookieSellPrice = 50;
-double lastRewardAmount=0;
-double stat_cookies_baked=0, stat_manual_bakes_performed=0, stat_auto_bakes_performed=0, stat_coins_earned=0, stat_coins_spent=0, stat_singles_purchased=0, stat_bundles_purchased=0;
-double stat_baker_events_fired=0, stat_flipper_events_fired=0, stat_flipper_flips=0, stat_cooky_flips=0, stat_penny_flips=0;
-double stat_dice_rolls=0, stat_dice_wins=0, stat_dice_losses=0;
-double stat_slot_spins=0, stat_slot_wins=0, stat_slot_losses=0;
-double stat_jack_hands=0, stat_jack_wins=0, stat_jack_losses=0, stat_jack_pushes=0;
-double stat_auto_slots_purchased=0, stat_manual_slots_purchased=0, stat_auto_slots_enabled=0, stat_auto_slots_idle=0;
-double stat_quests_completed=0, stat_rerolls_performed=0;
-double stat_lottery_tickets_bought=0, stat_lottery_tickets_scratched=0, stat_lottery_wins=0, stat_lottery_losses=0;
-double autocooky_purchases=0, manulcooky_purchases=0, cookyspeed_purchases=0;
-double automationBaseCost = 15, slotBaseCost = 30, automationMultiplier = 1.01, slotMultiplier = 1.01;
-int manualSlots = 0;
-double manualSlotBaseCost = 30, manualSlotMultiplier = 1.01;
-double ambvolume=0, ambpitch=100, musvolume=0, muspitch=100, storambvolume=0, storambpitch=100, stormusvolume=0, stormuspitch=100;
-int ambslot, alertslot, coinslot, eventslot, gameslot, menuslot, mustrackslot, machineslot, percslot, storslot, storambslot, stortrackslot;
-int evchanse=50, evchanse2=50, playergender=0;
-int bakemode=0,  clicktime=1000-cookyspeed;
-int ambienceIndex=0, musicIndex=0;
+
+// ─── Stats ────────────────────────────────────────────────────────────────────
+const string STAT_AUTO_BAKES_PERFORMED    = "auto_bakes_performed";
+const string STAT_AUTO_SLOTS_ENABLED      = "auto_slots_enabled";
+const string STAT_AUTO_SLOTS_IDLE         = "auto_slots_idle";
+const string STAT_AUTO_SLOTS_PURCHASED    = "auto_slots_purchased";
+const string STAT_BAKER_EVENTS_FIRED      = "baker_events_fired";
+const string STAT_BLACKJACK_HANDS         = "blackjack_hands";
+const string STAT_BLACKJACK_LOSSES        = "blackjack_losses";
+const string STAT_BLACKJACK_PUSHES        = "blackjack_pushes";
+const string STAT_BLACKJACK_WINS          = "blackjack_wins";
+const string STAT_BUNDLES_PURCHASED       = "bundles_purchased";
+const string STAT_COINS_EARNED            = "coins_earned";
+const string STAT_COINS_SPENT             = "coins_spent";
+const string STAT_COOKY_FLIPS             = "cooky_flips";
+const string STAT_DICE_LOSSES             = "dice_losses";
+const string STAT_DICE_ROLLS              = "dice_rolls";
+const string STAT_DICE_WINS               = "dice_wins";
+const string STAT_FLIPPER_EVENTS_FIRED    = "flipper_events_fired";
+const string STAT_FLIPPER_FLIPS           = "flipper_flips";
+const string STAT_LOTTERY_LOSSES          = "lottery_losses";
+const string STAT_LOTTERY_TICKETS_BOUGHT  = "lottery_tickets_bought";
+const string STAT_LOTTERY_TICKETS_SCRATCHED = "lottery_tickets_scratched";
+const string STAT_LOTTERY_WINS            = "lottery_wins";
+const string STAT_MANUAL_BAKES_PERFORMED  = "manual_bakes_performed";
+const string STAT_MANUAL_SLOTS_PURCHASED  = "manual_slots_purchased";
+const string STAT_PENNY_FLIPS             = "penny_flips";
+const string STAT_QUESTS_COMPLETED        = "quests_completed";
+const string STAT_RANK                    = "rank";
+const string STAT_REROLLS_PERFORMED       = "rerolls_performed";
+const string STAT_SINGLES_PURCHASED       = "singles_purchased";
+const string STAT_SLOT_LOSSES             = "slot_losses";
+const string STAT_SLOT_SPINS              = "slot_spins";
+const string STAT_SLOT_WINS               = "slot_wins";
+const string STAT_COOKIES_BAKED           = "cookies_baked";
+double stat_auto_bakes_performed = 0;
+double stat_auto_slots_enabled = 0;
+double stat_auto_slots_idle = 0;
+double stat_auto_slots_purchased = 0;
+double stat_baker_events_fired = 0;
+double stat_bundles_purchased = 0;
+double stat_coins_earned = 0;
+double stat_coins_spent = 0;
+double stat_cooky_flips = 0;
+double stat_cookies_baked = 0;
+double stat_dice_losses = 0;
+double stat_dice_rolls = 0;
+double stat_dice_wins = 0;
+double stat_flipper_events_fired = 0;
+double stat_flipper_flips = 0;
+double stat_jack_hands = 0;
+double stat_jack_losses = 0;
+double stat_jack_pushes = 0;
+double stat_jack_wins = 0;
+double stat_lottery_losses = 0;
+double stat_lottery_tickets_bought = 0;
+double stat_lottery_tickets_scratched = 0;
+double stat_lottery_wins = 0;
+double stat_manual_bakes_performed = 0;
+double stat_manual_slots_purchased = 0;
+double stat_penny_flips = 0;
+double stat_quests_completed = 0;
+double stat_rerolls_performed = 0;
+double stat_singles_purchased = 0;
+double stat_slot_losses = 0;
+double stat_slot_spins = 0;
+double stat_slot_wins = 0;
+
+// ─── Events ───────────────────────────────────────────────────────────────────
+int evchanse = 50;
+int evchanse2 = 50;
 event_item[] loadedEvents;
 event_item[] loadedFlipperEvents;
-achievement_item[] loadedAchievements;
-achievement_category[] loadedAchievementCategories;
-dictionary achievementsUnlocked;
+
+// ─── Slot machine config ──────────────────────────────────────────────────────
+bool orderedSyms = true;
+bool slotConfirmUsePercent = false;
+double slotConfirmThreshold = 0.0;
+double slotMaxBet = 0.0;
+double slotMinBet = 1.0;
 int slotManagerUnlockRank = 50;
+int slotReels = 5;
 string[] slotSymbols;
 payout_item[] slotPayouts;
-int slotReels = 5;
-double slotMinBet = 1.0;
-double slotMaxBet = 0.0;
-double slotConfirmThreshold = 0.0;
-bool slotConfirmUsePercent = false;
+
+// ─── Rank config ──────────────────────────────────────────────────────────────
 rank_sound_item[] rankSounds;
 rank_reward_item[] rankDefault;
 rank_reward_item[] rankRewards;
+
+// ─── Blackjack config ─────────────────────────────────────────────────────────
 jacks_config jacksConfig;
+
+// ─── Achievements ─────────────────────────────────────────────────────────────
+achievement_item[] loadedAchievements;
+achievement_category[] loadedAchievementCategories;
+dictionary achievementsUnlocked;
+
+// ─── Prestige ─────────────────────────────────────────────────────────────────
 class prestige_run
 {
     int level;
     int rank_reached;
     string reward;
 }
-prestige_run[] prestigeHistory;
-int prestigeLevel = 0;
-int prestige_points = 0;
-string[] prestigePurchased;
-double prestige_cookie_multiplier = 0;
 double prestige_coin_multiplier = 0;
+double prestige_cookie_multiplier = 0;
 double prestige_rank_discount = 0;
-double prestige_starting_coins = 0;
 double prestige_starting_autocooky = 0;
+double prestige_starting_coins = 0;
 double prestige_starting_manualcooky = 0;
+int prestige_points = 0;
+int prestigeLevel = 0;
+string[] prestigePurchased;
+prestige_run[] prestigeHistory;
+
+// ─── History / buffers ────────────────────────────────────────────────────────
 class flipper_flip_entry
 {
     string side;
     string event_name;
     string outcome;
 }
-flipper_flip_entry[] flipperHistory;
-int flipperHistoryMax = 50;
 class reroll_history_entry
 {
     string old_name;
@@ -73,23 +186,57 @@ class reroll_history_entry
     double cost;
     string target;
 }
-reroll_history_entry[] rerollHistory;
+int flipperHistoryMax = 50;
 int rerollHistoryMax = 50;
-string ambtype="room1";
-string mustype="music1";
-string playername, playername2;
+flipper_flip_entry[] flipperHistory;
+reroll_history_entry[] rerollHistory;
+
+// ─── Audio state ──────────────────────────────────────────────────────────────
+double ambpitch = 100;
+double ambvolume = 0;
+double muspitch = 100;
+double musvolume = 0;
+double storambpitch = 100;
+double storambvolume = 0;
+double stormuspitch = 100;
+double stormusvolume = 0;
+int alertslot;
+int ambslot;
+int ambienceIndex = 0;
+int coinslot;
+int eventslot;
+int gameslot;
+int machineslot;
+int menuslot;
+int musicIndex = 0;
+int mustrackslot;
+int percslot;
+int storambslot;
+int storslot;
+int stortrackslot;
+string ambtype = "room1";
+string mustype = "music1";
+
+// ─── UI / menu state ─────────────────────────────────────────────────────────
+string achievements_cat_last_id = "";
+string achievements_last_id = "";
+string baker_last_cat_id = "";
+string baker_last_item_id = "";
+string buymenu_last_id = "";
+string bundle_last_cat_id = "";
+string bundle_last_item_id = "";
+string last_menu_id = "";
+string shopmenu_last_id = "";
+
+// ─── Player / session ─────────────────────────────────────────────────────────
+int playergender = 0;
 string currentSaveSlot = APPDATA_DIR + "saves/game1.crz";
-string last_menu_id="";
-string shopmenu_last_id="";
-string buymenu_last_id="";
-string achievements_last_id="";
-string achievements_cat_last_id="";
-string baker_last_item_id="";
-string baker_last_cat_id="";
-string bundle_last_item_id="";
-string bundle_last_cat_id="";
-bool config_loaded = false;
+string playername;
+string playername2;
 string version;
+bool config_loaded = false;
+
+// ─── Core resources ───────────────────────────────────────────────────────────
 timer clicktimer;
 file dockfile, dockver, logfile;
 audio_form form;

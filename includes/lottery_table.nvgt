@@ -61,19 +61,7 @@ void parse_lottery_table(string filepath)
             continue;
         }
         if (currentPool == "") continue;
-        string[] parts;
-        int lastPos = 0;
-        int colonCount = 0;
-        for (uint i = 0; i < line.length(); i++)
-        {
-            if (line.substr(i, 1) == ":" && colonCount < 7)
-            {
-                parts.insert_last(line.substr(lastPos, i - lastPos));
-                lastPos = i + 1;
-                colonCount++;
-            }
-        }
-        parts.insert_last(line.substr(lastPos));
+        string[] parts = parse_delimited_line(line, 7);
         if (parts.length() < 8) continue;
         lottery_prize_item prize;
         prize.id = parts[0];
@@ -134,11 +122,16 @@ string apply_lottery_prize(lottery_prize_item@ prize)
     else
         amount = floor(double(random(int(prize.min_amount), int(prize.max_amount))));
     if (amount <= 0) return "";
-    if (prize.target == "coins") { coins += amount; coins = floor(coins); stat_coins_earned += amount; }
-    else if (prize.target == "cookies") { cookies += amount; cookies = floor(cookies); }
-    else if (prize.target == "autocooky") { autocooky += amount; autocooky = floor(autocooky); }
-    else if (prize.target == "manulcooky") { manulcooky += amount; manulcooky = floor(manulcooky); }
-    else if (prize.target == "cookyspeed") { cookyspeed += amount; clicktime -= amount; if (cookyspeed < 0) cookyspeed = 0; if (clicktime < 50) clicktime = 50; cookyspeed = floor(cookyspeed); }
+    if (prize.target == "cookyspeed")
+    {
+        cookyspeed += amount;
+        clicktime -= amount;
+        if (cookyspeed < 0) cookyspeed = 0;
+        if (clicktime < 50) clicktime = 50;
+        cookyspeed = floor(cookyspeed);
+    }
+    else
+        apply_amount_effect(prize.target, amount, 1, false);
     string amtStr = "";
     if (prize.target == "coins") amtStr = convert_to_currency(amount);
     else amtStr = format_number(amount);
@@ -147,12 +140,10 @@ string apply_lottery_prize(lottery_prize_item@ prize)
     else if (prize.target == "autocooky") itemStr = (amount == 1 ? "auto cooky" : "auto cookies");
     else if (prize.target == "manulcooky") itemStr = (amount == 1 ? "manual cooky" : "manual cookies");
     else if (prize.target == "cookyspeed") itemStr = "ms";
-    string msg = prize.message;
-    int ph = msg.find("%amount%");
-    while (ph != -1) { msg = msg.substr(0, ph) + amtStr + msg.substr(ph + 8); ph = msg.find("%amount%"); }
-    int ph2 = msg.find("%item%");
-    while (ph2 != -1) { msg = msg.substr(0, ph2) + itemStr + msg.substr(ph2 + 6); ph2 = msg.find("%item%"); }
-    return msg;
+    dictionary@ tokens = dictionary();
+    tokens.set("amount", amtStr);
+    tokens.set("item", itemStr);
+    return format_template(prize.message, tokens);
 }
 
 void lottery_scratch_one(lottery_ticket_item@ ticket, int ticketIdx)
@@ -227,10 +218,10 @@ void lottery_scratch_all(lottery_ticket_item@ ticket, int ticketIdx)
         else if (prize.target == "manulcooky") totalManulcooky += amount;
         else if (prize.target == "cookyspeed") totalCookyspeed += amount;
     }
-    if (totalCoins > 0) { coins += totalCoins; coins = floor(coins); stat_coins_earned += totalCoins; }
-    if (totalCookies > 0) { cookies += totalCookies; cookies = floor(cookies); }
-    if (totalAutocooky > 0) { autocooky += totalAutocooky; autocooky = floor(autocooky); }
-    if (totalManulcooky > 0) { manulcooky += totalManulcooky; manulcooky = floor(manulcooky); }
+    if (totalCoins > 0)      apply_amount_effect("coins", totalCoins, 1, false);
+    if (totalCookies > 0)    apply_amount_effect("cookies", totalCookies, 1, false);
+    if (totalAutocooky > 0)  apply_amount_effect("autocooky", totalAutocooky, 1, false);
+    if (totalManulcooky > 0) apply_amount_effect("manulcooky", totalManulcooky, 1, false);
     if (totalCookyspeed > 0) { cookyspeed += totalCookyspeed; clicktime -= totalCookyspeed; if (cookyspeed < 0) cookyspeed = 0; if (clicktime < 50) clicktime = 50; cookyspeed = floor(cookyspeed); }
     stat_lottery_wins += wins;
     stat_lottery_losses += losses;

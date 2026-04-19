@@ -42,19 +42,7 @@ void parse_achievements(string filepath, achievement_item[]@ items, achievement_
             categories.insert_last(cat);
             continue;
         }
-        string[] parts;
-        int lastPos = 0;
-        int colonCount = 0;
-        for (uint i = 0; i < line.length(); i++)
-        {
-            if (line.substr(i, 1) == ":" && colonCount < 8)
-            {
-                parts.insert_last(line.substr(lastPos, i - lastPos));
-                lastPos = i + 1;
-                colonCount++;
-            }
-        }
-        parts.insert_last(line.substr(lastPos));
+        string[] parts = parse_delimited_line(line, 8);
         if (parts.length() < 9)
             continue;
         achievement_item item;
@@ -75,7 +63,7 @@ void parse_achievements(string filepath, achievement_item[]@ items, achievement_
         item.name = parts[6];
         item.description = parts[7];
         item.hint = parts[8];
-        bool isCoinAch = (item.stat == "coins_earned" || item.stat == "coins_spent");
+        bool isCoinAch = (item.stat == STAT_COINS_EARNED || item.stat == STAT_COINS_SPENT);
         string threshStr = isCoinAch ? convert_to_currency(item.threshold) : format_number(item.threshold);
         int ph = item.description.find("%threshold%");
         while (ph != -1)
@@ -104,39 +92,39 @@ achievement_item[] parse_achievements_items(string filepath)
 
 double get_stat_value(string stat)
 {
-    if (stat == "cookies_baked") return stat_cookies_baked;
-    if (stat == "manual_bakes_performed") return stat_manual_bakes_performed;
-    if (stat == "auto_bakes_performed") return stat_auto_bakes_performed;
-    if (stat == "coins_earned") return stat_coins_earned;
-    if (stat == "coins_spent") return stat_coins_spent;
-    if (stat == "singles_purchased") return stat_singles_purchased;
-    if (stat == "bundles_purchased") return stat_bundles_purchased;
-    if (stat == "baker_events_fired") return stat_baker_events_fired;
-    if (stat == "flipper_events_fired") return stat_flipper_events_fired;
-    if (stat == "flipper_flips") return stat_flipper_flips;
-    if (stat == "cooky_flips") return stat_cooky_flips;
-    if (stat == "penny_flips") return stat_penny_flips;
-    if (stat == "dice_rolls") return stat_dice_rolls;
-    if (stat == "dice_wins") return stat_dice_wins;
-    if (stat == "dice_losses") return stat_dice_losses;
-    if (stat == "slot_spins") return stat_slot_spins;
-    if (stat == "slot_wins") return stat_slot_wins;
-    if (stat == "slot_losses") return stat_slot_losses;
-    if (stat == "blackjack_hands") return stat_jack_hands;
-    if (stat == "blackjack_wins") return stat_jack_wins;
-    if (stat == "blackjack_losses") return stat_jack_losses;
-    if (stat == "blackjack_pushes") return stat_jack_pushes;
-    if (stat == "auto_slots_purchased") return stat_auto_slots_purchased;
-    if (stat == "manual_slots_purchased") return stat_manual_slots_purchased;
-    if (stat == "auto_slots_enabled") return stat_auto_slots_enabled;
-    if (stat == "auto_slots_idle") return double(baking_slots.length()) - double(autobakeSlots);
-    if (stat == "lottery_tickets_bought") return stat_lottery_tickets_bought;
-    if (stat == "lottery_tickets_scratched") return stat_lottery_tickets_scratched;
-    if (stat == "lottery_wins") return stat_lottery_wins;
-    if (stat == "lottery_losses") return stat_lottery_losses;
-    if (stat == "quests_completed") return stat_quests_completed;
-    if (stat == "rerolls_performed") return stat_rerolls_performed;
-    if (stat == "rank") return rank;
+    if (stat == STAT_COOKIES_BAKED) return stat_cookies_baked;
+    if (stat == STAT_MANUAL_BAKES_PERFORMED) return stat_manual_bakes_performed;
+    if (stat == STAT_AUTO_BAKES_PERFORMED) return stat_auto_bakes_performed;
+    if (stat == STAT_COINS_EARNED) return stat_coins_earned;
+    if (stat == STAT_COINS_SPENT) return stat_coins_spent;
+    if (stat == STAT_SINGLES_PURCHASED) return stat_singles_purchased;
+    if (stat == STAT_BUNDLES_PURCHASED) return stat_bundles_purchased;
+    if (stat == STAT_BAKER_EVENTS_FIRED) return stat_baker_events_fired;
+    if (stat == STAT_FLIPPER_EVENTS_FIRED) return stat_flipper_events_fired;
+    if (stat == STAT_FLIPPER_FLIPS) return stat_flipper_flips;
+    if (stat == STAT_COOKY_FLIPS) return stat_cooky_flips;
+    if (stat == STAT_PENNY_FLIPS) return stat_penny_flips;
+    if (stat == STAT_DICE_ROLLS) return stat_dice_rolls;
+    if (stat == STAT_DICE_WINS) return stat_dice_wins;
+    if (stat == STAT_DICE_LOSSES) return stat_dice_losses;
+    if (stat == STAT_SLOT_SPINS) return stat_slot_spins;
+    if (stat == STAT_SLOT_WINS) return stat_slot_wins;
+    if (stat == STAT_SLOT_LOSSES) return stat_slot_losses;
+    if (stat == STAT_BLACKJACK_HANDS) return stat_jack_hands;
+    if (stat == STAT_BLACKJACK_WINS) return stat_jack_wins;
+    if (stat == STAT_BLACKJACK_LOSSES) return stat_jack_losses;
+    if (stat == STAT_BLACKJACK_PUSHES) return stat_jack_pushes;
+    if (stat == STAT_AUTO_SLOTS_PURCHASED) return stat_auto_slots_purchased;
+    if (stat == STAT_MANUAL_SLOTS_PURCHASED) return stat_manual_slots_purchased;
+    if (stat == STAT_AUTO_SLOTS_ENABLED) return stat_auto_slots_enabled;
+    if (stat == STAT_AUTO_SLOTS_IDLE) return double(baking_slots.length()) - double(autobakeSlots);
+    if (stat == STAT_LOTTERY_TICKETS_BOUGHT) return stat_lottery_tickets_bought;
+    if (stat == STAT_LOTTERY_TICKETS_SCRATCHED) return stat_lottery_tickets_scratched;
+    if (stat == STAT_LOTTERY_WINS) return stat_lottery_wins;
+    if (stat == STAT_LOTTERY_LOSSES) return stat_lottery_losses;
+    if (stat == STAT_QUESTS_COMPLETED) return stat_quests_completed;
+    if (stat == STAT_REROLLS_PERFORMED) return stat_rerolls_performed;
+    if (stat == STAT_RANK) return rank;
     return 0;
 }
 

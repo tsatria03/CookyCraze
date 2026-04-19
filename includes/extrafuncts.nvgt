@@ -214,6 +214,56 @@ string format_number(double num, bool basic=false, bool scientific=false, bool s
         return round(value,2) + suffix_speech[tier];
 }
 
+// polarity: 1 = gain, 2 = loss. Handles coins/cookies/autocooky/manulcooky.
+// Returns actual amount applied (0 if skipped). Does not handle cookyspeed.
+double apply_amount_effect(string target, double amount, int polarity, bool use_percent)
+{
+    double base = 0;
+    if (target == "coins")           base = coins;
+    else if (target == "cookies")    base = cookies;
+    else if (target == "autocooky")  base = autocooky;
+    else if (target == "manulcooky") base = manulcooky;
+    else return 0;
+    if (use_percent && base <= 0) return 0;
+    if (polarity == 2 && base < 1) return 0;
+    double actual = use_percent ? base * (amount / 100.0) : amount;
+    actual = max(1.0, floor(actual));
+    if (polarity == 1)
+    {
+        if (target == "coins")           { coins += actual; stat_coins_earned += actual; }
+        else if (target == "cookies")    cookies += actual;
+        else if (target == "autocooky")  autocooky += actual;
+        else if (target == "manulcooky") manulcooky += actual;
+    }
+    else
+    {
+        actual = min(actual, base);
+        if (target == "coins")           coins -= actual;
+        else if (target == "cookies")    cookies -= actual;
+        else if (target == "autocooky")  autocooky = max(0, autocooky - actual);
+        else if (target == "manulcooky") manulcooky = max(0, manulcooky - actual);
+    }
+    return actual;
+}
+
+string format_template(string msg, dictionary@ replacements)
+{
+    string[] keys = replacements.get_keys();
+    for (uint k = 0; k < keys.length(); k++)
+    {
+        string key = "%" + keys[k] + "%";
+        string val;
+        replacements.get(keys[k], val);
+        int ph = msg.find(key);
+        while (ph != -1)
+        {
+            msg = msg.substr(0, ph) + val + msg.substr(ph + key.length());
+            ph = msg.find(key);
+        }
+    }
+    return msg;
+}
+
 string[] parse_delimited_line(string line, int max_parts, string delimiter = ":")
 {
     string[] parts;
@@ -675,34 +725,34 @@ void show_prestige_summary(int level, int rankReached, int questsDone, int quest
 
 string get_stat_progress_label(string stat)
 {
-    if (stat == "cookies_baked") return "cookies baked";
-    if (stat == "manual_bakes_performed") return "manual bakes performed";
-    if (stat == "auto_bakes_performed") return "auto bakes performed";
-    if (stat == "coins_earned") return "earned";
-    if (stat == "coins_spent") return "spent";
-    if (stat == "singles_purchased") return "single upgrades purchased";
-    if (stat == "bundles_purchased") return "bundle upgrades purchased";
-    if (stat == "baker_events_fired") return "baker events fired";
-    if (stat == "flipper_events_fired") return "flipper events fired";
-    if (stat == "flipper_flips") return "flips";
-    if (stat == "cooky_flips") return "cooky flips";
-    if (stat == "penny_flips") return "penny flips";
-    if (stat == "dice_rolls") return "dice rolls";
-    if (stat == "dice_wins") return "dice wins";
-    if (stat == "dice_losses") return "dice losses";
-    if (stat == "slot_spins") return "spins";
-    if (stat == "slot_wins") return "wins";
-    if (stat == "slot_losses") return "losses";
-    if (stat == "blackjack_hands") return "hands played";
-    if (stat == "blackjack_wins") return "wins";
-    if (stat == "blackjack_losses") return "losses";
-    if (stat == "blackjack_pushes") return "pushes";
-    if (stat == "auto_slots_purchased") return "auto slots purchased";
-    if (stat == "manual_slots_purchased") return "manual slots purchased";
-    if (stat == "auto_slots_enabled") return "auto slots enabled";
-    if (stat == "auto_slots_idle") return "auto slots idle";
-    if (stat == "quests_completed") return "quests completed";
-    if (stat == "rerolls_performed") return "rerolls performed";
+    if (stat == STAT_COOKIES_BAKED) return "cookies baked";
+    if (stat == STAT_MANUAL_BAKES_PERFORMED) return "manual bakes performed";
+    if (stat == STAT_AUTO_BAKES_PERFORMED) return "auto bakes performed";
+    if (stat == STAT_COINS_EARNED) return "earned";
+    if (stat == STAT_COINS_SPENT) return "spent";
+    if (stat == STAT_SINGLES_PURCHASED) return "single upgrades purchased";
+    if (stat == STAT_BUNDLES_PURCHASED) return "bundle upgrades purchased";
+    if (stat == STAT_BAKER_EVENTS_FIRED) return "baker events fired";
+    if (stat == STAT_FLIPPER_EVENTS_FIRED) return "flipper events fired";
+    if (stat == STAT_FLIPPER_FLIPS) return "flips";
+    if (stat == STAT_COOKY_FLIPS) return "cooky flips";
+    if (stat == STAT_PENNY_FLIPS) return "penny flips";
+    if (stat == STAT_DICE_ROLLS) return "dice rolls";
+    if (stat == STAT_DICE_WINS) return "dice wins";
+    if (stat == STAT_DICE_LOSSES) return "dice losses";
+    if (stat == STAT_SLOT_SPINS) return "spins";
+    if (stat == STAT_SLOT_WINS) return "wins";
+    if (stat == STAT_SLOT_LOSSES) return "losses";
+    if (stat == STAT_BLACKJACK_HANDS) return "hands played";
+    if (stat == STAT_BLACKJACK_WINS) return "wins";
+    if (stat == STAT_BLACKJACK_LOSSES) return "losses";
+    if (stat == STAT_BLACKJACK_PUSHES) return "pushes";
+    if (stat == STAT_AUTO_SLOTS_PURCHASED) return "auto slots purchased";
+    if (stat == STAT_MANUAL_SLOTS_PURCHASED) return "manual slots purchased";
+    if (stat == STAT_AUTO_SLOTS_ENABLED) return "auto slots enabled";
+    if (stat == STAT_AUTO_SLOTS_IDLE) return "auto slots idle";
+    if (stat == STAT_QUESTS_COMPLETED) return "quests completed";
+    if (stat == STAT_REROLLS_PERFORMED) return "rerolls performed";
     return stat;
 }
 
@@ -745,9 +795,9 @@ void show_achievement_statistics(achievement_item[]@ achievements, dictionary@ u
             if (achievements[i].hidden) continue;
             if (unlocked.exists(achievements[i].id)) continue;
             double curVal = get_stat_value(achievements[i].stat);
-            if (achievements[i].stat == "auto_slots_idle") curVal = idleCount;
+            if (achievements[i].stat == STAT_AUTO_SLOTS_IDLE) curVal = idleCount;
             string label = get_stat_progress_label(achievements[i].stat);
-            bool isCoinStat = (achievements[i].stat == "coins_earned" || achievements[i].stat == "coins_spent");
+            bool isCoinStat = (achievements[i].stat == STAT_COINS_EARNED || achievements[i].stat == STAT_COINS_SPENT);
             string curStr = isCoinStat ? convert_to_currency(curVal) : format_number(curVal);
             string threshStr = isCoinStat ? convert_to_currency(achievements[i].threshold) : format_number(achievements[i].threshold);
             txt += achievements[i].name + ", incomplete. " + curStr + " of " + threshStr + " " + label + ".\r\n";
