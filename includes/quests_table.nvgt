@@ -266,9 +266,9 @@ void reroll_quest(int questIndex)
     double cost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
     if (questsConfig.reroll_target == "coins")           { coins -= cost; stat_coins_spent += cost; }
     else if (questsConfig.reroll_target == "cookies")    cookies -= cost;
-    else if (questsConfig.reroll_target == "autocooky")  autocooky -= cost;
-    else if (questsConfig.reroll_target == "manulcooky") manulcooky -= cost;
-    else if (questsConfig.reroll_target == "cookyspeed") { cookyspeed -= cost; clicktime += cost; }
+    else if (questsConfig.reroll_target == "autocookie")  autocookie -= cost;
+    else if (questsConfig.reroll_target == "manulcookie") manulcookie -= cost;
+    else if (questsConfig.reroll_target == "cookiespeed") { cookiespeed -= cost; clicktime += cost; }
     questRerollCount++;
     stat_rerolls_performed++;
 
@@ -367,8 +367,8 @@ string get_stat_display_name(string stat)
     else if (stat == STAT_BUNDLES_PURCHASED) return "bundles purchased";
     else if (stat == STAT_BAKER_EVENTS_FIRED)   return "baker events fired";
     else if (stat == STAT_FLIPPER_EVENTS_FIRED) return "flipper events fired";
-    else if (stat == STAT_FLIPPER_FLIPS)     return "cooky flipper flips";
-    else if (stat == STAT_COOKY_FLIPS)       return "cooky flips";
+    else if (stat == STAT_FLIPPER_FLIPS)     return "cookie flipper flips";
+    else if (stat == STAT_COOKY_FLIPS)       return "cookie flips";
     else if (stat == STAT_PENNY_FLIPS)       return "penny flips";
     else if (stat == STAT_DICE_ROLLS)        return "dice rolls";
     else if (stat == STAT_DICE_WINS)         return "dice wins";

@@ -80,18 +80,18 @@ fire_flipper_events_100:Trigger 100 flipper events:flipper_events_fired:100:true
 fire_flipper_events_250:Trigger 250 flipper events:flipper_events_fired:250:true:false:true:4:Trigger %threshold% random flipper events during gameplay.
 fire_flipper_events_500:Trigger 500 flipper events:flipper_events_fired:500:true:false:true:5:Trigger %threshold% random flipper events during gameplay.
 
-; Cooky flipper
+; Cookie flipper
 
-flip_cooky_10:Flip a cooky 10 times:cooky_flips:10:true:false:true:1:Flip a cooky %threshold% times in the cooky flipper.
-flip_cooky_50:Flip a cooky 50 times:cooky_flips:50:true:false:true:2:Flip a cooky %threshold% times in the cooky flipper.
-flip_cooky_200:Flip a cooky 200 times:cooky_flips:200:true:false:true:3:Flip a cooky %threshold% times in the cooky flipper.
-flip_cooky_500:Flip a cooky 500 times:cooky_flips:500:true:false:true:4:Flip a cooky %threshold% times in the cooky flipper.
-flip_cooky_1000:Flip a cooky 1K times:cooky_flips:1000:true:false:true:5:Flip a cooky %threshold% times in the cooky flipper.
-flip_penny_10:Flip a penny 10 times:penny_flips:10:true:false:true:1:Flip a penny %threshold% times in the cooky flipper.
-flip_penny_50:Flip a penny 50 times:penny_flips:50:true:false:true:2:Flip a penny %threshold% times in the cooky flipper.
-flip_penny_200:Flip a penny 200 times:penny_flips:200:true:false:true:3:Flip a penny %threshold% times in the cooky flipper.
-flip_penny_500:Flip a penny 500 times:penny_flips:500:true:false:true:4:Flip a penny %threshold% times in the cooky flipper.
-flip_penny_1000:Flip a penny 1K times:penny_flips:1000:true:false:true:5:Flip a penny %threshold% times in the cooky flipper.
+flip_cookie_10:Flip a cookie 10 times:cookie_flips:10:true:false:true:1:Flip a cookie %threshold% times in the cookie flipper.
+flip_cookie_50:Flip a cookie 50 times:cookie_flips:50:true:false:true:2:Flip a cookie %threshold% times in the cookie flipper.
+flip_cookie_200:Flip a cookie 200 times:cookie_flips:200:true:false:true:3:Flip a cookie %threshold% times in the cookie flipper.
+flip_cookie_500:Flip a cookie 500 times:cookie_flips:500:true:false:true:4:Flip a cookie %threshold% times in the cookie flipper.
+flip_cookie_1000:Flip a cookie 1K times:cookie_flips:1000:true:false:true:5:Flip a cookie %threshold% times in the cookie flipper.
+flip_penny_10:Flip a penny 10 times:penny_flips:10:true:false:true:1:Flip a penny %threshold% times in the cookie flipper.
+flip_penny_50:Flip a penny 50 times:penny_flips:50:true:false:true:2:Flip a penny %threshold% times in the cookie flipper.
+flip_penny_200:Flip a penny 200 times:penny_flips:200:true:false:true:3:Flip a penny %threshold% times in the cookie flipper.
+flip_penny_500:Flip a penny 500 times:penny_flips:500:true:false:true:4:Flip a penny %threshold% times in the cookie flipper.
+flip_penny_1000:Flip a penny 1K times:penny_flips:1000:true:false:true:5:Flip a penny %threshold% times in the cookie flipper.
 
 ; Slot machine spins
 

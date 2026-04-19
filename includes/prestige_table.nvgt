@@ -23,9 +23,9 @@ class prestige_run
 double prestige_coin_multiplier = 0;
 double prestige_cookie_multiplier = 0;
 double prestige_rank_discount = 0;
-double prestige_starting_autocooky = 0;
+double prestige_starting_autocookie = 0;
 double prestige_starting_coins = 0;
-double prestige_starting_manualcooky = 0;
+double prestige_starting_manualcookie = 0;
 int prestige_points = 0;
 int prestigeLevel = 0;
 string[] prestigePurchased;
@@ -141,7 +141,7 @@ void parse_prestige_table(string filepath)
     f.close();
 }
 
-string apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocooky, double snapshot_manulcooky, double snapshot_coins, double snapshot_cookyspeed, int level)
+string apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocookie, double snapshot_manulcookie, double snapshot_coins, double snapshot_cookiespeed, int level)
 {
     string allAmounts = "";
     for (uint e = 0; e < item.entries.length(); e++)
@@ -150,17 +150,17 @@ string apply_prestige_reward(prestige_reward_item@ item, double snapshot_autocoo
         string target = item.entries[e].target;
         if (item.use_percent)
         {
-            if (target == "autocooky")       amount = floor(snapshot_autocooky * (amount / 100.0));
-            else if (target == "manulcooky") amount = floor(snapshot_manulcooky * (amount / 100.0));
+            if (target == "autocookie")       amount = floor(snapshot_autocookie * (amount / 100.0));
+            else if (target == "manulcookie") amount = floor(snapshot_manulcookie * (amount / 100.0));
             else if (target == "coins")      amount = floor(snapshot_coins * (amount / 100.0));
-            else if (target == "cookyspeed") amount = floor(snapshot_cookyspeed * (amount / 100.0));
+            else if (target == "cookiespeed") amount = floor(snapshot_cookiespeed * (amount / 100.0));
             else if (target == "cookies")    amount = floor(cookies * (amount / 100.0));
         }
         if (target == "cookies")           cookies += amount;
         else if (target == "coins")        { coins += amount; stat_coins_earned += amount; }
-        else if (target == "autocooky")    autocooky += amount;
-        else if (target == "manulcooky")   manulcooky += amount;
-        else if (target == "cookyspeed")   { cookyspeed += amount; clicktime -= amount; }
+        else if (target == "autocookie")    autocookie += amount;
+        else if (target == "manulcookie")   manulcookie += amount;
+        else if (target == "cookiespeed")   { cookiespeed += amount; clicktime -= amount; }
         item.entries[e].amount = amount;
         item.entries[e].target = target;
     }
@@ -195,9 +195,9 @@ string apply_prestige_default_reward(int level)
     string target = prestigeDefaultReward.target;
     if (target == "cookies")          cookies += amount;
     else if (target == "coins")       { coins += amount; stat_coins_earned += amount; }
-    else if (target == "autocooky")   autocooky += amount;
-    else if (target == "manulcooky")  manulcooky += amount;
-    else if (target == "cookyspeed")  { cookyspeed += amount; clicktime -= amount; }
+    else if (target == "autocookie")   autocookie += amount;
+    else if (target == "manulcookie")  manulcookie += amount;
+    else if (target == "cookiespeed")  { cookiespeed += amount; clicktime -= amount; }
     string msg = prestigeDefaultReward.message;
     string lvlStr = string(level);
     string amtStr = (target == "coins") ? convert_to_currency(amount) : format_number(amount);

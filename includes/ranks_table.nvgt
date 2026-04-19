@@ -80,9 +80,9 @@ string apply_rank_reward(rank_reward_item@ item, double current_rank)
     if (minVal >= 0 && maxVal >= 0 && amount < 1.0) amount = 1.0;
     amount = floor(amount);
     lastRewardAmount = amount;
-    if (item.target == "cookyspeed")
+    if (item.target == "cookiespeed")
     {
-        cookyspeed += amount;
+        cookiespeed += amount;
         clicktime -= amount;
     }
     else

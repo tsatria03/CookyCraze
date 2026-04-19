@@ -57,18 +57,18 @@ string apply_event(event_item@ item)
     }
     double amount = max(1.0, double(random(int(minVal), int(maxVal))));
     double actualAmount = 0;
-    if (item.target == "cookyspeed")
+    if (item.target == "cookiespeed")
     {
-        if (item.use_percent && cookyspeed <= 0) return "";
-        actualAmount = item.use_percent ? cookyspeed * (amount / 100.0) : amount;
+        if (item.use_percent && cookiespeed <= 0) return "";
+        actualAmount = item.use_percent ? cookiespeed * (amount / 100.0) : amount;
         if (item.polarity == 1)
         {
-            cookyspeed = max(50, cookyspeed - actualAmount);
+            cookiespeed = max(50, cookiespeed - actualAmount);
             clicktime -= actualAmount;
         }
         else
         {
-            cookyspeed = min(1000, cookyspeed + actualAmount);
+            cookiespeed = min(1000, cookiespeed + actualAmount);
             clicktime += actualAmount;
         }
     }

@@ -102,7 +102,7 @@ double get_stat_value(string stat)
     if (stat == STAT_BAKER_EVENTS_FIRED) return stat_baker_events_fired;
     if (stat == STAT_FLIPPER_EVENTS_FIRED) return stat_flipper_events_fired;
     if (stat == STAT_FLIPPER_FLIPS) return stat_flipper_flips;
-    if (stat == STAT_COOKY_FLIPS) return stat_cooky_flips;
+    if (stat == STAT_COOKY_FLIPS) return stat_cookie_flips;
     if (stat == STAT_PENNY_FLIPS) return stat_penny_flips;
     if (stat == STAT_DICE_ROLLS) return stat_dice_rolls;
     if (stat == STAT_DICE_WINS) return stat_dice_wins;

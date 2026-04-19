@@ -1,9 +1,9 @@
 void clickergame()
 {
 form.reset();
-form.create_window("CookyCraze", false);
+form.create_window("CookieCraze", false);
 int manulbake=form.create_button("&Bake cookies");
-int shop=form.create_button("Cooky &store");
+int shop=form.create_button("Cookie &store");
 int autobake=form.create_button("Enter baking m&ode");
 int achievementsBtn = form.create_button("&Achievements");
 int manageSlots = form.create_button("Baking slots &manager");
@@ -18,11 +18,11 @@ while(true)
 wait(5);
 form.monitor();
 clicker_game_input();
-autocooky = floor(autocooky);
-if(autocooky<=0)
+autocookie = floor(autocookie);
+if(autocookie<=0)
 {
 bakemode=0;
-autocooky=0;
+autocookie=0;
 }
 coins = floor(coins);
 if(coins<=0)
@@ -34,15 +34,15 @@ if(cookies<=0)
 {
 cookies=0;
 }
-cookyspeed = floor(cookyspeed);
-if(cookyspeed<=0)
+cookiespeed = floor(cookiespeed);
+if(cookiespeed<=0)
 {
-cookyspeed=0;
+cookiespeed=0;
 }
-manulcooky = floor(manulcooky);
-if(manulcooky<=0)
+manulcookie = floor(manulcookie);
+if(manulcookie<=0)
 {
-manulcooky=0;
+manulcookie=0;
 }
 if(clicktime<=50)
 {
@@ -84,11 +84,11 @@ infomenu();
 }
 if(form.is_pressed(autobake))
 {
-if(autocooky<1)
+if(autocookie<1)
 {
-speak_buffer("You need at least 1 auto cooky to enable baking mode.", "general");
+speak_buffer("You need at least 1 auto cookie to enable baking mode.", "general");
 }
-else if(autocooky>=1)
+else if(autocookie>=1)
 {
 if(bakemode==0)
 {
@@ -106,22 +106,22 @@ speak_buffer("Baking mode disabled.", "misc");
 }
 if(form.is_pressed(manulbake))
 {
-if(manulcooky<1)
+if(manulcookie<1)
 {
-speak_buffer("You need at least 1 manual cooky to start baking cookies.", "general");
+speak_buffer("You need at least 1 manual cookie to start baking cookies.", "general");
 }
-else if(manulcooky>=1)
+else if(manulcookie>=1)
 {
     double manualGain = 0;
     if (manualSlots > 0)
     {
         if (manualSlotDistribution)
-            manualGain = manulcooky;
+            manualGain = manulcookie;
         else
-            manualGain = manulcooky * manualSlots;
+            manualGain = manulcookie * manualSlots;
     }
     else
-        manualGain = manulcooky;
+        manualGain = manulcookie;
     if (prestige_cookie_multiplier > 0) manualGain *= 1.0 + (prestige_cookie_multiplier / 100.0);
     cookies += manualGain;
 stat_cookies_baked += manualGain;
@@ -134,13 +134,13 @@ if(form.is_pressed(shop))
 {
 if(coins<1)
 {
-speak_buffer("You need at least 1 cent to enter the cooky store.", "general");
+speak_buffer("You need at least 1 cent to enter the cookie store.", "general");
 }
 else if(coins>=1)
 {
 ambpool.destroy_sound(ambslot);
 muspool.destroy_sound(mustrackslot);
-speak_buffer("You're now entering the cooky store.", "critical");
+speak_buffer("You're now entering the cookie store.", "critical");
 dlgplay("sounds/store/door_open.ogg");
 alertslot=pool.play_stationary("sounds/store/welcome.ogg",false);
 storambslot=storambpool.play_stationary_extended("sounds/store/amb.ogg",true,0,0,storambvolume,storambpitch,false);
@@ -148,17 +148,17 @@ stortrackslot=stormuspool.play_stationary_extended("sounds/store/music.ogg",true
 shopmenu();
 }
 }
-if(bakemode==1 and autocooky>=1)
+if(bakemode==1 and autocookie>=1)
 {
 if(clicktimer.elapsed>=clicktime)
 {
 double autoGain = 0;
 if (autobakeSlots > 0)
 {
-double perSlot = autocooky;
+double perSlot = autocookie;
 if (slotDistribution && autobakeSlots > 0)
 {
-    perSlot = autocooky / autobakeSlots;
+    perSlot = autocookie / autobakeSlots;
 }
         for (uint i = 0; i < autobakeSlotEnabled.length(); i++)
 {
@@ -170,7 +170,7 @@ autoGain += perSlot;
 }
 else
 {
-autoGain = autocooky;
+autoGain = autocookie;
 }
 if (prestige_cookie_multiplier > 0) autoGain *= 1.0 + (prestige_cookie_multiplier / 100.0);
 cookies += autoGain;
@@ -180,7 +180,7 @@ if(bakesfx==true) pool.play_stationary("sounds/misc/autobake.ogg", false);
 if(playervents==true) attempt_autobaker_event(evchanse);
 clicktimer.restart();
 }
-else if(bakemode==1 and autocooky<=0)
+else if(bakemode==1 and autocookie<=0)
 {
 bakemode=0;
 pool.destroy_all();
@@ -189,7 +189,7 @@ pool.destroy_all();
 if (cookies >= cookiesrequiered)
 {
     rank += 1;
-    cookiesrequiered = (cookymod * (rank * (rank * difmod)));
+    cookiesrequiered = (cookiemod * (rank * (rank * difmod)));
     if (prestige_rank_discount > 0) cookiesrequiered *= max(0.01, 1.0 - (prestige_rank_discount / 100.0));
     if (rankDefault.length() > 0)
     {
@@ -324,10 +324,10 @@ speak_buffer("You have " + convert_to_currency(coins) + " available to spend", "
 }
 if(key_pressed(KEY_R))
 {
-string rCookyWord = (cookies == 1) ? "cooky" : "cookies";
+string rCookieWord = (cookies == 1) ? "cookie" : "cookies";
 double cookiesNeeded = cookiesrequiered - cookies;
-string rNeededWord = (cookiesNeeded == 1) ? "cooky" : "cookies";
-speak_buffer("You're currently rank " + format_number(rank) + " with " + format_number(cookies) + " " + rCookyWord + ". Your next rank requires " + format_number(cookiesNeeded) + " " + rNeededWord + ".", "misc");
+string rNeededWord = (cookiesNeeded == 1) ? "cookie" : "cookies";
+speak_buffer("You're currently rank " + format_number(rank) + " with " + format_number(cookies) + " " + rCookieWord + ". Your next rank requires " + format_number(cookiesNeeded) + " " + rNeededWord + ".", "misc");
 }
 if (key_pressed(KEY_F))
 {
@@ -341,19 +341,19 @@ if (key_pressed(KEY_F))
         double totalCookies;
         if (slotDistribution)
         {
-            cookiesPerSlot = (slotCount > 0) ? autocooky / slotCount : autocooky;
-            totalCookies = autocooky;
+            cookiesPerSlot = (slotCount > 0) ? autocookie / slotCount : autocookie;
+            totalCookies = autocookie;
         }
         else
         {
-            cookiesPerSlot = autocooky;
-            totalCookies = autocooky * slotCount;
+            cookiesPerSlot = autocookie;
+            totalCookies = autocookie * slotCount;
         }
         if (slotCount > 0)
         {
             string slotWord = (slotCount == 1) ? "slot" : "slots";
-            string perSlotWord = (cookiesPerSlot == 1) ? "cooky" : "cookies";
-            string totalWord = (totalCookies == 1) ? "cooky" : "cookies";
+            string perSlotWord = (cookiesPerSlot == 1) ? "cookie" : "cookies";
+            string totalWord = (totalCookies == 1) ? "cookie" : "cookies";
             if (clicktime == 1000)
                 speak_buffer("You produce " + format_number(cookiesPerSlot) + " " + perSlotWord + " per second. With " + slotCount + " automated " + slotWord + ", you produce " + format_number(totalCookies) + " " + totalWord + " per second.", "misc");
             else
@@ -361,30 +361,30 @@ if (key_pressed(KEY_F))
         }
         else
         {
-            string autoWord = (autocooky == 1) ? "cooky" : "cookies";
+            string autoWord = (autocookie == 1) ? "cookie" : "cookies";
             if (clicktime == 1000)
-                speak_buffer("You produce " + format_number(autocooky) + " " + autoWord + " per second.", "misc");
+                speak_buffer("You produce " + format_number(autocookie) + " " + autoWord + " per second.", "misc");
             else
-                speak_buffer("You produce " + format_number(autocooky) + " " + autoWord + " every " + clicktime + " milliseconds.", "misc");
+                speak_buffer("You produce " + format_number(autocookie) + " " + autoWord + " every " + clicktime + " milliseconds.", "misc");
         }
     }
 if(key_pressed(KEY_C))
 {
-string cookyCountWord = (cookies == 1) ? "cooky" : "cookies";
-speak_buffer("You baked a total of " + format_number(cookies) + " " + cookyCountWord + ".", "misc");
+string cookieCountWord = (cookies == 1) ? "cookie" : "cookies";
+speak_buffer("You baked a total of " + format_number(cookies) + " " + cookieCountWord + ".", "misc");
 }
 if(key_pressed(KEY_J))
 {
-    string cookyWord = (manulcooky == 1) ? "cooky" : "cookies";
+    string cookieWord = (manulcookie == 1) ? "cookie" : "cookies";
     if (manualSlots > 0)
     {
-        double totalManual = manualSlotDistribution ? manulcooky : manulcooky * manualSlots;
-        string totalWord = (totalManual == 1) ? "cooky" : "cookies";
+        double totalManual = manualSlotDistribution ? manulcookie : manulcookie * manualSlots;
+        string totalWord = (totalManual == 1) ? "cookie" : "cookies";
         string slotWord = (manualSlots == 1) ? "slot" : "slots";
-        speak_buffer("You produce " + format_number(manulcooky) + " " + cookyWord + " per press. With " + manualSlots + " manual " + slotWord + ", you produce " + format_number(totalManual) + " " + totalWord + " per press.", "misc");
+        speak_buffer("You produce " + format_number(manulcookie) + " " + cookieWord + " per press. With " + manualSlots + " manual " + slotWord + ", you produce " + format_number(totalManual) + " " + totalWord + " per press.", "misc");
     }
     else
-        speak_buffer("You produce " + format_number(manulcooky) + " " + cookyWord + " per press.", "misc");
+        speak_buffer("You produce " + format_number(manulcookie) + " " + cookieWord + " per press.", "misc");
 }
 if(alt_is_down())
 {

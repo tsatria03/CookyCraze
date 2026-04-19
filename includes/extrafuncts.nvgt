@@ -219,8 +219,8 @@ double apply_amount_effect(string target, double amount, int polarity, bool use_
     double base = 0;
     if (target == "coins")           base = coins;
     else if (target == "cookies")    base = cookies;
-    else if (target == "autocooky")  base = autocooky;
-    else if (target == "manulcooky") base = manulcooky;
+    else if (target == "autocookie")  base = autocookie;
+    else if (target == "manulcookie") base = manulcookie;
     else return 0;
     if (use_percent && base <= 0) return 0;
     if (polarity == 2 && base < 1) return 0;
@@ -230,16 +230,16 @@ double apply_amount_effect(string target, double amount, int polarity, bool use_
     {
         if (target == "coins")           { coins += actual; stat_coins_earned += actual; }
         else if (target == "cookies")    cookies += actual;
-        else if (target == "autocooky")  autocooky += actual;
-        else if (target == "manulcooky") manulcooky += actual;
+        else if (target == "autocookie")  autocookie += actual;
+        else if (target == "manulcookie") manulcookie += actual;
     }
     else
     {
         actual = min(actual, base);
         if (target == "coins")           coins -= actual;
         else if (target == "cookies")    cookies -= actual;
-        else if (target == "autocooky")  autocooky = max(0, autocooky - actual);
-        else if (target == "manulcooky") manulcooky = max(0, manulcooky - actual);
+        else if (target == "autocookie")  autocookie = max(0, autocookie - actual);
+        else if (target == "manulcookie") manulcookie = max(0, manulcookie - actual);
     }
     return actual;
 }
@@ -473,10 +473,10 @@ void show_baker_info()
 {
     string txt = "";
     txt += "Production\r\n";
-    txt += "Auto cookies: " + format_number(autocooky) + "\r\n";
-    txt += "Manual cookies: " + format_number(manulcooky) + "\r\n";
-    txt += "Baking speed reduction: " + format_number(cookyspeed) + "ms\r\n";
-    txt += "Bake interval: " + format_number(max(0.0, 1000.0 - cookyspeed)) + "ms\r\n";
+    txt += "Auto cookies: " + format_number(autocookie) + "\r\n";
+    txt += "Manual cookies: " + format_number(manulcookie) + "\r\n";
+    txt += "Baking speed reduction: " + format_number(cookiespeed) + "ms\r\n";
+    txt += "Bake interval: " + format_number(max(0.0, 1000.0 - cookiespeed)) + "ms\r\n";
     txt += "\r\n";
     txt += "Slots\r\n";
     txt += "Auto slots: " + string(autobakeSlots) + "\r\n";
@@ -545,9 +545,9 @@ void show_baker_statistics()
     txt += "Flipper events\r\n";
     txt += "Flipper events fired: " + format_number(stat_flipper_events_fired) + "\r\n";
     txt += "\r\n";
-    txt += "Cooky flipper\r\n";
+    txt += "Cookie flipper\r\n";
     txt += "Flipper flips: " + format_number(stat_flipper_flips) + "\r\n";
-    txt += "Cooky flips: " + format_number(stat_cooky_flips) + "\r\n";
+    txt += "Cookie flips: " + format_number(stat_cookie_flips) + "\r\n";
     txt += "Penny flips: " + format_number(stat_penny_flips) + "\r\n";
     txt += "\r\n";
     txt += "Dice roller\r\n";
@@ -647,10 +647,10 @@ void apply_prestige_store_upgrade(string item_id)
             prestige_rank_discount += amt;
         else if (id.substr(0, 14) == "starting_coins")
             prestige_starting_coins += amt;
-        else if (id.substr(0, 17) == "starting_autocooky")
-            prestige_starting_autocooky += amt;
-        else if (id.substr(0, 19) == "starting_manualcooky")
-            prestige_starting_manualcooky += amt;
+        else if (id.substr(0, 17) == "starting_autocookie")
+            prestige_starting_autocookie += amt;
+        else if (id.substr(0, 19) == "starting_manualcookie")
+            prestige_starting_manualcookie += amt;
         break;
     }
 }
@@ -660,8 +660,8 @@ void apply_all_prestige_store_upgrades()
     prestige_coin_multiplier = 0;
     prestige_rank_discount = 0;
     prestige_starting_coins = 0;
-    prestige_starting_autocooky = 0;
-    prestige_starting_manualcooky = 0;
+    prestige_starting_autocookie = 0;
+    prestige_starting_manualcookie = 0;
     prestige_store_item[] items;
     prestige_menu_def[] menus;
     parse_prestige_store("data/config/stores/prestige.store", items, menus);
@@ -680,10 +680,10 @@ void apply_all_prestige_store_upgrades()
                 prestige_rank_discount += amt;
             else if (id.substr(0, 14) == "starting_coins")
                 prestige_starting_coins += amt;
-            else if (id.substr(0, 17) == "starting_autocooky")
-                prestige_starting_autocooky += amt;
-            else if (id.substr(0, 19) == "starting_manualcooky")
-                prestige_starting_manualcooky += amt;
+            else if (id.substr(0, 17) == "starting_autocookie")
+                prestige_starting_autocookie += amt;
+            else if (id.substr(0, 19) == "starting_manualcookie")
+                prestige_starting_manualcookie += amt;
             break;
         }
     }
@@ -731,7 +731,7 @@ string get_stat_progress_label(string stat)
     if (stat == STAT_BAKER_EVENTS_FIRED) return "baker events fired";
     if (stat == STAT_FLIPPER_EVENTS_FIRED) return "flipper events fired";
     if (stat == STAT_FLIPPER_FLIPS) return "flips";
-    if (stat == STAT_COOKY_FLIPS) return "cooky flips";
+    if (stat == STAT_COOKY_FLIPS) return "cookie flips";
     if (stat == STAT_PENNY_FLIPS) return "penny flips";
     if (stat == STAT_DICE_ROLLS) return "dice rolls";
     if (stat == STAT_DICE_WINS) return "dice wins";
@@ -827,9 +827,9 @@ void minigame_input(string game)
 {
     buffer_check_keys();
     if (key_pressed(KEY_C)) speak_buffer("You have " + format_number(cookies) + " cookies.");
-    if (key_pressed(KEY_A)) speak_buffer("You have " + format_number(autocooky) + " auto cookies.");
-    if (key_pressed(KEY_S)) speak_buffer("You have " + format_number(cookyspeed) + " auto cookie speeds.");
-    if (key_pressed(KEY_M)) speak_buffer("You have " + format_number(manulcooky) + " manual cookies.");
+    if (key_pressed(KEY_A)) speak_buffer("You have " + format_number(autocookie) + " auto cookies.");
+    if (key_pressed(KEY_S)) speak_buffer("You have " + format_number(cookiespeed) + " auto cookie speeds.");
+    if (key_pressed(KEY_M)) speak_buffer("You have " + format_number(manulcookie) + " manual cookies.");
     if (key_pressed(KEY_O))
     {
         pool.destroy_sound(coinslot);

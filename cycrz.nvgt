@@ -1,10 +1,10 @@
 #include"includes/includes.nvgt"
 void main()
 {
-if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookyCraze/saves/");
-if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookyCraze/preffs/");
+if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookieCraze/saves/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookieCraze/saves/");
+if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookieCraze/preffs/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookieCraze/preffs/");
 getver();
-show_window("CookyCraze, version "+version);
+show_window("CookieCraze, version "+version);
 if(gamstence.is_already_running)
 {
 alert("error", "You can only have one instance of this game running!");
@@ -146,10 +146,10 @@ void resetgame(bool prestige = false)
 {
 if (prestige)
 {
-    double snap_autocooky = autocooky;
-    double snap_manulcooky = manulcooky;
+    double snap_autocookie = autocookie;
+    double snap_manulcookie = manulcookie;
     double snap_coins = coins;
-    double snap_cookyspeed = cookyspeed;
+    double snap_cookiespeed = cookiespeed;
     prestigeLevel++;
     string pmsg = prestigeConfig.message;
     string plvl = string(prestigeLevel);
@@ -180,7 +180,7 @@ if (prestige)
         {
             if (prestigeRewards[i].prestige_level == prestigeLevel)
             {
-                rewardSummary = apply_prestige_reward(prestigeRewards[i], snap_autocooky, snap_manulcooky, snap_coins, snap_cookyspeed, prestigeLevel);
+                rewardSummary = apply_prestige_reward(prestigeRewards[i], snap_autocookie, snap_manulcookie, snap_coins, snap_cookiespeed, prestigeLevel);
                 rewardFound = true;
             }
         }
@@ -244,7 +244,7 @@ stat_bundles_purchased=0;
 stat_baker_events_fired=0;
 stat_flipper_events_fired=0;
 stat_flipper_flips=0;
-stat_cooky_flips=0;
+stat_cookie_flips=0;
 stat_penny_flips=0;
 stat_dice_rolls=0;
 stat_dice_wins=0;
@@ -252,14 +252,14 @@ stat_dice_losses=0;
 stat_auto_slots_purchased=0;
 stat_manual_slots_purchased=0;
 stat_auto_slots_enabled=0;
-autocooky=0;
-autocooky_purchases=0;
-manulcooky_purchases=0;
-cookyspeed_purchases=0;
+autocookie=0;
+autocookie_purchases=0;
+manulcookie_purchases=0;
+cookiespeed_purchases=0;
 coins=10;
 cookies=0;
-cookyspeed=0;
-manulcooky=1;
+cookiespeed=0;
+manulcookie=1;
 rank=1;
 bakemode=0;
 clicktime=1000;
@@ -276,9 +276,9 @@ assign_quests();
 flipperHistory.resize(0);
 rerollHistory.resize(0);
 if (prestige_starting_coins > 0) { coins += prestige_starting_coins; stat_coins_earned += prestige_starting_coins; }
-if (prestige_starting_autocooky > 0) autocooky += prestige_starting_autocooky;
-if (prestige_starting_manualcooky > 0) manulcooky += prestige_starting_manualcooky;
-cookiesrequiered = (cookymod * (rank * (rank * difmod)));
+if (prestige_starting_autocookie > 0) autocookie += prestige_starting_autocookie;
+if (prestige_starting_manualcookie > 0) manulcookie += prestige_starting_manualcookie;
+cookiesrequiered = (cookiemod * (rank * (rank * difmod)));
 if (prestige_rank_discount > 0) cookiesrequiered *= max(0.01, 1.0 - (prestige_rank_discount / 100.0));
 }
 

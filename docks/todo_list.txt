@@ -12,8 +12,8 @@
 **Finished. Replace the hardcoded rank reward system with a fully data-driven one defined in ranks.table.
 **Finished. Make the slot machine reel count configurable via the config file.
 **Finished. Replace the hardcoded slot machine symbol list and payout tiers with data-driven config files.
-**Finished. Make the cooky flipper event list in the game UI build dynamically from the loaded events.
-**Finished. Replace the hardcoded cooky flipper event system with a fully data-driven one.
+**Finished. Make the cookie flipper event list in the game UI build dynamically from the loaded events.
+**Finished. Replace the hardcoded cookie flipper event system with a fully data-driven one.
 **Finished. Add a sound field to the event file format with random range and multi-sound support.
 **Finished. Add percentage based baking events for all five stat targets.
 **Finished. Reorganise the slot manager into auto slots and manual slots submenus.
@@ -23,7 +23,7 @@
 **Finished. Add many new shop items spanning ranks 5 through 500 across all three stat categories.
 **Finished. Merge the automatic and manual baking shop menus into a single baking upgrades menu.
 **Finished. Add rank based unlocking for shop items so players have new content to work toward.
-**Finished. Add the ability to add your own items to the cooky store without touching the script.
+**Finished. Add the ability to add your own items to the cookie store without touching the script.
 **Finished. Add rank scaling operators to event amounts so events grow stronger or weaker as the player progresses.
 **Finished. Replace the hardcoded event system with a fully data-driven one loaded from a config file.
 **Finished. Add the ability to add your own custom events to the game without touching the script.

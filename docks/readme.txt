@@ -1,7 +1,7 @@
-Welcome to Cooky Craze!
+Welcome to Cookie Craze!
 In this game, you bake and sell cookies to earn money, climb the ranks, and build the ultimate automated bakery.
 
-Start out clicking manually, then invest your money into upgrades and unlock minigames like blackjack, the cooky flipper, the slot machine, and the cooky lottery.
+Start out clicking manually, then invest your money into upgrades and unlock minigames like blackjack, the cookie flipper, the slot machine, and the cookie lottery.
 Automate your production until cookies are practically baking themselves.
 Every rank you reach brings a reward, and milestones along the way unlock powerful new features.
 
@@ -19,7 +19,7 @@ Bake cookies and sell them to earn money. The more you bake, the higher your ran
 
 You can bake manually by pressing the bake button, or let auto-baking handle it passively. Every cookie baked counts toward your rank progress. Your earnings per bake scale with your rank, so the further you progress, the faster money accumulates.
 
-To sell cookies and earn money, enter the cooky store and choose the sell option. You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in. Press enter to sell everything you have, or type a smaller number to sell only part of your supply.
+To sell cookies and earn money, enter the cookie store and choose the sell option. You will be prompted to type how many cookies you want to sell, with the maximum amount already filled in. Press enter to sell everything you have, or type a smaller number to sell only part of your supply.
 
 Each cookie sells for a configurable rate set in the game settings, defaulting to 50 cents. The more you bake before selling, the larger your payout.
 
@@ -109,10 +109,10 @@ You can draw cards manually, or enable automatic drawing in the settings.
 All payouts, sounds, messages, and bet limits are configurable in jacks.table.
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 
-Cooky flipper. Unlocked at rank 20.
-Flip a cooky or a penny to trigger a random event that can boost or reduce your stats.
+Cookie flipper. Unlocked at rank 20.
+Flip a cookie or a penny to trigger a random event that can boost or reduce your stats.
 
-When you open the flipper, the first thing you see is a type selector. Choose cooky to flip a cooky, or penny to flip a penny. Flipping is free either way — you get your cooky or penny back once it lands. The flip button updates its label to match whichever type is currently selected.
+When you open the flipper, the first thing you see is a type selector. Choose cookie to flip a cookie, or penny to flip a penny. Flipping is free either way — you get your cookie or penny back once it lands. The flip button updates its label to match whichever type is currently selected.
 
 Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list.
 Some events are positive, and others are negative, so there is an element of risk.
@@ -127,7 +127,7 @@ A Flipper History box appears below the flip button and keeps a running log of y
 Each entry shows the flip number, which side it landed on, the event that was selected, and whether the outcome was positive or negative.
 The history persists across sessions and resets when starting a new game.
 
-Cooky lottery. Unlocked at rank 30.
+Cookie lottery. Unlocked at rank 30.
 Scratch your tickets and reveal prizes ranging from money and cookies to stat boosts. You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
 Slot machine. Unlocked at rank 50.
@@ -232,12 +232,12 @@ Baker events fired: counts every baker event that successfully triggered and app
 
 Flipper events.
 
-Flipper events fired: counts every flipper event that successfully triggered and applied its effect during a cooky flip.
+Flipper events fired: counts every flipper event that successfully triggered and applied its effect during a cookie flip.
 
-Cooky flipper.
+Cookie flipper.
 
 Flipper flips: counts the total number of flips across both types.
-Cooky flips: counts how many times you have flipped a cooky specifically.
+Cookie flips: counts how many times you have flipped a cookie specifically.
 Penny flips: counts how many times you have flipped a penny specifically.
 
 Blackjack.
@@ -283,10 +283,10 @@ It resets only when starting a new game in the same slot.
 Achievements.
 Track your progress and earn recognition for milestones across every part of the game.
 
-There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, the cooky flipper, the slot machine, blackjack, and the cooky lottery.
+There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, the cookie flipper, the slot machine, blackjack, and the cookie lottery.
 Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
-Achievements are shown in a dedicated menu accessible from the main game interface. The menu is organised into ten categories: baking, baking slots manager, economy, baker events, flipper events, blackjack, slot machine, cooky flipper, cooky lottery, and quests.
+Achievements are shown in a dedicated menu accessible from the main game interface. The menu is organised into ten categories: baking, baking slots manager, economy, baker events, flipper events, blackjack, slot machine, cookie flipper, cookie lottery, and quests.
 Each category label shows how many achievements it contains. The main menu shows how many you have unlocked out of the total across all categories.
 
 Opening a category shows how many you have unlocked out of the total for that category, with unlocked ones listed first followed by locked ones.
@@ -483,9 +483,9 @@ The stat this event affects when it fires.
 
 cookies    = the player's current cookie count.
 coins      = the player's current coin count.
-autocooky  = the player's auto cookie production rate.
-manulcooky = the player's manual cookie production rate.
-cookyspeed = the player's baking speed. Positive events reduce the interval, and negative events increase it.
+autocookie  = the player's auto cookie production rate.
+manulcookie = the player's manual cookie production rate.
+cookiespeed = the player's baking speed. Positive events reduce the interval, and negative events increase it.
 
 min_amount and max_amount
 The range of values the effect can roll between. A random value between min and max is chosen each time.
@@ -534,7 +534,7 @@ flipper.event
 
 Location: data/config/events/flipper.event
 
-Defines events triggered by the cooky flipper minigame. Uses the same format as baker.event, except there is no baking_type field since flipper events are always shown as dialogs.
+Defines events triggered by the cookie flipper minigame. Uses the same format as baker.event, except there is no baking_type field since flipper events are always shown as dialogs.
 All fields work exactly the same as baker.event. Refer to the baker.event section above for full field descriptions.
 
 Format: event_name:sound:polarity:target:min_amount:max_amount:use_percent:chance:description
@@ -603,9 +603,9 @@ The display name of this item as it appears in the shop menu.
 target
 The stat this item increases when purchased.
 
-1 = auto_cooky. Increases the player's automatic cookie production rate.
-2 = manual_cooky. Increases how many cookies the player bakes per manual click.
-3 = cooky_speed. Increases the player's baking speed by reducing the auto bake interval.
+1 = auto_cookie. Increases the player's automatic cookie production rate.
+2 = manual_cookie. Increases how many cookies the player bakes per manual click.
+3 = cookie_speed. Increases the player's baking speed by reducing the auto bake interval.
 
 base_cost
 The starting price of this item before any purchases have been made. Displayed as currency in game.
@@ -632,7 +632,7 @@ Values above 1.05 should only be used for items with a very low purchase cap or 
 amount
 How much of the target stat is gained per purchase. For flat items this is a fixed number. For percentage items this is the percentage value.
 
-For cooky_speed flat items, this is the number of milliseconds the bake interval is reduced by.
+For cookie_speed flat items, this is the number of milliseconds the bake interval is reduced by.
 Use %item_count in the description as a placeholder and it will be replaced with this value.
 
 min_rank
@@ -751,9 +751,9 @@ bundles_purchased      = total bundle shop transactions.
 singles_purchased     = total singles shop transactions.
 
 baker_events_fired     = total baker events that successfully applied their effect during baking.
-flipper_events_fired   = total flipper events that successfully applied their effect during a cooky flip.
-flipper_flips          = total cooky flipper flips across both types.
-cooky_flips            = total cooky flips only.
+flipper_events_fired   = total flipper events that successfully applied their effect during a cookie flip.
+flipper_flips          = total cookie flipper flips across both types.
+cookie_flips            = total cookie flips only.
 penny_flips            = total penny flips only.
 
 dice_rolls             = total dice roller rolls.
@@ -981,9 +981,9 @@ The stat this reward affects.
 
 cookies    = the player's current cookie count.
 coins      = the player's current coin count.
-autocooky  = the player's auto cookie production rate.
-manulcooky = the player's manual cookie production rate.
-cookyspeed = the player's baking speed.
+autocookie  = the player's auto cookie production rate.
+manulcookie = the player's manual cookie production rate.
+cookiespeed = the player's baking speed.
 
 min_amount and max_amount
 The range of values the reward can roll between. Supports the same rank operators as baker.event.
@@ -994,8 +994,8 @@ unlock
 An optional feature to unlock at this rank. Use none for no unlock.
 
 blackjack   = unlocks the blackjack minigame.
-flipper     = unlocks the cooky flipper minigame.
-lottery     = unlocks the cooky lottery and the ticket shop.
+flipper     = unlocks the cookie flipper minigame.
+lottery     = unlocks the cookie lottery and the ticket shop.
 dice        = unlocks the dice roller minigame.
 slots       = unlocks the slot machine minigame.
 slotmanager = unlocks the baking slots manager. Also sets the rank gate for the baking slots manager menu automatically.
@@ -1114,9 +1114,9 @@ You can chain as many pairs as you like on one line.
 
 cookies    = the player's current cookie count.
 coins      = the player's current coin count.
-autocooky  = the player's auto cookie production rate.
-manulcooky = the player's manual cookie production rate.
-cookyspeed = the player's baking speed.
+autocookie  = the player's auto cookie production rate.
+manulcookie = the player's manual cookie production rate.
+cookiespeed = the player's baking speed.
 
 use_percent
 Controls whether the amounts are applied as flat values or percentages of what the player had when they prestiged. This applies to all items in the reward line.
@@ -1158,8 +1158,8 @@ cookie_multiplier  = permanently increases all cookie production by a percentage
 coin_multiplier    = permanently increases all money earned from selling cookies by a percentage.
 rank_discount      = permanently reduces the cookies required to rank up by a percentage.
 starting_coins     = gives bonus coins at the start of each new run after prestige.
-starting_autocooky = gives bonus auto cookies at the start of each new run after prestige.
-starting_manualcooky = gives bonus manual cookies at the start of each new run after prestige.
+starting_autocookie = gives bonus auto cookies at the start of each new run after prestige.
+starting_manualcookie = gives bonus manual cookies at the start of each new run after prestige.
 
 cost
 The number of prestige points required to purchase this upgrade.
@@ -1201,9 +1201,9 @@ The stat deducted when the player rerolls their random quests.
 
 cookies    = deducts from the player's current cookie count.
 coins      = deducts from the player's current coin count.
-autocooky  = deducts from the player's auto cookie production rate.
-manulcooky = deducts from the player's manual cookie production rate.
-cookyspeed = deducts from the player's baking speed.
+autocookie  = deducts from the player's auto cookie production rate.
+manulcookie = deducts from the player's manual cookie production rate.
+cookiespeed = deducts from the player's baking speed.
 
 reroll_base_cost
 The base cost of the first reroll per prestige cycle.
@@ -1243,9 +1243,9 @@ bundles_purchased      = total bundle shop transactions.
 singles_purchased     = total singles shop transactions.
 
 baker_events_fired     = total baker events that applied their effect during baking.
-flipper_events_fired   = total flipper events that applied their effect during a cooky flip.
-flipper_flips          = total cooky flipper flips across both types.
-cooky_flips            = total cooky flips only.
+flipper_events_fired   = total flipper events that applied their effect during a cookie flip.
+flipper_flips          = total cookie flipper flips across both types.
+cookie_flips            = total cookie flips only.
 penny_flips            = total penny flips only.
 
 dice_rolls             = total dice roller rolls.
@@ -1325,9 +1325,9 @@ The stat this prize affects when it is scratched.
 
 cookies    = the player's current cookie count.
 coins      = the player's current coin count.
-autocooky  = the player's auto cookie production rate.
-manulcooky = the player's manual cookie production rate.
-cookyspeed = the player's baking speed.
+autocookie  = the player's auto cookie production rate.
+manulcookie = the player's manual cookie production rate.
+cookiespeed = the player's baking speed.
 none       = a losing ticket. No stat is changed.
 
 At least one losing prize per pool is required.
@@ -1354,11 +1354,11 @@ message
 The message shown to the player when this prize is revealed.
 
 Use %amount% as a placeholder for the awarded value. For coin prizes this is formatted as currency. For all others it is a plain number.
-Use %item% as a placeholder for the correctly pluralized item name. For example, 1 auto cooky or 5 auto cookies. Not applicable to coin prizes.
+Use %item% as a placeholder for the correctly pluralized item name. For example, 1 auto cookie or 5 auto cookies. Not applicable to coin prizes.
 
 Game conclusion
 
-CookyCraze started as a simple cookie clicker and has grown into a full-featured idle game with automated production, minigames, achievements, a rank progression system, multiple save slots, and deep modding support.
+CookieCraze started as a simple cookie clicker and has grown into a full-featured idle game with automated production, minigames, achievements, a rank progression system, multiple save slots, and deep modding support.
 Every system in the game, from rank rewards to slot payouts to event effects, can be tuned or extended through the provided configuration files.
 
 Whether you are a player looking to understand the game better, or a modder building your own experience on top of it, we hope this document gives you everything you need to succeed in the baking industry.

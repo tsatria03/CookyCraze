@@ -16,13 +16,13 @@ Fixed all three dice roller lists so pressing up arrow moves toward higher value
 Fixed the dice roller roll result message to say the dice show followed by each individual die value, matching the format of the reference implementation. The result now reads naturally as the dice show X, Y, Z, with a modifier of plus N, for a total score of T, with a target score of G.
 Added the dice roller minigame, unlocked at rank 40. Roll a custom set of dice against a target score you set yourself. Choose your dice type, how many to roll, and a modifier, then place a bet and see if you can hit or beat the target. Higher targets are harder to reach but pay out more. All dice types, modifiers, payouts, sounds, and bet limits are configurable in dice.table.
 Moved the slot machine unlock from rank 40 to rank 50 and the baking slots manager from rank 50 to rank 60 to make room for the dice roller minigame at rank 40.
-Split the cooky flipper flip stat into three separate tracked values: total flips, cooky flips, and penny flips. Cooky and penny quests and achievements are now tracked separately, and the baker statistics screen shows all three counts.
-Fixed a bug where the flip button in the cooky flipper would not update its label when switching between cooky and penny. It now correctly reads flip a cooky or flip a penny based on the current selection.
-Fixed a bug where flipping a cooky or penny in the cooky flipper would consume the item being flipped. Flipping is now free since you get the item back when it lands, just like in real life.
-Changed the cooky flipper type selector from a separate menu into a form list that appears alongside the event list, so everything is on one screen. The type list is focused automatically when the game opens.
-Added a flipper type selector to the cooky flipper, letting you choose between a cooky or a penny before playing. Each type plays its own set of sounds, and the penny also plays a landing sound when it comes down. Also added an auto flip mode matching the same behavior as the other minigames, which can be toggled in settings.
+Split the cookie flipper flip stat into three separate tracked values: total flips, cookie flips, and penny flips. Cookie and penny quests and achievements are now tracked separately, and the baker statistics screen shows all three counts.
+Fixed a bug where the flip button in the cookie flipper would not update its label when switching between cookie and penny. It now correctly reads flip a cookie or flip a penny based on the current selection.
+Fixed a bug where flipping a cookie or penny in the cookie flipper would consume the item being flipped. Flipping is now free since you get the item back when it lands, just like in real life.
+Changed the cookie flipper type selector from a separate menu into a form list that appears alongside the event list, so everything is on one screen. The type list is focused automatically when the game opens.
+Added a flipper type selector to the cookie flipper, letting you choose between a cookie or a penny before playing. Each type plays its own set of sounds, and the penny also plays a landing sound when it comes down. Also added an auto flip mode matching the same behavior as the other minigames, which can be toggled in settings.
 New in 5.8.
-Reorganized all minigame sounds into dedicated subfolders under sounds/minigames, covering the slot machine, blackjack, cooky lottery, and cooky flipper. Config table files now use short relative paths like blackjack/win.ogg instead of pointing directly into sounds/misc.
+Reorganized all minigame sounds into dedicated subfolders under sounds/minigames, covering the slot machine, blackjack, cookie lottery, and cookie flipper. Config table files now use short relative paths like blackjack/win.ogg instead of pointing directly into sounds/misc.
 Fixed a bug where blackjack in manual mode would force you to wait 1 to 2 seconds between each card even though you were controlling the pace yourself. Cards now deal instantly in manual mode, matching the same behavior as the slot machine.
 Fixed an inconsistency in the readme where the prestige store section incorrectly stated that both upgrade types take effect immediately after purchase. Head start upgrades do not apply to your current run and only take effect at the start of your next run after prestiging.
 Fixed a bug where the prestige rank discount upgrade had no effect when ranking up inside any of the four minigames. The discount now applies correctly regardless of which screen you are playing on.
@@ -31,7 +31,7 @@ Fixed a bug where the quest reroll cannot afford message would say 10 cents more
 Fixed a bug where blackjack win messages would append the word currency after a formatted dollar amount when betting currency, resulting in output like you gained $5.20 currency. The item label is now omitted when the bet type is currency, since the dollar format already makes the unit clear.
 Fixed a bug where the require_all quest setting modes 1 and 2 were swapped, causing mode 1 to behave like mode 2 and vice versa. Mode 1 now correctly gives no reward regardless of quest completion, and mode 2 now correctly requires at least one quest to be complete before a reward is given.
 Made it so the blackjack and slot machine minigames now tell you when your bet has been capped at the maximum, instead of silently adjusting it without any feedback.
-Fixed typos in the save slot error message and the manual baking message where associated and manual cooky were spelled incorrectly.
+Fixed typos in the save slot error message and the manual baking message where associated and manual cookie were spelled incorrectly.
 New in 5.7.
 Expanded the prestige store with 6 upgrades per prestige level across all 11 levels, from level 0 through level 10, for a total of 66 one-time purchases. New levels 2, 4, 6, 7, 8, and 9 now have their own upgrade tiers, filling in the gaps in the original progression.
 Fixed a bug where the prestige store always showed 0 prestige points even after earning them. Points were being calculated before quests were marked as completed, so the count was always empty. Points are now calculated after quest completion is recorded, so the correct amount is always shown.
@@ -49,9 +49,9 @@ Added panning to buffer navigation sounds. Both category and item navigation sou
 Fixed a bug where buffer navigation sounds could play at a pitch below 5, causing them to be barely audible. The pitch is now clamped to a minimum of 20.
 Added shift plus left bracket and shift plus right bracket shortcuts to jump directly to the first and last buffer categories respectively.
 Added a push_sound field to jacks.table. A sound now plays when a blackjack round ends in a tie, configurable in jacks.table and defaulting to jackpush.ogg.
-Fixed a plurality bug in the singles and bundle shop purchase success messages where buying a single auto or manual upgrade would say 1 auto cookie or 1 manual cookie instead of 1 auto cooky or 1 manual cooky.
-Corrected the unlock order of the cooky lottery and slot machine in the readme. The cooky lottery unlocks at rank 30 and the slot machine unlocks at rank 40, and the order now reflects this throughout.
-Moved the ticket shop description from the cooky lottery minigame section to its own section under the general game features, reflecting that ticket purchasing is part of the main shop menu.
+Fixed a plurality bug in the singles and bundle shop purchase success messages where buying a single auto or manual upgrade would say 1 auto cookie or 1 manual cookie instead of 1 auto cookie or 1 manual cookie.
+Corrected the unlock order of the cookie lottery and slot machine in the readme. The cookie lottery unlocks at rank 30 and the slot machine unlocks at rank 40, and the order now reflects this throughout.
+Moved the ticket shop description from the cookie lottery minigame section to its own section under the general game features, reflecting that ticket purchasing is part of the main shop menu.
 Added a note to the bundle shop, singles shop, and ticket shop sections clarifying that the show locked items setting in game settings controls whether locked items and categories are visible.
 Added a note to the baker.event chance field clarifying that the per-event chance works alongside the global event enable checkboxes and chance sliders in game settings, and that all checks must pass for an event to fire.
 New in 5.5.
@@ -66,7 +66,7 @@ Fixed a bug where the slot machine minimum bet error message displayed the raw c
 Fixed a bug where the blackjack minimum bet error message displayed the raw coin value instead of a currency amount when betting currency. It now correctly reads as cents or dollars.
 Fixed a bug where the quest reroll cannot afford message displayed the shortfall as a raw coin value instead of a currency amount. It now correctly reads in cents or dollars, for example 20 cents more or $1.50 more.
 New in 5.4.
-Split the events quest track into two separate tracks, baker events and flipper events. Baker events are triggered during baking, and flipper events are triggered by the cooky flipper. Each track has five tiers.
+Split the events quest track into two separate tracks, baker events and flipper events. Baker events are triggered during baking, and flipper events are triggered by the cookie flipper. Each track has five tiers.
 Split the events achievement category into two separate categories, baker events and flipper events, each tracking their respective stat independently. Five new flipper event achievements have also been added.
 Removed the quest reroll confirmation message cost line. The button already shows the cost, so repeating it in the message was redundant.
 Fixed a bug where the reroll quest button and reroll history log displayed the reroll cost as a raw coin value instead of a currency amount. The cost now correctly reads as cents or dollars, matching the rest of the game.
@@ -77,19 +77,19 @@ Renamed several labels in the baker info screen and baker statistics screen to u
 Made it so the baker info screen now shows the current sell price alongside the total payout for your cookie stockpile.
 Added a configurable cookie sell price slider to the game settings menu. You can set the price per cookie from 1 cent up to $1.00. The default is set to 50 cents.
 New in 5.3.
-Moved the cooky flipper achievements into their own category in the achievements menu, separate from the events category. Flipper flips also now appears as its own section in the baker statistics screen.
+Moved the cookie flipper achievements into their own category in the achievements menu, separate from the events category. Flipper flips also now appears as its own section in the baker statistics screen.
 Fixed a bug where the lottery achievement category was never registered, causing all 40 lottery achievements to be silently ignored. They now appear correctly in the achievements menu.
 Updated the ticket shop purchase messages to match the style of the bundle and single shops. The error message now says Error! You can't afford 5 Bronze Tickets, and the success message now names the ticket tier instead of saying tickets generically.
 Extended the show locked shop items setting to also apply to the ticket shop. Locked ticket categories and individual tickets are now hidden when the setting is off, matching the behavior of the bundle and single shops.
-Removed the 99 ticket inventory cap for the cooky lottery. You can now buy and hold as many tickets of each tier as you can afford.
-Fixed plurality bugs in cooky lottery prize messages where winning a single item would say 1 auto cookies or 1 manual cookies. Amounts of 1 now correctly say auto cooky or manual cooky, and cookie prizes say cooky instead of cookies when only one is won.
-Fixed a bug in the cooky lottery where scratching one ticket would return you to the tier selection menu instead of staying on the current tier, and where attempting to scratch the same tier again would fail to open the scratch menu.
+Removed the 99 ticket inventory cap for the cookie lottery. You can now buy and hold as many tickets of each tier as you can afford.
+Fixed plurality bugs in cookie lottery prize messages where winning a single item would say 1 auto cookies or 1 manual cookies. Amounts of 1 now correctly say auto cookie or manual cookie, and cookie prizes say cookie instead of cookies when only one is won.
+Fixed a bug in the cookie lottery where scratching one ticket would return you to the tier selection menu instead of staying on the current tier, and where attempting to scratch the same tier again would fail to open the scratch menu.
 Updated the ticket shop to use the same purchase sounds as the bundle and single shops.
 Fixed a bug where pressing B to announce your current bet in blackjack would display currency bets as a raw internal value instead of a formatted dollar amount. For example, betting $5.20 now correctly announces as $5.20 instead of 520.
 Fixed a bug where pressing Control L to reload config files would stack duplicate data on top of the existing data instead of replacing it, causing edits to ranks.table, slots.table, and other config files to not take effect correctly.
 New in 5.2.
 Fixed a bug where percentage-based coin events such as coin jackpot and coin drain would display the actual payout as a raw number instead of a currency value. For example, netting you 875 now correctly shows as netting you $8.75.
-Added an automatic scratch reveal setting to the game preferences for the cooky lottery minigame. When enabled, scratching a ticket plays a sound and reveals the result after a random delay, matching the behavior of the slot machine and blackjack auto modes. When disabled, the result is held until you press enter or space.
+Added an automatic scratch reveal setting to the game preferences for the cookie lottery minigame. When enabled, scratching a ticket plays a sound and reveals the result after a random delay, matching the behavior of the slot machine and blackjack auto modes. When disabled, the result is held until you press enter or space.
 Updated all player-facing text throughout the game to use money and currency language instead of coins. This includes shop descriptions, achievement names and descriptions, quest names and descriptions, event messages, blackjack messages, and bundle descriptions.
 Updated coin-based quest progress and threshold values to display as currency. For example, a quest to earn 1000 coins now shows $10.00 of $100.00 instead of raw numbers.
 Updated cookie baking quest names to use short suffixes. For example, Bake a million cookies is now Bake 1M cookies.
@@ -102,8 +102,8 @@ New in 5.1.
 Added a lottery subsection to the statistics section in the readme.
 Added lottery to the ranks.table unlock values list in the readme.
 Added full documentation for lottery.table and tickets.store to the configuration file reference in the readme.
-Added a cooky lottery game feature section to the readme covering ticket tiers, prize pools, and how scratching works.
-Added the cooky lottery to the game introduction and minigame list in the readme.
+Added a cookie lottery game feature section to the readme covering ticket tiers, prize pools, and how scratching works.
+Added the cookie lottery to the game introduction and minigame list in the readme.
 Added a check tickets button to the lottery screen that reports how many tickets you currently hold across all tiers.
 Added four ticket tiers to the lottery: bronze, silver, gold, and diamond. Higher tiers cost more but offer larger prizes and better odds at the top end.
 Added ticket categories to the buy tickets menu, mirroring the layout of the singles shop. Each category shows how many tickets you can currently afford out of the total available. Items display their required rank when locked and show how many you can buy when accessible.
@@ -111,7 +111,7 @@ Added lottery.table to data/config/tables. It defines the global max tickets set
 Added tickets.store to data/config/stores. It defines ticket categories and individual ticket tiers using the same alias system as singles.store, with fields for cost, compounding multiplier, rank requirement, hidden flag, and prize pool reference.
 New in 5.0.
 Added a buy tickets option to the shop menu, always visible but locked below rank 30 with a message, matching the same pattern as the baking slots manager.
-Added the cooky lottery minigame, unlocked at rank 30. Buy scratch tickets from the shop, then visit the lottery screen to scratch them one at a time or all at once.
+Added the cookie lottery minigame, unlocked at rank 30. Buy scratch tickets from the shop, then visit the lottery screen to scratch them one at a time or all at once.
 Fixed the First Coins achievement description to no longer say through selling, since the starting balance also counts toward the stat.
 Fixed a bug where stat_coins_earned was not initialized to match the starting balance, causing coin-based achievements to show 0 cents earned even though the player started with $1.00. The stat now starts at 100 to reflect the opening balance.
 Fixed a bug where coin-based achievement progress would show the unit label coins earned or coins spent after an already currency-formatted value, resulting in redundant output like 0 cents of 50 cents coins earned. The label now reads simply earned or spent.
@@ -129,16 +129,16 @@ Added a coins per sell line to the baker info screen showing exactly how much yo
 Added a reroll history box to the quests screen. It sits directly after the reroll button and shows the last 50 rerolls in order, listing which quest was replaced, what replaced it, and how much it cost. Shows a no rerolls recorded yet message when empty. The history persists across sessions and resets when starting a new game.
 Moved prestige history out of the Statistics menu and into the quests screen as a read-only input box, sitting between the prestige button and the close button. It shows the same run-by-run log as before, now without needing to leave the quests screen to view it.
 Added support for negative rank rewards in ranks.table. Setting min_amount and max_amount to negative values causes that rank to deduct from the target stat instead of adding to it, allowing difficulty modders to create penalty ranks.
-Added a Flipper History box to the cooky flipper screen. It appears after the flip button and shows the last 50 flips in order, listing the side landed, the event that was selected, and whether it was a positive or negative outcome. The history persists across sessions and resets when starting a new game.
+Added a Flipper History box to the cookie flipper screen. It appears after the flip button and shows the last 50 flips in order, listing the side landed, the event that was selected, and whether it was a positive or negative outcome. The history persists across sessions and resets when starting a new game.
 New in 4.9.
-Fixed a bug where the prestige summary reward line would show multiple items joined by plain commas with no and, for example 25 coins, 10 cookies. Multiple reward items are now joined with an Oxford comma, for example 25 coins, and 10 cookies for two items or 25 coins, 10 cookies, and 5 autocooky for three or more.
+Fixed a bug where the prestige summary reward line would show multiple items joined by plain commas with no and, for example 25 coins, 10 cookies. Multiple reward items are now joined with an Oxford comma, for example 25 coins, and 10 cookies for two items or 25 coins, 10 cookies, and 5 autocookie for three or more.
 Fixed a bug where required tiered quests could skip tiers after a prestige run. When a required quest advanced to its next tier, the game required an exact slot difficulty match to place it, which often failed since slot difficulties are spaced unevenly. The next tier now fills the nearest available slot instead.
 Fixed a bug where the quest details box would show the wrong quest's details after a prestige run. The list now maintains its own ordered reference so details always correspond to the correct quest.
 Updated the prestige button label to say reward available when the quest requirement has been met, instead of showing just Prestige with no status indication.
 Fixed a bug where starting a new game after a previous playthrough would immediately trigger quest and reroll achievements, due to the quests being complete, and rerolls performed stats were not being reset on new game. Both stats are now reset alongside the other stats when starting fresh.
 Added a coins spent stat that tracks the total coins spent on shop purchases and quest rerolls. It appears in the baker statistics screen alongside coins earned and has 7 matching achievements in the Economy category.
 Fixed a bug where achievement categories with all entries hidden would still appear in the achievements menu showing zero achievements. Categories are now hidden from the menu entirely when all their entries are hidden and none have been unlocked yet.
-Added a hidden field to achievements in achievements.table. When set to true, the achievement is completely invisible in the achievements menu and achievement statistics screen until it is unlocked, making it suitable for surprise or easter egg achievements. All achievements tied to rank-locked content, including blackjack, cooky flipper, slot machine, and baking slots ship with hidden set to true.
+Added a hidden field to achievements in achievements.table. When set to true, the achievement is completely invisible in the achievements menu and achievement statistics screen until it is unlocked, making it suitable for surprise or easter egg achievements. All achievements tied to rank-locked content, including blackjack, cookie flipper, slot machine, and baking slots ship with hidden set to true.
 Added a show locked shop items toggle to the game settings menu. When turned off, locked items and menus in both the bundle and single shops are hidden entirely rather than displayed as locked. This setting is on by default, preserving the existing behavior.
 Renamed baker.store to singles.store and bundle.store to bundles.store for consistency with the singles and bundles shop naming used throughout the game.
 New in 4.8.
@@ -195,10 +195,10 @@ Made it so rerolling now replaces only the currently focused quest with a new on
 Made it so max_active is now capped at 10 by the parser regardless of what value is set in quests.table.
 Made it so the active quest list is always sorted by difficulty from easiest to hardest, so difficulty 1 always appears at the top and the hardest quest always appears at the bottom.
 Overhauled the quest assignment system to use a difficulty based approach. Each quest now has a difficulty field from 1 to 10, and active slots are spread evenly across the difficulty range so players always receive a balanced mix from easy to hard. Required quests occupy their difficulty slot directly rather than being prepended regardless of tier.
-Added 60 quests to quests.table across all 12 trackable stats, with 5 tiers each. Stats covered include cookies baked, coins earned, upgrades purchased, bundles purchased, events fired, cooky flipper flips, slot machine spins, slot machine wins, blackjack hands played, blackjack wins, auto slots purchased, and auto slots enabled. Thresholds scale from easy to very large, with higher tiers using percentage display.
+Added 60 quests to quests.table across all 12 trackable stats, with 5 tiers each. Stats covered include cookies baked, coins earned, upgrades purchased, bundles purchased, events fired, cookie flipper flips, slot machine spins, slot machine wins, blackjack hands played, blackjack wins, auto slots purchased, and auto slots enabled. Thresholds scale from easy to very large, with higher tiers using percentage display.
 New in 4.3.
 Fixed a bug where prestige milestone rewards would fire multiple times if the table had been parsed more than once during a session. The rewards array is now cleared before each parse so entries never get accumulated.
-Made it so the reroll affordability message now tells you exactly how many more of the required stat you need, using correct singular and plural wording for all stat types including coins, cookies, auto cookies, manual cookies, and cooky speed.
+Made it so the reroll affordability message now tells you exactly how many more of the required stat you need, using correct singular and plural wording for all stat types including coins, cookies, auto cookies, manual cookies, and cookie speed.
 Made it so prestiging now always shows a second dialog after the congratulations message. If the new prestige level has a milestone reward it will tell you what you gained, and if it does not it will tell you that nothing was gained.
 Fixed a bug where quest progress could display a value higher than the threshold when a stat had exceeded it, causing entries like 20 of 3. The displayed value is now capped at the threshold, so a completed quest always reads as its exact target.
 Made it so rerolling quests now shows a confirmation prompt before proceeding, displaying the cost and warning that the action cannot be undone.
@@ -212,7 +212,7 @@ Added a quests system that gates the prestige option behind a set of objectives.
 Added milestone prestige rewards that fire once when you reach a specific prestige level. Rewards can give a flat amount of any stat or a percentage of what you held at the moment you prestiged, making later runs start with a meaningful head start.
 Added prestige.table to the data/config/tables folder. It configures the minimum rank, prestige sound and message, and milestone rewards.
 Added a prestige system accessible from the main game interface. Once the minimum rank requirement is met, you can prestige to reset your cookies, coins, rank, upgrades, and baking slots. Achievements, minigame stats, minigame unlocks, and preferences are never reset after a successful prestige.
-Made it so rank ups and achievements are now checked and can fire while playing the cooky flipper, slot machine, and blackjack minigames. Previously they were only tracked in the main game screen.
+Made it so rank ups and achievements are now checked and can fire while playing the cookie flipper, slot machine, and blackjack minigames. Previously they were only tracked in the main game screen.
 Made it so milestone rank rewards and achievement unlocks now show as dismissible dialogs when baking mode is off, and are delivered non-interruptively through the buffer when baking mode is on. This prevents interruptions during automated play while still making sure you don't miss anything when baking manually.
 Made it so milestone rank rewards now go to the critical buffer instead of the ranks buffer, so they are harder to miss. Regular rank announcements still go to the ranks buffer as before.
 Fixed a bug where the cookies baked stat was counting bake cycles instead of actual cookies produced, causing baking achievements to never fire and progress to show incorrect values. The stat now tracks real cookie output so achievements unlock at the right thresholds. A separate bakes performed counter has been added to the baker statistics screen to preserve that information.
@@ -225,7 +225,7 @@ Renamed all references to baking slot manager and baking slots to baking slots m
 Reorganised the achievements menu into six category submenus: baking, baking slots manager, economy, events, blackjack, and slot machine. Each category label shows how many achievements it contains. Opening a category shows how many you have unlocked out of the total for that category, with unlocked ones listed first.
 Added 43 new achievements across the four new baking slots manager stat categories, bringing the total to 163. Each track has 12 tiers reaching up to 10000. The idle slot track has a humorous tone for owning slots you haven't bothered to enable.
 Added four new stat categories for the baking slots manager: auto slots purchased, manual slots purchased, auto slots enabled, and auto slots idle. All four appear in the baker statistics screen. Idle slots are calculated dynamically as slots owned minus slots enabled, and all stats save and load with the rest of your game data.
-Expanded the achievements from 100 to 120 by adding higher tier achievements to all existing stat categories. New tiers cover larger milestones for baking, economy, upgrades, bundles, events, the cooky flipper, the slot machine, and blackjack.
+Expanded the achievements from 100 to 120 by adding higher tier achievements to all existing stat categories. New tiers cover larger milestones for baking, economy, upgrades, bundles, events, the cookie flipper, the slot machine, and blackjack.
 Made it so the baker statistics and achievement statistics screens now return to the statistics menu when dismissed, rather than dropping you back into the main game.
 Added an achievement statistics screen accessible from the new statistics menu. It shows all achievements grouped by category, with complete ones listed first followed by incomplete ones showing your current progress toward them.
 Split the info button in the main game interface into two separate buttons. Info now goes directly to the baker info screen, and the new Statistics button opens a menu with baker statistics and achievement statistics.
@@ -263,7 +263,7 @@ Made it so blackjack refocuses on the deal button after every round, so you can 
 Added an automatic card drawing toggle for blackjack in the game settings menu. When enabled, cards are drawn and spoken automatically with timed delays between each one.
 New in 3.8.
 Added minimum and maximum bet limits to the slot machine, matching the same system already in place for blackjack.
-Updated the rank unlock order so blackjack unlocks at rank 10, the cooky flipper at rank 20, and the slot machine at rank 30.
+Updated the rank unlock order so blackjack unlocks at rank 10, the cookie flipper at rank 20, and the slot machine at rank 30.
 Fixed a bug where the amount bet was not being subtracted from the player's total before the round began in blackjack.
 Fixed a bug where card scores and ace counts were not resetting correctly at the end of every round in blackjack.
 Made it so you can no longer bet more than the amount of the item you currently hold in blackjack.
@@ -277,7 +277,7 @@ Added a fully configurable jacks.table file for blackjack, supporting the dealer
 Made it so the dealer stands at 17 by default, matching standard casino rules in blackjack.
 Made it so a natural blackjack pays out at 1.5 times your bet, standard wins pay 2 times, and ties return the original bet.
 Added hit and stand actions to blackjack. Hitting draws another card, and standing triggers the dealer to draw until reaching the stand threshold.
-Moved the cooky flipper unlock to rank 20 and the slot machine unlock to rank 30 to make room for blackjack at rank 10.
+Moved the cookie flipper unlock to rank 20 and the slot machine unlock to rank 30 to make room for blackjack at rank 10.
 Added blackjack as a new minigame, unlocked at rank 10. You can bet an item of your choice and receive two cards to start.
 Made it so the entire shop system will now have full position memory. Every level, including the store menu, upgrades menu, category menus, and bundle menus, restores focus to where you left off.
 Added an optional %actual% placeholder to event descriptions in baker.event and flipper.event. For percentage based events, it shows the real computed stat change alongside the percentage value.
@@ -288,7 +288,7 @@ Bundle purchase messages now show the next bundle cost after a successful purcha
 Updated the Control L key to also reload all configuration files alongside the save data. Changes are now picked up without a full game restart.
 Made it so bundle and bulk buy messages now use natural language list formatting, inserting and before the last item in the list.
 Fixed bundle shop messages saying the bundle name twice when the name already contained the word bundle.
-Fixed error messages in the singles shop displaying item names with underscores and no pluralization, for example manual_cooky instead of manual cookies.
+Fixed error messages in the singles shop displaying item names with underscores and no pluralization, for example manual_cookie instead of manual cookies.
 Reorganised the data/config folder into three subfolders for events, tables, and stores.
 Expanded the bundle shop with a full progression of 38 bundles across 7 categories, spanning ranks 0 through 500.
 Made it so both the category position and the bundle position within a category are remembered when navigating back to a previous menu.
@@ -298,7 +298,7 @@ New in 3.5.
 Fixed a bug in the bundle shop where the description field was bleeding into the quantity of the last item in the bundle, causing broken values to appear in the menu label.
 Reorganised the buy upgrades menu into two sub-menus, bundles and singles. Both return to the buy upgrades menu when pressing back or escape.
 Updated the menu text for the buy upgrades menu, the bundles menu, and the singles menu to be consistent with the rest of the shop.
-Added a bundle shop to the cooky store. Bundles are preset upgrade packages with dynamic pricing that scales naturally with your progression. You can buy multiple at once, and the game reports exactly what stats you gained.
+Added a bundle shop to the cookie store. Bundles are preset upgrade packages with dynamic pricing that scales naturally with your progression. You can buy multiple at once, and the game reports exactly what stats you gained.
 Added a bulk buy option to each shop category menu. Select Buy all affordable items, type how many you want, and each item is individually capped to what you can actually afford.
 Added milestone rank rewards for reaching ranks 50, 100, 250, and 500. Rewards scale with your current rank, so the higher you are when you hit them, the bigger the bonus you'll receive from those rewards.
 Made it so the baking upgrades category menu now remembers which category you had selected when you return to it.
@@ -322,8 +322,8 @@ Replaced the hardcoded slot machine symbol list with a data-driven one, defined 
 Replaced the hardcoded slot machine payout tiers with a data-driven payout table in slots.table. Each entry defines the number of matches required, the multiplier, the sound, and the message.
 Made it so the chance field in flipper.event is now respected. Setting it to less than 100 means the event may not fire even when selected, and setting it to 0 effectively disables it.
 Made it so all flipper events now share the same underlying logic as the main baker event system, including percentage support, rank operators, and multiple pares of sounds.
-Made it so the cooky flipper event list is now built dynamically from the loaded flipper events, so any events you add to flipper.event will automatically appear as options in the checkbox list.
-Replaced the hardcoded cooky flipper event system with a fully data-driven one defined in flipper.event.
+Made it so the cookie flipper event list is now built dynamically from the loaded flipper events, so any events you add to flipper.event will automatically appear as options in the checkbox list.
+Replaced the hardcoded cookie flipper event system with a fully data-driven one defined in flipper.event.
 Fixed a bug where shop prices were scaling based on your current stat values rather than how many times you had actually purchased upgrades. Only actual shop purchases now affect the cost of future upgrades.
 Fixed a bug where percentage based events could fire and display zero as the amount affected. Negative events now silently skip if the targeted stat is below 1.
 Fixed the speed drag event description, which previously sounded like a positive effect. It now correctly says your baking speed has slowed down.
@@ -363,12 +363,12 @@ Fixed a bug where selling the maximum amount of cookies or placing a large bet i
 Moved the automatic and manual baking shop menus into a single baking upgrades menu.
 Added rank based unlocking for shop items. Items now only appear in the shop once the player has reached the required rank.
 Removed the hardcoded base cost and cost multiplier settings for shop items from the game settings menu. These are now configured directly in baker.store on a per item basis.
-Added the ability to add your own items to the cooky store via baker.store. Each item specifies its name, stat target, base cost, cost multiplier, amount per purchase, minimum rank, and description.
+Added the ability to add your own items to the cookie store via baker.store. Each item specifies its name, stat target, base cost, cost multiplier, amount per purchase, minimum rank, and description.
 Changed the way sounds are played in the game. The sounds are no longer encrypted.
 Fixed some critical number formatting issues.
-Made it so you start with 1 manual cooky by default when starting a new game.
-Recoded the purchase logic for buying upgrades in the cooky store to be a lot faster than before.
-Added menu wrapping to the cooky store.
+Made it so you start with 1 manual cookie by default when starting a new game.
+Recoded the purchase logic for buying upgrades in the cookie store to be a lot faster than before.
+Added menu wrapping to the cookie store.
 Updated the todo list file with the latest bug fixes and feature improvements made to the game.
 New in 2.9.
 Updated the readme file with added and modified keyboard shortcuts.
@@ -376,7 +376,7 @@ Fixed some menu navigation issues.
 Added the ability to navigate to the first letter of any item in a menu.
 Added the ability to search for specific items of interest in the new find dialog. You can press F3 in any menu to activate it.
 Recoded the entire menu system for the game.
-Renamed the coin flipper minigame to cooky flipper, along with some new sounds to accompany it.
+Renamed the coin flipper minigame to cookie flipper, along with some new sounds to accompany it.
 Increased the amount of level up coins you’re able to earn by 10 percent.
 Reduced the starting cost for producing slots by 50 percent.
 Refactored the baking slots manager menu to include a single automate a slot item.
@@ -391,25 +391,25 @@ You can now add packs of multiple baking slots for the auto baking mode.
 Removed the heartbeat sounds tied to pressing the letter H when checking your hunger.
 Fixed some bugs with the game saving system.
 Removed the ability to adjust the ambience, music, and store pitches in the sound settings menu.
-Made it so the game data and settings are now saved to the user’s AppData folder under tsatria03/CookyCraze/preffs, and tsatria03/CookyCraze/saves.
+Made it so the game data and settings are now saved to the user’s AppData folder under tsatria03/CookieCraze/preffs, and tsatria03/CookieCraze/saves.
 New in 2.7.
 You can now toggle the save sound for saving and reloading the game in the game settings menu.
 You can now toggle the exit sound upon exiting the game in the game settings menu.
 Added the ability to toggle hunger level warnings and dying from extreme hunger in the game settings menu.
 Added the hunger death system to all of the minigames.
-Made it so buying auto cooky speed gives you 10 extra milliseconds of bake time per purchase instead of just 5.
+Made it so buying auto cookie speed gives you 10 extra milliseconds of bake time per purchase instead of just 5.
 Made it so buying maximum hunger gives you 100 extra units of food storage per purchase instead of just 10.
 Made it so the volume of the hunger warning sound gets louder the more you ignore the spoken messages.
 Increased your starting maximum hunger from 100 to 1000.
 Added a new ranks buffer that keeps track of how far you’ve reached in the game. This also keeps track of all of the minigames that you’ve unlocked as well.
 Added the hunger warning system to all of the minigames.
 New in 2.6.
-Added descriptions to some of the items found in the cooky store. Items such as Auto Cooky Speed and Maximum Hunger now come with detailed descriptions that explain what they actually do. This makes it easier to understand how each upgrade affects your gameplay before purchasing it.
+Added descriptions to some of the items found in the cookie store. Items such as Auto Cookie Speed and Maximum Hunger now come with detailed descriptions that explain what they actually do. This makes it easier to understand how each upgrade affects your gameplay before purchasing it.
 Improved the hunger system in the game. When your hunger reaches higher than 60 percent, you’ll start hearing warning sounds and receive spoken messages based on how hungry you are. If your hunger reaches its maximum, your character will die from starvation. You’ll be prompted to restart the game, or exit back to the main menu.
-Made it so buying auto cooky speed gives you 5 extra milliseconds of bake time per purchase instead of just 1.
+Made it so buying auto cookie speed gives you 5 extra milliseconds of bake time per purchase instead of just 1.
 Made it so buying maximum hunger gives you 10 extra units of food storage per purchase instead of just 1.
 You can now adjust the base costs and cost multipliers of the maximum hunger item in the game settings menu.
-You can now increase your maximum hunger by purchasing it in the cooky store instead of earning it from leveling up. This expands how much food you can hold and eat.
+You can now increase your maximum hunger by purchasing it in the cookie store instead of earning it from leveling up. This expands how much food you can hold and eat.
 Added the ability to mute the auto baking sounds for when you’re in baking mode in the game settings menu.
 Fixed some more number formatting issues when values are being spoken.
 Improved number formatting for speaking large numbers in the game. These are now spoken properly using full English variants, like Million, Billion, and Trillion. This helps screen readers clearly announce large values without having to use scientific notation.
@@ -420,7 +420,7 @@ Improved the automate unautomated slots feature found in the non automated slots
 Added the ability to automate all of your auto baking slots at once in the non automated slots menu.
 Fixed an issue where starting the game from a new save slot would cause the required cookies to not get updated properly.
 You can now toggle whether cookies are evenly split across automated slots or multiplied per slot in the game settings menu.
-Removed the restriction of not being able to enter the cooky store or play minigames while you were in baking mode.
+Removed the restriction of not being able to enter the cookie store or play minigames while you were in baking mode.
 You can now manually bake cookies while in baking mode to get an extra boost in your production.
 Added sounds for the automation and production of slots in the baking mode of the game.
 Changed the behavior of the automation and slot multiplier sliders found in the game settings menu. They will now map slider values more intuitively. Higher values now increase cost progressively. For example, 25 becomes 1.25x, 50 becomes 1.5x, and 100 becomes 2x. This provides much finer control over the cost scaling, and prevents exponential jumps in automation and slot production prices.
@@ -453,13 +453,13 @@ Modified the hunger logic. You’ll now be able to eat more cookies as you level
 Added buffer navigation support to all of the minigames.
 Removed the ability to check your hunger in the main game.
 You can now toggle playing event sounds upon triggering events in the game settings menu. This also applies to the coin flipper minigame.
-Made it so you only need 1 coin to enter the cooky store.
-Added the ability to buy the maximum amount of auto cookies, auto cooky speeds, and manual cookies that you can currently afford in the cooky store.
+Made it so you only need 1 coin to enter the cookie store.
+Added the ability to buy the maximum amount of auto cookies, auto cookie speeds, and manual cookies that you can currently afford in the cookie store.
 Made some more menu changes.
 Added the ability to set your own menu music in the menu class. The sound pool will no longer be used to play them.
 Minor bug fixes.
 New in 2.1.
-Fixed a bug where the increase and decrease cooky speed events weren’t being recognized as positive and negative events when choosing them in the coin flipper minigame.
+Fixed a bug where the increase and decrease cookie speed events weren’t being recognized as positive and negative events when choosing them in the coin flipper minigame.
 Made some weapon enhancements for the toy mania minigame.
 Made it so you are required to select at least 1 positive and one negative auto baking event out of the remaining auto baking events before saving the game settings.
 Made it so you are required to select at least 1 positive and one negative manual baking event out of the remaining manual baking events before saving the game settings.
@@ -492,7 +492,7 @@ Made it so toys get broken if you don’t collect them on time in the toy mania 
 Added damage and range stats to all of the weapons in the toy mania minigame.
 New in 1.9.
 Added a boss that will attack, heal, and teleport around the area in the toy mania minigame. This boss can be killed using your weapons.
-Added the ability to sell all of your cookies at once in the cooky store.
+Added the ability to sell all of your cookies at once in the cookie store.
 Made it so the longer the game lasts, the more cars, guards, and toys spawn in the toy mania minigame.
 Added guards that will attack and patrol the area in the toy mania minigame. These guards can be killed using your weapons.
 Added toy ambience volume and pitch sliders to the audio settings menu.
@@ -507,15 +507,15 @@ Added the ability to choose from a list of ambiences and music tracks to use wit
 Updated all single line dialog calls to tell the user what to do after reading one. This especially goes for error messages.
 Brought back the preferences menu. You can now access it right within the game itself, not just in the main menu.
 Added the documentation menu into the main menu.
-Replaced all menu sounds with new ones. This also applies to the cooky store as well.
+Replaced all menu sounds with new ones. This also applies to the cookie store as well.
 Fixed up the shop menu. The input box will no longer return you back to the main game when pressing escape, and the store will now alert the user to enter a valid number before confirming a purchase.
-Brought back the information that was given to the user after purchasing an item. It will now tell you the next upgrade cost of all items that are bought in the cooky store.
+Brought back the information that was given to the user after purchasing an item. It will now tell you the next upgrade cost of all items that are bought in the cookie store.
 Added store ambience volume and pitch sliders to the audio settings menu.
 Added some more music to the main game.
 New in 1.7.
 Added the ability to load and start new games in the main menu.
 Replaced the text input class with a much better virtual dialogs class. This class includes the ability to create virtual input boxes that use the audio forms class as a backend. The game will now utilize this class for all input prompts from now on.
-Removed the statistics found under each button that told you how many of an item you had while hovering over the button. For example, the button to access the cooky store is now less verbose. Instead of telling you how many coins you have when hovering over the button, it will now just say cooky store.
+Removed the statistics found under each button that told you how many of an item you had while hovering over the button. For example, the button to access the cookie store is now less verbose. Instead of telling you how many coins you have when hovering over the button, it will now just say cookie store.
 Moved the preferences menu out of the game into the newly implemented main menu.
 Completely revamped the user interface in the game to use the audio forms object for all menus and actions.
 Removed the change ambience and change music options found in the audio settings menu.
@@ -576,16 +576,16 @@ Made it so your hunger starts to increase as you rank up in the game. You’ll n
 Updated the save data class with more data types it can read.
 Fixed various issues found in all sliders.
 Modified the hunger system. The hunger mechanics have now been reworked to reflect how hungry your character is, rather than their actual fullness. Your character’s hunger will now start at 0, and will increase as they encounter more events.
-Modified the auto cooky speed boost events found in the coin flip and bakery functions.
+Modified the auto cookie speed boost events found in the coin flip and bakery functions.
 You can no longer hold down the spacebar to manually bake cookies. I couldn’t believe this was actually a thing until someone had mentioned this to me while I was testing it.
 New in 1.1.
 Added the ability to quickly save your game progress by pressing Control S. You can also quickly exit the game by pressing Alt F4.
 Added a preferences panel that lets you adjust various options related to the game, including audio, character information, and other player related things.
 Added ambiences and music tracks. You’ll hear them throughout the game. These can also be adjusted and shuffled in the audio settings of the game.
-Modified the cooky store to have it announce when you enter or exit the area.
+Modified the cookie store to have it announce when you enter or exit the area.
 Modified some of the events found in the coin flip minigame and the 2 bakeries.
 Removed unused sounds from the sounds folder to reduce clutter.
-Upgraded the effectiveness of the auto cooky speed item in the automatic baking shop. It will now increase your baking speed by 5ms each time it’s bought, not just 1. Thanks goes to Parker Watson for the suggestion.
+Upgraded the effectiveness of the auto cookie speed item in the automatic baking shop. It will now increase your baking speed by 5ms each time it’s bought, not just 1. Thanks goes to Parker Watson for the suggestion.
 Made it so alert messages don’t use dialogs to notify the player of events while they are in baking mode without having to interrupt it.
 Made it so the store open and close sounds can be skipped by pressing the enter key to go in and out of the area faster.
 Fixed a bug where the baking timer was still in the active state even though you didn’t have any more auto cookies in your inventory.
@@ -606,7 +606,7 @@ Added the ability to see how many of a particular item you can afford when hover
 Fixed various bugs with eating cookies.
 Added the ability to eat the cookies that you produce. Don't eat too much though, or else something unexpected may happen as a result.
 Fixed a bug where numbers related to coins and other cost values were being read out in Decimal points even though they weren't supposed to.
-Introduced a new scaling system to the cooky store. When you buy some baking items, the price of them will now graduely increase the more you buy that particular item. It will no longer be set to a fixed price every time you go into the various shopping menus.
+Introduced a new scaling system to the cookie store. When you buy some baking items, the price of them will now graduely increase the more you buy that particular item. It will no longer be set to a fixed price every time you go into the various shopping menus.
 Added error handling to the shop menu. You can no longer buy outrageous amounts of items if you don't have enough coins for it.
 Improved the shop menu quite a bit. The sell menu finally works this time.
 Made lots of code optimizations.
