@@ -2,7 +2,7 @@
 #define MyAppName "CookieCraze"
 #define MyAppVersion Trim(FileRead(FileOpen("..\docks\version.txt")))
 #define MyAppPublisher "tsatria03"
-#define MyAppURL "https://tsatria03.github.io/projects/games/CookyCraze"
+#define MyAppURL "https://tsatria03.github.io/projects/games/CookieCraze"
 #define MyAppExeName "cycrz.exe"
 
 [Setup]
@@ -22,7 +22,7 @@ PrivilegesRequired=admin
 UninstallDisplayName={#MyAppName} {#MyAppVersion}
 AppMutex={#MyAppName}_Mutex
 OutputDir=..\releases\archives
-OutputBaseFilename=CookyCraze_windows_installer_password_is_CrazeMastery
+OutputBaseFilename=CookieCraze_windows_installer_password_is_CrazeMastery
 Password=CrazeMastery
 Encryption=yes
 SolidCompression=yes
@@ -36,7 +36,7 @@ Name: "desktopicon"; Description: "Create a desktop shortcut"; GroupDescription:
 Name: "startmenuicon"; Description: "Create a Start Menu shortcut"; GroupDescription: "Additional icons:"
 
 [Files]
-Source: "C:\Users\tonys\OneDrive\Documents\GitHub\CookyCraze\releases\windows\CookyCraze_windows_portable_password_is_CrazeMastery\cycrz\*"; \
+Source: "C:\Users\tonys\OneDrive\Documents\GitHub\CookieCraze\releases\windows\CookieCraze_windows_portable_password_is_CrazeMastery\cycrz\*"; \
   DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]

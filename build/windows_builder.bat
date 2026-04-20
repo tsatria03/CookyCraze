@@ -2,7 +2,7 @@
 set GAME=CookieCraze
 set PASSWORD=CrazeMastery
 
-set WIN_SOURCE=..\releases\windows\CookyCraze_windows_portable_password_is_CrazeMastery\cycrz
+set WIN_SOURCE=..\releases\windows\CookieCraze_windows_portable_password_is_CrazeMastery\cycrz
 
 echo.
 echo Building Windows portable 7z archive...
