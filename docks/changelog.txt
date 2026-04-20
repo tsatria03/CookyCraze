@@ -1,4 +1,13 @@
 New in 6.0.
+Added the combo system for manual baking and combos.table to the data/config/tables folder. Pressing the bake button multiple times within a configurable time window builds a combo that multiplies your manual cookie output, with higher consecutive presses unlocking stronger multiplier tiers. Missing the window breaks the combo and resets the count, and all settings including the enabled toggle, time window range, tier thresholds, multipliers, sounds, and messages are fully configurable in combos.table.
+Removed the prestige level 25 milestone reward from prestige.table. Prestige milestone rewards now cap at level 10, with all higher levels falling back to the default reward.
+Added 5 blackjack losses quests and 5 blackjack pushes quests, each spanning the same difficulty range as the existing blackjack hands and wins quests.
+Added 5 coins spent quests spanning $10.00 to $100,000.00, matching the difficulty spread and format of the coins earned quests.
+Added 31 dice roller achievements across three tracks: total rolls, wins, and losses. All are hidden until the dice roller is unlocked at rank 40.
+Added 10 dice roller quests across two tracks: total rolls and wins, with 5 difficulty tiers each, matching the pattern of every other minigame.
+Added the dice roller category to achievements.table, appearing between the cookie flipper and cookie lottery categories.
+Reordered the minigame sections in the readme to reflect the correct unlock order. The dice roller at rank 40 now appears before the slot machine at rank 50.
+Removed specific quest and achievement counts from the readme to avoid spoiling content for new players.
 Corrected the quest count in the readme. The game ships with 84 quests: 14 tiered required rank quests and 70 random quests across 14 trackable stats with 5 difficulty tiers each. The readme previously stated 75 quests across 12 stats.
 Added the all buffer to the buffers section of the readme. It is a special aggregate buffer that receives a copy of every message from every other buffer and cannot be muted. The readme previously referenced it by name without ever describing it.
 Corrected the readme documentation for the ranks.table sounds section. The entry with the highest min_amount that is still less than or equal to the reward amount is used, not the first matching entry as previously stated.

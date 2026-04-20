@@ -44,6 +44,7 @@ if (rankSounds.length() == 0 || rankDefault.length() == 0)
 }
 parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
 parse_dice_table("data/config/tables/dice.table");
+parse_combos_table("data/config/tables/combos.table", combosConfig);
 parse_achievements("data/config/tables/achievements.table", loadedAchievements, loadedAchievementCategories);
 parse_prestige_table("data/config/tables/prestige.table");
 parse_quests_table("data/config/tables/quests.table", loadedQuests);
@@ -249,6 +250,8 @@ stat_penny_flips=0;
 stat_dice_rolls=0;
 stat_dice_wins=0;
 stat_dice_losses=0;
+comboCount=0;
+lastComboTierIndex=-1;
 stat_auto_slots_purchased=0;
 stat_manual_slots_purchased=0;
 stat_auto_slots_enabled=0;

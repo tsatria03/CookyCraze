@@ -32,4 +32,3 @@ coins:50*rank:100*rank:Prestige %level% complete! You earned %amount% bonus to s
 8:cookies:8|manulcookie:5:true:Prestige %level% reached! You carry over 8% of your cookies and 5% of your manual cookies into this run.
 9:coins:10|cookies:10:true:Prestige %level% reached! You carry over 10% of your money and cookies into this run.
 10:coins:10|cookies:10|autocookie:10|manulcookie:10:true:Prestige %level% reached! You carry over 10% of your money, cookies, auto cookies, and manual cookies into this run.
-25:autocookie:3:true:Prestige %level% reached! You carry over 3% of your auto cookies. Keep baking!

@@ -190,6 +190,10 @@ string version;
 bool config_loaded = false;
 
 timer clicktimer;
+timer combotimer;
+int comboCount = 0;
+int comboWindow = 3000;
+int lastComboTierIndex = -1;
 file dockfile, dockver, logfile;
 audio_form form;
 custom_menu m;

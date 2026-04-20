@@ -454,6 +454,7 @@ void reload_config(bool force = false)
     parse_ranks_table("data/config/tables/ranks.table", rankSounds, rankDefault, rankRewards);
     parse_jacks_table("data/config/tables/jacks.table", jacksConfig);
     parse_dice_table("data/config/tables/dice.table");
+    parse_combos_table("data/config/tables/combos.table", combosConfig);
     parse_lottery_table("data/config/tables/lottery.table");
     loadedAchievements.resize(0);
     loadedAchievementCategories.resize(0);

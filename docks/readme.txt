@@ -91,6 +91,13 @@ The ticket shop.
 Buy scratch tickets using your money. Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end. Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
 By default, locked ticket tiers are shown with their required rank displayed. You can hide them entirely by disabling the show locked items option in the game settings.
 
+Combos.
+Build a combo by pressing the bake button multiple times in quick succession. Each consecutive press within the time window increments your combo count and multiplies your manual cookie output. Reaching a combo tier plays a sound and announces the new multiplier. Missing the window breaks your combo, plays a break sound, and resets the count back to zero.
+
+The combo multiplier applies to both your base manual cookies and your manual slots, so higher slot counts make each combo tier even more rewarding.
+
+All combo settings are fully configurable in combos.table, including the time window range, tier thresholds, multipliers, sounds, and messages. The combo system can also be disabled entirely from that file.
+
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
 
@@ -130,14 +137,6 @@ The history persists across sessions and resets when starting a new game.
 Cookie lottery. Unlocked at rank 30.
 Scratch your tickets and reveal prizes ranging from money and cookies to stat boosts. You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
-Slot machine. Unlocked at rank 50.
-Spin the reels and match symbols to win multiples of your bet.
-
-Like the other minigames, you choose which item to bet and how much. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
-Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples. The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table.
-
-A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
-
 Dice roller. Unlocked at rank 40.
 Roll a set of dice against a target score you set yourself and bet an item of your choice on the outcome.
 
@@ -147,7 +146,15 @@ The higher you set the target relative to what your dice can realistically roll,
 
 You can roll manually, or enable automatic rolling in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
-Rank ups and achievement unlocks are checked and can fire while you are playing any of the 5 minigames mentioned above.
+Slot machine. Unlocked at rank 50.
+Spin the reels and match symbols to win multiples of your bet.
+
+Like the other minigames, you choose which item to bet and how much. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
+Payouts depend on how many reels match and which symbols line up, with higher matches paying out larger multiples. The symbols, payout multipliers, reel count, sounds, and bet limits are all configurable in slots.table.
+
+A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
+
+Rank ups and achievement unlocks are checked and can fire while you are playing any of the minigames mentioned above.
 
 Baking slots manager. Unlocked at rank 60.
 Manage and configure your baking slots to balance automated and manual cookie production.
@@ -240,6 +247,12 @@ Flipper flips: counts the total number of flips across both types.
 Cookie flips: counts how many times you have flipped a cookie specifically.
 Penny flips: counts how many times you have flipped a penny specifically.
 
+Dice roller.
+
+Total rolls: counts every dice roll.
+Wins: counts rolls where the total met or exceeded the target score.
+Losses: counts rolls where the total fell short of the target score.
+
 Blackjack.
 
 Hands played: counts every round where a bet was placed and cards were dealt.
@@ -283,10 +296,10 @@ It resets only when starting a new game in the same slot.
 Achievements.
 Track your progress and earn recognition for milestones across every part of the game.
 
-There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, the cookie flipper, the slot machine, blackjack, and the cookie lottery.
+There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, blackjack, the cookie flipper, the cookie lottery, the dice roller, the slot machine, and quests.
 Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
-Achievements are shown in a dedicated menu accessible from the main game interface. The menu is organised into ten categories: baking, baking slots manager, economy, baker events, flipper events, blackjack, slot machine, cookie flipper, cookie lottery, and quests.
+Achievements are shown in a dedicated menu accessible from the main game interface. The menu is organised into categories covering baking, economy, events, minigames, and more.
 Each category label shows how many achievements it contains. The main menu shows how many you have unlocked out of the total across all categories.
 
 Opening a category shows how many you have unlocked out of the total for that category, with unlocked ones listed first followed by locked ones.
@@ -305,7 +318,7 @@ Quests are automatically assigned at the start of each prestige cycle using a di
 Required quests occupy their difficulty slot directly, and random quests fill the rest. Only one required quest per stat can be active at a time, so if a stat has multiple required tiers only the current one will appear.
 
 The number of active quests is configurable in quests.table and is capped at 10.
-The game ships with 84 quests: 14 tiered required rank quests covering ranks 5 through 500, and 70 random quests across 14 trackable stats with 5 difficulty tiers each.
+The game ships with a variety of quests spanning both required rank milestones and random objectives across many trackable stats.
 Rerolling a quest replaces only the currently focused quest with a new one of the same difficulty, leaving the rest of your active quests untouched.
 
 To view your quests, press the Quests button in the main game interface.
@@ -432,7 +445,7 @@ The word coins only appears in the config files themselves as a technical label,
 All of the configuration files are located in the data/config folder, and are split into three subfolders.
 Lines starting with a semicolon, hash, or double slash are treated as comments and ignored by the parser.
 
-Five of the files, ranks.table, slots.table, prestige.table, quests.table, and lottery.table, use section headers in square brackets such as [sounds], [default], [rewards], [settings], [quests], and [prize:id]. These are not cosmetic.
+Six of the files, ranks.table, slots.table, prestige.table, quests.table, lottery.table, and combos.table, use section headers in square brackets such as [sounds], [default], [rewards], [settings], [quests], and [prize:id]. These are not cosmetic.
 The parser uses them to know which format to expect. Do not remove or rename these headers, or the parser will not be able to read the file correctly.
 Each functional header has a warning comment placed directly below it inside the file as a reminder. That comment is cosmetic and can be removed, but the header itself must stay exactly as written.
 
@@ -799,6 +812,51 @@ hidden
 Required. Set to true to completely hide this achievement from the achievements menu and achievement statistics screen until it is unlocked. Set to false to show it as locked with a hint available, which is the default behavior.
 Recommended for achievements tied to content locked behind a rank, such as minigames, so players are not shown entries for systems they have not encountered yet. Once unlocked, a hidden achievement appears in both screens like any other achievement.
 Hidden achievements are also excluded from the total count until unlocked. For example, if there are 207 achievements but 128 are hidden and none unlocked, the menu will show 0 of 79, giving no indication that hidden achievements exist at all.
+
+combos.table
+
+Location: data/config/tables/combos.table
+
+Defines all settings for the manual baking combo system.
+
+Settings section.
+
+enabled
+Set to true to enable the combo system. Set to false to disable it entirely. When disabled, manual baking works as normal with no combo tracking.
+
+combo_window
+Format: combo_window=min,max
+
+The range in milliseconds the player has between consecutive bake presses before the combo breaks. A random value between min and max is chosen after each press. Use a single value for a fixed window, for example combo_window=3000.
+
+start_message
+The message spoken to the player on their very first press when a new combo begins.
+
+combo_sound
+The sound to play on each bake press that increments the combo but does not reach a new tier. Relative to sounds/. You can include a subfolder prefix, for example combos/combo_tick.ogg.
+
+break_sound
+The sound to play when the combo timer expires and the combo breaks. Relative to sounds/.
+
+break_message
+The message spoken when the combo breaks. Use %combo% as a placeholder for the count reached before breaking.
+
+Tiers section.
+Format: count:multiplier:sound:message
+
+Defines combo milestone tiers. Each tier fires once when the combo count first reaches its threshold.
+
+count
+The number of consecutive presses required to reach this tier.
+
+multiplier
+The output multiplier applied to manual cookie production when this tier is active. A value of 2.0 doubles your manual output. The multiplier applies to both base manual cookies and manual slots.
+
+sound
+The sound to play when this tier is first reached. Relative to sounds/.
+
+message
+The message spoken when this tier is first reached. Use %combo% as a placeholder for the current combo count and %multiplier% for the active multiplier.
 
 dice.table
 
@@ -1257,6 +1315,8 @@ slot_wins              = total slot machine wins.
 
 blackjack_hands        = total blackjack rounds played.
 blackjack_wins         = total blackjack rounds won.
+blackjack_losses       = total blackjack rounds lost.
+blackjack_pushes       = total blackjack rounds that ended in a tie.
 
 threshold
 The value the stat must reach to complete this quest.

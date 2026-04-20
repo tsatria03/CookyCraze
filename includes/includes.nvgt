@@ -31,6 +31,7 @@
 #include"quests_table.nvgt"
 #include"lottery_table.nvgt"
 #include"dice_table.nvgt"
+#include"combos_table.nvgt"
 #include"ticket_store.nvgt"
 #include"savefuncts.nvgt"
 #include"speech.nvgt"

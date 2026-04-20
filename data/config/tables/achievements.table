@@ -8,6 +8,7 @@ flipper_events=Flipper events
 blackjack=Blackjack
 slots=Slot machine
 flipper=Cookie flipper
+dice=Dice roller
 lottery=Cookie lottery
 quests=Quests
 
@@ -231,6 +232,41 @@ slots:loss_connoisseur:slot_losses:500:false:true:Loss Connoisseur:Lose on the s
 slots:professional_loser:slot_losses:1000:false:true:Professional Loser:Lose on the slot machine %threshold% times. You could teach a masterclass in this.:Professionals don't quit. They refine their craft, whatever that craft may be.
 slots:born_to_lose:slot_losses:2000:false:true:Born to Lose:Lose on the slot machine %threshold% times. The machine has taken everything and you keep feeding it more.:Some callings find you. This one found you at the slot machine.
 slots:loss_incarnate:slot_losses:5000:false:true:Loss Incarnate:Lose on the slot machine %threshold% times. You have transcended losing. You have become it.:There are those who lose, and those who embody it completely. The reels made their choice.
+
+; Dice roller
+
+dice=Dice roller
+
+dice:first_roll:dice_rolls:1:false:true:First Roll:Roll the dice for the first time. The outcome was always going to be what it was.:The dice were sitting there. Someone had to pick them up.
+dice:getting_rolling:dice_rolls:10:false:true:Getting Rolling:Roll the dice %threshold% times. You are starting to find your rhythm.:Ten rolls in and the dice are starting to feel familiar in your hands.
+dice:dice_regular:dice_rolls:25:false:true:Dice Regular:Roll the dice %threshold% times. The dice table knows your face.:Regulars don't need to introduce themselves. The table already knows.
+dice:roll_enthusiast:dice_rolls:50:false:true:Roll Enthusiast:Roll the dice %threshold% times. You have developed a fondness for probability.:Enthusiasm is what brings people back to the table. You have plenty of it.
+dice:dice_addict:dice_rolls:100:false:true:Dice Addict:Roll the dice %threshold% times. The sound of dice rattling has become comforting.:Comfort in the rattle is a specific kind of condition. You have acquired it.
+dice:roll_obsessed:dice_rolls:250:false:true:Roll Obsessed:Roll the dice %threshold% times. You have a type, and it is dice.:Some are drawn to the dice more than others. You know which kind you are.
+dice:dice_veteran:dice_rolls:500:false:true:Dice Veteran:Roll the dice %threshold% times. You have seen every outcome the table has to offer.:Veterans aren't defined by winning. They're defined by still being at the table.
+dice:roll_machine:dice_rolls:1000:false:true:Roll Machine:Roll the dice %threshold% times. At this point the dice roll themselves for you.:A thousand rolls changes your relationship with the dice permanently.
+dice:dice_devotee:dice_rolls:2500:false:true:Dice Devotee:Roll the dice %threshold% times. Other bakers bake cookies. You roll dice.:Devotion is a quiet thing. The dice have noticed yours.
+dice:dice_legend:dice_rolls:5000:false:true:Dice Legend:Roll the dice %threshold% times. The dice table has retired a seat in your honor.:Legends are made one roll at a time. You have made many.
+dice:dice_eternal:dice_rolls:10000:false:true:Dice Eternal:Roll the dice %threshold% times. The dice no longer feel random. They feel inevitable.:At ten thousand rolls, probability starts to feel like a formality.
+dice:first_dice_win:dice_wins:1:false:true:Lucky Roll:Win your first dice roll. The dice have decided to cooperate. For now.:The dice don't always cooperate. This time they did.
+dice:dice_lucky:dice_wins:5:false:true:Dice Lucky:Win %threshold% dice rolls. Fortune has glanced in your direction more than once.:Luck is a fleeting thing. You've caught it a few times now.
+dice:on_target:dice_wins:10:false:true:On Target:Win %threshold% dice rolls. You are learning what the dice are capable of.:Hitting the target takes practice. The dice are starting to respect yours.
+dice:dice_sharpshooter:dice_wins:25:false:true:Sharpshooter:Win %threshold% dice rolls. You set the target and the dice deliver.:Sharpshooters don't hope. They aim.
+dice:dice_accurate:dice_wins:50:false:true:Accurate:Win %threshold% dice rolls. The dice and your expectations are in alignment.:Accuracy isn't luck. The dice have figured that out about you.
+dice:dice_precise:dice_wins:100:false:true:Precise:Win %threshold% dice rolls. The gap between your target and your roll keeps shrinking.:Precision is what remains after luck runs out.
+dice:dice_champion:dice_wins:250:false:true:Dice Champion:Win %threshold% dice rolls. Champions don't leave outcomes to chance. Mostly.:At two hundred fifty wins, chance starts to feel like a technicality.
+dice:dice_master:dice_wins:500:false:true:Dice Master:Win %threshold% dice rolls. The dice do what you tell them. Apparently.:Masters have a way of making the dice feel cooperative.
+dice:dice_win_legend:dice_wins:1000:false:true:Win Legend:Win %threshold% dice rolls. Other players watch your rolls the way others watch legends.:A thousand wins earns a certain kind of silence at the table.
+dice:first_dice_loss:dice_losses:1:false:true:Miss:Lose your first dice roll. The dice had other plans.:The dice don't always agree with your plans. First lesson learned.
+dice:dice_setback:dice_losses:5:false:true:Minor Setback:Lose %threshold% dice rolls. The table has reminded you of your place.:Setbacks are part of the experience. The table is thorough about this.
+dice:roll_and_miss:dice_losses:10:false:true:Roll and Miss:Lose %threshold% dice rolls. The target keeps moving just out of reach.:Missing is a skill too. A frustrating one.
+dice:dice_humbled:dice_losses:25:false:true:Humbled:Lose %threshold% dice rolls. The dice have opinions about your targets.:Humility is a thing the dice teach freely and often.
+dice:dice_undeterred:dice_losses:50:false:true:Undeterred:Lose %threshold% dice rolls. Losing has not stopped you and that says something.:Undeterred is a polite word for what you are.
+dice:dice_persistent:dice_losses:100:false:true:Persistent:Lose %threshold% dice rolls. The dice respect your refusal to stop.:Persistence outlasts bad luck. Usually.
+dice:dice_resilient:dice_losses:250:false:true:Resilient:Lose %threshold% dice rolls. You have absorbed more losses than most would tolerate.:Resilience is built from losses like these.
+dice:dice_loss_veteran:dice_losses:500:false:true:Loss Veteran:Lose %threshold% dice rolls. You have seen the bad side of probability more than most.:Veterans of loss carry a particular kind of calm. You are developing it.
+dice:dice_loss_legend:dice_losses:1000:false:true:Loss Legend:Lose %threshold% dice rolls. At this point the losses are just part of the story.:Every legend has a chapter about losing. Yours has several.
+dice:dice_loss_eternal:dice_losses:2500:false:true:Loss Eternal:Lose %threshold% dice rolls. The dice have made their feelings about your targets very clear.:Some relationships are defined by conflict. You and the dice have one of those.
 
 ; Lottery
 
