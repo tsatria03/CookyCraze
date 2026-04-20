@@ -236,8 +236,6 @@ slots:loss_incarnate:slot_losses:5000:false:true:Loss Incarnate:Lose on the slot
 
 ; Dice roller
 
-dice=Dice roller
-
 dice:first_roll:dice_rolls:1:false:true:First Roll:Roll the dice for the first time. The outcome was always going to be what it was.:The dice were sitting there. Someone had to pick them up.
 dice:getting_rolling:dice_rolls:10:false:true:Getting Rolling:Roll the dice %threshold% times. You are starting to find your rhythm.:Ten rolls in and the dice are starting to feel familiar in your hands.
 dice:dice_regular:dice_rolls:25:false:true:Dice Regular:Roll the dice %threshold% times. The dice table knows your face.:Regulars don't need to introduce themselves. The table already knows.

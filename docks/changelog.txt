@@ -1,4 +1,10 @@
 New in 6.2.
+Fixed a bug where exporting all buffers at once saved log files to the local data/logs folder instead of the AppData logs folder.
+Made it so buffer mute states are now saved automatically whenever you toggle them and restored when you load your game. You no longer need to re-mute buffers after restarting.
+Fixed a bug where the rank 70 combo system unlock did not play the alert sound that all other milestone unlocks played.
+Fixed a bug where the ticket inventory count would overflow to a large negative number when holding more than 2.1 billion tickets across all tiers. The count is now stored as a double and displayed with formatted suffixes.
+Fixed a bug where no sounds would play in the cookie lottery due to an incorrect folder name. The sound path was referencing cookie_lottery when the actual folder is named cooky_lottery.
+Fixed an issue where scratching a very large number of tickets at once would cause the game to hang. Scratch all now resolves instantly by distributing tickets across the prize pool by weight, with results that are statistically equivalent to rolling individually per ticket. A short random delay is still applied before the summary appears, and scratching one ticket at a time still remains unchanged.
 Made it so the combos section now appears before economy in the baker statistics screen, achievements menu, and achievement statistics screen. Within the combos category, stats and achievements are ordered combos started, combos broken, then highest combo reached.
 Added 15 combo quests across three tracks: highest combo reached, combos started, and combos broken. Each track has 5 difficulty tiers matching the pattern of every other quest category in the game.
 Added 30 combo achievements across three tracks: highest combo reached, combos started, and combos broken. Each track has 10 achievements spanning from first milestone to extreme dedication. All are hidden until unlocked and all are silent, meaning they unlock in the background without any announcement since combo sounds and messages already provide real-time feedback.

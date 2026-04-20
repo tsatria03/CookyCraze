@@ -822,13 +822,13 @@ void lotterygame()
         }
         if (form.is_pressed(inventoryBtn))
         {
-            int total = 0;
+            double total = 0;
             for (uint i = 0; i < loadedTickets.length(); i++)
                 total += loadedTickets[i].owned;
             if (total == 0)
                 dlg_buffer("You don't have any tickets. Buy some from the shop!");
             else
-                dlg_buffer("You have a total of " + string(total) + " " + (total == 1 ? "ticket" : "tickets") + " across all tiers.");
+                dlg_buffer("You have a total of " + format_number(total) + " " + (total == 1 ? "ticket" : "tickets") + " across all tiers.");
             form.focus(inventoryBtn);
         }
     }
@@ -968,7 +968,7 @@ void dicegame()
             if (target < diceConfig.min_target)
             {
                 pool.play_stationary("sounds/misc/gamefail.ogg", false);
-                dlg_buffer("Error! Please enter a minimum target score of at least " + string(diceConfig.min_target) + "to roll the dice.");
+                dlg_buffer("Error! Please enter a minimum target score of at least " + string(diceConfig.min_target) + " to roll the dice.");
                 continue;
             }
             int diceTypeIdx = form.get_list_position(diceTypeList);

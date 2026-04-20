@@ -137,7 +137,7 @@ The history persists across sessions and resets when starting a new game.
 
 Cookie lottery. Unlocked at rank 30.
 Intermediate. Involves scratch tickets and prize tiers, requires understanding odds and managing ticket spending.
-Scratch your tickets and reveal prizes ranging from money and cookies to stat boosts. You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
+Scratch your tickets and reveal prizes ranging from money and cookies to stat boosts. You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space. When scratching all at once, prizes are distributed by weight across the full batch and applied instantly, so the results are statistically equivalent to scratching each ticket individually but resolve without any delay regardless of how many tickets you have.
 
 Dice roller. Unlocked at rank 40.
 Intermediate. More variables than blackjack with dice types, modifiers, and payout tiers to learn.
@@ -421,8 +421,8 @@ General holds status updates and informational messages.
 Misc holds things like save confirmations and other game actions.
 Ranks holds regular rank up announcements.
 
-All of the named buffers, except for All, can be muted independently so they stop being spoken aloud while still logging messages for later review.
-You can also export all of the buffer contents to log files in the logs folder at any time.
+All of the named buffers, except for All, can be muted independently so they stop being spoken aloud while still logging messages for later review. Mute states are saved automatically the moment you toggle them and restored the next time you load your game, so you never need to re-mute buffers after restarting.
+You can also export all of the buffer contents to log files at any time. Log files are saved to the logs folder inside the game's AppData directory.
 
 Keyboard commands
 

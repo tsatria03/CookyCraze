@@ -150,7 +150,7 @@ void lottery_scratch_one(lottery_ticket_item@ ticket, int ticketIdx)
 {
     loadedTickets[ticketIdx].owned--;
     stat_lottery_tickets_scratched++;
-    pool.play_stationary("sounds/minigames/cookie_lottery/scratch.ogg", false);
+    pool.play_stationary("sounds/minigames/cooky_lottery/scratch.ogg", false);
     if (lotterymode)
         mini_wait_async(random(1000, 2000), "lottery");
     else
@@ -183,53 +183,82 @@ void lottery_scratch_all(lottery_ticket_item@ ticket, int ticketIdx)
     double count = loadedTickets[ticketIdx].owned;
     loadedTickets[ticketIdx].owned = 0;
     stat_lottery_tickets_scratched += count;
+
+    lottery_prize_item[] prizes;
+    if (!lotteryPrizePools.get(ticket.prize_id, prizes) || prizes.length() == 0)
+    {
+        dlg_buffer("Something went wrong reading the prize pool for this ticket.");
+        return;
+    }
+
+    int totalWeight = 0;
+    for (uint i = 0; i < prizes.length(); i++)
+        totalWeight += prizes[i].weight;
+
     double totalCoins = 0;
     double totalCookies = 0;
     double totalAutocookie = 0;
     double totalManulcookie = 0;
     double totalCookiespeed = 0;
-    int wins = 0;
-    int losses = 0;
-    pool.play_stationary("sounds/minigames/cookie_lottery/scratch.ogg", false);
-    wait(500);
-    for (int i = 0; i < count; i++)
+    double wins = 0;
+    double losses = 0;
+
+    // Snapshot bases for percent prizes before applying anything
+    double baseCoins = coins;
+    double baseCookies = cookies;
+    double baseAutocookie = autocookie;
+    double baseManulcookie = manulcookie;
+    double baseCookiespeed = cookiespeed;
+
+    pool.play_stationary("sounds/minigames/cooky_lottery/scratch.ogg", false);
+    wait(random(1000, 2000));
+
+    for (uint i = 0; i < prizes.length(); i++)
     {
-        lottery_prize_item@ prize = pick_lottery_prize(ticket.prize_id);
-        if (prize is null) continue;
-        if (prize.target == "none") { losses++; continue; }
-        wins++;
+        if (totalWeight <= 0) continue;
+        double share = floor(count * prizes[i].weight / totalWeight);
+        if (prizes[i].target == "none") { losses += share; continue; }
+        if (share <= 0) continue;
+        wins += share;
         double amount = 0;
-        if (prize.use_percent)
+        if (prizes[i].use_percent)
         {
             double base = 0;
-            if (prize.target == "coins") base = coins;
-            else if (prize.target == "cookies") base = cookies;
-            else if (prize.target == "autocookie") base = autocookie;
-            else if (prize.target == "manulcookie") base = manulcookie;
-            else if (prize.target == "cookiespeed") base = cookiespeed;
-            double pct = double(random(int(prize.min_amount * 100), int(prize.max_amount * 100))) / 100.0;
-            amount = floor(base * (pct / 100.0));
+            if (prizes[i].target == "coins") base = baseCoins;
+            else if (prizes[i].target == "cookies") base = baseCookies;
+            else if (prizes[i].target == "autocookie") base = baseAutocookie;
+            else if (prizes[i].target == "manulcookie") base = baseManulcookie;
+            else if (prizes[i].target == "cookiespeed") base = baseCookiespeed;
+            double midPct = (prizes[i].min_amount + prizes[i].max_amount) / 2.0;
+            amount = floor(base * (midPct / 100.0)) * share;
         }
         else
-            amount = floor(double(random(int(prize.min_amount), int(prize.max_amount))));
-        if (prize.target == "coins") totalCoins += amount;
-        else if (prize.target == "cookies") totalCookies += amount;
-        else if (prize.target == "autocookie") totalAutocookie += amount;
-        else if (prize.target == "manulcookie") totalManulcookie += amount;
-        else if (prize.target == "cookiespeed") totalCookiespeed += amount;
+        {
+            double midAmount = floor((prizes[i].min_amount + prizes[i].max_amount) / 2.0);
+            amount = midAmount * share;
+        }
+        if (prizes[i].target == "coins") totalCoins += amount;
+        else if (prizes[i].target == "cookies") totalCookies += amount;
+        else if (prizes[i].target == "autocookie") totalAutocookie += amount;
+        else if (prizes[i].target == "manulcookie") totalManulcookie += amount;
+        else if (prizes[i].target == "cookiespeed") totalCookiespeed += amount;
     }
-    if (totalCoins > 0)      apply_amount_effect("coins", totalCoins, 1, false);
-    if (totalCookies > 0)    apply_amount_effect("cookies", totalCookies, 1, false);
+
+    // Remaining tickets lost to rounding go to losses
+    losses += count - wins - losses;
+
+    if (totalCoins > 0)       apply_amount_effect("coins", totalCoins, 1, false);
+    if (totalCookies > 0)     apply_amount_effect("cookies", totalCookies, 1, false);
     if (totalAutocookie > 0)  apply_amount_effect("autocookie", totalAutocookie, 1, false);
     if (totalManulcookie > 0) apply_amount_effect("manulcookie", totalManulcookie, 1, false);
     if (totalCookiespeed > 0) { cookiespeed += totalCookiespeed; clicktime -= totalCookiespeed; if (cookiespeed < 0) cookiespeed = 0; if (clicktime < 50) clicktime = 50; cookiespeed = floor(cookiespeed); }
     stat_lottery_wins += wins;
     stat_lottery_losses += losses;
-    string endSound = (wins > 0) ? "sounds/minigames/cookie_lottery/win.ogg" : "sounds/minigames/cookie_lottery/lose" + string(random(1, 3)) + ".ogg";
+    string endSound = (wins > 0) ? "sounds/minigames/cooky_lottery/win.ogg" : "sounds/minigames/cooky_lottery/lose" + string(random(1, 3)) + ".ogg";
     pool.play_stationary(endSound, false);
 
-    string summary = "You scratched " + string(count) + " " + ticket.name + (count == 1 ? "" : "s") + ". ";
-    summary += string(wins) + " win" + (wins == 1 ? "" : "s") + ", " + string(losses) + " loss" + (losses == 1 ? "" : "es") + ". ";
+    string summary = "You scratched " + format_number(count) + " " + ticket.name + (count == 1 ? "" : "s") + ". ";
+    summary += format_number(wins) + " win" + (wins == 1 ? "" : "s") + ", " + format_number(losses) + " loss" + (losses == 1 ? "" : "es") + ". ";
     bool anygain = false;
     if (totalCoins > 0) { summary += "Money: +" + convert_to_currency(totalCoins) + ". "; anygain = true; }
     if (totalCookies > 0) { summary += "Cookies: +" + format_number(totalCookies) + ". "; anygain = true; }

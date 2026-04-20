@@ -21,7 +21,6 @@ stop_message=Combo broke at %combo% %press%! Keep pressing to build it back up.
 75:4:combos/tier2.ogg:%combo% click combo! You're hitting your stride! %multiplier%x per press!
 100:6:combos/tier3.ogg:%combo% click combo! Incredible baking! %multiplier%x per press!
 125:8:combos/tier4.ogg:%combo% click combo! Legendary! Your cookies are flying out of the oven at %multiplier%x per press!
-
 150:10:combos/tier5.ogg:%combo% click combo! Unstoppable! The oven can barely keep up at %multiplier%x per press!
 175:12:combos/tier6.ogg:%combo% click combo! Cookie frenzy! You're breaking every baking record at %multiplier%x per press!
 200:14:combos/tier7.ogg:%combo% click combo! Transcendent! The cookies are practically baking themselves at %multiplier%x per press!

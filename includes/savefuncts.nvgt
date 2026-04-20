@@ -452,6 +452,13 @@ if(st.d.exists("evchanse2"))
 {
 evchanse2=st.read_int("evchanse2");
 }
+for (uint i = 0; i < buffers.length(); i++)
+{
+    if (buffers[i].name == "all" || buffers[i].name == "alerts") continue;
+    string key = "buffer_muted_" + buffers[i].name;
+    if (st.d.exists(key))
+        buffers[i].muted = st.read_bool(key);
+}
 }
 void writepreffs()
 {
@@ -483,6 +490,11 @@ st.add("cookiemod",cookiemod);
 st.add("cookieSellPrice",cookieSellPrice);
 st.add("evchanse",evchanse);
 st.add("evchanse2",evchanse2);
+for (uint i = 0; i < buffers.length(); i++)
+{
+    if (buffers[i].name == "all" || buffers[i].name == "alerts") continue;
+    st.add("buffer_muted_" + buffers[i].name, buffers[i].muted);
+}
 st.save();
 }
 void readpreffs2()
