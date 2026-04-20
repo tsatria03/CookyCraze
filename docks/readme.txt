@@ -91,8 +91,8 @@ The ticket shop.
 Buy scratch tickets using your money. Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end. Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
 By default, locked ticket tiers are shown with their required rank displayed. You can hide them entirely by disabling the show locked items option in the game settings.
 
-Combos.
-Unlocked at rank 70. Build a combo by pressing the bake button multiple times in quick succession. The combo does not activate immediately — you must reach a minimum number of consecutive presses within the time window before it kicks in. Once activated, a sound plays and a message announces that the combo has started. From that point, each press within the window increments your combo count and applies a multiplier to your manual cookie output. Reaching a combo tier plays a sound and announces the new multiplier. Missing the window at any point breaks your combo, plays a break sound, and resets everything back to zero.
+Combos. Unlocked at rank 70.
+Advanced. Demands consistent timing, significant progression in manual upgrades, and understanding of multiplier stacking to use effectively. Build a combo by pressing the bake button multiple times in quick succession. The combo does not activate immediately — you must reach a minimum number of consecutive presses within the time window before it kicks in. Once activated, a sound plays and a message announces that the combo has started. From that point, each press within the window increments your combo count and applies a multiplier to your manual cookie output. Reaching a combo tier plays a sound and announces the new multiplier. Missing the window at any point breaks your combo, plays a break sound, and resets everything back to zero.
 
 The combo multiplier applies to both your base manual cookies and your manual slots, so higher slot counts make each combo tier even more rewarding.
 
@@ -106,6 +106,7 @@ Some are percentage-based, and others are flat amounts.
 Events fire automatically during gameplay and are fully configurable in baker.event.
 
 Blackjack. Unlocked at rank 10.
+Beginner. It's the first unlock and introduces a simple card game with straightforward rules. Low stakes, easy to grasp.
 A card game where you bet an item of your choice and try to reach 21 without going over.
 
 You can bet money, cookies, auto cookies, manual cookies, or baking speed. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
@@ -117,6 +118,7 @@ All payouts, sounds, messages, and bet limits are configurable in jacks.table.
 A configurable confirmation prompt can be set to appear when your bet reaches a certain threshold, protecting you from accidentally placing a large bet.
 
 Cookie flipper. Unlocked at rank 20.
+Beginner. Simple yes/no mechanic with a coin flip, very little strategy involved.
 Flip a cookie or a penny to trigger a random event that can boost or reduce your stats.
 
 When you open the flipper, the first thing you see is a type selector. Choose cookie to flip a cookie, or penny to flip a penny. Flipping is free either way — you get your cookie or penny back once it lands. The flip button updates its label to match whichever type is currently selected.
@@ -135,9 +137,11 @@ Each entry shows the flip number, which side it landed on, the event that was se
 The history persists across sessions and resets when starting a new game.
 
 Cookie lottery. Unlocked at rank 30.
+Intermediate. Involves scratch tickets and prize tiers, requires understanding odds and managing ticket spending.
 Scratch your tickets and reveal prizes ranging from money and cookies to stat boosts. You can scratch tickets one at a time or all at once from the lottery screen. When scratching one at a time, you can enable automatic reveal in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
 Dice roller. Unlocked at rank 40.
+Intermediate. More variables than blackjack with dice types, modifiers, and payout tiers to learn.
 Roll a set of dice against a target score you set yourself and bet an item of your choice on the outcome.
 
 Before rolling, choose an item to bet, then select your dice type, how many dice to roll, and a modifier to add or subtract from the total. Next, enter your bet amount and a target score. When betting money, you can enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers. Hitting or beating the target wins a payout scaled to how far you exceeded it. Falling short loses the bet.
@@ -147,6 +151,7 @@ The higher you set the target relative to what your dice can realistically roll,
 You can roll manually, or enable automatic rolling in the settings so the result appears after a short random delay. When disabled, the result is held until you press enter or space.
 
 Slot machine. Unlocked at rank 50.
+Intermediate. Multiple reels, payout combinations, and bet management make it more complex than early minigames.
 Spin the reels and match symbols to win multiples of your bet.
 
 Like the other minigames, you choose which item to bet and how much. When betting money, you enter the amount as a dollar value, for example type 1 to bet $1.00 or 0.50 to bet 50 cents. All other items are entered as whole numbers.
@@ -157,6 +162,7 @@ A configurable confirmation prompt can be set to appear when your bet reaches a 
 Rank ups and achievement unlocks are checked and can fire while you are playing any of the minigames mentioned above.
 
 Baking slots manager. Unlocked at rank 60.
+Advanced. Requires understanding the entire baking system deeply enough to configure and automate it effectively.
 Manage and configure your baking slots to balance automated and manual cookie production.
 
 There are two types of slots.

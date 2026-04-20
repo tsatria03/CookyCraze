@@ -11,8 +11,9 @@ Welcome to CookyCraze! Bake and sell cookies to earn money, climb the ranks, and
 - **Shop for upgrades.** Use your hard-earned money to purchase individual upgrades or bundles that boost auto cookies, manual cookies, and baking speed.
 - **Automated baking.** Buy auto-baking upgrades and manage baking slots to let the game bake cookies for you while you focus on other upgrades.
 - **Random events.** While you play, random baker events can give or take stats in unexpected ways. The cooky flipper has its own separate event pool.
-- **Minigames.** Unlock blackjack at rank 10, the cooky flipper at rank 20, the cooky lottery at rank 30, and the slot machine at rank 40. Each lets you bet various stats for a chance at big rewards.
-- **Achievements.** Earn recognition for milestones across baking, economy, minigames, events, and more. Achievements are grouped into ten categories.
+- **Minigames.** Unlock blackjack at rank 10, the cooky flipper at rank 20, the cooky lottery at rank 30, the dice roller at rank 40, and the slot machine at rank 50. Each lets you bet various stats for a chance at big rewards.
+- **Combos.** Unlocked at rank 70. Build up consecutive manual bake presses within a time window to activate a combo and multiply your cookie output. The longer you keep it going, the higher the multiplier.
+- **Achievements.** Earn recognition for milestones across baking, economy, minigames, events, and more.
 - **Quests and prestige.** Complete objectives to unlock the prestige option. Prestiging resets your progress and awards a permanent bonus that carries into every future run.
 - **Multiple save slots.** Keep separate playthroughs going at the same time, each with its own rank, upgrades, and settings.
 - **Mod support.** Nearly every game system is configurable through plain text files in the data/config folder, from rank rewards and event effects to slot payouts and prize pools.
@@ -59,6 +60,6 @@ Money is always displayed in dollars and cents throughout the game, for example 
 
 ## Conclusion
 
-CookyCraze started as a simple cookie clicker and has grown into a full-featured idle game with automated production, minigames, achievements, a rank progression system, multiple save slots, and deep mod support. Every system in the game can be tuned or extended through the provided configuration files.
+CookyCraze started as a simple cookie clicker and has grown into a full-featured idle game with automated production, minigames, a combo system, achievements, quests, a rank progression system, multiple save slots, and deep mod support. Every system in the game can be tuned or extended through the provided configuration files.
 
 Thanks for playing, and happy baking!
