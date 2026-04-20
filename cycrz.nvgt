@@ -105,7 +105,7 @@ if (mres==1)
 dlgmessage_return("Congratulations! You've successfully completed your profile setup. I'll give you " + convert_to_currency(10) + " to get you started on your way.");
 usercoins=10;
 coins=usercoins;
-dlgplay("sounds/misc/coin1.ogg");
+dlgplay("sounds/store/coin1.ogg");
 if (playergender == 0)
 {
 dlgmessage_return("Nice to meet you, Mr. " + playername2 + ". Or should I be proper and call you " + playername + "? Ha ha, just kidding. Now go have fun baking cookies and reaching new ranks!");
