@@ -1,12 +1,12 @@
 ; Menus
 
-startermenu=Beginner Bundles|0|false|Beginner friendly bundles designed to give new bakers a solid foundation without breaking the bank.
-advancedmenu=Advanced Bundles|5|false|More powerful bundles for experienced bakers who have already built up a steady income and want to accelerate their progression.
-expertmenu=Expert Bundles|20|false|High volume bundles for dedicated bakers who are deep into the game and ready to make serious investments.
-veteranmenu=Veteran Bundles|50|false|Powerful bundles for bakers who have climbed the ranks and are ready to make serious leaps in production.
-mastermenu=Master Bundles|100|false|Elite bundles reserved for bakers who have proven themselves through dedication and rank. Massive gains across all stats.
-legendarymenu=Legendary Bundles|250|false|The most powerful bundles in the shop. Reserved for the greatest bakers of all time who have reached the upper echelons of rank.
-godlikemenu=Godlike Bundles|500|false|Bundles that transcend the art of baking itself. Only the most legendary bakers in all of existence can access these.
+startermenu=Beginner Bundles|0|false|coins|Beginner friendly bundles designed to give new bakers a solid foundation without breaking the bank.
+advancedmenu=Advanced Bundles|5|false|coins|More powerful bundles for experienced bakers who have already built up a steady income and want to accelerate their progression.
+expertmenu=Expert Bundles|20|false|cookies|High volume bundles for dedicated bakers who are deep into the game and ready to make serious investments.
+veteranmenu=Veteran Bundles|50|false|cookies|Powerful bundles for bakers who have climbed the ranks and are ready to make serious leaps in production.
+mastermenu=Master Bundles|100|false|cookies|Elite bundles reserved for bakers who have proven themselves through dedication and rank. Massive gains across all stats.
+legendarymenu=Legendary Bundles|250|false|cookies|The most powerful bundles in the shop. Reserved for the greatest bakers of all time who have reached the upper echelons of rank.
+godlikemenu=Godlike Bundles|500|false|cookies|Bundles that transcend the art of baking itself. Only the most legendary bakers in all of existence can access these.
 
 [bundles]
 

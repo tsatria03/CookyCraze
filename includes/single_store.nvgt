@@ -4,6 +4,7 @@ class store_menu
     string name;
     int min_rank;
     bool hidden;
+    string currency;
     string description;
 }
 
@@ -55,12 +56,25 @@ void parse_store(string filepath, store_item[]@ items_out, store_menu[]@ menus_o
                     int pipe3 = rest3.find("|");
                     if (pipe3 != -1)
                     {
-                        sm.hidden = (rest3.substr(0, pipe3) == "true");
-                        sm.description = rest3.substr(pipe3 + 1);
+                        string hiddenStr = rest3.substr(0, pipe3);
+                        sm.hidden = (hiddenStr == "true");
+                        string rest4 = rest3.substr(pipe3 + 1);
+                        int pipe4 = rest4.find("|");
+                        if (pipe4 != -1)
+                        {
+                            sm.currency = rest4.substr(0, pipe4);
+                            sm.description = rest4.substr(pipe4 + 1);
+                        }
+                        else
+                        {
+                            sm.currency = "coins";
+                            sm.description = rest4;
+                        }
                     }
                     else
                     {
                         sm.hidden = (rest3 == "true");
+                        sm.currency = "coins";
                         sm.description = "";
                     }
                 }

@@ -1,8 +1,8 @@
 ; Menus
 
-autmenu=Automatic Baking Items|0|false|The original automatic baking menu, a staple of the game since version 1.0. These are the core upgrades that keep your ovens running around the clock.
-mabimenu=Manual Baking Items|0|false|The original manual baking menu, also a staple since version 1.0. These upgrades reward the hands-on baker who likes to get their fingers doughy.
-usermenu=User Created Items|5|false|Custom items that were created by the community.
+autmenu=Automatic Baking Items|0|false|coins|The original automatic baking menu, a staple of the game since version 1.0. These are the core upgrades that keep your ovens running around the clock.
+mabimenu=Manual Baking Items|0|false|coins|The original manual baking menu, also a staple since version 1.0. These upgrades reward the hands-on baker who likes to get their fingers doughy.
+usermenu=User Created Items|5|false|cookies|Custom items that were created by the community.
 
 ; Items
 

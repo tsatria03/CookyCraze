@@ -20,6 +20,7 @@ class bundle_menu
     string name;
     int min_rank;
     bool hidden;
+    string currency;
     string description;
 }
 
@@ -64,12 +65,25 @@ void parse_bundles(string filepath, bundle_item[]@ bundles_out, bundle_menu[]@ m
                     int pipe3 = rest3.find("|");
                     if (pipe3 != -1)
                     {
-                        bm.hidden = (rest3.substr(0, pipe3) == "true");
-                        bm.description = rest3.substr(pipe3 + 1);
+                        string hiddenStr = rest3.substr(0, pipe3);
+                        bm.hidden = (hiddenStr == "true");
+                        string rest4 = rest3.substr(pipe3 + 1);
+                        int pipe4 = rest4.find("|");
+                        if (pipe4 != -1)
+                        {
+                            bm.currency = rest4.substr(0, pipe4);
+                            bm.description = rest4.substr(pipe4 + 1);
+                        }
+                        else
+                        {
+                            bm.currency = "coins";
+                            bm.description = rest4;
+                        }
                     }
                     else
                     {
                         bm.hidden = (rest3 == "true");
+                        bm.currency = "coins";
                         bm.description = "";
                     }
                 }

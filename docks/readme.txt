@@ -46,7 +46,10 @@ Buy packages of multiple stat upgrades at once, often at better value than buyin
 
 Bundles are organized into categories by rank, spanning the full progression of the game from beginner to godlike tiers.
 Each bundle lists what stats it contains and how much it costs.
+Each category also announces which currency it uses before you enter it, so you always know whether to spend coins or cookies.
 Like the singles shop, locked categories and bundles show their required rank by default. You can hide them entirely by disabling the show locked items option in the game settings.
+
+The beginner and advanced categories use coins. All higher categories from expert onward use cookies instead.
 
 One important thing to understand about bundle pricing: bundles do not have their own fixed prices.
 Instead, the game uses the singles shop as a backend price engine, looking up the current price of each item based on how many you have already bought and adding them up.
@@ -75,7 +78,10 @@ Baking speed reduces the time between each bake.
 
 Upgrades are organized into categories, with higher categories requiring a minimum rank to access.
 Costs scale up the more you buy, so plan your purchases carefully.
+Each category announces which currency it uses before you enter it, so you always know whether to spend coins or cookies.
 By default, locked items and categories are shown in the shop with their required rank displayed. You can hide them entirely by disabling the show locked items option in the game settings.
+
+The automatic baking and manual baking categories use coins. The user created items category uses cookies instead.
 
 There are four ways to purchase in the singles shop.
 
@@ -333,7 +339,7 @@ Rerolling a quest replaces only the currently focused quest with a new one of th
 To view your quests, press the Quests button in the main game interface.
 A Quest Category list at the top of the quests screen lets you narrow down the list. The options are All, Required, and Random, and the list updates immediately as you switch between them.
 The quests screen shows required quests at the top, followed by random quests sorted from easiest to hardest. Completed quests are labelled with complete so you can see your status at a glance.
-Arrow to any quest and the detail box updates automatically, showing the description and current progress. A complete label is appended to the progress line when the quest is done.
+Arrow to any quest and the detail box updates automatically, showing the description and current progress. A complete label appears before the progress values when the quest is done, for example complete, 5 of 5.
 
 The prestige button is located in the quests screen and its label updates dynamically to reflect your current status.
 A prestige history box also appears in the quests screen after the prestige button, showing a log of every prestige run.
@@ -343,6 +349,7 @@ Before reaching the minimum rank the prestige button shows unlocked at rank X. O
 
 If you want a different quest, arrow to it and press the reroll button. Rerolling replaces only that quest with a new random one of the same difficulty. The reroll button does not appear when a required quest is focused.
 Rerolling deducts a cost from a configurable stat, and the cost increases each time using compounding scaling. The reroll count resets at the start of each prestige cycle so costs go back to base.
+The reroll_warning setting in quests.table controls how the reroll button behaves when a quest is complete. See the configuration file reference for details.
 
 Prestige.
 Reset your progress and earn a permanent bonus that carries into every future run.
@@ -569,9 +576,12 @@ Location: data/config/stores/bundles.store
 Defines the bundle shop categories and bundles.
 
 Category aliases.
-Format: alias=Full Category Name|min_rank|hidden|Description
+Format: alias=Full Category Name|min_rank|hidden|currency|Description
 
 Defined at the top of the file, before the [bundles] section header. Works the same as singles.store menu aliases, including the hidden flag. See the singles.store hidden field description for full details.
+
+currency
+Optional. Set to coins to spend the player's money when purchasing bundles in this category, or cookies to spend the player's cookie stockpile instead. Defaults to coins if omitted. The category label in the shop announces which currency it uses.
 
 Bundle format: menu_alias:name:min_rank:hidden:item_type:quantity|item_type:quantity|...:description
 
@@ -605,10 +615,13 @@ Defines the singles shop categories and upgrade items.
 Menu aliases.
 
 Format: alias=Full Menu Name
-Format with rank, hidden flag, and description: alias=Full Menu Name|min_rank|hidden|Description
+Format with all fields: alias=Full Menu Name|min_rank|hidden|currency|Description
 
 Define short aliases for menu names at the top of the file. Use the alias as the first field on item lines to assign items to that category.
-Append a pipe followed by a minimum rank, another pipe followed by the hidden flag, and another pipe followed by a description.
+Append a pipe followed by a minimum rank, another pipe followed by the hidden flag, another pipe followed by the currency, and another pipe followed by a description.
+
+currency
+Optional. Set to coins to spend the player's money when purchasing items in this category, or cookies to spend the player's cookie stockpile instead. Defaults to coins if omitted. The category label in the shop announces which currency it uses.
 
 hidden
 Required on menu lines. Set to true to completely hide this category from the shop until the player reaches the minimum rank. The category will not appear at all, not even as a locked entry.
@@ -1287,6 +1300,15 @@ reroll_multiplier
 How much the reroll cost increases with each reroll. Uses compounding scaling, the same as the singles shop.
 
 Keep this value low. Setting it too high will make rerolling unaffordable very quickly.
+
+reroll_warning
+Controls how the reroll button behaves when the focused quest is already complete. Accepts a number from 1 to 5.
+
+1 = No confirmation on any reroll. The reroll fires immediately.
+2 = Shows a confirmation prompt only when rerolling an incomplete quest.
+3 = Shows a confirmation prompt only when rerolling a completed quest. This is the default.
+4 = Shows a confirmation prompt before any reroll, complete or not.
+5 = Hides the reroll button entirely when a completed quest is focused. Incomplete quests reroll without prompting.
 
 reroll_sound
 The sound file to play when the player rerolls. Relative to sounds/misc/.
