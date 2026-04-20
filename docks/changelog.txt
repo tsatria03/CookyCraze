@@ -1,6 +1,6 @@
 New in 6.0.
+Added a combos buffer to track combo system messages including starts, tier milestones, and breaks. It can be muted independently like all other named buffers.
 Added the combo system for manual baking and combos.table to the data/config/tables folder. Pressing the bake button multiple times within a configurable time window builds a combo that multiplies your manual cookie output, with higher consecutive presses unlocking stronger multiplier tiers. Missing the window breaks the combo and resets the count, and all settings including the enabled toggle, time window range, tier thresholds, multipliers, sounds, and messages are fully configurable in combos.table.
-Removed the prestige level 25 milestone reward from prestige.table. Prestige milestone rewards now cap at level 10, with all higher levels falling back to the default reward.
 Added 5 blackjack losses quests and 5 blackjack pushes quests, each spanning the same difficulty range as the existing blackjack hands and wins quests.
 Added 5 coins spent quests spanning $10.00 to $100,000.00, matching the difficulty spread and format of the coins earned quests.
 Added 31 dice roller achievements across three tracks: total rolls, wins, and losses. All are hidden until the dice roller is unlocked at rank 40.

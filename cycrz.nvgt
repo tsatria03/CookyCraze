@@ -13,6 +13,7 @@ exit();
 else
 {
 create_buffer("achievements");
+create_buffer("combos");
 create_buffer("critical");
 create_buffer("events");
 create_buffer("general");

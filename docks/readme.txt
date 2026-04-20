@@ -388,10 +388,11 @@ Buffers.
 Buffers are categorized message logs that keep track of everything that happens during your game.
 Instead of important messages disappearing after being spoken, they are stored in a buffer so you can review them at any time.
 
-There are seven buffer categories.
+There are eight buffer categories.
 
 All is a special aggregate buffer that receives a copy of every message from every other buffer. It gives you a single place to review all game activity in the order it occurred. It cannot be muted.
 Achievements holds messages for every achievement you earn during play.
+Combos holds messages from the manual baking combo system, including combo starts, tier milestones, and breaks.
 Critical holds important notifications like rank ups and game milestones.
 Events holds messages from random events and flipper flips.
 General holds status updates and informational messages.

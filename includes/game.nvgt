@@ -127,7 +127,7 @@ else if(manulcookie>=1)
     {
         if (comboCount == 0)
         {
-            speak_buffer(combosConfig.start_message, "general");
+            speak_buffer(combosConfig.start_message, "combos");
         }
         comboCount++;
         comboWindow = random(combosConfig.combo_window_min, combosConfig.combo_window_max);
@@ -140,7 +140,7 @@ else if(manulcookie>=1)
             lastComboTierIndex = tierIdx;
             combo_tier_item@ tier = combosConfig.tiers[tierIdx];
             if (tier.sound != "") pool.play_stationary("sounds/" + tier.sound, false);
-            if (tier.message != "") speak_buffer(format_combo_message(tier.message, comboCount, comboMult), "general");
+            if (tier.message != "") speak_buffer(format_combo_message(tier.message, comboCount, comboMult), "combos");
         }
         else
         {
@@ -216,7 +216,7 @@ if (combosConfig.enabled && comboCount > 0 && combotimer.elapsed >= comboWindow)
     comboCount = 0;
     lastComboTierIndex = -1;
     if (combosConfig.break_sound != "") pool.play_stationary("sounds/" + combosConfig.break_sound, false);
-    speak_buffer(breakMsg, "general");
+    speak_buffer(breakMsg, "combos");
 }
 if (cookies >= cookiesrequiered)
 {
