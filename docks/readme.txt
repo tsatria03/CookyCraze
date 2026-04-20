@@ -91,13 +91,6 @@ The ticket shop.
 Buy scratch tickets using your money. Tickets are sold in tiers, with higher tiers costing more but offering larger prizes and better odds at the top end. Each tier draws from its own prize pool defined in lottery.table, with prizes weighted so smaller wins are more common.
 By default, locked ticket tiers are shown with their required rank displayed. You can hide them entirely by disabling the show locked items option in the game settings.
 
-Combos. Unlocked at rank 70.
-Advanced. Demands consistent timing, significant progression in manual upgrades, and understanding of multiplier stacking to use effectively. Build a combo by pressing the bake button multiple times in quick succession. The combo does not activate immediately — you must reach a minimum number of consecutive presses within the time window before it kicks in. Once activated, a sound plays and a message announces that the combo has started. From that point, each press within the window increments your combo count and applies a multiplier to your manual cookie output. Reaching a combo tier plays a sound and announces the new multiplier. Missing the window at any point breaks your combo, plays a break sound, and resets everything back to zero.
-
-The combo multiplier applies to both your base manual cookies and your manual slots, so higher slot counts make each combo tier even more rewarding.
-
-All combo settings are fully configurable in combos.table, including the activation threshold, time window range, tier thresholds, multipliers, sounds, and messages. The combo system can also be disabled entirely from that file.
-
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
 
@@ -172,6 +165,13 @@ Manual slots multiply the output of each bake press, scaling with your manual co
 You can purchase additional slots of either type, and toggle individual auto slots on or off to fine-tune how much of your production is automated versus manual.
 Both submenus are locked behind a rank requirement, defaulting to rank 60.
 The slot manager menu itself is always accessible so you can see what is coming, but you cannot enter either submenu until you reach the required rank.
+
+Combos. Unlocked at rank 70.
+Advanced. Demands consistent timing, significant progression in manual upgrades, and understanding of multiplier stacking to use effectively. Build a combo by pressing the bake button multiple times in quick succession. The combo does not activate immediately — you must reach a minimum number of consecutive presses within the time window before it kicks in. Once activated, a sound plays and a message announces that the combo has started. From that point, each press within the window increments your combo count and applies a multiplier to your manual cookie output. Reaching a combo tier plays a sound and announces the new multiplier. Missing the window at any point breaks your combo, plays a break sound, and resets everything back to zero.
+
+The combo multiplier applies to both your base manual cookies and your manual slots, so higher slot counts make each combo tier even more rewarding.
+
+All combo settings are fully configurable in combos.table, including the activation threshold, time window range, tier thresholds, multipliers, sounds, and messages. The combo system can also be disabled entirely from that file.
 
 Baker info.
 View a live snapshot of your current baker state. Press the Baker Info button in the main game interface to open it directly.
@@ -370,7 +370,7 @@ Passive Bonuses contains upgrades that permanently boost your cookie production 
 Head Start contains upgrades that give you bonus resources at the beginning of each new run, such as starting coins, auto cookies, or manual cookies.
 
 How prestige upgrades work.
-Unlike the normal shop and bundle shop, the prestige store uses a one-time purchase system. Every upgrade in the store can only be bought once, ever. Once purchased, the upgrade is immediately active and stays active permanently across every future run, including after further prestiges. You will never need to buy it again, and you cannot buy it a second time even if you wanted to.
+Unlike the bundle, single, and ticket shops, the prestige store uses a one-time purchase system. Every upgrade in the store can only ever be bought once. Once purchased, the upgrade is immediately active and stays active permanently across every future run, including after further prestiges. You will never need to buy it again, and you cannot buy it a second time even if you wanted to.
 
 Passive bonus upgrades work as multipliers layered on top of your existing stats. For example, buying a cookie multiplier upgrade does not add to your auto cookie or manual cookie counts directly. Instead, every time a bake fires, the output is multiplied by the bonus percentage. So if you normally produce 100 cookies per bake and you have a 5% cookie multiplier, you produce 105 instead. The higher your stats grow through the normal shop, the more noticeable the multiplier becomes. Similarly, a coin multiplier does not change your cookie sell price. It multiplies the total payout after the price is applied, so larger sell batches benefit more.
 
@@ -501,9 +501,9 @@ Declares whether this event is good or bad for the player.
 target
 The stat this event affects when it fires.
 
-cookies    = the player's current cookie count.
-coins      = the player's current coin count.
-autocookie  = the player's auto cookie production rate.
+cookies = the player's current cookie count.
+coins = the player's current coin count.
+autocookie = the player's auto cookie production rate.
 manulcookie = the player's manual cookie production rate.
 cookiespeed = the player's baking speed. Positive events reduce the interval, and negative events increase it.
 
@@ -523,7 +523,7 @@ use_percent
 Controls whether the rolled amount is treated as a flat value or a percentage of the player's current stat.
 
 false = the rolled amount is applied directly. A roll of 60 gives or takes exactly 60.
-true  = the rolled amount is treated as a percentage of what the player currently has.
+true = the rolled amount is treated as a percentage of what the player currently has.
 
 A roll of 20 with use_percent true takes 20 percent of the player's current cookies.
 
@@ -664,7 +664,7 @@ use_percent
 Controls whether the amount is applied as a flat value or a percentage of the player's current stat.
 
 false = the amount is added directly. An amount of 10 gives exactly 10 auto cookies.
-true  = the amount is treated as a percentage. An amount of 5 gives 5 percent of the player's current auto cookies.
+true = the amount is treated as a percentage. An amount of 5 gives 5 percent of the player's current auto cookies.
 
 hidden
 Required. Set to true to completely hide this item from the shop until the player reaches the minimum rank. The item will not appear at all, not even as a locked entry.
@@ -756,41 +756,41 @@ Use lowercase letters and underscores, no spaces. Example: first_spin
 stat
 The statistic this achievement tracks. Must be one of the following values.
 
-cookies_baked          = total number of cookies baked, both manual and automatic.
-auto_bakes_performed   = total times the auto baker has completed a cycle.
+cookies_baked = total number of cookies baked, both manual and automatic.
+auto_bakes_performed = total times the auto baker has completed a cycle.
 manual_bakes_performed = total times the bake button has been pressed manually.
-coins_earned           = total money received from all sources.
-coins_spent            = total money spent on shop purchases and quest rerolls.
+coins_earned = total money received from all sources.
+coins_spent = total money spent on shop purchases and quest rerolls.
 
-auto_slots_purchased   = total auto baking slots ever bought.
-auto_slots_enabled     = total auto slots that have been automated, individually or via automate all.
-auto_slots_idle        = current number of auto slots owned but not enabled. This is a live value, not a running total, so it can go up and down.
+auto_slots_purchased = total auto baking slots ever bought.
+auto_slots_enabled = total auto slots that have been automated, individually or via automate all.
+auto_slots_idle = current number of auto slots owned but not enabled. This is a live value, not a running total, so it can go up and down.
 manual_slots_purchased = total manual baking slots ever bought.
 
-bundles_purchased      = total bundle shop transactions.
-singles_purchased     = total singles shop transactions.
+bundles_purchased = total bundle shop transactions.
+singles_purchased = total singles shop transactions.
 
-baker_events_fired     = total baker events that successfully applied their effect during baking.
-flipper_events_fired   = total flipper events that successfully applied their effect during a cookie flip.
-flipper_flips          = total cookie flipper flips across both types.
-cookie_flips            = total cookie flips only.
-penny_flips            = total penny flips only.
+baker_events_fired = total baker events that successfully applied their effect during baking.
+flipper_events_fired = total flipper events that successfully applied their effect during a cookie flip.
+flipper_flips = total cookie flipper flips across both types.
+cookie_flips = total cookie flips only.
+penny_flips = total penny flips only.
 
-dice_rolls             = total dice roller rolls.
-dice_wins              = total dice rolls that met or exceeded the target.
-dice_losses            = total dice rolls that fell short of the target.
+dice_rolls = total dice roller rolls.
+dice_wins = total dice rolls that met or exceeded the target.
+dice_losses = total dice rolls that fell short of the target.
 
-slot_spins             = total slot machine spins.
-slot_wins              = total slot machine spins that returned a payout.
-slot_losses            = total slot machine spins that returned nothing.
+slot_spins = total slot machine spins.
+slot_wins = total slot machine spins that returned a payout.
+slot_losses = total slot machine spins that returned nothing.
 
-blackjack_hands        = total blackjack rounds played.
-blackjack_wins         = total blackjack rounds won.
-blackjack_losses       = total blackjack rounds lost.
-blackjack_pushes       = total blackjack rounds that ended in a tie.
+blackjack_hands = total blackjack rounds played.
+blackjack_wins = total blackjack rounds won.
+blackjack_losses = total blackjack rounds lost.
+blackjack_pushes = total blackjack rounds that ended in a tie.
 
-quests_completed       = total quests completed across all prestige cycles.
-rerolls_performed      = total times a quest has been rerolled.
+quests_completed = total quests completed across all prestige cycles.
+rerolls_performed = total times a quest has been rerolled.
 
 threshold
 The value the stat must reach to unlock this achievement.
@@ -831,10 +831,10 @@ Settings section.
 enabled
 Format: enabled=true or enabled=true:rank
 
-Set to true to enable the combo system. Set to false to disable it entirely. You can optionally append a colon followed by a rank number, for example enabled=true:70, to make the system dormant until the player reaches that rank. Below the required rank, manual baking works as normal with no combo tracking. Once the rank is reached, the system activates fully. When no rank is specified, the system is active from the start.
+Set to true to enable the combo system. Set to false to disable it entirely. You can optionally append a colon followed by a rank number, for example enabled=true:30, to make the system dormant until the player reaches that rank. Below the required rank, manual baking works as normal with no combo tracking. Once the rank is reached, the system activates fully. When no rank is specified, the system is active from the start.
 
 combo_window
-Format: combo_window=min,max
+Format: combo_window=value or combo_window=min,max
 
 The range in milliseconds the player has between consecutive bake presses, both during the silent build-up phase and while the combo is active. A random value between min and max is chosen after each press. As long as each individual gap between presses stays under that value, the combo continues building. If any single gap exceeds it, the count resets to zero and you must start over. Use a single value for a fixed window, for example combo_window=3000.
 
@@ -843,14 +843,14 @@ Format: start_count=value or start_count=min,max
 
 The number of consecutive presses required before the combo activates. If a min and max are provided, a random value between them is chosen each time a new pre-combo phase begins. Until this threshold is reached, presses are tracked silently with no multiplier and no announcement. If the player pauses too long during this phase, the count resets and a new target is chosen. Once the threshold is reached, the combo activates immediately and the start sound and message fire.
 
-start_message
-The message spoken when the combo activates after reaching the start_at threshold.
-
 start_sound
 The sound to play when the combo activates after reaching the start_at threshold. Relative to sounds/. You can include a subfolder prefix, for example combos/start.ogg.
 
 stop_sound
 The sound to play when the combo timer expires and the combo breaks. Relative to sounds/. You can include a subfolder prefix, for example combos/stop.ogg.
+
+start_message
+The message spoken when the combo activates after reaching the start_at threshold.
 
 stop_message
 The message spoken when the combo breaks. Use %combo% as a placeholder for the count reached before breaking, and %hits% for the correctly pluralized word hit or hits.
@@ -927,11 +927,11 @@ The sound to play for this payout tier. Relative to sounds/minigames/.
 message
 The text spoken after the roll. Supports the following placeholders.
 
-%roll%    is replaced with the total rolled including the modifier.
-%target%  is replaced with the target score the player set.
-%margin%  is replaced with how much the roll exceeded or fell short of the target.
-%amount%  is replaced with the amount won.
-%item%    is replaced with the name of the item bet, for example cookies or auto cookies.
+%roll% is replaced with the total rolled including the modifier.
+%target% is replaced with the target score the player set.
+%margin% is replaced with how much the roll exceeded or fell short of the target.
+%amount% is replaced with the amount won.
+%item% is replaced with the name of the item bet, for example cookies or auto cookies.
 
 jacks.table
 
@@ -997,11 +997,11 @@ Sound to play when the dealer draws a card. Relative to sounds/misc/. Subfolder 
 
 Message placeholders.
 
-%bet%    is replaced with the amount the player bet.
-%win%    is replaced with the amount won.
-%score%  is replaced with the player's final score.
+%bet% is replaced with the amount the player bet.
+%win% is replaced with the amount won.
+%score% is replaced with the player's final score.
 %dealer% is replaced with the dealer's final score.
-%item%   is replaced with the name of the item being bet, for example currency or auto cookies.
+%item% is replaced with the name of the item being bet, for example currency or auto cookies.
 
 natural_message
 Message spoken when the player hits a natural blackjack.
@@ -1051,9 +1051,9 @@ Milestone rewards fire in addition to the default reward.
 target
 The stat this reward affects.
 
-cookies    = the player's current cookie count.
-coins      = the player's current coin count.
-autocookie  = the player's auto cookie production rate.
+cookies = the player's current cookie count.
+coins = the player's current coin count.
+autocookie = the player's auto cookie production rate.
 manulcookie = the player's manual cookie production rate.
 cookiespeed = the player's baking speed.
 
@@ -1065,11 +1065,11 @@ Setting both values to negative numbers causes the reward to deduct from the tar
 unlock
 An optional feature to unlock at this rank. Use none for no unlock.
 
-blackjack   = unlocks the blackjack minigame.
-flipper     = unlocks the cookie flipper minigame.
-lottery     = unlocks the cookie lottery and the ticket shop.
-dice        = unlocks the dice roller minigame.
-slots       = unlocks the slot machine minigame.
+blackjack = unlocks the blackjack minigame.
+flipper = unlocks the cookie flipper minigame.
+lottery = unlocks the cookie lottery and the ticket shop.
+dice = unlocks the dice roller minigame.
+slots = unlocks the slot machine minigame.
 slotmanager = unlocks the baking slots manager. Also sets the rank gate for the baking slots manager menu automatically.
 
 message
@@ -1184,9 +1184,9 @@ One or more stat and amount pairs separated by a pipe. Each pair is a stat name 
 
 You can chain as many pairs as you like on one line.
 
-cookies    = the player's current cookie count.
-coins      = the player's current coin count.
-autocookie  = the player's auto cookie production rate.
+cookies = the player's current cookie count.
+coins = the player's current coin count.
+autocookie = the player's auto cookie production rate.
 manulcookie = the player's manual cookie production rate.
 cookiespeed = the player's baking speed.
 
@@ -1194,7 +1194,7 @@ use_percent
 Controls whether the amounts are applied as flat values or percentages of what the player had when they prestiged. This applies to all items in the reward line.
 
 false = amounts are given directly. An amount of 10 gives exactly 10 of the target stat.
-true  = amounts are treated as a percentage of the player's final stat value at the moment they prestiged.
+true = amounts are treated as a percentage of the player's final stat value at the moment they prestiged.
 
 An amount of 5 gives 5 percent of whatever they had.
 Keep percentage values low, as even a small percentage of a late-game stat can be a significant head start.
@@ -1226,10 +1226,10 @@ The internal identifier for this upgrade. Must be unique across all entries. Als
 
 The item_id also determines what effect the upgrade has. The game recognises the following prefixes.
 
-cookie_multiplier  = permanently increases all cookie production by a percentage each bake.
-coin_multiplier    = permanently increases all money earned from selling cookies by a percentage.
-rank_discount      = permanently reduces the cookies required to rank up by a percentage.
-starting_coins     = gives bonus coins at the start of each new run after prestige.
+cookie_multiplier = permanently increases all cookie production by a percentage each bake.
+coin_multiplier = permanently increases all money earned from selling cookies by a percentage.
+rank_discount = permanently reduces the cookies required to rank up by a percentage.
+starting_coins = gives bonus coins at the start of each new run after prestige.
 starting_autocookie = gives bonus auto cookies at the start of each new run after prestige.
 starting_manualcookie = gives bonus manual cookies at the start of each new run after prestige.
 
@@ -1271,9 +1271,9 @@ Reroll settings.
 reroll_target
 The stat deducted when the player rerolls their random quests.
 
-cookies    = deducts from the player's current cookie count.
-coins      = deducts from the player's current coin count.
-autocookie  = deducts from the player's auto cookie production rate.
+cookies = deducts from the player's current cookie count.
+coins = deducts from the player's current coin count.
+autocookie = deducts from the player's auto cookie production rate.
 manulcookie = deducts from the player's manual cookie production rate.
 cookiespeed = deducts from the player's baking speed.
 
@@ -1303,34 +1303,34 @@ The display name shown in the quest list in the quests menu.
 stat
 The statistic this quest tracks. Uses the same stat names as achievements.table. Must be one of the following values.
 
-cookies_baked          = total cookies baked, both manual and automatic.
-coins_earned           = total money received from all sources.
-coins_spent            = total money spent on shop purchases and quest rerolls.
+cookies_baked = total cookies baked, both manual and automatic.
+coins_earned = total money received from all sources.
+coins_spent = total money spent on shop purchases and quest rerolls.
 
-auto_slots_purchased   = total auto baking slots ever bought.
+auto_slots_purchased = total auto baking slots ever bought.
 manual_slots_purchased = total manual baking slots ever bought.
-auto_slots_enabled     = total auto slots that have been automated.
+auto_slots_enabled = total auto slots that have been automated.
 
-bundles_purchased      = total bundle shop transactions.
-singles_purchased     = total singles shop transactions.
+bundles_purchased = total bundle shop transactions.
+singles_purchased = total singles shop transactions.
 
-baker_events_fired     = total baker events that applied their effect during baking.
-flipper_events_fired   = total flipper events that applied their effect during a cookie flip.
-flipper_flips          = total cookie flipper flips across both types.
-cookie_flips            = total cookie flips only.
-penny_flips            = total penny flips only.
+baker_events_fired = total baker events that applied their effect during baking.
+flipper_events_fired = total flipper events that applied their effect during a cookie flip.
+flipper_flips = total cookie flipper flips across both types.
+cookie_flips = total cookie flips only.
+penny_flips = total penny flips only.
 
-dice_rolls             = total dice roller rolls.
-dice_wins              = total dice rolls that met or exceeded the target.
-dice_losses            = total dice rolls that fell short of the target.
+dice_rolls = total dice roller rolls.
+dice_wins = total dice rolls that met or exceeded the target.
+dice_losses = total dice rolls that fell short of the target.
 
-slot_spins             = total slot machine spins.
-slot_wins              = total slot machine wins.
+slot_spins = total slot machine spins.
+slot_wins = total slot machine wins.
 
-blackjack_hands        = total blackjack rounds played.
-blackjack_wins         = total blackjack rounds won.
-blackjack_losses       = total blackjack rounds lost.
-blackjack_pushes       = total blackjack rounds that ended in a tie.
+blackjack_hands = total blackjack rounds played.
+blackjack_wins = total blackjack rounds won.
+blackjack_losses = total blackjack rounds lost.
+blackjack_pushes = total blackjack rounds that ended in a tie.
 
 threshold
 The value the stat must reach to complete this quest.
@@ -1339,7 +1339,7 @@ use_percent
 Controls how progress is reported in the detail input box when the player focuses this quest.
 
 false = progress is shown as a raw value. For example, 342,500 of 1,000,000.
-true  = progress is shown as a percentage. For example, 3.62%.
+true = progress is shown as a percentage. For example, 3.62%.
 
 Useful for quests with very large thresholds where a raw number may be hard to interpret.
 
@@ -1373,9 +1373,9 @@ If it is not complete, nothing extra is added.
 The following placeholders are available and will be replaced at display time.
 
 %threshold% = the target value the stat must reach.
-%stat%      = the name of the stat being tracked, in readable form.
-%progress%  = the player's current stat value, capped at the threshold.
-%percent%   = the player's current progress as a percentage of the threshold.
+%stat% = the name of the stat being tracked, in readable form.
+%progress% = the player's current stat value, capped at the threshold.
+%percent% = the player's current progress as a percentage of the threshold.
 
 Keep the description focused on what the quest is asking, and let the game handle reporting the progress.
 
@@ -1397,12 +1397,12 @@ The internal identifier for this prize. Must be unique across all entries. Used 
 target
 The stat this prize affects when it is scratched.
 
-cookies    = the player's current cookie count.
-coins      = the player's current coin count.
-autocookie  = the player's auto cookie production rate.
+cookies = the player's current cookie count.
+coins = the player's current coin count.
+autocookie = the player's auto cookie production rate.
 manulcookie = the player's manual cookie production rate.
 cookiespeed = the player's baking speed.
-none       = a losing ticket. No stat is changed.
+none = a losing ticket. No stat is changed.
 
 At least one losing prize per pool is required.
 
@@ -1413,7 +1413,7 @@ use_percent
 Controls whether the amount is treated as a flat value or a percentage of the player's current stat.
 
 false = the rolled amount is applied directly.
-true  = the rolled amount is treated as a percentage of what the player currently has.
+true = the rolled amount is treated as a percentage of what the player currently has.
 
 weight
 The relative chance of this prize being selected within its pool. Higher values are more common.
