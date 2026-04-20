@@ -181,3 +181,27 @@ enable_auto_slots_15:Enable 15 auto slots:auto_slots_enabled:15:false:false:true
 enable_auto_slots_30:Enable 30 auto slots:auto_slots_enabled:30:false:false:true:3:Enable %threshold% auto baking slots.
 enable_auto_slots_50:Enable 50 auto slots:auto_slots_enabled:50:false:false:true:4:Enable %threshold% auto baking slots.
 enable_auto_slots_100:Enable 100 auto slots:auto_slots_enabled:100:false:false:true:5:Enable %threshold% auto baking slots.
+
+; Highest combo reached
+
+reach_combo_50:Reach a combo of 50:highest_combo_reached:50:false:false:true:1:Reach a combo of %threshold% consecutive presses.
+reach_combo_100:Reach a combo of 100:highest_combo_reached:100:false:false:true:2:Reach a combo of %threshold% consecutive presses.
+reach_combo_150:Reach a combo of 150:highest_combo_reached:150:false:false:true:3:Reach a combo of %threshold% consecutive presses.
+reach_combo_200:Reach a combo of 200:highest_combo_reached:200:false:false:true:4:Reach a combo of %threshold% consecutive presses.
+reach_combo_225:Reach a combo of 225:highest_combo_reached:225:false:false:true:5:Reach a combo of %threshold% consecutive presses.
+
+; Combos started
+
+start_combos_10:Start 10 combos:combos_started:10:false:false:true:1:Start %threshold% combos.
+start_combos_50:Start 50 combos:combos_started:50:false:false:true:2:Start %threshold% combos.
+start_combos_150:Start 150 combos:combos_started:150:false:false:true:3:Start %threshold% combos.
+start_combos_300:Start 300 combos:combos_started:300:false:false:true:4:Start %threshold% combos.
+start_combos_500:Start 500 combos:combos_started:500:false:false:true:5:Start %threshold% combos.
+
+; Combos broken
+
+break_combos_10:Break 10 combos:combos_broken:10:false:false:true:1:Break %threshold% combos.
+break_combos_50:Break 50 combos:combos_broken:50:false:false:true:2:Break %threshold% combos.
+break_combos_150:Break 150 combos:combos_broken:150:false:false:true:3:Break %threshold% combos.
+break_combos_300:Break 300 combos:combos_broken:300:false:false:true:4:Break %threshold% combos.
+break_combos_500:Break 500 combos:combos_broken:500:false:false:true:5:Break %threshold% combos.

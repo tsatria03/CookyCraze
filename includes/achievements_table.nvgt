@@ -125,6 +125,9 @@ double get_stat_value(string stat)
     if (stat == STAT_QUESTS_COMPLETED) return stat_quests_completed;
     if (stat == STAT_REROLLS_PERFORMED) return stat_rerolls_performed;
     if (stat == STAT_RANK) return rank;
+    if (stat == STAT_HIGHEST_COMBO_REACHED) return stat_highest_combo_reached;
+    if (stat == STAT_COMBOS_STARTED) return stat_combos_started;
+    if (stat == STAT_COMBOS_BROKEN) return stat_combos_broken;
     return 0;
 }
 

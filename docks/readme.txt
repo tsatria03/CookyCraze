@@ -221,7 +221,7 @@ View a summary of everything you have done in your current playthrough. Open it 
 
 Most stats shown here are tracked stats, meaning they are running totals that only ever go up and are saved with your game. A few are live stats, meaning they are calculated fresh from the current game state each time you open the screen and can go up or down. Live stats are noted individually where they appear.
 
-The statistics screen is divided into nine sections.
+The statistics screen is divided into ten sections.
 
 Baking.
 
@@ -250,6 +250,12 @@ Single upgrades purchased: counts every singles shop transaction, whether you bu
 Baker events.
 
 Baker events fired: counts every baker event that successfully triggered and applied its effect during baking.
+
+Combos.
+
+Highest combo reached: the highest consecutive press count you have ever achieved in a single combo. This is a lifetime personal best and only ever goes up.
+Combos started: counts every time a combo activated after reaching the required number of consecutive presses.
+Combos broken: counts every time an active combo expired because the press window was missed.
 
 Flipper events.
 
@@ -311,7 +317,7 @@ It resets only when starting a new game in the same slot.
 Achievements.
 Track your progress and earn recognition for milestones across every part of the game.
 
-There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, blackjack, the cookie flipper, the cookie lottery, the dice roller, the slot machine, and quests.
+There are many achievements spread across all tracked statistics, including baking, baking slots manager, economy, upgrades, bundles, events, blackjack, the cookie flipper, the cookie lottery, the dice roller, the slot machine, quests, and combos.
 Each achievement has a name, a description, and a hint that tells you what you need to do to unlock it.
 
 Achievements are shown in a dedicated menu accessible from the main game interface. The menu is organised into categories covering baking, economy, events, minigames, and more.

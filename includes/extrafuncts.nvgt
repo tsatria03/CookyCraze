@@ -543,6 +543,11 @@ void show_baker_statistics()
     txt += "Baker events\r\n";
     txt += "Baker events fired: " + format_number(stat_baker_events_fired) + "\r\n";
     txt += "\r\n";
+    txt += "Combos\r\n";
+    txt += "Highest combo reached: " + format_number(stat_highest_combo_reached) + "\r\n";
+    txt += "Combos started: " + format_number(stat_combos_started) + "\r\n";
+    txt += "Combos broken: " + format_number(stat_combos_broken) + "\r\n";
+    txt += "\r\n";
     txt += "Flipper events\r\n";
     txt += "Flipper events fired: " + format_number(stat_flipper_events_fired) + "\r\n";
     txt += "\r\n";

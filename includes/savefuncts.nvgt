@@ -177,6 +177,9 @@ if (sd.d.exists("stat_lottery_tickets_bought")) stat_lottery_tickets_bought = sd
 if (sd.d.exists("stat_lottery_tickets_scratched")) stat_lottery_tickets_scratched = sd.read_double("stat_lottery_tickets_scratched");
 if (sd.d.exists("stat_lottery_wins")) stat_lottery_wins = sd.read_double("stat_lottery_wins");
 if (sd.d.exists("stat_lottery_losses")) stat_lottery_losses = sd.read_double("stat_lottery_losses");
+if (sd.d.exists("stat_highest_combo_reached")) stat_highest_combo_reached = sd.read_double("stat_highest_combo_reached");
+if (sd.d.exists("stat_combos_started")) stat_combos_started = sd.read_double("stat_combos_started");
+if (sd.d.exists("stat_combos_broken")) stat_combos_broken = sd.read_double("stat_combos_broken");
 if (sd.d.exists("lotteryTicketCount"))
 {
     int ltcount = sd.read_int("lotteryTicketCount");
@@ -301,6 +304,9 @@ sd.add("stat_lottery_tickets_bought", stat_lottery_tickets_bought);
 sd.add("stat_lottery_tickets_scratched", stat_lottery_tickets_scratched);
 sd.add("stat_lottery_wins", stat_lottery_wins);
 sd.add("stat_lottery_losses", stat_lottery_losses);
+sd.add("stat_highest_combo_reached", stat_highest_combo_reached);
+sd.add("stat_combos_started", stat_combos_started);
+sd.add("stat_combos_broken", stat_combos_broken);
 sd.add("lotteryTicketCount", int(loadedTickets.length()));
 for (uint i = 0; i < loadedTickets.length(); i++)
 {

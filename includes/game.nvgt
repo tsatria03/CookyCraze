@@ -141,6 +141,7 @@ else if(manulcookie>=1)
                 comboCount = preComboTarget;
                 comboWindow = random(combosConfig.combo_window_min, combosConfig.combo_window_max);
                 combotimer.restart();
+                stat_combos_started++;
                 if (combosConfig.start_sound != "") pool.play_stationary("sounds/" + combosConfig.start_sound, false);
                 speak_buffer(combosConfig.start_message, "combos");
             }
@@ -148,6 +149,7 @@ else if(manulcookie>=1)
         else
         {
             comboCount++;
+            if (comboCount > stat_highest_combo_reached) stat_highest_combo_reached = comboCount;
             comboWindow = random(combosConfig.combo_window_min, combosConfig.combo_window_max);
             combotimer.restart();
             double comboMult = get_combo_multiplier(comboCount);
@@ -230,6 +232,7 @@ if (combosConfig.enabled && rank >= combosConfig.enabled_rank && comboCount > 0 
     string breakMsg = format_combo_message(combosConfig.stop_message, comboCount, get_combo_multiplier(comboCount));
     comboCount = 0;
     lastComboTierIndex = -1;
+    stat_combos_broken++;
     if (combosConfig.stop_sound != "") pool.play_stationary("sounds/" + combosConfig.stop_sound, false);
     speak_buffer(breakMsg, "combos");
 }

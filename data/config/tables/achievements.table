@@ -11,6 +11,7 @@ flipper=Cookie flipper
 dice=Dice roller
 lottery=Cookie lottery
 quests=Quests
+combos=Combos
 
 ; Baking
 
@@ -344,3 +345,42 @@ quests:quest_rejector:rerolls_performed:500:false:false:Quest Rejector:Reroll a 
 quests:reroll_legend:rerolls_performed:1000:false:false:Reroll Legend:Reroll a quest %threshold% times. Legends are picky about their quests.:Legends don't settle. Not even after a thousand chances.
 quests:reroll_eternal:rerolls_performed:2500:false:false:Reroll Eternal:Reroll a quest %threshold% times. The quest board has accepted its role in this relationship.:Some things are just meant to be rejected. The board has made peace with it.
 quests:reroll_infinite:rerolls_performed:5000:false:false:Reroll Infinite:Reroll a quest %threshold% times. Somewhere, a quest designer is crying.:At five thousand rerolls, the concept of a satisfactory quest may no longer exist.
+
+; Combos — highest combo reached
+
+combos:first_combo:highest_combo_reached:50:false:true:On a Roll:Reach a combo of 50 consecutive presses. Something is clicking.:The rhythm is there. You just had to find it.
+combos:combo_apprentice:highest_combo_reached:75:false:true:Combo Apprentice:Reach a combo of %threshold% consecutive presses. You are getting the hang of this.:A combo of seventy-five means your fingers know something your brain hasn't caught up to yet.
+combos:combo_adept:highest_combo_reached:100:false:true:Combo Adept:Reach a combo of %threshold% consecutive presses. The oven is barely keeping up.:Triple digits. The oven is starting to sweat.
+combos:combo_expert:highest_combo_reached:125:false:true:Combo Expert:Reach a combo of %threshold% consecutive presses. Your timing is becoming instinct.:At a hundred and twenty-five, instinct has taken over from effort.
+combos:combo_master:highest_combo_reached:150:false:true:Combo Master:Reach a combo of %threshold% consecutive presses. The cookies are practically flying.:Mastery looks effortless from the outside. You know better.
+combos:combo_veteran:highest_combo_reached:175:false:true:Combo Veteran:Reach a combo of %threshold% consecutive presses. You have seen every tier the combo system has to offer.:The system has nothing left to show you. You have seen it all.
+combos:combo_legend:highest_combo_reached:200:false:true:Combo Legend:Reach a combo of %threshold% consecutive presses. Legends are not made slowly.:Two hundred presses without missing. That is not skill anymore. That is something else.
+combos:combo_transcendent:highest_combo_reached:225:false:true:Combo Transcendent:Reach a combo of %threshold% consecutive presses. The highest possible tier. You are untouchable.:The system was not built for someone like you. You reached the ceiling and kept pressing.
+combos:combo_god:highest_combo_reached:300:false:true:Combo God:Reach a combo of %threshold% consecutive presses. Beyond the tiers. Beyond the system. Just you and the button.:The tiers ended at two twenty-five. You are in uncharted territory now.
+combos:combo_eternal:highest_combo_reached:500:false:true:Combo Eternal:Reach a combo of %threshold% consecutive presses. This is no longer baking. This is a religion.:Five hundred consecutive presses. Whatever you are doing, it transcends the concept of cookies.
+
+; Combos — combos started
+
+combos:first_combo_started:combos_started:1:false:true:The Chain Begins:Start your first combo. The rhythm is yours now.:Every chain has a first link. This is yours.
+combos:combo_starter:combos_started:10:false:true:Combo Starter:Start %threshold% combos. You are getting comfortable with the rhythm.:Ten combos in and the pattern is starting to feel natural.
+combos:combo_regular:combos_started:50:false:true:Regular Rhythm:Start %threshold% combos. The combo system knows your name.:Fifty starts means the rhythm is no longer something you find. It finds you.
+combos:combo_frequent:combos_started:150:false:true:Frequent Presser:Start %threshold% combos. You spend more time in a combo than out of one.:At a hundred and fifty, the combo is the default state.
+combos:combo_devoted:combos_started:300:false:true:Devoted to the Chain:Start %threshold% combos. The gaps between combos are just preparation.:Three hundred starts. The pauses exist only to make the next one feel earned.
+combos:combo_obsessed:combos_started:500:false:true:Combo Obsessed:Start %threshold% combos. You barely notice when one ends because another has already begun.:Five hundred combos started. The button barely has time to cool down.
+combos:combo_compulsive:combos_started:1000:false:true:Compulsive Presser:Start %threshold% combos. A thousand beginnings and counting.:A thousand combos started means a thousand decisions to keep going. You made every one.
+combos:combo_relentless:combos_started:2500:false:true:Relentless Chain:Start %threshold% combos. The oven has stopped questioning your methods.:Two thousand five hundred combos. The oven has accepted this is simply how you bake.
+combos:combo_infinite_starter:combos_started:5000:false:true:Infinite Starter:Start %threshold% combos. Starting things is your greatest talent.:Five thousand starts. Whatever happens next, the beginning was always yours to own.
+combos:combo_eternal_starter:combos_started:10000:false:true:Eternal Rhythm:Start %threshold% combos. The combo system was not designed for someone this persistent.:Ten thousand combos started. The system was built for bakers. You are something else.
+
+; Combos — combos broken
+
+combos:first_combo_broken:combos_broken:1:false:true:The Chain Breaks:Break your first combo. It happens to everyone. Build it back.:Every chain breaks eventually. What matters is what you do after.
+combos:combo_breaker:combos_broken:10:false:true:Combo Breaker:Break %threshold% combos. You know the sting of a broken rhythm.:Ten breaks and the sting is starting to feel familiar. Use it.
+combos:break_regular:combos_broken:50:false:true:Regular Breaker:Break %threshold% combos. You have broken and rebuilt the chain more times than you can count.:Fifty breaks means fifty restarts. That takes a specific kind of stubbornness.
+combos:break_frequent:combos_broken:150:false:true:Rhythm Interrupter:Break %threshold% combos. The combo system has a complicated relationship with you.:A hundred and fifty breaks. The system keeps taking you back anyway.
+combos:break_devoted:combos_broken:300:false:true:Chain Destroyer:Break %threshold% combos. You have shattered three hundred chains. And started three hundred more.:Destruction and creation are closer than they appear. You have proven that three hundred times.
+combos:break_obsessed:combos_broken:500:false:true:Break Artist:Break %threshold% combos. At this point the break is part of the art.:Five hundred broken chains. Each one ended a chapter. Each one started another.
+combos:break_compulsive:combos_broken:1000:false:true:Shattered Rhythm:Break %threshold% combos. A thousand endings. A thousand new beginnings.:Breaking a thousand combos sounds like failure. It is actually just persistence wearing a different mask.
+combos:break_relentless:combos_broken:2500:false:true:Relentless Breaker:Break %threshold% combos. The combo system respects your perseverance even if it cannot show it.:Two thousand five hundred breaks. The system has nothing left to say about it.
+combos:break_infinite:combos_broken:5000:false:true:Infinite Breaker:Break %threshold% combos. Breaking is just another word for starting again.:Five thousand broken combos. Whatever you call this, quitting is not among the options.
+combos:break_eternal:combos_broken:10000:false:true:Eternal Breaker:Break %threshold% combos. The chain has broken ten thousand times. It always comes back.:Ten thousand breaks and the chain still returns. Some things cannot be stopped by ending them.

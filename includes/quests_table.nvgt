@@ -381,7 +381,10 @@ string get_stat_display_name(string stat)
     else if (stat == STAT_BLACKJACK_WINS)    return "blackjack wins";
     else if (stat == STAT_AUTO_SLOTS_PURCHASED) return "auto slots purchased";
     else if (stat == STAT_AUTO_SLOTS_ENABLED)   return "auto slots enabled";
-    else if (stat == STAT_RANK)              return "rank";
+    else if (stat == STAT_RANK)                    return "rank";
+    else if (stat == STAT_HIGHEST_COMBO_REACHED)   return "highest combo reached";
+    else if (stat == STAT_COMBOS_STARTED)          return "combos started";
+    else if (stat == STAT_COMBOS_BROKEN)           return "combos broken";
     return stat;
 }
 
