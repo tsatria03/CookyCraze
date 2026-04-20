@@ -241,6 +241,12 @@ It is always calculated fresh from the current state of your bakery, similar to 
 
 Manual slots purchased: counts every manual baking slot you have ever bought.
 
+Combos.
+
+Combos started: counts every time a combo activated after reaching the required number of consecutive presses.
+Combos broken: counts every time an active combo expired because the press window was missed.
+Highest combo reached: the highest consecutive press count you have ever achieved in a single combo. This is a lifetime personal best and only ever goes up.
+
 Economy.
 
 Money earned: counts the total amount of money you have received across all sources, including selling cookies and rank rewards.
@@ -250,12 +256,6 @@ Single upgrades purchased: counts every singles shop transaction, whether you bu
 Baker events.
 
 Baker events fired: counts every baker event that successfully triggered and applied its effect during baking.
-
-Combos.
-
-Highest combo reached: the highest consecutive press count you have ever achieved in a single combo. This is a lifetime personal best and only ever goes up.
-Combos started: counts every time a combo activated after reaching the required number of consecutive presses.
-Combos broken: counts every time an active combo expired because the press window was missed.
 
 Flipper events.
 

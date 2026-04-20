@@ -1,6 +1,7 @@
 New in 6.2.
+Made it so the combos section now appears before economy in the baker statistics screen, achievements menu, and achievement statistics screen. Within the combos category, stats and achievements are ordered combos started, combos broken, then highest combo reached.
 Added 15 combo quests across three tracks: highest combo reached, combos started, and combos broken. Each track has 5 difficulty tiers matching the pattern of every other quest category in the game.
-Added 30 combo achievements across three tracks: highest combo reached, combos started, and combos broken. Each track has 10 achievements spanning from first milestone to extreme dedication. All are hidden until unlocked.
+Added 30 combo achievements across three tracks: highest combo reached, combos started, and combos broken. Each track has 10 achievements spanning from first milestone to extreme dedication. All are hidden until unlocked and all are silent, meaning they unlock in the background without any announcement since combo sounds and messages already provide real-time feedback.
 Added a combos section to the baker statistics screen showing highest combo reached, combos started, and combos broken. These are tracked lifetime stats saved with your game data.
 New in 6.1.
 Added a currency field to singles.store and bundles.store category definitions, allowing each category to independently use either money or baked cookies as its purchase currency. The singles shop uses money for the core baking categories and baked cookies for user created items, while bundle categories from expert tier onward use baked cookies with beginner and advanced remaining on money. Each category label in both shops now announces which currency it uses before you enter.
