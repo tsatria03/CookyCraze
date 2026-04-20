@@ -7,6 +7,7 @@ class quests_config
     double reroll_multiplier;
     string reroll_sound;
     string reroll_message;
+    int reroll_warning = 3;
 }
 
 class quest_item
@@ -68,8 +69,9 @@ void parse_quests_table(string filepath, quest_item[]@ quests_out)
             else if (key == "reroll_target")     questsConfig.reroll_target = val;
             else if (key == "reroll_base_cost")  questsConfig.reroll_base_cost = string_to_number(val);
             else if (key == "reroll_multiplier") questsConfig.reroll_multiplier = string_to_number(val);
-            else if (key == "reroll_sound")      questsConfig.reroll_sound = val;
-            else if (key == "reroll_message")    questsConfig.reroll_message = val;
+            else if (key == "reroll_sound")           questsConfig.reroll_sound = val;
+            else if (key == "reroll_message")         questsConfig.reroll_message = val;
+            else if (key == "reroll_warning") { questsConfig.reroll_warning = string_to_int(val); if (questsConfig.reroll_warning < 1) questsConfig.reroll_warning = 1; if (questsConfig.reroll_warning > 5) questsConfig.reroll_warning = 5; }
         }
         else if (section == "quests")
         {
@@ -396,6 +398,6 @@ string get_quest_detail(quest_item@ item)
     tokens.set("progress", format_quest_value(item.stat, capped));
     tokens.set("percent", format_number(pct) + "%");
     string desc = format_template(item.description, tokens);
-    desc += "\r\nCurrent progress: " + get_quest_progress(item) + (complete ? ". Complete" : "");
+    desc += "\r\nCurrent progress: " + (complete ? "Complete. " : "") + get_quest_progress(item);
     return desc;
 }

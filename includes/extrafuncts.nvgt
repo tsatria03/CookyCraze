@@ -784,7 +784,15 @@ void show_achievement_statistics(achievement_item[]@ achievements, dictionary@ u
             if (achievements[i].category != catName) continue;
             if (achievements[i].hidden && !unlocked.exists(achievements[i].id)) continue;
             if (unlocked.exists(achievements[i].id))
-                txt += achievements[i].name + ", complete.\r\n";
+            {
+                double curVal = get_stat_value(achievements[i].stat);
+                if (achievements[i].stat == STAT_AUTO_SLOTS_IDLE) curVal = idleCount;
+                string label = get_stat_progress_label(achievements[i].stat);
+                bool isCoinStat = (achievements[i].stat == STAT_COINS_EARNED || achievements[i].stat == STAT_COINS_SPENT);
+                string curStr = isCoinStat ? convert_to_currency(curVal) : format_number(curVal);
+                string threshStr = isCoinStat ? convert_to_currency(achievements[i].threshold) : format_number(achievements[i].threshold);
+                txt += achievements[i].name + ", complete. " + curStr + " " + label + ".\r\n";
+            }
         }
         for (uint i = 0; i < achievements.length(); i++)
         {

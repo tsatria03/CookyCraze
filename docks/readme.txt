@@ -219,6 +219,8 @@ The statistics screen is divided into nine sections.
 
 Baking.
 
+Cookies baked: counts the total number of cookies you have ever produced across all sources. This is a lifetime running total and never decreases when you sell cookies. Your cookie stockpile shown in the main game reflects only what you currently hold, while this stat reflects everything you have ever baked. Achievements that track cookies baked use this lifetime total, so they can unlock well before your stockpile reaches the same number.
+
 Auto bakes performed: counts every time the auto baker fires a cycle.
 Manual bakes performed: counts every time you press the bake button manually.
 
@@ -289,7 +291,8 @@ All stats are saved with your game data and persist between sessions.
 Achievement statistics.
 View your progress toward every achievement grouped by category. Open it from the Statistics menu.
 
-Each category lists complete achievements first, followed by incomplete ones showing your current value against the required threshold.
+Each category lists complete achievements first showing your current stat value, followed by incomplete ones showing your current value against the required threshold.
+Keep in mind that achievement thresholds compare against lifetime tracked stats, not your current stockpile. For example, a cookies baked achievement unlocks based on how many cookies you have ever produced, not how many you currently hold. Selling cookies does not reduce your progress toward baking achievements.
 This screen is read only and does not require any input to navigate.
 
 Prestige history.

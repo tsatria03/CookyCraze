@@ -1969,6 +1969,7 @@ void questsmenu()
     form.set_list_position(questList, 0);
     int lastPos = -1;
     bool lastRequired = true;
+    bool lastComplete = false;
     while (true)
     {
         wait(5);
@@ -2006,8 +2007,14 @@ void questsmenu()
             form.set_list_position(questList, 0);
             form.set_text(detailBox, questOrder.length() > 0 ? get_quest_detail(questOrder[0]) : "");
             bool showReroll = false;
+            bool firstComplete = questOrder.length() > 0 && get_stat_value(questOrder[0].stat) >= questOrder[0].threshold;
             if (lastFilter == 2) showReroll = true;
-            else if (lastFilter == 0 && questOrder.length() > 0 && !questOrder[0].required) showReroll = true;
+            else if (lastFilter == 0 && questOrder.length() > 0 && !questOrder[0].required)
+            {
+                if (questsConfig.reroll_warning == 5 && firstComplete) showReroll = false;
+                else showReroll = true;
+            }
+            lastComplete = firstComplete;
             if (rerollBtn != -1) form.delete_control(rerollBtn);
             if (rerollHistBox != -1) form.delete_control(rerollHistBox);
             form.delete_control(prestigeBtn);
@@ -2027,6 +2034,7 @@ void questsmenu()
             historyBox = form.create_input_box("Prestige &History", prestigeHistText, read_only:true, multiline:true);
             closeBtn = form.create_button("&Close", false, true);
             lastRequired = (questOrder.length() > 0) ? questOrder[0].required : true;
+            lastComplete = firstComplete;
             lastPos = 0;
             form.focus_silently(filterList);
             continue;
@@ -2048,14 +2056,17 @@ void questsmenu()
         {
             form.set_text(detailBox, get_quest_detail(questOrder[curPos]));
             bool isRequired = questOrder[curPos].required;
-            if (lastFilter == 0 && isRequired != lastRequired)
+            bool isComplete = get_stat_value(questOrder[curPos].stat) >= questOrder[curPos].threshold;
+            bool shouldShow = !isRequired && !(questsConfig.reroll_warning == 5 && isComplete);
+            bool shouldShowPrev = !lastRequired && !(questsConfig.reroll_warning == 5 && lastComplete);
+            if (lastFilter == 0 && shouldShow != shouldShowPrev)
             {
                 if (rerollBtn != -1) form.delete_control(rerollBtn);
                 if (rerollHistBox != -1) form.delete_control(rerollHistBox);
                 form.delete_control(prestigeBtn);
                 form.delete_control(historyBox);
                 form.delete_control(closeBtn);
-                if (!isRequired)
+                if (shouldShow)
                 {
                     rerollBtn = form.create_button("&Reroll quest for " + (questsConfig.reroll_target == "coins" ? convert_to_currency(rerollCost) : format_number(rerollCost) + " " + questsConfig.reroll_target));
                     rerollHistBox = form.create_input_box("&Reroll History", rerollHistText, read_only:true, multiline:true);
@@ -2069,6 +2080,7 @@ void questsmenu()
                 historyBox = form.create_input_box("Prestige &History", prestigeHistText, read_only:true, multiline:true);
                 closeBtn = form.create_button("&Close", false, true);
                 lastRequired = isRequired;
+                lastComplete = isComplete;
                 form.focus_silently(questList);
             }
             lastPos = curPos;
@@ -2104,6 +2116,37 @@ void questsmenu()
                 form.reset();
                 questsmenu();
                 return;
+            }
+            bool rerollQuestComplete = get_stat_value(questOrder[rerollPos].stat) >= questOrder[rerollPos].threshold;
+            int rwarn = questsConfig.reroll_warning;
+            bool doConfirm = false;
+            bool doBlock = false;
+            if (rwarn == 2 && !rerollQuestComplete) doConfirm = true;
+            else if (rwarn == 3 && rerollQuestComplete) doConfirm = true;
+            else if (rwarn == 4) doConfirm = true;
+            else if (rwarn == 5 && rerollQuestComplete) doBlock = true;
+            if (doBlock)
+            {
+                form.reset();
+                questsmenu();
+                return;
+            }
+            if (doConfirm)
+            {
+                setupmenu(false);
+                m.add_item("Yes", "yes");
+                m.add_item("No", "no");
+                if (rerollQuestComplete)
+                    m.intro_text = "Are you sure you want to reroll this quest? This quest is already complete. Rerolling it will remove its completed status, which may affect your prestige reward. This action cannot be undone.";
+                else
+                    m.intro_text = "Are you sure you want to reroll this quest? This action cannot be undone.";
+                int wres = m.run();
+                if (wres == -1 || m.get_item_id(wres) == "no")
+                {
+                    form.reset();
+                    questsmenu();
+                    return;
+                }
             }
             double rerollConfirmCost = floor(questsConfig.reroll_base_cost * pow(questsConfig.reroll_multiplier, questRerollCount));
             double rerollStatVal = 0;

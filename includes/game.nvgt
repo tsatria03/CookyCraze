@@ -351,7 +351,7 @@ clickergame();
 if(key_pressed(KEY_L))
 {
 readdata();
-reload_config();
+reload_config(true);
 ambpool.pause_sound(ambslot);
 muspool.pause_sound(mustrackslot);
 speak_buffer("game reloaded", "misc");

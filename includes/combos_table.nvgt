@@ -17,7 +17,7 @@ class combos_config
     string start_message = "Combo started! Keep pressing to build it up.";
     string start_sound = "combos/start.ogg";
     string stop_sound = "combos/stop.ogg";
-    string stop_message = "Combo broken at %combo% hit! Keep pressing to build it back up.";
+    string stop_message = "Combo broken at %combo% press! Keep pressing to build it back up.";
     array<combo_tier_item> tiers;
 }
 
@@ -128,6 +128,6 @@ string format_combo_message(string msg, int combo_count, double multiplier)
 {
     msg = string_replace(msg, "%combo%", "" + combo_count, true);
     msg = string_replace(msg, "%multiplier%", "" + multiplier, true);
-    msg = string_replace(msg, "%hits%", combo_count == 1 ? "hit" : "hits", true);
+    msg = string_replace(msg, "%press%", combo_count == 1 ? "press" : "presses", true);
     return msg;
 }

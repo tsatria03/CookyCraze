@@ -1,3 +1,10 @@
+New in 6.1.
+Replaced the reroll_warn_complete setting in quests.table with a new reroll_warning setting that accepts a numeric mode from 1 to 5, controlling how the reroll button behaves when a quest is complete or incomplete. Mode 5 hides the reroll button entirely on completed quests rather than showing a prompt. Defaults to 3, which confirms before rerolling completed quests only.
+Updated the quest details screen so the complete label now appears before the progress values rather than after. For example it now reads complete, 5 of 5 instead of 5 of 5, complete.
+Updated the quest progress display to correctly show the complete label before the progress line in the detail box when a quest is finished.
+Updated all quests in quests.table to display progress as raw values instead of percentages. For example, a rank quest now shows 5 of 5 instead of 100 percent.
+Updated the achievement statistics screen so completed achievements now show only your current stat value without the threshold, for example Cookie Singularity, complete, 16.68M cookies baked, instead of showing the target alongside it. Incomplete achievements continue to show both values as before.
+Fixed a bug where reloading the game from the main game screen using Control L would not reload configuration files, causing changes to combos.table and other config files to have no effect until the game was fully closed and reopened. The reload now correctly re-parses all configuration files every time.
 New in 6.0.
 Added a combos buffer to track combo system messages including starts, tier milestones, and breaks. It can be muted independently like all other named buffers.
 Added the combo system for manual baking and combos.table to the data/config/tables folder. Pressing the bake button multiple times within a configurable time window builds a combo that multiplies your manual cookie output, with higher consecutive presses unlocking stronger multiplier tiers. Missing the window breaks the combo and resets the count, and all settings including the enabled toggle, time window range, tier thresholds, multipliers, sounds, and messages are fully configurable in combos.table.

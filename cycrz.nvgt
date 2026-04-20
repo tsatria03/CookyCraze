@@ -1,8 +1,9 @@
 #include"includes/includes.nvgt"
 void main()
 {
-if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookieCraze/saves/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookieCraze/saves/");
+if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookieCraze/logs/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookieCraze/logs/");
 if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookieCraze/preffs/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookieCraze/preffs/");
+if (!directory_exists(DIRECTORY_APPDATA + "tsatria03/CookieCraze/saves/")) directory_create(DIRECTORY_APPDATA + "tsatria03/CookieCraze/saves/");
 getver();
 show_window("CookieCraze, version "+version);
 if(gamstence.is_already_running)
