@@ -1,5 +1,5 @@
 @echo off
-set GAME=CookyCraze
+set GAME=CookieCraze
 set PASSWORD=CrazeMastery
 
 set WIN_SOURCE=..\releases\windows\CookyCraze_windows_portable_password_is_CrazeMastery\cycrz

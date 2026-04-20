@@ -1,5 +1,5 @@
 #define MyAppId "{{8706944F-4D18-40AE-A7D8-565BAA65E672}}"
-#define MyAppName "CookyCraze"
+#define MyAppName "CookieCraze"
 #define MyAppVersion Trim(FileRead(FileOpen("..\docks\version.txt")))
 #define MyAppPublisher "tsatria03"
 #define MyAppURL "https://tsatria03.github.io/projects/games/CookyCraze"

@@ -1,5 +1,5 @@
 @echo off
-set GAME=CookyCraze
+set GAME=CookieCraze
 set PASSWORD=CrazeMastery
 
 for /f "delims=" %%v in (..\docks\version.txt) do set VERSION=%%v
