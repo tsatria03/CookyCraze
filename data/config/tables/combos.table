@@ -2,20 +2,22 @@
 
 ; Required header — removing or renaming this will break the file.
 
-enabled=true
+enabled=true:70
+
 combo_window=2000,4000
+start_count=20,40
+
+start_sound=combos/start.ogg
+stop_sound=combos/stop.ogg
+
 start_message=Combo started! Keep pressing to build it up.
-combo_sound=combos/combo_tick.ogg
-break_sound=combos/combo_break.ogg
-break_message=Combo broken at %combo% hit! Keep pressing to build it back up.
+stop_message=Combo broken at %combo% %hits%! Keep pressing to build it back up.
 
 [tiers]
 
 ; Required header — removing or renaming this will break the file.
 
-; Format: count:multiplier:sound:message
-
-2:1.5:combos/combo_tier1.ogg:Combo x%combo%! Your output is now %multiplier%x!
-5:2.0:combos/combo_tier2.ogg:Combo x%combo%! You're hitting your stride! %multiplier%x output!
-10:2.5:combos/combo_tier3.ogg:Combo x%combo%! Incredible baking! %multiplier%x output!
-20:3.0:combos/combo_tier4.ogg:Combo x%combo%! Legendary! Your cookies are flying out of the oven at %multiplier%x!
+50:1.5:combos/tier1.ogg:%combo% click combo! Your output is now %multiplier%x per press!
+75:2.0:combos/tier2.ogg:%combo% click combo! You're hitting your stride! %multiplier%x per press!
+100:2.5:combos/tier3.ogg:%combo% click combo! Incredible baking! %multiplier%x per press!
+150:3.0:combos/tier4.ogg:%combo% click combo! Legendary! Your cookies are flying out of the oven at %multiplier%x per press!

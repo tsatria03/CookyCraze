@@ -9,12 +9,15 @@ class combo_tier_item
 class combos_config
 {
     bool enabled = true;
+    int enabled_rank = 0;
     int combo_window_min = 2000;
     int combo_window_max = 4000;
+    int start_count_min = 2;
+    int start_count_max = 2;
     string start_message = "Combo started! Keep pressing to build it up.";
-    string combo_sound = "combos/combo_tick.ogg";
-    string break_sound = "combos/combo_break.ogg";
-    string break_message = "Combo broken at %combo% hit! Keep pressing to build it back up.";
+    string start_sound = "combos/start.ogg";
+    string stop_sound = "combos/stop.ogg";
+    string stop_message = "Combo broken at %combo% hit! Keep pressing to build it back up.";
     array<combo_tier_item> tiers;
 }
 
@@ -52,7 +55,17 @@ void parse_combos_table(string filepath, combos_config@ cfg)
         if (eq == -1) continue;
         string key = line.substr(0, eq);
         string val = line.substr(eq + 1);
-        if (key == "enabled") cfg.enabled = (val == "true");
+        if (key == "enabled")
+        {
+            int colon = val.find(":");
+            if (colon != -1)
+            {
+                cfg.enabled = (val.substr(0, colon) == "true");
+                cfg.enabled_rank = string_to_int(val.substr(colon + 1));
+            }
+            else
+                cfg.enabled = (val == "true");
+        }
         else if (key == "combo_window")
         {
             int comma = val.find(",");
@@ -67,10 +80,24 @@ void parse_combos_table(string filepath, combos_config@ cfg)
                 cfg.combo_window_max = cfg.combo_window_min;
             }
         }
+        else if (key == "start_count")
+        {
+            int comma = val.find(",");
+            if (comma != -1)
+            {
+                cfg.start_count_min = string_to_int(val.substr(0, comma));
+                cfg.start_count_max = string_to_int(val.substr(comma + 1));
+            }
+            else
+            {
+                cfg.start_count_min = string_to_int(val);
+                cfg.start_count_max = cfg.start_count_min;
+            }
+        }
         else if (key == "start_message") cfg.start_message = val;
-        else if (key == "combo_sound") cfg.combo_sound = val;
-        else if (key == "break_sound") cfg.break_sound = val;
-        else if (key == "break_message") cfg.break_message = val;
+        else if (key == "start_sound") cfg.start_sound = val;
+        else if (key == "stop_sound") cfg.stop_sound = val;
+        else if (key == "stop_message") cfg.stop_message = val;
     }
     f.close();
 }
@@ -101,5 +128,6 @@ string format_combo_message(string msg, int combo_count, double multiplier)
 {
     msg = string_replace(msg, "%combo%", "" + combo_count, true);
     msg = string_replace(msg, "%multiplier%", "" + multiplier, true);
+    msg = string_replace(msg, "%hits%", combo_count == 1 ? "hit" : "hits", true);
     return msg;
 }

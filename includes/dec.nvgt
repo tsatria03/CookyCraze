@@ -191,7 +191,10 @@ bool config_loaded = false;
 
 timer clicktimer;
 timer combotimer;
+timer preComboTimer;
 int comboCount = 0;
+int preComboCount = 0;
+int preComboTarget = 2;
 int comboWindow = 3000;
 int lastComboTierIndex = -1;
 file dockfile, dockver, logfile;

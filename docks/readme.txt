@@ -92,11 +92,11 @@ Buy scratch tickets using your money. Tickets are sold in tiers, with higher tie
 By default, locked ticket tiers are shown with their required rank displayed. You can hide them entirely by disabling the show locked items option in the game settings.
 
 Combos.
-Build a combo by pressing the bake button multiple times in quick succession. Each consecutive press within the time window increments your combo count and multiplies your manual cookie output. Reaching a combo tier plays a sound and announces the new multiplier. Missing the window breaks your combo, plays a break sound, and resets the count back to zero.
+Unlocked at rank 70. Build a combo by pressing the bake button multiple times in quick succession. The combo does not activate immediately — you must reach a minimum number of consecutive presses within the time window before it kicks in. Once activated, a sound plays and a message announces that the combo has started. From that point, each press within the window increments your combo count and applies a multiplier to your manual cookie output. Reaching a combo tier plays a sound and announces the new multiplier. Missing the window at any point breaks your combo, plays a break sound, and resets everything back to zero.
 
 The combo multiplier applies to both your base manual cookies and your manual slots, so higher slot counts make each combo tier even more rewarding.
 
-All combo settings are fully configurable in combos.table, including the time window range, tier thresholds, multipliers, sounds, and messages. The combo system can also be disabled entirely from that file.
+All combo settings are fully configurable in combos.table, including the activation threshold, time window range, tier thresholds, multipliers, sounds, and messages. The combo system can also be disabled entirely from that file.
 
 Random events.
 While you play, the game fires random events that can affect your stats in unexpected ways.
@@ -823,24 +823,31 @@ Defines all settings for the manual baking combo system.
 Settings section.
 
 enabled
-Set to true to enable the combo system. Set to false to disable it entirely. When disabled, manual baking works as normal with no combo tracking.
+Format: enabled=true or enabled=true:rank
+
+Set to true to enable the combo system. Set to false to disable it entirely. You can optionally append a colon followed by a rank number, for example enabled=true:70, to make the system dormant until the player reaches that rank. Below the required rank, manual baking works as normal with no combo tracking. Once the rank is reached, the system activates fully. When no rank is specified, the system is active from the start.
 
 combo_window
 Format: combo_window=min,max
 
-The range in milliseconds the player has between consecutive bake presses before the combo breaks. A random value between min and max is chosen after each press. Use a single value for a fixed window, for example combo_window=3000.
+The range in milliseconds the player has between consecutive bake presses, both during the silent build-up phase and while the combo is active. A random value between min and max is chosen after each press. As long as each individual gap between presses stays under that value, the combo continues building. If any single gap exceeds it, the count resets to zero and you must start over. Use a single value for a fixed window, for example combo_window=3000.
+
+start_count
+Format: start_count=value or start_count=min,max
+
+The number of consecutive presses required before the combo activates. If a min and max are provided, a random value between them is chosen each time a new pre-combo phase begins. Until this threshold is reached, presses are tracked silently with no multiplier and no announcement. If the player pauses too long during this phase, the count resets and a new target is chosen. Once the threshold is reached, the combo activates immediately and the start sound and message fire.
 
 start_message
-The message spoken to the player on their very first press when a new combo begins.
+The message spoken when the combo activates after reaching the start_at threshold.
 
-combo_sound
-The sound to play on each bake press that increments the combo but does not reach a new tier. Relative to sounds/. You can include a subfolder prefix, for example combos/combo_tick.ogg.
+start_sound
+The sound to play when the combo activates after reaching the start_at threshold. Relative to sounds/. You can include a subfolder prefix, for example combos/start.ogg.
 
-break_sound
-The sound to play when the combo timer expires and the combo breaks. Relative to sounds/.
+stop_sound
+The sound to play when the combo timer expires and the combo breaks. Relative to sounds/. You can include a subfolder prefix, for example combos/stop.ogg.
 
-break_message
-The message spoken when the combo breaks. Use %combo% as a placeholder for the count reached before breaking.
+stop_message
+The message spoken when the combo breaks. Use %combo% as a placeholder for the count reached before breaking, and %hits% for the correctly pluralized word hit or hits.
 
 Tiers section.
 Format: count:multiplier:sound:message
