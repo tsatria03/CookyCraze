@@ -165,7 +165,7 @@ if /i "%WEBSITE%" neq "Y" (
 echo.
 
 echo Updating website...
-powershell -NoProfile -Command "(Get-Content '%SITE_HTML%') -replace 'V\d+\.\d+0', 'V%VERSION%0' -replace 'V\d+\.\d+(?!0)', 'V%VERSION%' | Set-Content '%SITE_HTML%' -Encoding UTF8"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0windows_site_releaser.ps1" -HtmlFile "%SITE_HTML%" -Version "%VERSION%" -Tag "%TAG%"
 if errorlevel 1 (
     echo ERROR: Failed to update website HTML.
     pause
