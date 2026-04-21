@@ -1,6 +1,11 @@
 @echo off
-setlocal enabledelayedexpansion
 cd /d "%~dp0"
+
+set SKIP_COMPILE=0
+set SKIP_PACKAGE=0
+set SKIP_RELEASE=0
+set SKIP_WEBSITE=0
+set SKIP_EMPTY_RELEASE=0
 
 set GAME=CookieCraze
 set SITE_HTML=C:\Users\tonys\OneDrive\Documents\github\tsatria03.github.io\projects\games\CookieCraze\index.html
@@ -15,6 +20,12 @@ set RELEASE_DIR=..\releases\windows\CookieCraze_windows_portable_password_is_%PA
 
 for /f "usebackq delims=" %%v in ("..\docks\version.txt") do set VERSION=%%v
 
+if "%VERSION%"=="" (
+    echo ERROR: Could not read version from version.txt.
+    pause
+    exit /b 1
+)
+
 set TITLE=%GAME% V%VERSION%
 set TAG=V%VERSION%0
 
@@ -24,112 +35,110 @@ echo Tag:     %TAG%
 echo Title:   %TITLE%
 echo.
 
+if "%SKIP_COMPILE%"=="1" goto :do_compile
 set /p COMPILE=Do you want to compile this project? (Y/N):
-if /i "%COMPILE%"=="Y" (
-    echo.
-    echo Compiling NVGT source...
-    "C:\nvgt\nvgt.exe" -c -Q "..\cycrz.nvgt"
-    if errorlevel 1 (
-        echo ERROR: NVGT compilation failed.
-        pause
-        exit /b 1
-    )
-    echo Compilation successful.
-    echo.
+if /i "%COMPILE%"=="Y" goto :do_compile
+echo Skipping compilation.
+echo.
+goto :ask_package
 
-    echo Replacing compiled output in release folder...
-    if exist "%RELEASE_DIR%\cycrz" (
-        rmdir /s /q "%RELEASE_DIR%\cycrz"
-        if errorlevel 1 (
-            echo ERROR: Failed to remove old cycrz folder.
-            pause
-            exit /b 1
-        )
-    )
-
-    move "..\cycrz" "%RELEASE_DIR%\cycrz"
-    if errorlevel 1 (
-        echo ERROR: Failed to move compiled cycrz folder to release directory.
-        pause
-        exit /b 1
-    )
-    echo Release folder updated.
-    echo.
-) else (
-    echo Skipping compilation.
-    echo.
-)
-
-set /p PACKAGE=Do you want to package this project? (Y/N):
-if /i "%PACKAGE%"=="Y" (
-    echo.
-    if not exist "%WIN_SOURCE%" (
-        echo ERROR: cycrz folder not found in release directory. Please compile the full project first.
-        pause
-        exit /b 1
-    )
-    echo Building Windows portable 7z archive...
-    if exist "%ARCHIVE%" del "%ARCHIVE%"
-    if not exist "%ARCHIVE_DIR%" mkdir "%ARCHIVE_DIR%"
-
-    "C:\Program Files\7-Zip\7z.exe" a -t7z "%ARCHIVE_NAME%" "%WIN_SOURCE%" -mx=9 -m0=LZMA2 -md=64m -mfb=64 -ms=on -mmt=12 -p%PASSWORD% -mhe=on
-    if errorlevel 1 (
-        echo ERROR: 7z archive build failed.
-        pause
-        exit /b 1
-    )
-
-    move "%ARCHIVE_NAME%" "%ARCHIVE%"
-    if errorlevel 1 (
-        echo ERROR: Failed to move archive to %ARCHIVE_DIR%.
-        pause
-        exit /b 1
-    )
-    echo Archive built successfully.
-    echo.
-
-    echo Building Windows installer...
-    "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /Q "..\installer\cycrz.iss"
-    if errorlevel 1 (
-        echo ERROR: Installer build failed.
-        pause
-        exit /b 1
-    )
-    echo Installer built successfully.
-    echo.
-) else (
-    echo Skipping packaging.
-    echo.
-)
-
-set /p RELEASE=Do you want to release this project? (Y/N):
-if /i "%RELEASE%" neq "Y" (
-    echo Skipping release.
-    echo.
+:do_compile
+echo.
+echo Compiling NVGT source...
+"C:\nvgt\nvgt.exe" -c -Q "..\cycrz.nvgt"
+if errorlevel 1 (
+    echo ERROR: NVGT compilation failed.
     pause
-    exit /b 0
+    exit /b 1
 )
+echo Compilation successful.
+echo.
+echo Replacing compiled output in release folder...
+if exist "%RELEASE_DIR%\cycrz" (
+    rmdir /s /q "%RELEASE_DIR%\cycrz"
+    if errorlevel 1 (
+        echo ERROR: Failed to remove old cycrz folder.
+        pause
+        exit /b 1
+    )
+)
+move "..\cycrz" "%RELEASE_DIR%\cycrz"
+if errorlevel 1 (
+    echo ERROR: Failed to move compiled cycrz folder to release directory.
+    pause
+    exit /b 1
+)
+echo Release folder updated.
 echo.
 
+:ask_package
+if "%SKIP_PACKAGE%"=="1" goto :do_package
+set /p PACKAGE=Do you want to package this project? (Y/N):
+if /i "%PACKAGE%"=="Y" goto :do_package
+echo Skipping packaging.
+echo.
+goto :ask_release
+
+:do_package
+echo.
+if not exist "%WIN_SOURCE%" (
+    echo ERROR: cycrz folder not found in release directory. Please compile the full project first.
+    pause
+    exit /b 1
+)
+echo Building Windows portable 7z archive...
+if exist "%ARCHIVE%" del "%ARCHIVE%"
+if not exist "%ARCHIVE_DIR%" mkdir "%ARCHIVE_DIR%"
+"C:\Program Files\7-Zip\7z.exe" a -t7z "%ARCHIVE_NAME%" "%WIN_SOURCE%" -mx=9 -m0=LZMA2 -md=64m -mfb=64 -ms=on -mmt=12 -p%PASSWORD% -mhe=on
+if errorlevel 1 (
+    echo ERROR: 7z archive build failed.
+    pause
+    exit /b 1
+)
+move "%ARCHIVE_NAME%" "%ARCHIVE%"
+if errorlevel 1 (
+    echo ERROR: Failed to move archive to %ARCHIVE_DIR%.
+    pause
+    exit /b 1
+)
+echo Archive built successfully.
+echo.
+echo Building Windows installer...
+"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /Q "..\installer\cycrz.iss"
+if errorlevel 1 (
+    echo ERROR: Installer build failed.
+    pause
+    exit /b 1
+)
+echo Installer built successfully.
+echo.
+
+:ask_release
+if "%SKIP_RELEASE%"=="1" goto :do_release_check
+set /p RELEASE=Do you want to release this project? (Y/N):
+if /i "%RELEASE%"=="Y" goto :do_release_check
+echo Skipping release.
+echo.
+pause
+exit /b 0
+
+:do_release_check
 set ASSETS=
 if exist "%ARCHIVE%" set ASSETS=%ASSETS% "%ARCHIVE%"
 if exist "%INSTALLER%" set ASSETS=%ASSETS% "%INSTALLER%"
-
 if not "%ASSETS%"=="" goto :do_release
 
 echo WARNING: No assets found.
 echo.
+if "%SKIP_EMPTY_RELEASE%"=="1" goto :do_release
 set /p EMPTY_RELEASE=Do you still want to create an empty release? (Y/N):
-if /i "%EMPTY_RELEASE%" neq "Y" (
-    echo Release cancelled.
-    echo.
-    pause
-    exit /b 0
-)
+if /i "%EMPTY_RELEASE%"=="Y" goto :do_release
+echo Release cancelled.
 echo.
+pause
+exit /b 0
 
 :do_release
-
 echo Tagging latest commit as %TAG%...
 git tag -f "%TAG%"
 git push origin -f "%TAG%"
@@ -155,15 +164,16 @@ if "%ASSETS%"=="" (
     exit /b 0
 )
 
+if "%SKIP_WEBSITE%"=="1" goto :do_website
 set /p WEBSITE=Do you want to update the game's website? (Y/N):
-if /i "%WEBSITE%" neq "Y" (
-    echo Skipping website update.
-    echo.
-    pause
-    exit /b 0
-)
+if /i "%WEBSITE%"=="Y" goto :do_website
+echo Skipping website update.
 echo.
+pause
+exit /b 0
 
+:do_website
+echo.
 echo Updating website...
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0windows_site_releaser.ps1" -HtmlFile "%SITE_HTML%" -Version "%VERSION%" -Tag "%TAG%"
 if errorlevel 1 (
