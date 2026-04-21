@@ -69,7 +69,7 @@ else if (rel == "po") flags = "2 1 2 2 2";
 else if (rel == "pub") flags = "2 2 1 1 1";
 speak("Starting release. Please wait.", true);
 m.fade_music();
-run("C:\\Program Files\\Python314\\python.exe", "\"C:\\Users\\tonys\\OneDrive\\Documents\\github\\CookieCraze\\build\\windows_game_releaser.py\" " + flags, true, true);
+run("C:\\Program Files\\Python314\\python.exe", "\"C:\\Users\\tonys\\OneDrive\\Documents\\github\\CookieCraze\\build\\cycrz_game_releaser.py\" " + flags, true, true);
 dlgmessage_return("Release complete.");
 mainmenu();
 }
