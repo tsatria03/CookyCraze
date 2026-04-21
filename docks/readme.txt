@@ -120,7 +120,7 @@ Cookie flipper. Unlocked at rank 20.
 Beginner. Simple yes/no mechanic with a coin flip, very little strategy involved.
 Flip a cookie or a penny to trigger a random event that can boost or reduce your stats.
 
-When you open the flipper, the first thing you see is a type selector. Choose cookie to flip a cookie, or penny to flip a penny. Flipping is free either way — you get your cookie or penny back once it lands. The flip button updates its label to match whichever type is currently selected.
+When you open the flipper, the first thing you see is a type selector. Choose cookie to flip a cookie, or penny to flip a penny. Flipping is free either way — you get your cookie or penny back once it lands. The flip button updates its label to match whichever type is currently selected. A cookie lands on chocolate or biscuit, while a penny lands on heads or tails.
 
 Each flip draws from the flipper.event configuration file, which works the same way as the main event system but with its own separate event list.
 Some events are positive, and others are negative, so there is an element of risk.
@@ -444,10 +444,10 @@ Comma: Moves to the previous item in the focused buffer.
 Period: Moves to the next item in the focused buffer.
 Shift plus Comma: Jumps to the top of the focused buffer.
 Shift plus Period: Jumps to the bottom of the focused buffer.
-Left Bracket: Navigates to the previous buffer category.
-Right Bracket: Navigates to the next buffer category.
-Shift plus Left Bracket: Jumps to the first buffer category.
-Shift plus Right Bracket: Jumps to the last buffer category.
+Left Bracket: Navigates to the previous buffer category. Announces the category name, item count, and current item.
+Right Bracket: Navigates to the next buffer category. Announces the category name, item count, and current item.
+Shift plus Left Bracket: Jumps to the first buffer category. Announces the category name, item count, and current item.
+Shift plus Right Bracket: Jumps to the last buffer category. Announces the category name, item count, and current item.
 Shift plus C: Copies the current buffer message to the clipboard.
 Shift plus M: Toggles mute or unmute on the focused buffer.
 Shift plus Backslash: Exports all buffer items to log files in the logs folder.

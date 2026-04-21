@@ -135,28 +135,36 @@ void next_buffer()
 if(bufferpos>=buffers.length()-1) return;
 bufferpos++;
 spool.play_stationary_extended("sounds/buffer/switch.ogg",false,0,convert_to_pan(buffers.length()+1,bufferpos,-50,50),0,max(20,convert_to_pitch(buffers.length()+1,bufferpos,20,200)),false);
-speak(buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? format_number(buffers[bufferpos].bpos + 1) + " of " + format_number(buffers[bufferpos].items.length()) : "empty") + ".", true);
+string binfo = buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? format_number(buffers[bufferpos].bpos + 1) + " of " + format_number(buffers[bufferpos].items.length()) : "empty") + ".";
+if (buffers[bufferpos].items.length() > 0) binfo += " " + buffers[bufferpos].items[buffers[bufferpos].bpos].name;
+speak(binfo, true);
 }
 void previous_buffer()
 {
 if(bufferpos<=0) return;
 bufferpos--;
 spool.play_stationary_extended("sounds/buffer/switch.ogg",false,0,convert_to_pan(buffers.length()+1,bufferpos,-50,50),0,max(20,convert_to_pitch(buffers.length()+1,bufferpos,20,200)),false);
-speak(buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? format_number(buffers[bufferpos].bpos + 1) + " of " + format_number(buffers[bufferpos].items.length()) : "empty") + ". ", true);
+string binfo = buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? format_number(buffers[bufferpos].bpos + 1) + " of " + format_number(buffers[bufferpos].items.length()) : "empty") + ".";
+if (buffers[bufferpos].items.length() > 0) binfo += " " + buffers[bufferpos].items[buffers[bufferpos].bpos].name;
+speak(binfo, true);
 }
 void top_buffer()
 {
 if(bufferpos==0) return;
 bufferpos=0;
 spool.play_stationary_extended("sounds/buffer/switch.ogg",false,0,convert_to_pan(buffers.length()+1,bufferpos,-50,50),0,max(20,convert_to_pitch(buffers.length()+1,bufferpos,20,200)),false);
-speak(buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? format_number(buffers[bufferpos].bpos + 1) + " of " + format_number(buffers[bufferpos].items.length()) : "empty") + ".", true);
+string binfo = buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? format_number(buffers[bufferpos].bpos + 1) + " of " + format_number(buffers[bufferpos].items.length()) : "empty") + ".";
+if (buffers[bufferpos].items.length() > 0) binfo += " " + buffers[bufferpos].items[buffers[bufferpos].bpos].name;
+speak(binfo, true);
 }
 void bottom_buffer()
 {
 if(bufferpos==int(buffers.length()-1)) return;
 bufferpos=buffers.length()-1;
 spool.play_stationary_extended("sounds/buffer/switch.ogg",false,0,convert_to_pan(buffers.length()+1,bufferpos,-50,50),0,max(20,convert_to_pitch(buffers.length()+1,bufferpos,20,200)),false);
-speak(buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? format_number(buffers[bufferpos].bpos + 1) + " of " + format_number(buffers[bufferpos].items.length()) : "empty") + ".", true);
+string binfo = buffers[bufferpos].name + (buffers[bufferpos].muted ? ", muted, " : ", ") + (buffers[bufferpos].items.length() > 0 ? format_number(buffers[bufferpos].bpos + 1) + " of " + format_number(buffers[bufferpos].items.length()) : "empty") + ".";
+if (buffers[bufferpos].items.length() > 0) binfo += " " + buffers[bufferpos].items[buffers[bufferpos].bpos].name;
+speak(binfo, true);
 }
 void next_buffer_item()
 {

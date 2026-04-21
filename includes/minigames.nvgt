@@ -146,7 +146,9 @@ if (form.is_pressed(flip))
         string flipSoundPath = "sounds/minigames/cookie_flipper/" + flipperType + "/flip.ogg";
         string landSoundPath = "sounds/minigames/cookie_flipper/" + flipperType + "/land.ogg";
         bool hasLandSound = (flipperType == "penny");
-        string[] cooksides = { "chocolate", "bisket" };
+        string[] cooksides;
+        if (flipperType == "penny") { cooksides = { "heads", "tails" }; }
+        else { cooksides = { "chocolate", "bisket" }; }
         string side = cooksides[random(0, cooksides.length() - 1)];
         stat_flipper_flips++;
         if (flipperType == "penny") stat_penny_flips++;
@@ -161,13 +163,13 @@ if (form.is_pressed(flip))
             pool.play_stationary(landSoundPath, false);
         dlg_buffer("You flip a " + flipItemName + ". It lands on " + side);
         event_item@ chosenEvent = null;
-        if (side == "chocolate" && chocsEvents.length() > 0)
+        if (side == cooksides[0] && chocsEvents.length() > 0)
         {
             @chosenEvent = chocsEvents[random(0, chocsEvents.length() - 1)];
             trigger_cook_event(chosenEvent);
             form.focus_silently(flip);
         }
-        else if (side == "bisket" && bisksEvents.length() > 0)
+        else if (side == cooksides[1] && bisksEvents.length() > 0)
         {
             @chosenEvent = bisksEvents[random(0, bisksEvents.length() - 1)];
             trigger_cook_event(chosenEvent);
