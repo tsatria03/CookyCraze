@@ -3,6 +3,8 @@ setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
 set GAME=CookieCraze
+set SITE_HTML=C:\Users\tonys\OneDrive\Documents\github\tsatria03.github.io\projects\games\CookieCraze\index.html
+set SITE_REPO=C:\Users\tonys\OneDrive\Documents\github\tsatria03.github.io
 set PASSWORD=CrazeMastery
 set WIN_SOURCE=..\releases\windows\CookieCraze_windows_portable_password_is_CrazeMastery\cycrz
 set ARCHIVE_DIR=..\releases\archives
@@ -144,5 +146,56 @@ echo.
 
 echo.
 echo Release complete.
+echo.
+
+if "%ASSETS%"=="" (
+    echo WARNING: No assets were released. Skipping website update.
+    echo.
+    pause
+    exit /b 0
+)
+
+set /p WEBSITE=Do you want to update the game's website? (Y/N):
+if /i "%WEBSITE%" neq "Y" (
+    echo Skipping website update.
+    echo.
+    pause
+    exit /b 0
+)
+echo.
+
+echo Updating website...
+powershell -NoProfile -Command "(Get-Content '%SITE_HTML%') -replace 'V\d+\.\d+0', 'V%VERSION%0' -replace 'V\d+\.\d+(?!0)', 'V%VERSION%' | Set-Content '%SITE_HTML%' -Encoding UTF8"
+if errorlevel 1 (
+    echo ERROR: Failed to update website HTML.
+    pause
+    exit /b 1
+)
+echo Website updated.
+echo.
+
+echo Committing website changes...
+cd /d "%SITE_REPO%"
+git log --oneline | findstr /c:"Updated CookieCraze to version %VERSION%." >nul
+if not errorlevel 1 (
+    echo WARNING: Commit "Updated CookieCraze to version %VERSION%." already exists. Skipping commit.
+    echo.
+    pause
+    exit /b 0
+)
+git add "projects/games/CookieCraze/index.html"
+git commit -m "Updated CookieCraze to version %VERSION%."
+if errorlevel 1 (
+    echo ERROR: Failed to commit website changes.
+    pause
+    exit /b 1
+)
+git push
+if errorlevel 1 (
+    echo ERROR: Failed to push website changes.
+    pause
+    exit /b 1
+)
+echo Website committed and pushed.
 echo.
 pause
