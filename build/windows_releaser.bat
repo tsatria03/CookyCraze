@@ -8,6 +8,7 @@ set ARCHIVE_DIR=..\releases\archives
 set ARCHIVE_NAME=%GAME%_windows_portable_password_is_%PASSWORD%.7z
 set ARCHIVE=%ARCHIVE_DIR%\%ARCHIVE_NAME%
 set INSTALLER=%ARCHIVE_DIR%\%GAME%_windows_installer_password_is_%PASSWORD%.exe
+set RELEASE_DIR=..\releases\windows\CookieCraze_windows_portable_password_is_%PASSWORD%
 
 for /f "usebackq delims=" %%v in ("..\docks\version.txt") do set VERSION=%%v
 
@@ -20,8 +21,44 @@ echo Tag:     %TAG%
 echo Title:   %TITLE%
 echo.
 
-echo Building Windows portable 7z archive...
+echo Step 1: Compile NVGT source
+echo Press Enter to compile, or close this window to cancel.
+pause >nul
+
+"C:\nvgt\nvgt.exe" -c -Q "..\cycrz.nvgt"
+if errorlevel 1 (
+    echo ERROR: NVGT compilation failed.
+    pause
+    exit /b 1
+)
+echo Compilation successful.
 echo.
+
+echo Step 2: Replace compiled output in release folder
+echo Press Enter to continue, or close this window to cancel.
+pause >nul
+
+if exist "%RELEASE_DIR%\cycrz" (
+    rmdir /s /q "%RELEASE_DIR%\cycrz"
+    if errorlevel 1 (
+        echo ERROR: Failed to remove old cycrz folder.
+        pause
+        exit /b 1
+    )
+)
+
+move "..\cycrz" "%RELEASE_DIR%\cycrz"
+if errorlevel 1 (
+    echo ERROR: Failed to move compiled cycrz folder to release directory.
+    pause
+    exit /b 1
+)
+echo Release folder updated.
+echo.
+
+echo Step 3: Build Windows portable 7z archive
+echo Press Enter to continue, or close this window to cancel.
+pause >nul
 
 if exist "%ARCHIVE%" (
     echo Removing existing archive...
@@ -43,10 +80,12 @@ if errorlevel 1 (
     pause
     exit /b 1
 )
+echo Archive built successfully.
+echo.
 
-echo.
-echo Building Windows installer...
-echo.
+echo Step 4: Build Windows installer
+echo Press Enter to continue, or close this window to cancel.
+pause >nul
 
 "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /Q "..\installer\cycrz.iss"
 if errorlevel 1 (
@@ -54,10 +93,13 @@ if errorlevel 1 (
     pause
     exit /b 1
 )
+echo Installer built successfully.
+echo.
 
-echo.
-echo All builds complete.
-echo.
+echo Step 5: Tag and publish GitHub release
+echo Press Enter to continue, or close this window to cancel.
+pause >nul
+
 echo Tagging latest commit as %TAG%...
 git tag -f "%TAG%"
 git push origin -f "%TAG%"
