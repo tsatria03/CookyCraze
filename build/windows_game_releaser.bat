@@ -1,11 +1,11 @@
 @echo off
 cd /d "%~dp0"
 
-set SKIP_COMPILE=0
-set SKIP_PACKAGE=0
-set SKIP_RELEASE=0
-set SKIP_WEBSITE=0
-set SKIP_EMPTY_RELEASE=0
+set SKIP_COMPILE=1
+set SKIP_PACKAGE=1
+set SKIP_RELEASE=1
+set SKIP_WEBSITE=1
+set SKIP_EMPTY_RELEASE=1
 
 set GAME=CookieCraze
 set SITE_HTML=C:\Users\tonys\OneDrive\Documents\github\tsatria03.github.io\projects\games\CookieCraze\index.html
