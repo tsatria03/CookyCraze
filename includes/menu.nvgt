@@ -4,6 +4,7 @@ setupmenu();
 m.add_item("documentation menu", "dm");
 m.add_item("game menu", "gm");
 m.add_item("settings menu", "sm");
+if (!SCRIPT_COMPILED) m.add_item("release game", "rg");
 m.add_item("restart game", "rt");
 m.add_item("exit game", "ex");
 m.intro_text = "Main menu. Please choose an option with your arrow keys, then press enter to activate one.";
@@ -35,12 +36,42 @@ speak("restarting");
 m.fade_music();
 restart("cycrz.exe");
 }
+if (main == "rg")
+{
+releasemenu();
+}
 if (main == "ex")
 {
 speak("exiting");
 m.fade_music();
 exit();
 }
+}
+void releasemenu()
+{
+setupmenu();
+m.add_item("full release", "fr");
+m.add_item("compile only", "co");
+m.add_item("package only", "po");
+m.add_item("publish only", "pub");
+m.add_item("back", "back");
+m.intro_text = "Release menu.";
+int mres = m.run();
+string rel = m.get_item_id(mres);
+if (mres == -1 || rel == "back")
+{
+mainmenu();
+return;
+}
+string flags = "1 1 1 1 1";
+if (rel == "co") flags = "1 2 2 2 2";
+else if (rel == "po") flags = "2 1 2 2 2";
+else if (rel == "pub") flags = "2 2 1 1 1";
+speak("Starting release. Please wait.", true);
+m.fade_music();
+run("C:\\Program Files\\Python314\\python.exe", "\"C:\\Users\\tonys\\OneDrive\\Documents\\github\\CookieCraze\\build\\windows_game_releaser.py\" " + flags, true, true);
+dlgmessage_return("Release complete.");
+mainmenu();
 }
 void docksmenu()
 {
