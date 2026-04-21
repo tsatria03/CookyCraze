@@ -61,6 +61,11 @@ if /i "%COMPILE%"=="Y" (
 set /p PACKAGE=Do you want to package this project? (Y/N):
 if /i "%PACKAGE%"=="Y" (
     echo.
+    if not exist "%WIN_SOURCE%" (
+        echo ERROR: cycrz folder not found in release directory. Please compile the full project first.
+        pause
+        exit /b 1
+    )
     echo Building Windows portable 7z archive...
     if exist "%ARCHIVE%" del "%ARCHIVE%"
     if not exist "%ARCHIVE_DIR%" mkdir "%ARCHIVE_DIR%"
@@ -94,6 +99,15 @@ if /i "%PACKAGE%"=="Y" (
     echo Skipping packaging.
     echo.
 )
+
+set /p RELEASE=Do you want to release this project? (Y/N):
+if /i "%RELEASE%" neq "Y" (
+    echo Skipping release.
+    echo.
+    pause
+    exit /b 0
+)
+echo.
 
 set ASSETS=
 if exist "%ARCHIVE%" set ASSETS=%ASSETS% "%ARCHIVE%"
