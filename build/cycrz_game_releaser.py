@@ -102,7 +102,7 @@ if do_package:
         error("7z archive build failed.")
     print("Archive built successfully.\n")
     print("Building Windows installer...")
-    if not run_cmd([ISCC, "/Q", os.path.join(REPO_DIR, "installer", "cycrz.iss")]):
+    if not run_cmd([ISCC, "/Q", os.path.join(SCRIPT_DIR, "cycrz_game_installer.iss")]):
         error("Installer build failed.")
     print("Installer built successfully.\n")
 else:
@@ -169,7 +169,7 @@ if not do_website:
     sys.exit(0)
 
 print("Updating website...")
-ps1 = os.path.join(SCRIPT_DIR, "windows_site_releaser.ps1")
+ps1 = os.path.join(SCRIPT_DIR, "cycrz_site_updater.ps1")
 if not run_cmd(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ps1, "-HtmlFile", SITE_HTML, "-Version", VERSION, "-Tag", TAG]):
     error("Failed to update website HTML.")
 print("Website updated.\n")
