@@ -16,6 +16,7 @@ _tools.read(os.path.join(os.path.expanduser("~"), ".game_tools", "tools.ini"))
 GAME         = _cfg["game"]["name"]
 PASSWORD     = _cfg["game"]["password"]
 NVGT_FILE    = _cfg["game"]["nvgt_file"]
+NVGT_OUT     = os.path.splitext(NVGT_FILE)[0]
 
 INSTALLER_ISS = _cfg["installer"]["iss"]
 APP_ID       = _cfg["installer"]["app_id"]
@@ -31,7 +32,7 @@ SEVENZIP = _tools["tools"]["sevenzip"]
 ISCC    = _tools["tools"]["iscc"]
 GH      = _tools["tools"]["gh"]
 
-WIN_SOURCE   = os.path.join(REPO_DIR, "releases", "windows", f"{GAME}_windows_portable_password_is_{PASSWORD}", "cst")
+WIN_SOURCE   = os.path.join(REPO_DIR, "releases", "windows", f"{GAME}_windows_portable_password_is_{PASSWORD}", NVGT_OUT)
 ARCHIVE_DIR  = os.path.join(REPO_DIR, "releases", "archives")
 ARCHIVE_NAME = f"{GAME}_windows_portable_password_is_{PASSWORD}.7z"
 ARCHIVE      = os.path.join(ARCHIVE_DIR, ARCHIVE_NAME)
@@ -320,8 +321,8 @@ def run_release(skip_compile, skip_package, skip_release, skip_website, skip_emp
             return
         print("Compilation successful.\n")
         print("Replacing compiled output in release folder...")
-        cst_out = os.path.join(REPO_DIR, "cst")
-        cst_dest = os.path.join(RELEASE_DIR, "cst")
+        cst_out = os.path.join(REPO_DIR, NVGT_OUT)
+        cst_dest = os.path.join(RELEASE_DIR, NVGT_OUT)
         if os.path.exists(cst_dest):
             shutil.rmtree(cst_dest)
         shutil.move(cst_out, cst_dest)
