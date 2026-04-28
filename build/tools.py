@@ -87,7 +87,14 @@ def do_commit():
         print("Summary cannot be empty.")
         return
     print()
-    description = input("Commit description (optional, press Enter to skip): ").strip()
+    print("Commit description (enter lines one by one, blank line to finish):")
+    desc_lines = []
+    while True:
+        line = input(f"Line {len(desc_lines) + 1}: ")
+        if not line.strip():
+            break
+        desc_lines.append(line)
+    description = "\n".join(desc_lines)
     print()
     print(f"Summary:     {summary}")
     if description:
@@ -315,6 +322,7 @@ def run_release(skip_compile, skip_package, skip_release, skip_website, skip_emp
         do_compile = ask("Do you want to compile this project?")
 
     if do_compile:
+        shutil.copy(os.path.join(SCRIPT_DIR, "version.txt"), os.path.join(REPO_DIR, "docks", "version.txt"))
         print("Compiling NVGT source...")
         if not run_cmd([NVGT, "-c", "-Q", os.path.join(REPO_DIR, NVGT_FILE)]):
             print("ERROR: NVGT compilation failed.")
